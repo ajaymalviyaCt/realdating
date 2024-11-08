@@ -41,7 +41,7 @@ class SwipController extends GetxController implements GetxService {
 
       isLoadig1.value = false;
       print(response2.toString());
-    //  Fluttertoast.showToast(msg: "${response2["message"]}");
+     Fluttertoast.showToast(msg: "${response2["message"]}");
       print("friend_request==> friend_request==>" + response2.toString());
 
 

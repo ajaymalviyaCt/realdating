@@ -113,6 +113,7 @@ class _MatchDetailsState extends State<MatchDetails> {
 
     var userid = prefs.getInt('user_id');
     print('user_id============== $userid');
+    print('user ki id ============== ${widget.id}');
 
     // initConnectivity();
     // _connectivitySubscription =
@@ -143,6 +144,7 @@ class _MatchDetailsState extends State<MatchDetails> {
       // isLoadig(false);
       bool status = response["success"];
       var msg = response["message"];
+      Fluttertoast.showToast(msg: msg);
       if (status == true) {
         matchessController.get_user_by_id(widget.id);
         sendNotification(widget.id.toString(), "Tag_you");
@@ -150,6 +152,8 @@ class _MatchDetailsState extends State<MatchDetails> {
         txt_comment.clear();
         await matchessController.get_user_by_id(widget.id);
         Navigator.pop(context);
+      }else{
+        Fluttertoast.showToast(msg: msg);
       }
     }
 
@@ -957,7 +961,7 @@ class _MatchDetailsState extends State<MatchDetails> {
                                       null
                                   ? const Text("No Intrest Found !!")
                                   : SizedBox(
-                                      height: 100,
+                                      height: 120,
                                       child: GridView.builder(
                                         itemCount: matchessController
                                                     .exploreDetailsModel
@@ -972,38 +976,41 @@ class _MatchDetailsState extends State<MatchDetails> {
                                                 .length
                                             : 0,
                                         itemBuilder: (ctx, i) {
-                                          return Container(
-                                            height: 50,
-                                            child: DottedBorder(
-                                              strokeWidth: 1,
-                                              color: const Color(0xFFE94057),
-                                              borderType: BorderType.RRect,
-                                              radius: const Radius.circular(12),
-                                              child: ClipRRect(
-                                                borderRadius:
-                                                    const BorderRadius.all(
-                                                  Radius.circular(5),
-                                                ),
-                                                child: Center(
-                                                  child: Container(
-                                                    width: 220,
-                                                    height: 32,
-                                                    child: Text(
-                                                      matchessController
-                                                              .exploreDetailsModel
-                                                              ?.userInfo[0]
-                                                              .insertdata[i] ??
-                                                          "",
-                                                      style: const TextStyle(
-                                                        color:
-                                                            Color(0xFFE94057),
-                                                        fontSize: 8,
-                                                        fontFamily: 'Inter',
-                                                        fontWeight:
-                                                            FontWeight.w400,
-                                                        height: 0.11,
-                                                      ),
-                                                    ).centered(),
+                                          return Padding(
+                                            padding: const EdgeInsets.only(top:10),
+                                            child: Container(
+                                              height: 50,
+                                              child: DottedBorder(
+                                                strokeWidth: 1,
+                                                color: const Color(0xFFE94057),
+                                                borderType: BorderType.RRect,
+                                                radius: const Radius.circular(12),
+                                                child: ClipRRect(
+                                                  borderRadius:
+                                                      const BorderRadius.all(
+                                                    Radius.circular(5),
+                                                  ),
+                                                  child: Center(
+                                                    child: Container(
+                                                      width: 220,
+                                                      height: 32,
+                                                      child: Text(
+                                                        matchessController
+                                                                .exploreDetailsModel
+                                                                ?.userInfo[0]
+                                                                .insertdata[i] ??
+                                                            "",
+                                                        style: const TextStyle(
+                                                          color:
+                                                              Color(0xFFE94057),
+                                                          fontSize: 8,
+                                                          fontFamily: 'Inter',
+                                                          fontWeight:
+                                                              FontWeight.w400,
+                                                          height: 0.11,
+                                                        ),
+                                                      ).centered(),
+                                                    ),
                                                   ),
                                                 ),
                                               ),
@@ -1012,8 +1019,8 @@ class _MatchDetailsState extends State<MatchDetails> {
                                         },
                                         gridDelegate:
                                             const SliverGridDelegateWithFixedCrossAxisCount(
-                                                crossAxisCount: 3,
-                                                mainAxisExtent: 30,
+                                                crossAxisCount:3,
+                                                mainAxisExtent:34,
                                                 crossAxisSpacing: 10),
                                       ),
                                     ),
@@ -1028,7 +1035,7 @@ class _MatchDetailsState extends State<MatchDetails> {
                               ),
                               10.heightBox,
                               SizedBox(
-                                height: 100,
+                                height: 130,
                                 child: GridView.builder(
                                   itemCount: matchessController
                                           .exploreDetailsModel
@@ -1037,35 +1044,38 @@ class _MatchDetailsState extends State<MatchDetails> {
                                           .length ??
                                       0,
                                   itemBuilder: (ctx, i) {
-                                    return SizedBox(
-                                      height: 50,
-                                      child: DottedBorder(
-                                        strokeWidth: 1,
-                                        color: const Color(0xFFE94057),
-                                        borderType: BorderType.RRect,
-                                        radius: const Radius.circular(12),
-                                        child: ClipRRect(
-                                          borderRadius: const BorderRadius.all(
-                                            Radius.circular(5),
-                                          ),
-                                          child: Center(
-                                            child: Container(
-                                              width: 220,
-                                              height: 32,
-                                              child: Text(
-                                                matchessController
-                                                        .exploreDetailsModel
-                                                        ?.userInfo[0]
-                                                        .hobbiesdata[i] ??
-                                                    "",
-                                                style: const TextStyle(
-                                                  color: Color(0xFFE94057),
-                                                  fontSize: 8,
-                                                  fontFamily: 'Inter',
-                                                  fontWeight: FontWeight.w400,
-                                                  height: 0.11,
-                                                ),
-                                              ).centered(),
+                                    return Padding(
+                                      padding: const EdgeInsets.only(top: 10),
+                                      child: SizedBox(
+                                        height: 50,
+                                        child: DottedBorder(
+                                          strokeWidth: 1,
+                                          color: const Color(0xFFE94057),
+                                          borderType: BorderType.RRect,
+                                          radius: const Radius.circular(12),
+                                          child: ClipRRect(
+                                            borderRadius: const BorderRadius.all(
+                                              Radius.circular(5),
+                                            ),
+                                            child: Center(
+                                              child: Container(
+                                                width: 220,
+                                                height: 35,
+                                                child: Text(
+                                                  matchessController
+                                                          .exploreDetailsModel
+                                                          ?.userInfo[0]
+                                                          .hobbiesdata[i] ??
+                                                      "",
+                                                  style: const TextStyle(
+                                                    color: Color(0xFFE94057),
+                                                    fontSize: 8,
+                                                    fontFamily: 'Inter',
+                                                    fontWeight: FontWeight.w400,
+                                                    height: 0.11,
+                                                  ),
+                                                ).centered(),
+                                              ),
                                             ),
                                           ),
                                         ),
@@ -1075,7 +1085,7 @@ class _MatchDetailsState extends State<MatchDetails> {
                                   gridDelegate:
                                       const SliverGridDelegateWithFixedCrossAxisCount(
                                           crossAxisCount: 3,
-                                          mainAxisExtent: 30,
+                                          mainAxisExtent: 34,
                                           crossAxisSpacing: 10),
                                 ),
                               ),
@@ -1240,6 +1250,7 @@ class _MatchDetailsState extends State<MatchDetails> {
                                   :   InkWell(
                                       onTap: () {
                                         swipController.sendNotificationOnlyMatch(matchessController.exploreDetailsModel!.userInfo[0].id.toString());
+
                                         // _showBottomSheet(
                                         //     context,
                                         //     matchessController.exploreDetailsModel!.userInfo[0].id.toString());

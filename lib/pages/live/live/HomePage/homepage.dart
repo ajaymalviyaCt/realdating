@@ -1,17 +1,15 @@
+import 'dart:async';
 import 'dart:math';
-import 'package:flutter/material.dart';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
-import 'package:get/get.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
-
-
-import 'package:realdating/pages/live/live/agora/audience.dart';
-import 'package:realdating/pages/live/live/agora/host.dart';
+import 'package:get/get.dart';
 
 import '../../../dash_board_page.dart';
+import '../agora/audience.dart';
+import '../agora/host.dart';
 import '../constant/live.dart';
 import '../constant/liveusercard.dart';
 
@@ -25,12 +23,33 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   List list = [];
   User? user = FirebaseAuth.instance.currentUser;
+  bool isDeviceConnected = false;
+  StreamSubscription<ConnectivityResult>? subscription;
 
   @override
   void initState() {
     super.initState();
     getLiveUsers();
     checkExist();
+
+    // Check initial connection
+    checkConnectivity();
+
+    // Listen for connectivity changes
+    subscription = Connectivity().onConnectivityChanged.listen((ConnectivityResult result) {
+      if (result != ConnectivityResult.none) {
+        isDeviceConnected = true;
+      } else {
+        isDeviceConnected = false;
+      }
+      setState(() {}); // Update the UI based on connectivity
+    });
+  }
+
+  Future<void> checkConnectivity() async {
+    var result = await Connectivity().checkConnectivity();
+    isDeviceConnected = result != ConnectivityResult.none;
+    setState(() {}); // Update the UI based on initial connectivity
   }
 
   void checkExist() async {
@@ -55,21 +74,56 @@ class _HomePageState extends State<HomePage> {
   }
 
   void getLiveUsers() async {
-    FirebaseFirestore.instance
-        .collection("Liveusers")
-        .snapshots()
-        .listen((result) {
-      for (var element in result.docs) {
-        setState(() {
+    FirebaseFirestore.instance.collection("Liveusers").snapshots().listen((result) {
+      setState(() {
+        list.clear();
+        for (var element in result.docs) {
           list.add(Live(
             username: element.data()['username'],
             image: "https://www.yiwubazaar.com/resources/assets/images/default-product.jpg",
             channelName: element.data()['channelname'],
             userid: element.data()['userid'],
           ));
-        });
-      }
+        }
+      });
     });
+  }
+
+  Future<void> goLive() async {
+    if (!isDeviceConnected) {
+      Get.snackbar("Error", "No internet connection", snackPosition: SnackPosition.BOTTOM);
+      return;
+    }
+
+    // var status = await [Permission.camera, Permission.microphone].request();
+    // if (!status[Permission.camera]!.isGranted || !status[Permission.microphone]!.isGranted) {
+    //   Get.snackbar("Error", "Permissions are required to go live", snackPosition: SnackPosition.BOTTOM);
+    //   return; // Stop if permissions are not granted
+    // }
+
+
+
+
+    var status = await [Permission.camera, Permission.microphone].request();
+    if (status[Permission.camera]!.isGranted && status[Permission.microphone]!.isGranted) {
+      String channel = generateRandomString(8);
+      Get.offAll(() => Host(channelName: channel, userId: user!.displayName));
+    } else {
+      Get.snackbar("Error", "Camera and Microphone permissions are required to go live",
+          snackPosition: SnackPosition.BOTTOM);
+    }
+  }
+
+  String generateRandomString(int len) {
+    var r = Random();
+    const _chars = 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
+    return List.generate(len, (index) => _chars[r.nextInt(_chars.length)]).join();
+  }
+
+  @override
+  void dispose() {
+    subscription?.cancel();
+    super.dispose();
   }
 
   @override
@@ -79,9 +133,9 @@ class _HomePageState extends State<HomePage> {
         appBar: AppBar(
           leading: InkWell(
               onTap: () {
-                Get.offAll(()=>DashboardPage());
+                Get.offAll(()=>const DashboardPage());
               },
-              child: Icon(Icons.arrow_back)),
+              child: const Icon(Icons.arrow_back)),
           backgroundColor: Colors.redAccent,
           title: const Text(
             "Live Users",
@@ -92,9 +146,7 @@ class _HomePageState extends State<HomePage> {
           child: getStories(),
         ),
         floatingActionButton: InkWell(
-          onTap: () {
-           // connectionChecker();
-          },
+          onTap: goLive, // Call goLive on button tap
           child: Container(
             decoration: BoxDecoration(
               color: Colors.redAccent,
@@ -130,8 +182,8 @@ class _HomePageState extends State<HomePage> {
 
   List<Widget> getUserStories() {
     List<Widget> stories = [];
-    for (Live Users in list) {
-      stories.add(getStory(Users));
+    for (Live user in list) {
+      stories.add(getStory(user));
     }
     return stories;
   }
@@ -143,8 +195,7 @@ class _HomePageState extends State<HomePage> {
         children: [
           InkWell(
             onTap: () {
-              Get.offAll(() => Audience(
-                  channelName: user.channelName, userId: user.username));
+              Get.offAll(() => Audience(channelName: user.channelName, userId: user.username));
             },
             child: LiveUserCard(
               broadcasterName: user.username,
@@ -154,27 +205,5 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
     );
-  }
-
-  // void connectionChecker() async {
-  //   bool check = await InternetConnectionChecker().hasConnection;
-  //   if (check) {
-  //     User? user = FirebaseAuth.instance.currentUser;
-  //     String channel = generateRandomString(8);
-  //     await [Permission.camera, Permission.microphone].request().then((value) {
-  //       Get.offAll(() => Host(channelName: channel, userId: user!.displayName));
-  //     });
-  //   } else {
-  //     Get.snackbar("Error", "No internet Connection",
-  //         snackPosition: SnackPosition.BOTTOM);
-  //   }
-  // }
-
-  String generateRandomString(int len) {
-    var r = Random();
-    const _chars =
-        'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
-    return List.generate(len, (index) => _chars[r.nextInt(_chars.length)])
-        .join();
   }
 }

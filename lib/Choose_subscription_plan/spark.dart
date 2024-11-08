@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:realdating/widgets/size_utils.dart';
 
 class SparkScreen extends StatefulWidget {
@@ -393,24 +394,27 @@ class _SparkScreenState extends State<SparkScreen> {
 
 
             SizedBox(height:30.ah),
-            Container(
-              width: MediaQuery.of(context).size.width,
-              height: 45.ah,
-              decoration: BoxDecoration(
-                color:Color(0xFFF65F51),
-                borderRadius: BorderRadius.circular(24),
-                border: Border.all(width: 2,color:Color(0xFFF65F51)),
-              ),
-              child: Center(
-                child: Text('Continue',
-                  style: TextStyle(fontSize: 17.fSize,fontWeight: FontWeight.w600,
-                    fontFamily: 'Roboto',color: Colors.white,
+            InkWell(
+              onTap: () {
+                Fluttertoast.showToast(msg: 'Payment feature coming soon...');
+              },
+              child: Container(
+                width: MediaQuery.of(context).size.width,
+                height: 45.ah,
+                decoration: BoxDecoration(
+                  color:Color(0xFFF65F51),
+                  borderRadius: BorderRadius.circular(24),
+                  border: Border.all(width: 2,color:Color(0xFFF65F51)),
+                ),
+                child: Center(
+                  child: Text('Continue',
+                    style: TextStyle(fontSize: 17.fSize,fontWeight: FontWeight.w600,
+                      fontFamily: 'Roboto',color: Colors.white,
+                    ),
                   ),
                 ),
               ),
             ),
-
-
 
 
           ],

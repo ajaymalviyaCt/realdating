@@ -114,7 +114,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     Text(
                       "@${profileController.username.value}",
                       style: const TextStyle(
-                          fontSize: 12,
+                          fontSize: 15,
                           fontWeight: FontWeight.bold,
                           color: Color(0xffFB4967)),
                     ),
@@ -127,16 +127,17 @@ class _ProfilePageState extends State<ProfilePage> {
                 const Text(
                   "Unique Name",
                   style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400,
-                      color: Color(0xffAAAAAA)),
+                      fontSize: 18,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.black),
                 ),
                 const SizedBox(height: 8),
                 Text(
                   profileController.username.value,
                   style: const TextStyle(
-                    fontSize: 18,
+                    fontSize: 16,
                     fontWeight: FontWeight.w500,
+                    color: Color(0xffAAAAAA)
                   ),
                 ),
                 /*const SizedBox(height: 15),
@@ -159,9 +160,9 @@ class _ProfilePageState extends State<ProfilePage> {
                 const Text(
                   "Address",
                   style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400,
-                      color: Color(0xffAAAAAA)),
+                      fontSize: 18,
+                      fontWeight: FontWeight.w500,
+                      color:Colors.black),
                 ),
                 const SizedBox(height: 8),
                 Text(profileController.profileModel?.userInfo.address == "0"
@@ -169,32 +170,44 @@ class _ProfilePageState extends State<ProfilePage> {
                     : profileController.profileModel!.userInfo.address
                     .toString(),
                   style: const TextStyle(
-                    fontSize: 18,
+                    fontSize: 16,
                     fontWeight: FontWeight.w500,
+                    color: Color(0xffAAAAAA)
                   ),
                 ),
                 SizedBox(height: 10,),
                 const Text(
                   "Real Reveal",
                   style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400,
-                      color: Color(0xffAAAAAA)),
+                      fontSize: 18,
+                      fontWeight: FontWeight.w500,
+                      color:Colors.black),
                 ),
                 const SizedBox(height: 8),
-                Text("Total Reveal = 10",
-                  style: const TextStyle(
+                const Text("Total Reveal = 10",
+                  style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.w500,
+                    color: Color(0xffAAAAAA)
                   ),
                 ),
 
 
-                const SizedBox(height: 8),
-                Text("Remaining Reveal = 8",
-                  style: const TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w500,
+                const SizedBox(height:15),
+                Container(
+                  height:40,
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Color(0xffAAAAAA).withOpacity(0.3)),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: const Center(
+                    child: Text("Remaining Reveal = 8",
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.red
+                      ),
+                    ),
                   ),
                 ),
                 const SizedBox(
@@ -203,11 +216,11 @@ class _ProfilePageState extends State<ProfilePage> {
                 const Text(
                   "Uploads Pictures",
                   style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400,
-                      color: Color(0xffAAAAAA)),
+                      fontSize: 18,
+                      fontWeight: FontWeight.w500,
+                      color:Colors.black),
                 ),
-                const SizedBox(height: 8),
+                const SizedBox(height:12),
 
                 SizedBox(
                   height: 300,
@@ -217,8 +230,8 @@ class _ProfilePageState extends State<ProfilePage> {
                           .profileModel?.userInfo.images.length,
                       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 3,
-                          mainAxisSpacing: 10,
-                          crossAxisSpacing: 5),
+                          mainAxisSpacing:5,
+                          crossAxisSpacing:10),
                       itemBuilder: (ctx, index) {
                         final data = profileController
                             .profileModel?.userInfo.images[index];
@@ -269,4 +282,8 @@ class _ProfilePageState extends State<ProfilePage> {
 
 
   final speedNotifier = ValueNotifier<double>(1);
+
+
+
+
 }

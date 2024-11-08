@@ -295,6 +295,7 @@ class LoginController extends GetxController {
       if (response.statusCode == 200) {
         isLoadig(false);
         print("pramod${response.data}");
+        Fluttertoast.showToast(msg:response.data["message"]);
         var status = response.data["status"];
 
         if("$status" == "200"){
@@ -331,6 +332,8 @@ class LoginController extends GetxController {
 
       }
       else {
+
+        Fluttertoast.showToast(msg:response.data["message"]);
         print(response.statusMessage);
       }
     } catch (e) {

@@ -83,6 +83,7 @@ class _ExplorePageState extends State<ExplorePage> {
         padding: const EdgeInsets.only(left: 20.0),
         child: SingleChildScrollView(
           child: Column(children: [
+            const SizedBox(height: 20,),
             MatchesWidget(),
              32.ah.heightBox,
             TrendingWidget(),

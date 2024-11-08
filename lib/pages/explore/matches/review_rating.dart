@@ -5,8 +5,10 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:realdating/chat/api/apis.dart';
 import 'package:realdating/services/base_client01.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../../consts/app_urls.dart';
 
 
@@ -29,7 +31,15 @@ class _ReviewState extends State<Review> {
   @override
   void initState() {
     super.initState();
-    setState(() {});
+    getUserId();
+  }
+
+
+  getUserId() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String ? user_id = prefs.getString('user_id');
+    print('user id here1----- $user_id');
+    print('user id here-2---- $user_uid');
   }
 
   @override
@@ -58,30 +68,13 @@ class _ReviewState extends State<Review> {
   // }
 
   void uploadFileToServerInfluencer() async {
-    // SharedPreferences prefs = await SharedPreferences.getInstance();
-    setState(() {
-      // user_id = prefs.getString('user_id');
-      //  print('user_id==============' + user_id!);
-    });
-    //
-    // initConnectivity();_connectivitySubscription = _connectivity.onConnectivityChanged.listen(_updateConnectionStatus);
-    // if (_connectionStatus != null) {
-    //   // Internet Present Case
-    //   // showLoaderDialog(context);
-    // } else {
-    //   Fluttertoast.showToast(
-    //       msg: "Please check your Internet connection!!!!",
-    //       toastLength: Toast.LENGTH_SHORT,
-    //       gravity: ToastGravity.BOTTOM,
-    //       backgroundColor: Colors.black,
-    //       textColor: Colors.white,
-    //       fontSize: 16.0);
-    // }
+
+
 
     final response = await BaseClient01().post(Appurls.review,{
       "review": txt_comment.text.toString(),
       "rating_star": ratingcount.toString(),
-      "user_id": "59"
+      "user_id": "${user_uid}"
     });
    // isLoadig(false);
     bool status= response["success"];

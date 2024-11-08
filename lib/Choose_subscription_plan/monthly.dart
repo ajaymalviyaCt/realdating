@@ -173,7 +173,7 @@ class _MonthlyState extends State<Monthly> {
                       border: Border.all(width: 2,color:Color(0xFFF65F51)),
                     ),
                     child: Padding(
-                      padding: const EdgeInsets.only(left:33,right:33),
+                      padding: const EdgeInsets.only(left:33,right:25),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
@@ -368,7 +368,7 @@ class _MonthlyState extends State<Monthly> {
                         ),
 
                         Container(
-                          width: 145.aw,
+                          width: 144.aw,
                           decoration: BoxDecoration(
                             color:Color(0xFFF65F51),
                             borderRadius: BorderRadius.circular(24),
@@ -485,7 +485,7 @@ class _MonthlyState extends State<Monthly> {
                         border: Border.all(width: 2,color:Color(0xFFF65F51)),
                       ),
                       child: Padding(
-                        padding: const EdgeInsets.only(left:33,right:33),
+                        padding: const EdgeInsets.only(left:33,right:25),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.center,
