@@ -10,72 +10,79 @@ import '../constant/constant.dart';
 class Call extends StatefulWidget {
   final String channelName;
 
-  const Call({Key? key,required this.channelName}) : super(key: key);
+  const Call({Key? key, required this.channelName}) : super(key: key);
 
   @override
   State<Call> createState() => _CallState();
 }
 
 class _CallState extends State<Call> {
-
   late RtcEngine _engine;
   late int streamId;
-  bool muted=false,loading=false;
-  int _remoteUid=0;
+  bool muted = false;
+  bool loading = false;
+  int _remoteUid = 0;
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
     initializeAgora();
   }
+
   Future<void> initializeAgora() async {
     setState(() {
-      loading=true;
+      loading = true;
     });
-    _engine=await RtcEngine.createWithContext(RtcEngineContext(appId));//goto constant.dart file
+
+    _engine = await RtcEngine.createWithContext(RtcEngineContext(appId)); // Reference appId in constant.dart
     await _engine.enableVideo();
     await _engine.setChannelProfile(ChannelProfile.Communication);
-    streamId=(await _engine.createDataStream(false, false))!;
+
+    streamId = (await _engine.createDataStream(false, false))!;
+
     _engine.setEventHandler(RtcEngineEventHandler(
-      joinChannelSuccess: (channel,uid,elapsed){
-        if(kDebugMode) {
+      joinChannelSuccess: (channel, uid, elapsed) {
+        if (kDebugMode) {
           print("onJoinChannel: $channel, uid: $uid");
         }
       },
-      userJoined: (uid,elapsed){
-        print("UserJoined: $uid");
-        setState(() {
-          _remoteUid=uid;
-        });
-
-      },
-      userOffline: (uid,elapsed){
-        if(kDebugMode){
-          print("Useroffline: $uid");
+      userJoined: (uid, elapsed) {
+        if (kDebugMode) {
+          print("UserJoined: $uid");
         }
         setState(() {
-          _remoteUid=0;
+          _remoteUid = uid;
+        });
+      },
+      userOffline: (uid, elapsed) {
+        if (kDebugMode) {
+          print("UserOffline: $uid");
+        }
+        setState(() {
+          _remoteUid = 0;
         });
       },
     ));
-    await _engine.joinChannel(null,widget.channelName, null, 0);
+
+    await _engine.joinChannel(null, widget.channelName, null, 0);
+    setState(() {
+      loading = false;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child:  Scaffold(
+      child: Scaffold(
         body: Stack(
           children: [
-            Center(
-              child: _renderRemoteView(),
-            ),
+            Center(child: _renderRemoteView()),
             Align(
               alignment: Alignment.topLeft,
               child: Container(
                 width: 100,
                 height: 130,
-                margin: EdgeInsets.only(left: 15,top: 15),
+                margin: const EdgeInsets.only(left: 15, top: 15),
                 child: _renderLocalView(),
               ),
             ),
@@ -85,83 +92,91 @@ class _CallState extends State<Call> {
       ),
     );
   }
-  Widget _renderLocalView(){
+
+  Widget _renderLocalView() {
     return const RtcLocalView.SurfaceView();
   }
-  Widget _renderRemoteView(){
-    if(_remoteUid!=0){
-      return RtcRemoteView.SurfaceView(uid: _remoteUid,channelId: widget.channelName,);
+
+  Widget _renderRemoteView() {
+    if (_remoteUid != 0) {
+      return RtcRemoteView.SurfaceView(
+        uid: _remoteUid,
+        channelId: widget.channelName,
+      );
+    } else {
+      return const Center(child: Text("Waiting for other user to join"));
     }
-    else
-      {
-        return const Text("Waiting for other user to join");
-      }
   }
-  Widget _toolbar(){
+
+  Widget _toolbar() {
     return Container(
       alignment: Alignment.bottomCenter,
       margin: const EdgeInsets.only(bottom: 30),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          RawMaterialButton(
-            onPressed: (){
-              _onToggleMute();
-            },
-            shape: const CircleBorder(),
-            padding: const EdgeInsets.all(5),
-            elevation: 2.0,
-            fillColor: (muted)?Colors.blue:Colors.white,
-            child: Icon(
-              (muted)?Icons.mic_off:Icons.mic,
-              color: muted?Colors.white:Colors.blue,
-              size: 40,
-            ),
+          _toolbarButton(
+            onPressed: _onToggleMute,
+            icon: muted ? Icons.mic_off : Icons.mic,
+            color: muted ? Colors.blue : Colors.white,
+            iconColor: muted ? Colors.white : Colors.blue,
           ),
-          RawMaterialButton(
-            onPressed: (){
-              _onCallEnd();
-            },
-            shape: const CircleBorder(),
-            padding: const EdgeInsets.all(5),
-            elevation: 2.0,
-            fillColor: Colors.redAccent,
-            child: const Icon(
-              Icons.call_end,
-              color: Colors.white,
-              size: 50,
-            ),
+          _toolbarButton(
+            onPressed: _onCallEnd,
+            icon: Icons.call_end,
+            color: Colors.redAccent,
+            iconColor: Colors.white,
+            iconSize: 50,
           ),
-          RawMaterialButton(
-            onPressed: (){
-              _onSwitchCamera();
-            },
-            shape: const CircleBorder(),
-            padding: const EdgeInsets.all(5),
-            elevation: 2.0,
-            fillColor:Colors.white,
-            child: const Icon(
-              Icons.switch_camera,
-              color: Colors.blue,
-              size: 40,
-            ),
-          )
+          _toolbarButton(
+            onPressed: _onSwitchCamera,
+            icon: Icons.switch_camera,
+            color: Colors.white,
+            iconColor: Colors.blue,
+          ),
         ],
       ),
     );
   }
-  void _onToggleMute(){
+
+  Widget _toolbarButton({
+    required VoidCallback onPressed,
+    required IconData icon,
+    required Color color,
+    Color iconColor = Colors.blue,
+    double iconSize = 40,
+  }) {
+    return RawMaterialButton(
+      onPressed: onPressed,
+      shape: const CircleBorder(),
+      padding: const EdgeInsets.all(5),
+      elevation: 2.0,
+      fillColor: color,
+      child: Icon(icon, color: iconColor, size: iconSize),
+    );
+  }
+
+  void _onToggleMute() {
     setState(() {
-      muted=!muted;
+      muted = !muted;
     });
     _engine.muteLocalAudioStream(muted);
   }
-  void _onCallEnd(){
-    _engine.leaveChannel().then((value) {
-      Get.offAll(()=>HomePage());
+
+  void _onCallEnd() {
+    _engine.leaveChannel().then((_) {
+      Get.offAll(() => const HomePage());
     });
   }
-  void _onSwitchCamera(){
+
+  void _onSwitchCamera() {
     _engine.switchCamera();
+  }
+
+  @override
+  void dispose() {
+    _engine.leaveChannel();
+    _engine.destroy();
+    super.dispose();
   }
 }

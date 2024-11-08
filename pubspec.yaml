@@ -116,6 +116,7 @@ dependencies:
   #  geocoder2: ^1.4.0
 
   agora_rtc_engine: ^5.0.0
+
   agora_rtm: ^1.5.0
 
   velocity_x: ^4.2.1

@@ -1,208 +1,232 @@
 import 'dart:async';
+import 'dart:math' as math;
 import 'package:agora_rtc_engine/rtc_engine.dart';
+import 'package:agora_rtm/agora_rtm.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:agora_rtc_engine/rtc_local_view.dart' as RtcLocalView;
 import 'package:get/get.dart';
 import 'package:realdating/pages/live/live/HomePage/homepage.dart';
 import 'package:realdating/pages/profile/profile_controller.dart';
+import '../../../../chat/api/apis.dart';
+import '../../../../chat/api/apis.dart';
 import '../constant/constant.dart';
-import 'package:agora_rtm/agora_rtm.dart';
-import 'dart:math' as math;
 import '../constant/heartanim.dart';
+import 'package:agora_rtc_engine/rtc_local_view.dart' as RtcLocalView;
 
 class Host extends StatefulWidget {
   final String channelName;
   final String? userId;
 
-  const Host({Key? key, required this.channelName, required this.userId})
-      : super(key: key);
+  const Host({Key? key, required this.channelName, required this.userId}) : super(key: key);
 
   @override
   State<Host> createState() => _HostState();
 }
 
 class _HostState extends State<Host> {
-  late RtcEngine _engine;
-  late int streamId;
-  bool muted = false;
+  RtcEngine? _engine;
   late AgoraRtmClient _client;
   late AgoraRtmChannel _channel;
-  List messages = ["message"];
-  List names = ["name"];
-  List images = ["image123"];
+  final ProfileController profileController = Get.put(ProfileController());
   final ScrollController _scrollController = ScrollController();
-  bool heart = false;
   final _random = math.Random();
-  late Timer _timer;
-  double height = 0.5;
-  User? user = FirebaseAuth.instance.currentUser;
+
+  bool muted = false;
   bool loading = false;
-  ProfileController profileController = Get.put(ProfileController());
+  bool heart = false;
+  List<String> messages = ["message"];
+  List<String> names = ["name"];
+  List<String> images = ["image123"];
+  double heartAnimationHeight = 0.5;
+  int? streamId;
+  User? user = FirebaseAuth.instance.currentUser;
+  late Timer _timer;
+
   @override
   void initState() {
     super.initState();
     initializeAgora();
-    _createClient();
+    initializeRtmClient();
   }
 
   @override
   void dispose() {
-    _engine.leaveChannel();
-    _engine.destroy();
+    _engine?.leaveChannel();
+    _engine?.destroy();
     super.dispose();
   }
 
   Future<void> initializeAgora() async {
-    setState(() {
-      loading = true;
-    });
-    _engine = await RtcEngine.createWithContext(
-        RtcEngineContext(appId)); //goto constant.dart file
-    await _engine.enableVideo();
-    await _engine.setChannelProfile(ChannelProfile.LiveBroadcasting);
-    await _engine.setClientRole(ClientRole.Broadcaster);
-    streamId = (await _engine.createDataStream(false, false))!;
-    _engine.setEventHandler(RtcEngineEventHandler(
+    setState(() => loading = true);
+
+    _engine = await RtcEngine.createWithContext(RtcEngineContext(appId));
+    await _engine?.enableVideo();
+    await _engine?.setChannelProfile(ChannelProfile.LiveBroadcasting);
+    await _engine?.setClientRole(ClientRole.Broadcaster);
+
+    streamId = await _engine?.createDataStream(false, false);
+    _engine?.setEventHandler(RtcEngineEventHandler(
       joinChannelSuccess: (channel, uid, elapsed) {
-        if (kDebugMode) {
-          print("onJoinChannel: $channel, uid: $uid");
-        }
+        if (kDebugMode) print("onJoinChannel: $channel, uid: $uid");
       },
       leaveChannel: (stats) {
-        if (kDebugMode) {
-          print("channel left");
-        }
+        if (kDebugMode) print("channel left");
       },
       userJoined: (uid, elapsed) {
-        print("UserJoined: $uid");
+        if (kDebugMode) print("UserJoined: $uid");
       },
       userOffline: (uid, elapsed) {
-        if (kDebugMode) {
-          print("Useroffline: $uid");
-        }
+        if (kDebugMode) print("Useroffline: $uid");
       },
     ));
-    await _engine
-        .joinChannel(null, widget.channelName, null, 0)
-        .then((value) async {
-      await FirebaseFirestore.instance
-          .collection("Liveusers")
-          .doc(user!.uid)
-          .set({
-        "channelname": widget.channelName,
-        "username": user!.displayName,
-        "userid": user!.uid,
-        "userimage": user!.photoURL
-      }).then((value) {
-        setState(() {
-          loading = false;
-        });
-      });
+
+    await _engine?.joinChannel(null, widget.channelName, null, 0);
+    await _updateFirestore();
+  }
+
+  Future<void> _updateFirestore() async {
+    await FirebaseFirestore.instance.collection("Liveusers").doc(user!.uid).set({
+      "channelname": widget.channelName,
+      "username": user!.displayName,
+      "userid": user!.uid,
+      "userimage": user!.photoURL,
+
     });
+
+    setState(() => loading = false);
   }
 
-  void _onScrollDown() {
-    _scrollController.animateTo(_scrollController.position.maxScrollExtent,
-        duration: const Duration(seconds: 1), curve: Curves.fastOutSlowIn);
+  Future<void> initializeRtmClient() async {
+    _client = await AgoraRtmClient.createInstance(appId);
+    _client.onConnectionStateChanged = (state, reason) {
+      if (state == 5) _client.logout();
+    };
+
+    await _client.login(null, widget.userId!);
+    _channel = (await _client.createChannel(widget.channelName))!;
+    await _channel.join();
+
+    _channel.onMessageReceived = (message, member) {
+      if (message.text.contains("a1w3e3rt4YRTY")) {
+        _triggerHeartAnimation();
+      } else {
+        _handleMessage(message.text, member.userId);
+      }
+    };
+
+    if (kDebugMode) print("RTM Channel joined successfully by: ${widget.channelName}");
   }
 
-  Future<bool> _onWillPop(context) async {
+  void _handleMessage(String message, String userId) {
+    final messageParts = message.split("passWORD123");
+    setState(() {
+      names.add(userId);
+      messages.add(messageParts[0]);
+      images.add(messageParts[1]);
+    });
+    _scrollToBottom();
+  }
+
+  void _scrollToBottom() {
+    _scrollController.animateTo(
+      _scrollController.position.maxScrollExtent,
+      duration: const Duration(seconds: 1),
+      curve: Curves.fastOutSlowIn,
+    );
+  }
+
+  Future<bool> _showExitDialog() async {
     return await showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            content: SizedBox(
-              height: 90,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+      context: context,
+      builder: (context) => AlertDialog(
+        content: SizedBox(
+          height: 90,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text("Do you want to exit?"),
+              const SizedBox(height: 20),
+              Row(
                 children: [
-                  const Text("Do you want to exit?"),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  Row(
-                    children: [
-                      Expanded(
-                          child: ElevatedButton(
-                        onPressed: () {
-                          checkExist();
-                        },
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.red),
-                        child: const Text("Yes"),
-                      )),
-                      Expanded(
-                          child: ElevatedButton(
-                        onPressed: () {
-                          Get.back();
-                        },
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.white),
-                        child: const Text(
-                          "No",
-                          style: TextStyle(color: Colors.black87),
-                        ),
-                      ))
-                    ],
-                  )
+                  _exitDialogButton("Yes", Colors.red, _onCallEnd),
+                  _exitDialogButton("No", Colors.white, Get.back),
                 ],
               ),
-            ),
-          );
-        });
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Expanded _exitDialogButton(String label, Color color, VoidCallback onPressed) {
+    return Expanded(
+      child: ElevatedButton(
+        onPressed: onPressed,
+        style: ElevatedButton.styleFrom(backgroundColor: color),
+        child: Text(label, style: TextStyle(color: color == Colors.white ? Colors.black87 : Colors.white)),
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    double w = MediaQuery.of(context).size.width;
-    double h = MediaQuery.of(context).size.height;
-
     return WillPopScope(
-      onWillPop: () => _onWillPop(context),
+      onWillPop: () => _showExitDialog(),
       child: Scaffold(
         body: Center(
-          child: (loading)
-              ? const CircularProgressIndicator()
-              : Stack(
-                  children: [
-                    _broadcastView(),
-                    (names.isEmpty)
-                        ? Container()
-                        : Container(
-                            width: w,
-                            height: h * 0.5,
-                            margin: EdgeInsets.only(top: h * 0.5),
-                            child: ListView.builder(
-                                itemCount: names.length,
-                                controller: _scrollController,
-                                itemBuilder: (BuildContext context, int index) {
-                                  return ListTile(
-                                    leading: CircleAvatar(
-                                      backgroundImage:
-                                          NetworkImage(profileController.profileImage.value),
-                                    ),
-                                    subtitle: Text(messages[index]),
-                                    title: Text(names[index]),
-                                  );
-                                }),
-                          ),
-                    if (heart == true)
-                      Container(
-                        width: w,
-                        height: h * 0.5,
-                        margin: EdgeInsets.only(top: h * 0.55, left: w * 0.65),
-                        child: Column(
-                          children: heartPop(),
-                        ),
-                      ),
-                    _toolbar(),
-                  ],
-                ),
+          child:
+          // loading
+          //     ? const CircularProgressIndicator()
+          //     :
+          Stack(
+            children: [
+              _broadcastView(),
+              if (names.isNotEmpty) _messageListView(),
+              if (heart) _heartAnimation(),
+              _toolbar(),
+            ],
+          ),
         ),
       ),
+    );
+  }
+
+  Widget _broadcastView() {
+    return const RtcLocalView.SurfaceView();
+  }
+
+  Widget _messageListView() {
+    return Container(
+      margin: const EdgeInsets.only(top: 0.5),
+      child: ListView.builder(
+        controller: _scrollController,
+        itemCount: names.length,
+        itemBuilder: (context, index) {
+          return ListTile(
+            leading: CircleAvatar(
+              backgroundImage: NetworkImage(profileController.profileImage.value),
+            ),
+            title: Text(names[index]),
+            subtitle: Text(messages[index]),
+          );
+        },
+      ),
+    );
+  }
+
+  Widget _heartAnimation() {
+    final size = MediaQuery.of(context).size;
+    final hearts = List.generate(10, (_) => HeartAnim(
+      top: _random.nextInt(size.height.floor()).toDouble() % 200,
+      left: (_random.nextInt(70) + 20).toDouble(),
+      opacity: 0.5,
+    ));
+    return Container(
+      margin: EdgeInsets.only(top: 0.55, left: 0.65),
+      child: Column(children: hearts),
     );
   }
 
@@ -213,181 +237,51 @@ class _HostState extends State<Host> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          RawMaterialButton(
-            onPressed: () {
-              _onToggleMute();
-            },
-            shape: const CircleBorder(),
-            padding: const EdgeInsets.all(5),
-            elevation: 2.0,
-            fillColor: (muted) ? Colors.blue : Colors.white,
-            child: Icon(
-              (muted) ? Icons.mic_off : Icons.mic,
-              color: muted ? Colors.white : Colors.blue,
-              size: 40,
-            ),
-          ),
-          RawMaterialButton(
-            onPressed: () {
-              _onCallEnd();
-            },
-            shape: const CircleBorder(),
-            padding: const EdgeInsets.all(5),
-            elevation: 2.0,
-            fillColor: Colors.redAccent,
-            child: const Icon(
-              Icons.call_end,
-              color: Colors.white,
-              size: 50,
-            ),
-          ),
-          RawMaterialButton(
-            onPressed: () {
-              _onSwitchCamera();
-            },
-            shape: const CircleBorder(),
-            padding: const EdgeInsets.all(5),
-            elevation: 2.0,
-            fillColor: Colors.white,
-            child: const Icon(
-              Icons.switch_camera,
-              color: Colors.blue,
-              size: 40,
-            ),
-          )
+          _toolbarButton(_toggleMute, muted ? Icons.mic_off : Icons.mic, muted ? Colors.blue : Colors.white),
+          _toolbarButton(_onCallEnd, Icons.call_end, Colors.redAccent),
+          _toolbarButton(_engine!.switchCamera, Icons.switch_camera, Colors.white),
         ],
       ),
     );
   }
 
-  Widget _broadcastView() {
-    return const RtcLocalView.SurfaceView();
+  Widget _toolbarButton(VoidCallback onPressed, IconData icon, Color color) {
+    return RawMaterialButton(
+      onPressed: onPressed,
+      shape: const CircleBorder(),
+      padding: const EdgeInsets.all(5),
+      elevation: 2.0,
+      fillColor: color,
+      child: Icon(icon, color: Colors.blue, size: 40),
+    );
   }
 
-  void _onToggleMute() {
-    setState(() {
-      muted = !muted;
-    });
-    _engine.muteLocalAudioStream(muted);
+  void _toggleMute() {
+    setState(() => muted = !muted);
+    _engine?.muteLocalAudioStream(muted);
   }
 
-  void _onCallEnd() {
-    _engine.leaveChannel().then((value) {
-      checkExist();
-    });
+  Future<void> _onCallEnd() async {
+    await _engine?.leaveChannel();
+    await _checkUserExistence();
   }
 
-  void checkExist() async {
-    bool exist = false;
-    try {
-      await FirebaseFirestore.instance
-          .collection("Liveusers")
-          .doc(user!.uid)
-          .get()
-          .then((doc) {
-        exist = doc.exists;
-      });
-      if (exist) {
-        FirebaseFirestore.instance
-            .collection("Liveusers")
-            .doc(user!.uid)
-            .delete()
-            .then((value) {
-          Get.offAll(() => const HomePage());
-        });
-      } else {
-        Get.offAll(() => const HomePage());
-      }
-    } catch (e) {
-      Get.snackbar("Error", e.toString(), snackPosition: SnackPosition.BOTTOM);
+  Future<void> _checkUserExistence() async {
+    final doc = await FirebaseFirestore.instance.collection("Liveusers").doc(user!.uid).get();
+    if (doc.exists) {
+      await FirebaseFirestore.instance.collection("Liveusers").doc(user!.uid).delete();
     }
+    Get.offAll(() => const HomePage());
   }
 
-  void _onSwitchCamera() {
-    _engine.switchCamera();
-  }
-
-  void _createClient() async {
-    _client = await AgoraRtmClient.createInstance(appId);
-    _client.onConnectionStateChanged = (int state, int reason) {
-      if (state == 5) {
-        _client.logout();
-      }
-    };
-    await _client.login(null, widget.userId!);
-    _channel = await _createChannel(widget.channelName);
-    await _channel.join();
-    if (kDebugMode) {
-      print("RTM Channel joined successfully by: ${widget.channelName}#");
-    }
-    _channel.onMessageReceived =
-        (AgoraRtmMessage message, AgoraRtmMember member) {
-      print("Message received: ${message.text}");
-      if (message.text.contains("a1w3e3rt4YRTY")) {
-        popUp();
-      } else {
-        String img = message.text.split("passWORD123").last;
-        String msg = message.text.split("passWORD123").first;
-
-        setState(() {
-          names.add(member.userId);
-          messages.add(msg);
-          images.add(img);
-        });
-        _onScrollDown();
-        if (kDebugMode) {
-          print("Message received: $msg");
-        }
-      }
-    };
-  }
-
-  Future<AgoraRtmChannel> _createChannel(String channelName) async {
-    AgoraRtmChannel? channel = await _client.createChannel(channelName);
-    channel!.onMemberJoined = (AgoraRtmMember member) {
-      if (kDebugMode) {
-        print("Member joined: ${member.userId}");
-      }
-    };
-    channel.onMemberLeft = (AgoraRtmMember member) {
-      if (kDebugMode) {
-        print("Member left: ${member.userId}");
-      }
-    };
-    return channel;
-  }
-
-  void popUp() {
-    setState(() {
-      heart = true;
+  void _triggerHeartAnimation() {
+    setState(() => heart = true);
+    _timer = Timer.periodic(const Duration(milliseconds: 125), (_) {
+      setState(() => heartAnimationHeight += _random.nextInt(20));
     });
-    Timer(
-        const Duration(seconds: 3),
-        () => {
-              _timer.cancel(),
-              setState(() {
-                heart = false;
-              })
-            });
-    _timer = Timer.periodic(const Duration(milliseconds: 125), (Timer t) {
-      setState(() {
-        height += _random.nextInt(20);
-      });
+    Timer(const Duration(seconds: 3), () {
+      _timer.cancel();
+      setState(() => heart = false);
     });
-  }
-
-  List<Widget> heartPop() {
-    final size = MediaQuery.of(context).size;
-    final hearts = <Widget>[];
-    for (int i = 0; i < 10; i++) {
-      final h = _random.nextInt(size.height.floor());
-      final w = _random.nextInt(70) + 20;
-      hearts.add(HeartAnim(
-        top: h % 200.0,
-        left: w.toDouble(),
-        opacity: 0.5,
-      ));
-    }
-    return hearts;
   }
 }
