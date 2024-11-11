@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'dart:math';
-import 'package:agora_rtc_engine/rtc_engine.dart';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -169,7 +169,7 @@ class Live {
   factory Live.fromDocument(DocumentSnapshot doc) {
     var data = doc.data() as Map<String, dynamic>;
     return Live(
-      username: data['username'],
+      username: data['username']??'ajay',
       image: data['userimage'] ?? "https://www.yiwubazaar.com/resources/assets/images/default-product.jpg",
       channelName: data['channelname'],
       userId: data['userid'],

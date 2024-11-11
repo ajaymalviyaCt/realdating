@@ -14,6 +14,15 @@ import 'package:http/http.dart' as http;
 class CreateReelController extends GetxController {
   final PlayerManager _playerManager = Get.put(PlayerManager());
 
+  RxBool flashSetting = false.obs; // Observable for flash state
+  // RxBool flashSetting = false.obs;
+  // Method to toggle flash
+  void toggleFlash() {
+  flashSetting.value = !flashSetting.value;
+  }
+
+
+
   RxList<CategoryModel> categories = <CategoryModel>[].obs;
   RxList<ReelMusicModel> audios = <ReelMusicModel>[].obs;
 
@@ -35,7 +44,7 @@ class CreateReelController extends GetxController {
   RxBool enableRecord = false.obs;
   DateTime? startDateTime;
   DateTime? endDateTime;
-  RxBool flashSetting = false.obs;
+
   RxInt recordingLength = 15.obs;
 
   RxDouble currentProgressValue = (0.0).obs;

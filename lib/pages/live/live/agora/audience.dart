@@ -1,11 +1,12 @@
 import 'dart:async';
 import 'dart:math' as math;
 
-import 'package:agora_rtc_engine/rtc_engine.dart';
+
+import 'package:agora_rtc_engine/agora_rtc_engine.dart';
 import 'package:agora_rtm/agora_rtm.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:agora_rtc_engine/rtc_remote_view.dart' as RtcRemoteView;
+
 import 'package:get/get.dart';
 
 import '../HomePage/homepage.dart';
@@ -50,54 +51,57 @@ class _AudienceState extends State<Audience> {
   @override
   void dispose() {
     _engine.leaveChannel();
-    _engine.destroy();
+    _engine.release();
     _timer.cancel();
     super.dispose();
   }
 
   Future<void> initializeAgora() async {
-    _engine = await RtcEngine.createWithContext(RtcEngineContext(appId));
-
-
-
-    await _engine.enableVideo();
-    await _engine.setChannelProfile(ChannelProfile.LiveBroadcasting);
-    await _engine.setClientRole(ClientRole.Audience);
-
-    _engine.setEventHandler(RtcEngineEventHandler(
-      joinChannelSuccess: (channel, uid, elapsed) {
-        if (kDebugMode) {
-          print("Joined Channel: $channel, uid: $uid");
-        }
-      },
-      leaveChannel: (stats) {
-        if (kDebugMode) {
-          print("Channel left");
-        }
-        setState(() {
-          _users.clear();
-        });
-      },
-      userJoined: (uid, elapsed) {
-        if (kDebugMode) {
-          print("User Joined: $uid");
-        }
-        setState(() {
-          _users.add(uid);
-        });
-      },
-      userOffline: (uid, elapsed) {
-        if (kDebugMode) {
-          print("User Offline: $uid");
-        }
-        setState(() {
-          _users.remove(uid);
-        });
-      },
+    _engine = createAgoraRtcEngine(); // Create the Agora engine
+    await _engine.initialize(const RtcEngineContext(
+      appId: appId,
+      channelProfile: ChannelProfileType.channelProfileLiveBroadcasting,
     ));
 
-    await _engine.joinChannel(null, widget.channelName, null, 0);
+    // Set the client role
+    await _engine.setClientRole(role: ClientRoleType.clientRoleAudience);
+
+    // Register event handlers
+    _engine.registerEventHandler(
+      RtcEngineEventHandler(
+        onJoinChannelSuccess: (RtcConnection connection, int elapsed) {
+          print("Joined Channel: ${connection.channelId}, uid: ${connection.localUid}");
+        },
+        onLeaveChannel: (RtcConnection connection, RtcStats stats) {
+          print("Channel left");
+          setState(() {
+            _users.clear();
+          });
+        },
+        onUserJoined: (RtcConnection connection, int uid, int elapsed) {
+          print("User Joined: $uid");
+          setState(() {
+            _users.add(uid);
+          });
+        },
+        onUserOffline: (RtcConnection connection, int uid, UserOfflineReasonType reason) {
+          print("User Offline: $uid");
+          setState(() {
+            _users.remove(uid);
+          });
+        },
+      ),
+    );
+
+    // Join the channel
+    await _engine.joinChannel(
+      token: '', // Add your token if required, or leave empty for testing
+      channelId: widget.channelName,
+      uid: 0,
+      options: const ChannelMediaOptions(),
+    );
   }
+
 
   void _onScrollDown() {
     _scrollController.animateTo(
@@ -153,7 +157,13 @@ class _AudienceState extends State<Audience> {
   }
 
   List<Widget> _getRenderViews() {
-    return _users.map((uid) => RtcRemoteView.SurfaceView(uid: uid, channelId: widget.channelName)).toList();
+    return _users.map((uid) => AgoraVideoView(
+      controller: VideoViewController.remote(
+        rtcEngine: _engine,
+        canvas: VideoCanvas(uid: uid),
+        connection: RtcConnection(channelId: widget.channelName),
+      ),
+    )).toList();
   }
 
   Widget _broadcastView() {
@@ -246,6 +256,7 @@ class _AudienceState extends State<Audience> {
   }
 
   Future<void> _createClient() async {
+    print('here is app id ----------${appId}');
     _client = await AgoraRtmClient.createInstance(appId);
     _client.onConnectionStateChanged = (int state, int reason) {
       if (state == 5) {
@@ -308,3 +319,5 @@ class _AudienceState extends State<Audience> {
     });
   }
 }
+
+

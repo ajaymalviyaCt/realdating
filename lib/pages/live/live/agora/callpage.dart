@@ -1,9 +1,7 @@
-import 'package:agora_rtc_engine/rtc_engine.dart';
-import 'package:flutter/foundation.dart';
+import 'package:agora_rtc_engine/agora_rtc_engine.dart';
 import 'package:flutter/material.dart';
-import 'package:agora_rtc_engine/rtc_remote_view.dart' as RtcRemoteView;
-import 'package:agora_rtc_engine/rtc_local_view.dart' as RtcLocalView;
 import 'package:get/get.dart';
+
 import '../HomePage/homepage.dart';
 import '../constant/constant.dart';
 
@@ -34,37 +32,48 @@ class _CallState extends State<Call> {
       loading = true;
     });
 
-    _engine = await RtcEngine.createWithContext(RtcEngineContext(appId)); // Reference appId in constant.dart
+    // Create and initialize the Agora engine
+    _engine = createAgoraRtcEngine();
+    await _engine.initialize(const RtcEngineContext(
+      appId: appId,
+      channelProfile: ChannelProfileType.channelProfileCommunication,
+    ));
+
+    // Enable video
     await _engine.enableVideo();
-    await _engine.setChannelProfile(ChannelProfile.Communication);
 
-    streamId = (await _engine.createDataStream(false, false))!;
+    // Create a data stream
+    streamId = (await _engine.createDataStream(
+      const DataStreamConfig(),
+    ));
 
-    _engine.setEventHandler(RtcEngineEventHandler(
-      joinChannelSuccess: (channel, uid, elapsed) {
-        if (kDebugMode) {
-          print("onJoinChannel: $channel, uid: $uid");
-        }
+    // Register event handlers
+    _engine.registerEventHandler(RtcEngineEventHandler(
+      onJoinChannelSuccess: (RtcConnection connection, int elapsed) {
+        print("onJoinChannel: ${connection.channelId}, uid: ${connection.localUid}");
       },
-      userJoined: (uid, elapsed) {
-        if (kDebugMode) {
-          print("UserJoined: $uid");
-        }
+      onUserJoined: (RtcConnection connection, int uid, int elapsed) {
+        print("UserJoined: $uid");
         setState(() {
           _remoteUid = uid;
         });
       },
-      userOffline: (uid, elapsed) {
-        if (kDebugMode) {
-          print("UserOffline: $uid");
-        }
+      onUserOffline: (RtcConnection connection, int uid, UserOfflineReasonType reason) {
+        print("UserOffline: $uid");
         setState(() {
           _remoteUid = 0;
         });
       },
     ));
 
-    await _engine.joinChannel(null, widget.channelName, null, 0);
+    // Join the channel
+    await _engine.joinChannel(
+      token: '', // Add your token if required
+      channelId: widget.channelName,
+      uid: 0,
+      options: const ChannelMediaOptions(),
+    );
+
     setState(() {
       loading = false;
     });
@@ -94,14 +103,22 @@ class _CallState extends State<Call> {
   }
 
   Widget _renderLocalView() {
-    return const RtcLocalView.SurfaceView();
+    return AgoraVideoView(
+      controller: VideoViewController(
+        rtcEngine: _engine,
+        canvas: const VideoCanvas(uid: 0),
+      ),
+    );
   }
 
   Widget _renderRemoteView() {
     if (_remoteUid != 0) {
-      return RtcRemoteView.SurfaceView(
-        uid: _remoteUid,
-        channelId: widget.channelName,
+      return AgoraVideoView(
+        controller: VideoViewController.remote(
+          rtcEngine: _engine,
+          canvas: VideoCanvas(uid: _remoteUid),
+          connection: RtcConnection(channelId: widget.channelName),
+        ),
       );
     } else {
       return const Center(child: Text("Waiting for other user to join"));
@@ -176,7 +193,7 @@ class _CallState extends State<Call> {
   @override
   void dispose() {
     _engine.leaveChannel();
-    _engine.destroy();
+    _engine.release();
     super.dispose();
   }
 }

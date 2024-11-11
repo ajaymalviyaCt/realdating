@@ -1,18 +1,13 @@
-import 'dart:async';
-import 'dart:math' as math;
-import 'package:agora_rtc_engine/rtc_engine.dart';
-import 'package:agora_rtm/agora_rtm.dart';
+import 'package:agora_rtc_engine/agora_rtc_engine.dart';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:realdating/pages/live/live/HomePage/homepage.dart';
-import 'package:realdating/pages/profile/profile_controller.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'package:realdating/pages/live/live/constant/constant.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-import '../constant/constant.dart';
-import '../constant/heartanim.dart';
-import 'package:agora_rtc_engine/rtc_local_view.dart' as RtcLocalView;
+import '../../../../home_page_new/home_page_user.dart';
+import '../../../../reel/common_import.dart';
 
 class Host extends StatefulWidget {
   final String channelName;
@@ -25,154 +20,117 @@ class Host extends StatefulWidget {
 }
 
 class _HostState extends State<Host> {
-
-
-
-
-
-  RtcEngine? _engine;
-  late AgoraRtmClient _client;
-  late AgoraRtmChannel _channel;
-  final ProfileController profileController = Get.put(ProfileController());
-  final ScrollController _scrollController = ScrollController();
-  final _random = math.Random();
-
+  late RtcEngine _engine;
   bool muted = false;
   bool loading = false;
-  bool heart = false;
-  List<String> messages = ["message"];
-  List<String> names = ["name"];
-  List<String> images = ["image123"];
-  double heartAnimationHeight = 0.5;
-  int? streamId;
+  int? _remoteUid;
+  bool _localUserJoined = false;
   User? user = FirebaseAuth.instance.currentUser;
-  late Timer _timer;
+  String? userName = '';
+  String? token;
 
   @override
   void initState() {
     super.initState();
+    getToken();
     initializeAgora();
-    initializeRtmClient();
+    _updateFirestore();
   }
 
   @override
   void dispose() {
-    _engine?.leaveChannel();
-    _engine?.destroy();
+    _disposeAgora();
     super.dispose();
   }
 
+  Future<void> getToken() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    token = prefs.getString('token') ?? '';
+  }
+
   Future<void> initializeAgora() async {
+    userName = user?.displayName;
+
     setState(() => loading = true);
 
-    _engine = await RtcEngine.createWithContext(RtcEngineContext(appId));
-    await _engine?.enableVideo();
-    await _engine?.setChannelProfile(ChannelProfile.LiveBroadcasting);
-    await _engine?.setClientRole(ClientRole.Broadcaster);
+    await [Permission.microphone, Permission.camera].request();
+    _engine = await createAgoraRtcEngine();
 
-    streamId = await _engine?.createDataStream(false, false);
-    _engine?.setEventHandler(RtcEngineEventHandler(
-      joinChannelSuccess: (channel, uid, elapsed) {
-        if (kDebugMode) print("onJoinChannel: $channel, uid: $uid");
-      },
-      leaveChannel: (stats) {
-        if (kDebugMode) print("channel left");
-      },
-      userJoined: (uid, elapsed) {
-        if (kDebugMode) print("UserJoined: $uid");
-      },
-      userOffline: (uid, elapsed) {
-        if (kDebugMode) print("Useroffline: $uid");
-      },
-    ));
+    await _engine.initialize(
+      const RtcEngineContext(
+        appId: appId,
+        channelProfile: ChannelProfileType.channelProfileLiveBroadcasting,
+      ),
+    );
 
-    await _engine?.joinChannel(null, widget.channelName, null, 0);
-    await _updateFirestore();
+    await _engine.enableVideo();
+    await _engine.startPreview();
+
+    _engine.registerEventHandler(
+      RtcEngineEventHandler(
+        onJoinChannelSuccess: (RtcConnection connection, int elapsed) {
+          if (mounted) {
+            setState(() {
+              _localUserJoined = true;
+            });
+          }
+        },
+        onUserJoined: (RtcConnection connection, int remoteUid, int elapsed) {
+          if (mounted) {
+            setState(() {
+              _remoteUid = remoteUid;
+            });
+          }
+        },
+        onUserOffline: (RtcConnection connection, int remoteUid, UserOfflineReasonType reason) {
+          if (mounted) {
+            setState(() {
+              _remoteUid = null;
+            });
+          }
+        },
+      ),
+    );
+
+    await _engine.joinChannel(
+      token: '',
+      channelId: widget.channelName,
+      options: const ChannelMediaOptions(
+        autoSubscribeVideo: true,
+        autoSubscribeAudio: true,
+        publishCameraTrack: true,
+        publishMicrophoneTrack: true,
+        clientRoleType: ClientRoleType.clientRoleBroadcaster,
+      ),
+      uid: 0,
+    );
+
+    if (mounted) {
+      setState(() => loading = false);
+    }
   }
+
 
   Future<void> _updateFirestore() async {
-    await FirebaseFirestore.instance.collection("Liveusers").doc(user!.uid).set({
-      "channelname": widget.channelName,
-      "username": user!.displayName,
-      "userid": user!.uid,
-      "userimage": user!.photoURL,
-
-    });
-
-    setState(() => loading = false);
+    if (user != null) {
+      await FirebaseFirestore.instance.collection("Liveusers").doc(user!.uid).set({
+        "channelname": widget.channelName,
+        "username": userName,
+        "userid": user?.uid,
+        "userimage": user?.photoURL,
+      });
+      print('User name: $userName');
+    }
   }
 
-  Future<void> initializeRtmClient() async {
-    _client = await AgoraRtmClient.createInstance(appId);
-    _client.onConnectionStateChanged = (state, reason) {
-      if (state == 5) _client.logout();
-    };
+  Future<void> _disposeAgora() async {
+    await _engine.leaveChannel();
+    await _engine.release();
 
-    await _client.login(null, widget.userId!);
-    _channel = (await _client.createChannel(widget.channelName))!;
-    await _channel.join();
-
-    _channel.onMessageReceived = (message, member) {
-      if (message.text.contains("a1w3e3rt4YRTY")) {
-        _triggerHeartAnimation();
-      } else {
-        _handleMessage(message.text, member.userId);
-      }
-    };
-
-    if (kDebugMode) print("RTM Channel joined successfully by: ${widget.channelName}");
-  }
-
-  void _handleMessage(String message, String userId) {
-    final messageParts = message.split("passWORD123");
-    setState(() {
-      names.add(userId);
-      messages.add(messageParts[0]);
-      images.add(messageParts[1]);
-    });
-    _scrollToBottom();
-  }
-
-  void _scrollToBottom() {
-    _scrollController.animateTo(
-      _scrollController.position.maxScrollExtent,
-      duration: const Duration(seconds: 1),
-      curve: Curves.fastOutSlowIn,
-    );
-  }
-
-  Future<bool> _showExitDialog() async {
-    return await showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        content: SizedBox(
-          height: 90,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text("Do you want to exit?"),
-              const SizedBox(height: 20),
-              Row(
-                children: [
-                  _exitDialogButton("Yes", Colors.red, _onCallEnd),
-                  _exitDialogButton("No", Colors.white, Get.back),
-                ],
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Expanded _exitDialogButton(String label, Color color, VoidCallback onPressed) {
-    return Expanded(
-      child: ElevatedButton(
-        onPressed: onPressed,
-        style: ElevatedButton.styleFrom(backgroundColor: color),
-        child: Text(label, style: TextStyle(color: color == Colors.white ? Colors.black87 : Colors.white)),
-      ),
-    );
+    if (user != null) {
+      await FirebaseFirestore.instance.collection("Liveusers").doc(user!.uid).delete();
+    }
+    setState(() {});
   }
 
   @override
@@ -181,15 +139,12 @@ class _HostState extends State<Host> {
       onWillPop: () => _showExitDialog(),
       child: Scaffold(
         body: Center(
-          child:
-          // loading
-          //     ? const CircularProgressIndicator()
-          //     :
-          Stack(
+          child: loading
+              ? const CircularProgressIndicator()
+              : Stack(
             children: [
               _broadcastView(),
-              if (names.isNotEmpty) _messageListView(),
-              if (heart) _heartAnimation(),
+              if (_remoteUid != null) _remoteVideo(),
               _toolbar(),
             ],
           ),
@@ -199,38 +154,28 @@ class _HostState extends State<Host> {
   }
 
   Widget _broadcastView() {
-    return const RtcLocalView.SurfaceView();
-  }
-
-  Widget _messageListView() {
-    return Container(
-      margin: const EdgeInsets.only(top: 0.5),
-      child: ListView.builder(
-        controller: _scrollController,
-        itemCount: names.length,
-        itemBuilder: (context, index) {
-          return ListTile(
-            leading: CircleAvatar(
-              backgroundImage: NetworkImage(profileController.profileImage.value),
-            ),
-            title: Text(names[index]),
-            subtitle: Text(messages[index]),
-          );
-        },
+    return _localUserJoined
+        ? AgoraVideoView(
+      controller: VideoViewController(
+        rtcEngine: _engine,
+        canvas: const VideoCanvas(uid: 0),
       ),
-    );
+    )
+        : const Center(child: CircularProgressIndicator());
   }
 
-  Widget _heartAnimation() {
-    final size = MediaQuery.of(context).size;
-    final hearts = List.generate(10, (_) => HeartAnim(
-      top: _random.nextInt(size.height.floor()).toDouble() % 200,
-      left: (_random.nextInt(70) + 20).toDouble(),
-      opacity: 0.5,
-    ));
-    return Container(
-      margin: EdgeInsets.only(top: 0.55, left: 0.65),
-      child: Column(children: hearts),
+  Widget _remoteVideo() {
+    return _remoteUid != null
+        ? AgoraVideoView(
+      controller: VideoViewController.remote(
+        rtcEngine: _engine,
+        canvas: VideoCanvas(uid: _remoteUid!),
+        connection: RtcConnection(channelId: widget.channelName),
+      ),
+    )
+        : const Text(
+      'Please wait for remote user to join',
+      textAlign: TextAlign.center,
     );
   }
 
@@ -243,7 +188,7 @@ class _HostState extends State<Host> {
         children: [
           _toolbarButton(_toggleMute, muted ? Icons.mic_off : Icons.mic, muted ? Colors.blue : Colors.white),
           _toolbarButton(_onCallEnd, Icons.call_end, Colors.redAccent),
-          _toolbarButton(_engine!.switchCamera, Icons.switch_camera, Colors.white),
+          _toolbarButton(_engine.switchCamera, Icons.switch_camera, Colors.white),
         ],
       ),
     );
@@ -262,30 +207,45 @@ class _HostState extends State<Host> {
 
   void _toggleMute() {
     setState(() => muted = !muted);
-    _engine?.muteLocalAudioStream(muted);
+    _engine.muteLocalAudioStream(muted);
   }
 
   Future<void> _onCallEnd() async {
-    await _engine?.leaveChannel();
-    await _checkUserExistence();
-  }
+    try {
+      // Leave the Agora channel
+      await _engine.leaveChannel();
 
-  Future<void> _checkUserExistence() async {
-    final doc = await FirebaseFirestore.instance.collection("Liveusers").doc(user!.uid).get();
-    if (doc.exists) {
-      await FirebaseFirestore.instance.collection("Liveusers").doc(user!.uid).delete();
+      // Remove user entry from Firestore if user is authenticated
+      if (user != null) {
+        await FirebaseFirestore.instance.collection("Liveusers").doc(user!.uid).delete();
+      }
+
+      // Pop the current screen and go back
+      if (mounted) {
+        Get.to(const HomePageUser());
+      }
+    } catch (e) {
+      debugPrint("Error ending call: $e");
+
+      // Optional: Show an error message if needed
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Error ending call: $e")),
+      );
     }
-    Get.offAll(() => const HomePage());
   }
 
-  void _triggerHeartAnimation() {
-    setState(() => heart = true);
-    _timer = Timer.periodic(const Duration(milliseconds: 125), (_) {
-      setState(() => heartAnimationHeight += _random.nextInt(20));
-    });
-    Timer(const Duration(seconds: 3), () {
-      _timer.cancel();
-      setState(() => heart = false);
-    });
+
+  Future<bool> _showExitDialog() async {
+    return await showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        content: const Text("Do you want to exit?"),
+        actions: [
+          TextButton(onPressed: () => Navigator.of(context).pop(false), child: const Text("No")),
+          TextButton(onPressed: _onCallEnd, child: const Text("Yes")),
+        ],
+      ),
+    );
   }
 }
+

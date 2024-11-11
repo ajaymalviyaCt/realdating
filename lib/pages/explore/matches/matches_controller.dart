@@ -30,7 +30,6 @@ class MatchessController extends GetxController {
      SharedPreferences prefs = await SharedPreferences.getInstance();
      var token = prefs.get('token');
      var user_id = prefs.getInt('user_id');
-
      var headers = {
        'Content-Type': 'application/x-www-form-urlencoded',
        'Authorization': 'Bearer $token'
@@ -52,6 +51,7 @@ class MatchessController extends GetxController {
        print(json.encode(response.data));
        matchessModel = MatchesModel.fromJson(response.data);
        isLoadig(false);
+       update();
      }
      else {
        print(response.statusMessage);
