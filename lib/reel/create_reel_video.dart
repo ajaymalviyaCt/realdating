@@ -1,8 +1,9 @@
+import 'dart:io';
+
 import 'package:camera/camera.dart';
 import 'package:realdating/reel/select_music.dart';
 import 'common_import.dart';
 //todo 0000000000000
-// import 'package:flutter_video_info/flutter_video_info.dart';
 import '../../../../main.dart';
 import 'create_reel_controller.dart';
 
@@ -156,6 +157,10 @@ class _CreateReelScreenState extends State<CreateReelScreen> with TickerProvider
     );
   }
 
+
+
+
+
   Widget _buildTopControls() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -178,15 +183,26 @@ class _CreateReelScreenState extends State<CreateReelScreen> with TickerProvider
               ignoreSafeArea: true,
             );
           },
-          child: Row(
-            children: [
-              if (_createReelController.selectedAudio.value != null)
-                Icon(Icons.music_note_outlined, color: AppColorConstants.mainTextColor),
-              Text(
-                _createReelController.selectedAudio.value?.name ?? selectMusicString.tr,
-                style: TextStyle(fontWeight: FontWeight.bold),
+          child: Container(
+            height:35,
+            width: 100,
+            decoration: BoxDecoration(
+                color:AppColorConstants.themeColor,
+                borderRadius: BorderRadius.circular(20)
+            ),
+            child: Center(
+              child: Row(
+                   mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  if (_createReelController.selectedAudio.value != null)
+                    Icon(Icons.music_note_outlined, color: AppColorConstants.mainTextColor),
+                  Text(
+                    _createReelController.selectedAudio.value?.name ?? selectMusicString.tr,
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                ],
               ),
-            ],
+            ),
           ),
         )),
         const SizedBox(width: 20),
@@ -223,6 +239,8 @@ class _CreateReelScreenState extends State<CreateReelScreen> with TickerProvider
       onTap: () {
         _createReelController.updateRecordingLength(duration);
         _initAnimation();
+        print('selected duration-----${_createReelController.recordingLength.value}');
+
       },
       child: Container(
         height: 30,
@@ -230,9 +248,9 @@ class _CreateReelScreenState extends State<CreateReelScreen> with TickerProvider
         decoration: BoxDecoration(
             shape: BoxShape.circle,
             color: _createReelController.recordingLength.value ==
-                30
-                ? AppColorConstants.backgroundColor
-                : AppColorConstants.themeColor),
+                duration
+                ? AppColorConstants.themeColor
+                : AppColorConstants.backgroundColor),
         child: Center(child: BodySmallText('${duration}s')),
       ),
     );
@@ -315,21 +333,49 @@ class _CreateReelScreenState extends State<CreateReelScreen> with TickerProvider
 //   }
 //
 //   _initAnimation() {
+//     /// Set animation based on selected recording length
 //     animationController = AnimationController(
 //         vsync: this,
-//         duration:
-//         Duration(seconds: _createReelController.recordingLength.value));
+//         duration: Duration(seconds: _createReelController.recordingLength.value));
 //     animationController!.addListener(() {
 //       setState(() {});
 //     });
-//     animationController!.addStatusListener((status) {
+//     animationController!.addStatusListener((status) async {
 //       if (status == AnimationStatus.completed) {
-//         //todo 0000000000000
-//
-//         // stopRecording();
+//         await stopRecording(); // Stop recording and upload
 //       }
 //     });
 //   }
+//
+//   _recordVideo() async {
+//     if (_createReelController.isRecording.value) {
+//       await _createReelController.stopRecording(); // Stop recording if it's already in progress
+//     } else {
+//       startRecording(); // Start recording and begin the animation
+//       animationController!.forward(); // Start the progress animation
+//     }
+//   }
+//
+//   stopRecording() async {
+//     animationController?.reset();
+//
+//     final file = await controller!.stopVideoRecording();
+//     _createReelController.stopRecording();
+//
+//     /// Upload the recorded video
+//     await uploadVideo(File(file.path));
+//   }
+//   void startRecording() async {
+//     await controller!.prepareForVideoRecording();
+//     await controller!.startVideoRecording();
+//     _createReelController.startRecording();
+//
+//     /// Start playing audio if selected
+//     if (_createReelController.croppedAudioFile != null) {
+//       _createReelController.playAudioFile(_createReelController.croppedAudioFile!);
+//     }
+//   }
+//
 //
 //   _initCamera() async {
 //     final front =
@@ -385,30 +431,18 @@ class _CreateReelScreenState extends State<CreateReelScreen> with TickerProvider
 //                         children: [
 //                           Container(
 //                               color: AppColorConstants.themeColor,
-//                               child:
-//                               const ThemeIconWidget(ThemeIcon.close).p4)
-//                               .circular
-//                               .ripple(() {
-//                             Get.back();
+//                               child: const ThemeIconWidget(ThemeIcon.close).p4).circular.ripple(() {
+//                                Get.back();
 //                           }),
 //                           Obx(() => Container(
 //                               color: AppColorConstants.themeColor,
 //                               child: Row(
 //                                 children: [
-//                                   if (_createReelController
-//                                       .selectedAudio.value !=
-//                                       null)
-//                                     ThemeIconWidget(
-//                                       ThemeIcon.music,
-//                                       color: AppColorConstants.mainTextColor,
-//                                     ),
+//                                   if (_createReelController.selectedAudio.value != null)
+//                                     ThemeIconWidget(ThemeIcon.music, color: AppColorConstants.mainTextColor),
 //                                   BodyLargeText(
-//                                     _createReelController
-//                                         .selectedAudio.value !=
-//                                         null
-//                                         ? _createReelController
-//                                         .selectedAudio.value!.name
-//                                         : selectMusicString.tr,
+//                                     _createReelController.selectedAudio.value != null
+//                                         ? _createReelController.selectedAudio.value!.name : selectMusicString.tr,
 //                                     weight: TextWeight.bold,
 //                                   ),
 //                                 ],
@@ -416,13 +450,11 @@ class _CreateReelScreenState extends State<CreateReelScreen> with TickerProvider
 //                                   left: DesignConstants.horizontalPadding,
 //                                   right: DesignConstants.horizontalPadding,
 //                                   top: 8,
-//                                   bottom: 8))
-//                               .circular).ripple(() {
+//                                   bottom: 8)).circular).ripple(() {
 //                             Get.bottomSheet(
 //                               SelectMusic(
 //                                 selectedAudioCallback: (croppedAudio, music) {
-//                                   _createReelController
-//                                       .setCroppedAudio(croppedAudio);
+//                                   _createReelController.setCroppedAudio(croppedAudio);
 //                                   _initCamera();
 //                                 },
 //                                 duration:
@@ -432,9 +464,7 @@ class _CreateReelScreenState extends State<CreateReelScreen> with TickerProvider
 //                               ignoreSafeArea: true,
 //                             );
 //                           }),
-//                           const SizedBox(
-//                             width: 20,
-//                           ),
+//                           const SizedBox(width: 20),
 //                         ],
 //                       ),
 //                     ],
@@ -485,10 +515,8 @@ class _CreateReelScreenState extends State<CreateReelScreen> with TickerProvider
 //                           },
 //                           child: Icon(
 //                             _createReelController.flashSetting.value
-//                                 ? Icons.flash_on
-//                                 : Icons.flash_off,
-//                             size: 30,
-//                             color: AppColorConstants.themeColor,
+//                                 ? Icons.flash_on : Icons.flash_off,
+//                             size: 30, color: AppColorConstants.themeColor,
 //                           ),
 //                         )),
 //                         const SizedBox(
@@ -504,10 +532,8 @@ class _CreateReelScreenState extends State<CreateReelScreen> with TickerProvider
 //                             width: 30,
 //                             decoration: BoxDecoration(
 //                                 shape: BoxShape.circle,
-//                                 color: _createReelController
-//                                     .recordingLength.value ==
-//                                     15
-//                                     ? AppColorConstants.themeColor
+//                                 color: _createReelController.recordingLength.value ==
+//                                     15 ? AppColorConstants.themeColor
 //                                     : AppColorConstants.backgroundColor),
 //                             child: const Center(child: BodySmallText('15s')),
 //                           ),
@@ -580,14 +606,18 @@ class _CreateReelScreenState extends State<CreateReelScreen> with TickerProvider
 //     );
 //   }
 //
-//   _recordVideo() async {
-//     if (_createReelController.isRecording.value) {
-//       ////todo 0000000000000
-//       //   stopRecording();
-//     } else {
-//       startRecording();
-//     }
-//   }
+//
+//
+//
+//
+//   // _recordVideo() async {
+//   //   if (_createReelController.isRecording.value) {
+//   //     ////todo 0000000000000
+//   //     //   stopRecording();
+//   //   } else {
+//   //     startRecording();
+//   //   }
+//   // }
 //
 //   ////todo 0000000000000
 //
@@ -613,14 +643,14 @@ class _CreateReelScreenState extends State<CreateReelScreen> with TickerProvider
 //   //       _createReelController.croppedAudioFile, file);
 //   // }
 //
-//   void startRecording() async {
-//     await controller!.prepareForVideoRecording();
-//     await controller!.startVideoRecording();
-//     _createReelController.startRecording();
-//     if (_createReelController.croppedAudioFile != null) {
-//       _createReelController
-//           .playAudioFile(_createReelController.croppedAudioFile!);
-//     }
-//     // startRecordingTimer();
-//   }
+//   // void startRecording() async {
+//   //   await controller!.prepareForVideoRecording();
+//   //   await controller!.startVideoRecording();
+//   //   _createReelController.startRecording();
+//   //   if (_createReelController.croppedAudioFile != null) {
+//   //     _createReelController
+//   //         .playAudioFile(_createReelController.croppedAudioFile!);
+//   //   }
+//   //   // startRecordingTimer();
+//   // }
 // }

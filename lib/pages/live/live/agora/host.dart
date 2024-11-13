@@ -3,6 +3,7 @@ import 'package:agora_rtc_engine/agora_rtc_engine.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:realdating/chat/api/apis.dart';
 import 'package:realdating/pages/live/live/constant/constant.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -32,6 +33,7 @@ class _HostState extends State<Host> {
   @override
   void initState() {
     super.initState();
+    print('User data 0 --------: $user');
     getToken();
     initializeAgora();
     _updateFirestore();
@@ -112,14 +114,15 @@ class _HostState extends State<Host> {
 
 
   Future<void> _updateFirestore() async {
+    print('User data 1--------: $user');
     if (user != null) {
-      await FirebaseFirestore.instance.collection("Liveusers").doc(user!.uid).set({
+      await FirebaseFirestore.instance.collection("Liveusers").doc(user_uid).set({
         "channelname": widget.channelName,
         "username": userName,
-        "userid": user?.uid,
+        "userid":user_uid,
         "userimage": user?.photoURL,
       });
-      print('User name: $userName');
+
     }
   }
 
@@ -127,16 +130,23 @@ class _HostState extends State<Host> {
     await _engine.leaveChannel();
     await _engine.release();
 
-    if (user != null) {
-      await FirebaseFirestore.instance.collection("Liveusers").doc(user!.uid).delete();
+    try {
+      if (user != null) {
+        await FirebaseFirestore.instance.collection("Liveusers").doc(user!.uid).delete();
+      }
+    } catch (e) {
+      debugPrint("Error removing user from Firestore: $e");
     }
-    setState(() {});
+
+    if (mounted) setState(() {});
   }
+
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () => _showExitDialog(),
+    return PopScope(
+      canPop:false,
+      onPopInvokedWithResult: (didPop, result) => _showExitDialog(),
       child: Scaffold(
         body: Center(
           child: loading
@@ -242,10 +252,17 @@ class _HostState extends State<Host> {
         content: const Text("Do you want to exit?"),
         actions: [
           TextButton(onPressed: () => Navigator.of(context).pop(false), child: const Text("No")),
-          TextButton(onPressed: _onCallEnd, child: const Text("Yes")),
+          TextButton(
+            onPressed: () async {
+              await _onCallEnd();
+              Navigator.of(context).pop(true); // Return true to close the dialog and dispose.
+            },
+            child: const Text("Yes"),
+          ),
         ],
       ),
     );
   }
+
 }
 

@@ -7,12 +7,11 @@ import 'package:flutter/material.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:realdating/chat/api/apis.dart';
+import '../../../../zegoLive/zego.dart';
 import '../../../dash_board_page.dart';
 import '../agora/audience.dart';
-import '../agora/host.dart';
 import '../constant/liveusercard.dart';
-   // Host screen import
+
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -22,7 +21,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  List<Live> liveUsers = [];
+  List<LiveUser> liveUsers = [];
   User? currentUser = FirebaseAuth.instance.currentUser;
   bool isDeviceConnected = false;
   StreamSubscription<ConnectivityResult>? connectivitySubscription;
@@ -30,18 +29,19 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    checkInitialConnectivity();
-    listenToConnectivityChanges();
+    setupConnectivityListener();
     fetchLiveUsers();
     removeExistingUserIfNeeded();
+
+    print('live users data------------${liveUsers}');
+
   }
 
-  void checkInitialConnectivity() async {
-    isDeviceConnected = await Connectivity().checkConnectivity() != ConnectivityResult.none;
-    setState(() {});
-  }
-
-  void listenToConnectivityChanges() {
+  void setupConnectivityListener() {
+    Connectivity().checkConnectivity().then((result) {
+      isDeviceConnected = result != ConnectivityResult.none;
+      setState(() {});
+    });
     connectivitySubscription = Connectivity().onConnectivityChanged.listen((ConnectivityResult result) {
       isDeviceConnected = result != ConnectivityResult.none;
       setState(() {});
@@ -51,21 +51,42 @@ class _HomePageState extends State<HomePage> {
   void fetchLiveUsers() {
     FirebaseFirestore.instance.collection("Liveusers").snapshots().listen((snapshot) {
       setState(() {
-        liveUsers = snapshot.docs.map((doc) => Live.fromDocument(doc)).toList();
+        liveUsers = snapshot.docs.map((doc) => LiveUser.fromDocument(doc)).toList();
       });
     });
   }
 
   Future<void> removeExistingUserIfNeeded() async {
-    try {
+    if (currentUser != null) {
       bool exists = (await FirebaseFirestore.instance.collection("Liveusers").doc(currentUser!.uid).get()).exists;
       if (exists) {
         await FirebaseFirestore.instance.collection("Liveusers").doc(currentUser!.uid).delete();
       }
-    } catch (e) {
-      Get.snackbar("Error", e.toString(), snackPosition: SnackPosition.BOTTOM);
     }
   }
+
+  // Future<void> goLive() async {
+  //   if (!isDeviceConnected) {
+  //     Get.snackbar("Error", "No internet connection", snackPosition: SnackPosition.BOTTOM);
+  //     return;
+  //   }
+  //
+  //   Map<Permission, PermissionStatus> statuses = await [Permission.camera, Permission.microphone].request();
+  //   if (statuses[Permission.camera]!.isGranted && statuses[Permission.microphone]!.isGranted) {
+  //     String channelName = generateRandomString(8);
+  //
+  //     Get.offAll(() => LivePage(
+  //       liveID: channelName,
+  //       isHost: true,
+  //       userName: currentUser!.displayName ?? 'Unknown User',
+  //       userId: currentUser!.uid,
+  //     ));
+  //   } else {
+  //     Get.snackbar("Permission Error", "Camera and Microphone permissions are required to go live",
+  //         snackPosition: SnackPosition.BOTTOM);
+  //   }
+  // }
+
 
   Future<void> goLive() async {
     if (!isDeviceConnected) {
@@ -76,12 +97,27 @@ class _HomePageState extends State<HomePage> {
     Map<Permission, PermissionStatus> statuses = await [Permission.camera, Permission.microphone].request();
     if (statuses[Permission.camera]!.isGranted && statuses[Permission.microphone]!.isGranted) {
       String channelName = generateRandomString(8);
-      Get.offAll(() => Host(channelName: channelName, userId:user_uid));
+
+      /// Add live user to Firestore------
+      await FirebaseFirestore.instance.collection("Liveusers").doc(currentUser!.uid).set({
+        'username': currentUser!.displayName ?? 'Unknown User',
+        'userimage': currentUser!.photoURL ?? 'https://www.yiwubazaar.com/resources/assets/images/default-product.jpg',
+        'channelname': channelName,
+        'userid': currentUser!.uid,
+      });
+
+      Get.offAll(() => LivePage(
+        liveID: channelName,
+        isHost: true,
+        userName: currentUser!.displayName ?? 'Unknown User',
+        userId: currentUser!.uid,
+      ));
     } else {
       Get.snackbar("Permission Error", "Camera and Microphone permissions are required to go live",
           snackPosition: SnackPosition.BOTTOM);
     }
   }
+
 
   String generateRandomString(int length) {
     const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -138,19 +174,19 @@ class _HomePageState extends State<HomePage> {
     return ListView.builder(
       itemCount: liveUsers.length,
       itemBuilder: (context, index) {
-        Live liveUser = liveUsers[index];
+        LiveUser liveUser = liveUsers[index];
         return buildLiveUserTile(liveUser);
       },
     );
   }
 
-  Widget buildLiveUserTile(Live liveUser) {
+  Widget buildLiveUserTile(LiveUser liveUser) {
     return Container(
       margin: const EdgeInsets.all(10),
       child: InkWell(
         onTap: () => Get.offAll(() => Audience(channelName: liveUser.channelName, userId: liveUser.userId)),
         child: LiveUserCard(
-          broadcasterName: liveUser.username,
+          broadcasterName: liveUser.userName,
           image: liveUser.image,
         ),
       ),
@@ -158,21 +194,28 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
-class Live {
-  final String username;
+class LiveUser {
+  final String userName;
   final String image;
   final String channelName;
   final String userId;
 
-  Live({required this.username, required this.image, required this.channelName, required this.userId});
+  LiveUser({
+    required this.userName,
+    required this.image,
+    required this.channelName,
+    required this.userId,
+  });
 
-  factory Live.fromDocument(DocumentSnapshot doc) {
+  factory LiveUser.fromDocument(DocumentSnapshot doc) {
     var data = doc.data() as Map<String, dynamic>;
-    return Live(
-      username: data['username']??'ajay',
+    return LiveUser(
+      userName: data['username'] ?? 'Not found',
       image: data['userimage'] ?? "https://www.yiwubazaar.com/resources/assets/images/default-product.jpg",
       channelName: data['channelname'],
       userId: data['userid'],
     );
   }
 }
+
+

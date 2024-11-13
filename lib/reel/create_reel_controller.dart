@@ -168,7 +168,7 @@ class CreateReelController extends GetxController {
     update();
   }
 
-  void stopRecording() {
+  stopRecording() {
     endDateTime = DateTime.now();
     isRecording.value = false;
     stopPlayingAudio();
@@ -352,8 +352,11 @@ class CreateReelController extends GetxController {
   }
 }
 
+
+
+
 Future<void> uploadVideo(File videoFile) async {
-print("sdfghjgfds");
+
   var headers = {
     'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImlkIjo1OX0sImlhdCI6MTY5ODc0NTMyNH0.DArIe45knZvCQbmukVQ0dV4CpQ_0OLRvr2DMHoO-p1k'
   };
@@ -378,7 +381,7 @@ print("sdfghjgfds");
         backgroundColor: Colors.black,
         textColor: Colors.white,
       );
-      print('Video uploaded successfully');
+      print('Video uploaded successfully-----${response}');
       // Handle success, maybe parse response
     } else {
       print('Error uploading video: ${response.statusCode}');
