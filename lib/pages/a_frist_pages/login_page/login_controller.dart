@@ -149,7 +149,6 @@
 //
 // }
 
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -169,7 +168,6 @@ import '../hobbies/hobbys.dart';
 import '../interest/interest.dart';
 import '../location_enable/loctaion.dart';
 
-
 class LoginController extends GetxController {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
@@ -183,14 +181,6 @@ class LoginController extends GetxController {
   void onReady() {
     super.onReady();
   }
-
-
-
-
-
-
-
-
 
   // loginwixxxthEmail() async {
   //   isLoadig(true);
@@ -280,15 +270,19 @@ class LoginController extends GetxController {
   // }
   loginWithEmail() async {
     isLoadig(true);
-    final fcmToken = await FirebaseMessaging.instance.getToken();
+    String? fcmToken;
+
     try {
-      var headers = {
-        'Content-Type': 'application/x-www-form-urlencoded'
-      };
+       fcmToken = await FirebaseMessaging.instance.getToken();
+    } catch (e) {
+      // TODO
+    }
+    try {
+      var headers = {'Content-Type': 'application/x-www-form-urlencoded'};
       var data = {
         'email': emailController.text.trim(),
         'password': passwordController.text.trim(),
-        'fcm_token': fcmToken.toString()
+        'fcm_token': (fcmToken??"").toString()
       };
       var dio = Dio();
       var response = await dio.request(
@@ -303,16 +297,16 @@ class LoginController extends GetxController {
       if (response.statusCode == 200) {
         isLoadig(false);
         print("pramod${response.data}");
-        Fluttertoast.showToast(msg:response.data["message"]);
+        Fluttertoast.showToast(msg: response.data["message"]);
         var status = response.data["status"];
 
-        if("$status" == "200"){
+        if ("$status" == "200") {
           var profile_status = response.data["user_info"]["profile_status"];
           String token = response.data["token"];
           int user_id = response.data["user_info"]["id"];
           SharedPreferences prefs = await SharedPreferences.getInstance();
-          prefs.setString("token",token);
-          prefs.setInt("user_id",user_id);
+          prefs.setString("token", token);
+          prefs.setInt("user_id", user_id);
           if (profile_status == 0) {
             Get.offAll(() => SelectGenderPage());
           }
@@ -329,19 +323,16 @@ class LoginController extends GetxController {
             Get.offAll(() => const HeightDOBpage());
           }
           if (profile_status == 5) {
-            prefs.setBool("isLogin",true);
+            prefs.setBool("isLogin", true);
             Get.offAll(() => LocationScreen());
           }
           if (profile_status == 6) {
-            prefs.setBool("isLogin",true);
+            prefs.setBool("isLogin", true);
             Get.offAll(() => const DashboardPage());
           }
         }
-
-      }
-      else {
-
-        Fluttertoast.showToast(msg:response.data["message"]);
+      } else {
+        Fluttertoast.showToast(msg: response.data["message"]);
         print(response.statusMessage);
       }
     } catch (e) {
@@ -360,36 +351,34 @@ class LoginController extends GetxController {
     // DialogHelper.snackbar(msg);
   }
 
-
-
-
   Future signIn() async {
     try {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
+      await FirebaseAuth.instance
+          .signInWithEmailAndPassword(
         email: emailController.text.trim(),
         password: passwordController.text,
-      ).then((value) {
+      )
+          .then((value) {
         getCurrentUserProfile();
       });
     } catch (e) {
       print("FirebaseAuth errorr=====>$e");
     }
   }
-  Future<void> getCurrentUserProfile() async{
-    User? user=FirebaseAuth.instance.currentUser;
-    try
-    {
-      await FirebaseFirestore.instance.collection('allusers').doc(user!.uid).get().then((value) {
+
+  Future<void> getCurrentUserProfile() async {
+    User? user = FirebaseAuth.instance.currentUser;
+    try {
+      await FirebaseFirestore.instance
+          .collection('allusers')
+          .doc(user!.uid)
+          .get()
+          .then((value) {
         user.updateDisplayName(value.data()!['name']);
         // user.updatePhotoURL(value.data()!['image']);
         user.updateEmail(value.data()!['email']);
         // Get.offAll(()=>const HomePage());
       });
-    }
-    catch(e) {
-
-    }
+    } catch (e) {}
   }
-
-
 }

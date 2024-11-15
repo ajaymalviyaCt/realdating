@@ -352,9 +352,6 @@ class CreateReelController extends GetxController {
   }
 }
 
-
-
-
 Future<void> uploadVideo(File videoFile) async {
 
   var headers = {
