@@ -73,7 +73,7 @@ class _LoginScreenPageState extends State<LoginScreenPage> {
                       SizedBox(height: 14.h,),
                       customTextCommon(text: "Sign in to continue", fSize: 17, fWeight: FontWeight.w400, lineHeight: 17, color: Colors.white,),
                       SizedBox(height: 30.h,),
-                      CustumTextField(controller: loginController.emailController, validator: validateEmailField, hintText: 'Email',),
+                      CustumTextField(controller: loginController.emailController, validator: validateEmailField, hintText: 'Email',keyboardType: TextInputType.emailAddress,),
                       SizedBox(height: 18.h,),
                       Obx(
                         () => CustumTextField(
@@ -81,6 +81,7 @@ class _LoginScreenPageState extends State<LoginScreenPage> {
                             loginController.seePassword.value =
                                 !loginController.seePassword.value;
                           },
+                          keyboardType: TextInputType.emailAddress,
                           controller: loginController.passwordController,
                           validator: validatePassword,
                           suffixIconn: loginController.seePassword == true
