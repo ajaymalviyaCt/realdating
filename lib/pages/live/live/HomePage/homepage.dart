@@ -7,7 +7,10 @@ import 'package:flutter/material.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
-import '../../../../zegoLive/zego.dart';
+import 'package:realdating/chat/api/apis.dart';
+import 'package:zego_uikit_prebuilt_live_streaming/zego_uikit_prebuilt_live_streaming.dart';
+
+import '../../../../zego_live_stream_chat/live_page.dart';
 import '../../../dash_board_page.dart';
 import '../agora/audience.dart';
 import '../constant/liveusercard.dart';
@@ -48,13 +51,17 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
+
   void fetchLiveUsers() {
     FirebaseFirestore.instance.collection("Liveusers").snapshots().listen((snapshot) {
       setState(() {
         liveUsers = snapshot.docs.map((doc) => LiveUser.fromDocument(doc)).toList();
+        print('Live users loaded: $liveUsers');
       });
     });
   }
+
+
 
   Future<void> removeExistingUserIfNeeded() async {
     if (currentUser != null) {
@@ -65,27 +72,7 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  // Future<void> goLive() async {
-  //   if (!isDeviceConnected) {
-  //     Get.snackbar("Error", "No internet connection", snackPosition: SnackPosition.BOTTOM);
-  //     return;
-  //   }
-  //
-  //   Map<Permission, PermissionStatus> statuses = await [Permission.camera, Permission.microphone].request();
-  //   if (statuses[Permission.camera]!.isGranted && statuses[Permission.microphone]!.isGranted) {
-  //     String channelName = generateRandomString(8);
-  //
-  //     Get.offAll(() => LivePage(
-  //       liveID: channelName,
-  //       isHost: true,
-  //       userName: currentUser!.displayName ?? 'Unknown User',
-  //       userId: currentUser!.uid,
-  //     ));
-  //   } else {
-  //     Get.snackbar("Permission Error", "Camera and Microphone permissions are required to go live",
-  //         snackPosition: SnackPosition.BOTTOM);
-  //   }
-  // }
+
 
 
   Future<void> goLive() async {
@@ -99,12 +86,19 @@ class _HomePageState extends State<HomePage> {
       String channelName = generateRandomString(8);
 
       /// Add live user to Firestore------
-      await FirebaseFirestore.instance.collection("Liveusers").doc(currentUser!.uid).set({
-        'username': currentUser!.displayName ?? 'Unknown User',
-        'userimage': currentUser!.photoURL ?? 'https://www.yiwubazaar.com/resources/assets/images/default-product.jpg',
+      await FirebaseFirestore.instance.collection("Liveusers").doc(user_uid).set({
+        'username':currentUser?.displayName,
+        'userimage': 'https://www.yiwubazaar.com/resources/assets/images/default-product.jpg',
         'channelname': channelName,
-        'userid': currentUser!.uid,
+        'userid':currentUser?.uid,
       });
+
+      if (ZegoUIKitPrebuiltLiveStreamingController().minimize.isMinimizing) {
+        /// when the application is minimized (in a minimized state),
+        /// disable button clicks to prevent multiple PrebuiltLiveStreaming components from being created.
+        return;
+      }
+
 
       Get.offAll(() => LivePage(
         liveID: channelName,
@@ -180,11 +174,31 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  // Widget buildLiveUserTile(LiveUser liveUser) {
+  //   return Container(
+  //     margin: const EdgeInsets.all(10),
+  //     child: InkWell(
+  //       child: LiveUserCard(
+  //         broadcasterName: liveUser.userName,
+  //         image: liveUser.image,
+  //       ),
+  //     ),
+  //   );
+  // }
+
+
   Widget buildLiveUserTile(LiveUser liveUser) {
     return Container(
       margin: const EdgeInsets.all(10),
       child: InkWell(
-        onTap: () => Get.offAll(() => Audience(channelName: liveUser.channelName, userId: liveUser.userId)),
+        onTap: () {
+          Get.to(() => LivePage(
+            liveID: liveUser.channelName,
+            isHost: true,
+            userName: liveUser.userName,
+            userId: liveUser.userId,
+          ));
+        },
         child: LiveUserCard(
           broadcasterName: liveUser.userName,
           image: liveUser.image,
@@ -192,6 +206,8 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
+
+
 }
 
 class LiveUser {
@@ -220,7 +236,7 @@ class LiveUser {
 
 
 
-//pramod
+
 
 
 

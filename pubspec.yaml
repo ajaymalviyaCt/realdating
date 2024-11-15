@@ -117,8 +117,13 @@ dependencies:
 
 #  agora_rtc_engine: ^5.0.0
   agora_rtc_engine: ^6.0.0
-  zego_uikit_prebuilt_live_streaming: ^3.13.5
+
   agora_rtm: ^1.5.0
+
+
+  zego_uikit: ^2.28.0-beta.1
+  zego_uikit_signaling_plugin: ^2.8.6
+  zego_uikit_prebuilt_live_streaming: ^3.14.0-beta.1
 
   velocity_x: ^4.2.1
   share_plus: ^10.1.0

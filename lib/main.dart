@@ -12,7 +12,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:realdating/welcome_screen/splashscreens.dart';
-import 'package:realdating/zegoLive/zego.dart';
 // import 'package:realdating/reel/common_import.dart';
 // import 'package:realdating/welcome_screen/splashscreens.dart';
 import 'firebase_options.dart';
@@ -132,7 +131,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
         return GetMaterialApp(
          // routes: {'/notification': (context) =>  MyAllDatesPage()},
           debugShowCheckedModeBanner: false,
-          title: 'Flutter Demo',
+          title: 'real Dating',
           theme: ThemeData(
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.redAccent),
             useMaterial3: true,
@@ -146,9 +145,6 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
 }
 
 
-//pramod
-//pramod
-//pramod
-//pramod
+
 
 
