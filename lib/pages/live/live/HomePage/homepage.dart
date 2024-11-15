@@ -25,7 +25,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   List<LiveUser> liveUsers = [];
-  User? currentUser = FirebaseAuth.instance.currentUser;
+  User? currentUser ;
   bool isDeviceConnected = false;
   StreamSubscription<ConnectivityResult>? connectivitySubscription;
 
@@ -73,8 +73,6 @@ class _HomePageState extends State<HomePage> {
   }
 
 
-
-
   Future<void> goLive() async {
     if (!isDeviceConnected) {
       Get.snackbar("Error", "No internet connection", snackPosition: SnackPosition.BOTTOM);
@@ -94,18 +92,16 @@ class _HomePageState extends State<HomePage> {
       });
 
       if (ZegoUIKitPrebuiltLiveStreamingController().minimize.isMinimizing) {
-        /// when the application is minimized (in a minimized state),
-        /// disable button clicks to prevent multiple PrebuiltLiveStreaming components from being created.
         return;
       }
 
-
-      Get.offAll(() => LivePage(
-        liveID: channelName,
+      jumpToLivePage(
+        context,
+        liveID:'12345',
         isHost: true,
-        userName: currentUser!.displayName ?? 'Unknown User',
-        userId: currentUser!.uid,
-      ));
+      );
+
+
     } else {
       Get.snackbar("Permission Error", "Camera and Microphone permissions are required to go live",
           snackPosition: SnackPosition.BOTTOM);
@@ -126,6 +122,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    currentUser=FirebaseAuth.instance.currentUser;
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -192,12 +189,7 @@ class _HomePageState extends State<HomePage> {
       margin: const EdgeInsets.all(10),
       child: InkWell(
         onTap: () {
-          Get.to(() => LivePage(
-            liveID: liveUser.channelName,
-            isHost: true,
-            userName: liveUser.userName,
-            userId: liveUser.userId,
-          ));
+          Get.to(() => const LivePage(liveID:'12345', isHost: false,));
         },
         child: LiveUserCard(
           broadcasterName: liveUser.userName,
@@ -234,11 +226,15 @@ class LiveUser {
   }
 }
 
-
-
-
-
-
+void jumpToLivePage(BuildContext context,
+    {required String liveID, required bool isHost}) {
+  Navigator.push(
+    context,
+    MaterialPageRoute(
+      builder: (context) => LivePage(liveID: liveID, isHost: isHost),
+    ),
+  );
+}
 
 
 

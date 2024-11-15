@@ -116,9 +116,9 @@ dependencies:
   #  geocoder2: ^1.4.0
 
 #  agora_rtc_engine: ^5.0.0
-  agora_rtc_engine: ^6.0.0
-
-  agora_rtm: ^1.5.0
+#  agora_rtc_engine: ^6.0.0
+#
+#  agora_rtm: ^1.5.0
 
 
   zego_uikit: ^2.28.0-beta.1

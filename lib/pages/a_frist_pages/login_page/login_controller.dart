@@ -184,6 +184,14 @@ class LoginController extends GetxController {
     super.onReady();
   }
 
+
+
+
+
+
+
+
+
   // loginwixxxthEmail() async {
   //   isLoadig(true);
   //   final fcmToken = await FirebaseMessaging.instance.getToken();

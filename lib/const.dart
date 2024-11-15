@@ -10,23 +10,22 @@ import 'package:hexcolor/hexcolor.dart';
 
 
 
-String BASE_URL='http://44.197.223.72:4000/';
-String BASE_URL_img_upload='http://44.197.223.72/assets/uploads/';
-String BASE_URL_img_home='http://44.197.223.72/assets/';
-String loginapi='login';
-String signupapi='signup';
-String verifyArtistapi='verifyArtist';
-String forgetPasswordapi='forgetPassword';
-String resetPasswordapi='resetPassword';
-String userProfileapi='userProfile';
-String editProfileapi='editProfile';
-String allartist='allArtist';
-String addFavouriteArtistapi='addFavouriteArtist';
-String homePageapi='homePage';
-String getSongsOfArtistapi='getSongsOfArtist';
-String getSongsOfGenreapi='getSongsOfGenre';
-String getSongsOfAlbumapi='getSongsOfAlbum';
-String getSongsOfMoodapi='getSongsOfMood';
+// String BASE_URL='http://44.197.223.72:4000/';
+// String BASE_URL_img_upload='http://44.197.223.72/assets/uploads/';
+// String BASE_URL_img_home='http://44.197.223.72/assets/';
+// String signupapi='signup';
+// String verifyArtistapi='verifyArtist';
+// String forgetPasswordapi='forgetPassword';
+// String resetPasswordapi='resetPassword';
+// String userProfileapi='userProfile';
+// String editProfileapi='editProfile';
+// String allartist='allArtist';
+// String addFavouriteArtistapi='addFavouriteArtist';
+// String homePageapi='homePage';
+// String getSongsOfArtistapi='getSongsOfArtist';
+// String getSongsOfGenreapi='getSongsOfGenre';
+// String getSongsOfAlbumapi='getSongsOfAlbum';
+// String getSongsOfMoodapi='getSongsOfMood';
 
 
 

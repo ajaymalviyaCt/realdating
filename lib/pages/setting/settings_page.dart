@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:realdating/welcome_screen/optionButton.dart';
@@ -12,6 +13,7 @@ import '../invite_friends/invite_friend_page.dart';
 import '../profile/profile_controller.dart';
 import '../support.dart';
 
+
 class SettingsPage extends StatefulWidget {
   SettingsPage({
     super.key,
@@ -23,6 +25,55 @@ class SettingsPage extends StatefulWidget {
 
 class _SettingsPageState extends State<SettingsPage> {
   LoginController loginController = Get.put(LoginController());
+
+
+
+  Future<void> deleteAccount() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var token = prefs.get('token');
+    try {
+      // Display loading indicator
+      Get.dialog(
+        const Center(child: CircularProgressIndicator()),
+        barrierDismissible: false,
+      );
+
+      // Define headers and API endpoint
+      var headers = {
+        'Authorization':
+        'Bearer $token'
+      };
+      var dio = Dio();
+      var response = await dio.request(
+        'https://forreal.net:4000/users/delete_User',
+        options: Options(
+          method: 'POST',
+          headers: headers,
+        ),
+      );
+
+      Get.back(); // Remove loading dialog
+
+      if (response.statusCode == 200) {
+        // Handle successful deletion
+        // await logoutUser();
+        Get.offAll(() => const OptionScreen()); // Redirect to login screen
+        Get.snackbar("Account Deleted", "Your account has been successfully deleted.",
+            backgroundColor: Colors.green, colorText: Colors.white);
+      } else {
+        // Handle API error
+      //  showErrorDialog("Failed to delete account: ${response.statusMessage}");
+      }
+    } catch (e) {
+      Get.back(); // Remove loading dialog in case of error
+    //  showErrorDialog("An error occurred: ${e.toString()}");
+    }
+  }
+
+
+
+
+
 
   showAlertDialog(BuildContext context) {
     Widget cancelButton = TextButton(
@@ -59,6 +110,45 @@ class _SettingsPageState extends State<SettingsPage> {
       },
     );
   }
+
+
+
+  deleteAccountAlertDialog(BuildContext context) {
+    Widget cancelButton = TextButton(
+      child: const Text("Delete"),
+      onPressed: () async {
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        prefs.setBool("isLogin", false);
+        loginController.passwordController.clear();
+        loginController.emailController.clear();
+        Get.offAll(()=>const OptionScreen());
+      },
+    );
+    Widget continueButton = TextButton(
+      child: const Text("Cancel"),
+      onPressed: () {
+        Navigator.pop(context);
+      },
+    );
+
+    AlertDialog alert = AlertDialog(
+      title: const Text("Delete"),
+      content: const Text("Are you sure, do you want to Delete Account?"),
+      actions: [
+        cancelButton,
+        continueButton,
+      ],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+
 
   ProfileController profileController = Get.put(ProfileController());
 
@@ -189,6 +279,38 @@ class _SettingsPageState extends State<SettingsPage> {
                 ),
               ),
             ),
+
+
+            const SizedBox(
+              height: 20,
+            ),
+            InkWell(
+              onTap: () => deleteAccountAlertDialog(context),
+              child: Container(
+                height: 54,
+                width: MediaQuery.of(context).size.width,
+                decoration: BoxDecoration(
+                  color: const Color(0xffEDEDED),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: const Row(
+                  children: [
+                    SizedBox(width: 20),
+                    Icon(Icons.delete, color: Colors.red),
+                    SizedBox(width: 15),
+                    Text(
+                      "Delete Account",
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.red,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+
           ],
         ),
       ),
