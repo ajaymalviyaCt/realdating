@@ -20,7 +20,7 @@
     <application
         android:label="realDating"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/launcher_icon">
         <meta-data android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDZe_WAS5-_o4EDqwuZtJms9ywovof4BkM"/>
 
