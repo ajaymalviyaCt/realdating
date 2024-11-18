@@ -74,6 +74,13 @@ class _HomePageState extends State<HomePage> {
 
 
   Future<void> goLive() async {
+    print("dlskajf");
+    Permission.microphone.request().then((value) {
+      print(value);
+    },);Permission.camera.request().then((value) {
+      print(value);
+    },);
+    // return;
     if (!isDeviceConnected) {
       Get.snackbar("Error", "No internet connection", snackPosition: SnackPosition.BOTTOM);
       return;
