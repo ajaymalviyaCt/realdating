@@ -19,6 +19,8 @@ class CreateReelController extends GetxController {
   // Method to toggle flash
   void toggleFlash() {
   flashSetting.value = !flashSetting.value;
+  update();
+  print('flash light-------${flashSetting.value }');
   }
 
 
@@ -348,7 +350,6 @@ class CreateReelController extends GetxController {
 
   void updateRecordingLength(int recordingTime) {
     recordingLength.value = recordingTime;
-    update();
   }
 }
 

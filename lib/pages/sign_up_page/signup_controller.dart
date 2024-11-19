@@ -11,6 +11,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../chat/models/chat_user.dart';
 import '../../consts/app_urls.dart';
 import '../../services/base_client01.dart';
+import '../a_frist_pages/login_page/login.dart';
 import '../otp_page/otp_screen.dart';
 
 class  SignUpController extends GetxController {
@@ -55,7 +56,7 @@ clearData(){return {
   }
 
   signUpfunction()async{
-    print("loginwithEmail");
+
     isLoadig(true);
     final response = await BaseClient01().post(Appurls.signUp,{
       'username': '${usernameController.value.text}',
@@ -66,6 +67,7 @@ clearData(){return {
       'lastname': '${lastNameController.value.text}'
 
     });
+
     print("$response");
     isLoadig(false);
     bool success= response["success"];
@@ -76,12 +78,13 @@ clearData(){return {
       var user_id = response["data_1"][0]["id"] ;
       print("user_id$user_id");
       String otpR=response["OTP"];
-      Get.off(()=>OtpPage(number: phonenoController.value.text, otp: otpR));
+      // Get.off(()=>OtpPage(number: phonenoController.value.text, otp: otpR));
+      Get.off(const LoginScreenPage());
       signUp();
       createUser("$user_id" ,"${firstNameController.value.text} ${lastNameController.value.text}" , emailController.value.text,"","",'$getFirebaseMessagingToken');
     }
     var msg= response["message"];
-    print( "msg ___$msg");
+    print( "my validation message --------$msg");
     Fluttertoast.showToast(
       msg: "$msg",
       toastLength: Toast.LENGTH_LONG,

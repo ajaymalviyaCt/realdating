@@ -83,29 +83,21 @@ class _MyAllDatesPageState extends State<MyAllDatesPage> {
                       child:
                           myAllDatesController.myAllDatesModel?.myInvites?.length != 0
                               ? ListView.builder(
-                                  itemCount: myAllDatesController
-                                      .myAllDatesModel?.myInvites?.length,
+                                  itemCount: myAllDatesController.myAllDatesModel?.myInvites?.length,
                                   itemBuilder: (context, index) {
                                     return '${myAllDatesController.myAllDatesModel?.myInvites?[index].requestStatus}' == "Received" &&
-                                            '${myAllDatesController.myAllDatesModel?.myInvites?[index].status}' ==
-                                                "2"
-                                        ? const SizedBox()
-                                        : '${myAllDatesController.myAllDatesModel?.myInvites?[index].classifiedPost}' ==
-                                                "1"
+                                            '${myAllDatesController.myAllDatesModel?.myInvites?[index].status}' == "2" ? const SizedBox()
+                                        : '${myAllDatesController.myAllDatesModel?.myInvites?[index].classifiedPost}' == "1"
                                             ? Container()
                                             : Container(
                                                 decoration: ShapeDecoration(
                                                     color: Colors.white,
-                                                    shape:
-                                                        RoundedRectangleBorder(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              10),
+                                                    shape: RoundedRectangleBorder(
+                                                      borderRadius: BorderRadius.circular(10),
                                                     ),
                                                     shadows: const [
                                                       BoxShadow(
-                                                        color:
-                                                            Color(0xFFD9D9D9),
+                                                        color: Color(0xFFD9D9D9),
                                                         blurRadius: 24,
                                                         offset: Offset(-3, 0),
                                                         spreadRadius: 4,
@@ -113,9 +105,8 @@ class _MyAllDatesPageState extends State<MyAllDatesPage> {
                                                     ]),
                                                 child: Column(
                                                   mainAxisAlignment:
-                                                      MainAxisAlignment.start,
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
+                                                  MainAxisAlignment.start,
+                                                  crossAxisAlignment: CrossAxisAlignment.start,
                                                   children: [
                                                     //first row
                                                     Row(
@@ -141,16 +132,13 @@ class _MyAllDatesPageState extends State<MyAllDatesPage> {
                                                                     '${myAllDatesController.myAllDatesModel?.myInvites?[index].requestStatus}' ==
                                                                             "Received"
                                                                         ? '${myAllDatesController.myAllDatesModel?.myInvites?[index].invitedBy?.profileImage.toString()}'
-                                                                        : '${myAllDatesController.myAllDatesModel?.myInvites?[index].status}' ==
-                                                                                "2"
+                                                                        : '${myAllDatesController.myAllDatesModel?.myInvites?[index].status}' == "2"
                                                                             ? '${myAllDatesController.myAllDatesModel?.myInvites?[index].invitedBy?.profileImage}'
                                                                             : '${myAllDatesController.myAllDatesModel?.myInvites?[index].invitedTo?.profileImage}',
                                                                   ),
-                                                                  fit:
-                                                                      BoxFit.fill,
+                                                                  fit: BoxFit.fill,
                                                                 ),
-                                                                shape:
-                                                                    const OvalBorder(),
+                                                                shape: const OvalBorder(),
                                                               ),
                                                             ),
                                                           ),
@@ -159,29 +147,20 @@ class _MyAllDatesPageState extends State<MyAllDatesPage> {
                                                           width: 8,
                                                         ),
                                                         Column(
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .start,
+                                                          crossAxisAlignment: CrossAxisAlignment.start,
                                                           children: [
                                                             Text(
-                                                              '${myAllDatesController.myAllDatesModel?.myInvites?[index].requestStatus}' ==
-                                                                      "Received"
+                                                              '${myAllDatesController.myAllDatesModel?.myInvites?[index].requestStatus}' == "Received"
                                                                   ? '${myAllDatesController.myAllDatesModel?.myInvites?[index].invitedBy?.firstName} ${myAllDatesController.myAllDatesModel?.myInvites?[index].invitedBy?.lastName}'
-                                                                  : '${myAllDatesController.myAllDatesModel?.myInvites?[index].status}' ==
-                                                                          "2"
+                                                                  : '${myAllDatesController.myAllDatesModel?.myInvites?[index].status}' == "2"
                                                                       ? '${myAllDatesController.myAllDatesModel?.myInvites?[index].invitedBy?.firstName} ${myAllDatesController.myAllDatesModel?.myInvites?[index].invitedBy?.lastName}'
                                                                       : '${myAllDatesController.myAllDatesModel?.myInvites?[index].invitedTo?.firstName} ${myAllDatesController.myAllDatesModel?.myInvites?[index].invitedTo?.lastName}',
                                                               style: TextStyle(
-                                                                color: const Color(
-                                                                    0xFF111111),
+                                                                color: const Color(0xFF111111),
                                                                 fontSize: 14.adaptSize,
-                                                                fontFamily:
-                                                                    'Inter',
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w600,
-                                                                letterSpacing:
-                                                                    -0.10,
+                                                                fontFamily: 'Inter',
+                                                                fontWeight: FontWeight.w600,
+                                                                letterSpacing: -0.10,
                                                               ),
                                                             ),
                                                             4.ah.heightBox,
@@ -191,19 +170,13 @@ class _MyAllDatesPageState extends State<MyAllDatesPage> {
                                                               child: Text(
                                                                 ' Artist',
                                                                 style:
-                                                                    TextStyle(
-                                                                  color: const Color(
-                                                                      0xFFAAAAAA),
-                                                                  fontSize:
-                                                                      10.adaptSize,
+                                                                    TextStyle(color: const Color(0xFFAAAAAA),
+                                                                  fontSize: 10.adaptSize,
                                                                   fontFamily:
                                                                       'Inter',
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w500,
+                                                                  fontWeight: FontWeight.w500,
                                                                   height: 0,
-                                                                  letterSpacing:
-                                                                      -0.30,
+                                                                  letterSpacing: -0.30,
                                                                 ),
                                                               ),
                                                             )
@@ -213,42 +186,21 @@ class _MyAllDatesPageState extends State<MyAllDatesPage> {
                                                         Column(
                                                           children: [
                                                             //icon x right
-                                                            '${myAllDatesController.myAllDatesModel?.myInvites?[index].requestStatus}' ==
-                                                                    "Received"
+                                                            '${myAllDatesController.myAllDatesModel?.myInvites?[index].requestStatus}' == "Received"
                                                                 ? Row(
                                                                     children: [
-                                                                      SvgPicture
-                                                                          .asset(
-                                                                        "assets/icons/A1arrow_received.svg",
-                                                                        height:
-                                                                            12,
-                                                                      ),
-                                                                      5.widthBox,
-                                                                      "Rececived"
-                                                                          .text
-                                                                          .base
-                                                                          .red600
-                                                                          .medium
-                                                                          .make(),
+                                                                      SvgPicture.asset("assets/icons/A1arrow_received.svg", height: 12),
+                                                                      5.widthBox, "Rececived".text.base.red600.medium.make(),
                                                                     ],
                                                                   )
                                                                 : const SizedBox(),
-                                                            '${myAllDatesController.myAllDatesModel?.myInvites?[index].requestStatus}' ==
-                                                                    "Requested"
+                                                            '${myAllDatesController.myAllDatesModel?.myInvites?[index].requestStatus}' == "Requested"
                                                                 ? Row(
                                                                     children: [
-                                                                      SvgPicture
-                                                                          .asset(
-                                                                        "assets/icons/A1arrow_requested.svg",
-                                                                        height:
-                                                                            12,
+                                                                      SvgPicture.asset("assets/icons/A1arrow_requested.svg",
+                                                                        height: 12,
                                                                       ),
-                                                                      7.widthBox,
-                                                                      "Requested"
-                                                                          .text
-                                                                          .base
-                                                                          .medium
-                                                                          .make(),
+                                                                      7.widthBox, "Requested".text.base.medium.make(),
                                                                     ],
                                                                   )
                                                                 : const SizedBox(),
@@ -400,7 +352,7 @@ class _MyAllDatesPageState extends State<MyAllDatesPage> {
                                                                                 Dialogs.showSnackbar(context, 'User does not Exists!');
                                                                               }
                                                                             });
-                                                                            Get.to(() => const HomeScreen())?.then((value) =>
+                                                                            Get.to(() => HomeScreen())?.then((value) =>
                                                                                 {});
                                                                           },
                                                                           child:
@@ -473,8 +425,7 @@ class _MyAllDatesPageState extends State<MyAllDatesPage> {
                                                                   //         ),
                                                                   //       )
                                                                   //     : const SizedBox(),
-                                                                  '${myAllDatesController.myAllDatesModel?.myInvites?[index].status}' ==
-                                                                          "0"
+                                                                  '${myAllDatesController.myAllDatesModel?.myInvites?[index].status}' == "0"
                                                                       ? Row(
                                                                           children: [
                                                                             InkWell(
@@ -576,7 +527,7 @@ class _MyAllDatesPageState extends State<MyAllDatesPage> {
                                                                                 Dialogs.showSnackbar(context, 'User does not Exists!');
                                                                               }
                                                                             });
-                                                                            Get.to(() => const HomeScreen())?.then((value) =>
+                                                                            Get.to(() => HomeScreen())?.then((value) =>
                                                                                 {});
                                                                           },
                                                                           child:

@@ -47,10 +47,15 @@ class HeightDOBcontroller extends GetxController {
 
   }
   Future<void>  updateHeight()async{
+    print('my height------------${height.text}');
+
     try{
       final response = await BaseClient01().post(Appurls.gender, {
         "height": height.text,
       });
+
+
+      print('my response------------${response}');
     }catch(e){
       print("updatehight error$e");
     }

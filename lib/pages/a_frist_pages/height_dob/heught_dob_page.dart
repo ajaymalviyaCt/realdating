@@ -9,6 +9,7 @@ import 'package:realdating/widgets/custom_buttons.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:realdating/widgets/size_utils.dart';
+import 'package:velocity_x/velocity_x.dart';
 import 'height_dob_controller.dart';
 
 class HeightDOBpage extends StatefulWidget {
@@ -152,15 +153,27 @@ class _HeightDOBpageState extends State<HeightDOBpage> {
                 height: 56,
                 child: TextField(
                   controller: heightDOBcontroller.height,
-                  keyboardType: TextInputType.numberWithOptions(decimal: true),
+                  keyboardType: const TextInputType.numberWithOptions(decimal: true),
                   inputFormatters: [
                     // Allows only one decimal place
                     FilteringTextInputFormatter.allow(RegExp(r'^\d*\.?\d{0,1}')),
                   ],
                   decoration: InputDecoration(
-                    suffixIcon: const Icon(
-                      Icons.height,
-                      color: Colors.redAccent,
+                    suffixIcon: SizedBox(
+                      height: 50,width: 70,
+                      child: Row(
+                        children: [
+                          const Center(
+                            child: Text(
+                              "Feet",
+                            ),
+                          ),
+                          10.widthBox,
+                          const Icon(Icons.height,
+                            color: Colors.redAccent,
+                          )
+                        ],
+                      ),
                     ),
                     hintText: "height",
                     border: OutlineInputBorder(

@@ -12,8 +12,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:realdating/welcome_screen/splashscreens.dart';
-// import 'package:realdating/reel/common_import.dart';
-// import 'package:realdating/welcome_screen/splashscreens.dart';
 import 'firebase_options.dart';
 import 'messaing_service/messaging_service.dart';
 

@@ -1,10 +1,11 @@
+import 'dart:convert';
+
 import 'package:csc_picker/csc_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:geocoding/geocoding.dart';
-import 'package:geolocator/geolocator.dart';
+import 'package:http/http.dart'as http;
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import '../../../custom_iteam/customtextfield.dart';
@@ -33,12 +34,61 @@ class _BuisnessSignUpState extends State<BuisnessSignUp> {
   String address = "";
 
   final _formKey = GlobalKey<FormState>();
+  bool showDropdown = false;
+  List<String> categories = [];
 
-  final List<String> Category = [
-    'Restaurant',
-    'Retail',
-  ];
   String? BuisnessValue;
+
+
+
+
+
+
+
+
+  bool isLoading = false;
+
+  @override
+  void initState() {
+    super.initState();
+    fetchCategories(); // Fetch categories when the widget initializes
+  }
+
+  Future<void> fetchCategories() async {
+    setState(() {
+      isLoading = true;
+    });
+    try {
+      final response = await http.get(
+        Uri.parse('https://forreal.net:4000/fetchAllBussinessCategory'),
+      );
+      if (response.statusCode == 200) {
+        final data = json.decode(response.body);
+        if (data['success'] == true) {
+          setState(() {
+            categories = List<String>.from(
+              data['allCategory'].map((category) => category['category_name']),
+            );
+          });
+
+          print('Categorie list------------${categories}');
+        }
+      } else {
+        debugPrint('Failed to fetch categories: ${response.statusCode}');
+      }
+    } catch (e) {
+      debugPrint('Error fetching categories: $e');
+    } finally {
+      setState(() {
+        isLoading = false;
+      });
+    }
+  }
+
+
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -159,16 +209,28 @@ class _BuisnessSignUpState extends State<BuisnessSignUp> {
                               buisbnesssignUpController.bphonenoController,
                           validator: validateMobile,
                           hintText: 'Number',
+                          keyboardType: TextInputType.number,
                         ),
                         const SizedBox(height: 15),
+
                         TextField(
-                          style: const TextStyle(color: Colors.white,fontWeight: FontWeight.w600),
-                          controller:
-                              buisbnesssignUpController.categoryController,
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w600,
+                          ),
+                          controller: buisbnesssignUpController.categoryController,
+                          readOnly: true, // Prevent manual typing
+                          onTap: () {
+                            setState(() {
+                              showDropdown = !showDropdown; // Toggle dropdown
+                            });
+                          },
                           decoration: InputDecoration(
-                            hintText: "Category",
-                            hintStyle: const TextStyle(color: Colors.white,fontWeight: FontWeight.w400),
-                            //counterText: "Category",
+                            hintText: "Select Category",
+                            hintStyle: const TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w400,
+                            ),
                             contentPadding: const EdgeInsets.symmetric(
                               horizontal: 15,
                               vertical: 8,
@@ -176,33 +238,68 @@ class _BuisnessSignUpState extends State<BuisnessSignUp> {
                             filled: true,
                             fillColor: Colors.white.withOpacity(.15),
                             enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(5),
-                                borderSide: const BorderSide(
-                                  width: 1,
-                                  color: Colors.white,
-                                )),
-                            focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(5),
-                                borderSide: const BorderSide(
-                                  width: 1,
-                                  color: Colors.white,
-                                )),
-                            errorBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(5),
-                                borderSide: const BorderSide(
-                                  width: 1,
-                                  color: Colors.white,
-                                )),
-                            focusedErrorBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(5),
                               borderSide: const BorderSide(
                                 width: 1,
                                 color: Colors.white,
                               ),
                             ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(5),
+                              borderSide: const BorderSide(
+                                width: 1,
+                                color: Colors.white,
+                              ),
+                            ),
+                            suffixIcon: IconButton(
+                              icon: const Icon(Icons.arrow_drop_down, color: Colors.white),
+                              onPressed: () {
+                                setState(() {
+                                  if(categories.isEmpty){
+                                    print('Category Index-----${categories}');
+                                    Fluttertoast.showToast(msg: 'Category Not found');
+                                  }else{
+                                    showDropdown = !showDropdown;
+                                  }
+                                });
+                              },
+                            ),
                           ),
                           cursorColor: Colors.white,
                         ),
+                        if (showDropdown)
+                          Container(
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              border: Border.all(color: Colors.white, width: 1),
+                              borderRadius: BorderRadius.circular(5),
+                            ),
+                            child: isLoading
+                                ? const Padding(
+                              padding: EdgeInsets.all(16.0),
+                              child: Center(
+                                child: CircularProgressIndicator(color: Colors.white),
+                              ),
+                            )
+                                : ListView.builder(
+                              shrinkWrap: true,
+                              itemCount: categories.length,
+                              itemBuilder: (context, index) {
+                                return ListTile(
+                                  title: Text(
+                                    categories[index],
+                                    style: const TextStyle(color: Colors.black),
+                                  ),
+                                  onTap: () {
+                                    setState(() {
+                                      buisbnesssignUpController.categoryController.text = categories[index];
+                                      showDropdown = false; // Close dropdown
+                                    });
+                                  },
+                                );
+                              },
+                            ),
+                          ),
 
                         const SizedBox(height: 15),
 
@@ -620,3 +717,6 @@ class _BuisnessSignUpState extends State<BuisnessSignUp> {
     );
   }
 }
+
+
+

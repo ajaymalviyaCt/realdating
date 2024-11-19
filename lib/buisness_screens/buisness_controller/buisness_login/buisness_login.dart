@@ -179,7 +179,7 @@ class _BuisnessLoginState extends State<BuisnessLogin> {
                                 border: Border.all(
                                     color: Colors.white, width: 1)),
                             child: Center(
-                              child: Text('Don’t have an business account? Sign Up',
+                              child: Text('Don’t have a business account? Sign Up',
                                   style: TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.w400,

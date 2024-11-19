@@ -78,8 +78,9 @@ class _DiscoveryPageState extends State<DiscoveryPage> {
                       Container(
                         height: 57,
                         decoration: BoxDecoration(
-                            border: Border.all(color: Colors.grey),
-                            borderRadius: BorderRadius.circular(12)),
+                          border: Border.all(color: Colors.grey),
+                          borderRadius: BorderRadius.circular(12),
+                        ),
                         padding: const EdgeInsets.symmetric(horizontal: 8.0),
                         child: TextField(
                           controller: _controller,
@@ -87,11 +88,12 @@ class _DiscoveryPageState extends State<DiscoveryPage> {
                             filterSearchResults(value);
                           },
                           decoration: InputDecoration(
-                              hintText: 'Search...',
-                              suffixIcon: Container(
-                                margin: const EdgeInsets.only(right: 5, top: 5),
-                                height: 20,
-                                width: 50,
+                            hintText: 'Search...',
+                            suffixIcon: Padding(
+                              padding: const EdgeInsets.all(5),
+                              child: Container(
+                                height: 50, // Adjusted height for better alignment
+                                width: 50,  // Adjusted width for consistency
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(12),
                                   color: Appcolor.Redpink,
@@ -102,30 +104,35 @@ class _DiscoveryPageState extends State<DiscoveryPage> {
                                     color: Colors.white,
                                   ),
                                   onPressed: () {
-                                    // userHomeController.getDiscoverySearch(_searchController.text);
+                                    // Add your search action here
                                   },
                                 ),
                               ),
-                              border: InputBorder.none),
+                            ),
+                            contentPadding: const EdgeInsets.symmetric(vertical: 15.0), // Center text vertically
+                            border: InputBorder.none,
+                          ),
                         ),
                       ),
-                       Align(
+                      const SizedBox(height: 10,),
+                      Align(
                         alignment: Alignment.topLeft,
                         child: SizedBox(
-                          width: 220,
+                          width:MediaQuery.of(context).size.width/1,
                           child: TabBar(
                             unselectedLabelColor: Colors.grey,
-                            dividerColor: Colors.grey,
+                            dividerColor: Colors.grey.withOpacity(0.3),
+                            indicatorColor: Colors.red,
                             onTap: (value) {
                               print("dsffsfs$value");
                             },
                             tabs: const [
                               Tab(
                                   icon: Text(
-                                "Users",
+                                "Recently Active",
                                 style: TextStyle(
                                     color: Colors.black,
-                                    fontSize: 12,
+                                    fontSize: 15,
                                     fontWeight: FontWeight.w600),
 
                               )),
@@ -134,7 +141,7 @@ class _DiscoveryPageState extends State<DiscoveryPage> {
                                 "For you",
                                 style: TextStyle(
                                     color: Colors.black,
-                                    fontSize: 12,
+                                    fontSize: 15,
                                     fontWeight: FontWeight.w600),
                               )),
                             ],

@@ -427,8 +427,9 @@ class _CreateEventState extends State<CreateEvent> {
                           height: 70,
                           child: CustumProfileTextField1(
                             controller: txt_eventTitle,
-                            validator: validateName,
+                            validator: validateTitle,
                             hintText: 'Please Enter Title',
+                            keyboardType: TextInputType.emailAddress,
                           ),
                         ),
                         const SizedBox(
@@ -520,7 +521,7 @@ class _CreateEventState extends State<CreateEvent> {
                         SizedBox(
                             height: 70,
                             child: TextFormField(
-                              validator: notEmptyValidator,
+                              validator: validTimeTitle,
                               controller: txt_selectTime,
                               style: TextStyle(color: Colors.black),
                               //editing controller of this TextField
@@ -715,8 +716,9 @@ class _CreateEventState extends State<CreateEvent> {
                           height: 70,
                           child: CustumProfileTextField1(
                             controller: txt_description,
-                            validator: notEmptyValidator,
+                            validator: validateDescriptionn,
                             hintText: 'Please Enter Description',
+                            keyboardType: TextInputType.emailAddress,
                           ),
                         ),
                         updateBtn(context),

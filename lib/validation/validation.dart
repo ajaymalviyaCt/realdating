@@ -1,10 +1,19 @@
 String? notEmptyValidator(String? value) {
   var value1 = value?.trim();
   if (value1 == null || value1.isEmpty) {
-    return 'This field is required';
+    return 'Date is required';
   }
   return null; // Input is not empty
 }
+
+String? notEmptyMsgValidator(String? value) {
+  var value1 = value?.trim();
+  if (value1 == null || value1.isEmpty) {
+    return 'Message is required';
+  }
+  return null; // Input is not empty
+}
+
 String? validateEmailField(value) {
   Pattern pattern =
       r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)'
@@ -96,13 +105,17 @@ String? validateNewPassword( value) {
   }
 }
 
-String? validateName(value) {
-  if (value.isEmpty) {
-    return 'Full Name is Required.';
+String? validateName(String? value) {
+  if (value == null || value.isEmpty) {
+    return 'Name is Required.';
   } else if (value.length < 5) {
-    return 'Full Name required at least 5 Characters';
+    return 'Full Name requires at least 5 characters.';
+  } else if (value.contains(' ')) {
+    return 'Spaces are not allowed in the Full Name.';
   }
+  return null;
 }
+
 
 String? validateRange(value) {
   if (value.isEmpty) {
@@ -110,11 +123,20 @@ String? validateRange(value) {
   }
 }
 
-String? validateTitle(value) {
-  if (value.isEmpty) {
+String? validateTitle(String? value) {
+  if (value == null || value.isEmpty) {
     return 'Title is Required.';
   }
+  return null; // Return null if validation passes
 }
+
+String? validTimeTitle(String? value) {
+  if (value == null || value.isEmpty) {
+    return 'Time is Required.';
+  }
+  return null; // Return null if validation passes
+}
+
 
 String? validateLink(value) {
   if (value.isEmpty) {
@@ -137,7 +159,7 @@ String? validateDescriptionn(value) {
 
 String? validateCampaign(value) {
   if (value.isEmpty) {
-    return 'Title is Campaign Duration.';
+    return 'Campaign Duration required';
   }
 }
 

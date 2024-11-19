@@ -122,12 +122,7 @@ class APIs {
 
       log('user exists: ${data.docs.first.data()}');
 
-      firestore
-          .collection('users')
-          .doc(user_uid)
-          .collection('my_users')
-          .doc(data.docs.first.id)
-          .set({});
+      firestore.collection('users').doc(user_uid).collection('my_users').doc(data.docs.first.id).set({});
 
       return true;
     } else {
@@ -160,6 +155,7 @@ class APIs {
 
   // for creating a new user
   static Future<void> createUser() async {
+    print('user profile pic-------${photoURL.toString()}');
     final time = DateTime.now().millisecondsSinceEpoch.toString();
 
     final chatUser = ChatUser(

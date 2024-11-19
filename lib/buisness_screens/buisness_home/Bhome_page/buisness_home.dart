@@ -201,7 +201,7 @@ class _BuisnessHomePageState extends State<BuisnessHomePage> {
             //  _willPopCallback();
             // myDealController.getAllBusinessPost(_pagingController.nextPageKey!);
             Fluttertoast.showToast(
-              msg: "Post uploaded successfully",
+              msg: "Post has been uploaded successfully.",
               toastLength: Toast.LENGTH_SHORT,
               gravity: ToastGravity.BOTTOM,
               backgroundColor: Colors.black,
@@ -406,6 +406,7 @@ class _BuisnessHomePageState extends State<BuisnessHomePage> {
                   ],
                 ),
                 onTap: () {
+
                   Get.to(() => const DashBaordScreen());
                 },
               ),
@@ -1212,7 +1213,7 @@ class _BuisnessHomePageState extends State<BuisnessHomePage> {
                                                             ),
                                                             8.ah.heightBox,
                                                             Obx(
-                                                              () => Text(
+                                                              () => postsC.bHomePagetModel.posts[index].totalComments==0?const SizedBox.shrink():Text(
                                                                 '  View all ${postsC.bHomePagetModel.posts[index].totalComments} comment',
                                                                 style:
                                                                     TextStyle(
@@ -1694,7 +1695,7 @@ class _BuisnessHomePageState extends State<BuisnessHomePage> {
                                                               ),
                                                             ),
                                                             8.ah.heightBox,
-                                                            Text(
+                                                            postsC.bHomePagetModel.posts[index].totalComments==0?SizedBox.shrink():Text(
                                                               '  View all ${postsC.bHomePagetModel.posts[index].totalComments} comment',
                                                               style: TextStyle(
                                                                 color: const Color(
@@ -2428,7 +2429,7 @@ class _BuisnessHomePageState extends State<BuisnessHomePage> {
                                                               ),
                                                             ),
                                                             8.ah.heightBox,
-                                                            Text(
+                                                            postsC.bHomePagetModel.posts[index].totalComments==0?SizedBox.shrink():Text(
                                                               '  View all ${postsC.bHomePagetModel.posts[index].totalComments} comment',
                                                               style: TextStyle(
                                                                 color: const Color(
@@ -2571,7 +2572,8 @@ class _BuisnessHomePageState extends State<BuisnessHomePage> {
                                     ),
                                   ),
                                 ),
-                                Padding(
+                                controller.myDealsModel?.myDeals[index]
+                                    .title ==""?SizedBox.shrink():Padding(
                                   padding:
                                       const EdgeInsets.only(left: 20, right: 5),
                                   child: ReadMoreText(

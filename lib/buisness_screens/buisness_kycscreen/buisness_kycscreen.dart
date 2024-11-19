@@ -137,14 +137,14 @@ class _BuisnessKycVerifyState extends State<BuisnessKycVerify> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: Padding(
-          padding: const EdgeInsets.only(left: 10),
-          child: InkWell(
-              onTap: () {
-                Navigator.pop(context);
-              },
-              child: SvgPicture.asset('assets/icons/btn.svg')),
-        ),
+        // leading: Padding(
+        //   padding: const EdgeInsets.only(left: 10),
+        //   child: InkWell(
+        //       onTap: () {
+        //         Navigator.pop(context);
+        //       },
+        //       child: SvgPicture.asset('assets/icons/btn.svg')),
+        // ),
         title: const Text(
           'KYC Verification',
           style: CustomTextStyle.black,
@@ -340,13 +340,20 @@ class _BuisnessKycVerifyState extends State<BuisnessKycVerify> {
               customPrimaryBtn(
                 btnText: "Upload",
                 btnFun: () async {
-                  var res = await _asyncFileUpload(
-                      File(businessKYCController.KYCBDOC ?? ""), context);
+                  if(businessKYCController.KYCBDOC!.isEmpty && businessKYCController.KYCDOC!.isEmpty){
+                    Fluttertoast.showToast(msg: 'Fill Documents first');
+                  }else{
 
-                  setState(() {
-                    state = res.toString();
-                    print(res);
-                  });
+                    var res = await _asyncFileUpload(
+                        File(businessKYCController.KYCBDOC ?? ""), context);
+
+                    setState(() {
+                      state = res.toString();
+                      print(res);
+                    });
+
+                  }
+
 
                   // genderController.selectGender();
                   // businessKYCController.uploadImage(businessKYCController.KYCBDOC??"","https://forreal.net:4000/business_document_1");

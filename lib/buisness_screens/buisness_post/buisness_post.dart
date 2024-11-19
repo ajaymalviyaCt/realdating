@@ -37,7 +37,7 @@ class _BuisnessPostState extends State<BuisnessPost> {
   String? PostImage;
 
   TextEditingController Content = TextEditingController();
-  var reasonValidation = true;
+
   final myTextController = TextEditingController();
 
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
@@ -46,6 +46,15 @@ class _BuisnessPostState extends State<BuisnessPost> {
   final ImagePicker _picker = ImagePicker();
   File? _images;
   File? _video;
+
+  String? reasonValidation(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Description is required.';
+    }
+    return null;
+  }
+
+
 
   _imgFromGallery() async {
     final XFile? image = (await _picker.pickMedia(
@@ -375,7 +384,7 @@ class _BuisnessPostState extends State<BuisnessPost> {
           http.Response.fromStream(response).then((onValue) async {
             if (response.statusCode == 200) {
               Fluttertoast.showToast(
-                msg: "Post uploaded successfully",
+                msg: "Post has been uploaded successfully.",
                 toastLength: Toast.LENGTH_SHORT,
                 gravity: ToastGravity.BOTTOM,
                 backgroundColor: Colors.black,
@@ -510,7 +519,7 @@ class _BuisnessPostState extends State<BuisnessPost> {
                           height: 30,
                         ),
                         customTextC(
-                            text: "Upload Image",
+                            text: "Upload Image and Video",
                             fSize: 16,
                             fWeight: FontWeight.w500,
                             lineHeight: 36),
@@ -609,18 +618,38 @@ class _BuisnessPostState extends State<BuisnessPost> {
                         //     fSize: 16,
                         //     fWeight: FontWeight.w500,
                         //     lineHeight: 36),
-                        TextArea(
-                          validation: reasonValidation,
-                          borderRadius: 10,
-                          borderColor: Colors.transparent,
-                          textEditingController: myTextController,
-                          // errorText: 'Please Enter Contents!',
-                          //suffixIcon: Icons.attach_file_rounded,
-                          // onSuffixIconPressed: () => {},
+                        TextFormField(
+                          controller: myTextController,
+                          validator: reasonValidation,
+                          maxLines: null,
+                          keyboardType: TextInputType.multiline,
+                          decoration: InputDecoration(
+                            hintText: 'Enter your description here...',
+                            hintStyle: TextStyle(color: Colors.black.withOpacity(0.5)),
+                            filled: true,
+                            fillColor: Colors.white,
+                            contentPadding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10), // Adjust padding
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              // borderSide: const BorderSide(color: Colors.transparent),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              borderSide: const BorderSide(color: Colors.transparent),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              borderSide: BorderSide.none,
+                            ),
+                            errorBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              borderSide: const BorderSide(color: Colors.red),
+                            ),
+                          ),
                         ),
-                        SizedBox(height: 20),
-                        // updateBtn(context),
-                        SizedBox(height: 30)
+
+
+                        const SizedBox(height: 30)
                       ]),
                 )),
             Padding(

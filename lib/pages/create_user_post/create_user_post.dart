@@ -26,7 +26,10 @@ class _CreateUserPostState extends State<CreateUserPost> {
 
     if (pickedFile != null) {
       setState(() {
+
         _videoFile = File(pickedFile.path);
+
+
       });
     }
   }
@@ -37,13 +40,6 @@ class _CreateUserPostState extends State<CreateUserPost> {
     final XFile ?  pickedFile = await _imagePicker.pickImage(source: source);
      _croppedFile = await ImageCropper().cropImage(
       sourcePath:  pickedFile!.path,
-      // aspectRatioPresets: [
-      //   // CropAspectRatioPreset.ratio16x9,
-      //    CropAspectRatioPreset.square,
-      //   // CropAspectRatioPreset.ratio4x3,
-      //  //  CropAspectRatioPreset.original,
-      //  //  CropAspectRatioPreset.ratio16x9,
-      // ],
       maxWidth: 600,
       maxHeight: 600,
     );

@@ -99,7 +99,7 @@ class Appurls {
   static final Uri myProfileUrl =
       Uri.parse('https://forreal.net:4000/myprofile');
   static final Uri userGetDiscover =
-      Uri.parse('https://forreal.net:4000/users/discovery');
+      Uri.parse('https://forreal.net:4000/users/fvery');
 
 
   /// Support

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 
 class CustumProfileTextField1 extends StatelessWidget {
@@ -27,7 +28,11 @@ class CustumProfileTextField1 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      keyboardType:keyboardType?? TextInputType.text,
+      keyboardType:keyboardType?? TextInputType.number,
+
+      // inputFormatters: [
+      //   FilteringTextInputFormatter.allow(RegExp(r'^\d*\.?\d{0,2}')), // Allow numbers with up to 2 decimals
+      // ],
       style: const TextStyle(color: Colors.black),
       // autovalidateMode: AutovalidateMode.onUserInteraction,
       controller: controller,

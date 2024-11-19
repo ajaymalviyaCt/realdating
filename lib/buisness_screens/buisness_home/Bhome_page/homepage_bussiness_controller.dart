@@ -220,6 +220,11 @@ class HomepageBusinessController extends GetxController {
   Future<void> postComments(
       String post_id, String comment, String user_id, int indexxx) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
+    if (comment.trim().isEmpty) {
+      print("Error: Comment is empty or spaces only.");
+      return; // Abort if the comment is invalid
+    }
+
     var token = prefs.get('token');
     print("tokentokentokentoken==>$token");
     var headers = {

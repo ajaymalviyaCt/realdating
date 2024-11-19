@@ -362,87 +362,92 @@ class _MatchDetailsState extends State<MatchDetails> {
 
                             ///  dropdown start /////////////////////////////////////
 
-                            DropdownButtonFormField2<String>(
-                              decoration: InputDecoration(
-                                contentPadding: const EdgeInsets.all(10),
-                                enabledBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(10),
-                                    borderSide: const BorderSide(
-                                      width: 1,
-                                      color: Colors.black12,
-                                    )),
-                                focusedBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(10),
-                                    borderSide: const BorderSide(
-                                      width: 1,
-                                      color: Colors.black12,
-                                    )),
-                                errorBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(10),
-                                    borderSide: const BorderSide(
-                                      width: 1,
-                                      color: Colors.red,
-                                    )),
-                                focusedErrorBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(10),
-                                    borderSide: const BorderSide(
-                                      width: 1,
-                                      color: Colors.black,
-                                    )),
-                                hintText: "Select Activity",
-
-                                hintStyle: TextStyle(
-                                    color: Colors.black.withOpacity(.40),
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 14),
-                                labelStyle: TextStyle(
-                                    color: Colors.black.withOpacity(.40),
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 14),
-                                // prefixIcon: Container(child: SvgPicture.asset('$prefixIcon',fit: BoxFit.none,)),
+                          DropdownButtonFormField2<String>(
+                            decoration: InputDecoration(
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                                borderSide: const BorderSide(
+                                  width: 1,
+                                  color: Colors.black12,
+                                ),
                               ),
-                              items: genderItems
-                                  .map((item) => DropdownMenuItem<String>(
-                                        value: item,
-                                        child: Text(
-                                          item,
-                                          style: const TextStyle(
-                                            fontSize: 14,
-                                          ),
-                                        ),
-                                      ))
-                                  .toList(),
-                              validator: (value) {
-                                if (value == null) {
-                                  return 'Please select activity';
-                                }
-                                return null;
-                              },
-                              onChanged: (value) {
-                                print("asdfgzsxdfghjhg");
-                                selectedValue = value.toString();
-                                print("$selectedValue + :::::::::::::::::::");
-                              },
-                              buttonStyleData: const ButtonStyleData(
-                                padding: EdgeInsets.only(right: 8),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                                borderSide: const BorderSide(
+                                  width: 1,
+                                  color: Colors.black12,
+                                ),
                               ),
-                              iconStyleData: const IconStyleData(
-                                icon: Icon(
-                                  Icons.arrow_downward_rounded,
-                                  size: 22,
+                              errorBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                                borderSide: const BorderSide(
+                                  width: 1,
                                   color: Colors.red,
                                 ),
                               ),
-                              dropdownStyleData: DropdownStyleData(
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(15),
+                              focusedErrorBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                                borderSide: const BorderSide(
+                                  width: 1,
+                                  color: Colors.black,
                                 ),
                               ),
-                              menuItemStyleData: const MenuItemStyleData(
-                                padding: EdgeInsets.symmetric(horizontal: 16),
+                              hintText: "Select Activity",
+
+                              hintStyle: TextStyle(
+                                color: Colors.black.withOpacity(.40),
+                                fontWeight: FontWeight.bold,
+                                fontSize: 14,
+
+                              ),
+                              labelStyle: TextStyle(
+                                color: Colors.black.withOpacity(.40),
+                                fontWeight: FontWeight.bold,
+                                fontSize: 14,
                               ),
                             ),
-                            10.h.heightBox,
+                            items: genderItems
+                                .map((item) => DropdownMenuItem<String>(
+                              value: item,
+                              child: Text(
+                                item,
+                                style: const TextStyle(
+                                  fontSize: 14,
+                                ),
+                              ),
+                            ))
+                                .toList(),
+                            validator: (value) {
+                              if (value == null) {
+                                return 'Please select activity';
+                              }
+                              return null;
+                            },
+                            onChanged: (value) {
+                              print("Value selected: $value");
+                              selectedValue = value.toString();
+                            },
+                            buttonStyleData: const ButtonStyleData(
+                              padding: EdgeInsets.only(right: 8),
+                            ),
+                            iconStyleData: const IconStyleData(
+                              icon: Icon(
+                                Icons.arrow_downward_rounded,
+                                size:16,
+                                color: Colors.red,
+                              ),
+                            ),
+                            dropdownStyleData: DropdownStyleData(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(15),
+                              ),
+                            ),
+                            menuItemStyleData: const MenuItemStyleData(
+                              padding: EdgeInsets.symmetric(horizontal: 16),
+                            ),
+                          ),
+
+                          10.h.heightBox,
 
                             ///  dropdwon end /////////////////////////////////////
                             const Text('Location',
@@ -620,9 +625,9 @@ class _MatchDetailsState extends State<MatchDetails> {
                                         onTap: () async {
                                           try {
                                             APIs.addChatUser(
-                                                    widget.id.toString())
+                                                    widget.id.toString(),)
                                                 .then((value) {
-                                              Get.to(() => HomeScreen());
+                                              Get.to(() => HomeScreen(profileImage: matchessController.exploreDetailsModel!.userInfo[0].profileImage,));
                                             });
                                           } catch (e) {}
                                         },
@@ -927,19 +932,16 @@ class _MatchDetailsState extends State<MatchDetails> {
                                 onPressed: () {
                                   // Toggle between showing limited and all items
                                   setState(() {
-                                    showAllItemsss = !showAllItemsss;
-                                    matchessController.displayedItemss =
-                                        showAllItemsss
-                                            ? List.from(matchessController
-                                                .exploreDetailsModel!
-                                                .userInfo[0]
-                                                .allReviews)
-                                            : matchessController
-                                                .exploreDetailsModel!
-                                                .userInfo[0]
-                                                .allReviews
-                                                .take(1)
-                                                .toList();
+                                    if(matchessController.exploreDetailsModel!.userInfo[0].allReviews.length==0){
+                                      Fluttertoast.showToast(msg: 'Data not found for more Review');
+                                    }else{
+                                      showAllItemsss = !showAllItemsss;
+                                      matchessController.displayedItemss = showAllItemsss
+                                          ? List.from(matchessController.exploreDetailsModel!.userInfo[0].allReviews) : matchessController.exploreDetailsModel!.userInfo[0].allReviews.take(1)
+                                          .toList();
+                                    }
+
+
                                   });
                                 },
                                 child: Text(
@@ -1099,108 +1101,76 @@ class _MatchDetailsState extends State<MatchDetails> {
                                 ),
                               ),
                               20.heightBox,
-                              matchessController.exploreDetailsModel
-                                              ?.userInfo[0].images.length !=
-                                          0 &&
-                                      matchessController.exploreDetailsModel
-                                              ?.userInfo[0].images !=
-                                          null
+                              matchessController.exploreDetailsModel?.userInfo[0].images.length != 0 && matchessController.exploreDetailsModel?.userInfo[0].images != null
                                   ? Container(
                                       height: 300,
                                       child: GridView.builder(
-                                          physics:
-                                              const NeverScrollableScrollPhysics(),
-                                          itemCount: matchessController
-                                              .exploreDetailsModel
-                                              ?.userInfo[0]
-                                              .images
-                                              .length,
-                                          gridDelegate:
-                                              const SliverGridDelegateWithFixedCrossAxisCount(
-                                                  crossAxisCount: 3,
-                                                  mainAxisSpacing: 10,
-                                                  crossAxisSpacing: 5),
-                                          itemBuilder: (ctx, index) {
-                                            final data = matchessController
-                                                .exploreDetailsModel!
-                                                .userInfo[0]
-                                                .images[index];
-
-                                            return Container(
-                                              decoration: BoxDecoration(
-                                                border: Border.all(
-                                                    color: Colors.black12),
-                                                borderRadius:
-                                                    BorderRadius.circular(10),
-                                              ),
-                                              child: ClipRRect(
-                                                borderRadius:
-                                                    BorderRadius.circular(10),
-                                                child: ClipRRect(
-                                                  borderRadius:
-                                                      BorderRadius.circular(10),
-                                                  child: CachedNetworkImage(
-                                                    imageUrl:
-                                                        data.profileImages ??
-                                                            "",
-                                                    imageBuilder: (context,
-                                                            imageProvider) =>
-                                                        Container(
-                                                      decoration: BoxDecoration(
-                                                        image: DecorationImage(
-                                                            image:
-                                                                imageProvider,
-                                                            fit: BoxFit.cover,
-                                                            colorFilter:
-                                                                const ColorFilter
-                                                                    .mode(
-                                                                    Colors
-                                                                        .white,
-                                                                    BlendMode
-                                                                        .colorBurn)),
+                                        physics: const NeverScrollableScrollPhysics(),
+                                        itemCount: matchessController.exploreDetailsModel?.userInfo[0].images.length,
+                                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                                          crossAxisCount: 3,
+                                          mainAxisSpacing: 10,
+                                          crossAxisSpacing: 5,
+                                        ),
+                                        itemBuilder: (ctx, index) {
+                                          final data = matchessController.exploreDetailsModel!.userInfo[0].images[index];
+                                          return GestureDetector(
+                                            onTap: () {
+                                              // Show image preview in a dialog
+                                              showDialog(
+                                                context: ctx,
+                                                builder: (context) {
+                                                  return Dialog(
+                                                    backgroundColor: Colors.black,
+                                                    child: Container(
+                                                      padding: const EdgeInsets.all(10),
+                                                      child: CachedNetworkImage(
+                                                        imageUrl: data.profileImages ?? "",
+                                                        placeholder: (context, url) => const Center(
+                                                          child: CircularProgressIndicator(),
+                                                        ),
+                                                        errorWidget: (context, url, error) => const Icon(
+                                                          Icons.error,
+                                                          color: Colors.white,
+                                                        ),
+                                                        fit: BoxFit.contain,
                                                       ),
                                                     ),
-                                                    placeholder: (context,
-                                                            url) =>
-                                                        const Center(
-                                                            child:
-                                                                CircularProgressIndicator()),
-                                                    errorWidget: (context, url,
-                                                            error) =>
-                                                        const Icon(Icons
-                                                            .person_2_outlined),
+                                                  );
+                                                },
+                                              );
+                                            },
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                border: Border.all(color: Colors.black12),
+                                                borderRadius: BorderRadius.circular(10),
+                                              ),
+                                              child: ClipRRect(
+                                                borderRadius: BorderRadius.circular(10),
+                                                child: CachedNetworkImage(
+                                                  imageUrl: data.profileImages ?? "",
+                                                  imageBuilder: (context, imageProvider) => Container(
+                                                    decoration: BoxDecoration(
+                                                      image: DecorationImage(
+                                                        image: imageProvider,
+                                                        fit: BoxFit.cover,
+                                                        colorFilter: const ColorFilter.mode(
+                                                            Colors.white, BlendMode.colorBurn),
+                                                      ),
+                                                    ),
                                                   ),
+                                                  placeholder: (context, url) => const Center(
+                                                    child: CircularProgressIndicator(),
+                                                  ),
+                                                  errorWidget: (context, url, error) => const Icon(Icons.person_2_outlined),
                                                 ),
                                               ),
-                                            );
-                                            CachedNetworkImage(
-                                              imageUrl: data.profileImages,
-                                              imageBuilder:
-                                                  (context, imageProvider) =>
-                                                      Container(
-                                                decoration: BoxDecoration(
-                                                  image: DecorationImage(
-                                                      image: imageProvider,
-                                                      fit: BoxFit.cover,
-                                                      colorFilter:
-                                                          const ColorFilter
-                                                              .mode(
-                                                              Colors.white,
-                                                              BlendMode
-                                                                  .colorBurn)),
-                                                ),
-                                              ),
-                                              placeholder: (context, url) =>
-                                                  const Center(
-                                                      child:
-                                                          CircularProgressIndicator()),
-                                              errorWidget: (context, url,
-                                                      error) =>
-                                                  const Icon(
-                                                      Icons.person_2_outlined),
-                                            );
-                                          }),
-                                    )
+                                            ),
+                                          );
+                                        },
+                                      ),
+
+                              )
                                   : const Text("No Images Found !!"),
                               30.heightBox,
                               (widget.isfriend)

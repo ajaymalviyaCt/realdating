@@ -134,7 +134,7 @@ class _SwipCardPageState extends State<SwipCardPage> {
                             matchEngine: _matchEngine!,
                             itemBuilder: (BuildContext context, int index) {
                               print(
-                                  "firstname$index${tinderSwipController.user[1].firstName}");
+                                  "firstname$index${tinderSwipController.user[index].firstName}");
                               indexStatic = index;
                               return TinderCard(
                                   user: tinderSwipController.user![index]);

@@ -140,7 +140,7 @@ addressController.text = currentAddress!;
         'phone_number': '${bphonenoController.value.text}',
         'email': '${bemailController.value.text}',
         'password': '${bpasswordcontroller.value.text}',
-        'city': '${cityValue ?? "dbehjd"}',
+        'city': '${cityValue ?? "not found"}',
         'state': '${stateValue}',
         'country': "${countryValue}",
         'category': '${categoryController.value.text}',

@@ -2,11 +2,10 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
-
 import 'package:flutter/material.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
-
 import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:realdating/chat/api/apis.dart';
@@ -14,7 +13,7 @@ import 'package:zego_uikit_prebuilt_live_streaming/zego_uikit_prebuilt_live_stre
 
 import '../../../../zego_live_stream_chat/live_page.dart';
 import '../../../dash_board_page.dart';
-
+import '../agora/audience.dart';
 import '../constant/liveusercard.dart';
 
 
@@ -64,7 +63,7 @@ class _HomePageState extends State<HomePage> {
 
         userName = userData['name'];
         final email = userData['email'];
-         userID = userData['id'];
+        userID = userData['id'];
         print('Name: $userName, Email: $email');
         print('User id: $userID, username: $userName');
       } else {
@@ -141,13 +140,12 @@ class _HomePageState extends State<HomePage> {
       }
 
       jumpToLivePage(
-        context,
-        liveID: '12345',
-        isHost: true,
-        userNmae: userName,
-        userId: userID,
+          context,
+          liveID:'12345',
+          isHost: true,
+          userNmae: userName,
+          userId: userID
       );
-
 
 
     } else {
@@ -237,12 +235,8 @@ class _HomePageState extends State<HomePage> {
       margin: const EdgeInsets.all(10),
       child: InkWell(
         onTap: () {
-          Get.to(() => LivePage(
-            liveID: '12345',
-            isHost: false,
-            userId: liveUser.userId,
-            userNmae: liveUser.userName,
-          ));
+          Get.to(() => LivePage(liveID:'12345', isHost: false, userId: liveUser.userId,
+            userNmae: liveUser.userName,));
         },
         child: LiveUserCard(
           broadcasterName: liveUser.userName,
@@ -251,7 +245,6 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
-
 
 
 }
@@ -294,6 +287,7 @@ void jumpToLivePage(BuildContext context,
     ),
   );
 }
+
 
 
 

@@ -75,8 +75,7 @@ class _PreviewReelsState extends State<PreviewReelsScreen> {
               chewieController == null
                   ? Container()
                   : SizedBox(
-                      height: (Get.width - 32) /
-                          videoPlayerController!.value.aspectRatio,
+                      height: MediaQuery.of(context).size.height/2,
                       child: Chewie(
                         controller: chewieController!,
                       ),

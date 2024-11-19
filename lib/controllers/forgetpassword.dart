@@ -267,17 +267,18 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                       } else {
                         Forgetverify(context, 1);
                       }
-                    } else {
-                      Fluttertoast.showToast(
-                        msg: "Please Fill Email",
-                        toastLength: Toast.LENGTH_LONG,
-                        gravity: ToastGravity.BOTTOM,
-                        timeInSecForIosWeb: 1,
-                        backgroundColor: Colors.red,
-                        textColor: Colors.white,
-                        fontSize: 16.0,
-                      );
                     }
+                    // else {
+                    //   Fluttertoast.showToast(
+                    //     msg: "Please Fill Email",
+                    //     toastLength: Toast.LENGTH_LONG,
+                    //     gravity: ToastGravity.BOTTOM,
+                    //     timeInSecForIosWeb: 1,
+                    //     backgroundColor: Colors.red,
+                    //     textColor: Colors.white,
+                    //     fontSize: 16.0,
+                    //   );
+                    // }
                   },
                   child: Container(
                     decoration: BoxDecoration(

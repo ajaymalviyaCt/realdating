@@ -214,7 +214,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   height: 20,
                 ),
                 const Text(
-                  "Uploads Pictures",
+                  "Uploaded Photos",
                   style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.w500,

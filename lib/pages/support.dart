@@ -306,6 +306,7 @@ class _SupportScreenState extends State<SupportScreen> {
                       child: CustumProfileTextField1(
                         controller: emailController,
                         validator: validateEmailField,
+                        keyboardType: TextInputType.emailAddress,
                         hintText: 'Please Enter Email',
                       ),
                     ),
@@ -318,7 +319,7 @@ class _SupportScreenState extends State<SupportScreen> {
                     SizedBox(
                       // height: 70,
                       child: TextFormField(
-                        validator: notEmptyValidator,
+                        validator: notEmptyMsgValidator,
                         controller: messageController,
                         maxLines: 4,
                         // Set the maximum number of lines for input

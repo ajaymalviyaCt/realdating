@@ -2,7 +2,8 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:realdating/buisness_screens/buisness_dashboard/buisness_dashboard.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:realdating/function/function_class.dart';
 import 'package:realdating/pages/dash_board_page.dart';
 import 'package:realdating/widgets/custom_buttons.dart';
@@ -10,8 +11,7 @@ import 'package:geocoding/geocoding.dart';
 import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../height_dob/heught_dob_page.dart';
-import 'LocationUpdate.dart';
+import 'package:http/http.dart'as http;
 
 class LocationScreen extends StatefulWidget {
   const LocationScreen({Key? key}) : super(key: key);
@@ -22,15 +22,101 @@ class LocationScreen extends StatefulWidget {
 
 class _LocationScreenState extends State<LocationScreen> {
 
+  String _currentAddress = '';
+  Position? _currentPosition;
+
   Future<void> requestLocationPermission() async {
     var status = await Permission.location.request();
     if (status == PermissionStatus.granted) {
+      _currentPosition = await getCurrentLocation();
+      if (_currentPosition != null) {
+        await getAddress(_currentPosition!.latitude, _currentPosition!.longitude);
+      }
     } else {
       if (await Permission.location.isPermanentlyDenied) {
         openAppSettings();
       }
     }
   }
+
+  Future<Position?> getCurrentLocation() async {
+    try {
+      return await Geolocator.getCurrentPosition(
+          desiredAccuracy: LocationAccuracy.high);
+    } catch (e) {
+      print("Error getting location: $e");
+      return null;
+    }
+  }
+
+  Future<void> getAddress(double latitude, double longitude) async {
+    try {
+      List<Placemark> placemarks =
+      await placemarkFromCoordinates(latitude, longitude);
+
+      if (placemarks.isNotEmpty) {
+        Placemark firstPlacemark = placemarks[0];
+        _currentAddress =
+        "${firstPlacemark.street}, ${firstPlacemark.locality}, ${firstPlacemark.country}";
+        print("Address: $_currentAddress");
+      } else {
+        print("No address found for the given coordinates");
+      }
+    } catch (e) {
+      print("Error getting address: $e");
+    }
+  }
+
+  Future<void> editProfile() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var token = prefs.get('token');
+    var headers = {
+      'Authorization': 'Bearer $token',
+      'Content-Type': 'application/json', // Ensure the correct content type is set
+    };
+
+    // Fetch location data
+    if (_currentPosition == null) {
+      _currentPosition = await getCurrentLocation();
+      if (_currentPosition != null) {
+        await getAddress(_currentPosition!.latitude, _currentPosition!.longitude);
+      }
+    }
+
+    print('User current address: $_currentAddress');
+
+    // Prepare data
+    var data = {
+      'address': _currentAddress.isEmpty ? "address" : _currentAddress,
+      // 'latitude': _currentPosition?.latitude ?? '',
+      // 'longitude': _currentPosition?.longitude ?? '',
+    };
+
+    // Convert the data to JSON
+    var body = jsonEncode(data);
+
+    // Make the HTTP POST request
+    var url = Uri.parse('https://forreal.net:4000/users/editProfile');
+    var response = await http.post(
+      url,
+      headers: headers,
+      body: body,
+    );
+
+    // Handle the response
+    if (response.statusCode == 200) {
+      var responseData = json.decode(response.body);
+      print(responseData);
+
+      // Fluttertoast.showToast(msg: "${responseData["message"]}");
+      Get.back();
+    } else {
+      print("Edit Profile Error: ${response.reasonPhrase}");
+    }
+  }
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -94,7 +180,8 @@ class _LocationScreenState extends State<LocationScreen> {
                     print(response.statusMessage);
                   }
                   await  requestLocationPermission();
-                 await prefs.setBool("isLogin",true);
+                  await editProfile();
+                  await prefs.setBool("isLogin",true);
                   Get.offAll(() => const DashboardPage());
                 }),
           ),
@@ -106,23 +193,6 @@ class _LocationScreenState extends State<LocationScreen> {
     );
   }
 
-  Future<void> getAddress(double latitude, double longitude) async {
-    try {
-      List<Placemark> placemarks =
-          await placemarkFromCoordinates(latitude, longitude);
-
-      if (placemarks != null && placemarks.isNotEmpty) {
-        Placemark firstPlacemark = placemarks[0];
-        // _currentAddress = "${firstPlacemark.street} ${firstPlacemark.subLocality}, ${firstPlacemark.locality},${firstPlacemark.country}";
-        // print("Address: $_currentAddress");
-        // buisbnesssignUpController.addressController.text=_currentAddress!;
-      } else {
-        print("No address found for the given coordinates");
-      }
-    } catch (e) {
-      print("Error getting address: $e");
-    }
-  }
 
   updateStatus() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -150,3 +220,6 @@ class _LocationScreenState extends State<LocationScreen> {
   }
 
 }
+
+
+

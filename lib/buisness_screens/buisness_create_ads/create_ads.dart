@@ -190,7 +190,7 @@ class _CreateAadsState extends State<CreateAads> {
                 child: SvgPicture.asset('assets/icons/btn.svg')),
           ),
           title: const Text(
-            'Create Ads',
+            'Create Ad',
             style: CustomTextStyle.black,
           ),
           centerTitle: true,
@@ -298,10 +298,11 @@ class _CreateAadsState extends State<CreateAads> {
                         controller: txt_title,
                         validator: validateTitle,
                         hintText: 'Please Enter Title',
+                        keyboardType: TextInputType.emailAddress,
                       ),
                     ),
                     customTextC(
-                        text: "Age",
+                        text: "Age(in years)",
                         fSize: 16,
                         fWeight: FontWeight.w500,
                         lineHeight: 36),
@@ -323,11 +324,11 @@ class _CreateAadsState extends State<CreateAads> {
                       child: CustumProfileTextField1(
                         controller: txt_interest,
                         validator: validateIntrest,
-                        hintText: 'Enter Interest ',
+                        hintText: 'Enter Interest in price ',
                       ),
                     ),
                     customTextC(
-                        text: "Budget",
+                        text: "Budget(₹)",
                         fSize: 16,
                         fWeight: FontWeight.w500,
                         lineHeight: 36),
@@ -363,6 +364,7 @@ class _CreateAadsState extends State<CreateAads> {
                         controller: txt_location,
                         validator: validateLocation,
                         hintText: 'Enter Location ',
+                        keyboardType: TextInputType.emailAddress,
                       ),
                     ),
                     customTextC(
@@ -389,6 +391,7 @@ class _CreateAadsState extends State<CreateAads> {
                         controller: txt_link,
                         validator: validateLink,
                         hintText: 'Enter Link ',
+                        keyboardType: TextInputType.emailAddress,
                       ),
                     ),
                     const SizedBox(

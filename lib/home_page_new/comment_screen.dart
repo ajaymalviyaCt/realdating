@@ -72,14 +72,22 @@ class _CommentPageState extends State<CommentPage> {
                 padding: const EdgeInsets.only(bottom: 0.0),
                 child: TextButton(
                   onPressed: () async {
-                    // postsC.homePageModel.posts[1].totalComments=333;
-                    // postsC.homePagetModelNOTUSE.value.posts[widget.indexxx].totalComments=234;
-                    // print("totalComments${postsC.homePagetModelNOTUSE.value.posts[1].totalComments}");
-                    // postsC.homePagetModelNOTUSE.refresh();
 
                     FocusScope.of(context).unfocus();
-                    EasyLoading.show(status: "Post Comment");
-                    homePageNewController.postComments(widget.postId, homePageNewController.commentsController.text,widget.userId,widget.indexxx);
+                    String trimmedComment = homePageNewController.commentsController.text.trim();
+
+                    if (trimmedComment.isEmpty) {
+                      EasyLoading.showError('Comment cannot be empty or only spaces.');
+                      return; // Exit the function
+                    }
+                    EasyLoading.show(status: "Posting Comment...");
+                    await homePageNewController.postComments(
+                      widget.postId,
+                      trimmedComment,
+                      widget.userId,
+                      widget.indexxx,
+                    );
+                    homePageNewController.commentsController.clear();
                   },
                   child: const Text(
                     'Post',

@@ -103,7 +103,7 @@ class BusinessProfileController extends GetxController {
 
   RxBool isLoadingupdateProfile = false.obs;
 
-  Future<void> updateProfile() async {
+/*  Future<void> updateProfile() async {
     isLoadingupdateProfile(true);
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var userId = prefs.get('user_id');
@@ -167,5 +167,109 @@ class BusinessProfileController extends GetxController {
     } else {
       print(response.statusMessage);
     }
+  }*/
+  Future<void> updateProfile() async {
+    String businessName = businessNameController.text.trim();
+
+    // Validate the business name
+    if (businessName.isEmpty) {
+      Fluttertoast.showToast(
+        msg: "Business name cannot be empty.",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+      );
+      return;
+    }
+
+    if (businessName.contains(' ')) {
+      Fluttertoast.showToast(
+        msg: "Spaces are not allowed in the business name.",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+      );
+      return;
+    }
+
+    isLoadingupdateProfile(true);
+
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var userId = prefs.get('user_id');
+    var token = prefs.get('token');
+
+    var headers = {'Authorization': 'Bearer $token'};
+
+    FormData data = FormData.fromMap({
+      'business_id': '$userId',
+      'Monday': '1',
+    });
+
+    if (businessName.isNotEmpty) {
+      data.fields.add(MapEntry("business_name", businessName));
+    }
+
+    if (businessFaceBookController.text.trim().isNotEmpty) {
+      data.fields.add(MapEntry("facebook_link", businessFaceBookController.text.trim()));
+    }
+    if (businessDescriptionController.text.trim().isNotEmpty) {
+      data.fields.add(MapEntry("description", businessDescriptionController.text.trim()));
+    }
+    if (businessCategoryController.text.trim().isNotEmpty) {
+      data.fields.add(MapEntry("category", businessCategoryController.text.trim()));
+    }
+    if (businessNumberController.text.trim().isNotEmpty) {
+      data.fields.add(MapEntry("phone_number", businessNumberController.text.trim()));
+    }
+    if (businessTwitterController.text.trim().isNotEmpty) {
+      data.fields.add(MapEntry("twitter_link", businessTwitterController.text.trim()));
+    }
+    if (businessInstagramController.text.trim().isNotEmpty) {
+      data.fields.add(MapEntry("instagram_link", businessInstagramController.text.trim()));
+    }
+    if (businessWebsiteController.text.trim().isNotEmpty) {
+      data.fields.add(MapEntry("website", businessWebsiteController.text.trim()));
+    }
+
+    try {
+      var dio = Dio();
+      var response = await dio.request(
+        'https://forreal.net:4000/add_profile_photo',
+        options: Options(
+          method: 'POST',
+          headers: headers,
+        ),
+        data: data,
+      );
+
+      if (response.statusCode == 200) {
+        print('this is param-------------${data}');
+        Fluttertoast.showToast(
+          msg: "${response.data["message"]}.",
+          toastLength: Toast.LENGTH_LONG,
+          gravity: ToastGravity.BOTTOM,
+          backgroundColor: Colors.white,
+          textColor: Colors.black,
+          fontSize: 16.0,
+        );
+        isLoadingupdateProfile(false);
+        myProfile();
+      } else {
+        print(response.statusMessage);
+      }
+    } catch (e) {
+      Fluttertoast.showToast(
+        msg: "Error updating profile: $e",
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.BOTTOM,
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+      );
+      isLoadingupdateProfile(false);
+    }
   }
+
+
 }

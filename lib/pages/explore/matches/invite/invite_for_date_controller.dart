@@ -29,8 +29,7 @@ class InvaiteForDatesController extends GetxController {
     print("InviteForDate Api===>".toString());
 
     isLoading.value = true;
-    final response = await BaseClient01()
-        .post(Uri.parse("https://forreal.net:4000/users/invite_for_date"), {
+    final response = await BaseClient01().post(Uri.parse("https://forreal.net:4000/users/invite_for_date"), {
       'user_id': id.toString(),
       'date': date,
       'time': time,
@@ -53,7 +52,7 @@ class InvaiteForDatesController extends GetxController {
       selectDateC.clear();
       activityC.clear();
       locationC.clear();
-      Fluttertoast.showToast(msg: "Invite Send Successfully");
+      Fluttertoast.showToast(msg: "Invitation sent successfully.");
     }else{
       Fluttertoast.showToast(msg: "${response["message"]}");
     }

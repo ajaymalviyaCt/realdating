@@ -143,7 +143,7 @@ class _UserCreatePostState extends State<UserCreatePost> {
 
           });
         print(_video.toString());
-        testCompressFile(_video!);
+        // testCompressFile(_video!);
       });
     } else {}
   }
@@ -516,7 +516,7 @@ class _UserCreatePostState extends State<UserCreatePost> {
               swipController.sendNotification(myList, "tag");
             }
             Fluttertoast.showToast(
-                msg: "Post uploaded successfully",
+                msg: "Post has been uploaded successfully.",
                 toastLength: Toast.LENGTH_SHORT,
                 gravity: ToastGravity.BOTTOM,
                 backgroundColor: Colors.black,

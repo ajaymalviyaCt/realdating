@@ -82,7 +82,7 @@ class _mentionState extends State<mention> {
 
                   // uploadFileToServerUHome();
                 },
-                icon: Text("Add", style: TextStyle(fontWeight: FontWeight.w600,
+                icon: const Text("Add", style: TextStyle(fontWeight: FontWeight.w600,
                     color: Colors.red,
                     fontSize: 16),),
               ),
@@ -109,6 +109,11 @@ class _mentionState extends State<mention> {
                   ),
                 ),
                 suggestionsCallback: (pattern) async {
+
+                  for (var data in userHomeController.userFriend){
+                    print(data.toJson());
+                    print("line 112");
+                  }
                   return userHomeController.userFriend.
                   where((userFriend) =>
                       userFriend.friendFirstName!.toLowerCase().
@@ -128,17 +133,12 @@ class _mentionState extends State<mention> {
                   );
                 },
                 onSuggestionSelected: (MyFriends? suggestion) {
-                  // Replace the current text with the selected suggestion
-                  // Add your logic to handle the selected user
                   setState(() =>
                   selectedTag = suggestion!.friendFirstName.toString());
                   myList.add(selectedTag);
                   myListId.add(suggestion?.friendId.toString()??"1");
                   print(selectedTag);
-
-                  print(
-                      'Selected user: ${suggestion?.friendFirstName
-                          .toString()}');
+                  print('Selected user: ${suggestion?.friendFirstName.toString()}');
                 },
               ),
             ),
@@ -159,14 +159,10 @@ class _mentionState extends State<mention> {
               child: ListView.builder(
                 itemCount: myList.length,
                 itemBuilder: (context, index) {
-                  print("jfkrejgirotugoi");
+                  print("Testing----");
                   print(myList);
                   return ListTile(
-                    title: Text("@${
-                        myList == null
-                            ? "NO Tag"
-                            : myList[index]
-                    }",style: const TextStyle(color: Colors.blue,fontWeight: FontWeight.w600),),
+                    title: Text("@${myList .isEmpty ? "NO Tag" : myList[index]}",style: const TextStyle(color: Colors.blue,fontWeight: FontWeight.w600),),
                     // subtitle: Text(widget.dataP.parameter2[index]),
                   );
                 },

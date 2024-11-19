@@ -36,7 +36,7 @@ class MyAllDatesController extends GetxController {
       print(response.toString());
       print("sdfgfsdfdf");
       myAllDatesModel = MyAllDatesModel001.fromJson(response);
-      print("sdfgfsdfdf");
+      print("May All Dates here-----------${myAllDatesModel}");
     }
   }
 }

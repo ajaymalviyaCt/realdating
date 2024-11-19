@@ -382,10 +382,12 @@ class _CreateDealState extends State<CreateDeal> {
                 height: 70,
                 child: CustumProfileTextField1(
                   maxlenght: 30,
+                  keyboardType: TextInputType.text,
                   controller: txt_title,
-                  validator: validateName,
+                  validator: validateTitle, // Pass the function reference
                   hintText: 'Please Enter Title',
-                ),
+                )
+
               ),
               const SizedBox(
                 height: 10,
@@ -417,8 +419,8 @@ class _CreateDealState extends State<CreateDeal> {
                 child: CustumProfileTextField1(
                   keyboardType: TextInputType.number,
                   controller: txt_discount,
-                  validator: validateDeal,
-                  hintText: 'Please Enter Discount',
+                  validator: validateDiscount,
+                  hintText: 'Please Enter Discount in Price',
                 ),
               ),
               const SizedBox(

@@ -203,7 +203,7 @@ class UserHomeController extends GetxController implements GetxService {
     }
   }
 
-  GetAllFriendModel? getAllFriendModel;
+  // GetAllFriendModel? getAllFriendModel;
   List<MyFriends> userFriend = [];
 
   getMyFriendsPost() async {
@@ -226,7 +226,7 @@ class UserHomeController extends GetxController implements GetxService {
       final data = GetAllFriendModel.fromJson(response);
       userFriend = data.myFriends!;
       users = data.myFriends!;
-      print(response);
+      print('my friends list is here------${response}');
     } else {
       Fluttertoast.showToast(
         msg: msg.toString(),

@@ -5,6 +5,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:realdating/widgets/emoji_picker.dart';
 import '../../main.dart';
 import '../api/apis.dart';
 import '../models/chat_user.dart';
@@ -21,15 +23,12 @@ class ChatScreen extends StatefulWidget {
 }
 
 class _ChatScreenState extends State<ChatScreen> {
-  //for storing all messages
   List<Message> _list = [];
 
-  //for handling message text changes
   final _textController = TextEditingController();
 
-  //showEmoji -- for storing value of showing or hiding emoji
-  //isUploading -- for checking if image is uploading or not?
-  bool _showEmoji = false, _isUploading = false;
+  bool _isUploading = false;
+  final RxBool _showEmoji = false.obs;
 
   @override
   Widget build(BuildContext context) {
@@ -37,11 +36,9 @@ class _ChatScreenState extends State<ChatScreen> {
       onTap: () => FocusScope.of(context).unfocus(),
       child: SafeArea(
         child: WillPopScope(
-          //if emojis are shown & back button is pressed then hide emojis
-          //or else simple close current screen on back button click
           onWillPop: () {
-            if (_showEmoji) {
-              setState(() => _showEmoji = !_showEmoji);
+            if (_showEmoji.value) {
+              setState(() => _showEmoji.value = !_showEmoji.value);
               return Future.value(false);
             } else {
               return Future.value(true);
@@ -55,8 +52,6 @@ class _ChatScreenState extends State<ChatScreen> {
             ),
 
             backgroundColor: const Color.fromARGB(255, 234, 248, 255),
-
-            //body
             body: Column(
               children: [
                 Expanded(
@@ -64,20 +59,16 @@ class _ChatScreenState extends State<ChatScreen> {
                     stream: APIs.getAllMessages(widget.user),
                     builder: (context, snapshot) {
                       switch (snapshot.connectionState) {
-                        //if data is loading
                         case ConnectionState.waiting:
                         case ConnectionState.none:
                           return const SizedBox();
-
-                        //if some or all data is loaded then show it
                         case ConnectionState.active:
                         case ConnectionState.done:
                           final data = snapshot.data?.docs;
                           _list = data
-                                  ?.map((e) => Message.fromJson(e.data()))
-                                  .toList() ??
+                              ?.map((e) => Message.fromJson(e.data()))
+                              .toList() ??
                               [];
-
                           if (_list.isNotEmpty) {
                             return ListView.builder(
                                 reverse: true,
@@ -97,34 +88,23 @@ class _ChatScreenState extends State<ChatScreen> {
                     },
                   ),
                 ),
-
-                //progress indicator for showing uploading
                 if (_isUploading)
                   const Align(
                       alignment: Alignment.centerRight,
                       child: Padding(
                           padding:
-                              EdgeInsets.symmetric(vertical: 8, horizontal: 20),
+                          EdgeInsets.symmetric(vertical: 8, horizontal: 20),
                           child: CircularProgressIndicator(strokeWidth: 2))),
 
-                //chat input filed
                 _chatInput(),
-
-                //show emojis on keyboard emoji button click & vice versa
-                if (_showEmoji)
-                  SizedBox(
-                    height: mq.height * .35,
-                    //todo 0000000000000
-
-                    // child: EmojiPicker(
-                    //   textEditingController: _textController,
-                    //   config: Config(
-                    //     bgColor: const Color.fromARGB(255, 234, 248, 255),
-                    //     columns: 8,
-                    //     emojiSizeMax: 32 * (Platform.isIOS ? 1.30 : 1.0),
-                    //   ),
-                    // ),
-                  )
+                Obx(() {
+                  if(_showEmoji.value==false){
+                    return const SizedBox.shrink();
+                  }
+                  return EmojiPickerWidget(
+                    textEditingController: _textController,
+                  );
+                }),
               ],
             ),
           ),
@@ -146,6 +126,8 @@ class _ChatScreenState extends State<ChatScreen> {
             stream: APIs.getUserInfo(widget.user),
             builder: (context, snapshot) {
               final data = snapshot.data?.docs;
+
+              print('user data--------------${data}');
               final list =
                   data?.map((e) => ChatUser.fromJson(e.data())).toList() ?? [];
 
@@ -155,17 +137,17 @@ class _ChatScreenState extends State<ChatScreen> {
                   IconButton(
                       onPressed: () => Navigator.pop(context),
                       icon:
-                          const Icon(Icons.arrow_back, color: Colors.black54)),
+                      const Icon(Icons.arrow_back, color: Colors.black54)),
 
-                  //user profile picture
                   ClipRRect(
                     borderRadius: BorderRadius.circular(mq.height * .03),
                     child: CachedNetworkImage(
                       width: mq.height * .05,
                       height: mq.height * .05,
                       imageUrl:
-                          list.isNotEmpty ? list[0].image : widget.user.image,
-                      errorWidget: (context, url, error) => const CircleAvatar(
+                      list.isNotEmpty ? list[0].image : widget.user.image,
+                      errorWidget: (context, url, error) =>
+                      const CircleAvatar(
                           child: Icon(CupertinoIcons.person)),
                     ),
                   ),
@@ -191,7 +173,7 @@ class _ChatScreenState extends State<ChatScreen> {
             }));
   }
 
-  // bottom chat input field
+/*  // bottom chat input field
   Widget _chatInput() {
     return Padding(
       padding: EdgeInsets.symmetric(
@@ -296,6 +278,103 @@ class _ChatScreenState extends State<ChatScreen> {
             minWidth: 0,
             padding:
                 const EdgeInsets.only(top: 10, bottom: 10, right: 5, left: 10),
+            shape: const CircleBorder(),
+            color: Colors.green,
+            child: const Icon(Icons.send, color: Colors.white, size: 28),
+          )
+        ],
+      ),
+    );
+  }*/
+
+  Widget _chatInput() {
+    return Padding(
+      padding: EdgeInsets.symmetric(
+          vertical: mq.height * .01, horizontal: mq.width * .025),
+      child: Row(
+        children: [
+          Expanded(
+            child: Card(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15)),
+              child: Row(
+                children: [
+                  // Emoji button
+                  IconButton(
+                    onPressed: () {
+                      FocusScope.of(context).unfocus();
+                      setState(() => _showEmoji.value = !_showEmoji.value);
+                    },
+                    icon: const Icon(Icons.emoji_emotions,
+                        color: Colors.blueAccent, size: 25),
+                  ),
+
+
+                  Expanded(
+                    child: TextField(
+                      controller: _textController,
+                      keyboardType: TextInputType.multiline,
+                      maxLines: null,
+                      onChanged: (value) {
+                        // Remove leading spaces
+                        if (value.startsWith(' ')) {
+                          _textController.text = value.trimLeft();
+                          _textController.selection =
+                              TextSelection.fromPosition(
+                                TextPosition(
+                                    offset: _textController.text.length),
+                              );
+                        }
+
+                        // Remove emojis or unwanted characters
+                        String filteredText = value.replaceAll(
+                            RegExp(
+                                r'[^\w\s.,!?@#\$%^&*()\-+=<>:;"\[\]{}|~`/\\]'),
+                            '');
+                        if (value != filteredText) {
+                          _textController.text = filteredText;
+                          _textController.selection =
+                              TextSelection.fromPosition(
+                                TextPosition(
+                                    offset: _textController.text.length),
+                              );
+                        }
+                      },
+                      onTap: () {
+                        if (_showEmoji.value)
+                          setState(() => _showEmoji.value = !_showEmoji.value);
+                      },
+                      decoration: const InputDecoration(
+                          hintText: 'Type Something...',
+                          hintStyle: TextStyle(color: Colors.blueAccent),
+                          border: InputBorder.none),
+                    ),
+                  ),
+
+                  // Adding some space
+                  SizedBox(width: mq.width * .02),
+                ],
+              ),
+            ),
+          ),
+
+          // Send message button
+          MaterialButton(
+            onPressed: () {
+              if (_textController.text.isNotEmpty) {
+                if (_list.isEmpty) {
+                  APIs.sendFirstMessage(
+                      widget.user, _textController.text, Type.text);
+                } else {
+                  APIs.sendMessage(
+                      widget.user, _textController.text, Type.text);
+                }
+                _textController.text = '';
+              }
+            },
+            minWidth: 0,
+            padding:
+            const EdgeInsets.only(top: 10, bottom: 10, right: 5, left: 10),
             shape: const CircleBorder(),
             color: Colors.green,
             child: const Icon(Icons.send, color: Colors.white, size: 28),

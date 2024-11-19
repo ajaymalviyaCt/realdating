@@ -73,7 +73,7 @@ class _InviteFriendPageState extends State<InviteFriendPage> {
           Spacer(),
           InkWell(
             onTap: () {
-              final String linkToShare = 'I am Pramod Vishawakarma'; // Replace
+              const String linkToShare = 'https://play.google.com/store/apps?hl=en_IN&pli=1'; // Replace
               Share.share(linkToShare);
 // with your link
             },

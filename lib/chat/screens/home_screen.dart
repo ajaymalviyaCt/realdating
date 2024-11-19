@@ -312,7 +312,8 @@ import '../widgets/chat_user_card.dart';
 
 //home screen -- where all available contacts are shown
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  String? profileImage;
+  HomeScreen({super.key,this.profileImage});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -396,6 +397,7 @@ class _HomeScreenState extends State<HomeScreen> {
           // ),
           //app bar
           appBar: AppBar(
+
             leading: IconButton(icon: Icon(CupertinoIcons.back), onPressed: () {
               Get.back();
             },),

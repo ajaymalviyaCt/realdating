@@ -99,7 +99,7 @@ class MessagingService {
     } if("${data["screen"]}" =="business_comment"){
       Get.to(()=>const BuisnessHomePage());
     }if("${data["screen"]}" =="chat"){
-      Get.to(()=>const HomeScreen());
+      Get.to(()=>HomeScreen());
     }
     if("${data["screen"]}" =="comment"){
       Get.to(()=>const NotificationPage());
@@ -193,7 +193,7 @@ class MessagingService {
       } if("${data["screen"]}" =="business_comment"){
         Get.to(()=>const BuisnessHomePage());
       }if("${data["screen"]}" =="chat"){
-        Get.to(()=>const HomeScreen());
+        Get.to(()=>HomeScreen());
       }
       if("${data["screen"]}" =="comment"){
         Get.to(()=> HomePageUser());

@@ -187,7 +187,7 @@ class customPrimaryBtn extends StatelessWidget {
       padding: const EdgeInsets.all(10.0),
       child: Container(
         decoration: BoxDecoration(
-          boxShadow: [
+          boxShadow: const [
             BoxShadow(
                 color: Colors.black26, offset: Offset(0, 2), blurRadius: 2.0)
           ],

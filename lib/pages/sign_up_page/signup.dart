@@ -30,7 +30,7 @@ class SignUpPage extends StatelessWidget {
         body:  Form(
           // key: _formKey,
           child: Container(
-            height: MediaQuery.of(context).size.height,
+            height: MediaQuery.of(context).size.height/1,
             width: MediaQuery.of(context).size.width,
             decoration: const BoxDecoration(
                 image: DecorationImage(
@@ -95,7 +95,7 @@ class SignUpPage extends StatelessWidget {
                                 hintText: 'Last Name '),
                             const SizedBox(height: 15),
                             CustumTextField(
-                              maxLength: 10,
+                              maxLength: 15,
                               keyboardType: TextInputType.number,
                               controller: signUpController.phonenoController,
                               validator: validateMobile,
@@ -198,7 +198,7 @@ class SignUpPage extends StatelessWidget {
                               ),
                             ),
                             const SizedBox(
-                              height: 200,
+                              height: 10,
                             ),
                           ]),
                     ),
