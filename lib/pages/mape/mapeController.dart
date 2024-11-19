@@ -34,7 +34,7 @@ class MapeUserController extends GetxController implements GetxService {
     var userid = prefs.get("user_id");
     var token = prefs.get('token');
     isLoadig(true);
-    print("MapeApi====>>>>>");
+    print("MapeApi search====>>>>>${search}");
     final response = await BaseClient01().post(Appurls.mapUrl, {
       "user_id": userid.toString(),
       if(search!=null)

@@ -1,6 +1,7 @@
 // import 'package:flutter_picker/flutter_picker.dart';
 //todo 0000000000000
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:realdating/pages/edit_profle/edit_profile_controller.dart';
 import 'package:realdating/widgets/custom_appbar.dart';
@@ -151,7 +152,11 @@ class _HeightDOBpageState extends State<HeightDOBpage> {
                 height: 56,
                 child: TextField(
                   controller: heightDOBcontroller.height,
-                  keyboardType: TextInputType.number,
+                  keyboardType: TextInputType.numberWithOptions(decimal: true),
+                  inputFormatters: [
+                    // Allows only one decimal place
+                    FilteringTextInputFormatter.allow(RegExp(r'^\d*\.?\d{0,1}')),
+                  ],
                   decoration: InputDecoration(
                     suffixIcon: const Icon(
                       Icons.height,
@@ -163,15 +168,9 @@ class _HeightDOBpageState extends State<HeightDOBpage> {
                     ),
                     focusColor: Colors.redAccent,
                   ),
-                  // readOnly: true, // readOnly: true,
-                  //set it true, so that user will not able to edit text
-                  // onTap: () async {
-                  //   //todo 0000000000000
-                  //   print("linenumber167");
-                  //  // _showHeightPicker();
-                  // },
                 ),
               ),
+
               const Spacer(),
               Obx(() => customPrimaryBtn(
                 btnText: "Continue",

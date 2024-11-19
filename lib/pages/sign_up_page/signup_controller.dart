@@ -70,7 +70,7 @@ clearData(){return {
     isLoadig(false);
     bool success= response["success"];
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    var      user_uid = "${prefs.getInt('user_id')}";
+    var user_uid = "${prefs.getInt('user_id')}";
     print("user_id ==========================>$user_uid");
     if(success){
       var user_id = response["data_1"][0]["id"] ;

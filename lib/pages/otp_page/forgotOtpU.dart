@@ -118,7 +118,7 @@ class _OtpPageForgotState extends State<OtpPageForgot> {
                 // }, child: Text("sumbit")),
                 Spacer(),
                 customPrimaryBtn(
-                    btnText: "Sumbit",
+                    btnText: "Submit",
                     btnFun: () {
                       print(otpController.Codecontroller.value.text);
                       print(otpController.Codecontroller.value.text);

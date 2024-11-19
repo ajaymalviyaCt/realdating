@@ -576,13 +576,14 @@ class _AddYourPhotoPageState extends State<AddYourPhotoPage> {
   Future getImages() async {
     final pickedFile = await picker.pickMultiImage(
         imageQuality: 10, maxHeight: 1000, maxWidth: 1000);
-    List<XFile> xfilePick = pickedFile;
+        List<XFile> xfilePick = pickedFile;
 
     setState(
       () {
         if (xfilePick.isNotEmpty) {
           for (var i = 0; i < xfilePick.length; i++) {
             selectedImages.add(File(xfilePick[i].path));
+
           }
         } else {
           ScaffoldMessenger.of(context).showSnackBar(

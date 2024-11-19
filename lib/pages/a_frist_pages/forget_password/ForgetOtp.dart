@@ -101,7 +101,7 @@ class _ForgetOtpState extends State<ForgetOtp> {
                 //   print(Codecontroller.value.text);
                 // }, child: Text("sumbit")),
                 Spacer(),
-                customPrimaryBtn(btnText: "Sumbit", btnFun: (){
+                customPrimaryBtn(btnText: "Submit", btnFun: (){
                   print(otpController.Codecontroller.value.text);
                   otpController.otpverify("${widget.email}");
                 }),

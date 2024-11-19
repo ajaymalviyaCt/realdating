@@ -41,8 +41,9 @@ class ProfileController extends GetxController {
     print("status ___$status");
     var msg = response["message"];
     print("msg ___$msg");
-    profileModel=ProfileModel.fromJson(response);
-    print("234565434543");
+    profileModel = ProfileModel.fromJson(response);
+    print("profile model data--------${profileModel}");
+    print("profile model data--------${profileModel?.userInfo.address}");
 
      username.value=profileModel!.userInfo.username;
      firstName.value=ProfileModel.fromJson(response).userInfo.firstName;

@@ -31,7 +31,7 @@ class CustumTextField extends StatelessWidget {
       maxLength: maxLength ?? 200,
       // autovalidateMode: AutovalidateMode.onUserInteraction,
       controller: controller,
-      keyboardType:keyboardType ?? TextInputType.name,
+      keyboardType:keyboardType ?? TextInputType.emailAddress,
 
       decoration: InputDecoration(
         counterText: "",

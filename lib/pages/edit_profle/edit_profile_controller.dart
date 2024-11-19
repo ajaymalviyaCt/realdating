@@ -45,6 +45,7 @@ class EditProfileController extends GetxController {
     height.text = '${profileController.profileModel?.userInfo.height}' ?? "";
     dateOfbrith.text = '${profileController.profileModel?.userInfo.dob}' ?? '';
     Address.text = profileController.profileModel?.userInfo.address??"";
+    print('address is here-----${profileController.profileModel?.userInfo.address}');
   }
   @override
   void onReady() {

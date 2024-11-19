@@ -197,7 +197,7 @@ class _OtpPageState extends State<OtpPage> {
                 // }, child: Text("sumbit")),
                 Spacer(),
                 customPrimaryBtn(
-                    btnText: "Sumbit",
+                    btnText: "Submit",
                     btnFun: () {
                       print(otpController.Codecontroller.value.text);
                       otpController.otpverify("${widget.number}");

@@ -166,7 +166,7 @@ class _UserCreatePostState extends State<UserCreatePost> {
                       }),
                   ListTile(
                     leading: const Icon(Icons.video_camera_back_rounded),
-                    title: const Text('video'),
+                    title: const Text('Video'),
                     onTap: () {
                       _videoFromCamera();
                       Navigator.of(context).pop();

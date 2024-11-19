@@ -490,18 +490,10 @@ class _HomePageState extends State<HomePageUser> {
                                                                           index]
                                                                       .likedByUser = "N";
                                                                   setState(() {
-                                                                    postsC
-                                                                        .homePageModel
-                                                                        .posts[
-                                                                            index]
-                                                                        .totalLikes = (postsC
-                                                                            .homePageModel
-                                                                            .posts[index]
-                                                                            .totalLikes -
-                                                                        1);
+                                                                    postsC.homePageModel.posts[index].totalLikes = (postsC.homePageModel.posts[index].totalLikes - 1);
                                                                     homePageNewController.likePost(
                                                                         "${postsC.homePageModel.posts[index].id}",
-                                                                        "0",
+                                                                        " ",
                                                                         "${postsC.homePageModel.posts[index].userId}");
                                                                   });
                                                                 },
@@ -766,8 +758,18 @@ class _HomePageState extends State<HomePageUser> {
                                                     ),
                                                     8.ah.heightBox,
                                                     Obx(
-                                                      () => Text(
-                                                        '  View all ${postsC.homePageModel.posts[index].totalComments} comment',
+                                                      () => postsC.homePageModel.posts[index].totalComments==0?Text('comment', style: TextStyle(
+                                                        color: const Color(
+                                                            0xFFAAAAAA),
+                                                        fontSize:
+                                                        12.adaptSize,
+                                                        fontFamily: 'Inter',
+                                                        fontWeight:
+                                                        FontWeight.w500,
+                                                        height: 0,
+                                                        letterSpacing: -0.30,
+                                                      ),):Text(
+                                                        'View all ${postsC.homePageModel.posts[index].totalComments} comment',
                                                         style: TextStyle(
                                                           color: const Color(
                                                               0xFFAAAAAA),

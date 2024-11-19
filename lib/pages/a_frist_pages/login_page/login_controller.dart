@@ -284,6 +284,8 @@ class LoginController extends GetxController {
         'password': passwordController.text.trim(),
         'fcm_token': (fcmToken??"").toString()
       };
+
+
       var dio = Dio();
       var response = await dio.request(
         'https://forreal.net:4000/users/loginUser',
@@ -307,6 +309,7 @@ class LoginController extends GetxController {
           SharedPreferences prefs = await SharedPreferences.getInstance();
           prefs.setString("token", token);
           prefs.setInt("user_id", user_id);
+          prefs.setString("email",emailController.text);
           if (profile_status == 0) {
             Get.offAll(() => SelectGenderPage());
           }

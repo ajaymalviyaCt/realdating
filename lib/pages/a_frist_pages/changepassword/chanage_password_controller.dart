@@ -35,8 +35,9 @@ class  ChangePasswordController extends GetxController {
 
   loginwithEmail()async{
     SharedPreferences prefs = await SharedPreferences.getInstance();
-      var email =prefs.getString("email");
 
+    String? email = prefs.getString("email");
+    print('user email---------${email}');
     print("loginwithEmail");
     isLoadig(true);
     final response = await BaseClient01().post(Appurls.changepassword,{
