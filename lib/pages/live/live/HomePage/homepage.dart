@@ -2,9 +2,11 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
+
 import 'package:flutter/material.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
+
 import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:realdating/chat/api/apis.dart';
@@ -12,7 +14,7 @@ import 'package:zego_uikit_prebuilt_live_streaming/zego_uikit_prebuilt_live_stre
 
 import '../../../../zego_live_stream_chat/live_page.dart';
 import '../../../dash_board_page.dart';
-import '../agora/audience.dart';
+
 import '../constant/liveusercard.dart';
 
 
@@ -25,20 +27,56 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   List<LiveUser> liveUsers = [];
-  User? currentUser ;
+  // User? currentUser ;
   bool isDeviceConnected = false;
   StreamSubscription<ConnectivityResult>? connectivitySubscription;
+
+
+  var userName ='';
+  var userID ='';
 
   @override
   void initState() {
     super.initState();
+
+    fetchLoggedInUserData(user_uid!);
     setupConnectivityListener();
     fetchLiveUsers();
     removeExistingUserIfNeeded();
 
-    print('live users data------------${liveUsers}');
+    print('login user id------------${user_uid}');
 
   }
+
+
+
+  Future<void> fetchLoggedInUserData(String userId) async {
+    try {
+
+      final collection = FirebaseFirestore.instance.collection('users');
+      final querySnapshot = await collection.where('id', isEqualTo: userId).get();
+
+      if (querySnapshot.docs.isNotEmpty) {
+        final userData = querySnapshot.docs.first.data();
+        if (kDebugMode) {
+          print('User Data: $userData');
+        }
+
+        userName = userData['name'];
+        final email = userData['email'];
+         userID = userData['id'];
+        print('Name: $userName, Email: $email');
+        print('User id: $userID, username: $userName');
+      } else {
+        print('No user found with id: $userId');
+      }
+    } catch (e) {
+      print('Error fetching user data: $e');
+    }
+  }
+
+
+
 
   void setupConnectivityListener() {
     Connectivity().checkConnectivity().then((result) {
@@ -64,22 +102,22 @@ class _HomePageState extends State<HomePage> {
 
 
   Future<void> removeExistingUserIfNeeded() async {
-    if (currentUser != null) {
-      bool exists = (await FirebaseFirestore.instance.collection("Liveusers").doc(currentUser!.uid).get()).exists;
+    if (user_uid != null) {
+      bool exists = (await FirebaseFirestore.instance.collection("Liveusers").doc(user_uid).get()).exists;
       if (exists) {
-        await FirebaseFirestore.instance.collection("Liveusers").doc(currentUser!.uid).delete();
+        await FirebaseFirestore.instance.collection("Liveusers").doc(user_uid).delete();
       }
     }
   }
 
 
   Future<void> goLive() async {
-    print("dlskajf");
-    Permission.microphone.request().then((value) {
-      print(value);
-    },);Permission.camera.request().then((value) {
-      print(value);
-    },);
+
+    // Permission.microphone.request().then((value) {
+    //   print(value);
+    // },);Permission.camera.request().then((value) {
+    //   print(value);
+    // },);
     // return;
     if (!isDeviceConnected) {
       Get.snackbar("Error", "No internet connection", snackPosition: SnackPosition.BOTTOM);
@@ -92,10 +130,10 @@ class _HomePageState extends State<HomePage> {
 
       /// Add live user to Firestore------
       await FirebaseFirestore.instance.collection("Liveusers").doc(user_uid).set({
-        'username':currentUser?.displayName,
+        'username':userName,
         'userimage': 'https://www.yiwubazaar.com/resources/assets/images/default-product.jpg',
         'channelname': channelName,
-        'userid':currentUser?.uid,
+        'userid':userID,
       });
 
       if (ZegoUIKitPrebuiltLiveStreamingController().minimize.isMinimizing) {
@@ -105,7 +143,7 @@ class _HomePageState extends State<HomePage> {
       jumpToLivePage(
         context,
         liveID:'12345',
-        isHost: true,
+        isHost: true, userNmae: userName
       );
 
 
@@ -129,7 +167,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    currentUser=FirebaseAuth.instance.currentUser;
+
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -196,7 +234,7 @@ class _HomePageState extends State<HomePage> {
       margin: const EdgeInsets.all(10),
       child: InkWell(
         onTap: () {
-          Get.to(() => const LivePage(liveID:'12345', isHost: false,));
+          Get.to(() => const LivePage(liveID:'12345', isHost: false, userId:'', userNmae: '',));
         },
         child: LiveUserCard(
           broadcasterName: liveUser.userName,
@@ -234,11 +272,11 @@ class LiveUser {
 }
 
 void jumpToLivePage(BuildContext context,
-    {required String liveID, required bool isHost}) {
+    {required String liveID, required bool isHost,required userNmae}) {
   Navigator.push(
     context,
     MaterialPageRoute(
-      builder: (context) => LivePage(liveID: liveID, isHost: isHost),
+      builder: (context) => LivePage(liveID: liveID, isHost: isHost, userId: '', userNmae:userNmae,),
     ),
   );
 }

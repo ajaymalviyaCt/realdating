@@ -10,10 +10,15 @@ class LivePage extends StatefulWidget {
   final String liveID;
   final bool isHost;
 
+  final String userNmae;
+  final String userId;
+
   const LivePage({
     Key? key,
     required this.liveID,
     this.isHost = false,
+    required this.userId,
+    required this.userNmae
   }) : super(key: key);
 
 
