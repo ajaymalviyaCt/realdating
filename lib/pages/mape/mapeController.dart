@@ -29,6 +29,7 @@ class MapeUserController extends GetxController implements GetxService {
   var userProfileImage;
 
   getAllUserMape(search) async {
+
     // isLoadig(true);
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var userid = prefs.get("user_id");
