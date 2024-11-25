@@ -58,25 +58,6 @@ class _ProfilePageState extends State<ProfilePage> {
 
   void uploadImage(context) async {
 
-
-    if (selectedImages.length < 2) {
-      Fluttertoast.showToast(
-        msg: "Please upload at least 2 photos.",
-        toastLength: Toast.LENGTH_LONG,
-        gravity: ToastGravity.TOP,
-        timeInSecForIosWeb: 1,
-        backgroundColor: Colors.red,
-        textColor: Colors.white,
-        fontSize: 16.0,
-      );
-      return;
-    }
-
-
-    setState(() {
-      isLoading = true;
-    });
-
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var token = prefs.getString('token');
     var headers = {
@@ -107,6 +88,7 @@ class _ProfilePageState extends State<ProfilePage> {
           );
           setState(() {
             isLoading = false;
+            profileController.profileDaitails();
           });
 
         /// call api here--------

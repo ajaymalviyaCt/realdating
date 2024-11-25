@@ -52,11 +52,8 @@ class ProfileController extends GetxController {
      email.value=ProfileModel.fromJson(response).userInfo.email;
      profileImage.value=ProfileModel.fromJson(response).userInfo.profileImage;
   //  profile_image1.value=ProfileModel.fromJson(response).userInfo.profile_image1;
-
-
-
-
     isLoadig(false);
+    update();
     // if (status) {
     //   Get.to(() => const UplodePhoto());
     // }

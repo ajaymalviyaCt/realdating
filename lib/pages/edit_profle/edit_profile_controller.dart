@@ -124,6 +124,7 @@ class EditProfileController extends GetxController {
       print("editprofile${response.statusMessage}");
     }
   }
+
    Future<void> uploadImage(XFile file) async {
 
      SharedPreferences prefs = await SharedPreferences.getInstance();

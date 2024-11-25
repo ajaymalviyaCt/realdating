@@ -236,6 +236,7 @@ class _BuisnessEditAdsState extends State<BuisnessEditAds> {
                               height: 50,
                               child: CustumProfileTextField1(
                                 controller: editAdsController.Title,
+                                keyboardType: TextInputType.emailAddress,
                                 validator: validateName,
                                 hintText:
                                     widget.dataList[widget.indexEdit].title ??
@@ -244,7 +245,7 @@ class _BuisnessEditAdsState extends State<BuisnessEditAds> {
 
                           //  SizedBox(height: 10,),
                           customTextC(
-                              text: "Age",
+                              text: "Age(in years)",
                               fSize: 16,
                               fWeight: FontWeight.w500,
                               lineHeight: 36),
@@ -322,6 +323,7 @@ class _BuisnessEditAdsState extends State<BuisnessEditAds> {
                             height: 50,
                             child: CustumProfileTextField1(
                               controller: editAdsController.Location,
+                              keyboardType: TextInputType.emailAddress,
                               validator: validateName,
                               hintText:
                                   "${widget.dataList[widget.indexEdit].address}",
@@ -358,6 +360,7 @@ class _BuisnessEditAdsState extends State<BuisnessEditAds> {
                             child: CustumProfileTextField1(
                               controller: editAdsController.Link,
                               validator: validateName,
+                              keyboardType: TextInputType.emailAddress,
                               hintText:
                                   "${widget.dataList[widget.indexEdit].link}",
                             ),
