@@ -121,7 +121,8 @@ class _CreateReelScreenState extends State<CreateReelScreen>
                 if (controller != null && controller!.value.isInitialized)
                   AspectRatio(
                     aspectRatio: 9 / 16,
-                    child: Transform(
+                    child:
+                    Transform(
                         alignment: Alignment.topCenter,
                         transform:
                         Matrix4.rotationY(GetPlatform.isAndroid ? pi : 0),

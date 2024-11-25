@@ -126,24 +126,34 @@ class _DiscoveryPageState extends State<DiscoveryPage> {
                             onTap: (value) {
                               print("dsffsfs$value");
                             },
-                            tabs: const [
-                              Tab(
-                                  icon: Text(
-                                "Recently Active",
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w600),
+                            tabs:[
+                              InkWell(
+                                onTap: () {
 
-                              )),
-                              Tab(
-                                  icon: Text(
-                                "For you",
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w600),
-                              )),
+                                },
+                                child: const Tab(
+                                    icon: Text(
+                                  "Currently Active",
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w600),
+
+                                )),
+                              ),
+                              InkWell(
+                                onTap: () {
+                                  discoveryController.foryou();
+                                },
+                                child: const Tab(
+                                    icon: Text(
+                                  "For you",
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w600),
+                                )),
+                              ),
                             ],
                           ),
                         ),
@@ -303,6 +313,24 @@ class _DiscoveryPageState extends State<DiscoveryPage> {
                                                         ),
                                                       ],
                                                     ),
+                                                    Row(
+                                                      children: [
+                                                        Container(
+                                                          height: 10,
+                                                          width: 10,
+                                                          decoration: BoxDecoration(
+
+                                                              color: Colors.green,
+                                                              borderRadius: BorderRadius.circular(40)),
+
+                                                        ),
+                                                        SizedBox(width: 10,),
+                                                        Text(
+                                                          'Active',style: TextStyle(color: Colors.green),
+                                                          maxLines: 3,
+                                                        ),
+                                                      ],
+                                                    ),
                                                     const SizedBox(height: 6),
 // if (dataD?.interest.length != null)
 /*
@@ -416,11 +444,9 @@ class _DiscoveryPageState extends State<DiscoveryPage> {
                                 ? ListView.builder(
                                     shrinkWrap: true,
                                     padding: const EdgeInsets.only(bottom: 20),
-                                    itemCount: discoveryController
-                                        .filteredItemsYou.length,
+                                    itemCount: discoveryController.filteredItemsYou.length,
                                     itemBuilder: (BuildContext context, int i) {
-                                      var dataD = discoveryController
-                                          .filteredItemsYou[i];
+                                      var dataD = discoveryController.filteredItemsYou[i];
                                       return Padding(
                                         padding: const EdgeInsets.only(top: 20),
                                         child: Card(
@@ -432,13 +458,9 @@ class _DiscoveryPageState extends State<DiscoveryPage> {
                                                     width: 130,
                                                     height: 130,
                                                     decoration: BoxDecoration(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(8),
+                                                        borderRadius: BorderRadius.circular(8),
                                                         image: DecorationImage(
-                                                          image: NetworkImage(dataD
-                                                              .images![0]
-                                                              .profileImages!),
+                                                          image: NetworkImage(dataD.images![0].profileImages!),
                                                           fit: BoxFit.cover,
                                                         )),
                                                   ),

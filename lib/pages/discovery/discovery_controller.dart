@@ -4,8 +4,10 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:realdating/pages/discovery/discovery_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../../consts/app_urls.dart';
 import '../../services/base_client01.dart';
 import '../explore/matches/matches_controller.dart';
+import '../profile/profile_model.dart';
 
 class DiscoveryController extends GetxController {
   MatchessController  matchessController =Get.put(MatchessController());
@@ -17,15 +19,50 @@ class DiscoveryController extends GetxController {
 
   List<MyFriend> myFriends = [];
   List<MyFriend> filteredItems = [];
+  RxBool isLoadig = false.obs;
+  ProfileModel ? profileModel;
 
 
   @override
   void onInit() {
     // TODO: implement onInit
     super.onInit();
+    profileDaitails();
     getDiscoveryUser();
     foryou();
   }
+
+
+
+  Future<void>  profileDaitails() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var user_id = prefs.getInt('user_id');
+    print("call  profileDaitails");
+    isLoadig(true);
+    final response = await BaseClient01().post(Appurls.profile, {
+      "id": "$user_id",
+    });
+    print(response.toString());
+
+    bool status = response["success"];
+    print("status ___$status");
+    var msg = response["message"];
+    print("msg ___$msg");
+    profileModel = ProfileModel.fromJson(response);
+
+    print("profile model data--------${profileModel}");
+
+
+
+
+
+
+    isLoadig(false);
+    // if (status) {
+    //   Get.to(() => const UplodePhoto());
+    // }
+  }
+
 
   Future<void> getDiscoveryUser() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -58,6 +95,11 @@ class DiscoveryController extends GetxController {
         discoveryModel = Discovery2Model.fromJson(response.data);
         filteredItems.addAll(discoveryModel!.myFriends);
         myFriends.addAll(discoveryModel!.myFriends);
+
+        print("Discovery model data -  =>$discoveryModel");
+        print("Discovery filter data1  -  =>$filteredItems");
+        print("Discovery filter data2 -  =>$myFriends");
+
       } catch (e) {
         print("responseee=>$e");
       }
@@ -74,10 +116,19 @@ class DiscoveryController extends GetxController {
   List<MyFriend> filteredItemsYou = [];
 
 
+
+
+
+
+
+
   Future<void> foryou() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var userId = prefs.getInt('user_id');
-    var data = {'user_id': '$userId'};
+    var data = {
+      'user_id': '$userId',
+      'Interest':profileModel?.userInfo.interest
+    };
     var token = prefs.get('token');
 
     isLoadingForYourModel.value = true;
@@ -85,6 +136,8 @@ class DiscoveryController extends GetxController {
       'Content-Type': 'application/x-www-form-urlencoded',
       'Authorization': 'Bearer $token'
     };
+
+    print('data request-------${data}');
 
     var dio = Dio();
     var response = await dio.request(
@@ -102,6 +155,7 @@ class DiscoveryController extends GetxController {
         forYourModel = Discovery2Model.fromJson(response.data);
         filteredItemsYou.addAll(forYourModel!.myFriends);
         myFriendsForyou.addAll(forYourModel!.myFriends);
+        print("My user data----${forYourModel}");
       } catch (e) {
         print("responseee=>$e");
       }

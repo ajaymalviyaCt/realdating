@@ -645,265 +645,199 @@ class _UserCreatePostState extends State<UserCreatePost> {
           child: Column(
             children: [
               Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                  child: Form(
-                    key: formKey,
-                    child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const SizedBox(
-                            height: 30,
-                          ),
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                child: Form(
+                  key: formKey,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const SizedBox(height: 30),
 
-                          customTextC(
-                              text: "Upload Image",
-                              fSize: 16,
-                              fWeight: FontWeight.w500,
-                              lineHeight: 36),
-                          Stack(
-                            alignment: Alignment.topCenter,
-                            children: [
-                              Center(
-                                child: _images == null && _video == null
+                      customTextC(
+                        text: "Upload Image",
+                        fSize: 16,
+                        fWeight: FontWeight.w500,
+                        lineHeight: 36,
+                      ),
+
+                      Stack(
+                        alignment: Alignment.topCenter,
+                        children: [
+                          Center(
+                            child: _images == null && _video == null
+                                ? Container(
+                              width: MediaQuery.of(context).size.width,
+                              height: 300,
+                              decoration: BoxDecoration(
+                                border: Border.all(color: HexColor('#D9D9D9')),
+                                borderRadius: BorderRadius.circular(15),
+                              ),
+                            )
+                                : _video != null
+                                ? _videoPlayerController!.value.isInitialized
+                                ? Container(
+                              margin: const EdgeInsets.only(top:130),
+                              height: 300,
+                              child: AspectRatio(
+                                aspectRatio: _videoPlayerController!
+                                    .value.aspectRatio,
+                                child: VideoPlayer(
+                                    _videoPlayerController!),
+                              ),
+                            )
+                                : Container()
+                                : Stack(
+                              children: [
+                                _videoPlayerController == null
                                     ? Container(
-                                    width: MediaQuery.of(context).size.width,
-                                    height: 306,
-                                    decoration: BoxDecoration(
-                                      border: Border.all(
-                                        color: HexColor('#D9D9D9'),
-                                      ),
-                                      borderRadius: BorderRadius.circular(15),
-                                    ))
-                                    : _video != null
-                                    ? _videoPlayerController!
-                                    .value.isInitialized
-                                    ? Container(
-                                  margin: const EdgeInsets.only(
-                                      top: 80),
+                                  width: MediaQuery.of(context).size.width,
+                                  height: 306,
+                                  margin: const EdgeInsets.only(top:100),
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
+                                        color: HexColor('#D9D9D9')),
+                                    borderRadius: BorderRadius.circular(15),
+                                    image: DecorationImage(
+                                      image: FileImage(File(_images!.path)),
+                                      fit: BoxFit.fill,
+                                    ),
+                                  ),
+                                )
+                                    : Container(
+                                  margin: const EdgeInsets.only(top: 80),
                                   height: 306,
                                   child: AspectRatio(
-                                    aspectRatio:
-                                    _videoPlayerController!
+                                    aspectRatio: _videoPlayerController!
                                         .value.aspectRatio,
                                     child: VideoPlayer(
                                         _videoPlayerController!),
                                   ),
-                                )
-                                    : Container()
-                                    : Stack(
-                                  children: [
-                                    _videoPlayerController == null
-                                        ? Container(
-                                      width:
-                                      MediaQuery.of(context)
-                                          .size
-                                          .width,
-                                      height: 306,
-                                      decoration: BoxDecoration(
-                                          border: Border.all(
-                                            color: HexColor(
-                                                '#D9D9D9'),
-                                          ),
-                                          borderRadius:
-                                          BorderRadius
-                                              .circular(15),
-                                          image: DecorationImage(
-                                              image: FileImage(
-                                                  File(_images!
-                                                      .path)),
-                                              fit: BoxFit.fill)),
-                                    )
-                                        : Container(
-                                      margin:
-                                      const EdgeInsets.only(
-                                          top: 80),
-                                      height: 306,
-                                      child: AspectRatio(
-                                        aspectRatio:
-                                        _videoPlayerController!
-                                            .value
-                                            .aspectRatio,
-                                        child: VideoPlayer(
-                                            _videoPlayerController!),
-                                      ),
-                                    )
-
-                                    // Align(
-                                    //     alignment: Alignment.topRight,
-                                    //     child: InkWell(
-                                    //         onTap: () {
-                                    //           _images = null;
-                                    //           setState(() {});
-                                    //         },
-                                    //         child: const Icon(
-                                    //           Icons.cancel,
-                                    //           color: Colors.white,
-                                    //           size: 30,
-                                    //         )))
-                                  ],
                                 ),
-                              ),
-                              Container(
-                                height: 80,
-                                width: MediaQuery.of(context).size.width,
-                                decoration: BoxDecoration(
-                                    color: _images == null && _video == null
-                                        ? Colors.transparent
-                                        : Colors.white.withOpacity(0.6),
-                                    borderRadius: BorderRadius.circular(15)),
-                                child: Column(
-                                  // mainAxisAlignment: MainAxisAlignment.start,
-                                  // crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    const SizedBox(
-                                      height: 20,
-                                    ),
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.start,
-                                      crossAxisAlignment:
-                                      CrossAxisAlignment.start,
-                                      children: [
-                                        Padding(
-                                          padding: const EdgeInsets.only(
-                                              left: 10, right: 10),
-                                          child: CircleAvatar(
-                                            backgroundImage: NetworkImage(
-                                                profileController
-                                                    .profileImage.value),
-                                          ),
-                                        ),
-                                        Column(
-                                          crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              profileController.firstName.value,
-                                              style:
-                                              const TextStyle(fontSize: 14),
-                                            ),
-
-                                          ],
-                                        ),
-                                        const Spacer(),
-                                        IconButton(
-                                            onPressed: () {
-                                              _showPicker(context);
-                                            },
-                                            icon: const Icon(
-                                                Icons.attachment_sharp))
-                                      ],
-                                    ),
-                                    //  SvgPicture.asset('assets/icons/file-plus.svg'),
-                                    /*    InkWell(
-                                      onTap: () {
-                                        // _showPicker(context);
-                                      },
-                                      child: SvgPicture.asset(
-                                        'assets/icons/image-add (1).svg',
-                                        fit: BoxFit.fill,
-                                      ),
-                                    ),*/
-                                    const SizedBox(height: 12),
-                                    /*       Text('Upload Image',
-                                        style: TextStyle(
-                                            fontSize: 16, color: Colors.grey))*/
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: 30),
-                          // customTextC(
-                          //     text: "Contents",
-                          //     fSize: 16,
-                          //     fWeight: FontWeight.w500,
-                          //     lineHeight: 36),
-                          /* TextArea(
-                            validation: reasonValidation,
-                            borderRadius: 10,
-                            borderColor: Colors.transparent,
-                            textEditingController: myTextController,
-                            errorText: 'Please Enter Contents!',
-                            //suffixIcon: Icons.attach_file_rounded,
-                            // onSuffixIconPressed: () => {},
-                          ),*/
-
-                          SizedBox(
-                            // height: 70,
-                            child: TextFormField(
-                              validator: notEmptyValidator,
-                              controller: myTextController,
-                              onChanged: (value) {
-                                value = myTextController.text;
-                              },
-                              maxLines: 4,
-                              // Set the maximum number of lines for input
-                              decoration: InputDecoration(
-                                enabledBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(10),
-                                    borderSide: const BorderSide(
-                                      width: 1,
-                                      color: Colors.black12,
-                                    )),
-                                focusedBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(10),
-                                    borderSide: const BorderSide(
-                                      width: 1,
-                                      color: Colors.black12,
-                                    )),
-                                errorBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(10),
-                                    borderSide: const BorderSide(
-                                      width: 1,
-                                      color: Colors.red,
-                                    )),
-                                focusedErrorBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(10),
-                                    borderSide: const BorderSide(
-                                      width: 1,
-                                      color: Colors.black,
-                                    )),
-                                hintText: 'Type your caption here...',
-                                border: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color: Colors.grey.withOpacity(0.2))),
-                              ),
+                              ],
                             ),
                           ),
-                          const SizedBox(height: 20),
-                          // updateBtn(context),
-                        ]),
-                  )),
+                          const SizedBox(height: 10),
+                          Container(
+                            height: 80,
+                            width: MediaQuery.of(context).size.width,
+                            decoration: BoxDecoration(
+                              color: _images == null && _video == null
+                                  ? Colors.transparent
+                                  : Colors.white,
+                              borderRadius: BorderRadius.circular(15),
+                            ),
+                            child: Column(
+                              children: [
+                                const SizedBox(height: 20),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                                      child: CircleAvatar(
+                                        backgroundImage: NetworkImage(
+                                          profileController.profileImage.value,
+                                        ),
+                                      ),
+                                    ),
+                                    Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          profileController.firstName.value,
+                                          style: const TextStyle(fontSize: 14),
+                                        ),
+                                      ],
+                                    ),
+                                    const Spacer(),
+                                    IconButton(
+                                      onPressed: () {
+                                        _showPicker(context);
+                                      },
+                                      icon: const Icon(Icons.attachment_sharp),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                          const SizedBox(height: 10),
+                        ],
+                      ),
+
+                      const SizedBox(height: 60),
+
+                      SizedBox(
+                        child: TextFormField(
+                          validator: notEmptyValidator,
+                          controller: myTextController,
+                          onChanged: (value) {
+                            value = myTextController.text;
+                          },
+                          maxLines: 4,
+                          decoration: InputDecoration(
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              borderSide: const BorderSide(width: 1, color: Colors.black12),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              borderSide: const BorderSide(width: 1, color: Colors.black12),
+                            ),
+                            errorBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              borderSide: const BorderSide(width: 1, color: Colors.red),
+                            ),
+                            focusedErrorBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              borderSide: const BorderSide(width: 1, color: Colors.black),
+                            ),
+                            hintText: 'Type your caption here...',
+                            border: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.grey.withOpacity(0.2)),
+                            ),
+                          ),
+                        ),
+                      ),
+
+                      const SizedBox(height: 20),
+                      // updateBtn(context),
+                    ],
+                  ),
+                ),
+              ),
+
               myList == null
                   ? const Text("data")
                   : Container(
                 height: 150,
                 child: GridView.builder(
                   itemCount: myList.length,
-                  gridDelegate:
-                  const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 3,
-                      mainAxisSpacing: 0,
-                      childAspectRatio: 05),
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 3,
+                    mainAxisSpacing: 0,
+                    childAspectRatio: 0.5,
+                  ),
                   itemBuilder: (context, index) {
-                    print("jfkrejgirotugoi");
-                    print(myList);
-
                     return ListTile(
                       title: Text(
                         "@${myList == null ? "NO Tag" : myList[index]}",
                         style: const TextStyle(
-                            color: Colors.blue,
-                            fontWeight: FontWeight.w600),
+                          color: Colors.blue,
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
-                      // subtitle: Text(widget.dataP.parameter2[index]),
                     );
                   },
                 ),
               ),
+
               Padding(
-                  padding: EdgeInsets.only(
-                      bottom: MediaQuery.of(context).viewInsets.bottom)),
+                padding: EdgeInsets.only(
+                  bottom: MediaQuery.of(context).viewInsets.bottom,
+                ),
+              ),
             ],
           ),
         ),
