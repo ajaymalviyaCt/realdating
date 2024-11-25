@@ -6,15 +6,14 @@ import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-
 import 'package:image/image.dart' as IMG;
+import 'package:realdating/services/apis_related/api_call_services.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../buisness_screens/buisness_home/controller/business_home_controller.dart';
-import '../../buisness_screens/buisness_home/model/myDealModel.dart';
 import '../../function/function_class.dart';
 import '../../widgets/custom_text_styles.dart';
 import 'mapeController.dart';
-import 'mapeModel.dart';
 
 class NearByBusiness extends StatefulWidget {
   @override
@@ -54,8 +53,7 @@ class _NearByBusinessState extends State<NearByBusiness> {
 
       if (placemarks != null && placemarks.isNotEmpty) {
         Placemark place = placemarks[0];
-        String formattedAddress =
-            "${place.name}, ${place.subLocality}, ${place.locality}, ${place.postalCode}, ${place.country}";
+        String formattedAddress = "${place.name}, ${place.subLocality}, ${place.locality}, ${place.postalCode}, ${place.country}";
         setState(() {
           address = formattedAddress;
         });
@@ -100,7 +98,6 @@ class _NearByBusinessState extends State<NearByBusiness> {
     }
   }
 
-
   bool? loadData;
 
   addMarkers() async {
@@ -111,10 +108,7 @@ class _NearByBusinessState extends State<NearByBusiness> {
     for (int i = 0; i < userMapeController.userBusinessMap.length; i++) {
       Set<Marker>.from(userMapeController.userBusinessMap.map((e) {
         return markers.add(Marker(
-          markerId: MarkerId((
-            _currentPosition?.latitude ?? 20.5937,
-            _currentPosition?.longitude ?? 78.9629
-          ).toString()),
+          markerId: MarkerId((_currentPosition?.latitude ?? 20.5937, _currentPosition?.longitude ?? 78.9629).toString()),
           position: LatLng(double.tryParse(userMapeController.userBusinessMap[i].latitude) ?? 22.0,
               double.tryParse(userMapeController.userBusinessMap[i].longitude) ?? 22.0),
           icon: BitmapDescriptor.fromBytes(resizeImage(bytes, 300, 300)!), //Icon for Marker
@@ -129,9 +123,7 @@ class _NearByBusinessState extends State<NearByBusiness> {
       icon: BitmapDescriptor.fromBytes(bigimg!), //Icon for Marker
     ));
 
-    setState(() {
-
-    });
+    setState(() {});
   }
 
   final TextEditingController _searchController = TextEditingController();
@@ -205,116 +197,117 @@ class _NearByBusinessState extends State<NearByBusiness> {
                             return Obx(() => myDealController.isLoadig.value
                                 ? const Center(child: CircularProgressIndicator())
                                 : Column(
-                              children: [
-                                const SizedBox(height: 60),
-                                const Text(
-                                  "All Deals",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w700,
-                                    fontSize: 22,
-                                  ),
-                                ),
-                                Text(
-                                  location.businessName,
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 18,
-                                    color: Colors.grey,
-                                  ),
-                                ),
-                                Expanded(
-                                  child: myDealController.myDealsModel?.myDeals?.isEmpty ?? true
-                                      ? const Center(child: Text("No Deals Found"))
-                                      : GridView.builder(
-                                    padding: const EdgeInsets.all(18),
-                                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                                      crossAxisCount: 2,
-                                      childAspectRatio: 20 / 24,
-                                      crossAxisSpacing: 4.0,
-                                      mainAxisSpacing: 8.0,
-                                    ),
-                                    itemCount: myDealController.myDealsModel?.myDeals.length ?? 0,
-                                    itemBuilder: (BuildContext context, int index) {
-                                      final deal = myDealController.myDealsModel!.myDeals[index];
-                                      final price = int.tryParse(deal.price.toString()) ?? 0;
-                                      final discount = int.tryParse(deal.discount.toString()) ?? 0;
-                                      final discountedPrice = price - discount;
+                                    children: [
+                                      const SizedBox(height: 60),
+                                      const Text(
+                                        "All Deals",
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.w700,
+                                          fontSize: 22,
+                                        ),
+                                      ),
+                                      Text(
+                                        location.businessName,
+                                        style: const TextStyle(
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 18,
+                                          color: Colors.grey,
+                                        ),
+                                      ),
+                                      Expanded(
+                                        child: myDealController.myDealsModel?.myDeals?.isEmpty ?? true
+                                            ? const Center(child: Text("No Deals Found"))
+                                            : GridView.builder(
+                                                padding: const EdgeInsets.all(18),
+                                                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                                                  crossAxisCount: 2,
+                                                  childAspectRatio: 20 / 24,
+                                                  crossAxisSpacing: 4.0,
+                                                  mainAxisSpacing: 8.0,
+                                                ),
+                                                itemCount: myDealController.myDealsModel?.myDeals.length ?? 0,
+                                                itemBuilder: (BuildContext context, int index) {
+                                                  final deal = myDealController.myDealsModel!.myDeals[index];
+                                                  final price = int.tryParse(deal.price.toString()) ?? 0;
+                                                  final discount = int.tryParse(deal.discount.toString()) ?? 0;
+                                                  final discountedPrice = price - discount;
 
-                                      return Padding(
-                                        padding: const EdgeInsets.only(right: 4.0),
-                                        child: Card(
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.circular(10.0),
-                                          ),
-                                          elevation: 2.0,
-                                          child: InkWell(
-                                            onTap: () {},
-                                            child: Column(
-                                              children: [
-                                                CachedNetworkImage(
-                                                  imageUrl: deal.roomImage ?? "",
-                                                  placeholder: (context, url) => Center(
-                                                    child: Image.network(
-                                                      "https://raw.githubusercontent.com/prafful98/vue3-shimmer/HEAD/assets/card.gif",
-                                                      fit: BoxFit.fill,
-                                                      height: 120,
-                                                      width: double.infinity,
-                                                    ),
-                                                  ),
-                                                  errorWidget: (context, url, error) => Center(
-                                                    child: Image.network(
-                                                      "https://upload.wikimedia.org/wikipedia/commons/5/59/Empty.png?20091205084734",
-                                                      fit: BoxFit.fill,
-                                                      height: 125,
-                                                      width: double.infinity,
-                                                    ),
-                                                  ),
-                                                  fit: BoxFit.fill,
-                                                  height: 125,
-                                                  width: double.infinity,
-                                                ),
-                                                const SizedBox(height: 20),
-                                                Padding(
-                                                  padding: const EdgeInsets.only(left: 20.0),
-                                                  child: Text(
-                                                    deal.title ?? "",
-                                                    style: const TextStyle(
-                                                      fontSize: 16,
-                                                      fontWeight: FontWeight.w500,
-                                                    ),
-                                                  ),
-                                                ),
-                                                const SizedBox(height: 8),
-                                                Row(
-                                                  children: [
-                                                    const SizedBox(width: 20),
-                                                    customTextCommon(
-                                                      text: "₹$discountedPrice",
-                                                      fSize: 14,
-                                                      fWeight: FontWeight.w600,
-                                                      color: const Color(0xffFB4967), lineHeight: 1,
-                                                    ),
-                                                    const SizedBox(width: 10),
-                                                    Text(
-                                                      "₹${deal.price}",
-                                                      style: const TextStyle(
-                                                        decoration: TextDecoration.lineThrough,
-                                                        fontSize: 14,
-                                                        color: Color(0xffAAAAAA),
+                                                  return Padding(
+                                                    padding: const EdgeInsets.only(right: 4.0),
+                                                    child: Card(
+                                                      shape: RoundedRectangleBorder(
+                                                        borderRadius: BorderRadius.circular(10.0),
+                                                      ),
+                                                      elevation: 2.0,
+                                                      child: InkWell(
+                                                        onTap: () {},
+                                                        child: Column(
+                                                          children: [
+                                                            CachedNetworkImage(
+                                                              imageUrl: deal.roomImage ?? "",
+                                                              placeholder: (context, url) => Center(
+                                                                child: Image.network(
+                                                                  "https://raw.githubusercontent.com/prafful98/vue3-shimmer/HEAD/assets/card.gif",
+                                                                  fit: BoxFit.fill,
+                                                                  height: 120,
+                                                                  width: double.infinity,
+                                                                ),
+                                                              ),
+                                                              errorWidget: (context, url, error) => Center(
+                                                                child: Image.network(
+                                                                  "https://upload.wikimedia.org/wikipedia/commons/5/59/Empty.png?20091205084734",
+                                                                  fit: BoxFit.fill,
+                                                                  height: 125,
+                                                                  width: double.infinity,
+                                                                ),
+                                                              ),
+                                                              fit: BoxFit.fill,
+                                                              height: 125,
+                                                              width: double.infinity,
+                                                            ),
+                                                            const SizedBox(height: 20),
+                                                            Padding(
+                                                              padding: const EdgeInsets.only(left: 20.0),
+                                                              child: Text(
+                                                                deal.title ?? "",
+                                                                style: const TextStyle(
+                                                                  fontSize: 16,
+                                                                  fontWeight: FontWeight.w500,
+                                                                ),
+                                                              ),
+                                                            ),
+                                                            const SizedBox(height: 8),
+                                                            Row(
+                                                              children: [
+                                                                const SizedBox(width: 20),
+                                                                customTextCommon(
+                                                                  text: "₹$discountedPrice",
+                                                                  fSize: 14,
+                                                                  fWeight: FontWeight.w600,
+                                                                  color: const Color(0xffFB4967),
+                                                                  lineHeight: 1,
+                                                                ),
+                                                                const SizedBox(width: 10),
+                                                                Text(
+                                                                  "₹${deal.price}",
+                                                                  style: const TextStyle(
+                                                                    decoration: TextDecoration.lineThrough,
+                                                                    fontSize: 14,
+                                                                    color: Color(0xffAAAAAA),
+                                                                  ),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ],
+                                                        ),
                                                       ),
                                                     ),
-                                                  ],
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      );
-                                    },
-                                  ),
-                                ),
-                              ],
-                            ));
+                                                  );
+                                                },
+                                              ),
+                                      ),
+                                    ],
+                                  ));
                           },
                         );
                       },
@@ -333,7 +326,6 @@ class _NearByBusinessState extends State<NearByBusiness> {
             });
           },
         ),
-
         Padding(
           padding: const EdgeInsets.only(top: 50.0),
           child: Row(
@@ -376,18 +368,14 @@ class _NearByBusinessState extends State<NearByBusiness> {
           child: Container(
             height: 57,
             width: double.infinity,
-            decoration: BoxDecoration(
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.10),
-                    offset: const Offset(0, 10),
-                    blurRadius: 15,
-                    // spreadRadius: 2,
-                  ),
-                ],
-                color: Colors.white,
-                border: Border.all(color: Colors.white),
-                borderRadius: BorderRadius.circular(12)),
+            decoration: BoxDecoration(boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.10),
+                offset: const Offset(0, 10),
+                blurRadius: 15,
+                // spreadRadius: 2,
+              ),
+            ], color: Colors.white, border: Border.all(color: Colors.white), borderRadius: BorderRadius.circular(12)),
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
             margin: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20),
             child: TextField(
@@ -411,9 +399,17 @@ class _NearByBusinessState extends State<NearByBusiness> {
                         Icons.search_outlined,
                         color: Colors.white,
                       ),
-                      onPressed: () {
-                        userMapeController.getAllUserMape(_searchController.text.trim());
-                        changeCameraPosition(userMapeController.userBusinessMap[0].latitude, userMapeController.userBusinessMap[0].longitude);
+                      onPressed: () async {
+                        ApiCall.instance.callApi(
+                            url: "https://forreal.net:4000/users/nearByBussiness",
+                            headers: await authHeader(),
+                            method: HttpMethod.POST,
+                            body: {
+                              "user_id": await getUserId(),
+                              "search": _searchController.text.trim(),
+                            });
+                        // userMapeController.getAllUserMape(_searchController.text.trim());
+                        // changeCameraPosition(userMapeController.userBusinessMap[0].latitude, userMapeController.userBusinessMap[0].longitude);
                       },
                     ),
                   ),
@@ -424,4 +420,9 @@ class _NearByBusinessState extends State<NearByBusiness> {
       ],
     ));
   }
+}
+
+Future<int?> getUserId() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  return prefs.getInt('user_id');
 }
