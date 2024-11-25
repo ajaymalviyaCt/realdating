@@ -403,6 +403,7 @@ class _NearByBusinessState extends State<NearByBusiness> {
                           url: "https://forreal.net:4000/users/nearByBussiness",
                           headers: await authHeader(),
                           method: HttpMethod.POST,body: {
+                          "user_id": userid.toString(),
                           "search":_searchController.text.trim(),
                         }
                         );
