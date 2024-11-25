@@ -69,100 +69,102 @@ class _PreviewReelsState extends State<PreviewReelsScreen> {
       bottom: false,
       child: AppScaffold(
         backgroundColor: AppColorConstants.backgroundColor,
-        body: Column(
-            // alignment: Alignment.topCenter,
-            // fit: StackFit.loose,
-            children: [
-              const SizedBox(
-                height: 50,
-              ),
-              chewieController == null
-                  ? Container()
-                  : SizedBox(
-                      height: MediaQuery.of(context).size.height/2,
-                      child: Chewie(
-                        controller: chewieController!,
-                      ),
-                    ).round(20),
-              const SizedBox(
-                height: 25,
-              ),
-
-              SizedBox(
-                // height: 70,
-                child: TextFormField(
-                  style: TextStyle(
-                    color: Colors.white
-                  ),
-                  validator: notEmptyMsgValidator,
-                  controller: _textController,
-                  maxLines: 4,
-                  // Set the maximum number of lines for input
-                  decoration: InputDecoration(
-                    fillColor: Colors.red,
-                    enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: const BorderSide(
-                          width: 1,
-                          color: Colors.white,
-                        )),
-                    focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: const BorderSide(
-                          width: 1,
-                          color: Colors.white,
-                        )),
-                    errorBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: const BorderSide(
-                          width: 1,
-                          color: Colors.white,
-                        )),
-                    focusedErrorBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: const BorderSide(
-                          width: 1,
-                          color: Colors.white,
-                        )),
-                    hintText: 'Caption',
-                    hintStyle: TextStyle(color: Colors.white),
-                    border: OutlineInputBorder(
-                        borderSide: BorderSide(
-                            color: Colors.white)),
+        body: SingleChildScrollView(
+          child: Column(
+              // alignment: Alignment.topCenter,
+              // fit: StackFit.loose,
+              children: [
+                const SizedBox(
+                  height: 50,
+                ),
+                chewieController == null
+                    ? Container()
+                    : SizedBox(
+                        height: MediaQuery.of(context).size.height/2,
+                        child: Chewie(
+                          controller: chewieController!,
+                        ),
+                      ).round(20),
+                const SizedBox(
+                  height: 25,
+                ),
+          
+                SizedBox(
+                  // height: 70,
+                  child: TextFormField(
+                    style: TextStyle(
+                      color: Colors.white
+                    ),
+                    validator: notEmptyMsgValidator,
+                    controller: _textController,
+                    maxLines: 4,
+                    // Set the maximum number of lines for input
+                    decoration: InputDecoration(
+                      fillColor: Colors.red,
+                      enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: const BorderSide(
+                            width: 1,
+                            color: Colors.white,
+                          )),
+                      focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: const BorderSide(
+                            width: 1,
+                            color: Colors.white,
+                          )),
+                      errorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: const BorderSide(
+                            width: 1,
+                            color: Colors.white,
+                          )),
+                      focusedErrorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: const BorderSide(
+                            width: 1,
+                            color: Colors.white,
+                          )),
+                      hintText: 'Caption',
+                      hintStyle: TextStyle(color: Colors.white),
+                      border: OutlineInputBorder(
+                          borderSide: BorderSide(
+                              color: Colors.white)),
+                    ),
                   ),
                 ),
-              ),
-              const SizedBox(height:20,),
-
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const ThemeIconWidget(
-                    ThemeIcon.backArrow,
-                    size: 25,
-                  ).circular.ripple(() {
-                    Get.back();
-                  }),
-                  Container(
-                          color: AppColorConstants.themeColor,
-                          child: Text(
-                            nextString.tr,
-                            style: TextStyle(fontSize: FontSizes.b2),
-                          ).setPadding(
-                              left: DesignConstants.horizontalPadding,
-                              right: DesignConstants.horizontalPadding,
-                              bottom: 8,
-                              top: 8))
-                      .circular
-                      .ripple(() {
-                    compressVideo(widget.reel);
-                  }),
-                ],
-              ),
-              const SizedBox(
-                height: 20,
-              )
-            ]).hp(DesignConstants.horizontalPadding),
+                const SizedBox(height:20,),
+          
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const ThemeIconWidget(
+                      ThemeIcon.backArrow,
+                      size: 25,
+                    ).circular.ripple(() {
+                      Get.back();
+                    }),
+                    Container(
+                            color: AppColorConstants.themeColor,
+                            child: Text(
+                              nextString.tr,
+                              style: TextStyle(fontSize: FontSizes.b2),
+                            ).setPadding(
+                                left: DesignConstants.horizontalPadding,
+                                right: DesignConstants.horizontalPadding,
+                                bottom: 8,
+                                top: 8))
+                        .circular
+                        .ripple(() {
+                      compressVideo(widget.reel);
+                    }),
+                  ],
+                ),
+                const SizedBox(
+                  height: 20,
+                )
+              ]).hp(DesignConstants.horizontalPadding),
+        ),
       ),
     );
   }

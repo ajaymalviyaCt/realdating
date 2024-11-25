@@ -122,6 +122,8 @@ class _CreateReelScreenState extends State<CreateReelScreen>
                   AspectRatio(
                     aspectRatio: 9 / 16,
                     child:
+                    controller?.description.lensDirection == CameraLensDirection.back
+                        ? CameraPreview(controller!):
                     Transform(
                         alignment: Alignment.topCenter,
                         transform:
