@@ -319,6 +319,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final RxList<MyProfileModel>otherUserList=<MyProfileModel>[].obs;
   Future<void> getUserById({required int userid}) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
@@ -338,7 +339,8 @@ class _HomeScreenState extends State<HomeScreen> {
       );
 
       if (response.statusCode == 200) {
-        MyProfileModel.fromJson(response.data);
+
+        otherUserList.add( MyProfileModel.fromJson(response.data));
 
         print("json.encode(response.data)");
         print(json.encode(response.data));
@@ -509,8 +511,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
                     //get only those user, who's ids are provided
                     builder: (context, snapshot) {
-
-
                       switch (snapshot.connectionState) {
                         //if data is loading
                         case ConnectionState.waiting:
