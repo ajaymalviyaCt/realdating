@@ -143,11 +143,12 @@ class _ChatScreenState extends State<ChatScreen> {
                   ClipRRect(
                     borderRadius: BorderRadius.circular(mq.height * .03),
                     child: CachedNetworkImage(
+                      fit: BoxFit.cover,
 
                       width: mq.height * .05,
                       height: mq.height * .05,
                       imageUrl:
-                      list.isNotEmpty ? list[0].image : widget.user.image,
+                      "${widget.exploreDetailsModel.value?.userInfo[0].profileImage??""}",
                       errorWidget: (context, url, error) =>
                       const CircleAvatar(
                           child: Icon(CupertinoIcons.person)),
@@ -163,7 +164,7 @@ class _ChatScreenState extends State<ChatScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       //user name
-                      Text(list.isNotEmpty ? list[0].name : widget.user.name,
+                      Text("${widget.exploreDetailsModel.value?.userInfo[0].firstName??""} ${widget.exploreDetailsModel.value?.userInfo[0].lastName??""}",
                           style: const TextStyle(
                               fontSize: 16,
                               color: Colors.black87,
