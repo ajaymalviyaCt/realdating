@@ -23,7 +23,7 @@ class NearByBusiness extends StatefulWidget {
 class _NearByBusinessState extends State<NearByBusiness> {
   MapeUserController userMapeController = Get.put(MapeUserController());
 
-  GoogleMapController? mapController;
+
   Set<Marker> markers = {};
 
   LatLng startLocation = const LatLng(27.6602292, 85.308027);
@@ -105,7 +105,7 @@ class _NearByBusinessState extends State<NearByBusiness> {
   final TextEditingController _searchController = TextEditingController();
 
   void changeCameraPosition(lat, long) {
-    mapController?.animateCamera(
+    userMapeController.mapController?.animateCamera(
       CameraUpdate.newCameraPosition(
         CameraPosition(
           target: LatLng(double.tryParse(lat) ?? 0, double.tryParse(long) ?? 0),
@@ -298,7 +298,7 @@ class _NearByBusinessState extends State<NearByBusiness> {
           mapType: MapType.normal,
           onMapCreated: (controller) {
             setState(() {
-              mapController = controller;
+              userMapeController.mapController = controller;
             });
           },
         ),

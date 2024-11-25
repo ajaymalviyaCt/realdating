@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:realdating/pages/mape/NearBy_businesses.dart';
 import 'package:realdating/services/apis_related/api_call_services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -9,7 +10,7 @@ import 'mapeModel.dart';
 
 class MapeUserController extends GetxController implements GetxService {
 
-
+  GoogleMapController? mapController;
   @override
   void onReady() {
     super.onReady();
@@ -29,4 +30,33 @@ class MapeUserController extends GetxController implements GetxService {
     });
     MapeBusinessModel mapeBusinessModel = MapeBusinessModel.fromJson(apiData);
   }
+
+/*
+  addMarkers() async {
+    String imgurl = "https://www.fluttercampus.com/img/car.png";
+    Uint8List bytes = (await NetworkAssetBundle(Uri.parse(imgurl)).load(imgurl)).buffer.asUint8List();
+
+    Uint8List? smallimg = resizeImage(bytes, 150, 150);
+    for (int i = 0; i < userMapeController.userBusinessMap.length; i++) {
+      Set<Marker>.from(userMapeController.userBusinessMap.map((e) {
+        return markers.add(Marker(
+          markerId: MarkerId((_currentPosition?.latitude ?? 20.5937, _currentPosition?.longitude ?? 78.9629).toString()),
+          position: LatLng(double.tryParse(userMapeController.userBusinessMap[i].latitude) ?? 22.0,
+              double.tryParse(userMapeController.userBusinessMap[i].longitude) ?? 22.0),
+          icon: BitmapDescriptor.fromBytes(resizeImage(bytes, 300, 300)!), //Icon for Marker
+        ));
+      }));
+    }
+
+    Uint8List? bigimg = resizeImage(bytes, 300, 300);
+    markers.add(Marker(
+      markerId: MarkerId(endLocation.toString()),
+      position: endLocation,
+      icon: BitmapDescriptor.fromBytes(bigimg!), //Icon for Marker
+    ));
+
+    setState(() {});
+  }
+  */
+
 }
