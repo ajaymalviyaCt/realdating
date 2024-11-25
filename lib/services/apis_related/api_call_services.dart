@@ -1,17 +1,12 @@
 import 'dart:io';
 
-
-import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:dio/io.dart';
 import 'package:dio_intercept_to_curl/dio_intercept_to_curl.dart';
 import 'package:dio_smart_retry/dio_smart_retry.dart';
 import 'package:flutter/cupertino.dart';
-
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-
 
 enum HttpMethod { GET, POST, PUT, DELETE }
 
@@ -95,12 +90,8 @@ class ApiCall {
       if (dismissKeyBoard) {
         FocusManager.instance.primaryFocus?.unfocus();
       }
-    } catch (e, s) {
-
-    }
+    } catch (e, s) {}
     try {
-
-
       Response response;
 
       switch (method) {
@@ -138,7 +129,6 @@ class ApiCall {
       }
       return _handleResponse(response);
     } on DioException catch (ex, s) {
-
       if (ex.type == DioExceptionType.connectionTimeout) {
         throw Exception("Connection Timeout Exception");
       } else if (ex.type == DioExceptionType.connectionError) {
@@ -180,9 +170,7 @@ List<String> extractErrorMessages(Map<String, dynamic> response) {
         }
       });
     }
-  } catch (e, s) {
-
-  }
+  } catch (e, s) {}
   if (errorMessages.isEmpty) {
     errorMessages.add(response["message"]);
   }
