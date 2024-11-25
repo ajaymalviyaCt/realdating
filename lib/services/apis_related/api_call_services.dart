@@ -9,15 +9,16 @@ import 'package:dio_smart_retry/dio_smart_retry.dart';
 import 'package:flutter/cupertino.dart';
 
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 
 
 enum HttpMethod { GET, POST, PUT, DELETE }
 
 Future<Map<String, dynamic>> authHeader() async {
-  kLogger.i("token");
-  kLogger.i(((await LocalStorageAuth.getToken())!));
-  return {'Authorization': 'Bearer ${((await LocalStorageAuth.getToken())!)}'};
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  var token = prefs.get('token');
+  return {'Authorization': 'Bearer ${((token)!)}'};
 }
 
 class ApiCall {
@@ -95,20 +96,10 @@ class ApiCall {
         FocusManager.instance.primaryFocus?.unfocus();
       }
     } catch (e, s) {
-      Logger().e(e, stackTrace: s);
+
     }
     try {
-      final List connectivityResult = await Connectivity().checkConnectivity();
-      if (connectivityResult.isEmpty) {
-        Toasts.getWarningToast(text: kTr(keyName: keyName.noInternetConnectionAvailable));
-        return;
-      }
-      if (connectivityResult.isNotEmpty) {
-        if (connectivityResult[0] == ConnectivityResult.none) {
-          Toasts.getWarningToast(text: kTr(keyName: keyName.noInternetConnectionAvailable));
-          return;
-        }
-      }
+
 
       Response response;
 
@@ -147,7 +138,7 @@ class ApiCall {
       }
       return _handleResponse(response);
     } on DioException catch (ex, s) {
-      Logger().e(ex, stackTrace: s);
+
       if (ex.type == DioExceptionType.connectionTimeout) {
         throw Exception("Connection Timeout Exception");
       } else if (ex.type == DioExceptionType.connectionError) {
@@ -156,7 +147,6 @@ class ApiCall {
 
       rethrow;
     } catch (e, s) {
-      Logger().e(e, stackTrace: s);
       rethrow;
     }
   }
@@ -191,7 +181,7 @@ List<String> extractErrorMessages(Map<String, dynamic> response) {
       });
     }
   } catch (e, s) {
-    kLogger.e(e, stackTrace: s);
+
   }
   if (errorMessages.isEmpty) {
     errorMessages.add(response["message"]);
