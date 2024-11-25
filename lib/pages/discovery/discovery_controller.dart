@@ -23,6 +23,7 @@ class DiscoveryController extends GetxController {
   ProfileModel ? profileModel;
 
 
+
   @override
   void onInit() {
     // TODO: implement onInit
