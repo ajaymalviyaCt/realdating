@@ -175,13 +175,13 @@ class _EditProfilePageState extends State<EditProfilePage> {
                           onTap: () async {
                             _showPicker(context);
                           },
-                          child: Icon(
+                          child: const Icon(
                             Icons.camera_alt_outlined,
                             color: Colors.white,
                           ))),
                 ),
               ]),
-              SizedBox(
+              const SizedBox(
                 height: 40,
               ),
               StyledText(

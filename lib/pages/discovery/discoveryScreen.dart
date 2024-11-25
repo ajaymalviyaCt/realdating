@@ -189,7 +189,7 @@ class _DiscoveryPageState extends State<DiscoveryPage> {
                                                 ],
                                               ),
                                               const SizedBox(
-                                                width: 20,
+                                                width:10,
                                               ),
                                               Expanded(
                                                 child: Column(
@@ -273,13 +273,13 @@ class _DiscoveryPageState extends State<DiscoveryPage> {
                                                                           .circular(
                                                                               10)),
                                                               height: 35.ah,
-                                                              width: 70.aw,
+                                                              width: 65.aw,
                                                               child: Center(
                                                                   child:
                                                                       customTextCommon(
                                                                 text:
                                                                     "${discoveryController.filteredItems[i].request}",
-                                                                fSize: 14
+                                                                fSize: 13
                                                                     .adaptSize,
                                                                 fWeight:
                                                                     FontWeight

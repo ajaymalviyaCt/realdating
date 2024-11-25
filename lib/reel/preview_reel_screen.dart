@@ -4,6 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:video_compress/video_compress.dart';
 import 'package:video_player/video_player.dart';
 import 'dart:io';
+import '../validation/validation.dart';
 import 'common_import.dart';
 
 class PreviewReelsScreen extends StatefulWidget {
@@ -29,6 +30,9 @@ class PreviewReelsScreen extends StatefulWidget {
 class _PreviewReelsState extends State<PreviewReelsScreen> {
   ChewieController? chewieController;
   VideoPlayerController? videoPlayerController;
+
+
+ final TextEditingController  _textController = TextEditingController();
 
   @override
   void initState() {
@@ -83,6 +87,53 @@ class _PreviewReelsState extends State<PreviewReelsScreen> {
               const SizedBox(
                 height: 25,
               ),
+
+              SizedBox(
+                // height: 70,
+                child: TextFormField(
+                  style: TextStyle(
+                    color: Colors.white
+                  ),
+                  validator: notEmptyMsgValidator,
+                  controller: _textController,
+                  maxLines: 4,
+                  // Set the maximum number of lines for input
+                  decoration: InputDecoration(
+                    fillColor: Colors.red,
+                    enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: const BorderSide(
+                          width: 1,
+                          color: Colors.white,
+                        )),
+                    focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: const BorderSide(
+                          width: 1,
+                          color: Colors.white,
+                        )),
+                    errorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: const BorderSide(
+                          width: 1,
+                          color: Colors.white,
+                        )),
+                    focusedErrorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: const BorderSide(
+                          width: 1,
+                          color: Colors.white,
+                        )),
+                    hintText: 'Caption',
+                    hintStyle: TextStyle(color: Colors.white),
+                    border: OutlineInputBorder(
+                        borderSide: BorderSide(
+                            color: Colors.white)),
+                  ),
+                ),
+              ),
+              const SizedBox(height:20,),
+
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -247,27 +298,33 @@ class _PreviewReelsState extends State<PreviewReelsScreen> {
   submitReel(File file) async {
     EasyLoading.show(status: loadingString.tr);
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    var token = prefs.get('token');
-    print("sffsfsfsfsf${widget.reel.path}");
-
+    var token = prefs.getString('token'); // Ensure token retrieval is consistent
+    print("File path: ${file.path}");
     var headers = {
       'Authorization': 'Bearer $token',
     };
 
     var request = http.MultipartRequest(
-        'POST', Uri.parse('https://forreal.net:4000/create_reel'));
+      'POST', Uri.parse('https://forreal.net:4000/create_reel'));
+
     request.files.add(await http.MultipartFile.fromPath('file', file.path));
+
+    request.fields['caption'] = _textController.text;
+
+    print("Caption: ${_textController.text}");
     request.headers.addAll(headers);
+
     http.StreamedResponse response = await request.send();
+
     if (response.statusCode == 200) {
-      print(await response.stream.bytesToString());
-      print("uploadscuessfully");
-      Get.back();
+      var responseBody = await response.stream.bytesToString();
+      print("Upload successful: $responseBody");
       Get.back();
     } else {
-      print(response.reasonPhrase);
+      print("Upload failed: ${response.reasonPhrase}");
     }
-    //Ezay for
-    EasyLoading.dismiss();
+
+    EasyLoading.dismiss(); // Dismiss loading indicator
   }
+
 }
