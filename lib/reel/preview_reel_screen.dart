@@ -320,7 +320,8 @@ class _PreviewReelsState extends State<PreviewReelsScreen> {
 
     if (response.statusCode == 200) {
       var responseBody = await response.stream.bytesToString();
-      print("Upload successful: $responseBody");
+      print("Upload successful: Upload successful: $responseBody");
+      Get.back();
       Get.back();
     } else {
       print("Upload failed: ${response.reasonPhrase}");

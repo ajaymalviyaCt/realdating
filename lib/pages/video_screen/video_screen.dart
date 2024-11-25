@@ -98,7 +98,7 @@ class _VideoScreenState extends State<VideoScreen> {
                                             alignment: Alignment.bottomLeft,
                                             child: Padding(
                                               padding:
-                                              const EdgeInsets.only(bottom: 50.0, left: 20),
+                                              const EdgeInsets.only(bottom:40.0, left: 20),
                                               child: Container(
                                                 padding: EdgeInsets.all(5),
                                                 decoration: BoxDecoration(
@@ -114,6 +114,25 @@ class _VideoScreenState extends State<VideoScreen> {
                                                 ),
                                               ),
                                             )),
+                                        Positioned(
+                                          left:15,
+                                          right: 0,
+                                          bottom: 10,
+                                          child: Container(
+                                            padding: EdgeInsets.all(5),
+                                            decoration: BoxDecoration(
+                                                borderRadius: BorderRadius.circular(10),
+                                                color: Colors.white
+                                            ),
+                                            child: Text(
+                                              videoController
+                                                  .getReelModel?.reels[index].caption??
+                                                  "Not Found",
+                                              style: const TextStyle(
+                                                  fontWeight: FontWeight.w500, fontSize: 18),
+                                            ),
+                                          ),
+                                        )
                                       ],
                                     ),
                                   ));

@@ -21,19 +21,6 @@ class GetReelsModel {
     required this.reels,
   });
 
-  GetReelsModel copyWith({
-    bool? success,
-    String? message,
-    int? status,
-    List<Reel>? reels,
-  }) =>
-      GetReelsModel(
-        success: success ?? this.success,
-        message: message ?? this.message,
-        status: status ?? this.status,
-        reels: reels ?? this.reels,
-      );
-
   factory GetReelsModel.fromJson(Map<String, dynamic> json) => GetReelsModel(
     success: json["success"],
     message: json["message"],
@@ -51,6 +38,7 @@ class GetReelsModel {
 
 class Reel {
   int id;
+  String? caption;
   String reelName;
   String reel;
   int userId;
@@ -62,6 +50,7 @@ class Reel {
 
   Reel({
     required this.id,
+    required this.caption,
     required this.reelName,
     required this.reel,
     required this.userId,
@@ -72,31 +61,9 @@ class Reel {
     required this.userInfo,
   });
 
-  Reel copyWith({
-    int? id,
-    String? reelName,
-    String? reel,
-    int? userId,
-    int? totalLikes,
-    int? totalComments,
-    DateTime? updatedAt,
-    DateTime? createdAt,
-    List<UserInfo>? userInfo,
-  }) =>
-      Reel(
-        id: id ?? this.id,
-        reelName: reelName ?? this.reelName,
-        reel: reel ?? this.reel,
-        userId: userId ?? this.userId,
-        totalLikes: totalLikes ?? this.totalLikes,
-        totalComments: totalComments ?? this.totalComments,
-        updatedAt: updatedAt ?? this.updatedAt,
-        createdAt: createdAt ?? this.createdAt,
-        userInfo: userInfo ?? this.userInfo,
-      );
-
   factory Reel.fromJson(Map<String, dynamic> json) => Reel(
     id: json["id"],
+    caption: json["caption"],
     reelName: json["reel_name"],
     reel: json["reel"],
     userId: json["user_id"],
@@ -109,6 +76,7 @@ class Reel {
 
   Map<String, dynamic> toJson() => {
     "id": id,
+    "caption": caption,
     "reel_name": reelName,
     "reel": reel,
     "user_id": userId,
@@ -135,8 +103,9 @@ class UserInfo {
   int trending;
   String dob;
   String height;
-  String userType;
+  UserType userType;
   String fcmToken;
+  String webDeviceToken;
   int verifyUser;
   int phoneVerify;
   String interest;
@@ -151,6 +120,7 @@ class UserInfo {
   String actToken;
   double totalReviewStar;
   int onlineStatus;
+  String proPlan;
   DateTime createdAt;
   DateTime updatedAt;
 
@@ -171,6 +141,7 @@ class UserInfo {
     required this.height,
     required this.userType,
     required this.fcmToken,
+    required this.webDeviceToken,
     required this.verifyUser,
     required this.phoneVerify,
     required this.interest,
@@ -185,78 +156,10 @@ class UserInfo {
     required this.actToken,
     required this.totalReviewStar,
     required this.onlineStatus,
+    required this.proPlan,
     required this.createdAt,
     required this.updatedAt,
   });
-
-  UserInfo copyWith({
-    int? id,
-    String? firstName,
-    String? lastName,
-    String? profileImage,
-    String? username,
-    String? email,
-    String? showPassword,
-    String? password,
-    String? phoneNumber,
-    int? otp,
-    int? age,
-    int? trending,
-    String? dob,
-    String? height,
-    String? userType,
-    String? fcmToken,
-    int? verifyUser,
-    int? phoneVerify,
-    String? interest,
-    String? hobbies,
-    String? gender,
-    String? address,
-    String? logitude,
-    String? latitude,
-    int? profileStatus,
-    String? token,
-    int? kyc,
-    String? actToken,
-    double? totalReviewStar,
-    int? onlineStatus,
-    DateTime? createdAt,
-    DateTime? updatedAt,
-  }) =>
-      UserInfo(
-        id: id ?? this.id,
-        firstName: firstName ?? this.firstName,
-        lastName: lastName ?? this.lastName,
-        profileImage: profileImage ?? this.profileImage,
-        username: username ?? this.username,
-        email: email ?? this.email,
-        showPassword: showPassword ?? this.showPassword,
-        password: password ?? this.password,
-        phoneNumber: phoneNumber ?? this.phoneNumber,
-        otp: otp ?? this.otp,
-        age: age ?? this.age,
-        trending: trending ?? this.trending,
-        dob: dob ?? this.dob,
-        height: height ?? this.height,
-        userType: userType ?? this.userType,
-        fcmToken: fcmToken ?? this.fcmToken,
-        verifyUser: verifyUser ?? this.verifyUser,
-        phoneVerify: phoneVerify ?? this.phoneVerify,
-        interest: interest ?? this.interest,
-        hobbies: hobbies ?? this.hobbies,
-        gender: gender ?? this.gender,
-        address: address ?? this.address,
-        logitude: logitude ?? this.logitude,
-        latitude: latitude ?? this.latitude,
-        profileStatus: profileStatus ?? this.profileStatus,
-        token: token ?? this.token,
-        kyc: kyc ?? this.kyc,
-        actToken: actToken ?? this.actToken,
-        totalReviewStar: totalReviewStar ?? this.totalReviewStar,
-        onlineStatus: onlineStatus ?? this.onlineStatus,
-        createdAt: createdAt ?? this.createdAt,
-        updatedAt: updatedAt ?? this.updatedAt,
-      );
 
   factory UserInfo.fromJson(Map<String, dynamic> json) => UserInfo(
     id: json["id"],
@@ -273,8 +176,9 @@ class UserInfo {
     trending: json["trending"],
     dob: json["DOB"],
     height: json["height"],
-    userType: json["user_type"],
+    userType: userTypeValues.map[json["user_type"]]!,
     fcmToken: json["fcm_token"],
+    webDeviceToken: json["web_device_token"],
     verifyUser: json["verify_user"],
     phoneVerify: json["phone_verify"],
     interest: json["Interest"],
@@ -289,6 +193,7 @@ class UserInfo {
     actToken: json["act_token"],
     totalReviewStar: json["Total_review_star"]?.toDouble(),
     onlineStatus: json["online_status"],
+    proPlan: json["pro_plan"],
     createdAt: DateTime.parse(json["created_at"]),
     updatedAt: DateTime.parse(json["updated_at"]),
   );
@@ -308,8 +213,9 @@ class UserInfo {
     "trending": trending,
     "DOB": dob,
     "height": height,
-    "user_type": userType,
+    "user_type": userTypeValues.reverse[userType],
     "fcm_token": fcmToken,
+    "web_device_token": webDeviceToken,
     "verify_user": verifyUser,
     "phone_verify": phoneVerify,
     "Interest": interest,
@@ -324,7 +230,28 @@ class UserInfo {
     "act_token": actToken,
     "Total_review_star": totalReviewStar,
     "online_status": onlineStatus,
+    "pro_plan": proPlan,
     "created_at": createdAt.toIso8601String(),
     "updated_at": updatedAt.toIso8601String(),
   };
+}
+
+enum UserType {
+  USER
+}
+
+final userTypeValues = EnumValues({
+  "user": UserType.USER
+});
+
+class EnumValues<T> {
+  Map<String, T> map;
+  late Map<T, String> reverseMap;
+
+  EnumValues(this.map);
+
+  Map<T, String> get reverse {
+    reverseMap = map.map((k, v) => MapEntry(v, k));
+    return reverseMap;
+  }
 }
