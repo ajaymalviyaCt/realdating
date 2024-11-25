@@ -105,6 +105,9 @@ dependencies:
   connectivity_plus: ^5.0.0
   app_settings: ^5.1.1
   flutter_keyboard_visibility: any
+  pretty_dio_logger: ^1.4.0
+  dio_smart_retry: ^7.0.1
+  dio_intercept_to_curl: ^0.2.0
 
 
 
@@ -133,7 +136,8 @@ dependencies:
 #  gallery_saver_plus: ^3.1.1
 
 
-
+dependency_overrides:
+  http_parser: any
 
 
 dev_dependencies:
