@@ -15,18 +15,21 @@ class DiscoveryPage extends StatefulWidget {
   State<DiscoveryPage> createState() => _DiscoveryPageState();
 }
 
-class _DiscoveryPageState extends State<DiscoveryPage> with SingleTickerProviderStateMixin {
+class _DiscoveryPageState extends State<DiscoveryPage>
+    with SingleTickerProviderStateMixin {
   DiscoveryController discoveryController = Get.put(DiscoveryController());
   late TabController _tabController;
 
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 3, vsync: this);
+    _tabController = TabController(length: 2, vsync: this);
     _tabController.addListener(
       () {
-        if(_tabController.index==1) {
-          discoveryController.foryou();
+        if (_tabController.index == 1) {
+          if (_tabController.indexIsChanging == false) {
+            discoveryController.foryou();
+          }
         }
       },
     );
@@ -39,15 +42,18 @@ class _DiscoveryPageState extends State<DiscoveryPage> with SingleTickerProvider
     discoveryController.filteredItemsYou.clear();
     if (query.isNotEmpty) {
       setState(() {
-        discoveryController.filteredItems
-            .addAll(discoveryController.myFriends.where((item) => item.firstName!.toLowerCase().contains(query.toLowerCase())));
-        discoveryController.filteredItemsYou
-            .addAll(discoveryController.myFriendsForyou.where((item) => item.firstName!.toLowerCase().contains(query.toLowerCase())));
+        discoveryController.filteredItems.addAll(discoveryController.myFriends
+            .where((item) =>
+                item.firstName!.toLowerCase().contains(query.toLowerCase())));
+        discoveryController.filteredItemsYou.addAll(
+            discoveryController.myFriendsForyou.where((item) =>
+                item.firstName!.toLowerCase().contains(query.toLowerCase())));
       });
     } else {
       setState(() {
         discoveryController.filteredItems.addAll(discoveryController.myFriends);
-        discoveryController.filteredItemsYou.addAll(discoveryController.myFriendsForyou);
+        discoveryController.filteredItemsYou
+            .addAll(discoveryController.myFriendsForyou);
       });
     }
   }
@@ -86,14 +92,16 @@ class _DiscoveryPageState extends State<DiscoveryPage> with SingleTickerProvider
             ),
           ),
           body: Obx(
-            () => discoveryController.isLoadingGetDiscoverUser.value && discoveryController.isLoadingGetDiscoverUser.value
+            () => discoveryController.isLoadingGetDiscoverUser.value &&
+                    discoveryController.isLoadingGetDiscoverUser.value
                 ? const Center(
                     child: CircularProgressIndicator(
                       strokeWidth: 2,
                     ),
                   )
                 : Padding(
-                    padding: const EdgeInsets.only(top: 18.0, left: 20, right: 18),
+                    padding:
+                        const EdgeInsets.only(top: 18.0, left: 20, right: 18),
                     child: Column(children: [
                       Container(
                         height: 57,
@@ -112,7 +120,8 @@ class _DiscoveryPageState extends State<DiscoveryPage> with SingleTickerProvider
                             suffixIcon: Padding(
                               padding: const EdgeInsets.all(5),
                               child: Container(
-                                height: 50, // Adjusted height for better alignment
+                                height:
+                                    50, // Adjusted height for better alignment
                                 width: 50, // Adjusted width for consistency
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(12),
@@ -129,7 +138,8 @@ class _DiscoveryPageState extends State<DiscoveryPage> with SingleTickerProvider
                                 ),
                               ),
                             ),
-                            contentPadding: const EdgeInsets.symmetric(vertical: 15.0), // Center text vertically
+                            contentPadding: const EdgeInsets.symmetric(
+                                vertical: 15.0), // Center text vertically
                             border: InputBorder.none,
                           ),
                         ),
@@ -153,12 +163,18 @@ class _DiscoveryPageState extends State<DiscoveryPage> with SingleTickerProvider
                               const Tab(
                                   icon: Text(
                                 "Currently Active",
-                                style: TextStyle(color: Colors.black, fontSize: 15, fontWeight: FontWeight.w600),
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w600),
                               )),
                               const Tab(
                                   icon: Text(
                                 "For you",
-                                style: TextStyle(color: Colors.black, fontSize: 15, fontWeight: FontWeight.w600),
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w600),
                               )),
                             ],
                           ),
@@ -172,9 +188,11 @@ class _DiscoveryPageState extends State<DiscoveryPage> with SingleTickerProvider
                                 ? ListView.builder(
                                     shrinkWrap: true,
                                     padding: const EdgeInsets.only(bottom: 20),
-                                    itemCount: discoveryController.filteredItems.length,
+                                    itemCount: discoveryController
+                                        .filteredItems.length,
                                     itemBuilder: (BuildContext context, int i) {
-                                      var dataD = discoveryController.filteredItems[i];
+                                      var dataD =
+                                          discoveryController.filteredItems[i];
                                       return Padding(
                                         padding: const EdgeInsets.only(top: 20),
                                         child: Card(
@@ -186,10 +204,18 @@ class _DiscoveryPageState extends State<DiscoveryPage> with SingleTickerProvider
                                                     width: 130,
                                                     height: 130,
                                                     decoration: BoxDecoration(
-                                                        borderRadius: BorderRadius.circular(8),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(8),
                                                         image: DecorationImage(
-                                                          image: NetworkImage(
-                                                              dataD.images?.length == 0 ? "" : dataD.images?[0].profileImages ?? ""),
+                                                          image: NetworkImage(dataD
+                                                                      .images
+                                                                      ?.length ==
+                                                                  0
+                                                              ? ""
+                                                              : dataD.images?[0]
+                                                                      .profileImages ??
+                                                                  ""),
                                                           fit: BoxFit.cover,
                                                         )),
                                                   ),
@@ -200,53 +226,97 @@ class _DiscoveryPageState extends State<DiscoveryPage> with SingleTickerProvider
                                               ),
                                               Expanded(
                                                 child: Column(
-                                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceEvenly,
                                                   children: [
                                                     const SizedBox(
                                                       height: 5,
                                                     ),
                                                     Row(
-                                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .center,
                                                       children: [
                                                         Text(
                                                           "${dataD.firstName},",
-                                                          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                                                          style: const TextStyle(
+                                                              fontSize: 16,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w500),
                                                         ),
-                                                        const SizedBox(width: 5),
+                                                        const SizedBox(
+                                                            width: 5),
                                                         Text(
                                                           dataD.age.toString(),
                                                           style:
-                                                              const TextStyle(color: Colors.red, fontWeight: FontWeight.w500, fontSize: 16),
+                                                              const TextStyle(
+                                                                  color: Colors
+                                                                      .red,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w500,
+                                                                  fontSize: 16),
                                                         ),
                                                         const Spacer(),
                                                         Padding(
-                                                          padding: const EdgeInsets.only(top: 4.0),
+                                                          padding:
+                                                              const EdgeInsets
+                                                                  .only(
+                                                                  top: 4.0),
                                                           child: InkWell(
                                                             onTap: () async {
-                                                              discoveryController.filteredItems[i].request = "Sent";
+                                                              discoveryController
+                                                                  .filteredItems[
+                                                                      i]
+                                                                  .request = "Sent";
                                                               setState(() {});
 
-                                                              bool sendrequest = await discoveryController.sendNotificationOnlyMatch(
-                                                                  reciverId: '${dataD.id.toString()}', index: i);
+                                                              bool sendrequest =
+                                                                  await discoveryController
+                                                                      .sendNotificationOnlyMatch(
+                                                                          reciverId:
+                                                                              '${dataD.id.toString()}',
+                                                                          index:
+                                                                              i);
                                                               if (sendrequest) {
                                                               } else {
-                                                                discoveryController.filteredItems[i].request = "Request";
+                                                                discoveryController
+                                                                        .filteredItems[
+                                                                            i]
+                                                                        .request =
+                                                                    "Request";
                                                                 setState(() {});
                                                               }
                                                             },
                                                             child: Container(
                                                               decoration: BoxDecoration(
-                                                                  border: Border.all(color: Appcolor.Redpink),
-                                                                  color: Colors.white.withOpacity(.60),
-                                                                  borderRadius: BorderRadius.circular(10)),
+                                                                  border: Border.all(
+                                                                      color: Appcolor
+                                                                          .Redpink),
+                                                                  color: Colors
+                                                                      .white
+                                                                      .withOpacity(
+                                                                          .60),
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              10)),
                                                               height: 35.ah,
                                                               width: 70.aw,
                                                               child: Center(
-                                                                  child: customTextCommon(
-                                                                text: "${discoveryController.filteredItems[i].request}",
-                                                                fSize: 14.adaptSize,
-                                                                fWeight: FontWeight.w600,
+                                                                  child:
+                                                                      customTextCommon(
+                                                                text:
+                                                                    "${discoveryController.filteredItems[i].request}",
+                                                                fSize: 14
+                                                                    .adaptSize,
+                                                                fWeight:
+                                                                    FontWeight
+                                                                        .w600,
                                                                 lineHeight: 24,
                                                               )),
                                                             ),
@@ -260,14 +330,17 @@ class _DiscoveryPageState extends State<DiscoveryPage> with SingleTickerProvider
                                                     Row(
                                                       children: [
                                                         const Icon(
-                                                          Icons.location_on_outlined,
+                                                          Icons
+                                                              .location_on_outlined,
                                                           size: 15,
                                                           color: Colors.red,
                                                         ),
-                                                        const SizedBox(width: 5),
+                                                        const SizedBox(
+                                                            width: 5),
                                                         Expanded(
                                                           child: Text(
-                                                            dataD.address.toString(),
+                                                            dataD.address
+                                                                .toString(),
                                                             maxLines: 3,
                                                           ),
                                                         ),
@@ -278,15 +351,22 @@ class _DiscoveryPageState extends State<DiscoveryPage> with SingleTickerProvider
                                                         Container(
                                                           height: 10,
                                                           width: 10,
-                                                          decoration:
-                                                              BoxDecoration(color: Colors.green, borderRadius: BorderRadius.circular(40)),
+                                                          decoration: BoxDecoration(
+                                                              color:
+                                                                  Colors.green,
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          40)),
                                                         ),
                                                         SizedBox(
                                                           width: 10,
                                                         ),
                                                         Text(
                                                           'Active',
-                                                          style: TextStyle(color: Colors.green),
+                                                          style: TextStyle(
+                                                              color:
+                                                                  Colors.green),
                                                           maxLines: 3,
                                                         ),
                                                       ],
@@ -343,23 +423,47 @@ class _DiscoveryPageState extends State<DiscoveryPage> with SingleTickerProvider
 
                                                     Wrap(
                                                       children: [
-                                                        for (int i = 0; i < dataD.hobbiesData!.length; i++)
+                                                        for (int i = 0;
+                                                            i <
+                                                                dataD
+                                                                    .hobbiesData!
+                                                                    .length;
+                                                            i++)
                                                           Padding(
-                                                            padding: const EdgeInsets.all(2.0),
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .all(2.0),
                                                             child: Container(
                                                               width: 70,
                                                               decoration: BoxDecoration(
-                                                                  border: Border.all(color: const Color(0x3CF65F51)),
-                                                                  color: const Color(0x3CF65F51),
-                                                                  borderRadius: BorderRadius.circular(10)),
+                                                                  border: Border.all(
+                                                                      color: const Color(
+                                                                          0x3CF65F51)),
+                                                                  color: const Color(
+                                                                      0x3CF65F51),
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              10)),
                                                               child: Padding(
-                                                                padding: const EdgeInsets.all(4.0),
+                                                                padding:
+                                                                    const EdgeInsets
+                                                                        .all(
+                                                                        4.0),
                                                                 child: Center(
-                                                                    child: customTextCommon(
-                                                                  text: dataD.hobbiesData![i].toString(),
-                                                                  fSize: 14.adaptSize,
-                                                                  fWeight: FontWeight.w600,
-                                                                  lineHeight: 14,
+                                                                    child:
+                                                                        customTextCommon(
+                                                                  text: dataD
+                                                                      .hobbiesData![
+                                                                          i]
+                                                                      .toString(),
+                                                                  fSize: 14
+                                                                      .adaptSize,
+                                                                  fWeight:
+                                                                      FontWeight
+                                                                          .w600,
+                                                                  lineHeight:
+                                                                      14,
                                                                 )),
                                                               ),
                                                             ),
@@ -380,9 +484,11 @@ class _DiscoveryPageState extends State<DiscoveryPage> with SingleTickerProvider
                                 ? ListView.builder(
                                     shrinkWrap: true,
                                     padding: const EdgeInsets.only(bottom: 20),
-                                    itemCount: discoveryController.filteredItemsYou.length,
+                                    itemCount: discoveryController
+                                        .filteredItemsYou.length,
                                     itemBuilder: (BuildContext context, int i) {
-                                      var dataD = discoveryController.filteredItemsYou[i];
+                                      var dataD = discoveryController
+                                          .filteredItemsYou[i];
                                       return Padding(
                                         padding: const EdgeInsets.only(top: 20),
                                         child: Card(
@@ -394,9 +500,13 @@ class _DiscoveryPageState extends State<DiscoveryPage> with SingleTickerProvider
                                                     width: 130,
                                                     height: 130,
                                                     decoration: BoxDecoration(
-                                                        borderRadius: BorderRadius.circular(8),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(8),
                                                         image: DecorationImage(
-                                                          image: NetworkImage(dataD.images![0].profileImages!),
+                                                          image: NetworkImage(dataD
+                                                              .images![0]
+                                                              .profileImages!),
                                                           fit: BoxFit.cover,
                                                         )),
                                                   ),
@@ -407,52 +517,96 @@ class _DiscoveryPageState extends State<DiscoveryPage> with SingleTickerProvider
                                               ),
                                               Expanded(
                                                 child: Column(
-                                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceEvenly,
                                                   children: [
                                                     const SizedBox(
                                                       height: 5,
                                                     ),
                                                     Row(
-                                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .center,
                                                       children: [
                                                         Text(
                                                           "${dataD.firstName},",
-                                                          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                                                          style: const TextStyle(
+                                                              fontSize: 16,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w500),
                                                         ),
-                                                        const SizedBox(width: 5),
+                                                        const SizedBox(
+                                                            width: 5),
                                                         Text(
                                                           dataD.age.toString(),
                                                           style:
-                                                              const TextStyle(color: Colors.red, fontWeight: FontWeight.w500, fontSize: 16),
+                                                              const TextStyle(
+                                                                  color: Colors
+                                                                      .red,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w500,
+                                                                  fontSize: 16),
                                                         ),
                                                         const Spacer(),
                                                         Padding(
-                                                          padding: const EdgeInsets.only(top: 4.0),
+                                                          padding:
+                                                              const EdgeInsets
+                                                                  .only(
+                                                                  top: 4.0),
                                                           child: InkWell(
                                                             onTap: () async {
-                                                              discoveryController.filteredItemsYou[i].request = "Sent";
+                                                              discoveryController
+                                                                  .filteredItemsYou[
+                                                                      i]
+                                                                  .request = "Sent";
                                                               setState(() {});
-                                                              bool sendrequest = await discoveryController.sendNotificationOnlyMatch(
-                                                                  reciverId: '${dataD.id.toString()}', index: i);
+                                                              bool sendrequest =
+                                                                  await discoveryController
+                                                                      .sendNotificationOnlyMatch(
+                                                                          reciverId:
+                                                                              '${dataD.id.toString()}',
+                                                                          index:
+                                                                              i);
                                                               if (sendrequest) {
                                                               } else {
-                                                                discoveryController.filteredItemsYou[i].request = "Request";
+                                                                discoveryController
+                                                                        .filteredItemsYou[
+                                                                            i]
+                                                                        .request =
+                                                                    "Request";
                                                                 setState(() {});
                                                               }
                                                             },
                                                             child: Container(
                                                               decoration: BoxDecoration(
-                                                                  border: Border.all(color: Appcolor.Redpink),
-                                                                  color: Colors.white.withOpacity(.60),
-                                                                  borderRadius: BorderRadius.circular(10)),
+                                                                  border: Border.all(
+                                                                      color: Appcolor
+                                                                          .Redpink),
+                                                                  color: Colors
+                                                                      .white
+                                                                      .withOpacity(
+                                                                          .60),
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              10)),
                                                               height: 35.ah,
                                                               width: 70.aw,
                                                               child: Center(
-                                                                  child: customTextCommon(
-                                                                text: "${discoveryController.myFriendsForyou[i].request}",
-                                                                fSize: 14.adaptSize,
-                                                                fWeight: FontWeight.w600,
+                                                                  child:
+                                                                      customTextCommon(
+                                                                text:
+                                                                    "${discoveryController.myFriendsForyou[i].request}",
+                                                                fSize: 14
+                                                                    .adaptSize,
+                                                                fWeight:
+                                                                    FontWeight
+                                                                        .w600,
                                                                 lineHeight: 24,
                                                               )),
                                                             ),
@@ -466,14 +620,17 @@ class _DiscoveryPageState extends State<DiscoveryPage> with SingleTickerProvider
                                                     Row(
                                                       children: [
                                                         const Icon(
-                                                          Icons.location_on_outlined,
+                                                          Icons
+                                                              .location_on_outlined,
                                                           size: 15,
                                                           color: Colors.red,
                                                         ),
-                                                        const SizedBox(width: 5),
+                                                        const SizedBox(
+                                                            width: 5),
                                                         Expanded(
                                                           child: Text(
-                                                            dataD.address.toString(),
+                                                            dataD.address
+                                                                .toString(),
                                                             maxLines: 3,
                                                           ),
                                                         ),
@@ -531,23 +688,47 @@ class _DiscoveryPageState extends State<DiscoveryPage> with SingleTickerProvider
 
                                                     Wrap(
                                                       children: [
-                                                        for (int i = 0; i < dataD.hobbiesData!.length; i++)
+                                                        for (int i = 0;
+                                                            i <
+                                                                dataD
+                                                                    .hobbiesData!
+                                                                    .length;
+                                                            i++)
                                                           Padding(
-                                                            padding: const EdgeInsets.all(2.0),
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .all(2.0),
                                                             child: Container(
                                                               width: 70,
                                                               decoration: BoxDecoration(
-                                                                  border: Border.all(color: const Color(0x3CF65F51)),
-                                                                  color: const Color(0x3CF65F51),
-                                                                  borderRadius: BorderRadius.circular(10)),
+                                                                  border: Border.all(
+                                                                      color: const Color(
+                                                                          0x3CF65F51)),
+                                                                  color: const Color(
+                                                                      0x3CF65F51),
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              10)),
                                                               child: Padding(
-                                                                padding: const EdgeInsets.all(4.0),
+                                                                padding:
+                                                                    const EdgeInsets
+                                                                        .all(
+                                                                        4.0),
                                                                 child: Center(
-                                                                    child: customTextCommon(
-                                                                  text: dataD.hobbiesData![i].toString(),
-                                                                  fSize: 14.adaptSize,
-                                                                  fWeight: FontWeight.w600,
-                                                                  lineHeight: 14,
+                                                                    child:
+                                                                        customTextCommon(
+                                                                  text: dataD
+                                                                      .hobbiesData![
+                                                                          i]
+                                                                      .toString(),
+                                                                  fSize: 14
+                                                                      .adaptSize,
+                                                                  fWeight:
+                                                                      FontWeight
+                                                                          .w600,
+                                                                  lineHeight:
+                                                                      14,
                                                                 )),
                                                               ),
                                                             ),
