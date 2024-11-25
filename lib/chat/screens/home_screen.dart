@@ -292,42 +292,82 @@
 //   // }
 // }
 
-
-
-
-
-
-
-
+import 'dart:convert';
 import 'dart:developer';
+
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:realdating/buisness_screens/buisness_profile/widget/myProfileModel.dart';
+import 'package:realdating/pages/explore/exploreDetailsModel.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../consts/app_urls.dart';
 import '../../main.dart';
 import '../api/apis.dart';
 import '../models/chat_user.dart';
 import '../widgets/chat_user_card.dart';
 
-
 //home screen -- where all available contacts are shown
 class HomeScreen extends StatefulWidget {
   String? profileImage;
-  HomeScreen({super.key,this.profileImage});
+
+  HomeScreen({super.key, this.profileImage});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final RxList<ExploreDetailsModel>otherUserList=<ExploreDetailsModel>[].obs;
+  Future<void> getUserById({required int userid}) async {
+    if(otherUserList.firstWhereOrNull((element) => element?.userInfo[0].id==userid,)!=null){
+      print("line 325");
+      return;
+    }
+    print("line 328");
+    SharedPreferences prefs = await SharedPreferences.getInstance();
 
+    var token = prefs.get('token');
 
+    try {
+      var headers = {'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Bearer $token'};
+      var data = {  "user_id": '$userid'};
+      var dio = Dio();
+      var response = await dio.request(
+        "https://forreal.net:4000/users/get_user_by_id",
+        options: Options(
+          method: 'POST',
+          headers: headers,
+        ),
+        data: data,
+      );
+
+      if (response.statusCode == 200) {
+
+        otherUserList.add( ExploreDetailsModel.fromJson(response.data));
+
+        print("json.encode(response.data)");
+        print(json.encode(response.data));
+        print("json.encode(response.data)");
+        print(userid);
+      } else {
+        print(response.statusMessage);
+      }
+    } catch (e) {
+      print("https://forreal.net:4000/users/get_user_by_id");
+      print("$e");
+    }
+  }
 
   // for storing all users
   List<ChatUser> _list = [];
 
   // for storing searched items
   final List<ChatUser> _searchList = [];
+
   // for storing search status
   bool _isSearching = false;
 
@@ -397,34 +437,36 @@ class _HomeScreenState extends State<HomeScreen> {
           // ),
           //app bar
           appBar: AppBar(
-
-            leading: IconButton(icon: Icon(CupertinoIcons.back), onPressed: () {
-              Get.back();
-            },),
-
+            leading: IconButton(
+              icon: Icon(CupertinoIcons.back),
+              onPressed: () {
+                Get.back();
+              },
+            ),
             title: _isSearching
                 ? TextField(
-              decoration: const InputDecoration(
-                  border: InputBorder.none, hintText: 'Name, Email, ...'),
-              autofocus: true,
-              style: const TextStyle(fontSize: 17, letterSpacing: 0.5),
-              //when search text changes then updated search list
-              onChanged: (val) {
-                //search logic
-                _searchList.clear();
+                    decoration: const InputDecoration(border: InputBorder.none, hintText: 'Name, Email, ...'),
+                    autofocus: true,
+                    style: const TextStyle(fontSize: 17, letterSpacing: 0.5),
+                    //when search text changes then updated search list
+                    onChanged: (val) {
+                      //search logic
+                      _searchList.clear();
 
-                for (var i in _list) {
-                  if (i.name.toLowerCase().contains(val.toLowerCase()) ||
-                      i.email.toLowerCase().contains(val.toLowerCase())) {
-                    _searchList.add(i);
-                    setState(() {
-                      _searchList;
-                    });
-                  }
-                }
-              },
-            )
-                : const Text('Chat',style: TextStyle(fontSize: 18),),
+                      for (var i in _list) {
+                        if (i.name.toLowerCase().contains(val.toLowerCase()) || i.email.toLowerCase().contains(val.toLowerCase())) {
+                          _searchList.add(i);
+                          setState(() {
+                            _searchList;
+                          });
+                        }
+                      }
+                    },
+                  )
+                : const Text(
+                    'Chat',
+                    style: TextStyle(fontSize: 18),
+                  ),
             actions: [
               //search user button
               IconButton(
@@ -433,9 +475,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       _isSearching = !_isSearching;
                     });
                   },
-                  icon: Icon(_isSearching
-                      ? CupertinoIcons.clear_circled_solid
-                      : Icons.search)),
+                  icon: Icon(_isSearching ? CupertinoIcons.clear_circled_solid : Icons.search)),
 
               //more features button
               // IconButton(
@@ -466,12 +506,12 @@ class _HomeScreenState extends State<HomeScreen> {
             //get id of only known users
             builder: (context, snapshot) {
               switch (snapshot.connectionState) {
-              //if data is loading
+                //if data is loading
                 case ConnectionState.waiting:
                 case ConnectionState.none:
                   return const Center(child: CircularProgressIndicator());
 
-              //if some or all data is loaded then show it
+                //if some or all data is loaded then show it
                 case ConnectionState.active:
                 case ConnectionState.done:
                   return StreamBuilder(
@@ -480,7 +520,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     //get only those user, who's ids are provided
                     builder: (context, snapshot) {
                       switch (snapshot.connectionState) {
-                      //if data is loading
+                        //if data is loading
                         case ConnectionState.waiting:
                         case ConnectionState.none:
                         // return const Center(
@@ -490,28 +530,26 @@ class _HomeScreenState extends State<HomeScreen> {
                         case ConnectionState.active:
                         case ConnectionState.done:
                           final data = snapshot.data?.docs;
-                          _list = data
-                              ?.map((e) => ChatUser.fromJson(e.data()))
-                              .toList() ??
-                              [];
+                          _list = data?.map((e) => ChatUser.fromJson(e.data())).toList() ?? [];
+                          _list.forEach(
+                            (element) {
+                              print("line 526");
+                              print(element.id);
+                              getUserById(userid: int.parse(element.id));
+                            },
+                          );
 
                           if (_list.isNotEmpty) {
                             return ListView.builder(
-                                itemCount: _isSearching
-                                    ? _searchList.length
-                                    : _list.length,
+                                itemCount: _isSearching ? _searchList.length : _list.length,
                                 padding: EdgeInsets.only(top: mq.height * .01),
                                 physics: const BouncingScrollPhysics(),
                                 itemBuilder: (context, index) {
-                                  return ChatUserCard(
-                                      user: _isSearching
-                                          ? _searchList[index]
-                                          : _list[index]);
+                                  return ChatUserCard(user: _isSearching ? _searchList[index] : _list[index], otherUserList: otherUserList,);
                                 });
                           } else {
                             return const Center(
-                              child: Text('No Connections Found!',
-                                  style: TextStyle(fontSize: 20)),
+                              child: Text('No Connections Found!', style: TextStyle(fontSize: 20)),
                             );
                           }
                       }
