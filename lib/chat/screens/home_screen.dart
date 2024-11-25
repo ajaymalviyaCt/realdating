@@ -545,7 +545,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 padding: EdgeInsets.only(top: mq.height * .01),
                                 physics: const BouncingScrollPhysics(),
                                 itemBuilder: (context, index) {
-                                  return ChatUserCard(user: _isSearching ? _searchList[index] : _list[index]);
+                                  return ChatUserCard(user: _isSearching ? _searchList[index] : _list[index], otherUserList: otherUserList,);
                                 });
                           } else {
                             return const Center(
