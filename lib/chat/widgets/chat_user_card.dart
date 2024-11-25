@@ -48,7 +48,7 @@ class _ChatUserCardState extends State<ChatUserCard> {
   Widget build(BuildContext context) {
     return Obx(() {
       final ExploreDetailsModel? exploreDetailsModel = widget.otherUserList.firstWhereOrNull(
-        (element) => element.userInfo[0].id == widget.user.id,
+        (element) => element.userInfo[0].id.toString() == widget.user.id,
       );
       return Card(
         margin: EdgeInsets.symmetric(horizontal: mq.width * .04, vertical: 4),
@@ -76,16 +76,17 @@ class _ChatUserCardState extends State<ChatUserCard> {
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(mq.height * .03),
                       child: CachedNetworkImage(
+                        fit: BoxFit.cover,
                         width: mq.height * .055,
                         height: mq.height * .055,
-                        imageUrl: widget.user.image,
+                        imageUrl: exploreDetailsModel?.userInfo[0].profileImage??"",
                         errorWidget: (context, url, error) => const CircleAvatar(child: Icon(CupertinoIcons.person)),
                       ),
                     ),
                   ),
 
                   //user name
-                  title: Text((exploreDetailsModel?.userInfo[0].firstName??"")+" "+(exploreDetailsModel?.userInfo[0].lastName??"")),
+                  title: Text("${exploreDetailsModel?.userInfo[0].firstName??""} ${exploreDetailsModel?.userInfo[0].lastName??""}"),
 
                   //last message
                   subtitle: Text(
