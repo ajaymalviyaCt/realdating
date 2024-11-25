@@ -2,15 +2,13 @@ import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:realdating/pages/mape/NearBy_businesses.dart';
 import 'package:realdating/services/apis_related/api_call_services.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../consts/app_urls.dart';
-import '../../services/base_client01.dart';
 import 'mapeModel.dart';
 
 class MapeUserController extends GetxController implements GetxService {
-
+  final RxSet<Marker> markers = RxSet();
   GoogleMapController? mapController;
+
   @override
   void onReady() {
     super.onReady();
@@ -22,13 +20,24 @@ class MapeUserController extends GetxController implements GetxService {
   var userProfileImage;
 
   getAllUserMape(String search) async {
-
     Map<String, dynamic> apiData = await ApiCall.instance
         .callApi(url: "https://forreal.net:4000/users/nearByBussiness", headers: await authHeader(), method: HttpMethod.POST, body: {
       "user_id": await getUserId(),
       "search": search,
-    });
+    },dismissKeyBoard: false);
     MapeBusinessModel mapeBusinessModel = MapeBusinessModel.fromJson(apiData);
+    markers.add(
+      Marker(
+        markerId: MarkerId('1'),
+        position: LatLng(37.7749, -122.4194),
+        infoWindow: InfoWindow(
+          title: 'San Francisco',
+          snippet: 'An interesting city!',
+        ),
+        icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueBlue),
+      ),
+    );
+    mapController?.animateCamera(CameraUpdate.newLatLng(LatLng(37.7749, -122.4194)));
   }
 
 /*
@@ -58,5 +67,4 @@ class MapeUserController extends GetxController implements GetxService {
     setState(() {});
   }
   */
-
 }
