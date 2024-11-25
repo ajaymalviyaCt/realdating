@@ -6,6 +6,7 @@ import 'package:realdating/widgets/custom_text_styles.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../consts/app_colors.dart';
+import '../a_frist_pages/add_your_photos/add_your_photos.dart';
 import '../a_frist_pages/changepassword/change_password.dart';
 import '../a_frist_pages/login_page/login_controller.dart';
 import '../edit_profle/edit_profile.dart';
@@ -26,7 +27,7 @@ class SettingsPage extends StatefulWidget {
 class _SettingsPageState extends State<SettingsPage> {
   LoginController loginController = Get.put(LoginController());
 
-
+ bool addPhoto = true;
 
   Future<void> deleteAccount() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();

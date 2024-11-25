@@ -1,10 +1,17 @@
+import 'dart:io';
+import 'package:http/http.dart'as http;
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import '../../consts/app_urls.dart';
 import '../setting/settings_page.dart';
 import 'profile_controller.dart';
-
+import 'package:async/async.dart';
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
 
@@ -21,6 +28,106 @@ class _ProfilePageState extends State<ProfilePage> {
     super.initState();
     // profileController.profileDaitails();
   }
+  List<File> selectedImages = [];
+  final picker = ImagePicker();
+
+  Future getImages() async {
+    final pickedFile = await picker.pickMultiImage(
+        imageQuality: 10, maxHeight: 1000, maxWidth: 1000);
+    List<XFile> xfilePick = pickedFile;
+
+    setState(
+          () {
+        if (xfilePick.isNotEmpty) {
+          for (var i = 0; i < xfilePick.length; i++) {
+            selectedImages.add(File(xfilePick[i].path));
+            print('Selected images-----${selectedImages}');
+            uploadImage(context);
+          }
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text('Nothing is selected')));
+        }
+      },
+    );
+  }
+
+
+
+  bool isLoading = false;
+
+  void uploadImage(context) async {
+
+
+    if (selectedImages.length < 2) {
+      Fluttertoast.showToast(
+        msg: "Please upload at least 2 photos.",
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.TOP,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+        fontSize: 16.0,
+      );
+      return;
+    }
+
+
+    setState(() {
+      isLoading = true;
+    });
+
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var token = prefs.getString('token');
+    var headers = {
+      'Authorization': 'Bearer $token',
+    };
+
+    var request = http.MultipartRequest("POST", Appurls.addYourPhotoas);
+    // request.fields['user_id'] = stringValue.toString();
+
+    for (var file in selectedImages) {
+      String fileName = file.path.split("/").last;
+      var stream = http.ByteStream(DelegatingStream.typed(file.openRead()));
+      var length = await file.length();
+      var multipartFileSign = http.MultipartFile('files', stream, length, filename: fileName);request.files.add(multipartFileSign);
+    }
+
+    request.send().then((response) {
+      http.Response.fromStream(response).then((onValue) {
+        try {
+          Fluttertoast.showToast(
+            msg: "Photos added Successfully",
+            toastLength: Toast.LENGTH_LONG,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 16.0,
+          );
+          setState(() {
+            isLoading = false;
+          });
+
+        /// call api here--------
+        } catch (e) {
+          Fluttertoast.showToast(
+            msg: "Internal sever Error",
+            toastLength: Toast.LENGTH_LONG,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 16.0,
+          );
+          print(e.toString());
+        }
+      });
+    });
+    request.headers.addAll(headers);
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -213,12 +320,22 @@ class _ProfilePageState extends State<ProfilePage> {
                 const SizedBox(
                   height: 20,
                 ),
-                const Text(
-                  "Uploaded Photos",
-                  style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w500,
-                      color:Colors.black),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text(
+                      "Uploaded Photos",
+                      style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w500,
+                          color:Colors.black),
+                    ),
+                    InkWell(
+                        onTap: () {
+                          getImages();
+                        },
+                        child: Image.asset('assets/icons/addition.png',scale:30,color: Colors.black,))
+                  ],
                 ),
                 const SizedBox(height:12),
 
