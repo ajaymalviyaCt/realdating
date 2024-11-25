@@ -1,7 +1,11 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:realdating/pages/mape/NearBy_businesses.dart';
 import 'package:realdating/services/apis_related/api_call_services.dart';
+import 'package:widget_to_marker/widget_to_marker.dart';
 
 import 'mapeModel.dart';
 
@@ -20,12 +24,22 @@ class MapeUserController extends GetxController implements GetxService {
   var userProfileImage;
 
   getAllUserMape(String search) async {
-    Map<String, dynamic> apiData = await ApiCall.instance
-        .callApi(url: "https://forreal.net:4000/users/nearByBussiness", headers: await authHeader(), method: HttpMethod.POST, body: {
-      "user_id": await getUserId(),
-      "search": search,
-    },dismissKeyBoard: false);
+    Map<String, dynamic> apiData = await ApiCall.instance.callApi(
+        url: "https://forreal.net:4000/users/nearByBussiness",
+        headers: await authHeader(),
+        method: HttpMethod.POST,
+        body: {
+          "user_id": await getUserId(),
+          "search": search,
+        },
+        dismissKeyBoard: false);
     MapeBusinessModel mapeBusinessModel = MapeBusinessModel.fromJson(apiData);
+
+    Uint8List bytes =
+        (await NetworkAssetBundle(Uri.parse(mapeBusinessModel.bussiness[0].profileImage)).load(mapeBusinessModel.bussiness[0].profileImage))
+            .buffer
+            .asUint8List();
+    markers.clear();
     markers.add(
       Marker(
         markerId: MarkerId('1'),
@@ -34,7 +48,9 @@ class MapeUserController extends GetxController implements GetxService {
           title: 'San Francisco',
           snippet: 'An interesting city!',
         ),
-        icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueBlue),
+        icon: await TextOnImage(
+          bytes: bytes,
+        ).toBitmapDescriptor(),
       ),
     );
     mapController?.animateCamera(CameraUpdate.newLatLng(LatLng(37.7749, -122.4194)));
@@ -67,4 +83,34 @@ class MapeUserController extends GetxController implements GetxService {
     setState(() {});
   }
   */
+}
+
+class TextOnImage extends StatelessWidget {
+  const TextOnImage({super.key, required this.bytes});
+
+  final Uint8List bytes;
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        SvgPicture.asset(
+          "assets/images/bg_profile.svg",
+          height: 100,
+          width: 100,
+        ),
+        Container(
+          margin: EdgeInsets.all(20),
+          child: ClipRRect(
+              borderRadius: BorderRadius.circular(1000),
+              child: Image.memory(
+                bytes,
+                height: 100,
+                width: 100,
+                fit: BoxFit.cover,
+              )),
+        )
+      ],
+    );
+  }
 }
