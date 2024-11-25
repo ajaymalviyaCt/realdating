@@ -36,7 +36,7 @@ class MapeUserController extends GetxController implements GetxService {
     MapeBusinessModel mapeBusinessModel = MapeBusinessModel.fromJson(apiData);
 
     Uint8List bytes =
-        (await NetworkAssetBundle(Uri.parse(mapeBusinessModel.bussiness[0].profileImage)).load(mapeBusinessModel.bussiness[0].profileImage))
+        (await NetworkAssetBundle(Uri.parse("https://fastly.picsum.photos/id/349/200/300.jpg?hmac=gEjHZbjuKtdD2GOM-qQtuaA95TCvDUs6iVvKraQ94nU")).load("https://fastly.picsum.photos/id/349/200/300.jpg?hmac=gEjHZbjuKtdD2GOM-qQtuaA95TCvDUs6iVvKraQ94nU"))
             .buffer
             .asUint8List();
     markers.clear();
@@ -92,25 +92,31 @@ class TextOnImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        SvgPicture.asset(
-          "assets/images/bg_profile.svg",
-          height: 100,
-          width: 100,
-        ),
-        Container(
-          margin: EdgeInsets.all(20),
-          child: ClipRRect(
-              borderRadius: BorderRadius.circular(1000),
-              child: Image.memory(
-                bytes,
-                height: 100,
-                width: 100,
-                fit: BoxFit.cover,
-              )),
-        )
-      ],
+    return SizedBox(
+      height: 100,
+      width: 100,
+      child: Stack(
+        children: [
+          SvgPicture.asset(
+            "assets/images/bg_profile.svg",
+            height: 100,
+            width: 100,
+          ),
+          Center(
+            child: Container(
+              margin: EdgeInsets.only(bottom: 5),
+              child: ClipRRect(
+                  borderRadius: BorderRadius.circular(100),
+                  child: Image.memory(
+                    bytes,
+                    fit: BoxFit.cover,
+                    width: 70,
+                    height: 70,
+                  )),
+            ),
+          )
+        ],
+      ),
     );
   }
 }
