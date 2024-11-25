@@ -301,8 +301,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:realdating/buisness_screens/buisness_profile/widget/myProfileModel.dart';
+import 'package:realdating/pages/explore/exploreDetailsModel.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../consts/app_urls.dart';
 import '../../main.dart';
 import '../api/apis.dart';
 import '../models/chat_user.dart';
@@ -319,18 +321,23 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final RxList<MyProfileModel>otherUserList=<MyProfileModel>[].obs;
+  final RxList<ExploreDetailsModel>otherUserList=<ExploreDetailsModel>[].obs;
   Future<void> getUserById({required int userid}) async {
+    if(otherUserList.firstWhereOrNull((element) => element?.userInfo[0].id==userid,)!=null){
+      print("line 325");
+      return;
+    }
+    print("line 328");
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
     var token = prefs.get('token');
 
     try {
       var headers = {'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Bearer $token'};
-      var data = {'id': '$userid'};
+      var data = {  "user_id": '$userid'};
       var dio = Dio();
       var response = await dio.request(
-        'https://forreal.net:4000/myprofile',
+        "https://forreal.net:4000/users/get_user_by_id",
         options: Options(
           method: 'POST',
           headers: headers,
@@ -340,16 +347,17 @@ class _HomeScreenState extends State<HomeScreen> {
 
       if (response.statusCode == 200) {
 
-        otherUserList.add( MyProfileModel.fromJson(response.data));
+        otherUserList.add( ExploreDetailsModel.fromJson(response.data));
 
         print("json.encode(response.data)");
         print(json.encode(response.data));
         print("json.encode(response.data)");
+        print(userid);
       } else {
         print(response.statusMessage);
       }
     } catch (e) {
-      print("https://forreal.net:4000/myprofile");
+      print("https://forreal.net:4000/users/get_user_by_id");
       print("$e");
     }
   }
@@ -527,6 +535,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             (element) {
                               print("line 526");
                               print(element.id);
+                              getUserById(userid: int.parse(element.id));
                             },
                           );
 
