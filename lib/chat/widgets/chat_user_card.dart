@@ -58,7 +58,7 @@ class _ChatUserCardState extends State<ChatUserCard> {
         child: InkWell(
             onTap: () {
               //for navigating to chat screen
-              Navigator.push(context, MaterialPageRoute(builder: (_) => ChatScreen(user: widget.user)));
+              Navigator.push(context, MaterialPageRoute(builder: (_) => ChatScreen(user: widget.user, exploreDetailsModel: exploreDetailsModel,)));
             },
             child: StreamBuilder(
               stream: APIs.getLastMessage(widget.user),

@@ -6,6 +6,7 @@ import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:realdating/pages/explore/exploreDetailsModel.dart';
 import 'package:realdating/widgets/emoji_picker.dart';
 import '../../main.dart';
 import '../api/apis.dart';
@@ -15,8 +16,8 @@ import '../widgets/message_card.dart';
 
 class ChatScreen extends StatefulWidget {
   final ChatUser user;
-
-  const ChatScreen({super.key, required this.user});
+  final Rxn<ExploreDetailsModel> exploreDetailsModel;
+  const ChatScreen({super.key, required this.user, required this.exploreDetailsModel});
 
   @override
   State<ChatScreen> createState() => _ChatScreenState();
@@ -142,6 +143,7 @@ class _ChatScreenState extends State<ChatScreen> {
                   ClipRRect(
                     borderRadius: BorderRadius.circular(mq.height * .03),
                     child: CachedNetworkImage(
+
                       width: mq.height * .05,
                       height: mq.height * .05,
                       imageUrl:
