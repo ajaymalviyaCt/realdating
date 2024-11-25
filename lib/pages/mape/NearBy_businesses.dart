@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:image/image.dart' as IMG;
 import 'package:realdating/services/apis_related/api_call_services.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../buisness_screens/buisness_home/controller/business_home_controller.dart';
 import '../../function/function_class.dart';
@@ -400,13 +401,13 @@ class _NearByBusinessState extends State<NearByBusiness> {
                       ),
                       onPressed: () async {
                         ApiCall.instance.callApi(
-                          url: "https://forreal.net:4000/users/nearByBussiness",
-                          headers: await authHeader(),
-                          method: HttpMethod.POST,body: {
-                          "user_id": userid.toString(),
-                          "search":_searchController.text.trim(),
-                        }
-                        );
+                            url: "https://forreal.net:4000/users/nearByBussiness",
+                            headers: await authHeader(),
+                            method: HttpMethod.POST,
+                            body: {
+                              "user_id": await getUserId(),
+                              "search": _searchController.text.trim(),
+                            });
                         // userMapeController.getAllUserMape(_searchController.text.trim());
                         // changeCameraPosition(userMapeController.userBusinessMap[0].latitude, userMapeController.userBusinessMap[0].longitude);
                       },
@@ -419,4 +420,9 @@ class _NearByBusinessState extends State<NearByBusiness> {
       ],
     ));
   }
+}
+
+Future<int?> getUserId() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  return prefs.getInt('user_id');
 }
