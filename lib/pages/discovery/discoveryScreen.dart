@@ -120,6 +120,7 @@ class _DiscoveryPageState extends State<DiscoveryPage> {
                         child: SizedBox(
                           width:MediaQuery.of(context).size.width/1,
                           child: TabBar(
+
                             unselectedLabelColor: Colors.grey,
                             dividerColor: Colors.grey.withOpacity(0.3),
                             indicatorColor: Colors.red,
@@ -127,33 +128,23 @@ class _DiscoveryPageState extends State<DiscoveryPage> {
                               print("dsffsfs$value");
                             },
                             tabs:[
-                              InkWell(
-                                onTap: () {
+                              const Tab(
+                                  icon: Text(
+                                "Currently Active",
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w600),
 
-                                },
-                                child: const Tab(
-                                    icon: Text(
-                                  "Currently Active",
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.w600),
-
-                                )),
-                              ),
-                              InkWell(
-                                onTap: () {
-                                  discoveryController.foryou();
-                                },
-                                child: const Tab(
-                                    icon: Text(
-                                  "For you",
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.w600),
-                                )),
-                              ),
+                              )),
+                              const Tab(
+                                  icon: Text(
+                                "For you",
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w600),
+                              )),
                             ],
                           ),
                         ),
