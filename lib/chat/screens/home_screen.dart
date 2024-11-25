@@ -299,11 +299,15 @@
 
 
 
+import 'dart:convert';
 import 'dart:developer';
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:realdating/buisness_screens/buisness_profile/widget/myProfileModel.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../main.dart';
 import '../api/apis.dart';
 import '../models/chat_user.dart';
@@ -321,7 +325,43 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
 
+  Future<void> getUserById({required int userid}) async {
 
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    var token = prefs.get('token');
+
+    try {
+      var headers = {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Authorization': 'Bearer $token'
+      };
+      var data = {'id': '$userid'};
+      var dio = Dio();
+      var response = await dio.request(
+        'https://forreal.net:4000/myprofile',
+        options: Options(
+          method: 'POST',
+          headers: headers,
+        ),
+        data: data,
+      );
+
+      if (response.statusCode == 200) {
+  MyProfileModel.fromJson(response.data);
+
+
+        print("json.encode(response.data)");
+        print(json.encode(response.data));
+        print("json.encode(response.data)");
+      } else {
+        print(response.statusMessage);
+      }
+    } catch (e) {
+      print("https://forreal.net:4000/myprofile");
+      print("$e");
+    }
+  }
 
   // for storing all users
   List<ChatUser> _list = [];
