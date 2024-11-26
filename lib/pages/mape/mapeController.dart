@@ -37,7 +37,7 @@ class MapeUserController extends GetxController implements GetxService {
     MapeBusinessModel mapeBusinessModel = MapeBusinessModel.fromJson(apiData);
 
     Uint8List bytes =
-        (await NetworkAssetBundle(Uri.parse("https://fastly.picsum.photos/id/349/200/300.jpg?hmac=gEjHZbjuKtdD2GOM-qQtuaA95TCvDUs6iVvKraQ94nU")).load("https://fastly.picsum.photos/id/349/200/300.jpg?hmac=gEjHZbjuKtdD2GOM-qQtuaA95TCvDUs6iVvKraQ94nU"))
+        (await NetworkAssetBundle(Uri.parse(mapeBusinessModel.bussiness[0].profileImage)).load(mapeBusinessModel.bussiness[0].profileImage))
             .buffer
             .asUint8List();
     markers.clear();
@@ -105,9 +105,9 @@ class TextOnImage extends StatelessWidget {
           left: 9,
           child: ClipRRect(
             borderRadius: BorderRadius.circular(1000),
-            child: CachedNetworkImage(
+            child: Image.memory(
               fit: BoxFit.cover,
-              imageUrl: "https://fastly.picsum.photos/id/349/200/300.jpg?hmac=gEjHZbjuKtdD2GOM-qQtuaA95TCvDUs6iVvKraQ94nU",
+               bytes,
               width: 70,
               height: 70,
             ),
