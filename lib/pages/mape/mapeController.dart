@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -8,6 +9,7 @@ import 'package:realdating/services/apis_related/api_call_services.dart';
 import 'package:widget_to_marker/widget_to_marker.dart';
 
 import 'mapeModel.dart';
+import 'nearby_bussiness_location.dart';
 
 class MapeUserController extends GetxController implements GetxService {
   final RxSet<Marker> markers = RxSet();
@@ -40,20 +42,41 @@ class MapeUserController extends GetxController implements GetxService {
             .buffer
             .asUint8List();
     markers.clear();
-    markers.add(
+    for (int i = 0; i < mapeBusinessModel.bussiness.length; i++) {  markers.add(
       Marker(
-        markerId: MarkerId('1'),
-        position: LatLng(37.7749, -122.4194),
-        infoWindow: InfoWindow(
-          title: 'San Francisco',
-          snippet: 'An interesting city!',
-        ),
-        icon: await TextOnImage(
+        markerId: MarkerId((mapeBusinessModel.bussiness.first.latitude,mapeBusinessModel.bussiness.first.longitude).toString()),
+        position: LatLng(double.tryParse(mapeBusinessModel.bussiness[i].latitude) ?? 22.0,
+            double.tryParse(mapeBusinessModel.bussiness[i].longitude) ?? 22.0),
+        onTap: () {
+          Get.to(const NearByBusinessList());
+        },
+        // infoWindow: InfoWindow(
+        //   title: 'San Francisco',
+        //   snippet: 'An interesting city!',
+        // ),
+        icon: await MarerWidget(
           bytes: bytes,
         ).toBitmapDescriptor(),
       ),
     );
-    mapController?.animateCamera(CameraUpdate.newLatLng(LatLng(37.7749, -122.4194)));
+
+    mapController?.animateCamera(CameraUpdate.newLatLng(LatLng(double.parse(mapeBusinessModel.bussiness.first.latitude),double.parse(mapeBusinessModel.bussiness.first.longitude))));
+      // Set<Marker>.from(mapeBusinessModel.bussiness.map((e) {
+      //
+      //   return markers.add(Marker(
+      //     markerId: MarkerId((mapeBusinessModel.bussiness.first.latitude,mapeBusinessModel.bussiness.first..longitude).toString()),
+      //     position: LatLng(double.tryParse(mapeBusinessModel.bussiness[i].latitude) ?? 22.0,
+      //         double.tryParse(mapeBusinessModel.bussiness[i].longitude) ?? 22.0),
+      //     icon: BitmapDescriptor.fromBytes(resizeImage(bytes, 300, 300)!), //Icon for Marker
+      //   ));
+      // }));
+    }
+
+
+
+
+
+
   }
 
 /*
@@ -85,8 +108,8 @@ class MapeUserController extends GetxController implements GetxService {
   */
 }
 
-class TextOnImage extends StatelessWidget {
-  const TextOnImage({super.key, required this.bytes});
+class MarerWidget extends StatelessWidget {
+  const MarerWidget({super.key, required this.bytes});
 
   final Uint8List bytes;
 

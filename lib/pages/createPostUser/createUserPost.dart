@@ -654,7 +654,7 @@ class _UserCreatePostState extends State<UserCreatePost> {
                       const SizedBox(height: 30),
 
                       customTextC(
-                        text: "Upload Image",
+                        text: "Upload",
                         fSize: 16,
                         fWeight: FontWeight.w500,
                         lineHeight: 36,
@@ -773,7 +773,13 @@ class _UserCreatePostState extends State<UserCreatePost> {
                           validator: notEmptyValidator,
                           controller: myTextController,
                           onChanged: (value) {
-                            value = myTextController.text;
+
+                            if (value.startsWith(' ')) {
+                              myTextController.text = value.trim();
+                              myTextController.selection = TextSelection.fromPosition(
+                                TextPosition(offset: myTextController.text.length),
+                              );
+                            }
                           },
                           maxLines: 4,
                           decoration: InputDecoration(
@@ -800,7 +806,6 @@ class _UserCreatePostState extends State<UserCreatePost> {
                           ),
                         ),
                       ),
-
                       const SizedBox(height: 20),
                       // updateBtn(context),
                     ],

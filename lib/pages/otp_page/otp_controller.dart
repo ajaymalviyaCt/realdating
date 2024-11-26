@@ -58,7 +58,6 @@ class OtpController extends GetxController {
 
   }
 
-
   otpverifyForgot(email) async {
     print("loginwithEmail");
     isLoadig(true);

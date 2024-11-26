@@ -43,8 +43,8 @@ class UserInfo {
   String profileImage;
   String username;
   String email;
-  String password;
   String showPassword;
+  String password;
   String phoneNumber;
   int otp;
   int age;
@@ -53,6 +53,7 @@ class UserInfo {
   String height;
   String userType;
   String fcmToken;
+  String webDeviceToken;
   int verifyUser;
   int phoneVerify;
   String interest;
@@ -65,10 +66,12 @@ class UserInfo {
   String token;
   int kyc;
   String actToken;
-  var totalReviewStar;
+  int totalReviewStar;
   int onlineStatus;
+  String proPlan;
   DateTime createdAt;
-  DateTime updateAt;
+  DateTime updatedAt;
+  List<NewImage> newImages;
   List<Image> images;
 
   UserInfo({
@@ -78,8 +81,8 @@ class UserInfo {
     required this.profileImage,
     required this.username,
     required this.email,
-    required this.password,
     required this.showPassword,
+    required this.password,
     required this.phoneNumber,
     required this.otp,
     required this.age,
@@ -88,6 +91,7 @@ class UserInfo {
     required this.height,
     required this.userType,
     required this.fcmToken,
+    required this.webDeviceToken,
     required this.verifyUser,
     required this.phoneVerify,
     required this.interest,
@@ -102,8 +106,10 @@ class UserInfo {
     required this.actToken,
     required this.totalReviewStar,
     required this.onlineStatus,
+    required this.proPlan,
     required this.createdAt,
-    required this.updateAt,
+    required this.updatedAt,
+    required this.newImages,
     required this.images,
   });
 
@@ -114,8 +120,8 @@ class UserInfo {
     profileImage: json["profile_image"],
     username: json["username"],
     email: json["email"],
-    password: json["password"],
     showPassword: json["show_password"],
+    password: json["password"],
     phoneNumber: json["phone_number"],
     otp: json["OTP"],
     age: json["age"],
@@ -124,6 +130,7 @@ class UserInfo {
     height: json["height"],
     userType: json["user_type"],
     fcmToken: json["fcm_token"],
+    webDeviceToken: json["web_device_token"],
     verifyUser: json["verify_user"],
     phoneVerify: json["phone_verify"],
     interest: json["Interest"],
@@ -138,8 +145,10 @@ class UserInfo {
     actToken: json["act_token"],
     totalReviewStar: json["Total_review_star"],
     onlineStatus: json["online_status"],
+    proPlan: json["pro_plan"],
     createdAt: DateTime.parse(json["created_at"]),
-    updateAt: DateTime.parse(json["updated_at"]),
+    updatedAt: DateTime.parse(json["updated_at"]),
+    newImages: List<NewImage>.from(json["newImages"].map((x) => NewImage.fromJson(x))),
     images: List<Image>.from(json["images"].map((x) => Image.fromJson(x))),
   );
 
@@ -150,8 +159,8 @@ class UserInfo {
     "profile_image": profileImage,
     "username": username,
     "email": email,
-    "password": password,
     "show_password": showPassword,
+    "password": password,
     "phone_number": phoneNumber,
     "OTP": otp,
     "age": age,
@@ -160,6 +169,7 @@ class UserInfo {
     "height": height,
     "user_type": userType,
     "fcm_token": fcmToken,
+    "web_device_token": webDeviceToken,
     "verify_user": verifyUser,
     "phone_verify": phoneVerify,
     "Interest": interest,
@@ -174,9 +184,11 @@ class UserInfo {
     "act_token": actToken,
     "Total_review_star": totalReviewStar,
     "online_status": onlineStatus,
+    "pro_plan": proPlan,
     "created_at": createdAt.toIso8601String(),
-    "update_at": updateAt.toIso8601String(),
-    "images": List<Image>.from(images.map((x) => x.toJson())),
+    "updated_at": updatedAt.toIso8601String(),
+    "newImages": List<dynamic>.from(newImages.map((x) => x.toJson())),
+    "images": List<dynamic>.from(images.map((x) => x.toJson())),
   };
 }
 
@@ -192,6 +204,42 @@ class Image {
   );
 
   Map<String, dynamic> toJson() => {
+    "profile_images": profileImages,
+  };
+}
+
+class NewImage {
+  int id;
+  int userId;
+  String profileImage;
+  DateTime createdAt;
+  DateTime updatedAt;
+  String profileImages;
+
+  NewImage({
+    required this.id,
+    required this.userId,
+    required this.profileImage,
+    required this.createdAt,
+    required this.updatedAt,
+    required this.profileImages,
+  });
+
+  factory NewImage.fromJson(Map<String, dynamic> json) => NewImage(
+    id: json["id"],
+    userId: json["user_id"],
+    profileImage: json["profile_image"],
+    createdAt: DateTime.parse(json["created_at"]),
+    updatedAt: DateTime.parse(json["updated_at"]),
+    profileImages: json["profile_images"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "id": id,
+    "user_id": userId,
+    "profile_image": profileImage,
+    "created_at": createdAt.toIso8601String(),
+    "updated_at": updatedAt.toIso8601String(),
     "profile_images": profileImages,
   };
 }

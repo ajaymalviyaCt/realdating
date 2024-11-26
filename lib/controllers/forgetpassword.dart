@@ -1,16 +1,14 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:realdating/pages/otp_page/otp_screen.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:http/http.dart' as http;
-
 import '../buisness_screens/buisness_controller/buisness_login/buisness_login.dart';
 import '../custom_iteam/customforgetpassword.dart';
 import '../function/function_class.dart';
 import '../model/forget_model.dart';
-import '../pages/otp_page/forgotOtpU.dart';
+import '../pages/a_frist_pages/login_page/login.dart';
 import '../validation/validation.dart';
 
 class ForgetPassword extends StatefulWidget {
@@ -96,16 +94,18 @@ class _ForgetPasswordState extends State<ForgetPassword> {
         textColor: Colors.black,
         fontSize: 16.0,
       );
-      if (i == 1) {
-        Get.off(() => OtpPageForgot(otp: otp, mail: ForgetController.text
-            // email: ForgetController.text.toString(),
-            ));
-      } else {
-        Get.off(() => OtpPage(
-              otp: otp, number: 0000000000.toString(),
-              // email: ForgetController.text.toString(),
-            ));
-      }
+
+      Get.to(() => const LoginScreenPage());
+      // if (i == 1) {
+      //   Get.off(() => OtpPageForgot(otp: otp??'', mail: ForgetController.text
+      //       // email: ForgetController.text.toString(),
+      //       ));
+      // } else {
+      //   Get.off(() => OtpPage(
+      //         otp: otp, number: 0000000000.toString(),
+      //         // email: ForgetController.text.toString(),
+      //       ));
+      // }
     } else {
       Navigator.pop(context);
       print('else=====');

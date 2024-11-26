@@ -58,4 +58,9 @@ class ProfileController extends GetxController {
     //   Get.to(() => const UplodePhoto());
     // }
   }
+
+
+
+
+
 }

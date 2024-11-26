@@ -98,7 +98,7 @@ class _VideoScreenState extends State<VideoScreen> {
                                             alignment: Alignment.bottomLeft,
                                             child: Padding(
                                               padding:
-                                              const EdgeInsets.only(bottom:40.0, left: 20),
+                                              const EdgeInsets.only(bottom:65.0, left:15),
                                               child: Container(
                                                 padding: EdgeInsets.all(5),
                                                 decoration: BoxDecoration(

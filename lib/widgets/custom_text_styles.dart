@@ -72,7 +72,7 @@ class customTextCommon extends StatelessWidget {
   Color ? color;
   int ? fweight;
   int ? maxLine;
-
+  TextOverflow? textOverflow;
   customTextCommon({super.key,
     required this.text,
     this.centertext,
@@ -83,6 +83,7 @@ class customTextCommon extends StatelessWidget {
     this.letterSpacing,
      this.fweight,
      this.maxLine,
+    this.textOverflow
 
   });
 
@@ -90,6 +91,7 @@ class customTextCommon extends StatelessWidget {
   Widget build(BuildContext context) {
     return  Text("$text",style: TextStyle(
       fontFamily: 'Inter',
+      overflow: textOverflow,
       fontSize: fSize.adaptSize,
       fontWeight: fWeight ??  FontWeight.bold,
       height:  lineHeight/fSize, // This is equivalent to line-height in CSS

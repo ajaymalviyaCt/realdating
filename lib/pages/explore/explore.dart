@@ -166,66 +166,71 @@ class _MatchesWidgetState extends State<MatchesWidget> {
             itemBuilder: (context, index) {
               return Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(14),
-                  child: SizedBox(
-                    width: 240.ah,
-                    child: Stack(
-                      children: [
-                        Container(
-                          color: Colors.black12,
-                          height: 360.ah,
-                          width: 240.ah,
-                          child: CachedNetworkImage(
-                            imageUrl: matchessController.matchessModel!
-                                .myFriends![index].profileImage
-                                .toString(),
-                            placeholder: (context, url) => const Center(
-                                child: SizedBox(
-                                    height: 20,
-                                    width: 20,
-                                    child: CircularProgressIndicator(
-                                      strokeWidth: 1,
-                                    ))),
-                            errorWidget: (context, url, error) =>
-                            const Icon(Icons.person_2_outlined),
-                            filterQuality: FilterQuality.low,
-                            fit: BoxFit.cover,
-                            height: 300,
+                child: InkWell(
+                  onTap: () {
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => const MatchesPage()));
+                              },
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(14),
+                    child: SizedBox(
+                      width: 240.ah,
+                      child: Stack(
+                        children: [
+                          Container(
+                            color: Colors.black12,
+                            height: 360.ah,
+                            width: 240.ah,
+                            child: CachedNetworkImage(
+                              imageUrl: matchessController.matchessModel!
+                                  .myFriends![index].profileImage
+                                  .toString(),
+                              placeholder: (context, url) => const Center(
+                                  child: SizedBox(
+                                      height: 20,
+                                      width: 20,
+                                      child: CircularProgressIndicator(
+                                        strokeWidth: 1,
+                                      ))),
+                              errorWidget: (context, url, error) =>
+                              const Icon(Icons.person_2_outlined),
+                              filterQuality: FilterQuality.low,
+                              fit: BoxFit.cover,
+                              height: 300,
+                            ),
                           ),
-                        ),
-                        Container(
-                          width: 240.ah,
-                          decoration: const BoxDecoration(
-                              gradient: LinearGradient(
-                                  colors: [
-                                    Colors.transparent,
-                                    Colors.black
-                                  ],
-                                  begin: Alignment.topCenter,
-                                  end: Alignment.bottomCenter,
-                                  stops: [0.7, 1])),
-                          padding: const EdgeInsets.all(20),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                '${matchessController.matchessModel!.myFriends![index].friendFirstName} ${matchessController.matchessModel!.myFriends![index].friendLastName},',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontFamily: 'Inter',
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 14.adaptSize,
-                                  overflow: TextOverflow.ellipsis,
+                          Container(
+                            width: 240.ah,
+                            decoration: const BoxDecoration(
+                                gradient: LinearGradient(
+                                    colors: [
+                                      Colors.transparent,
+                                      Colors.black
+                                    ],
+                                    begin: Alignment.topCenter,
+                                    end: Alignment.bottomCenter,
+                                    stops: [0.7, 1])),
+                            padding: const EdgeInsets.all(20),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  '${matchessController.matchessModel!.myFriends![index].friendFirstName} ${matchessController.matchessModel!.myFriends![index].friendLastName},',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontFamily: 'Inter',
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 14.adaptSize,
+                                    overflow: TextOverflow.ellipsis,
 
+                                  ),
                                 ),
-                              ),
 
-                            ],
+                              ],
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ),

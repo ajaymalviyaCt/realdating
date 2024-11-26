@@ -95,6 +95,14 @@ class _PreviewReelsState extends State<PreviewReelsScreen> {
                     style: TextStyle(
                       color: Colors.white
                     ),
+                    onChanged:(value) {
+                      if (value.startsWith(' ')) {
+                        _textController.text = value.trim();
+                        _textController.selection = TextSelection.fromPosition(
+                          TextPosition(offset: _textController.text.length),
+                        );
+                      }
+                    },
                     validator: notEmptyMsgValidator,
                     controller: _textController,
                     maxLines: 4,
