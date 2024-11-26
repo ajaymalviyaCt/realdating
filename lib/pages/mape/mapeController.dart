@@ -23,7 +23,7 @@ class MapeUserController extends GetxController implements GetxService {
   var search;
   var userProfileImage;
 
-  getAllUserMape(String search) async {
+  void getAllUserMape(String search) async {
     Map<String, dynamic> apiData = await ApiCall.instance.callApi(
         url: "https://forreal.net:4000/users/nearByBussiness",
         headers: await authHeader(),
@@ -36,7 +36,7 @@ class MapeUserController extends GetxController implements GetxService {
     MapeBusinessModel mapeBusinessModel = MapeBusinessModel.fromJson(apiData);
 
     Uint8List bytes =
-        (await NetworkAssetBundle(Uri.parse("https://fastly.picsum.photos/id/349/200/300.jpg?hmac=gEjHZbjuKtdD2GOM-qQtuaA95TCvDUs6iVvKraQ94nU")).load("https://fastly.picsum.photos/id/349/200/300.jpg?hmac=gEjHZbjuKtdD2GOM-qQtuaA95TCvDUs6iVvKraQ94nU"))
+        (await NetworkAssetBundle(Uri.parse(mapeBusinessModel.bussiness[0].profileImage)).load(mapeBusinessModel.bussiness[0].profileImage))
             .buffer
             .asUint8List();
     markers.clear();
@@ -92,31 +92,27 @@ class TextOnImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 100,
-      width: 100,
-      child: Stack(
-        children: [
-          SvgPicture.asset(
-            "assets/images/bg_profile.svg",
-            height: 100,
-            width: 100,
-          ),
-          Center(
-            child: Container(
-              margin: EdgeInsets.only(bottom: 5),
-              child: ClipRRect(
-                  borderRadius: BorderRadius.circular(100),
-                  child: Image.memory(
-                    bytes,
-                    fit: BoxFit.cover,
-                    width: 70,
-                    height: 70,
-                  )),
+    return Stack(
+      children: [
+        SvgPicture.asset(
+          "assets/images/bg_profile.svg",
+          width: 100,
+          height: 100,
+        ),
+        Positioned(
+          top: 8.5,
+          left: 9,
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(1000),
+            child: Image.memory(
+              fit: BoxFit.cover,
+              bytes,
+              width: 70,
+              height: 70,
             ),
-          )
-        ],
-      ),
+          ),
+        )
+      ],
     );
   }
 }
