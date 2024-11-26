@@ -42,6 +42,8 @@ class NotificationController extends GetxController{
     });
     noficactionModelB =NoficactionModel.fromJson(response);
     print("response1234567890$noficactionModelB" +response.toString());
+
+    print('All Notification ------${noficactionModelB}');
     isLoading.value=false;
 
   }

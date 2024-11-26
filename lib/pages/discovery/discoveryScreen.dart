@@ -159,8 +159,8 @@ class _DiscoveryPageState extends State<DiscoveryPage>
                             onTap: (value) {
                               print("dsffsfs$value");
                             },
-                            tabs: [
-                              const Tab(
+                            tabs: const [
+                              Tab(
                                   icon: Text(
                                 "Currently Active",
                                 style: TextStyle(
@@ -168,7 +168,7 @@ class _DiscoveryPageState extends State<DiscoveryPage>
                                     fontSize: 15,
                                     fontWeight: FontWeight.w600),
                               )),
-                              const Tab(
+                              Tab(
                                   icon: Text(
                                 "For you",
                                 style: TextStyle(
@@ -262,70 +262,69 @@ class _DiscoveryPageState extends State<DiscoveryPage>
                                                                   fontSize: 16),
                                                         ),
                                                         const Spacer(),
-                                                        Padding(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                  .only(
-                                                                  top: 4.0),
-                                                          child: InkWell(
-                                                            onTap: () async {
-                                                              discoveryController
-                                                                  .filteredItems[
-                                                                      i]
-                                                                  .request = "Sent";
-                                                              setState(() {});
 
-                                                              bool sendrequest =
-                                                                  await discoveryController
-                                                                      .sendNotificationOnlyMatch(
-                                                                          reciverId:
-                                                                              '${dataD.id.toString()}',
-                                                                          index:
-                                                                              i);
-                                                              if (sendrequest) {
-                                                              } else {
-                                                                discoveryController
-                                                                        .filteredItems[
-                                                                            i]
-                                                                        .request =
-                                                                    "Request";
-                                                                setState(() {});
-                                                              }
-                                                            },
-                                                            child: Container(
-                                                              decoration: BoxDecoration(
-                                                                  border: Border.all(
-                                                                      color: Appcolor
-                                                                          .Redpink),
-                                                                  color: Colors
-                                                                      .white
-                                                                      .withOpacity(
-                                                                          .60),
-                                                                  borderRadius:
-                                                                      BorderRadius
-                                                                          .circular(
-                                                                              10)),
-                                                              height: 35.ah,
-                                                              width: 70.aw,
-                                                              child: Center(
-                                                                  child:
-                                                                      customTextCommon(
+                                                      ],
+                                                    ),
+                                                    Padding(
+                                                      padding:
+                                                      const EdgeInsets
+                                                          .only(
+                                                          top: 4.0),
+                                                      child: InkWell(
+                                                        onTap: () async {
+                                                          discoveryController
+                                                              .filteredItems[
+                                                          i]
+                                                              .request = "Sent";
+                                                          setState(() {});
+
+                                                          bool sendrequest =
+                                                          await discoveryController
+                                                              .sendNotificationOnlyMatch(
+                                                              reciverId:
+                                                              '${dataD.id.toString()}',
+                                                              index:
+                                                              i);
+                                                          if (sendrequest) {
+                                                          } else {
+                                                            discoveryController
+                                                                .filteredItems[
+                                                            i]
+                                                                .request =
+                                                            "Request";
+                                                            setState(() {});
+                                                          }
+                                                        },
+                                                        child: Container(
+                                                          decoration: BoxDecoration(
+                                                              border: Border.all(
+                                                                  color: Appcolor
+                                                                      .Redpink),
+                                                              color: Colors
+                                                                  .white
+                                                                  .withOpacity(
+                                                                  .60),
+                                                              borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                  10)),
+                                                          height: 35.ah,
+                                                          width: 70.aw,
+                                                          child: Center(
+                                                              child:
+                                                              customTextCommon(
                                                                 text:
-                                                                    "${discoveryController.filteredItems[i].request}",
+                                                                "${discoveryController.filteredItems[i].request}",
                                                                 fSize: 14
                                                                     .adaptSize,
                                                                 fWeight:
-                                                                    FontWeight
-                                                                        .w600,
+                                                                FontWeight
+                                                                    .w600,
                                                                 lineHeight: 24,
                                                               )),
-                                                            ),
-                                                          ),
                                                         ),
-                                                        10.widthBox,
-                                                      ],
+                                                      ),
                                                     ),
-
                                                     10.ah.heightBox,
                                                     Row(
                                                       children: [
@@ -362,12 +361,16 @@ class _DiscoveryPageState extends State<DiscoveryPage>
                                                         SizedBox(
                                                           width: 10,
                                                         ),
-                                                        Text(
-                                                          'Active',
+                                                        dataD.onlineStatus ==0?const Text('Offline',
                                                           style: TextStyle(
                                                               color:
-                                                                  Colors.green),
-                                                          maxLines: 3,
+                                                                  Colors.black),
+                                                          maxLines:1,
+                                                        ):const Text('Active',
+                                                          style: TextStyle(
+                                                              color:
+                                                              Colors.green),
+                                                          maxLines:1,
                                                         ),
                                                       ],
                                                     ),
@@ -423,47 +426,26 @@ class _DiscoveryPageState extends State<DiscoveryPage>
 
                                                     Wrap(
                                                       children: [
-                                                        for (int i = 0;
-                                                            i <
-                                                                dataD
-                                                                    .hobbiesData!
-                                                                    .length;
-                                                            i++)
+                                                        for (int i = 0; i < dataD.hobbiesData!.take(4).length; i++)
                                                           Padding(
-                                                            padding:
-                                                                const EdgeInsets
-                                                                    .all(2.0),
+                                                            padding: const EdgeInsets.all(2.0),
                                                             child: Container(
                                                               width: 70,
                                                               decoration: BoxDecoration(
                                                                   border: Border.all(
-                                                                      color: const Color(
-                                                                          0x3CF65F51)),
+                                                                      color: const Color(0x3CF65F51)),
                                                                   color: const Color(
                                                                       0x3CF65F51),
-                                                                  borderRadius:
-                                                                      BorderRadius
-                                                                          .circular(
-                                                                              10)),
+                                                                  borderRadius: BorderRadius.circular(10)),
                                                               child: Padding(
                                                                 padding:
-                                                                    const EdgeInsets
-                                                                        .all(
-                                                                        4.0),
+                                                                    const EdgeInsets.all(4.0),
                                                                 child: Center(
-                                                                    child:
-                                                                        customTextCommon(
-                                                                  text: dataD
-                                                                      .hobbiesData![
-                                                                          i]
-                                                                      .toString(),
-                                                                  fSize: 14
-                                                                      .adaptSize,
-                                                                  fWeight:
-                                                                      FontWeight
-                                                                          .w600,
-                                                                  lineHeight:
-                                                                      14,
+                                                                    child: customTextCommon(
+                                                                  text: dataD.hobbiesData![i].toString(),
+                                                                  fSize: 14.adaptSize,
+                                                                  fWeight: FontWeight.w600,
+                                                                  lineHeight: 14,
                                                                 )),
                                                               ),
                                                             ),
