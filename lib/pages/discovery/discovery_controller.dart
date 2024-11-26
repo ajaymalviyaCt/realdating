@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:realdating/pages/discovery/discovery_model.dart';
@@ -16,7 +17,8 @@ class DiscoveryController extends GetxController {
   RxBool isLoadingGetDiscoverUser = false.obs;
   RxBool isLoadingForYourModel = false.obs;
   RxBool isLoadig1 = false.obs;
-
+  final TextEditingController searchController = TextEditingController();
+  final RxString searchText="".obs;
 
   final Rxn<Discovery2Model> forYourModel=Rxn<Discovery2Model>();
 
