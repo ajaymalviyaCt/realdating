@@ -16,11 +16,11 @@ class DiscoveryController extends GetxController {
   RxBool isLoadingGetDiscoverUser = false.obs;
   RxBool isLoadingForYourModel = false.obs;
   RxBool isLoadig1 = false.obs;
-  Discovery2Model? discoveryModel;
-  Discovery2Model? forYourModel;
 
-  List<MyFriend> myFriends = [];
-  List<MyFriend> filteredItems = [];
+
+  final Rxn<Discovery2Model> forYourModel=Rxn<Discovery2Model>();
+
+
   RxBool isLoadig = false.obs;
   ProfileModel? profileModel;
 
@@ -29,8 +29,8 @@ class DiscoveryController extends GetxController {
     // TODO: implement onInit
     super.onInit();
     profileDaitails();
-    getDiscoveryUser();
-    foryou();
+Get.snackbar("title", "message");
+    foryou(intrest: true);
   }
 
   Future<void> profileDaitails() async {
@@ -57,70 +57,26 @@ class DiscoveryController extends GetxController {
     // }
   }
 
-  Future<void> getDiscoveryUser() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    var userId = prefs.getInt('user_id');
-    var token = prefs.get('token');
 
-    isLoadingGetDiscoverUser.value = true;
-    var headers = {
-      'Content-Type': 'application/x-www-form-urlencoded',
-      'Authorization': 'Bearer $token'
-    };
 
-    var data = {'user_id': '$userId'};
-    print("user_idddddddddddd===${userId}");
 
-    var dio = Dio();
-    var response = await dio.request(
-      'https://forreal.net:4000/users/discovery',
-      options: Options(
-        method: 'POST',
-        headers: headers,
-      ),
-      data: data,
-    );
 
-    if (response.statusCode == 200) {
-      isLoadingGetDiscoverUser.value = false;
-      try {
-        discoveryModel = Discovery2Model.fromJson(response.data);
-        filteredItems.addAll(discoveryModel!.myFriends);
-        myFriends.addAll(discoveryModel!.myFriends);
-
-        print("Discovery model data -  =>$discoveryModel");
-        print("Discovery filter data1  -  =>$filteredItems");
-        print("Discovery filter data2 -  =>$myFriends");
-      } catch (e) {
-        print("responseee=>$e");
-      }
-
-      print("response");
-      print(json.encode(response.data));
-      print("response");
-    } else {
-      print(response.statusMessage);
-    }
-  }
-
-  List<MyFriend> myFriendsForyou = [];
-  List<MyFriend> filteredItemsYou = [];
-
-  Future<void> foryou() async {
+  Future<void> foryou({bool intrest=true}) async {
+    isLoadingForYourModel.value = true;
+    forYourModel.value=null;
     Map<String, dynamic> apiData = await ApiCall.instance.callApi(
         url: 'https://forreal.net:4000/users/discovery_filter',
         method: HttpMethod.POST,
         body: {
           'user_id': await getUserId(),
-          'Interest': profileModel?.userInfo.interest.split(",").take(1)
+         if(intrest) 'Interest':( profileModel?.userInfo.interest.split(",").take(1).toList())![0]
         },
         headers: await authHeader());
 
     isLoadingForYourModel.value = false;
     try {
-      forYourModel = Discovery2Model.fromJson(apiData);
-      filteredItemsYou.addAll(forYourModel!.myFriends);
-      myFriendsForyou.addAll(forYourModel!.myFriends);
+      forYourModel.value = Discovery2Model.fromJson(apiData);
+
 
     } catch (e) {
       print("responseee=>$e");

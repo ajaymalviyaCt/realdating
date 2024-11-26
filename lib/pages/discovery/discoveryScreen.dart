@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:realdating/function/function_class.dart';
+import 'package:realdating/pages/discovery/discovery_model.dart';
 import 'package:realdating/widgets/size_utils.dart';
 import 'package:velocity_x/velocity_x.dart';
 
@@ -17,46 +18,28 @@ class DiscoveryPage extends StatefulWidget {
 
 class _DiscoveryPageState extends State<DiscoveryPage>
     with SingleTickerProviderStateMixin {
-  DiscoveryController discoveryController = Get.put(DiscoveryController());
+  final DiscoveryController discoveryController =
+      Get.put(DiscoveryController());
   late TabController _tabController;
 
   @override
   void initState() {
     super.initState();
+    discoveryController.foryou(intrest: false);
     _tabController = TabController(length: 2, vsync: this);
     _tabController.addListener(
       () {
+        if (_tabController.indexIsChanging == false) {}
         if (_tabController.index == 1) {
-          if (_tabController.indexIsChanging == false) {
-            discoveryController.foryou();
-          }
+          discoveryController.foryou();
+        } else {
+          discoveryController.foryou(intrest: false);
         }
       },
     );
   }
 
   final TextEditingController _controller = TextEditingController();
-
-  void filterSearchResults(String query) {
-    discoveryController.filteredItems.clear();
-    discoveryController.filteredItemsYou.clear();
-    if (query.isNotEmpty) {
-      setState(() {
-        discoveryController.filteredItems.addAll(discoveryController.myFriends
-            .where((item) =>
-                item.firstName!.toLowerCase().contains(query.toLowerCase())));
-        discoveryController.filteredItemsYou.addAll(
-            discoveryController.myFriendsForyou.where((item) =>
-                item.firstName!.toLowerCase().contains(query.toLowerCase())));
-      });
-    } else {
-      setState(() {
-        discoveryController.filteredItems.addAll(discoveryController.myFriends);
-        discoveryController.filteredItemsYou
-            .addAll(discoveryController.myFriendsForyou);
-      });
-    }
-  }
 
   @override
   void dispose() {
@@ -113,7 +96,7 @@ class _DiscoveryPageState extends State<DiscoveryPage>
                         child: TextField(
                           controller: _controller,
                           onChanged: (value) {
-                            filterSearchResults(value);
+                            // filterSearchResults(value);
                           },
                           decoration: InputDecoration(
                             hintText: 'Search...',
@@ -184,15 +167,21 @@ class _DiscoveryPageState extends State<DiscoveryPage>
                         child: TabBarView(
                           controller: _tabController,
                           children: [
-                            discoveryController.filteredItems.isNotEmpty
+                            (discoveryController
+                                            .forYourModel.value?.myFriends ??
+                                        [])
+                                    .isNotEmpty
                                 ? ListView.builder(
                                     shrinkWrap: true,
                                     padding: const EdgeInsets.only(bottom: 20),
-                                    itemCount: discoveryController
-                                        .filteredItems.length,
+                                    itemCount: (discoveryController.forYourModel
+                                                .value?.myFriends ??
+                                            [])
+                                        .length,
                                     itemBuilder: (BuildContext context, int i) {
-                                      var dataD =
-                                          discoveryController.filteredItems[i];
+                                      var dataD = (discoveryController
+                                              .forYourModel.value?.myFriends ??
+                                          [])[i];
                                       return Padding(
                                         padding: const EdgeInsets.only(top: 20),
                                         child: Card(
@@ -262,36 +251,36 @@ class _DiscoveryPageState extends State<DiscoveryPage>
                                                                   fontSize: 16),
                                                         ),
                                                         const Spacer(),
-
                                                       ],
                                                     ),
                                                     Padding(
                                                       padding:
-                                                      const EdgeInsets
-                                                          .only(
-                                                          top: 4.0),
+                                                          const EdgeInsets.only(
+                                                              top: 4.0),
                                                       child: InkWell(
                                                         onTap: () async {
-                                                          discoveryController
-                                                              .filteredItems[
-                                                          i]
+                                                          (discoveryController
+                                                                      .forYourModel
+                                                                      .value
+                                                                      ?.myFriends ??
+                                                                  [])[i]
                                                               .request = "Sent";
                                                           setState(() {});
 
                                                           bool sendrequest =
-                                                          await discoveryController
-                                                              .sendNotificationOnlyMatch(
-                                                              reciverId:
-                                                              '${dataD.id.toString()}',
-                                                              index:
-                                                              i);
+                                                              await discoveryController
+                                                                  .sendNotificationOnlyMatch(
+                                                                      reciverId:
+                                                                          '${dataD.id.toString()}',
+                                                                      index: i);
                                                           if (sendrequest) {
                                                           } else {
-                                                            discoveryController
-                                                                .filteredItems[
-                                                            i]
-                                                                .request =
-                                                            "Request";
+                                                            (discoveryController
+                                                                        .forYourModel
+                                                                        .value
+                                                                        ?.myFriends ??
+                                                                    [])[i]
+                                                                .request = "Request";
                                                             setState(() {});
                                                           }
                                                         },
@@ -303,25 +292,23 @@ class _DiscoveryPageState extends State<DiscoveryPage>
                                                               color: Colors
                                                                   .white
                                                                   .withOpacity(
-                                                                  .60),
+                                                                      .60),
                                                               borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                  10)),
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          10)),
                                                           height: 35.ah,
                                                           width: 70.aw,
                                                           child: Center(
                                                               child:
-                                                              customTextCommon(
-                                                                text:
-                                                                "${discoveryController.filteredItems[i].request}",
-                                                                fSize: 14
-                                                                    .adaptSize,
-                                                                fWeight:
-                                                                FontWeight
-                                                                    .w600,
-                                                                lineHeight: 24,
-                                                              )),
+                                                                  customTextCommon(
+                                                            text:
+                                                                "${(discoveryController.forYourModel.value?.myFriends ?? [])[i].request}",
+                                                            fSize: 14.adaptSize,
+                                                            fWeight:
+                                                                FontWeight.w600,
+                                                            lineHeight: 24,
+                                                          )),
                                                         ),
                                                       ),
                                                     ),
@@ -361,17 +348,21 @@ class _DiscoveryPageState extends State<DiscoveryPage>
                                                         SizedBox(
                                                           width: 10,
                                                         ),
-                                                        dataD.onlineStatus ==0?const Text('Offline',
-                                                          style: TextStyle(
-                                                              color:
-                                                                  Colors.black),
-                                                          maxLines:1,
-                                                        ):const Text('Active',
-                                                          style: TextStyle(
-                                                              color:
-                                                              Colors.green),
-                                                          maxLines:1,
-                                                        ),
+                                                        dataD.onlineStatus == 0
+                                                            ? const Text(
+                                                                'Offline',
+                                                                style: TextStyle(
+                                                                    color: Colors
+                                                                        .black),
+                                                                maxLines: 1,
+                                                              )
+                                                            : const Text(
+                                                                'Active',
+                                                                style: TextStyle(
+                                                                    color: Colors
+                                                                        .green),
+                                                                maxLines: 1,
+                                                              ),
                                                       ],
                                                     ),
                                                     const SizedBox(height: 6),
@@ -426,26 +417,48 @@ class _DiscoveryPageState extends State<DiscoveryPage>
 
                                                     Wrap(
                                                       children: [
-                                                        for (int i = 0; i < dataD.hobbiesData!.take(4).length; i++)
+                                                        for (int i = 0;
+                                                            i <
+                                                                dataD
+                                                                    .hobbiesData!
+                                                                    .take(4)
+                                                                    .length;
+                                                            i++)
                                                           Padding(
-                                                            padding: const EdgeInsets.all(2.0),
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .all(2.0),
                                                             child: Container(
                                                               width: 70,
                                                               decoration: BoxDecoration(
                                                                   border: Border.all(
-                                                                      color: const Color(0x3CF65F51)),
+                                                                      color: const Color(
+                                                                          0x3CF65F51)),
                                                                   color: const Color(
                                                                       0x3CF65F51),
-                                                                  borderRadius: BorderRadius.circular(10)),
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              10)),
                                                               child: Padding(
                                                                 padding:
-                                                                    const EdgeInsets.all(4.0),
+                                                                    const EdgeInsets
+                                                                        .all(
+                                                                        4.0),
                                                                 child: Center(
-                                                                    child: customTextCommon(
-                                                                  text: dataD.hobbiesData![i].toString(),
-                                                                  fSize: 14.adaptSize,
-                                                                  fWeight: FontWeight.w600,
-                                                                  lineHeight: 14,
+                                                                    child:
+                                                                        customTextCommon(
+                                                                  text: dataD
+                                                                      .hobbiesData![
+                                                                          i]
+                                                                      .toString(),
+                                                                  fSize: 14
+                                                                      .adaptSize,
+                                                                  fWeight:
+                                                                      FontWeight
+                                                                          .w600,
+                                                                  lineHeight:
+                                                                      14,
                                                                 )),
                                                               ),
                                                             ),
@@ -462,15 +475,21 @@ class _DiscoveryPageState extends State<DiscoveryPage>
                                       );
                                     })
                                 : const Center(child: Text("No Data Found")),
-                            discoveryController.filteredItemsYou.isNotEmpty
+                            (discoveryController
+                                            .forYourModel.value?.myFriends ??
+                                        [])
+                                    .isNotEmpty
                                 ? ListView.builder(
                                     shrinkWrap: true,
                                     padding: const EdgeInsets.only(bottom: 20),
-                                    itemCount: discoveryController
-                                        .filteredItemsYou.length,
+                                    itemCount: (discoveryController.forYourModel
+                                                .value?.myFriends ??
+                                            [])
+                                        .length,
                                     itemBuilder: (BuildContext context, int i) {
-                                      var dataD = discoveryController
-                                          .filteredItemsYou[i];
+                                      var dataD = (discoveryController
+                                              .forYourModel.value?.myFriends ??
+                                          [])[i];
                                       return Padding(
                                         padding: const EdgeInsets.only(top: 20),
                                         child: Card(
@@ -478,19 +497,29 @@ class _DiscoveryPageState extends State<DiscoveryPage>
                                             children: [
                                               Column(
                                                 children: [
-                                                  Container(
-                                                    width: 130,
-                                                    height: 130,
-                                                    decoration: BoxDecoration(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(8),
-                                                        image: DecorationImage(
-                                                          image: NetworkImage(dataD
-                                                              .images![0]
-                                                              .profileImages!),
-                                                          fit: BoxFit.cover,
-                                                        )),
+                                                  Builder(
+                                                    builder: (context) {
+                                                      try {
+                                                        return Container(
+                                                          width: 130,
+                                                          height: 130,
+                                                          decoration: BoxDecoration(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(8),
+                                                              image: DecorationImage(
+                                                                image: NetworkImage(dataD
+                                                                    .images?[0]
+                                                                    .profileImages??""),
+                                                                fit: BoxFit.cover,
+                                                              )),
+                                                        );
+                                                      }  catch (e,s) {
+                                                      print(e);
+                                                      print(s);
+                                                      }
+                                                      return SizedBox.shrink();
+                                                    }
                                                   ),
                                                 ],
                                               ),
@@ -542,9 +571,11 @@ class _DiscoveryPageState extends State<DiscoveryPage>
                                                                   top: 4.0),
                                                           child: InkWell(
                                                             onTap: () async {
-                                                              discoveryController
-                                                                  .filteredItemsYou[
-                                                                      i]
+                                                              (discoveryController
+                                                                          .forYourModel
+                                                                          .value
+                                                                          ?.myFriends ??
+                                                                      [])[i]
                                                                   .request = "Sent";
                                                               setState(() {});
                                                               bool sendrequest =
@@ -556,11 +587,12 @@ class _DiscoveryPageState extends State<DiscoveryPage>
                                                                               i);
                                                               if (sendrequest) {
                                                               } else {
-                                                                discoveryController
-                                                                        .filteredItemsYou[
-                                                                            i]
-                                                                        .request =
-                                                                    "Request";
+                                                                (discoveryController
+                                                                            .forYourModel
+                                                                            .value
+                                                                            ?.myFriends ??
+                                                                        [])[i]
+                                                                    .request = "Request";
                                                                 setState(() {});
                                                               }
                                                             },
@@ -583,7 +615,7 @@ class _DiscoveryPageState extends State<DiscoveryPage>
                                                                   child:
                                                                       customTextCommon(
                                                                 text:
-                                                                    "${discoveryController.myFriendsForyou[i].request}",
+                                                                    "${(discoveryController.forYourModel.value?.myFriends ?? [])[i].request}",
                                                                 fSize: 14
                                                                     .adaptSize,
                                                                 fWeight:
