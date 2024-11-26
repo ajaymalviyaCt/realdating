@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -24,7 +23,7 @@ class MapeUserController extends GetxController implements GetxService {
   var search;
   var userProfileImage;
 
-  getAllUserMape(String search) async {
+  void getAllUserMape(String search) async {
     Map<String, dynamic> apiData = await ApiCall.instance.callApi(
         url: "https://forreal.net:4000/users/nearByBussiness",
         headers: await authHeader(),
@@ -107,7 +106,7 @@ class TextOnImage extends StatelessWidget {
             borderRadius: BorderRadius.circular(1000),
             child: Image.memory(
               fit: BoxFit.cover,
-               bytes,
+              bytes,
               width: 70,
               height: 70,
             ),
