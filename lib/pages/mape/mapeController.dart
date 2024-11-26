@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -92,31 +93,27 @@ class TextOnImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 100,
-      width: 100,
-      child: Stack(
-        children: [
-          SvgPicture.asset(
-            "assets/images/bg_profile.svg",
-            height: 100,
-            width: 100,
-          ),
-          Center(
-            child: Container(
-              margin: EdgeInsets.only(bottom: 5),
-              child: ClipRRect(
-                  borderRadius: BorderRadius.circular(100),
-                  child: Image.memory(
-                    bytes,
-                    fit: BoxFit.cover,
-                    width: 70,
-                    height: 70,
-                  )),
+    return Stack(
+      children: [
+        SvgPicture.asset(
+          "assets/images/bg_profile.svg",
+          width: 100,
+          height: 100,
+        ),
+        Positioned(
+          top: 8.5,
+          left: 9,
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(1000),
+            child: CachedNetworkImage(
+              fit: BoxFit.cover,
+              imageUrl: "https://fastly.picsum.photos/id/349/200/300.jpg?hmac=gEjHZbjuKtdD2GOM-qQtuaA95TCvDUs6iVvKraQ94nU",
+              width: 70,
+              height: 70,
             ),
-          )
-        ],
-      ),
+          ),
+        )
+      ],
     );
   }
 }
