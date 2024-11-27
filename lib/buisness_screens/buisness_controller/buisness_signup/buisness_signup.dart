@@ -622,9 +622,7 @@ class _BuisnessSignUpState extends State<BuisnessSignUp> {
                             btnFun: () {
                               if (_formKey.currentState?.validate() ?? false) {
                                 if (buisbnesssignUpController.bpasswordcontroller.value.text == buisbnesssignUpController.bconfirmpasscontroller.value.text) {
-                                  if (buisbnesssignUpController.countryValue != null &&
-                                      businessStateController.countryValue != null &&
-                                      businessStateController.stateValue != null) {
+                                  if (buisbnesssignUpController.countryValue != null && businessStateController.countryValue != null) {
                                     buisbnesssignUpController.BuisnesssignUpfunction(
                                       buisbnesssignUpController.currentPosition?.latitude ?? buisbnesssignUpController.manualLatitude,
                                       buisbnesssignUpController.currentPosition?.longitude ?? buisbnesssignUpController.manualLongitude,
