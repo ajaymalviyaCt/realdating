@@ -123,7 +123,7 @@ class _BuisnessSignUpState extends State<BuisnessSignUp> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20.0),
                 child: Form(
-                  // key: _formKey,
+                  key: _formKey,
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -619,6 +619,8 @@ class _BuisnessSignUpState extends State<BuisnessSignUp> {
                           () => customPrimaryBtn(
                               btnText: "Sign Up",
                               btnFun: () {
+                                _formKey.currentState?.validate();
+
                                 if (buisbnesssignUpController
                                         .bpasswordcontroller.value.text ==
                                     buisbnesssignUpController
