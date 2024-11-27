@@ -25,19 +25,19 @@ class _MyAppState extends State<MyApp> {
             children: [
               SvgPicture.asset(
                 "assets/images/bg_profile.svg",
-                width: 100,
-                height: 100,
+                width: 80,
+                height: 80,
               ),
               Positioned(
-                top: 8.5,
-                left: 9,
+                top: 6,
+                left: 7,
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(1000),
                   child: CachedNetworkImage(
                     fit: BoxFit.cover,
                     imageUrl: "https://fastly.picsum.photos/id/349/200/300.jpg?hmac=gEjHZbjuKtdD2GOM-qQtuaA95TCvDUs6iVvKraQ94nU",
-                    width: 70,
-                    height: 70,
+                    width: 57,
+                    height: 57,
                   ),
                 ),
               )

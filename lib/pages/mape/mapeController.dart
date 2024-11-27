@@ -255,19 +255,19 @@ class MarerWidget extends StatelessWidget {
       children: [
         SvgPicture.asset(
           "assets/images/bg_profile.svg",
-          width: 100,
-          height: 100,
+          width: 80,
+          height: 80,
         ),
         Positioned(
-          top: 8.5,
-          left: 9,
+          top: 6,
+          left: 7,
           child: ClipRRect(
             borderRadius: BorderRadius.circular(1000),
             child: Image.memory(
               fit: BoxFit.cover,
               bytes,
-              width: 70,
-              height: 70,
+              width: 57,
+              height: 57,
             ),
           ),
         )
