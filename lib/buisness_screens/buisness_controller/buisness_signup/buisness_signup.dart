@@ -188,7 +188,7 @@ class _BuisnessSignUpState extends State<BuisnessSignUp> {
 
                             controller: buisbnesssignUpController
                                 .bconfirmpasscontroller,
-                            validator: validatePassword,
+                            validator: validateConfPassword,
                             suffixIconn:
                                 buisbnesssignUpController.seePassword1 == true
                                     ? 'assets/icons/Eye Slash.svg'
@@ -308,8 +308,9 @@ class _BuisnessSignUpState extends State<BuisnessSignUp> {
                         // ),
 
                         TextFormField(
-                          style: TextStyle(color: Colors.white,fontWeight: FontWeight.w600),
-                          validator: notEmptyValidator,
+                          style: const TextStyle(color: Colors.white,fontWeight: FontWeight.w600),
+                          validator: notEmptyAddValidator,
+
                           onChanged: (value) {
                             buisbnesssignUpController.getCoordinates(value);
                           },
@@ -616,36 +617,21 @@ class _BuisnessSignUpState extends State<BuisnessSignUp> {
                         ),
 
                         Obx(
-                          () => customPrimaryBtn(
-                              btnText: "Sign Up",
-                              btnFun: () {
-                                _formKey.currentState?.validate();
-
-                                if (buisbnesssignUpController
-                                        .bpasswordcontroller.value.text ==
-                                    buisbnesssignUpController
-                                        .bconfirmpasscontroller.value.text) {
-                                  if (buisbnesssignUpController.countryValue !=
-                                          null &&
-                                      businessStateController.countryValue !=
-                                          null &&
-                                      businessStateController.stateValue !=
-                                          null) {
-                                    buisbnesssignUpController
-                                        .BuisnesssignUpfunction(
-                                            buisbnesssignUpController
-                                                    .currentPosition
-                                                    ?.latitude ??
-                                                buisbnesssignUpController
-                                                    .manualLatitude,
-                                            buisbnesssignUpController
-                                                    .currentPosition
-                                                    ?.longitude ??
-                                                buisbnesssignUpController
-                                                    .manualLongitude);
+                              () => customPrimaryBtn(
+                            btnText: "Sign Up",
+                            btnFun: () {
+                              if (_formKey.currentState?.validate() ?? false) {
+                                if (buisbnesssignUpController.bpasswordcontroller.value.text == buisbnesssignUpController.bconfirmpasscontroller.value.text) {
+                                  if (buisbnesssignUpController.countryValue != null &&
+                                      businessStateController.countryValue != null &&
+                                      businessStateController.stateValue != null) {
+                                    buisbnesssignUpController.BuisnesssignUpfunction(
+                                      buisbnesssignUpController.currentPosition?.latitude ?? buisbnesssignUpController.manualLatitude,
+                                      buisbnesssignUpController.currentPosition?.longitude ?? buisbnesssignUpController.manualLongitude,
+                                    );
                                   } else {
                                     Fluttertoast.showToast(
-                                      msg: "Please fill all the field's ",
+                                      msg: "Please fill all the fields.",
                                       toastLength: Toast.LENGTH_LONG,
                                       gravity: ToastGravity.BOTTOM,
                                       timeInSecForIosWeb: 1,
@@ -656,8 +642,7 @@ class _BuisnessSignUpState extends State<BuisnessSignUp> {
                                   }
                                 } else {
                                   Fluttertoast.showToast(
-                                    msg:
-                                        "password and confirm password doesn't match",
+                                    msg: "Password and confirm password don't match",
                                     toastLength: Toast.LENGTH_LONG,
                                     gravity: ToastGravity.BOTTOM,
                                     timeInSecForIosWeb: 1,
@@ -666,12 +651,24 @@ class _BuisnessSignUpState extends State<BuisnessSignUp> {
                                     fontSize: 16.0,
                                   );
                                 }
-                              },
-                              btnclr: Colors.white,
-                              btntextclr: Colors.black,
-                              loading:
-                                  buisbnesssignUpController.isLoadig.value),
+                              } else {
+                                Fluttertoast.showToast(
+                                  msg: "Please fill all the fields.",
+                                  toastLength: Toast.LENGTH_LONG,
+                                  gravity: ToastGravity.BOTTOM,
+                                  timeInSecForIosWeb: 1,
+                                  backgroundColor: Colors.white,
+                                  textColor: Colors.black,
+                                  fontSize: 16.0,
+                                );
+                              }
+                            },
+                            btnclr: Colors.white,
+                            btntextclr: Colors.black,
+                            loading: buisbnesssignUpController.isLoadig.value,
+                          ),
                         ),
+
                         const SizedBox(height: 20),
                         InkWell(
                           onTap: () {

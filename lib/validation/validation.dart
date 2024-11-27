@@ -6,6 +6,16 @@ String? notEmptyValidator(String? value) {
   return null; // Input is not empty
 }
 
+
+
+String? notEmptyAddValidator(String? value) {
+  var value1 = value?.trim();
+  if (value1 == null || value1.isEmpty) {
+    return 'Address is required';
+  }
+  return null; // Input is not empty
+}
+
 String? notEmptyMsgValidator(String? value) {
   var value1 = value?.trim();
   if (value1 == null || value1.isEmpty) {
@@ -32,6 +42,18 @@ String? validatePassword(value) {
 
   if (value.isEmpty) {
     return 'Password is Required.';
+  } else if (value.length < 8) {
+    return 'Password required at least 8 numbers';
+  }
+}
+
+
+String? validateConfPassword(value) {
+  Pattern pattern = r'^(?=.*[0-9]+.*)(?=.*[a-zA-Z]+.*)[0-9a-zA-Z]{6,}$';
+  RegExp regex = new RegExp(pattern as String);
+
+  if (value.isEmpty) {
+    return 'Confirm Password is Required.';
   } else if (value.length < 8) {
     return 'Password required at least 8 numbers';
   }
