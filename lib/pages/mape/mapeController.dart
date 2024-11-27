@@ -94,7 +94,6 @@ class MapeUserController extends GetxController implements GetxService {
 
 
   void getAllUserMape(String search) async {
-    print('Business data----');
     try {
       print("line 99");
       Map<String, dynamic> apiData = await ApiCall.instance.callApi(
@@ -107,14 +106,12 @@ class MapeUserController extends GetxController implements GetxService {
         },
         dismissKeyBoard: false,
       );
-      print('line 110');
+
       MapeBusinessModel businessModel = MapeBusinessModel.fromJson(apiData);
-      print("line 111");
       markers.clear();
-      print("line 112");
+
       for (Bussiness business in (businessModel.bussiness??[])) {
         try {
-          print("line 114");
           double? latitude = double.tryParse(business.latitude??"0");
           double? longitude = double.tryParse(business.longitude??"0");
 
@@ -124,7 +121,7 @@ class MapeUserController extends GetxController implements GetxService {
           }
 
           Uint8List bytes = (await NetworkAssetBundle(Uri.parse(business.profileImage??"")).load(business.profileImage??"")).buffer.asUint8List();
-          print('location marker-----${markers}');
+
           markers.add(
             Marker(
               markerId: MarkerId('${business.id}'),
@@ -136,9 +133,8 @@ class MapeUserController extends GetxController implements GetxService {
             ),
           );
         }  catch (e,s) {
-          print("line 137");
-          print(e);
-          print(s);
+
+
           // TODO
         }
       }
