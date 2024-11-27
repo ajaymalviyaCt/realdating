@@ -126,7 +126,7 @@ class MapeUserController extends GetxController implements GetxService {
                 position: LatLng(latitude!, longitude!),
                 icon: await MarerWidget(bytes: bytes).toBitmapDescriptor(),
                 onTap: () {
-                  // Get.to(NearByBusinessList(businessDeal:businessModel));
+                  Get.to(BusinessDetailsPage(business:business,));
                 },
               ),
             );
