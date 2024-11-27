@@ -141,7 +141,7 @@ class _BuisnessSignUpState extends State<BuisnessSignUp> {
                         CustumTextField(
                           controller:
                               buisbnesssignUpController.buisnessnameController,
-                          validator: validateName,
+                          validator: validateBusinessName,
                           hintText: 'Business Name ',
                         ),
 

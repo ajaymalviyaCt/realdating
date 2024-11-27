@@ -136,7 +136,7 @@ class BusinessDetailsPage extends StatelessWidget {
             ),
             const SizedBox(height: 16),
 
-            // Description
+            /// Description
             if (business.description != null)
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

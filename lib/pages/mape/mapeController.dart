@@ -18,66 +18,210 @@ class MapeUserController extends GetxController implements GetxService {
   @override
   void onReady() {
     super.onReady();
-    // print("onReady getAllUsersPost");
     getAllUserMape(search ?? "");
   }
+
 
   var search;
   var userProfileImage;
 
+  //
+  // void getAllUserMape(String search) async {
+  //   try {
+  //     Map<String, dynamic> apiData = await ApiCall.instance.callApi(
+  //       url: "https://forreal.net:4000/users/nearByBussiness",
+  //       headers: await authHeader(),
+  //       method: HttpMethod.POST,
+  //       body: {
+  //         "user_id": await getUserId(),
+  //         "search": search,
+  //       },
+  //       dismissKeyBoard: false,
+  //     );
+  //
+  //     MapeBusinessModel businessModel = MapeBusinessModel.fromJson(apiData);
+  //
+  //     // Clear existing markers
+  //     markers.clear();
+  //
+  //     // Loop through the businesses to create markers
+  //     for (Bussiness business in businessModel.bussiness) {
+  //       // Validate coordinates
+  //       double? latitude = double.tryParse(business.latitude);
+  //       double? longitude = double.tryParse(business.longitude);
+  //
+  //       if (latitude == null || longitude == null) {
+  //         print("Invalid coordinates for business: ${business.businessName}");
+  //         continue; // Skip this business if coordinates are invalid
+  //       }
+  //
+  //       // Fetch image bytes for custom marker
+  //       Uint8List bytes = (await NetworkAssetBundle(Uri.parse(business.profileImage))
+  //           .load(business.profileImage))
+  //           .buffer
+  //           .asUint8List();
+  //
+  //       // Create a marker with a unique ID
+  //       markers.add(
+  //         Marker(
+  //           markerId: MarkerId('${business.id}'),
+  //           position: LatLng(latitude, longitude),
+  //           onTap: () {
+  //             // Navigate to the detailed page
+  //             Get.to(const NearByBusinessList());
+  //           },
+  //           icon: await MarerWidget(bytes: bytes).toBitmapDescriptor(),
+  //         ),
+  //       );
+  //     }
+  //
+  //
+  //     markers.refresh();
+  //
+  //     // Focus on the first business if available
+  //     if (businessModel.bussiness.isNotEmpty) {
+  //       Bussiness firstBusiness = businessModel.bussiness.first;
+  //       mapController?.animateCamera(
+  //         CameraUpdate.newLatLng(
+  //           LatLng(double.parse(firstBusiness.latitude), double.parse(firstBusiness.longitude)),
+  //         ),
+  //       );
+  //     }
+  //   } catch (e) {
+  //     print("Error fetching or displaying markers: $e");
+  //   }
+  // }
+
+
   void getAllUserMape(String search) async {
-    Map<String, dynamic> apiData = await ApiCall.instance.callApi(
+    print('Business data----');
+    try {
+      print("line 99");
+      Map<String, dynamic> apiData = await ApiCall.instance.callApi(
         url: "https://forreal.net:4000/users/nearByBussiness",
         headers: await authHeader(),
         method: HttpMethod.POST,
         body: {
-          "user_id": await getUserId(),
-          "search": search,
+          "user_id":await getUserId(),
+          "search": search??" ",
         },
-        dismissKeyBoard: false);
-    MapeBusinessModel mapeBusinessModel = MapeBusinessModel.fromJson(apiData);
+        dismissKeyBoard: false,
+      );
+      print('line 110');
+      MapeBusinessModel businessModel = MapeBusinessModel.fromJson(apiData);
+      print("line 111");
+      markers.clear();
+      print("line 112");
+      for (Bussiness business in (businessModel.bussiness??[])) {
+        try {
+          print("line 114");
+          double? latitude = double.tryParse(business.latitude??"0");
+          double? longitude = double.tryParse(business.longitude??"0");
 
-    Uint8List bytes =
-        (await NetworkAssetBundle(Uri.parse(mapeBusinessModel.bussiness[0].profileImage)).load(mapeBusinessModel.bussiness[0].profileImage))
-            .buffer
-            .asUint8List();
-    markers.clear();
-    for (int i = 0; i < mapeBusinessModel.bussiness.length; i++) {  markers.add(
-      Marker(
-        markerId: MarkerId((mapeBusinessModel.bussiness.first.latitude,mapeBusinessModel.bussiness.first.longitude).toString()),
-        position: LatLng(double.tryParse(mapeBusinessModel.bussiness[i].latitude) ?? 22.0,
-            double.tryParse(mapeBusinessModel.bussiness[i].longitude) ?? 22.0),
-        onTap: () {
-          Get.to(const NearByBusinessList());
-        },
-        // infoWindow: InfoWindow(
-        //   title: 'San Francisco',
-        //   snippet: 'An interesting city!',
-        // ),
-        icon: await MarerWidget(
-          bytes: bytes,
-        ).toBitmapDescriptor(),
-      ),
-    );
+          if (latitude == null || longitude == null) {
+            print("Invalid coordinates for business: ${business.businessName}");
+            continue;
+          }
 
-    mapController?.animateCamera(CameraUpdate.newLatLng(LatLng(double.parse(mapeBusinessModel.bussiness.first.latitude),double.parse(mapeBusinessModel.bussiness.first.longitude))));
-      // Set<Marker>.from(mapeBusinessModel.bussiness.map((e) {
-      //
-      //   return markers.add(Marker(
-      //     markerId: MarkerId((mapeBusinessModel.bussiness.first.latitude,mapeBusinessModel.bussiness.first..longitude).toString()),
-      //     position: LatLng(double.tryParse(mapeBusinessModel.bussiness[i].latitude) ?? 22.0,
-      //         double.tryParse(mapeBusinessModel.bussiness[i].longitude) ?? 22.0),
-      //     icon: BitmapDescriptor.fromBytes(resizeImage(bytes, 300, 300)!), //Icon for Marker
-      //   ));
-      // }));
+          Uint8List bytes = (await NetworkAssetBundle(Uri.parse(business.profileImage??"")).load(business.profileImage??"")).buffer.asUint8List();
+          print('location marker-----${markers}');
+          markers.add(
+            Marker(
+              markerId: MarkerId('${business.id}'),
+              position: LatLng(latitude, longitude),
+              icon: await MarerWidget(bytes: bytes).toBitmapDescriptor(),
+              onTap: () {
+                Get.to(const NearByBusinessList());
+              },
+            ),
+          );
+        }  catch (e,s) {
+          print("line 137");
+          print(e);
+          print(s);
+          // TODO
+        }
+      }
+
+      markers.refresh();
+      if (markers.isNotEmpty) {
+        LatLngBounds bounds = _calculateBounds(markers);
+        mapController?.animateCamera(CameraUpdate.newLatLngBounds(bounds, 50));
+      } else {
+        mapController?.animateCamera(CameraUpdate.newLatLng(LatLng(20.5937, 78.9629))); // India's approximate center
+      }
+    } catch (e) {
+      print("Error fetching or displaying markers: $e");
     }
-
-
-
-
-
-
   }
+  LatLngBounds _calculateBounds(Set<Marker> markers) {
+    double minLat = markers.map((m) => m.position.latitude).reduce((a, b) => a < b ? a : b);
+    double maxLat = markers.map((m) => m.position.latitude).reduce((a, b) => a > b ? a : b);
+    double minLng = markers.map((m) => m.position.longitude).reduce((a, b) => a < b ? a : b);
+    double maxLng = markers.map((m) => m.position.longitude).reduce((a, b) => a > b ? a : b);
+
+    return LatLngBounds(
+      southwest: LatLng(minLat, minLng),
+      northeast: LatLng(maxLat, maxLng),
+    );
+  }
+
+
+
+
+// void getAllUserMape(String search) async {
+  //   Map<String, dynamic> apiData = await ApiCall.instance.callApi(
+  //       url: "https://forreal.net:4000/users/nearByBussiness",
+  //       headers: await authHeader(),
+  //       method: HttpMethod.POST,
+  //       body: {
+  //         "user_id": await getUserId(),
+  //         "search": search,
+  //       },
+  //       dismissKeyBoard: false);
+  //   MapeBusinessModel mapeBusinessModel = MapeBusinessModel.fromJson(apiData);
+  //
+  //   Uint8List bytes =
+  //       (await NetworkAssetBundle(Uri.parse(mapeBusinessModel.bussiness[0].profileImage)).load(mapeBusinessModel.bussiness[0].profileImage))
+  //           .buffer
+  //           .asUint8List();
+  //   markers.clear();
+  //   for (int i = 0; i < mapeBusinessModel.bussiness.length; i++) {  markers.add(
+  //     Marker(
+  //       markerId: MarkerId((mapeBusinessModel.bussiness.first.latitude,mapeBusinessModel.bussiness.first.longitude).toString()),
+  //       position: LatLng(double.tryParse(mapeBusinessModel.bussiness[i].latitude) ?? 22.0,
+  //           double.tryParse(mapeBusinessModel.bussiness[i].longitude) ?? 22.0),
+  //       onTap: () {
+  //         Get.to(const NearByBusinessList());
+  //       },
+  //       // infoWindow: InfoWindow(
+  //       //   title: 'San Francisco',
+  //       //   snippet: 'An interesting city!',
+  //       // ),
+  //       icon: await MarerWidget(
+  //         bytes: bytes,
+  //       ).toBitmapDescriptor(),
+  //     ),
+  //   );
+  //
+  //   mapController?.animateCamera(CameraUpdate.newLatLng(LatLng(double.parse(mapeBusinessModel.bussiness.first.latitude),double.parse(mapeBusinessModel.bussiness.first.longitude))));
+  //     // Set<Marker>.from(mapeBusinessModel.bussiness.map((e) {
+  //     //
+  //     //   return markers.add(Marker(
+  //     //     markerId: MarkerId((mapeBusinessModel.bussiness.first.latitude,mapeBusinessModel.bussiness.first..longitude).toString()),
+  //     //     position: LatLng(double.tryParse(mapeBusinessModel.bussiness[i].latitude) ?? 22.0,
+  //     //         double.tryParse(mapeBusinessModel.bussiness[i].longitude) ?? 22.0),
+  //     //     icon: BitmapDescriptor.fromBytes(resizeImage(bytes, 300, 300)!), //Icon for Marker
+  //     //   ));
+  //     // }));
+  //   }
+  //
+  //
+  //
+  //
+  //
+  //
+  // }
 
 /*
   addMarkers() async {

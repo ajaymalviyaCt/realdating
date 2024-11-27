@@ -278,6 +278,31 @@ class _BuisnessHomePageState extends State<BuisnessHomePage> {
     }
   }
 
+
+  Future<bool> _onWillPop() async {
+
+    return await showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Confirm Exit'),
+          content: const Text('Are you sure you want to exit the app?'),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(false), // Stay in the app
+              child: const Text('No'),
+            ),
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(true), // Exit the app
+              child: const Text('Yes'),
+            ),
+          ],
+        );
+      },
+    ) ??
+        false;
+  }
+
   // final _pagingController = PagingController<int, Post>(firstPageKey: 1);
 
   @override
@@ -287,7 +312,8 @@ class _BuisnessHomePageState extends State<BuisnessHomePage> {
         MyDealController();
       },
       builder: (controller) {
-        return Scaffold(
+        return WillPopScope(child:
+        Scaffold(
           drawer: Drawer(
             child: ListView(children: [
               Stack(
@@ -297,7 +323,7 @@ class _BuisnessHomePageState extends State<BuisnessHomePage> {
                     height: 200,
                     color: HexColor('#EDEDED'),
                     child: Obx(
-                      () => CachedNetworkImage(
+                          () => CachedNetworkImage(
                         imageUrl: profileController.bussinessCoverprofilepic
                             .toString(),
                         placeholder: (context, url) => const Center(
@@ -328,7 +354,7 @@ class _BuisnessHomePageState extends State<BuisnessHomePage> {
                         color: Colors.transparent,
                       ),
                       child: Obx(
-                        () => SizedBox(
+                            () => SizedBox(
                           height: 60,
                           width: 60,
                           child: ClipRRect(
@@ -344,12 +370,12 @@ class _BuisnessHomePageState extends State<BuisnessHomePage> {
                                         strokeWidth: 1,
                                       ))),
                               errorWidget: (context, url, error) =>
-                                  const SizedBox(
-                                      height: 40,
-                                      child: Icon(
-                                        Icons.person_2_outlined,
-                                        color: Vx.red200,
-                                      )),
+                              const SizedBox(
+                                  height: 40,
+                                  child: Icon(
+                                    Icons.person_2_outlined,
+                                    color: Vx.red200,
+                                  )),
                               filterQuality: FilterQuality.low,
                               fit: BoxFit.fill,
                             ),
@@ -369,7 +395,7 @@ class _BuisnessHomePageState extends State<BuisnessHomePage> {
                         padding: const EdgeInsets.all(4.0),
                         child: Center(
                           child: Obx(
-                            () => Text(
+                                () => Text(
                               profileController.bussinessName.value.toString(),
                               style: const TextStyle(
                                 fontSize: 16,
@@ -479,7 +505,7 @@ class _BuisnessHomePageState extends State<BuisnessHomePage> {
                               child: SizedBox(
                                 width: MediaQuery.of(context).size.width,
                                 child: Obx(
-                                  () => CachedNetworkImage(
+                                      () => CachedNetworkImage(
                                     imageUrl: profileController
                                         .bussinessProfilepic.value
                                         .toString(),
@@ -491,7 +517,7 @@ class _BuisnessHomePageState extends State<BuisnessHomePage> {
                                               strokeWidth: 1,
                                             ))),
                                     errorWidget: (context, url, error) =>
-                                        const Icon(Icons.person_2_outlined),
+                                    const Icon(Icons.person_2_outlined),
                                     filterQuality: FilterQuality.low,
                                     fit: BoxFit.fill,
                                     height: 300,
@@ -508,9 +534,9 @@ class _BuisnessHomePageState extends State<BuisnessHomePage> {
                         width: 5,
                       ),
                       Obx(
-                        () => customTextCommon(
+                            () => customTextCommon(
                           text:
-                              profileController.bussinessName.value.toString(),
+                          profileController.bussinessName.value.toString(),
                           fSize: 20,
                           fWeight: FontWeight.w600,
                           lineHeight: 29,
@@ -527,10 +553,10 @@ class _BuisnessHomePageState extends State<BuisnessHomePage> {
                                 onTap: () {
                                   Get.to(() => const CreateDeal());
                                   /*Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  const CreateDeal()));*/
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    const CreateDeal()));*/
                                 },
                                 child: const Row(
                                   mainAxisAlignment: MainAxisAlignment.start,
@@ -539,8 +565,8 @@ class _BuisnessHomePageState extends State<BuisnessHomePage> {
                                     Text('    Create Deals')
                                   ],
                                 )
-                                //Text("Block")
-                                ),
+                              //Text("Block")
+                            ),
                           ),
 
                           // PopupMenuItem 2
@@ -570,10 +596,10 @@ class _BuisnessHomePageState extends State<BuisnessHomePage> {
                         width: 22.ah,
                       ),
                       /*                  IconButton(
-                          onPressed: () {
-                            Get.to(() => const NotificationPageBusiness());
-                          },
-                          icon: SvgPicture.asset('assets/icons/notification.svg'))*/
+                            onPressed: () {
+                              Get.to(() => const NotificationPageBusiness());
+                            },
+                            icon: SvgPicture.asset('assets/icons/notification.svg'))*/
                     ],
                   ),
                 ),
@@ -594,7 +620,7 @@ class _BuisnessHomePageState extends State<BuisnessHomePage> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) =>
-                                      const BuiusnessTopDeals()));
+                                  const BuiusnessTopDeals()));
                         },
                         child: customTextCommon(
                           text: "See All",
@@ -611,12 +637,12 @@ class _BuisnessHomePageState extends State<BuisnessHomePage> {
                 Padding(
                   padding: const EdgeInsets.only(left: 15.0),
                   child: Obx(
-                    () => controller.isLoadigDeal.value
+                        () => controller.isLoadigDeal.value
                         ? const Center(
-                            child: CircularProgressIndicator(
-                              strokeWidth: 2,
-                            ),
-                          )
+                      child: CircularProgressIndicator(
+                        strokeWidth: 2,
+                      ),
+                    )
                         : topDealsList(controller),
                   ),
                 ),
@@ -624,1857 +650,1857 @@ class _BuisnessHomePageState extends State<BuisnessHomePage> {
                   height: 20,
                 ),
                 Obx(
-                  () => postsC.isFirstLoadRunning.value
+                      () => postsC.isFirstLoadRunning.value
                       ? const Center(
-                          child: SizedBox(
-                              height: 250,
-                              child: Center(
-                                  child: CircularProgressIndicator(
-                                strokeWidth: 2,
-                              ))),
-                        )
+                    child: SizedBox(
+                        height: 250,
+                        child: Center(
+                            child: CircularProgressIndicator(
+                              strokeWidth: 2,
+                            ))),
+                  )
                       : Column(
-                          children: [
-                            Obx(
-                              () => postsC.bHomePagetModel.posts.isEmpty
-                                  ? SizedBox(
-                                      height: 300.ah,
-                                      child: const Center(
-                                        child: Text("No Post Found"),
-                                      ))
-                                  : RefreshIndicator(
-                                      onRefresh: () async {
-                                        postsC.firstLoad();
-                                      },
-                                      child: ListView.builder(
-                                          shrinkWrap: true,
-                                          physics:
-                                              const NeverScrollableScrollPhysics(),
-                                          itemCount: postsC
-                                              .bHomePagetModel.posts.length,
-                                          itemBuilder: (_, index) {
-                                            return Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: Column(
-                                                children: [
-                                                  if (postsC
-                                                          .bHomePagetModel
-                                                          .posts[index]
-                                                          .postType ==
-                                                      "Image")
+                    children: [
+                      Obx(
+                            () => postsC.bHomePagetModel.posts.isEmpty
+                            ? SizedBox(
+                            height: 300.ah,
+                            child: const Center(
+                              child: Text("No Post Found"),
+                            ))
+                            : RefreshIndicator(
+                          onRefresh: () async {
+                            postsC.firstLoad();
+                          },
+                          child: ListView.builder(
+                              shrinkWrap: true,
+                              physics:
+                              const NeverScrollableScrollPhysics(),
+                              itemCount: postsC
+                                  .bHomePagetModel.posts.length,
+                              itemBuilder: (_, index) {
+                                return Padding(
+                                  padding:
+                                  const EdgeInsets.all(8.0),
+                                  child: Column(
+                                    children: [
+                                      if (postsC
+                                          .bHomePagetModel
+                                          .posts[index]
+                                          .postType ==
+                                          "Image")
+                                        Container(
+                                          width: 350.aw,
+                                          decoration:
+                                          ShapeDecoration(
+                                            color: Colors.white,
+                                            shape:
+                                            RoundedRectangleBorder(
+                                              borderRadius:
+                                              BorderRadius
+                                                  .circular(10),
+                                            ),
+                                            shadows: const [
+                                              BoxShadow(
+                                                color: Color(
+                                                    0x19000000),
+                                                blurRadius: 15,
+                                                offset:
+                                                Offset(0, 10),
+                                                spreadRadius: 0,
+                                              )
+                                            ],
+                                          ),
+                                          child: Padding(
+                                            padding: EdgeInsets.all(
+                                                20.0.adaptSize),
+                                            child: Column(
+                                              crossAxisAlignment:
+                                              CrossAxisAlignment
+                                                  .start,
+                                              children: [
+                                                10.ah.heightBox,
+                                                Row(
+                                                  children: [
                                                     Container(
-                                                      width: 350.aw,
                                                       decoration:
-                                                          ShapeDecoration(
-                                                        color: Colors.white,
-                                                        shape:
-                                                            RoundedRectangleBorder(
+                                                      BoxDecoration(
+                                                          border: Border
+                                                              .all(
+                                                            color:
+                                                            Colors.red.shade200,
+                                                          ),
                                                           borderRadius:
-                                                              BorderRadius
-                                                                  .circular(10),
-                                                        ),
-                                                        shadows: const [
-                                                          BoxShadow(
-                                                            color: Color(
-                                                                0x19000000),
-                                                            blurRadius: 15,
-                                                            offset:
-                                                                Offset(0, 10),
-                                                            spreadRadius: 0,
-                                                          )
-                                                        ],
-                                                      ),
-                                                      child: Padding(
-                                                        padding: EdgeInsets.all(
-                                                            20.0.adaptSize),
-                                                        child: Column(
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .start,
-                                                          children: [
-                                                            10.ah.heightBox,
-                                                            Row(
-                                                              children: [
-                                                                Container(
-                                                                  decoration:
-                                                                      BoxDecoration(
-                                                                          border: Border
-                                                                              .all(
-                                                                            color:
-                                                                                Colors.red.shade200,
-                                                                          ),
-                                                                          borderRadius:
-                                                                              BorderRadius.circular(35)),
-                                                                  child:
-                                                                      ClipRRect(
-                                                                    borderRadius:
-                                                                        BorderRadius.circular(
-                                                                            35),
-                                                                    child:
-                                                                        SizedBox(
-                                                                      height:
-                                                                          35,
-                                                                      width: 35,
-                                                                      child:
-                                                                          CachedNetworkImage(
-                                                                        imageUrl: postsC
-                                                                            .bHomePagetModel
-                                                                            .posts[index]
-                                                                            .profileImage
-                                                                            .toString(),
-                                                                        placeholder: (context, url) => const Center(
-                                                                            child: SizedBox(
-                                                                                height: 20,
-                                                                                width: 20,
-                                                                                child: CircularProgressIndicator(
-                                                                                  strokeWidth: 1,
-                                                                                ))),
-                                                                        errorWidget: (context,
-                                                                                url,
-                                                                                error) =>
-                                                                            const Icon(Icons.person_2_outlined),
-                                                                        filterQuality:
-                                                                            FilterQuality.low,
-                                                                        fit: BoxFit
-                                                                            .cover,
-                                                                      ),
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                                10.aw.widthBox,
-                                                                Column(
-                                                                  crossAxisAlignment:
-                                                                      CrossAxisAlignment
-                                                                          .start,
-                                                                  children: [
-                                                                    Text(
-                                                                      '${postsC.bHomePagetModel.posts[index].businessName}',
-                                                                      style:
-                                                                          TextStyle(
-                                                                        color: const Color(
-                                                                            0xFF111111),
-                                                                        fontSize:
-                                                                            14.adaptSize,
-                                                                        fontFamily:
-                                                                            'Inter',
-                                                                        fontWeight:
-                                                                            FontWeight.w600,
-                                                                        letterSpacing:
-                                                                            -0.30,
-                                                                      ),
-                                                                    ),
-                                                                    Text(
-                                                                      '${postsC.bHomePagetModel.posts[index].createdAt!.day}-${postsC.bHomePagetModel.posts[index].createdAt!.month}-${postsC.bHomePagetModel.posts[index].createdAt!.year}',
-                                                                      style:
-                                                                          TextStyle(
-                                                                        color: const Color(
-                                                                            0xFFAAAAAA),
-                                                                        fontSize:
-                                                                            10.adaptSize,
-                                                                        fontFamily:
-                                                                            'Inter',
-                                                                        fontWeight:
-                                                                            FontWeight.w500,
-                                                                        letterSpacing:
-                                                                            -0.30,
-                                                                      ),
-                                                                    )
-                                                                  ],
-                                                                ),
-                                                                const Spacer(),
-                                                                if ("${businessId}" ==
-                                                                    '${postsC.bHomePagetModel.posts[index].businessId.toString()}')
-                                                                  InkWell(
-                                                                    onTap: () {
-                                                                      showDialog(
-                                                                          context:
-                                                                              context,
-                                                                          builder: (BuildContext context) =>
-                                                                              AlertDialog(title: const Text("Are you sure you want to delete this post?"), actions: [
-                                                                                TextButton(
-                                                                                  onPressed: () {
-                                                                                    deletePost(postId: '${postsC.bHomePagetModel.posts[index].id.toString()}', context: context);
-                                                                                    // setState(() {});
-                                                                                    // myDealController.fetchPage(myDealController.pagingController.nextPageKey!);
-                                                                                    // Navigator.pop(context);
-                                                                                    // Navigator.pop(context);
-                                                                                  },
-                                                                                  child: const Text("Yes", style: TextStyle(color: Appcolor.Redpink, fontSize: 16)),
-                                                                                ),
-                                                                                TextButton(
-                                                                                    onPressed: () {
-                                                                                      Navigator.pop(context);
-                                                                                    },
-                                                                                    child: const Text(
-                                                                                      "No",
-                                                                                      style: TextStyle(color: Appcolor.Redpink, fontSize: 16),
-                                                                                    ))
-                                                                              ]));
-                                                                    },
-                                                                    child:
-                                                                        const Icon(
-                                                                      Icons
-                                                                          .delete,
-                                                                      color: Appcolor
-                                                                          .Redpink,
-                                                                    ),
-                                                                  )
-
-                                                                // if ("${homePageNewController.userId}" ==
-                                                                //     "${postsC.homePageModel.posts[index].postOwnerInfo![0].id}")
-                                                                //   deletePost(index)
-                                                              ],
-                                                            ),
-                                                            15.ah.heightBox,
-                                                            '${postsC.bHomePagetModel.posts[index].caption}' ==
-                                                                    "default_caption"
-                                                                ? SizedBox()
-                                                                : Text(
-                                                                    '${postsC.bHomePagetModel.posts[index].caption}',
-                                                                    style:
-                                                                        TextStyle(
-                                                                      color: Colors
-                                                                          .black,
-                                                                      fontSize:
-                                                                          12.adaptSize,
-                                                                      fontFamily:
-                                                                          'Inter',
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w400,
-                                                                      height: 0,
-                                                                      letterSpacing:
-                                                                          -0.30,
-                                                                    ),
-                                                                  ),
-                                                            '${postsC.bHomePagetModel.posts[index].miniblogs}' ==
-                                                                    "default_miniblogs"
-                                                                ? SizedBox()
-                                                                : Text(
-                                                                    '${postsC.bHomePagetModel.posts[index].miniblogs}',
-                                                                    style:
-                                                                        TextStyle(
-                                                                      color: Colors
-                                                                          .black,
-                                                                      fontSize:
-                                                                          12.adaptSize,
-                                                                      fontFamily:
-                                                                          'Inter',
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w400,
-                                                                      height: 0,
-                                                                      letterSpacing:
-                                                                          -0.30,
-                                                                    ),
-                                                                  ),
-                                                            15.ah.heightBox,
-                                                            '${postsC.bHomePagetModel.posts[index].post}' ==
-                                                                    "default_post_image"
-                                                                ? SizedBox()
-                                                                : Container(
-                                                                    decoration:
-                                                                        BoxDecoration(
-                                                                      border: Border.all(
-                                                                          color:
-                                                                              Vx.red100),
-                                                                      borderRadius:
-                                                                          BorderRadius.circular(
-                                                                              10),
-                                                                    ),
-                                                                    child:
-                                                                        ClipRRect(
-                                                                      borderRadius:
-                                                                          BorderRadius.circular(
-                                                                              10),
-                                                                      child:
-                                                                          SizedBox(
-                                                                        width: MediaQuery.of(context)
-                                                                            .size
-                                                                            .width,
-                                                                        child:
-                                                                            CachedNetworkImage(
-                                                                          imageUrl: postsC
-                                                                              .bHomePagetModel
-                                                                              .posts[index]
-                                                                              .post
-                                                                              .toString(),
-                                                                          placeholder: (context, url) => const Center(
-                                                                              child: SizedBox(
-                                                                                  height: 20,
-                                                                                  width: 20,
-                                                                                  child: CircularProgressIndicator(
-                                                                                    strokeWidth: 1,
-                                                                                  ))),
-                                                                          errorWidget: (context, url, error) =>
-                                                                              const Icon(Icons.person_2_outlined),
-                                                                          filterQuality:
-                                                                              FilterQuality.low,
-                                                                          fit: BoxFit
-                                                                              .fill,
-                                                                          height:
-                                                                              300,
-                                                                        ),
-                                                                      ),
-                                                                    ),
-                                                                  ),
-                                                            // SizedBox(
-                                                            //   height: double.parse("${8 * postsC.bHomePagetModel.posts[index].!.length}") + 20,
-                                                            //   child: GridView(
-                                                            //     physics: const NeverScrollableScrollPhysics(parent: NeverScrollableScrollPhysics()),
-                                                            //     gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3, mainAxisExtent: 30),
-                                                            //     children: [
-                                                            //       for (int i = 0;
-                                                            //       postsC
-                                                            //           .bHomePagetModel
-                                                            //           .posts[
-                                                            //       index]
-                                                            //           .mentionsData!
-                                                            //           .length >
-                                                            //           i;
-                                                            //       i++)
-                                                            //         InkWell(
-                                                            //           onTap: () {
-                                                            //             // Get.to(
-                                                            //             //       () => MatchDetails(
-                                                            //             //       id: postsC
-                                                            //             //           .homePageModel
-                                                            //             //           .posts[index]
-                                                            //             //           .mentionsData![i]
-                                                            //             //           .id
-                                                            //             //           .toString()),
-                                                            //             // );
-                                                            //           },
-                                                            //           child:
-                                                            //           Padding(
-                                                            //             padding: const EdgeInsets
-                                                            //                 .only(
-                                                            //                 bottom:
-                                                            //                 4.0),
-                                                            //             child: Text(
-                                                            //               "@${postsC.bHomePagetModel.posts[index].mentionsData?[i].firstName ?? "asdcfv"}",
-                                                            //               style:
-                                                            //               const TextStyle(
-                                                            //                 color: Colors
-                                                            //                     .blue,
-                                                            //               ),
-                                                            //             ),
-                                                            //           ),
-                                                            //         ),
-                                                            //     ],
-                                                            //   ),
-                                                            // ),
-                                                            15.ah.heightBox,
-                                                            Row(
-                                                              children: [
-                                                                postsC.bHomePagetModel.posts[index]
-                                                                            .likedByUser ==
-                                                                        "Y"
-                                                                    ? InkWell(
-                                                                        onTap:
-                                                                            () {
-                                                                          postsC
-                                                                              .bHomePagetModel
-                                                                              .posts[index]
-                                                                              .likedByUser = "N";
-                                                                          setState(
-                                                                              () {
-                                                                            postsC.bHomePagetModel.posts[index].totalLikes =
-                                                                                (postsC.bHomePagetModel.posts[index].totalLikes! - 1);
-                                                                            likePost(
-                                                                              "${postsC.bHomePagetModel.posts[index].id}",
-                                                                              "0",
-                                                                            );
-                                                                          });
-                                                                        },
-                                                                        child:
-                                                                            Container(
-                                                                          width:
-                                                                              40,
-                                                                          height:
-                                                                              40,
-                                                                          decoration:
-                                                                              ShapeDecoration(
-                                                                            gradient:
-                                                                                const LinearGradient(
-                                                                              begin: Alignment(0.00, -1.00),
-                                                                              end: Alignment(0, 1),
-                                                                              colors: [
-                                                                                Color(0xFFF65F51),
-                                                                                Color(0xFFFB4967)
-                                                                              ],
-                                                                            ),
-                                                                            shape:
-                                                                                RoundedRectangleBorder(
-                                                                              borderRadius: BorderRadius.circular(100),
-                                                                            ),
-                                                                          ),
-                                                                          child:
-                                                                              Padding(
-                                                                            padding:
-                                                                                const EdgeInsets.all(8.0),
-                                                                            child:
-                                                                                SvgPicture.asset("assets/icons/heartwhite.svg"),
-                                                                          ),
-                                                                        ),
-                                                                      )
-                                                                    : InkWell(
-                                                                        onTap:
-                                                                            () {
-                                                                          postsC
-                                                                              .bHomePagetModel
-                                                                              .posts[index]
-                                                                              .likedByUser = "Y";
-                                                                          setState(
-                                                                              () {
-                                                                            postsC.bHomePagetModel.posts[index].totalLikes =
-                                                                                (postsC.bHomePagetModel.posts[index].totalLikes! + 1);
-                                                                            likePost(
-                                                                              "${postsC.bHomePagetModel.posts[index].id}",
-                                                                              "1",
-                                                                            );
-                                                                          });
-                                                                        },
-                                                                        child:
-                                                                            Container(
-                                                                          width:
-                                                                              40,
-                                                                          height:
-                                                                              40,
-                                                                          decoration:
-                                                                              ShapeDecoration(
-                                                                            gradient:
-                                                                                const LinearGradient(
-                                                                              begin: Alignment(0.00, -1.00),
-                                                                              end: Alignment(0, 1),
-                                                                              colors: [
-                                                                                Color(0xFFF65F51),
-                                                                                Color(0xFFFB4967)
-                                                                              ],
-                                                                            ),
-                                                                            shape:
-                                                                                RoundedRectangleBorder(
-                                                                              borderRadius: BorderRadius.circular(100),
-                                                                            ),
-                                                                          ),
-                                                                          child:
-                                                                              Padding(
-                                                                            padding:
-                                                                                const EdgeInsets.all(8.0),
-                                                                            child:
-                                                                                SvgPicture.asset("assets/icons/pramod_unlike_icon.svg"),
-                                                                          ),
-                                                                        ),
-                                                                      ),
-
-                                                                20.widthBox,
-                                                                InkWell(
-                                                                  onTap: () {
-                                                                    // homePageNewController.getAllCommentBYpostID(postID: '${postsC.bHomePagetModel.posts[index].id}', alreadlyLoad: true, indexx: index);
-                                                                    Get.to(
-                                                                      () =>
-                                                                          BCommentPage(
-                                                                        indexxx:
-                                                                            index,
-                                                                        postId:
-                                                                            '${postsC.bHomePagetModel.posts[index].id}',
-                                                                        userId:
-                                                                            '${postsC.bHomePagetModel.posts[index].businessId}',
-                                                                      ),
-                                                                    );
-                                                                  },
-                                                                  child:
-                                                                      Container(
-                                                                    width: 40,
-                                                                    height: 40,
-                                                                    decoration:
-                                                                        ShapeDecoration(
-                                                                      gradient:
-                                                                          const LinearGradient(
-                                                                        begin: Alignment(
-                                                                            0.00,
-                                                                            -1.00),
-                                                                        end: Alignment(
-                                                                            0,
-                                                                            1),
-                                                                        colors: [
-                                                                          Color(
-                                                                              0xFFF65F51),
-                                                                          Color(
-                                                                              0xFFFB4967)
-                                                                        ],
-                                                                      ),
-                                                                      shape:
-                                                                          RoundedRectangleBorder(
-                                                                        borderRadius:
-                                                                            BorderRadius.circular(100),
-                                                                      ),
-                                                                    ),
-                                                                    child:
-                                                                        Padding(
-                                                                      padding: const EdgeInsets
-                                                                          .all(
-                                                                          8.0),
-                                                                      child: SvgPicture
-                                                                          .asset(
-                                                                              "assets/icons/pramod_comment_icon.svg"),
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                                const Spacer(),
-
-                                                                // InkWell(
-                                                                //   onTap: (){
-                                                                //     showDialog(
-                                                                //         context: context,
-                                                                //         builder: (BuildContext
-                                                                //         context) =>
-                                                                //             AlertDialog(
-                                                                //               title: const Text(
-                                                                //                   "Are you sure you want to Re-Share this Post?"),
-                                                                //               actions: [
-                                                                //                 TextButton(
-                                                                //                   onPressed:
-                                                                //                       () {
-                                                                //                     uploadFileToServerUHome("${posts[index].post}","${posts[index].miniblogs}","${posts[index].postType}");
-                                                                //                     Navigator.pop(context);
-                                                                //                   },
-                                                                //                   child:
-                                                                //                   const Text(
-                                                                //                     "Yes",
-                                                                //                     style: TextStyle(
-                                                                //                         color:
-                                                                //                         Appcolor.Redpink,
-                                                                //                         fontSize: 16),
-                                                                //                   ),
-                                                                //                 ),
-                                                                //                 TextButton(
-                                                                //                   onPressed:
-                                                                //                       () {
-                                                                //                     Navigator.pop(
-                                                                //                         context);
-                                                                //                   },
-                                                                //                   child:
-                                                                //                   const Text(
-                                                                //                     "No",
-                                                                //                     style: TextStyle(
-                                                                //                         color:
-                                                                //                         Appcolor.Redpink,
-                                                                //                         fontSize: 16),
-                                                                //                   ),
-                                                                //                 ),
-                                                                //               ],
-                                                                //             ));
-                                                                //   },
-                                                                //   child: Container(
-                                                                //     width: 40,
-                                                                //     height: 40,
-                                                                //     decoration: ShapeDecoration(
-                                                                //       gradient: const LinearGradient(
-                                                                //         begin: Alignment(0.00, -1.00),
-                                                                //         end: Alignment(0, 1),
-                                                                //         colors: [
-                                                                //           Color(0xFFF65F51),
-                                                                //           Color(0xFFFB4967)
-                                                                //         ],
-                                                                //       ),
-                                                                //       shape: RoundedRectangleBorder(
-                                                                //         borderRadius:
-                                                                //         BorderRadius.circular(100),
-                                                                //       ),
-                                                                //     ),
-                                                                //     child: Padding(
-                                                                //       padding: const EdgeInsets.all(8.0),
-                                                                //       child: SvgPicture.asset(
-                                                                //           "assets/icons/pramod_share_icon.svg"),
-                                                                //     ),
-                                                                //   ),
-                                                                // )
-                                                              ],
-                                                            ),
-                                                            15.ah.heightBox,
-                                                            Text(
-                                                              '  ${postsC.bHomePagetModel.posts[index].totalLikes} likes',
-                                                              style: TextStyle(
-                                                                color: Colors
-                                                                    .black,
-                                                                fontSize: 12
-                                                                    .adaptSize,
-                                                                fontFamily:
-                                                                    'Inter',
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w500,
-                                                                height: 0,
-                                                                letterSpacing:
-                                                                    -0.30,
-                                                              ),
-                                                            ),
-                                                            8.ah.heightBox,
-                                                            Obx(
-                                                              () => postsC.bHomePagetModel.posts[index].totalComments==0?const SizedBox.shrink():Text(
-                                                                '  View all ${postsC.bHomePagetModel.posts[index].totalComments} comment',
-                                                                style:
-                                                                    TextStyle(
-                                                                  color: const Color(
-                                                                      0xFFAAAAAA),
-                                                                  fontSize: 12
-                                                                      .adaptSize,
-                                                                  fontFamily:
-                                                                      'Inter',
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w500,
-                                                                  height: 0,
-                                                                  letterSpacing:
-                                                                      -0.30,
-                                                                ),
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  if (postsC
-                                                          .bHomePagetModel
-                                                          .posts[index]
-                                                          .postType ==
-                                                      "miniBlog")
-                                                    Container(
-                                                      width: 350.aw,
-                                                      decoration:
-                                                          ShapeDecoration(
-                                                        color: Colors.white,
-                                                        shape:
-                                                            RoundedRectangleBorder(
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(10),
-                                                        ),
-                                                        shadows: const [
-                                                          BoxShadow(
-                                                            color: Color(
-                                                                0x19000000),
-                                                            blurRadius: 15,
-                                                            offset:
-                                                                Offset(0, 10),
-                                                            spreadRadius: 0,
-                                                          )
-                                                        ],
-                                                      ),
-                                                      child: Padding(
-                                                        padding: EdgeInsets.all(
-                                                            20.0.adaptSize),
-                                                        child: Column(
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .start,
-                                                          children: [
-                                                            10.ah.heightBox,
-                                                            Row(
-                                                              children: [
-                                                                Container(
-                                                                  decoration: BoxDecoration(
-                                                                      border: Border.all(
-                                                                          color: Colors
-                                                                              .red),
-                                                                      borderRadius:
-                                                                          BorderRadius.circular(
-                                                                              35)),
-                                                                  child:
-                                                                      ClipRRect(
-                                                                    borderRadius:
-                                                                        BorderRadius.circular(
-                                                                            35),
-                                                                    child:
-                                                                        SizedBox(
-                                                                      height:
-                                                                          35,
-                                                                      width: 35,
-                                                                      child:
-                                                                          CachedNetworkImage(
-                                                                        imageUrl: postsC
-                                                                            .bHomePagetModel
-                                                                            .posts[index]
-                                                                            .profileImage
-                                                                            .toString(),
-                                                                        placeholder: (context, url) => const Center(
-                                                                            child: SizedBox(
-                                                                                height: 20,
-                                                                                width: 20,
-                                                                                child: CircularProgressIndicator(
-                                                                                  strokeWidth: 1,
-                                                                                ))),
-                                                                        errorWidget: (context,
-                                                                                url,
-                                                                                error) =>
-                                                                            const Icon(Icons.person_2_outlined),
-                                                                        filterQuality:
-                                                                            FilterQuality.low,
-                                                                        fit: BoxFit
-                                                                            .fill,
-                                                                        height:
-                                                                            300,
-                                                                      ),
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                                10.aw.widthBox,
-                                                                Column(
-                                                                  crossAxisAlignment:
-                                                                      CrossAxisAlignment
-                                                                          .start,
-                                                                  children: [
-                                                                    Text(
-                                                                      '${postsC.bHomePagetModel.posts[index].businessName}',
-                                                                      style:
-                                                                          TextStyle(
-                                                                        color: const Color(
-                                                                            0xFF111111),
-                                                                        fontSize:
-                                                                            14.adaptSize,
-                                                                        fontFamily:
-                                                                            'Inter',
-                                                                        fontWeight:
-                                                                            FontWeight.w600,
-                                                                        letterSpacing:
-                                                                            -0.30,
-                                                                      ),
-                                                                    ),
-                                                                    Text(
-                                                                      '${postsC.bHomePagetModel.posts[index].createdAt!.day}-${postsC.bHomePagetModel.posts[index].createdAt!.month}-${postsC.bHomePagetModel.posts[index].createdAt!.year}',
-                                                                      style:
-                                                                          TextStyle(
-                                                                        color: const Color(
-                                                                            0xFFAAAAAA),
-                                                                        fontSize:
-                                                                            10.adaptSize,
-                                                                        fontFamily:
-                                                                            'Inter',
-                                                                        fontWeight:
-                                                                            FontWeight.w500,
-                                                                        letterSpacing:
-                                                                            -0.30,
-                                                                      ),
-                                                                    )
-                                                                  ],
-                                                                ),
-                                                                Spacer(),
-                                                                // if ("${homePageNewController.userId}" ==
-                                                                //     "${postsC.homePageModel.posts[index].postOwnerInfo![0].id}")
-                                                                //   deletePost(index)
-                                                              ],
-                                                            ),
-                                                            15.ah.heightBox,
-                                                            postsC
-                                                                        .bHomePagetModel
-                                                                        .posts[
-                                                                            index]
-                                                                        .miniblogs !=
-                                                                    "default_miniblogs"
-                                                                ? Text(
-                                                                    '${postsC.bHomePagetModel.posts[index].miniblogs}',
-                                                                    style:
-                                                                        TextStyle(
-                                                                      color: Colors
-                                                                          .black,
-                                                                      fontSize:
-                                                                          16.adaptSize,
-                                                                      fontFamily:
-                                                                          'Inter',
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w400,
-                                                                      height: 0,
-                                                                      letterSpacing:
-                                                                          -0.30,
-                                                                    ),
-                                                                  )
-                                                                : SizedBox(),
-                                                            15.ah.heightBox,
-                                                            // SizedBox(
-                                                            //   height: double.parse(
-                                                            //       "${10 * postsC.bHomePagetModel.posts[index].mentionsData!.length}") +
-                                                            //       20,
-                                                            //   child: GridView(
-                                                            //     physics:
-                                                            //     const NeverScrollableScrollPhysics(
-                                                            //         parent:
-                                                            //         NeverScrollableScrollPhysics()),
-                                                            //     gridDelegate:
-                                                            //     const SliverGridDelegateWithFixedCrossAxisCount(
-                                                            //         crossAxisCount:
-                                                            //         3,
-                                                            //         mainAxisExtent:
-                                                            //         30),
-                                                            //     children: [
-                                                            //       for (int i = 0;
-                                                            //       postsC
-                                                            //           .homePageModel
-                                                            //           .posts[
-                                                            //       index]
-                                                            //           .mentionsData!
-                                                            //           .length >
-                                                            //           i;
-                                                            //       i++)
-                                                            //         InkWell(
-                                                            //           onTap: () {
-                                                            //             Get.to(
-                                                            //                   () => MatchDetails(
-                                                            //                   id: postsC
-                                                            //                       .homePageModel
-                                                            //                       .posts[index]
-                                                            //                       .mentionsData![i]
-                                                            //                       .id
-                                                            //                       .toString()),
-                                                            //             );
-                                                            //           },
-                                                            //           child:
-                                                            //           Padding(
-                                                            //             padding: const EdgeInsets.only(bottom: 4.0),
-                                                            //             child: Text("@${postsC.homePageModel.posts[index].mentionsData?[i].firstName ?? "asdcfv"}",
-                                                            //               style: const TextStyle(color: Colors.blue,),
-                                                            //             ),
-                                                            //           ),
-                                                            //         ),
-                                                            //     ],
-                                                            //   ),
-                                                            // ),
-                                                            15.ah.heightBox,
-                                                            Row(
-                                                              children: [
-                                                                postsC.bHomePagetModel.posts[index]
-                                                                            .likedByUser ==
-                                                                        "Y"
-                                                                    ? InkWell(
-                                                                        onTap:
-                                                                            () {
-                                                                          postsC
-                                                                              .bHomePagetModel
-                                                                              .posts[index]
-                                                                              .likedByUser = "N";
-                                                                          setState(
-                                                                              () {
-                                                                            postsC.bHomePagetModel.posts[index].totalLikes =
-                                                                                (postsC.bHomePagetModel.posts[index].totalLikes! - 1);
-
-                                                                            likePost(
-                                                                              "${postsC.bHomePagetModel.posts[index].id}",
-                                                                              "0",
-                                                                            );
-                                                                          });
-                                                                        },
-                                                                        child:
-                                                                            Container(
-                                                                          width:
-                                                                              40,
-                                                                          height:
-                                                                              40,
-                                                                          decoration:
-                                                                              ShapeDecoration(
-                                                                            gradient:
-                                                                                const LinearGradient(
-                                                                              begin: Alignment(0.00, -1.00),
-                                                                              end: Alignment(0, 1),
-                                                                              colors: [
-                                                                                Color(0xFFF65F51),
-                                                                                Color(0xFFFB4967)
-                                                                              ],
-                                                                            ),
-                                                                            shape:
-                                                                                RoundedRectangleBorder(
-                                                                              borderRadius: BorderRadius.circular(100),
-                                                                            ),
-                                                                          ),
-                                                                          child:
-                                                                              Padding(
-                                                                            padding:
-                                                                                const EdgeInsets.all(8.0),
-                                                                            child:
-                                                                                SvgPicture.asset("assets/icons/heartwhite.svg"),
-                                                                          ),
-                                                                        ),
-                                                                      )
-                                                                    : InkWell(
-                                                                        onTap:
-                                                                            () {
-                                                                          postsC
-                                                                              .bHomePagetModel
-                                                                              .posts[index]
-                                                                              .likedByUser = "Y";
-                                                                          setState(
-                                                                              () {
-                                                                            postsC.bHomePagetModel.posts[index].totalLikes =
-                                                                                (postsC.bHomePagetModel.posts[index].totalLikes! + 1);
-
-                                                                            likePost(
-                                                                              "${postsC.bHomePagetModel.posts[index].id}",
-                                                                              "1",
-                                                                            );
-                                                                          });
-                                                                        },
-                                                                        child:
-                                                                            Container(
-                                                                          width:
-                                                                              40,
-                                                                          height:
-                                                                              40,
-                                                                          decoration:
-                                                                              ShapeDecoration(
-                                                                            gradient:
-                                                                                const LinearGradient(
-                                                                              begin: Alignment(0.00, -1.00),
-                                                                              end: Alignment(0, 1),
-                                                                              colors: [
-                                                                                Color(0xFFF65F51),
-                                                                                Color(0xFFFB4967)
-                                                                              ],
-                                                                            ),
-                                                                            shape:
-                                                                                RoundedRectangleBorder(
-                                                                              borderRadius: BorderRadius.circular(100),
-                                                                            ),
-                                                                          ),
-                                                                          child:
-                                                                              Padding(
-                                                                            padding:
-                                                                                const EdgeInsets.all(8.0),
-                                                                            child:
-                                                                                SvgPicture.asset("assets/icons/pramod_unlike_icon.svg"),
-                                                                          ),
-                                                                        ),
-                                                                      ),
-
-                                                                20.widthBox,
-                                                                InkWell(
-                                                                  onTap: () {
-                                                                    // homePageNewController.getAllCommentBYpostID(
-                                                                    //     postID:
-                                                                    //     '${postsC.bHomePagetModel.posts[index].id}',
-                                                                    //     alreadlyLoad:
-                                                                    //     true,
-                                                                    //     indexx:
-                                                                    //     index);
-                                                                    Get.to(
-                                                                      () =>
-                                                                          BCommentPage(
-                                                                        postId:
-                                                                            '${postsC.bHomePagetModel.posts[index].id}',
-                                                                        userId:
-                                                                            '${postsC.bHomePagetModel.posts[index].id}',
-                                                                        indexxx:
-                                                                            index,
-                                                                      ),
-                                                                    );
-                                                                  },
-                                                                  child:
-                                                                      Container(
-                                                                    width: 40,
-                                                                    height: 40,
-                                                                    decoration:
-                                                                        ShapeDecoration(
-                                                                      gradient:
-                                                                          const LinearGradient(
-                                                                        begin: Alignment(
-                                                                            0.00,
-                                                                            -1.00),
-                                                                        end: Alignment(
-                                                                            0,
-                                                                            1),
-                                                                        colors: [
-                                                                          Color(
-                                                                              0xFFF65F51),
-                                                                          Color(
-                                                                              0xFFFB4967)
-                                                                        ],
-                                                                      ),
-                                                                      shape:
-                                                                          RoundedRectangleBorder(
-                                                                        borderRadius:
-                                                                            BorderRadius.circular(100),
-                                                                      ),
-                                                                    ),
-                                                                    child:
-                                                                        Padding(
-                                                                      padding: const EdgeInsets
-                                                                          .all(
-                                                                          8.0),
-                                                                      child: SvgPicture
-                                                                          .asset(
-                                                                              "assets/icons/pramod_comment_icon.svg"),
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                                Spacer(),
-                                                                // InkWell(
-                                                                //   onTap: (){
-                                                                //     showDialog(
-                                                                //         context: context,
-                                                                //         builder: (BuildContext
-                                                                //         context) =>
-                                                                //             AlertDialog(
-                                                                //               title: const Text(
-                                                                //                   "Are you sure you want to Re-Share this Post?"),
-                                                                //               actions: [
-                                                                //                 TextButton(
-                                                                //                   onPressed:
-                                                                //                       () {
-                                                                //                     uploadFileToServerUHome("${posts[index].post}","${posts[index].miniblogs}","${posts[index].postType}");
-                                                                //                     Navigator.pop(context);
-                                                                //                   },
-                                                                //                   child:
-                                                                //                   const Text(
-                                                                //                     "Yes",
-                                                                //                     style: TextStyle(
-                                                                //                         color:
-                                                                //                         Appcolor.Redpink,
-                                                                //                         fontSize: 16),
-                                                                //                   ),
-                                                                //                 ),
-                                                                //                 TextButton(
-                                                                //                   onPressed:
-                                                                //                       () {
-                                                                //                     Navigator.pop(
-                                                                //                         context);
-                                                                //                   },
-                                                                //                   child:
-                                                                //                   const Text(
-                                                                //                     "No",
-                                                                //                     style: TextStyle(
-                                                                //                         color:
-                                                                //                         Appcolor.Redpink,
-                                                                //                         fontSize: 16),
-                                                                //                   ),
-                                                                //                 ),
-                                                                //               ],
-                                                                //             ));
-                                                                //   },
-                                                                //   child:    Container(
-                                                                //     width: 40,
-                                                                //     height: 40,
-                                                                //     decoration: ShapeDecoration(
-                                                                //       gradient: const LinearGradient(
-                                                                //         begin: Alignment(0.00, -1.00),
-                                                                //         end: Alignment(0, 1),
-                                                                //         colors: [
-                                                                //           Color(0xFFF65F51),
-                                                                //           Color(0xFFFB4967)
-                                                                //         ],
-                                                                //       ),
-                                                                //       shape: RoundedRectangleBorder(
-                                                                //         borderRadius:
-                                                                //         BorderRadius.circular(100),
-                                                                //       ),
-                                                                //     ),
-                                                                //     child: Padding(
-                                                                //       padding: const EdgeInsets.all(8.0),
-                                                                //       child: SvgPicture.asset(
-                                                                //           "assets/icons/pramod_share_icon.svg"),
-                                                                //     ),
-                                                                //   ),
-                                                                // )
-                                                              ],
-                                                            ),
-                                                            15.ah.heightBox,
-                                                            Text(
-                                                              '  ${postsC.bHomePagetModel.posts[index].totalLikes} likes',
-                                                              style: TextStyle(
-                                                                color: Colors
-                                                                    .black,
-                                                                fontSize: 12
-                                                                    .adaptSize,
-                                                                fontFamily:
-                                                                    'Inter',
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w500,
-                                                                height: 0,
-                                                                letterSpacing:
-                                                                    -0.30,
-                                                              ),
-                                                            ),
-                                                            8.ah.heightBox,
-                                                            postsC.bHomePagetModel.posts[index].totalComments==0?SizedBox.shrink():Text(
-                                                              '  View all ${postsC.bHomePagetModel.posts[index].totalComments} comment',
-                                                              style: TextStyle(
-                                                                color: const Color(
-                                                                    0xFFAAAAAA),
-                                                                fontSize: 12
-                                                                    .adaptSize,
-                                                                fontFamily:
-                                                                    'Inter',
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w500,
-                                                                height: 0,
-                                                                letterSpacing:
-                                                                    -0.30,
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  if (postsC
-                                                          .bHomePagetModel
-                                                          .posts[index]
-                                                          .postType ==
-                                                      "AD")
-                                                    Container(
-                                                      width: 350.aw,
-                                                      decoration:
-                                                          ShapeDecoration(
-                                                        color: Colors.white,
-                                                        shape:
-                                                            RoundedRectangleBorder(
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(10),
-                                                        ),
-                                                        shadows: const [
-                                                          BoxShadow(
-                                                            color: Color(
-                                                                0x19000000),
-                                                            blurRadius: 15,
-                                                            offset:
-                                                                Offset(0, 10),
-                                                            spreadRadius: 0,
-                                                          )
-                                                        ],
-                                                      ),
-                                                      child: Padding(
-                                                        padding: EdgeInsets.all(
-                                                            20.0.adaptSize),
-                                                        child: Column(
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .start,
-                                                          children: [
-                                                            Row(
-                                                              children: [
-                                                                Container(
-                                                                  decoration: BoxDecoration(
-                                                                      border: Border.all(
-                                                                          color: Colors
-                                                                              .red),
-                                                                      borderRadius:
-                                                                          BorderRadius.circular(
-                                                                              35)),
-                                                                  child:
-                                                                      ClipRRect(
-                                                                    borderRadius:
-                                                                        BorderRadius.circular(
-                                                                            35),
-                                                                    child:
-                                                                        SizedBox(
-                                                                      height:
-                                                                          35,
-                                                                      width: 35,
-                                                                      child:
-                                                                          CachedNetworkImage(
-                                                                        imageUrl: postsC
-                                                                            .bHomePagetModel
-                                                                            .posts[index]
-                                                                            .profileImage
-                                                                            .toString(),
-                                                                        placeholder: (context, url) => const Center(
-                                                                            child: SizedBox(
-                                                                                height: 20,
-                                                                                width: 20,
-                                                                                child: CircularProgressIndicator(
-                                                                                  strokeWidth: 1,
-                                                                                ))),
-                                                                        errorWidget: (context,
-                                                                                url,
-                                                                                error) =>
-                                                                            const Icon(Icons.person_2_outlined),
-                                                                        filterQuality:
-                                                                            FilterQuality.low,
-                                                                        fit: BoxFit
-                                                                            .fill,
-                                                                        height:
-                                                                            300,
-                                                                      ),
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                                10.aw.widthBox,
-                                                                Column(
-                                                                  crossAxisAlignment:
-                                                                      CrossAxisAlignment
-                                                                          .start,
-                                                                  children: [
-                                                                    Text(
-                                                                      '${postsC.bHomePagetModel.posts[index].caption}',
-                                                                      style:
-                                                                          TextStyle(
-                                                                        color: const Color(
-                                                                            0xFF111111),
-                                                                        fontSize:
-                                                                            14.adaptSize,
-                                                                        fontFamily:
-                                                                            'Inter',
-                                                                        fontWeight:
-                                                                            FontWeight.w600,
-                                                                        height:
-                                                                            0,
-                                                                        letterSpacing:
-                                                                            -0.30,
-                                                                      ),
-                                                                    ),
-                                                                    6.heightBox,
-                                                                    Text(
-                                                                      '${postsC.bHomePagetModel.posts[index].createdAt}',
-                                                                      style:
-                                                                          TextStyle(
-                                                                        color: const Color(
-                                                                            0xFFAAAAAA),
-                                                                        fontSize:
-                                                                            10.adaptSize,
-                                                                        fontFamily:
-                                                                            'Inter',
-                                                                        fontWeight:
-                                                                            FontWeight.w500,
-                                                                        height:
-                                                                            0,
-                                                                        letterSpacing:
-                                                                            -0.30,
-                                                                      ),
-                                                                    ),
-                                                                  ],
-                                                                ),
-                                                              ],
-                                                            ),
-                                                            10.heightBox,
-                                                            ClipRRect(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          10),
-                                                              child: SizedBox(
-                                                                width: MediaQuery.of(
-                                                                        context)
-                                                                    .size
-                                                                    .width,
-                                                                child:
-                                                                    CachedNetworkImage(
-                                                                  imageUrl: postsC
-                                                                      .bHomePagetModel
-                                                                      .posts[
-                                                                          index]
-                                                                      .businessName
-                                                                      .toString(),
-                                                                  placeholder: (context, url) => const Center(
-                                                                      child: SizedBox(
-                                                                          height: 20,
-                                                                          width: 20,
-                                                                          child: CircularProgressIndicator(
-                                                                            strokeWidth:
-                                                                                1,
-                                                                          ))),
-                                                                  errorWidget: (context,
-                                                                          url,
-                                                                          error) =>
-                                                                      const Icon(
-                                                                          Icons
-                                                                              .person_2_outlined),
-                                                                  filterQuality:
-                                                                      FilterQuality
-                                                                          .low,
-                                                                  fit: BoxFit
-                                                                      .fill,
-                                                                  height: 300,
-                                                                ),
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  if (postsC
-                                                          .bHomePagetModel
-                                                          .posts[index]
-                                                          .postType ==
-                                                      "video")
-                                                    Container(
-                                                      width: 350.aw,
-                                                      decoration:
-                                                          ShapeDecoration(
-                                                        color: Colors.white,
-                                                        shape:
-                                                            RoundedRectangleBorder(
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(10),
-                                                        ),
-                                                        shadows: const [
-                                                          BoxShadow(
-                                                            color: Color(
-                                                                0x19000000),
-                                                            blurRadius: 15,
-                                                            offset:
-                                                                Offset(0, 10),
-                                                            spreadRadius: 0,
-                                                          )
-                                                        ],
-                                                      ),
-                                                      child: Padding(
-                                                        padding: EdgeInsets.all(
-                                                            20.0.adaptSize),
-                                                        child: Column(
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .start,
-                                                          children: [
-                                                            10.ah.heightBox,
-                                                            Row(
-                                                              children: [
-                                                                Container(
-                                                                  decoration:
-                                                                      BoxDecoration(
-                                                                          border: Border
-                                                                              .all(
-                                                                            color:
-                                                                                Colors.red.shade200,
-                                                                          ),
-                                                                          borderRadius:
-                                                                              BorderRadius.circular(35)),
-                                                                  child:
-                                                                      ClipRRect(
-                                                                    borderRadius:
-                                                                        BorderRadius.circular(
-                                                                            35),
-                                                                    child:
-                                                                        SizedBox(
-                                                                      height:
-                                                                          35,
-                                                                      width: 35,
-                                                                      child:
-                                                                          CachedNetworkImage(
-                                                                        imageUrl: postsC
-                                                                            .bHomePagetModel
-                                                                            .posts[index]
-                                                                            .profileImage
-                                                                            .toString(),
-                                                                        placeholder: (context, url) => const Center(
-                                                                            child: SizedBox(
-                                                                                height: 20,
-                                                                                width: 20,
-                                                                                child: CircularProgressIndicator(
-                                                                                  strokeWidth: 1,
-                                                                                ))),
-                                                                        errorWidget: (context,
-                                                                                url,
-                                                                                error) =>
-                                                                            const Icon(Icons.person_2_outlined),
-                                                                        filterQuality:
-                                                                            FilterQuality.low,
-                                                                        fit: BoxFit
-                                                                            .cover,
-                                                                      ),
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                                10.aw.widthBox,
-                                                                Column(
-                                                                  crossAxisAlignment:
-                                                                      CrossAxisAlignment
-                                                                          .start,
-                                                                  children: [
-                                                                    Text(
-                                                                      '${postsC.bHomePagetModel.posts[index].businessName}',
-                                                                      style:
-                                                                          TextStyle(
-                                                                        color: const Color(
-                                                                            0xFF111111),
-                                                                        fontSize:
-                                                                            14.adaptSize,
-                                                                        fontFamily:
-                                                                            'Inter',
-                                                                        fontWeight:
-                                                                            FontWeight.w600,
-                                                                        letterSpacing:
-                                                                            -0.30,
-                                                                      ),
-                                                                    ),
-                                                                    Text(
-                                                                      '${postsC.bHomePagetModel.posts[index].createdAt!.day}-${postsC.bHomePagetModel.posts[index].createdAt!.month}-${postsC.posts[index].createdAt!.year}',
-                                                                      style:
-                                                                          TextStyle(
-                                                                        color: const Color(
-                                                                            0xFFAAAAAA),
-                                                                        fontSize:
-                                                                            10.adaptSize,
-                                                                        fontFamily:
-                                                                            'Inter',
-                                                                        fontWeight:
-                                                                            FontWeight.w500,
-                                                                        letterSpacing:
-                                                                            -0.30,
-                                                                      ),
-                                                                    )
-                                                                  ],
-                                                                ),
-                                                                const Spacer(),
-                                                                if ("${businessId}" ==
-                                                                    '${postsC.bHomePagetModel.posts[index].businessId.toString()}')
-                                                                  InkWell(
-                                                                    onTap: () {
-                                                                      showDialog(
-                                                                          context:
-                                                                              context,
-                                                                          builder: (BuildContext context) =>
-                                                                              AlertDialog(title: const Text("Are you sure you want to delete this post?"), actions: [
-                                                                                TextButton(
-                                                                                  onPressed: () {
-                                                                                    deletePost(postId: '${postsC.bHomePagetModel.posts[index].id.toString()}', context: context);
-                                                                                    // setState(() {});
-                                                                                    // myDealController.fetchPage(myDealController.pagingController.nextPageKey!);
-                                                                                    // Navigator.pop(context);
-                                                                                    // Navigator.pop(context);
-                                                                                  },
-                                                                                  child: const Text("Yes", style: TextStyle(color: Appcolor.Redpink, fontSize: 16)),
-                                                                                ),
-                                                                                TextButton(
-                                                                                    onPressed: () {
-                                                                                      Navigator.pop(context);
-                                                                                    },
-                                                                                    child: const Text(
-                                                                                      "No",
-                                                                                      style: TextStyle(color: Appcolor.Redpink, fontSize: 16),
-                                                                                    ))
-                                                                              ]));
-                                                                    },
-                                                                    child:
-                                                                        const Icon(
-                                                                      Icons
-                                                                          .delete,
-                                                                      color: Appcolor
-                                                                          .Redpink,
-                                                                    ),
-                                                                  )
-                                                              ],
-                                                            ),
-                                                            15.ah.heightBox,
-                                                            Text(
-                                                              postsC
-                                                                          .bHomePagetModel
-                                                                          .posts[
-                                                                              index]
-                                                                          .miniblogs !=
-                                                                      "default_miniblogs"
-                                                                  ? '${postsC.bHomePagetModel.posts[index].miniblogs}'
-                                                                  : "",
-                                                              style: TextStyle(
-                                                                color: Colors
-                                                                    .black,
-                                                                fontSize: 12
-                                                                    .adaptSize,
-                                                                fontFamily:
-                                                                    'Inter',
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w400,
-                                                                height: 0,
-                                                                letterSpacing:
-                                                                    -0.30,
-                                                              ),
-                                                            ),
-                                                            15.ah.heightBox,
-                                                            Container(
-                                                              decoration:
-                                                                  BoxDecoration(
-                                                                border: Border.all(
-                                                                    color: Vx
-                                                                        .red100),
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            10),
-                                                              ),
-                                                              child: ClipRRect(
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            10),
+                                                          BorderRadius.circular(35)),
+                                                      child:
+                                                      ClipRRect(
+                                                        borderRadius:
+                                                        BorderRadius.circular(
+                                                            35),
+                                                        child:
+                                                        SizedBox(
+                                                          height:
+                                                          35,
+                                                          width: 35,
+                                                          child:
+                                                          CachedNetworkImage(
+                                                            imageUrl: postsC
+                                                                .bHomePagetModel
+                                                                .posts[index]
+                                                                .profileImage
+                                                                .toString(),
+                                                            placeholder: (context, url) => const Center(
                                                                 child: SizedBox(
-                                                                  height: 200,
-                                                                  width: MediaQuery.of(
-                                                                          context)
-                                                                      .size
-                                                                      .width,
-                                                                  child: VideoPlayerItem(
-                                                                      videoUrl: postsC
-                                                                              .bHomePagetModel
-                                                                              .posts[index]
-                                                                              .post ??
-                                                                          ""),
-                                                                ),
-                                                              ),
-                                                            ),
-                                                            15.ah.heightBox,
-                                                            // Text("${homePageNewController.posts[index].mentionsData!.length}"),
-                                                            // SizedBox(
-                                                            //   height: double.parse("${8 * postsC.bHomePagetModel.posts[index].mentionsData!.length}") + 20,
-                                                            //   child: GridView(
-                                                            //     physics: const NeverScrollableScrollPhysics(parent: NeverScrollableScrollPhysics()),
-                                                            //     gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3, mainAxisExtent: 30),
-                                                            //     children: [
-                                                            //       for (int i = 0;
-                                                            //       postsC
-                                                            //           .bHomePagetModel
-                                                            //           .posts[
-                                                            //       index]
-                                                            //           .mentionsData!
-                                                            //           .length >
-                                                            //           i;
-                                                            //       i++)
-                                                            //         InkWell(
-                                                            //           onTap: () {
-                                                            //             Get.to(
-                                                            //                   () => MatchDetails(
-                                                            //                   id: postsC
-                                                            //                       .bHomePagetModel
-                                                            //                       .posts[index]
-                                                            //                       .mentionsData![i]
-                                                            //                       .id
-                                                            //                       .toString()),
-                                                            //             );
-                                                            //           },
-                                                            //           child:
-                                                            //           Padding(
-                                                            //             padding: const EdgeInsets
-                                                            //                 .only(
-                                                            //                 bottom:
-                                                            //                 4.0),
-                                                            //             child: Text(
-                                                            //               "@${postsC.bHomePagetModel.posts[index].mentionsData?[i].firstName ?? "asdcfv"}",
-                                                            //               style:
-                                                            //               const TextStyle(
-                                                            //                 color: Colors
-                                                            //                     .blue,
-                                                            //               ),
-                                                            //             ),
-                                                            //           ),
-                                                            //         ),
-                                                            //     ],
-                                                            //   ),
-                                                            // ),
-
-                                                            // like comment share row
-                                                            15.ah.heightBox,
-                                                            Row(
-                                                              children: [
-                                                                postsC.bHomePagetModel.posts[index]
-                                                                            .likedByUser ==
-                                                                        "Y"
-                                                                    ? InkWell(
-                                                                        onTap:
-                                                                            () {
-                                                                          postsC
-                                                                              .bHomePagetModel
-                                                                              .posts[index]
-                                                                              .likedByUser = "N";
-                                                                          setState(
-                                                                              () {
-                                                                            postsC.bHomePagetModel.posts[index].totalLikes =
-                                                                                (postsC.bHomePagetModel.posts[index].totalLikes! - 1);
-                                                                            likePost(
-                                                                              "${postsC.bHomePagetModel.posts[index].id}",
-                                                                              "0",
-                                                                            );
-                                                                          });
-                                                                        },
-                                                                        child:
-                                                                            Container(
-                                                                          width:
-                                                                              40,
-                                                                          height:
-                                                                              40,
-                                                                          decoration:
-                                                                              ShapeDecoration(
-                                                                            gradient:
-                                                                                const LinearGradient(
-                                                                              begin: Alignment(0.00, -1.00),
-                                                                              end: Alignment(0, 1),
-                                                                              colors: [
-                                                                                Color(0xFFF65F51),
-                                                                                Color(0xFFFB4967)
-                                                                              ],
-                                                                            ),
-                                                                            shape:
-                                                                                RoundedRectangleBorder(
-                                                                              borderRadius: BorderRadius.circular(100),
-                                                                            ),
-                                                                          ),
-                                                                          child:
-                                                                              Padding(
-                                                                            padding:
-                                                                                const EdgeInsets.all(8.0),
-                                                                            child:
-                                                                                SvgPicture.asset("assets/icons/heartwhite.svg"),
-                                                                          ),
-                                                                        ),
-                                                                      )
-                                                                    : InkWell(
-                                                                        onTap:
-                                                                            () {
-                                                                          postsC
-                                                                              .bHomePagetModel
-                                                                              .posts[index]
-                                                                              .likedByUser = "Y";
-                                                                          setState(
-                                                                              () {
-                                                                            postsC.bHomePagetModel.posts[index].totalLikes =
-                                                                                (postsC.bHomePagetModel.posts[index].totalLikes! + 1);
-
-                                                                            likePost(
-                                                                              "${postsC.bHomePagetModel.posts[index].id}",
-                                                                              "1",
-                                                                            );
-                                                                          });
-                                                                        },
-                                                                        child:
-                                                                            Container(
-                                                                          width:
-                                                                              40,
-                                                                          height:
-                                                                              40,
-                                                                          decoration:
-                                                                              ShapeDecoration(
-                                                                            gradient:
-                                                                                const LinearGradient(
-                                                                              begin: Alignment(0.00, -1.00),
-                                                                              end: Alignment(0, 1),
-                                                                              colors: [
-                                                                                Color(0xFFF65F51),
-                                                                                Color(0xFFFB4967)
-                                                                              ],
-                                                                            ),
-                                                                            shape:
-                                                                                RoundedRectangleBorder(
-                                                                              borderRadius: BorderRadius.circular(100),
-                                                                            ),
-                                                                          ),
-                                                                          child:
-                                                                              Padding(
-                                                                            padding:
-                                                                                const EdgeInsets.all(8.0),
-                                                                            child:
-                                                                                SvgPicture.asset("assets/icons/pramod_unlike_icon.svg"),
-                                                                          ),
-                                                                        ),
-                                                                      ),
-
-                                                                20.widthBox,
-                                                                InkWell(
-                                                                  onTap:
-                                                                      () async {
-                                                                    // homePageNewController.getAllCommentBYpostID(
-                                                                    //     postID:
-                                                                    //     '${postsC.bHomePagetModel.posts[index].id}',
-                                                                    //     alreadlyLoad:
-                                                                    //     true,
-                                                                    //     indexx:
-                                                                    //     index);
-                                                                    SharedPreferences
-                                                                        prefs =
-                                                                        await SharedPreferences
-                                                                            .getInstance();
-                                                                    var userId =
-                                                                        prefs.get(
-                                                                            'user_id');
-                                                                    Get.to(() =>
-                                                                        BCommentPage(
-                                                                          postId:
-                                                                              '${postsC.bHomePagetModel.posts[index].id}',
-                                                                          userId:
-                                                                              '${userId}',
-                                                                          indexxx:
-                                                                              index,
-                                                                        ));
-                                                                    print(
-                                                                        'posts${postsC.bHomePagetModel.posts[index].id}');
-                                                                    print(
-                                                                        'posts${postsC.bHomePagetModel.posts[index].businessId}');
-                                                                    print(
-                                                                        'posts${index}');
-                                                                    // homePageNewController.getAllCommentBYpostID(postID: '2', alreadlyLoad: true, indexx: 0);
-                                                                  },
-                                                                  child:
-                                                                      Container(
-                                                                    width: 40,
-                                                                    height: 40,
-                                                                    decoration:
-                                                                        ShapeDecoration(
-                                                                      gradient:
-                                                                          const LinearGradient(
-                                                                        begin: Alignment(
-                                                                            0.00,
-                                                                            -1.00),
-                                                                        end: Alignment(
-                                                                            0,
-                                                                            1),
-                                                                        colors: [
-                                                                          Color(
-                                                                              0xFFF65F51),
-                                                                          Color(
-                                                                              0xFFFB4967)
-                                                                        ],
-                                                                      ),
-                                                                      shape:
-                                                                          RoundedRectangleBorder(
-                                                                        borderRadius:
-                                                                            BorderRadius.circular(100),
-                                                                      ),
-                                                                    ),
-                                                                    child:
-                                                                        Padding(
-                                                                      padding: const EdgeInsets
-                                                                          .all(
-                                                                          8.0),
-                                                                      child: SvgPicture
-                                                                          .asset(
-                                                                              "assets/icons/pramod_comment_icon.svg"),
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                                const Spacer(),
-                                                                // InkWell(
-                                                                //   onTap: (){
-                                                                //     showDialog(
-                                                                //         context: context,
-                                                                //         builder: (BuildContext
-                                                                //         context) =>
-                                                                //             AlertDialog(
-                                                                //               title: const Text(
-                                                                //                   "Are you sure you want to Re-Share this Post?"),
-                                                                //               actions: [
-                                                                //                 TextButton(
-                                                                //                   onPressed:
-                                                                //                       () {
-                                                                //                     uploadFileToServerUHome("${posts[index].post}","${posts[index].miniblogs}","${posts[index].postType}");
-                                                                //                     Navigator.pop(context);
-                                                                //                   },
-                                                                //                   child:
-                                                                //                   const Text(
-                                                                //                     "Yes",
-                                                                //                     style: TextStyle(
-                                                                //                         color:
-                                                                //                         Appcolor.Redpink,
-                                                                //                         fontSize: 16),
-                                                                //                   ),
-                                                                //                 ),
-                                                                //                 TextButton(
-                                                                //                   onPressed:
-                                                                //                       () {
-                                                                //                     Navigator.pop(
-                                                                //                         context);
-                                                                //                   },
-                                                                //                   child:
-                                                                //                   const Text(
-                                                                //                     "No",
-                                                                //                     style: TextStyle(
-                                                                //                         color:
-                                                                //                         Appcolor.Redpink,
-                                                                //                         fontSize: 16),
-                                                                //                   ),
-                                                                //                 ),
-                                                                //               ],
-                                                                //             ));
-                                                                //   },
-                                                                //   child: Container(
-                                                                //     width: 40,
-                                                                //     height: 40,
-                                                                //     decoration: ShapeDecoration(
-                                                                //       gradient: const LinearGradient(
-                                                                //         begin: Alignment(0.00, -1.00),
-                                                                //         end: Alignment(0, 1),
-                                                                //         colors: [
-                                                                //           Color(0xFFF65F51),
-                                                                //           Color(0xFFFB4967)
-                                                                //         ],
-                                                                //       ),
-                                                                //       shape: RoundedRectangleBorder(
-                                                                //         borderRadius:
-                                                                //         BorderRadius.circular(100),
-                                                                //       ),
-                                                                //     ),
-                                                                //     child: Padding(
-                                                                //       padding: const EdgeInsets.all(8.0),
-                                                                //       child: SvgPicture.asset(
-                                                                //           "assets/icons/pramod_share_icon.svg"),
-                                                                //     ),
-                                                                //   ),
-                                                                // )
-                                                              ],
-                                                            ),
-                                                            15.ah.heightBox,
-                                                            Text(
-                                                              '  ${postsC.bHomePagetModel.posts[index].totalLikes} likes',
-                                                              style: TextStyle(
-                                                                color: Colors
-                                                                    .black,
-                                                                fontSize: 12
-                                                                    .adaptSize,
-                                                                fontFamily:
-                                                                    'Inter',
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w500,
-                                                                height: 0,
-                                                                letterSpacing:
-                                                                    -0.30,
-                                                              ),
-                                                            ),
-                                                            8.ah.heightBox,
-                                                            postsC.bHomePagetModel.posts[index].totalComments==0?SizedBox.shrink():Text(
-                                                              '  View all ${postsC.bHomePagetModel.posts[index].totalComments} comment',
-                                                              style: TextStyle(
-                                                                color: const Color(
-                                                                    0xFFAAAAAA),
-                                                                fontSize: 12
-                                                                    .adaptSize,
-                                                                fontFamily:
-                                                                    'Inter',
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w500,
-                                                                height: 0,
-                                                                letterSpacing:
-                                                                    -0.30,
-                                                              ),
-                                                            ),
-                                                          ],
+                                                                    height: 20,
+                                                                    width: 20,
+                                                                    child: CircularProgressIndicator(
+                                                                      strokeWidth: 1,
+                                                                    ))),
+                                                            errorWidget: (context,
+                                                                url,
+                                                                error) =>
+                                                            const Icon(Icons.person_2_outlined),
+                                                            filterQuality:
+                                                            FilterQuality.low,
+                                                            fit: BoxFit
+                                                                .cover,
+                                                          ),
                                                         ),
                                                       ),
                                                     ),
-                                                ],
-                                              ),
-                                            );
-                                          }),
-                                    ),
-                            ),
-                            if (postsC.isLoadMoreRunning == true)
-                              const Padding(
-                                padding: EdgeInsets.only(top: 10, bottom: 40),
-                                child: Center(
-                                  child:
-                                      CircularProgressIndicator(strokeWidth: 2),
-                                ),
-                              ),
-                            // When nothing else to load
-                            if (postsC.hasNextPage == false)
-                              Container(
-                                padding:
-                                    const EdgeInsets.only(top: 30, bottom: 40),
-                                child: const Center(
-                                  child: Text('No more post found...!'),
-                                ),
-                              ),
-                          ],
+                                                    10.aw.widthBox,
+                                                    Column(
+                                                      crossAxisAlignment:
+                                                      CrossAxisAlignment
+                                                          .start,
+                                                      children: [
+                                                        Text(
+                                                          '${postsC.bHomePagetModel.posts[index].businessName}',
+                                                          style:
+                                                          TextStyle(
+                                                            color: const Color(
+                                                                0xFF111111),
+                                                            fontSize:
+                                                            14.adaptSize,
+                                                            fontFamily:
+                                                            'Inter',
+                                                            fontWeight:
+                                                            FontWeight.w600,
+                                                            letterSpacing:
+                                                            -0.30,
+                                                          ),
+                                                        ),
+                                                        Text(
+                                                          '${postsC.bHomePagetModel.posts[index].createdAt!.day}-${postsC.bHomePagetModel.posts[index].createdAt!.month}-${postsC.bHomePagetModel.posts[index].createdAt!.year}',
+                                                          style:
+                                                          TextStyle(
+                                                            color: const Color(
+                                                                0xFFAAAAAA),
+                                                            fontSize:
+                                                            10.adaptSize,
+                                                            fontFamily:
+                                                            'Inter',
+                                                            fontWeight:
+                                                            FontWeight.w500,
+                                                            letterSpacing:
+                                                            -0.30,
+                                                          ),
+                                                        )
+                                                      ],
+                                                    ),
+                                                    const Spacer(),
+                                                    if ("${businessId}" ==
+                                                        '${postsC.bHomePagetModel.posts[index].businessId.toString()}')
+                                                      InkWell(
+                                                        onTap: () {
+                                                          showDialog(
+                                                              context:
+                                                              context,
+                                                              builder: (BuildContext context) =>
+                                                                  AlertDialog(title: const Text("Are you sure you want to delete this post?"), actions: [
+                                                                    TextButton(
+                                                                      onPressed: () {
+                                                                        deletePost(postId: '${postsC.bHomePagetModel.posts[index].id.toString()}', context: context);
+                                                                        // setState(() {});
+                                                                        // myDealController.fetchPage(myDealController.pagingController.nextPageKey!);
+                                                                        // Navigator.pop(context);
+                                                                        // Navigator.pop(context);
+                                                                      },
+                                                                      child: const Text("Yes", style: TextStyle(color: Appcolor.Redpink, fontSize: 16)),
+                                                                    ),
+                                                                    TextButton(
+                                                                        onPressed: () {
+                                                                          Navigator.pop(context);
+                                                                        },
+                                                                        child: const Text(
+                                                                          "No",
+                                                                          style: TextStyle(color: Appcolor.Redpink, fontSize: 16),
+                                                                        ))
+                                                                  ]));
+                                                        },
+                                                        child:
+                                                        const Icon(
+                                                          Icons
+                                                              .delete,
+                                                          color: Appcolor
+                                                              .Redpink,
+                                                        ),
+                                                      )
+
+                                                    // if ("${homePageNewController.userId}" ==
+                                                    //     "${postsC.homePageModel.posts[index].postOwnerInfo![0].id}")
+                                                    //   deletePost(index)
+                                                  ],
+                                                ),
+                                                15.ah.heightBox,
+                                                '${postsC.bHomePagetModel.posts[index].caption}' ==
+                                                    "default_caption"
+                                                    ? SizedBox()
+                                                    : Text(
+                                                  '${postsC.bHomePagetModel.posts[index].caption}',
+                                                  style:
+                                                  TextStyle(
+                                                    color: Colors
+                                                        .black,
+                                                    fontSize:
+                                                    12.adaptSize,
+                                                    fontFamily:
+                                                    'Inter',
+                                                    fontWeight:
+                                                    FontWeight
+                                                        .w400,
+                                                    height: 0,
+                                                    letterSpacing:
+                                                    -0.30,
+                                                  ),
+                                                ),
+                                                '${postsC.bHomePagetModel.posts[index].miniblogs}' ==
+                                                    "default_miniblogs"
+                                                    ? SizedBox()
+                                                    : Text(
+                                                  '${postsC.bHomePagetModel.posts[index].miniblogs}',
+                                                  style:
+                                                  TextStyle(
+                                                    color: Colors
+                                                        .black,
+                                                    fontSize:
+                                                    12.adaptSize,
+                                                    fontFamily:
+                                                    'Inter',
+                                                    fontWeight:
+                                                    FontWeight
+                                                        .w400,
+                                                    height: 0,
+                                                    letterSpacing:
+                                                    -0.30,
+                                                  ),
+                                                ),
+                                                15.ah.heightBox,
+                                                '${postsC.bHomePagetModel.posts[index].post}' ==
+                                                    "default_post_image"
+                                                    ? SizedBox()
+                                                    : Container(
+                                                  decoration:
+                                                  BoxDecoration(
+                                                    border: Border.all(
+                                                        color:
+                                                        Vx.red100),
+                                                    borderRadius:
+                                                    BorderRadius.circular(
+                                                        10),
+                                                  ),
+                                                  child:
+                                                  ClipRRect(
+                                                    borderRadius:
+                                                    BorderRadius.circular(
+                                                        10),
+                                                    child:
+                                                    SizedBox(
+                                                      width: MediaQuery.of(context)
+                                                          .size
+                                                          .width,
+                                                      child:
+                                                      CachedNetworkImage(
+                                                        imageUrl: postsC
+                                                            .bHomePagetModel
+                                                            .posts[index]
+                                                            .post
+                                                            .toString(),
+                                                        placeholder: (context, url) => const Center(
+                                                            child: SizedBox(
+                                                                height: 20,
+                                                                width: 20,
+                                                                child: CircularProgressIndicator(
+                                                                  strokeWidth: 1,
+                                                                ))),
+                                                        errorWidget: (context, url, error) =>
+                                                        const Icon(Icons.person_2_outlined),
+                                                        filterQuality:
+                                                        FilterQuality.low,
+                                                        fit: BoxFit
+                                                            .fill,
+                                                        height:
+                                                        300,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                                // SizedBox(
+                                                //   height: double.parse("${8 * postsC.bHomePagetModel.posts[index].!.length}") + 20,
+                                                //   child: GridView(
+                                                //     physics: const NeverScrollableScrollPhysics(parent: NeverScrollableScrollPhysics()),
+                                                //     gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3, mainAxisExtent: 30),
+                                                //     children: [
+                                                //       for (int i = 0;
+                                                //       postsC
+                                                //           .bHomePagetModel
+                                                //           .posts[
+                                                //       index]
+                                                //           .mentionsData!
+                                                //           .length >
+                                                //           i;
+                                                //       i++)
+                                                //         InkWell(
+                                                //           onTap: () {
+                                                //             // Get.to(
+                                                //             //       () => MatchDetails(
+                                                //             //       id: postsC
+                                                //             //           .homePageModel
+                                                //             //           .posts[index]
+                                                //             //           .mentionsData![i]
+                                                //             //           .id
+                                                //             //           .toString()),
+                                                //             // );
+                                                //           },
+                                                //           child:
+                                                //           Padding(
+                                                //             padding: const EdgeInsets
+                                                //                 .only(
+                                                //                 bottom:
+                                                //                 4.0),
+                                                //             child: Text(
+                                                //               "@${postsC.bHomePagetModel.posts[index].mentionsData?[i].firstName ?? "asdcfv"}",
+                                                //               style:
+                                                //               const TextStyle(
+                                                //                 color: Colors
+                                                //                     .blue,
+                                                //               ),
+                                                //             ),
+                                                //           ),
+                                                //         ),
+                                                //     ],
+                                                //   ),
+                                                // ),
+                                                15.ah.heightBox,
+                                                Row(
+                                                  children: [
+                                                    postsC.bHomePagetModel.posts[index]
+                                                        .likedByUser ==
+                                                        "Y"
+                                                        ? InkWell(
+                                                      onTap:
+                                                          () {
+                                                        postsC
+                                                            .bHomePagetModel
+                                                            .posts[index]
+                                                            .likedByUser = "N";
+                                                        setState(
+                                                                () {
+                                                              postsC.bHomePagetModel.posts[index].totalLikes =
+                                                              (postsC.bHomePagetModel.posts[index].totalLikes! - 1);
+                                                              likePost(
+                                                                "${postsC.bHomePagetModel.posts[index].id}",
+                                                                "0",
+                                                              );
+                                                            });
+                                                      },
+                                                      child:
+                                                      Container(
+                                                        width:
+                                                        40,
+                                                        height:
+                                                        40,
+                                                        decoration:
+                                                        ShapeDecoration(
+                                                          gradient:
+                                                          const LinearGradient(
+                                                            begin: Alignment(0.00, -1.00),
+                                                            end: Alignment(0, 1),
+                                                            colors: [
+                                                              Color(0xFFF65F51),
+                                                              Color(0xFFFB4967)
+                                                            ],
+                                                          ),
+                                                          shape:
+                                                          RoundedRectangleBorder(
+                                                            borderRadius: BorderRadius.circular(100),
+                                                          ),
+                                                        ),
+                                                        child:
+                                                        Padding(
+                                                          padding:
+                                                          const EdgeInsets.all(8.0),
+                                                          child:
+                                                          SvgPicture.asset("assets/icons/heartwhite.svg"),
+                                                        ),
+                                                      ),
+                                                    )
+                                                        : InkWell(
+                                                      onTap:
+                                                          () {
+                                                        postsC
+                                                            .bHomePagetModel
+                                                            .posts[index]
+                                                            .likedByUser = "Y";
+                                                        setState(
+                                                                () {
+                                                              postsC.bHomePagetModel.posts[index].totalLikes =
+                                                              (postsC.bHomePagetModel.posts[index].totalLikes! + 1);
+                                                              likePost(
+                                                                "${postsC.bHomePagetModel.posts[index].id}",
+                                                                "1",
+                                                              );
+                                                            });
+                                                      },
+                                                      child:
+                                                      Container(
+                                                        width:
+                                                        40,
+                                                        height:
+                                                        40,
+                                                        decoration:
+                                                        ShapeDecoration(
+                                                          gradient:
+                                                          const LinearGradient(
+                                                            begin: Alignment(0.00, -1.00),
+                                                            end: Alignment(0, 1),
+                                                            colors: [
+                                                              Color(0xFFF65F51),
+                                                              Color(0xFFFB4967)
+                                                            ],
+                                                          ),
+                                                          shape:
+                                                          RoundedRectangleBorder(
+                                                            borderRadius: BorderRadius.circular(100),
+                                                          ),
+                                                        ),
+                                                        child:
+                                                        Padding(
+                                                          padding:
+                                                          const EdgeInsets.all(8.0),
+                                                          child:
+                                                          SvgPicture.asset("assets/icons/pramod_unlike_icon.svg"),
+                                                        ),
+                                                      ),
+                                                    ),
+
+                                                    20.widthBox,
+                                                    InkWell(
+                                                      onTap: () {
+                                                        // homePageNewController.getAllCommentBYpostID(postID: '${postsC.bHomePagetModel.posts[index].id}', alreadlyLoad: true, indexx: index);
+                                                        Get.to(
+                                                              () =>
+                                                              BCommentPage(
+                                                                indexxx:
+                                                                index,
+                                                                postId:
+                                                                '${postsC.bHomePagetModel.posts[index].id}',
+                                                                userId:
+                                                                '${postsC.bHomePagetModel.posts[index].businessId}',
+                                                              ),
+                                                        );
+                                                      },
+                                                      child:
+                                                      Container(
+                                                        width: 40,
+                                                        height: 40,
+                                                        decoration:
+                                                        ShapeDecoration(
+                                                          gradient:
+                                                          const LinearGradient(
+                                                            begin: Alignment(
+                                                                0.00,
+                                                                -1.00),
+                                                            end: Alignment(
+                                                                0,
+                                                                1),
+                                                            colors: [
+                                                              Color(
+                                                                  0xFFF65F51),
+                                                              Color(
+                                                                  0xFFFB4967)
+                                                            ],
+                                                          ),
+                                                          shape:
+                                                          RoundedRectangleBorder(
+                                                            borderRadius:
+                                                            BorderRadius.circular(100),
+                                                          ),
+                                                        ),
+                                                        child:
+                                                        Padding(
+                                                          padding: const EdgeInsets
+                                                              .all(
+                                                              8.0),
+                                                          child: SvgPicture
+                                                              .asset(
+                                                              "assets/icons/pramod_comment_icon.svg"),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    const Spacer(),
+
+                                                    // InkWell(
+                                                    //   onTap: (){
+                                                    //     showDialog(
+                                                    //         context: context,
+                                                    //         builder: (BuildContext
+                                                    //         context) =>
+                                                    //             AlertDialog(
+                                                    //               title: const Text(
+                                                    //                   "Are you sure you want to Re-Share this Post?"),
+                                                    //               actions: [
+                                                    //                 TextButton(
+                                                    //                   onPressed:
+                                                    //                       () {
+                                                    //                     uploadFileToServerUHome("${posts[index].post}","${posts[index].miniblogs}","${posts[index].postType}");
+                                                    //                     Navigator.pop(context);
+                                                    //                   },
+                                                    //                   child:
+                                                    //                   const Text(
+                                                    //                     "Yes",
+                                                    //                     style: TextStyle(
+                                                    //                         color:
+                                                    //                         Appcolor.Redpink,
+                                                    //                         fontSize: 16),
+                                                    //                   ),
+                                                    //                 ),
+                                                    //                 TextButton(
+                                                    //                   onPressed:
+                                                    //                       () {
+                                                    //                     Navigator.pop(
+                                                    //                         context);
+                                                    //                   },
+                                                    //                   child:
+                                                    //                   const Text(
+                                                    //                     "No",
+                                                    //                     style: TextStyle(
+                                                    //                         color:
+                                                    //                         Appcolor.Redpink,
+                                                    //                         fontSize: 16),
+                                                    //                   ),
+                                                    //                 ),
+                                                    //               ],
+                                                    //             ));
+                                                    //   },
+                                                    //   child: Container(
+                                                    //     width: 40,
+                                                    //     height: 40,
+                                                    //     decoration: ShapeDecoration(
+                                                    //       gradient: const LinearGradient(
+                                                    //         begin: Alignment(0.00, -1.00),
+                                                    //         end: Alignment(0, 1),
+                                                    //         colors: [
+                                                    //           Color(0xFFF65F51),
+                                                    //           Color(0xFFFB4967)
+                                                    //         ],
+                                                    //       ),
+                                                    //       shape: RoundedRectangleBorder(
+                                                    //         borderRadius:
+                                                    //         BorderRadius.circular(100),
+                                                    //       ),
+                                                    //     ),
+                                                    //     child: Padding(
+                                                    //       padding: const EdgeInsets.all(8.0),
+                                                    //       child: SvgPicture.asset(
+                                                    //           "assets/icons/pramod_share_icon.svg"),
+                                                    //     ),
+                                                    //   ),
+                                                    // )
+                                                  ],
+                                                ),
+                                                15.ah.heightBox,
+                                                Text(
+                                                  '  ${postsC.bHomePagetModel.posts[index].totalLikes} likes',
+                                                  style: TextStyle(
+                                                    color: Colors
+                                                        .black,
+                                                    fontSize: 12
+                                                        .adaptSize,
+                                                    fontFamily:
+                                                    'Inter',
+                                                    fontWeight:
+                                                    FontWeight
+                                                        .w500,
+                                                    height: 0,
+                                                    letterSpacing:
+                                                    -0.30,
+                                                  ),
+                                                ),
+                                                8.ah.heightBox,
+                                                Obx(
+                                                      () => postsC.bHomePagetModel.posts[index].totalComments==0?const SizedBox.shrink():Text(
+                                                    '  View all ${postsC.bHomePagetModel.posts[index].totalComments} comment',
+                                                    style:
+                                                    TextStyle(
+                                                      color: const Color(
+                                                          0xFFAAAAAA),
+                                                      fontSize: 12
+                                                          .adaptSize,
+                                                      fontFamily:
+                                                      'Inter',
+                                                      fontWeight:
+                                                      FontWeight
+                                                          .w500,
+                                                      height: 0,
+                                                      letterSpacing:
+                                                      -0.30,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      if (postsC
+                                          .bHomePagetModel
+                                          .posts[index]
+                                          .postType ==
+                                          "miniBlog")
+                                        Container(
+                                          width: 350.aw,
+                                          decoration:
+                                          ShapeDecoration(
+                                            color: Colors.white,
+                                            shape:
+                                            RoundedRectangleBorder(
+                                              borderRadius:
+                                              BorderRadius
+                                                  .circular(10),
+                                            ),
+                                            shadows: const [
+                                              BoxShadow(
+                                                color: Color(
+                                                    0x19000000),
+                                                blurRadius: 15,
+                                                offset:
+                                                Offset(0, 10),
+                                                spreadRadius: 0,
+                                              )
+                                            ],
+                                          ),
+                                          child: Padding(
+                                            padding: EdgeInsets.all(
+                                                20.0.adaptSize),
+                                            child: Column(
+                                              crossAxisAlignment:
+                                              CrossAxisAlignment
+                                                  .start,
+                                              children: [
+                                                10.ah.heightBox,
+                                                Row(
+                                                  children: [
+                                                    Container(
+                                                      decoration: BoxDecoration(
+                                                          border: Border.all(
+                                                              color: Colors
+                                                                  .red),
+                                                          borderRadius:
+                                                          BorderRadius.circular(
+                                                              35)),
+                                                      child:
+                                                      ClipRRect(
+                                                        borderRadius:
+                                                        BorderRadius.circular(
+                                                            35),
+                                                        child:
+                                                        SizedBox(
+                                                          height:
+                                                          35,
+                                                          width: 35,
+                                                          child:
+                                                          CachedNetworkImage(
+                                                            imageUrl: postsC
+                                                                .bHomePagetModel
+                                                                .posts[index]
+                                                                .profileImage
+                                                                .toString(),
+                                                            placeholder: (context, url) => const Center(
+                                                                child: SizedBox(
+                                                                    height: 20,
+                                                                    width: 20,
+                                                                    child: CircularProgressIndicator(
+                                                                      strokeWidth: 1,
+                                                                    ))),
+                                                            errorWidget: (context,
+                                                                url,
+                                                                error) =>
+                                                            const Icon(Icons.person_2_outlined),
+                                                            filterQuality:
+                                                            FilterQuality.low,
+                                                            fit: BoxFit
+                                                                .fill,
+                                                            height:
+                                                            300,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    10.aw.widthBox,
+                                                    Column(
+                                                      crossAxisAlignment:
+                                                      CrossAxisAlignment
+                                                          .start,
+                                                      children: [
+                                                        Text(
+                                                          '${postsC.bHomePagetModel.posts[index].businessName}',
+                                                          style:
+                                                          TextStyle(
+                                                            color: const Color(
+                                                                0xFF111111),
+                                                            fontSize:
+                                                            14.adaptSize,
+                                                            fontFamily:
+                                                            'Inter',
+                                                            fontWeight:
+                                                            FontWeight.w600,
+                                                            letterSpacing:
+                                                            -0.30,
+                                                          ),
+                                                        ),
+                                                        Text(
+                                                          '${postsC.bHomePagetModel.posts[index].createdAt!.day}-${postsC.bHomePagetModel.posts[index].createdAt!.month}-${postsC.bHomePagetModel.posts[index].createdAt!.year}',
+                                                          style:
+                                                          TextStyle(
+                                                            color: const Color(
+                                                                0xFFAAAAAA),
+                                                            fontSize:
+                                                            10.adaptSize,
+                                                            fontFamily:
+                                                            'Inter',
+                                                            fontWeight:
+                                                            FontWeight.w500,
+                                                            letterSpacing:
+                                                            -0.30,
+                                                          ),
+                                                        )
+                                                      ],
+                                                    ),
+                                                    Spacer(),
+                                                    // if ("${homePageNewController.userId}" ==
+                                                    //     "${postsC.homePageModel.posts[index].postOwnerInfo![0].id}")
+                                                    //   deletePost(index)
+                                                  ],
+                                                ),
+                                                15.ah.heightBox,
+                                                postsC
+                                                    .bHomePagetModel
+                                                    .posts[
+                                                index]
+                                                    .miniblogs !=
+                                                    "default_miniblogs"
+                                                    ? Text(
+                                                  '${postsC.bHomePagetModel.posts[index].miniblogs}',
+                                                  style:
+                                                  TextStyle(
+                                                    color: Colors
+                                                        .black,
+                                                    fontSize:
+                                                    16.adaptSize,
+                                                    fontFamily:
+                                                    'Inter',
+                                                    fontWeight:
+                                                    FontWeight
+                                                        .w400,
+                                                    height: 0,
+                                                    letterSpacing:
+                                                    -0.30,
+                                                  ),
+                                                )
+                                                    : SizedBox(),
+                                                15.ah.heightBox,
+                                                // SizedBox(
+                                                //   height: double.parse(
+                                                //       "${10 * postsC.bHomePagetModel.posts[index].mentionsData!.length}") +
+                                                //       20,
+                                                //   child: GridView(
+                                                //     physics:
+                                                //     const NeverScrollableScrollPhysics(
+                                                //         parent:
+                                                //         NeverScrollableScrollPhysics()),
+                                                //     gridDelegate:
+                                                //     const SliverGridDelegateWithFixedCrossAxisCount(
+                                                //         crossAxisCount:
+                                                //         3,
+                                                //         mainAxisExtent:
+                                                //         30),
+                                                //     children: [
+                                                //       for (int i = 0;
+                                                //       postsC
+                                                //           .homePageModel
+                                                //           .posts[
+                                                //       index]
+                                                //           .mentionsData!
+                                                //           .length >
+                                                //           i;
+                                                //       i++)
+                                                //         InkWell(
+                                                //           onTap: () {
+                                                //             Get.to(
+                                                //                   () => MatchDetails(
+                                                //                   id: postsC
+                                                //                       .homePageModel
+                                                //                       .posts[index]
+                                                //                       .mentionsData![i]
+                                                //                       .id
+                                                //                       .toString()),
+                                                //             );
+                                                //           },
+                                                //           child:
+                                                //           Padding(
+                                                //             padding: const EdgeInsets.only(bottom: 4.0),
+                                                //             child: Text("@${postsC.homePageModel.posts[index].mentionsData?[i].firstName ?? "asdcfv"}",
+                                                //               style: const TextStyle(color: Colors.blue,),
+                                                //             ),
+                                                //           ),
+                                                //         ),
+                                                //     ],
+                                                //   ),
+                                                // ),
+                                                15.ah.heightBox,
+                                                Row(
+                                                  children: [
+                                                    postsC.bHomePagetModel.posts[index]
+                                                        .likedByUser ==
+                                                        "Y"
+                                                        ? InkWell(
+                                                      onTap:
+                                                          () {
+                                                        postsC
+                                                            .bHomePagetModel
+                                                            .posts[index]
+                                                            .likedByUser = "N";
+                                                        setState(
+                                                                () {
+                                                              postsC.bHomePagetModel.posts[index].totalLikes =
+                                                              (postsC.bHomePagetModel.posts[index].totalLikes! - 1);
+
+                                                              likePost(
+                                                                "${postsC.bHomePagetModel.posts[index].id}",
+                                                                "0",
+                                                              );
+                                                            });
+                                                      },
+                                                      child:
+                                                      Container(
+                                                        width:
+                                                        40,
+                                                        height:
+                                                        40,
+                                                        decoration:
+                                                        ShapeDecoration(
+                                                          gradient:
+                                                          const LinearGradient(
+                                                            begin: Alignment(0.00, -1.00),
+                                                            end: Alignment(0, 1),
+                                                            colors: [
+                                                              Color(0xFFF65F51),
+                                                              Color(0xFFFB4967)
+                                                            ],
+                                                          ),
+                                                          shape:
+                                                          RoundedRectangleBorder(
+                                                            borderRadius: BorderRadius.circular(100),
+                                                          ),
+                                                        ),
+                                                        child:
+                                                        Padding(
+                                                          padding:
+                                                          const EdgeInsets.all(8.0),
+                                                          child:
+                                                          SvgPicture.asset("assets/icons/heartwhite.svg"),
+                                                        ),
+                                                      ),
+                                                    )
+                                                        : InkWell(
+                                                      onTap:
+                                                          () {
+                                                        postsC
+                                                            .bHomePagetModel
+                                                            .posts[index]
+                                                            .likedByUser = "Y";
+                                                        setState(
+                                                                () {
+                                                              postsC.bHomePagetModel.posts[index].totalLikes =
+                                                              (postsC.bHomePagetModel.posts[index].totalLikes! + 1);
+
+                                                              likePost(
+                                                                "${postsC.bHomePagetModel.posts[index].id}",
+                                                                "1",
+                                                              );
+                                                            });
+                                                      },
+                                                      child:
+                                                      Container(
+                                                        width:
+                                                        40,
+                                                        height:
+                                                        40,
+                                                        decoration:
+                                                        ShapeDecoration(
+                                                          gradient:
+                                                          const LinearGradient(
+                                                            begin: Alignment(0.00, -1.00),
+                                                            end: Alignment(0, 1),
+                                                            colors: [
+                                                              Color(0xFFF65F51),
+                                                              Color(0xFFFB4967)
+                                                            ],
+                                                          ),
+                                                          shape:
+                                                          RoundedRectangleBorder(
+                                                            borderRadius: BorderRadius.circular(100),
+                                                          ),
+                                                        ),
+                                                        child:
+                                                        Padding(
+                                                          padding:
+                                                          const EdgeInsets.all(8.0),
+                                                          child:
+                                                          SvgPicture.asset("assets/icons/pramod_unlike_icon.svg"),
+                                                        ),
+                                                      ),
+                                                    ),
+
+                                                    20.widthBox,
+                                                    InkWell(
+                                                      onTap: () {
+                                                        // homePageNewController.getAllCommentBYpostID(
+                                                        //     postID:
+                                                        //     '${postsC.bHomePagetModel.posts[index].id}',
+                                                        //     alreadlyLoad:
+                                                        //     true,
+                                                        //     indexx:
+                                                        //     index);
+                                                        Get.to(
+                                                              () =>
+                                                              BCommentPage(
+                                                                postId:
+                                                                '${postsC.bHomePagetModel.posts[index].id}',
+                                                                userId:
+                                                                '${postsC.bHomePagetModel.posts[index].id}',
+                                                                indexxx:
+                                                                index,
+                                                              ),
+                                                        );
+                                                      },
+                                                      child:
+                                                      Container(
+                                                        width: 40,
+                                                        height: 40,
+                                                        decoration:
+                                                        ShapeDecoration(
+                                                          gradient:
+                                                          const LinearGradient(
+                                                            begin: Alignment(
+                                                                0.00,
+                                                                -1.00),
+                                                            end: Alignment(
+                                                                0,
+                                                                1),
+                                                            colors: [
+                                                              Color(
+                                                                  0xFFF65F51),
+                                                              Color(
+                                                                  0xFFFB4967)
+                                                            ],
+                                                          ),
+                                                          shape:
+                                                          RoundedRectangleBorder(
+                                                            borderRadius:
+                                                            BorderRadius.circular(100),
+                                                          ),
+                                                        ),
+                                                        child:
+                                                        Padding(
+                                                          padding: const EdgeInsets
+                                                              .all(
+                                                              8.0),
+                                                          child: SvgPicture
+                                                              .asset(
+                                                              "assets/icons/pramod_comment_icon.svg"),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    Spacer(),
+                                                    // InkWell(
+                                                    //   onTap: (){
+                                                    //     showDialog(
+                                                    //         context: context,
+                                                    //         builder: (BuildContext
+                                                    //         context) =>
+                                                    //             AlertDialog(
+                                                    //               title: const Text(
+                                                    //                   "Are you sure you want to Re-Share this Post?"),
+                                                    //               actions: [
+                                                    //                 TextButton(
+                                                    //                   onPressed:
+                                                    //                       () {
+                                                    //                     uploadFileToServerUHome("${posts[index].post}","${posts[index].miniblogs}","${posts[index].postType}");
+                                                    //                     Navigator.pop(context);
+                                                    //                   },
+                                                    //                   child:
+                                                    //                   const Text(
+                                                    //                     "Yes",
+                                                    //                     style: TextStyle(
+                                                    //                         color:
+                                                    //                         Appcolor.Redpink,
+                                                    //                         fontSize: 16),
+                                                    //                   ),
+                                                    //                 ),
+                                                    //                 TextButton(
+                                                    //                   onPressed:
+                                                    //                       () {
+                                                    //                     Navigator.pop(
+                                                    //                         context);
+                                                    //                   },
+                                                    //                   child:
+                                                    //                   const Text(
+                                                    //                     "No",
+                                                    //                     style: TextStyle(
+                                                    //                         color:
+                                                    //                         Appcolor.Redpink,
+                                                    //                         fontSize: 16),
+                                                    //                   ),
+                                                    //                 ),
+                                                    //               ],
+                                                    //             ));
+                                                    //   },
+                                                    //   child:    Container(
+                                                    //     width: 40,
+                                                    //     height: 40,
+                                                    //     decoration: ShapeDecoration(
+                                                    //       gradient: const LinearGradient(
+                                                    //         begin: Alignment(0.00, -1.00),
+                                                    //         end: Alignment(0, 1),
+                                                    //         colors: [
+                                                    //           Color(0xFFF65F51),
+                                                    //           Color(0xFFFB4967)
+                                                    //         ],
+                                                    //       ),
+                                                    //       shape: RoundedRectangleBorder(
+                                                    //         borderRadius:
+                                                    //         BorderRadius.circular(100),
+                                                    //       ),
+                                                    //     ),
+                                                    //     child: Padding(
+                                                    //       padding: const EdgeInsets.all(8.0),
+                                                    //       child: SvgPicture.asset(
+                                                    //           "assets/icons/pramod_share_icon.svg"),
+                                                    //     ),
+                                                    //   ),
+                                                    // )
+                                                  ],
+                                                ),
+                                                15.ah.heightBox,
+                                                Text(
+                                                  '  ${postsC.bHomePagetModel.posts[index].totalLikes} likes',
+                                                  style: TextStyle(
+                                                    color: Colors
+                                                        .black,
+                                                    fontSize: 12
+                                                        .adaptSize,
+                                                    fontFamily:
+                                                    'Inter',
+                                                    fontWeight:
+                                                    FontWeight
+                                                        .w500,
+                                                    height: 0,
+                                                    letterSpacing:
+                                                    -0.30,
+                                                  ),
+                                                ),
+                                                8.ah.heightBox,
+                                                postsC.bHomePagetModel.posts[index].totalComments==0?SizedBox.shrink():Text(
+                                                  '  View all ${postsC.bHomePagetModel.posts[index].totalComments} comment',
+                                                  style: TextStyle(
+                                                    color: const Color(
+                                                        0xFFAAAAAA),
+                                                    fontSize: 12
+                                                        .adaptSize,
+                                                    fontFamily:
+                                                    'Inter',
+                                                    fontWeight:
+                                                    FontWeight
+                                                        .w500,
+                                                    height: 0,
+                                                    letterSpacing:
+                                                    -0.30,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      if (postsC
+                                          .bHomePagetModel
+                                          .posts[index]
+                                          .postType ==
+                                          "AD")
+                                        Container(
+                                          width: 350.aw,
+                                          decoration:
+                                          ShapeDecoration(
+                                            color: Colors.white,
+                                            shape:
+                                            RoundedRectangleBorder(
+                                              borderRadius:
+                                              BorderRadius
+                                                  .circular(10),
+                                            ),
+                                            shadows: const [
+                                              BoxShadow(
+                                                color: Color(
+                                                    0x19000000),
+                                                blurRadius: 15,
+                                                offset:
+                                                Offset(0, 10),
+                                                spreadRadius: 0,
+                                              )
+                                            ],
+                                          ),
+                                          child: Padding(
+                                            padding: EdgeInsets.all(
+                                                20.0.adaptSize),
+                                            child: Column(
+                                              crossAxisAlignment:
+                                              CrossAxisAlignment
+                                                  .start,
+                                              children: [
+                                                Row(
+                                                  children: [
+                                                    Container(
+                                                      decoration: BoxDecoration(
+                                                          border: Border.all(
+                                                              color: Colors
+                                                                  .red),
+                                                          borderRadius:
+                                                          BorderRadius.circular(
+                                                              35)),
+                                                      child:
+                                                      ClipRRect(
+                                                        borderRadius:
+                                                        BorderRadius.circular(
+                                                            35),
+                                                        child:
+                                                        SizedBox(
+                                                          height:
+                                                          35,
+                                                          width: 35,
+                                                          child:
+                                                          CachedNetworkImage(
+                                                            imageUrl: postsC
+                                                                .bHomePagetModel
+                                                                .posts[index]
+                                                                .profileImage
+                                                                .toString(),
+                                                            placeholder: (context, url) => const Center(
+                                                                child: SizedBox(
+                                                                    height: 20,
+                                                                    width: 20,
+                                                                    child: CircularProgressIndicator(
+                                                                      strokeWidth: 1,
+                                                                    ))),
+                                                            errorWidget: (context,
+                                                                url,
+                                                                error) =>
+                                                            const Icon(Icons.person_2_outlined),
+                                                            filterQuality:
+                                                            FilterQuality.low,
+                                                            fit: BoxFit
+                                                                .fill,
+                                                            height:
+                                                            300,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    10.aw.widthBox,
+                                                    Column(
+                                                      crossAxisAlignment:
+                                                      CrossAxisAlignment
+                                                          .start,
+                                                      children: [
+                                                        Text(
+                                                          '${postsC.bHomePagetModel.posts[index].caption}',
+                                                          style:
+                                                          TextStyle(
+                                                            color: const Color(
+                                                                0xFF111111),
+                                                            fontSize:
+                                                            14.adaptSize,
+                                                            fontFamily:
+                                                            'Inter',
+                                                            fontWeight:
+                                                            FontWeight.w600,
+                                                            height:
+                                                            0,
+                                                            letterSpacing:
+                                                            -0.30,
+                                                          ),
+                                                        ),
+                                                        6.heightBox,
+                                                        Text(
+                                                          '${postsC.bHomePagetModel.posts[index].createdAt}',
+                                                          style:
+                                                          TextStyle(
+                                                            color: const Color(
+                                                                0xFFAAAAAA),
+                                                            fontSize:
+                                                            10.adaptSize,
+                                                            fontFamily:
+                                                            'Inter',
+                                                            fontWeight:
+                                                            FontWeight.w500,
+                                                            height:
+                                                            0,
+                                                            letterSpacing:
+                                                            -0.30,
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ],
+                                                ),
+                                                10.heightBox,
+                                                ClipRRect(
+                                                  borderRadius:
+                                                  BorderRadius
+                                                      .circular(
+                                                      10),
+                                                  child: SizedBox(
+                                                    width: MediaQuery.of(
+                                                        context)
+                                                        .size
+                                                        .width,
+                                                    child:
+                                                    CachedNetworkImage(
+                                                      imageUrl: postsC
+                                                          .bHomePagetModel
+                                                          .posts[
+                                                      index]
+                                                          .businessName
+                                                          .toString(),
+                                                      placeholder: (context, url) => const Center(
+                                                          child: SizedBox(
+                                                              height: 20,
+                                                              width: 20,
+                                                              child: CircularProgressIndicator(
+                                                                strokeWidth:
+                                                                1,
+                                                              ))),
+                                                      errorWidget: (context,
+                                                          url,
+                                                          error) =>
+                                                      const Icon(
+                                                          Icons
+                                                              .person_2_outlined),
+                                                      filterQuality:
+                                                      FilterQuality
+                                                          .low,
+                                                      fit: BoxFit
+                                                          .fill,
+                                                      height: 300,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      if (postsC
+                                          .bHomePagetModel
+                                          .posts[index]
+                                          .postType ==
+                                          "video")
+                                        Container(
+                                          width: 350.aw,
+                                          decoration:
+                                          ShapeDecoration(
+                                            color: Colors.white,
+                                            shape:
+                                            RoundedRectangleBorder(
+                                              borderRadius:
+                                              BorderRadius
+                                                  .circular(10),
+                                            ),
+                                            shadows: const [
+                                              BoxShadow(
+                                                color: Color(
+                                                    0x19000000),
+                                                blurRadius: 15,
+                                                offset:
+                                                Offset(0, 10),
+                                                spreadRadius: 0,
+                                              )
+                                            ],
+                                          ),
+                                          child: Padding(
+                                            padding: EdgeInsets.all(
+                                                20.0.adaptSize),
+                                            child: Column(
+                                              crossAxisAlignment:
+                                              CrossAxisAlignment
+                                                  .start,
+                                              children: [
+                                                10.ah.heightBox,
+                                                Row(
+                                                  children: [
+                                                    Container(
+                                                      decoration:
+                                                      BoxDecoration(
+                                                          border: Border
+                                                              .all(
+                                                            color:
+                                                            Colors.red.shade200,
+                                                          ),
+                                                          borderRadius:
+                                                          BorderRadius.circular(35)),
+                                                      child:
+                                                      ClipRRect(
+                                                        borderRadius:
+                                                        BorderRadius.circular(
+                                                            35),
+                                                        child:
+                                                        SizedBox(
+                                                          height:
+                                                          35,
+                                                          width: 35,
+                                                          child:
+                                                          CachedNetworkImage(
+                                                            imageUrl: postsC
+                                                                .bHomePagetModel
+                                                                .posts[index]
+                                                                .profileImage
+                                                                .toString(),
+                                                            placeholder: (context, url) => const Center(
+                                                                child: SizedBox(
+                                                                    height: 20,
+                                                                    width: 20,
+                                                                    child: CircularProgressIndicator(
+                                                                      strokeWidth: 1,
+                                                                    ))),
+                                                            errorWidget: (context,
+                                                                url,
+                                                                error) =>
+                                                            const Icon(Icons.person_2_outlined),
+                                                            filterQuality:
+                                                            FilterQuality.low,
+                                                            fit: BoxFit
+                                                                .cover,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    10.aw.widthBox,
+                                                    Column(
+                                                      crossAxisAlignment:
+                                                      CrossAxisAlignment
+                                                          .start,
+                                                      children: [
+                                                        Text(
+                                                          '${postsC.bHomePagetModel.posts[index].businessName}',
+                                                          style:
+                                                          TextStyle(
+                                                            color: const Color(
+                                                                0xFF111111),
+                                                            fontSize:
+                                                            14.adaptSize,
+                                                            fontFamily:
+                                                            'Inter',
+                                                            fontWeight:
+                                                            FontWeight.w600,
+                                                            letterSpacing:
+                                                            -0.30,
+                                                          ),
+                                                        ),
+                                                        Text(
+                                                          '${postsC.bHomePagetModel.posts[index].createdAt!.day}-${postsC.bHomePagetModel.posts[index].createdAt!.month}-${postsC.posts[index].createdAt!.year}',
+                                                          style:
+                                                          TextStyle(
+                                                            color: const Color(
+                                                                0xFFAAAAAA),
+                                                            fontSize:
+                                                            10.adaptSize,
+                                                            fontFamily:
+                                                            'Inter',
+                                                            fontWeight:
+                                                            FontWeight.w500,
+                                                            letterSpacing:
+                                                            -0.30,
+                                                          ),
+                                                        )
+                                                      ],
+                                                    ),
+                                                    const Spacer(),
+                                                    if ("${businessId}" ==
+                                                        '${postsC.bHomePagetModel.posts[index].businessId.toString()}')
+                                                      InkWell(
+                                                        onTap: () {
+                                                          showDialog(
+                                                              context:
+                                                              context,
+                                                              builder: (BuildContext context) =>
+                                                                  AlertDialog(title: const Text("Are you sure you want to delete this post?"), actions: [
+                                                                    TextButton(
+                                                                      onPressed: () {
+                                                                        deletePost(postId: '${postsC.bHomePagetModel.posts[index].id.toString()}', context: context);
+                                                                        // setState(() {});
+                                                                        // myDealController.fetchPage(myDealController.pagingController.nextPageKey!);
+                                                                        // Navigator.pop(context);
+                                                                        // Navigator.pop(context);
+                                                                      },
+                                                                      child: const Text("Yes", style: TextStyle(color: Appcolor.Redpink, fontSize: 16)),
+                                                                    ),
+                                                                    TextButton(
+                                                                        onPressed: () {
+                                                                          Navigator.pop(context);
+                                                                        },
+                                                                        child: const Text(
+                                                                          "No",
+                                                                          style: TextStyle(color: Appcolor.Redpink, fontSize: 16),
+                                                                        ))
+                                                                  ]));
+                                                        },
+                                                        child:
+                                                        const Icon(
+                                                          Icons
+                                                              .delete,
+                                                          color: Appcolor
+                                                              .Redpink,
+                                                        ),
+                                                      )
+                                                  ],
+                                                ),
+                                                15.ah.heightBox,
+                                                Text(
+                                                  postsC
+                                                      .bHomePagetModel
+                                                      .posts[
+                                                  index]
+                                                      .miniblogs !=
+                                                      "default_miniblogs"
+                                                      ? '${postsC.bHomePagetModel.posts[index].miniblogs}'
+                                                      : "",
+                                                  style: TextStyle(
+                                                    color: Colors
+                                                        .black,
+                                                    fontSize: 12
+                                                        .adaptSize,
+                                                    fontFamily:
+                                                    'Inter',
+                                                    fontWeight:
+                                                    FontWeight
+                                                        .w400,
+                                                    height: 0,
+                                                    letterSpacing:
+                                                    -0.30,
+                                                  ),
+                                                ),
+                                                15.ah.heightBox,
+                                                Container(
+                                                  decoration:
+                                                  BoxDecoration(
+                                                    border: Border.all(
+                                                        color: Vx
+                                                            .red100),
+                                                    borderRadius:
+                                                    BorderRadius
+                                                        .circular(
+                                                        10),
+                                                  ),
+                                                  child: ClipRRect(
+                                                    borderRadius:
+                                                    BorderRadius
+                                                        .circular(
+                                                        10),
+                                                    child: SizedBox(
+                                                      height: 200,
+                                                      width: MediaQuery.of(
+                                                          context)
+                                                          .size
+                                                          .width,
+                                                      child: VideoPlayerItem(
+                                                          videoUrl: postsC
+                                                              .bHomePagetModel
+                                                              .posts[index]
+                                                              .post ??
+                                                              ""),
+                                                    ),
+                                                  ),
+                                                ),
+                                                15.ah.heightBox,
+                                                // Text("${homePageNewController.posts[index].mentionsData!.length}"),
+                                                // SizedBox(
+                                                //   height: double.parse("${8 * postsC.bHomePagetModel.posts[index].mentionsData!.length}") + 20,
+                                                //   child: GridView(
+                                                //     physics: const NeverScrollableScrollPhysics(parent: NeverScrollableScrollPhysics()),
+                                                //     gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3, mainAxisExtent: 30),
+                                                //     children: [
+                                                //       for (int i = 0;
+                                                //       postsC
+                                                //           .bHomePagetModel
+                                                //           .posts[
+                                                //       index]
+                                                //           .mentionsData!
+                                                //           .length >
+                                                //           i;
+                                                //       i++)
+                                                //         InkWell(
+                                                //           onTap: () {
+                                                //             Get.to(
+                                                //                   () => MatchDetails(
+                                                //                   id: postsC
+                                                //                       .bHomePagetModel
+                                                //                       .posts[index]
+                                                //                       .mentionsData![i]
+                                                //                       .id
+                                                //                       .toString()),
+                                                //             );
+                                                //           },
+                                                //           child:
+                                                //           Padding(
+                                                //             padding: const EdgeInsets
+                                                //                 .only(
+                                                //                 bottom:
+                                                //                 4.0),
+                                                //             child: Text(
+                                                //               "@${postsC.bHomePagetModel.posts[index].mentionsData?[i].firstName ?? "asdcfv"}",
+                                                //               style:
+                                                //               const TextStyle(
+                                                //                 color: Colors
+                                                //                     .blue,
+                                                //               ),
+                                                //             ),
+                                                //           ),
+                                                //         ),
+                                                //     ],
+                                                //   ),
+                                                // ),
+
+                                                // like comment share row
+                                                15.ah.heightBox,
+                                                Row(
+                                                  children: [
+                                                    postsC.bHomePagetModel.posts[index]
+                                                        .likedByUser ==
+                                                        "Y"
+                                                        ? InkWell(
+                                                      onTap:
+                                                          () {
+                                                        postsC
+                                                            .bHomePagetModel
+                                                            .posts[index]
+                                                            .likedByUser = "N";
+                                                        setState(
+                                                                () {
+                                                              postsC.bHomePagetModel.posts[index].totalLikes =
+                                                              (postsC.bHomePagetModel.posts[index].totalLikes! - 1);
+                                                              likePost(
+                                                                "${postsC.bHomePagetModel.posts[index].id}",
+                                                                "0",
+                                                              );
+                                                            });
+                                                      },
+                                                      child:
+                                                      Container(
+                                                        width:
+                                                        40,
+                                                        height:
+                                                        40,
+                                                        decoration:
+                                                        ShapeDecoration(
+                                                          gradient:
+                                                          const LinearGradient(
+                                                            begin: Alignment(0.00, -1.00),
+                                                            end: Alignment(0, 1),
+                                                            colors: [
+                                                              Color(0xFFF65F51),
+                                                              Color(0xFFFB4967)
+                                                            ],
+                                                          ),
+                                                          shape:
+                                                          RoundedRectangleBorder(
+                                                            borderRadius: BorderRadius.circular(100),
+                                                          ),
+                                                        ),
+                                                        child:
+                                                        Padding(
+                                                          padding:
+                                                          const EdgeInsets.all(8.0),
+                                                          child:
+                                                          SvgPicture.asset("assets/icons/heartwhite.svg"),
+                                                        ),
+                                                      ),
+                                                    )
+                                                        : InkWell(
+                                                      onTap:
+                                                          () {
+                                                        postsC
+                                                            .bHomePagetModel
+                                                            .posts[index]
+                                                            .likedByUser = "Y";
+                                                        setState(
+                                                                () {
+                                                              postsC.bHomePagetModel.posts[index].totalLikes =
+                                                              (postsC.bHomePagetModel.posts[index].totalLikes! + 1);
+
+                                                              likePost(
+                                                                "${postsC.bHomePagetModel.posts[index].id}",
+                                                                "1",
+                                                              );
+                                                            });
+                                                      },
+                                                      child:
+                                                      Container(
+                                                        width:
+                                                        40,
+                                                        height:
+                                                        40,
+                                                        decoration:
+                                                        ShapeDecoration(
+                                                          gradient:
+                                                          const LinearGradient(
+                                                            begin: Alignment(0.00, -1.00),
+                                                            end: Alignment(0, 1),
+                                                            colors: [
+                                                              Color(0xFFF65F51),
+                                                              Color(0xFFFB4967)
+                                                            ],
+                                                          ),
+                                                          shape:
+                                                          RoundedRectangleBorder(
+                                                            borderRadius: BorderRadius.circular(100),
+                                                          ),
+                                                        ),
+                                                        child:
+                                                        Padding(
+                                                          padding:
+                                                          const EdgeInsets.all(8.0),
+                                                          child:
+                                                          SvgPicture.asset("assets/icons/pramod_unlike_icon.svg"),
+                                                        ),
+                                                      ),
+                                                    ),
+
+                                                    20.widthBox,
+                                                    InkWell(
+                                                      onTap:
+                                                          () async {
+                                                        // homePageNewController.getAllCommentBYpostID(
+                                                        //     postID:
+                                                        //     '${postsC.bHomePagetModel.posts[index].id}',
+                                                        //     alreadlyLoad:
+                                                        //     true,
+                                                        //     indexx:
+                                                        //     index);
+                                                        SharedPreferences
+                                                        prefs =
+                                                        await SharedPreferences
+                                                            .getInstance();
+                                                        var userId =
+                                                        prefs.get(
+                                                            'user_id');
+                                                        Get.to(() =>
+                                                            BCommentPage(
+                                                              postId:
+                                                              '${postsC.bHomePagetModel.posts[index].id}',
+                                                              userId:
+                                                              '${userId}',
+                                                              indexxx:
+                                                              index,
+                                                            ));
+                                                        print(
+                                                            'posts${postsC.bHomePagetModel.posts[index].id}');
+                                                        print(
+                                                            'posts${postsC.bHomePagetModel.posts[index].businessId}');
+                                                        print(
+                                                            'posts${index}');
+                                                        // homePageNewController.getAllCommentBYpostID(postID: '2', alreadlyLoad: true, indexx: 0);
+                                                      },
+                                                      child:
+                                                      Container(
+                                                        width: 40,
+                                                        height: 40,
+                                                        decoration:
+                                                        ShapeDecoration(
+                                                          gradient:
+                                                          const LinearGradient(
+                                                            begin: Alignment(
+                                                                0.00,
+                                                                -1.00),
+                                                            end: Alignment(
+                                                                0,
+                                                                1),
+                                                            colors: [
+                                                              Color(
+                                                                  0xFFF65F51),
+                                                              Color(
+                                                                  0xFFFB4967)
+                                                            ],
+                                                          ),
+                                                          shape:
+                                                          RoundedRectangleBorder(
+                                                            borderRadius:
+                                                            BorderRadius.circular(100),
+                                                          ),
+                                                        ),
+                                                        child:
+                                                        Padding(
+                                                          padding: const EdgeInsets
+                                                              .all(
+                                                              8.0),
+                                                          child: SvgPicture
+                                                              .asset(
+                                                              "assets/icons/pramod_comment_icon.svg"),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    const Spacer(),
+                                                    // InkWell(
+                                                    //   onTap: (){
+                                                    //     showDialog(
+                                                    //         context: context,
+                                                    //         builder: (BuildContext
+                                                    //         context) =>
+                                                    //             AlertDialog(
+                                                    //               title: const Text(
+                                                    //                   "Are you sure you want to Re-Share this Post?"),
+                                                    //               actions: [
+                                                    //                 TextButton(
+                                                    //                   onPressed:
+                                                    //                       () {
+                                                    //                     uploadFileToServerUHome("${posts[index].post}","${posts[index].miniblogs}","${posts[index].postType}");
+                                                    //                     Navigator.pop(context);
+                                                    //                   },
+                                                    //                   child:
+                                                    //                   const Text(
+                                                    //                     "Yes",
+                                                    //                     style: TextStyle(
+                                                    //                         color:
+                                                    //                         Appcolor.Redpink,
+                                                    //                         fontSize: 16),
+                                                    //                   ),
+                                                    //                 ),
+                                                    //                 TextButton(
+                                                    //                   onPressed:
+                                                    //                       () {
+                                                    //                     Navigator.pop(
+                                                    //                         context);
+                                                    //                   },
+                                                    //                   child:
+                                                    //                   const Text(
+                                                    //                     "No",
+                                                    //                     style: TextStyle(
+                                                    //                         color:
+                                                    //                         Appcolor.Redpink,
+                                                    //                         fontSize: 16),
+                                                    //                   ),
+                                                    //                 ),
+                                                    //               ],
+                                                    //             ));
+                                                    //   },
+                                                    //   child: Container(
+                                                    //     width: 40,
+                                                    //     height: 40,
+                                                    //     decoration: ShapeDecoration(
+                                                    //       gradient: const LinearGradient(
+                                                    //         begin: Alignment(0.00, -1.00),
+                                                    //         end: Alignment(0, 1),
+                                                    //         colors: [
+                                                    //           Color(0xFFF65F51),
+                                                    //           Color(0xFFFB4967)
+                                                    //         ],
+                                                    //       ),
+                                                    //       shape: RoundedRectangleBorder(
+                                                    //         borderRadius:
+                                                    //         BorderRadius.circular(100),
+                                                    //       ),
+                                                    //     ),
+                                                    //     child: Padding(
+                                                    //       padding: const EdgeInsets.all(8.0),
+                                                    //       child: SvgPicture.asset(
+                                                    //           "assets/icons/pramod_share_icon.svg"),
+                                                    //     ),
+                                                    //   ),
+                                                    // )
+                                                  ],
+                                                ),
+                                                15.ah.heightBox,
+                                                Text(
+                                                  '  ${postsC.bHomePagetModel.posts[index].totalLikes} likes',
+                                                  style: TextStyle(
+                                                    color: Colors
+                                                        .black,
+                                                    fontSize: 12
+                                                        .adaptSize,
+                                                    fontFamily:
+                                                    'Inter',
+                                                    fontWeight:
+                                                    FontWeight
+                                                        .w500,
+                                                    height: 0,
+                                                    letterSpacing:
+                                                    -0.30,
+                                                  ),
+                                                ),
+                                                8.ah.heightBox,
+                                                postsC.bHomePagetModel.posts[index].totalComments==0?SizedBox.shrink():Text(
+                                                  '  View all ${postsC.bHomePagetModel.posts[index].totalComments} comment',
+                                                  style: TextStyle(
+                                                    color: const Color(
+                                                        0xFFAAAAAA),
+                                                    fontSize: 12
+                                                        .adaptSize,
+                                                    fontFamily:
+                                                    'Inter',
+                                                    fontWeight:
+                                                    FontWeight
+                                                        .w500,
+                                                    height: 0,
+                                                    letterSpacing:
+                                                    -0.30,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                    ],
+                                  ),
+                                );
+                              }),
                         ),
+                      ),
+                      if (postsC.isLoadMoreRunning == true)
+                        const Padding(
+                          padding: EdgeInsets.only(top: 10, bottom: 40),
+                          child: Center(
+                            child:
+                            CircularProgressIndicator(strokeWidth: 2),
+                          ),
+                        ),
+                      // When nothing else to load
+                      if (postsC.hasNextPage == false)
+                        Container(
+                          padding:
+                          const EdgeInsets.only(top: 30, bottom: 40),
+                          child: const Center(
+                            child: Text('No more post found...!'),
+                          ),
+                        ),
+                    ],
+                  ),
                 )
               ],
             ),
@@ -2488,7 +2514,8 @@ class _BuisnessHomePageState extends State<BuisnessHomePage> {
               onPressed: () {
                 Get.to(() => const BuisnessPost());
               }),
-        );
+        ),
+            onWillPop: _onWillPop);
       },
     );
   }

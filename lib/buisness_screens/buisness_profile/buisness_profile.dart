@@ -302,8 +302,10 @@ class _BusinessProfileState extends State<BusinessProfile> {
                                         child: CustumProfileTextField1(
                                           // initialText:  profileController
                                           //     .businessNameController.text,
+                                          keyboardType: TextInputType.emailAddress,
                                           controller: profileController.businessNameController,
                                           validator: validateName,
+
                                           hintText:profileController.profileData?.businessInfo?.businessName ??
                                               "Faucet",
                                           // 'Fauget',

@@ -117,6 +117,21 @@ String? validateName(String? value) {
 }
 
 
+
+
+
+String? validateBusinessName(String? value) {
+  if (value == null || value.isEmpty) {
+    return 'Business Name is Required.';
+  } else if (value.contains(' ')) {
+    return 'Spaces are not allowed in the Full Name.';
+  }
+  return null;
+}
+
+
+
+
 String? validateRange(value) {
   if (value.isEmpty) {
     return 'Range is Required.';
@@ -306,9 +321,13 @@ String? validateMobile(value) {
 
 String? validateMobile( value) {
 
+
+
+
   //String patttern = r'(^(?:[+0]9)?[0-9]{10,12}$)';
 
-  RegExp regExp = new RegExp(r'(^(?:[+0]9)?[0-9]{10}$)');
+  // RegExp regExp = new RegExp(r'(^(?:[+0]9)?[0-9]{10}$)');
+  RegExp regExp = RegExp(r'^\+?[0-9]{10,15}$');
 
   if (value.length == 00) {
     return 'Please enter number';
