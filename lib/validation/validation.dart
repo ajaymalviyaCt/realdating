@@ -341,22 +341,16 @@ String? validateMobile(value) {
 }
 */
 
-String? validateMobile( value) {
+String? validateMobile(String? value) {
+  // Regular expression for validating international phone numbers (with + sign)
+  RegExp regExp = RegExp(r'^\+?[0-9]{10,15}$'); // Allows + and 10-15 digits
 
-
-
-
-  //String patttern = r'(^(?:[+0]9)?[0-9]{10,12}$)';
-
-  // RegExp regExp = new RegExp(r'(^(?:[+0]9)?[0-9]{10}$)');
-  RegExp regExp = RegExp(r'^\+?[0-9]{10,15}$');
-
-  if (value.length == 00) {
+  if (value == null || value.isEmpty) {
     return 'Please enter number';
   }
+  // Validate against the regex pattern
   else if (!regExp.hasMatch(value)) {
     return 'Please enter valid mobile number';
-  } else if (int.parse(value) < 10 || int.parse(value) > 10) {
-    return null;
   }
+  return null; // No validation errors
 }

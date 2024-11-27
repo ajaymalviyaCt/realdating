@@ -236,7 +236,7 @@ class _HomePageState extends State<HomePage> {
       child: InkWell(
         onTap: () {
           Get.to(() => LivePage(liveID:'12345', isHost: false, userId: liveUser.userId,
-            userNmae: liveUser.userName,));
+            userNmae:userName,));
         },
         child: LiveUserCard(
           broadcasterName: liveUser.userName,

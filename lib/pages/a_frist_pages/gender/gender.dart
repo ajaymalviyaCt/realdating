@@ -29,7 +29,7 @@ class _SelectGenderPageState extends State<SelectGenderPage> {
     return  WillPopScope(
       onWillPop:_onWillPop ,
       child: Scaffold(
-        appBar: customAppbar("Select Gender", context),
+        appBar: customGenderAppbar("Select Gender", context),
         body: Column(
           children: [
               Padding(

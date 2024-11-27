@@ -263,11 +263,15 @@ class MarerWidget extends StatelessWidget {
           left: 7,
           child: ClipRRect(
             borderRadius: BorderRadius.circular(1000),
-            child: Image.memory(
-              fit: BoxFit.cover,
-              bytes,
-              width: 57,
-              height: 57,
+            child: Container(
+              color: Colors.redAccent,
+              child: Image.memory(
+                fit: BoxFit.cover,
+                bytes,
+                width: 57,
+                height: 57,
+
+              ),
             ),
           ),
         )

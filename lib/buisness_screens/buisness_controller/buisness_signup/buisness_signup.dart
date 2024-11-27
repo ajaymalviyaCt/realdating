@@ -205,11 +205,10 @@ class _BuisnessSignUpState extends State<BuisnessSignUp> {
 
                         CustumNumberField(
                           maxLength: 15,
-                          controller:
-                              buisbnesssignUpController.bphonenoController,
+                          controller: buisbnesssignUpController.bphonenoController,
                           validator: validateMobile,
                           hintText: 'Number',
-                          keyboardType: TextInputType.number,
+                          keyboardType: TextInputType.phone,
                         ),
                         const SizedBox(height: 15),
 

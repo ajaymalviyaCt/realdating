@@ -8,14 +8,12 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:realdating/buisness_screens/buisness_create_ads/all_ads/all_ads.dart';
 import 'package:realdating/services/apis_related/api_call_services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../consts/app_urls.dart';
 import '../setting/settings_page.dart';
 import 'profile_controller.dart';
 import 'package:async/async.dart';
-import 'package:dio/dio.dart' as dio;
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -57,8 +55,10 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   bool isLoading = false;
+  final RxBool apiLoadingUploadImage = false.obs;
 
   void uploadImage(BuildContext context) async {
+    apiLoadingUploadImage.value = true;
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var token = prefs.getString('token');
     var headers = {
@@ -94,10 +94,9 @@ class _ProfilePageState extends State<ProfilePage> {
           textColor: Colors.white,
           fontSize: 16.0,
         );
+       await profileController.profileDaitails();
+        setState(()  {
 
-        setState(() {
-          isLoading = false;
-          profileController.profileDaitails();
         });
       } else if (response.statusCode == 400) {
         var responseBody = json.decode(responseData.body);
@@ -134,30 +133,29 @@ class _ProfilePageState extends State<ProfilePage> {
         fontSize: 16.0,
       );
     }
+    apiLoadingUploadImage.value = false;
   }
 
   void deleteImage(String? imageId) async {
     if (imageId == null) return;
 
- Map<String,dynamic > apiData =  await ApiCall.instance.callApi(
+    Map<String, dynamic> apiData = await ApiCall.instance.callApi(
         url: "https://forreal.net:4000/users/deleteProfileImage",
         method: HttpMethod.POST,
-        body: {
-          "id": imageId
-        },
+        body: {"id": imageId},
         headers: await authHeader());
 
-         Fluttertoast.showToast(
-              msg: apiData['message'] ?? "Image deleted successfully",
-              toastLength: Toast.LENGTH_SHORT,
-              gravity: ToastGravity.BOTTOM,
-              backgroundColor: Colors.green,
-              textColor: Colors.white,
-              fontSize: 16.0,
-            );
-         setState(() {
-           profileController.profileDaitails();
-         });
+    Fluttertoast.showToast(
+      msg: apiData['message'] ?? "Image deleted successfully",
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+      backgroundColor: Colors.green,
+      textColor: Colors.white,
+      fontSize: 16.0,
+    );
+    setState(() {
+      profileController.profileDaitails();
+    });
     // SharedPreferences prefs = await SharedPreferences.getInstance();
     // var token = prefs.getString('token');
     // var headers = {
@@ -360,86 +358,120 @@ class _ProfilePageState extends State<ProfilePage> {
                       const SizedBox(
                         height: 20,
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          const Text(
-                            "Uploaded Photos",
-                            style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500, color: Colors.black),
+                      Obx(() {
+                        return AbsorbPointer(
+                          absorbing: apiLoadingUploadImage.value,
+                          child: Column(
+                            children: [
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  const Text(
+                                    "Uploaded Photos",
+                                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500, color: Colors.black),
+                                  ),
+                                  InkWell(
+                                      onTap: () {
+                                        getImages();
+                                      },
+                                      child: Image.asset(
+                                        'assets/icons/addition.png',
+                                        scale: 30,
+                                        color: Colors.black,
+                                      ))
+                                ],
+                              ),
+                              const SizedBox(height: 12),
+                              Stack(
+                                children: [
+                                  Opacity(
+                                    opacity: apiLoadingUploadImage.value ? 0.5 : 1,
+                                    child: SizedBox(
+                                      height: 300,
+                                      child: GridView.builder(
+                                        physics: const NeverScrollableScrollPhysics(),
+                                        itemCount: profileController.profileModel?.userInfo.newImages.length,
+                                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                                            crossAxisCount: 3, mainAxisSpacing: 5, crossAxisSpacing: 10),
+                                        itemBuilder: (ctx, index) {
+                                          final data = profileController.profileModel?.userInfo.newImages;
+                                          print('profile images----------${data}');
+                                          return Stack(
+                                            children: [
+                                              // Image Container
+                                              Container(
+                                                decoration: BoxDecoration(
+                                                  border: Border.all(color: Colors.black12),
+                                                  borderRadius: BorderRadius.circular(10),
+                                                ),
+                                                child: ClipRRect(
+                                                  borderRadius: BorderRadius.circular(10),
+                                                  child: CachedNetworkImage(
+                                                    imageUrl: data![index].profileImages,
+                                                    imageBuilder: (context, imageProvider) => Container(
+                                                      decoration: BoxDecoration(
+                                                        image: DecorationImage(
+                                                          image: imageProvider,
+                                                          fit: BoxFit.cover,
+                                                          colorFilter: const ColorFilter.mode(Colors.white, BlendMode.colorBurn),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    placeholder: (context, url) =>
+                                                        const Center(child: CircularProgressIndicator()),
+                                                    errorWidget: (context, url, error) => const Icon(Icons.person_2_outlined),
+                                                  ),
+                                                ),
+                                              ),
+                                              // Cross Icon (Delete Button)
+                                              Positioned(
+                                                top: 5,
+                                                right: 5,
+                                                child: GestureDetector(
+                                                  onTap: () {
+                                                    if (profileController.profileModel!.userInfo.newImages.length > 2) {
+                                                      deleteImage(data[index].id.toString());
+                                                    } else {
+                                                      Fluttertoast.showToast(
+                                                        msg: "You must have at least 2 photos uploaded.",
+                                                        toastLength: Toast.LENGTH_SHORT,
+                                                        gravity: ToastGravity.BOTTOM,
+                                                        backgroundColor: Colors.red,
+                                                        textColor: Colors.white,
+                                                        fontSize: 16.0,
+                                                      );
+                                                    }
+                                                  },
+                                                  child: Container(
+                                                    decoration: const BoxDecoration(
+                                                      color: Colors.red,
+                                                      shape: BoxShape.circle,
+                                                    ),
+                                                    padding: const EdgeInsets.all(4),
+                                                    child: const Icon(
+                                                      Icons.close,
+                                                      size: 16,
+                                                      color: Colors.white,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          );
+                                        },
+                                      ),
+                                    ),
+                                  ),
+                                  if (apiLoadingUploadImage.value)
+                                    Center(
+                                      child: CircularProgressIndicator(),
+                                    )
+                                ],
+                              ),
+                            ],
                           ),
-                          InkWell(
-                              onTap: () {
-                                getImages();
-                              },
-                              child: Image.asset(
-                                'assets/icons/addition.png',
-                                scale: 30,
-                                color: Colors.black,
-                              ))
-                        ],
-                      ),
-                      const SizedBox(height: 12),
-                      SizedBox(
-                        height: 300,
-                        child: GridView.builder(
-                          physics: const NeverScrollableScrollPhysics(),
-                          itemCount: profileController.profileModel?.userInfo.newImages.length,
-                          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 3, mainAxisSpacing: 5, crossAxisSpacing: 10),
-                          itemBuilder: (ctx, index) {
-                            final data = profileController.profileModel?.userInfo.newImages;
-                            print('profile images----------${data}');
-                            return Stack(
-                              children: [
-                                // Image Container
-                                Container(
-                                  decoration: BoxDecoration(
-                                    border: Border.all(color: Colors.black12),
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(10),
-                                    child: CachedNetworkImage(
-                                      imageUrl: data![index].profileImages,
-                                      imageBuilder: (context, imageProvider) => Container(
-                                        decoration: BoxDecoration(
-                                          image: DecorationImage(
-                                            image: imageProvider,
-                                            fit: BoxFit.cover,
-                                            colorFilter: const ColorFilter.mode(Colors.white, BlendMode.colorBurn),
-                                          ),
-                                        ),
-                                      ),
-                                      placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
-                                      errorWidget: (context, url, error) => const Icon(Icons.person_2_outlined),
-                                    ),
-                                  ),
-                                ),
-                                // Cross Icon (Delete Button)
-                                Positioned(
-                                  top: 5,
-                                  right: 5,
-                                  child: GestureDetector(
-                                    onTap: () => deleteImage(data[index].id.toString()), // Pass the image ID for deletion
-                                    child: Container(
-                                      decoration: const BoxDecoration(
-                                        color: Colors.red,
-                                        shape: BoxShape.circle,
-                                      ),
-                                      padding: const EdgeInsets.all(4),
-                                      child: const Icon(
-                                        Icons.close,
-                                        size: 16,
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            );
-                          },
-                        ),
-                      ),
+                        );
+                      }),
                       const SizedBox(
                         height: 10,
                       ),

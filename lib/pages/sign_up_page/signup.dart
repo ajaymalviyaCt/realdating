@@ -96,7 +96,7 @@ class SignUpPage extends StatelessWidget {
                             const SizedBox(height: 15),
                             CustumTextField(
                               maxLength: 15,
-                              keyboardType: TextInputType.number,
+                              keyboardType: TextInputType.phone,
                               controller: signUpController.phonenoController,
                               validator: validateMobile,
                               hintText: 'Phone Number',
