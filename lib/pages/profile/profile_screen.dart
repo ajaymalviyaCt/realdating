@@ -434,8 +434,10 @@ class _ProfilePageState extends State<ProfilePage> {
                                     ),
                                   ),
                                   if (profileController.apiLoadingUploadImage.value)
-                                    const Center(
-                                      child: CircularProgressIndicator(),
+                                     Center(
+                                      child: Container(
+                                          margin: EdgeInsets.only(top: 50),
+                                          child: CircularProgressIndicator()),
                                     )
                                 ],
                               ),
