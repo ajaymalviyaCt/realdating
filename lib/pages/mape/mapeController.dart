@@ -91,8 +91,7 @@ class MapeUserController extends GetxController implements GetxService {
   //   }
   // }
 
-
-  final RxBool apiLoadingMapLocation = false.obs;
+  final RxBool apiLoadingMapLocation = true.obs;
 
   void getAllUserMape(String search) async {
     // apiLoadingMapLocation.value = true;
@@ -112,7 +111,7 @@ class MapeUserController extends GetxController implements GetxService {
 
       MapeBusinessModel businessModel = MapeBusinessModel.fromJson(apiData);
       markers.clear();
-     await Future.wait((businessModel.bussiness ?? []).map(
+      await Future.wait((businessModel.bussiness ?? []).map(
         (business) async {
           try {
             double? latitude = double.tryParse(business.latitude ?? "0");
@@ -122,8 +121,9 @@ class MapeUserController extends GetxController implements GetxService {
               print("Invalid coordinates for business: ${business.businessName}");
             }
 
-            Uint8List bytes = (await NetworkAssetBundle(Uri.parse(business.profileImage ?? "")).load(business.profileImage ?? "")).buffer.asUint8List();
-
+            Uint8List bytes = (await NetworkAssetBundle(Uri.parse(business.profileImage ?? "")).load(business.profileImage ?? ""))
+                .buffer
+                .asUint8List();
 
             markers.add(
               Marker(
@@ -131,14 +131,15 @@ class MapeUserController extends GetxController implements GetxService {
                 position: LatLng(latitude!, longitude!),
                 icon: await MarerWidget(bytes: bytes).toBitmapDescriptor(),
                 onTap: () {
-                  Get.to(BusinessDetailsPage(business:business,));
+                  Get.to(BusinessDetailsPage(
+                    business: business,
+                  ));
                 },
               ),
             );
-
           } catch (e, s) {
-         print(e);
-         print(s);
+            print(e);
+            print(s);
           }
           // finally{
           //   apiLoadingMapLocation.value = false;
@@ -149,14 +150,14 @@ class MapeUserController extends GetxController implements GetxService {
       markers.refresh();
       if (markers.isNotEmpty) {
         LatLngBounds bounds = _calculateBounds(markers);
-        mapController?.animateCamera(CameraUpdate.newLatLngBounds(bounds, 50));
+    await    mapController?.animateCamera(CameraUpdate.newLatLngBounds(bounds, 50));
       } else {
-        mapController?.animateCamera(CameraUpdate.newLatLng(LatLng(20.5937, 78.9629))); // India's approximate center
+     await   mapController?.animateCamera(CameraUpdate.newLatLng(LatLng(20.5937, 78.9629))); // India's approximate center
       }
-
     } catch (e) {
       print("Error fetching or displaying markers: $e");
     }
+    apiLoadingMapLocation.value=false;
   }
 
   LatLngBounds _calculateBounds(Set<Marker> markers) {
@@ -280,7 +281,6 @@ class MarerWidget extends StatelessWidget {
                 bytes,
                 width: 57,
                 height: 57,
-
               ),
             ),
           ),

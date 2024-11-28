@@ -35,6 +35,15 @@ class _NearByBusinessState extends State<NearByBusiness> {
     _getCurrentLocation();
   }
 
+
+  @override
+  void dispose() {
+    super.dispose();
+
+  Get.delete<MapeUserController>();
+
+  }
+
   Uint8List? resizeImage(Uint8List data, width, height) {
     Uint8List? resizedData = data;
     IMG.Image? img = IMG.decodeImage(data);
@@ -125,185 +134,191 @@ class _NearByBusinessState extends State<NearByBusiness> {
         Stack(
           children: [
             Obx(() {
-              return GoogleMap(
-                markers: userMapeController.markers.value,
-                zoomGesturesEnabled: true,
-                initialCameraPosition: CameraPosition(
-                  target: LatLng(
-                    _currentPosition?.latitude ?? 20.5937,
-                    _currentPosition?.longitude ?? 78.9629,
+              return Opacity(
+                opacity:userMapeController.apiLoadingMapLocation.value?0.5:1 ,
+                child: AbsorbPointer(
+                  absorbing: userMapeController.apiLoadingMapLocation.value,
+                  child: GoogleMap(
+                    markers: userMapeController.markers.value,
+                    zoomGesturesEnabled: true,
+                    initialCameraPosition: CameraPosition(
+                      target: LatLng(
+                        _currentPosition?.latitude ?? 20.5937,
+                        _currentPosition?.longitude ?? 78.9629,
+                      ),
+                      zoom: 20.0,
+                    ),
+                    // markers: Set<Marker>.from(
+                    //   userMapeController.userBusinessMap.map((location) {
+                    //     Future<void> fetchData() async {
+                    //       await myDealController.MYDealUserMap(location.id);
+                    //       print("API call completed!");
+                    //     }
+                    //
+                    //     return Marker(
+                    //       markerId: MarkerId(location.city.toString()),
+                    //       position: LatLng(
+                    //         double.tryParse(location.latitude) ?? 22,
+                    //         double.tryParse(location.longitude) ?? 22,
+                    //       ),
+                    //       infoWindow: InfoWindow(
+                    //         title: location.businessName,
+                    //       ),
+                    //       onTap: () async {
+                    //         loadData = true;
+                    //         print("Location details:");
+                    //         print("Address: ${location.address}");
+                    //         print("City: ${location.city}");
+                    //         print("Country: ${location.country}");
+                    //         print("State: ${location.state}");
+                    //         print("Latitude: ${location.latitude}");
+                    //         print("Longitude: ${location.longitude}");
+                    //
+                    //         myDealController.refresh();
+                    //         myDealController.myDealsModel?.myDeals.clear();
+                    //         getAddressFromLatLng(location.latitude, location.longitude);
+                    //
+                    //         setState(() {
+                    //           showModalBottomSheet(
+                    //             isScrollControlled: true,
+                    //             context: context,
+                    //             builder: (BuildContext context) {
+                    //               return FutureBuilder(
+                    //                 future: fetchData(),
+                    //                 builder: (context, snapshot) {
+                    //                   return Obx(() => myDealController.isLoadig.value
+                    //                       ? const Center(child: CircularProgressIndicator())
+                    //                       : Column(
+                    //                           children: [
+                    //                             const SizedBox(height: 60),
+                    //                             const Text(
+                    //                               "All Deals",
+                    //                               style: TextStyle(
+                    //                                 fontWeight: FontWeight.w700,
+                    //                                 fontSize: 22,
+                    //                               ),
+                    //                             ),
+                    //                             Text(
+                    //                               location.businessName,
+                    //                               style: const TextStyle(
+                    //                                 fontWeight: FontWeight.w500,
+                    //                                 fontSize: 18,
+                    //                                 color: Colors.grey,
+                    //                               ),
+                    //                             ),
+                    //                             Expanded(
+                    //                               child: myDealController.myDealsModel?.myDeals?.isEmpty ?? true
+                    //                                   ? const Center(child: Text("No Deals Found"))
+                    //                                   : GridView.builder(
+                    //                                       padding: const EdgeInsets.all(18),
+                    //                                       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    //                                         crossAxisCount: 2,
+                    //                                         childAspectRatio: 20 / 24,
+                    //                                         crossAxisSpacing: 4.0,
+                    //                                         mainAxisSpacing: 8.0,
+                    //                                       ),
+                    //                                       itemCount: myDealController.myDealsModel?.myDeals.length ?? 0,
+                    //                                       itemBuilder: (BuildContext context, int index) {
+                    //                                         final deal = myDealController.myDealsModel!.myDeals[index];
+                    //                                         final price = int.tryParse(deal.price.toString()) ?? 0;
+                    //                                         final discount = int.tryParse(deal.discount.toString()) ?? 0;
+                    //                                         final discountedPrice = price - discount;
+                    //
+                    //                                         return Padding(
+                    //                                           padding: const EdgeInsets.only(right: 4.0),
+                    //                                           child: Card(
+                    //                                             shape: RoundedRectangleBorder(
+                    //                                               borderRadius: BorderRadius.circular(10.0),
+                    //                                             ),
+                    //                                             elevation: 2.0,
+                    //                                             child: InkWell(
+                    //                                               onTap: () {},
+                    //                                               child: Column(
+                    //                                                 children: [
+                    //                                                   CachedNetworkImage(
+                    //                                                     imageUrl: deal.roomImage ?? "",
+                    //                                                     placeholder: (context, url) => Center(
+                    //                                                       child: Image.network(
+                    //                                                         "https://raw.githubusercontent.com/prafful98/vue3-shimmer/HEAD/assets/card.gif",
+                    //                                                         fit: BoxFit.fill,
+                    //                                                         height: 120,
+                    //                                                         width: double.infinity,
+                    //                                                       ),
+                    //                                                     ),
+                    //                                                     errorWidget: (context, url, error) => Center(
+                    //                                                       child: Image.network(
+                    //                                                         "https://upload.wikimedia.org/wikipedia/commons/5/59/Empty.png?20091205084734",
+                    //                                                         fit: BoxFit.fill,
+                    //                                                         height: 125,
+                    //                                                         width: double.infinity,
+                    //                                                       ),
+                    //                                                     ),
+                    //                                                     fit: BoxFit.fill,
+                    //                                                     height: 125,
+                    //                                                     width: double.infinity,
+                    //                                                   ),
+                    //                                                   const SizedBox(height: 20),
+                    //                                                   Padding(
+                    //                                                     padding: const EdgeInsets.only(left: 20.0),
+                    //                                                     child: Text(
+                    //                                                       deal.title ?? "",
+                    //                                                       style: const TextStyle(
+                    //                                                         fontSize: 16,
+                    //                                                         fontWeight: FontWeight.w500,
+                    //                                                       ),
+                    //                                                     ),
+                    //                                                   ),
+                    //                                                   const SizedBox(height: 8),
+                    //                                                   Row(
+                    //                                                     children: [
+                    //                                                       const SizedBox(width: 20),
+                    //                                                       customTextCommon(
+                    //                                                         text: "₹$discountedPrice",
+                    //                                                         fSize: 14,
+                    //                                                         fWeight: FontWeight.w600,
+                    //                                                         color: const Color(0xffFB4967),
+                    //                                                         lineHeight: 1,
+                    //                                                       ),
+                    //                                                       const SizedBox(width: 10),
+                    //                                                       Text(
+                    //                                                         "₹${deal.price}",
+                    //                                                         style: const TextStyle(
+                    //                                                           decoration: TextDecoration.lineThrough,
+                    //                                                           fontSize: 14,
+                    //                                                           color: Color(0xffAAAAAA),
+                    //                                                         ),
+                    //                                                       ),
+                    //                                                     ],
+                    //                                                   ),
+                    //                                                 ],
+                    //                                               ),
+                    //                                             ),
+                    //                                           ),
+                    //                                         );
+                    //                                       },
+                    //                                     ),
+                    //                             ),
+                    //                           ],
+                    //                         ));
+                    //                 },
+                    //               );
+                    //             },
+                    //           );
+                    //         });
+                    //       },
+                    //       visible: true,
+                    //     );
+                    //   }),
+                    // ),
+                    onTap: (LatLng position) {},
+                    mapType: MapType.normal,
+                    onMapCreated: (controller) {
+                      setState(() {
+                        userMapeController.mapController = controller;
+                      });
+                    },
                   ),
-                  zoom: 20.0,
                 ),
-                // markers: Set<Marker>.from(
-                //   userMapeController.userBusinessMap.map((location) {
-                //     Future<void> fetchData() async {
-                //       await myDealController.MYDealUserMap(location.id);
-                //       print("API call completed!");
-                //     }
-                //
-                //     return Marker(
-                //       markerId: MarkerId(location.city.toString()),
-                //       position: LatLng(
-                //         double.tryParse(location.latitude) ?? 22,
-                //         double.tryParse(location.longitude) ?? 22,
-                //       ),
-                //       infoWindow: InfoWindow(
-                //         title: location.businessName,
-                //       ),
-                //       onTap: () async {
-                //         loadData = true;
-                //         print("Location details:");
-                //         print("Address: ${location.address}");
-                //         print("City: ${location.city}");
-                //         print("Country: ${location.country}");
-                //         print("State: ${location.state}");
-                //         print("Latitude: ${location.latitude}");
-                //         print("Longitude: ${location.longitude}");
-                //
-                //         myDealController.refresh();
-                //         myDealController.myDealsModel?.myDeals.clear();
-                //         getAddressFromLatLng(location.latitude, location.longitude);
-                //
-                //         setState(() {
-                //           showModalBottomSheet(
-                //             isScrollControlled: true,
-                //             context: context,
-                //             builder: (BuildContext context) {
-                //               return FutureBuilder(
-                //                 future: fetchData(),
-                //                 builder: (context, snapshot) {
-                //                   return Obx(() => myDealController.isLoadig.value
-                //                       ? const Center(child: CircularProgressIndicator())
-                //                       : Column(
-                //                           children: [
-                //                             const SizedBox(height: 60),
-                //                             const Text(
-                //                               "All Deals",
-                //                               style: TextStyle(
-                //                                 fontWeight: FontWeight.w700,
-                //                                 fontSize: 22,
-                //                               ),
-                //                             ),
-                //                             Text(
-                //                               location.businessName,
-                //                               style: const TextStyle(
-                //                                 fontWeight: FontWeight.w500,
-                //                                 fontSize: 18,
-                //                                 color: Colors.grey,
-                //                               ),
-                //                             ),
-                //                             Expanded(
-                //                               child: myDealController.myDealsModel?.myDeals?.isEmpty ?? true
-                //                                   ? const Center(child: Text("No Deals Found"))
-                //                                   : GridView.builder(
-                //                                       padding: const EdgeInsets.all(18),
-                //                                       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                //                                         crossAxisCount: 2,
-                //                                         childAspectRatio: 20 / 24,
-                //                                         crossAxisSpacing: 4.0,
-                //                                         mainAxisSpacing: 8.0,
-                //                                       ),
-                //                                       itemCount: myDealController.myDealsModel?.myDeals.length ?? 0,
-                //                                       itemBuilder: (BuildContext context, int index) {
-                //                                         final deal = myDealController.myDealsModel!.myDeals[index];
-                //                                         final price = int.tryParse(deal.price.toString()) ?? 0;
-                //                                         final discount = int.tryParse(deal.discount.toString()) ?? 0;
-                //                                         final discountedPrice = price - discount;
-                //
-                //                                         return Padding(
-                //                                           padding: const EdgeInsets.only(right: 4.0),
-                //                                           child: Card(
-                //                                             shape: RoundedRectangleBorder(
-                //                                               borderRadius: BorderRadius.circular(10.0),
-                //                                             ),
-                //                                             elevation: 2.0,
-                //                                             child: InkWell(
-                //                                               onTap: () {},
-                //                                               child: Column(
-                //                                                 children: [
-                //                                                   CachedNetworkImage(
-                //                                                     imageUrl: deal.roomImage ?? "",
-                //                                                     placeholder: (context, url) => Center(
-                //                                                       child: Image.network(
-                //                                                         "https://raw.githubusercontent.com/prafful98/vue3-shimmer/HEAD/assets/card.gif",
-                //                                                         fit: BoxFit.fill,
-                //                                                         height: 120,
-                //                                                         width: double.infinity,
-                //                                                       ),
-                //                                                     ),
-                //                                                     errorWidget: (context, url, error) => Center(
-                //                                                       child: Image.network(
-                //                                                         "https://upload.wikimedia.org/wikipedia/commons/5/59/Empty.png?20091205084734",
-                //                                                         fit: BoxFit.fill,
-                //                                                         height: 125,
-                //                                                         width: double.infinity,
-                //                                                       ),
-                //                                                     ),
-                //                                                     fit: BoxFit.fill,
-                //                                                     height: 125,
-                //                                                     width: double.infinity,
-                //                                                   ),
-                //                                                   const SizedBox(height: 20),
-                //                                                   Padding(
-                //                                                     padding: const EdgeInsets.only(left: 20.0),
-                //                                                     child: Text(
-                //                                                       deal.title ?? "",
-                //                                                       style: const TextStyle(
-                //                                                         fontSize: 16,
-                //                                                         fontWeight: FontWeight.w500,
-                //                                                       ),
-                //                                                     ),
-                //                                                   ),
-                //                                                   const SizedBox(height: 8),
-                //                                                   Row(
-                //                                                     children: [
-                //                                                       const SizedBox(width: 20),
-                //                                                       customTextCommon(
-                //                                                         text: "₹$discountedPrice",
-                //                                                         fSize: 14,
-                //                                                         fWeight: FontWeight.w600,
-                //                                                         color: const Color(0xffFB4967),
-                //                                                         lineHeight: 1,
-                //                                                       ),
-                //                                                       const SizedBox(width: 10),
-                //                                                       Text(
-                //                                                         "₹${deal.price}",
-                //                                                         style: const TextStyle(
-                //                                                           decoration: TextDecoration.lineThrough,
-                //                                                           fontSize: 14,
-                //                                                           color: Color(0xffAAAAAA),
-                //                                                         ),
-                //                                                       ),
-                //                                                     ],
-                //                                                   ),
-                //                                                 ],
-                //                                               ),
-                //                                             ),
-                //                                           ),
-                //                                         );
-                //                                       },
-                //                                     ),
-                //                             ),
-                //                           ],
-                //                         ));
-                //                 },
-                //               );
-                //             },
-                //           );
-                //         });
-                //       },
-                //       visible: true,
-                //     );
-                //   }),
-                // ),
-                onTap: (LatLng position) {},
-                mapType: MapType.normal,
-                onMapCreated: (controller) {
-                  setState(() {
-                    userMapeController.mapController = controller;
-                  });
-                },
               );
             }),
             Padding(
@@ -389,6 +404,12 @@ class _NearByBusinessState extends State<NearByBusiness> {
                 ),
               ),
             ),
+            Obx(() {
+              if(userMapeController.apiLoadingMapLocation.value){
+                return Center(child: CircularProgressIndicator(),);
+              }
+              return SizedBox.shrink();
+            },)
           ],
         ));
   }
