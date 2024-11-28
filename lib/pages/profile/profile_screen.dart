@@ -396,46 +396,35 @@ class _ProfilePageState extends State<ProfilePage> {
                                               Positioned(
                                                 top: 5,
                                                 right: 5,
-                                                child:Obx(() {
-                                                  return profileController.apiLoadingUploadImage.value
-                                                      ? const SizedBox(
-                                                    width: 24,
-                                                    height: 24,
-                                                    child: CircularProgressIndicator(
-                                                      strokeWidth: 2.0,
-                                                      color: Colors.red, // Match your theme
-                                                    ),
-                                                  )
-                                                      : GestureDetector(
-                                                    onTap: () {
-                                                      if (profileController.profileModel!.userInfo.newImages.length > 2) {
+                                                child:GestureDetector(
+                                                  onTap: () {
+                                                    if (profileController.profileModel!.userInfo.newImages.length > 2) {
 
-                                                        deleteImage(data[index].id.toString());
-                                                      } else {
-                                                        Fluttertoast.showToast(
-                                                          msg: "You must have at least 2 photos uploaded.",
-                                                          toastLength: Toast.LENGTH_SHORT,
-                                                          gravity: ToastGravity.BOTTOM,
-                                                          backgroundColor: Colors.red,
-                                                          textColor: Colors.white,
-                                                          fontSize: 16.0,
-                                                        );
-                                                      }
-                                                    },
-                                                    child: Container(
-                                                      decoration: const BoxDecoration(
-                                                        color: Colors.red,
-                                                        shape: BoxShape.circle,
-                                                      ),
-                                                      padding: const EdgeInsets.all(4),
-                                                      child: const Icon(
-                                                        Icons.close,
-                                                        size: 16,
-                                                        color: Colors.white,
-                                                      ),
+                                                      deleteImage(data[index].id.toString());
+                                                    } else {
+                                                      Fluttertoast.showToast(
+                                                        msg: "You must have at least 2 photos uploaded.",
+                                                        toastLength: Toast.LENGTH_SHORT,
+                                                        gravity: ToastGravity.BOTTOM,
+                                                        backgroundColor: Colors.red,
+                                                        textColor: Colors.white,
+                                                        fontSize: 16.0,
+                                                      );
+                                                    }
+                                                  },
+                                                  child: Container(
+                                                    decoration: const BoxDecoration(
+                                                      color: Colors.red,
+                                                      shape: BoxShape.circle,
                                                     ),
-                                                  );
-                                                })
+                                                    padding: const EdgeInsets.all(4),
+                                                    child: const Icon(
+                                                      Icons.close,
+                                                      size: 16,
+                                                      color: Colors.white,
+                                                    ),
+                                                  ),
+                                                )
 
                                               ),
                                             ],
@@ -445,8 +434,10 @@ class _ProfilePageState extends State<ProfilePage> {
                                     ),
                                   ),
                                   if (profileController.apiLoadingUploadImage.value)
-                                    const Center(
-                                      child: CircularProgressIndicator(),
+                                     Center(
+                                      child: Container(
+                                          margin: EdgeInsets.only(top: 50),
+                                          child: CircularProgressIndicator()),
                                     )
                                 ],
                               ),
