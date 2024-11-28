@@ -40,12 +40,6 @@ class _BuisnessSignUpState extends State<BuisnessSignUp> {
   String? BuisnessValue;
 
 
-
-
-
-
-
-
   bool isLoading = false;
 
   @override
@@ -84,10 +78,6 @@ class _BuisnessSignUpState extends State<BuisnessSignUp> {
       });
     }
   }
-
-
-
-
 
 
   @override
@@ -139,17 +129,17 @@ class _BuisnessSignUpState extends State<BuisnessSignUp> {
                         const SizedBox(height: 30),
 
                         CustumTextField(
-                          controller:
-                              buisbnesssignUpController.buisnessnameController,
+                          controller: buisbnesssignUpController.buisnessnameController,
                           validator: validateBusinessName,
+                          keyboardType: TextInputType.emailAddress,
                           hintText: 'Business Name ',
                         ),
 
                         const SizedBox(height: 15),
                         CustumTextField(
-                          controller:
-                              buisbnesssignUpController.bemailController,
+                          controller: buisbnesssignUpController.bemailController,
                           validator: validateEmailField,
+                          keyboardType: TextInputType.emailAddress,
                           hintText: 'Email',
                         ),
 
@@ -306,78 +296,79 @@ class _BuisnessSignUpState extends State<BuisnessSignUp> {
                         //     "LAT: ${_currentPosition?.latitude}, LNG: ${_currentPosition?.longitude}"
                         // ),
 
-                        TextFormField(
-                          style: const TextStyle(color: Colors.white,fontWeight: FontWeight.w600),
-                          validator: notEmptyAddValidator,
 
-                          onChanged: (value) {
-                            buisbnesssignUpController.getCoordinates(value);
-                          },
-                          // style: const TextStyle(color: Colors.white),
-                          controller:
-                              buisbnesssignUpController.addressController,
-                          decoration: InputDecoration(
-                            suffixIcon: InkWell(
-                                onTap: () {
-                                  buisbnesssignUpController
-                                      .getCurrentLocation();
-                                  print(buisbnesssignUpController.loadAddress);
-                                },
-                                child: Obx(() => buisbnesssignUpController
-                                        .loadAddress.value
-                                    ? Container(
-                                        height: 20,
-                                        width: 20,
-                                    margin: EdgeInsets.all(10),
-                                        child:
-                                            const CircularProgressIndicator(color: Colors.white,strokeWidth: 3.0))
-                                    : const Icon(
-                                        Icons.location_disabled,
-                                        color: Colors.white,
-                                      ))),
-                            // prefixText: buisbnesssignUpController.loadAddress==true?"loading...":"",
-                            /*    helperText:buisbnesssignUpController.loadAddress==true?"loading...":"" ,s,*/
-                            hintText:
-                                buisbnesssignUpController.currentAddress != null
-                                    ? buisbnesssignUpController.currentAddress
-                                        .toString()
-                                    : "Address",
-                            hintStyle: const TextStyle(color: Colors.white,fontWeight: FontWeight.w400),                            //counterText: "Category",
-                            contentPadding: const EdgeInsets.symmetric(
-                              horizontal: 15,
-                              vertical: 8,
+                        Theme(
+                          data: Theme.of(context).copyWith(
+                            inputDecorationTheme: const InputDecorationTheme(
+                              errorStyle: TextStyle(color: Colors.white), // Set error text color to white
                             ),
-                            filled: true,
-                            fillColor: Colors.white.withOpacity(.15),
-                            enabledBorder: OutlineInputBorder(
+                          ),
+                          child: TextFormField(
+                            style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
+                            validator: notEmptyAddValidator,
+                            onChanged: (value) {
+                              buisbnesssignUpController.getCoordinates(value);
+                            },
+                            controller: buisbnesssignUpController.addressController,
+                            decoration: InputDecoration(
+                              suffixIcon: InkWell(
+                                  onTap: () {
+                                    buisbnesssignUpController.getCurrentLocation();
+                                    print(buisbnesssignUpController.loadAddress);
+                                  },
+                                  child: Obx(() => buisbnesssignUpController.loadAddress.value
+                                      ? Container(
+                                    height: 20,
+                                    width: 20,
+                                    margin: const EdgeInsets.all(10),
+                                    child: const CircularProgressIndicator(
+                                        color: Colors.white, strokeWidth: 3.0),
+                                  )
+                                      : const Icon(
+                                    Icons.location_disabled,
+                                    color: Colors.white,
+                                  ))),
+                              hintText: buisbnesssignUpController.currentAddress != null
+                                  ? buisbnesssignUpController.currentAddress.toString()
+                                  : "Address",
+                              hintStyle: const TextStyle(color: Colors.white, fontWeight: FontWeight.w400),
+                              contentPadding: const EdgeInsets.symmetric(
+                                horizontal: 15,
+                                vertical: 8,
+                              ),
+                              filled: true,
+                              fillColor: Colors.white.withOpacity(.15),
+                              enabledBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(5),
                                 borderSide: const BorderSide(
                                   width: 1,
                                   color: Colors.white,
-                                )),
-                            focusedBorder: OutlineInputBorder(
+                                ),
+                              ),
+                              focusedBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(5),
                                 borderSide: const BorderSide(
                                   width: 1,
                                   color: Colors.white,
-                                )),
-                            errorBorder: OutlineInputBorder(
+                                ),
+                              ),
+                              errorBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(5),
                                 borderSide: const BorderSide(
                                   width: 1,
                                   color: Colors.white,
-                                )),
-                            focusedErrorBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(5),
-                              borderSide: const BorderSide(
-                                width: 1,
-                                color: Colors.white,
+                                ),
+                              ),
+                              focusedErrorBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(5),
+                                borderSide: const BorderSide(
+                                  width: 1,
+                                  color: Colors.white,
+                                ),
                               ),
                             ),
-
+                            cursorColor: Colors.white,
                           ),
-
-                          cursorColor: Colors.white,
                         ),
                         const SizedBox(height: 15),
                         CSCPicker(

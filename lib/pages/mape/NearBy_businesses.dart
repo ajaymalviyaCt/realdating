@@ -118,8 +118,11 @@ class _NearByBusinessState extends State<NearByBusiness> {
 
   @override
   Widget build(BuildContext context) {
+    print('-----------${userMapeController.apiLoadingMapLocation.value}');
     return Scaffold(
-        body: Stack(
+        body:
+
+        Stack(
           children: [
             Obx(() {
               return GoogleMap(

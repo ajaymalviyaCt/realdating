@@ -3180,7 +3180,7 @@ class _HomePageState extends State<HomePageUser> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Icon(Icons.play_circle_fill_outlined),
-                          Text('Create Reel')
+                          Text('    Create Reel')
                         ],
                       ),
                     ),
@@ -3217,7 +3217,7 @@ class _HomePageState extends State<HomePageUser> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Icon(Icons.location_history),
-                          Text('    Explore restaurant'),
+                          Text('    Explore Hotels'),
                         ],
                       ),
                     ),

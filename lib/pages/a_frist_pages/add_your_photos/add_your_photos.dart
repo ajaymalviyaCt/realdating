@@ -114,8 +114,6 @@ class _AddYourPhotoPageState extends State<AddYourPhotoPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 20),
-
-
               const Padding(
                 padding: EdgeInsets.only(left: 20.0,right: 20),
                 child: Text('Upload 2 photos to start. Add 4 more to \nmake your profile stand out.',style: TextStyle(fontSize: 17,fontWeight:FontWeight.w400,),),
@@ -166,7 +164,7 @@ class _AddYourPhotoPageState extends State<AddYourPhotoPage> {
                             Padding(
                               padding: EdgeInsets.only(top: 105, left: 80),
                               child: SvgPicture.asset(
-                                  'assets/icons/Sign In Button (1).svg'),
+                                  'assets/icons/cross.svg'),
                             ),
                           ]),
                         ),
@@ -186,7 +184,7 @@ class _AddYourPhotoPageState extends State<AddYourPhotoPage> {
                                     fit: BoxFit.fill)),
                           ),
                           Padding(
-                            padding: EdgeInsets.only(top: 105, left: 80),
+                            padding: const EdgeInsets.only(top: 105, left: 80),
                             child: SvgPicture.asset(
                                 'assets/icons/Sign In Button (1).svg'),
                           ),

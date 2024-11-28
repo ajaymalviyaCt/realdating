@@ -91,7 +91,12 @@ class MapeUserController extends GetxController implements GetxService {
   //   }
   // }
 
+
+  final RxBool apiLoadingMapLocation = false.obs;
+
   void getAllUserMape(String search) async {
+    // apiLoadingMapLocation.value = true;
+
     try {
       print("line 99");
       Map<String, dynamic> apiData = await ApiCall.instance.callApi(
@@ -130,10 +135,14 @@ class MapeUserController extends GetxController implements GetxService {
                 },
               ),
             );
+
           } catch (e, s) {
          print(e);
          print(s);
           }
+          // finally{
+          //   apiLoadingMapLocation.value = false;
+          // }
         },
       ));
 
@@ -144,6 +153,7 @@ class MapeUserController extends GetxController implements GetxService {
       } else {
         mapController?.animateCamera(CameraUpdate.newLatLng(LatLng(20.5937, 78.9629))); // India's approximate center
       }
+
     } catch (e) {
       print("Error fetching or displaying markers: $e");
     }

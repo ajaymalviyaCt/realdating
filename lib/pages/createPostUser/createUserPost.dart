@@ -6,6 +6,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_cropper/image_cropper.dart';
+import 'package:mime/mime.dart';
 import 'package:realdating/custom_iteam/coustomtextcommon.dart';
 import 'package:realdating/function/function_class.dart';
 import 'package:realdating/home_page_new/home_page_new_controller.dart';
@@ -26,7 +27,9 @@ import '../swipcard/swip_controller.dart';
 import 'mention/getFriendModel.dart';
 
 class UserCreatePost extends StatefulWidget {
-  const UserCreatePost({Key? key,}) : super(key: key);
+  const UserCreatePost({
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<UserCreatePost> createState() => _UserCreatePostState();
@@ -61,45 +64,46 @@ class _UserCreatePostState extends State<UserCreatePost> {
   List<MyFriends>? myFriends;
 
   _imgFromGallery() async {
-    final XFile? data = (await _picker.pickImage(source: ImageSource.gallery));
-    final croppedFile = await ImageCropper().cropImage(
-      sourcePath: data!.path,
-      // aspectRatioPresets: [
-      //   CropAspectRatioPreset.square,
-      //   CropAspectRatioPreset.ratio3x2,
-      //   // CropAspectRatioPreset.original,
-      //   CropAspectRatioPreset.ratio4x3,
-      //   // CropAspectRatioPreset.ratio16x9,
-      // ],
-      maxWidth: 600,
-      maxHeight: 600,
-    );
-    if (croppedFile != null && croppedFile.path.endsWith('.mp4')) {
-      _video = File(data.path);
-      _videoPlayerController = VideoPlayerController.file(_video!)
-        ..initialize().then((_) {
-          setState(() {});
-          _videoPlayerController?.play();
-        });
-      testCompressFile(_video!);
-      setState(() {});
-    } else if (croppedFile != null) {
+    final XFile? data = (await _picker.pickMedia());
+    // final croppedFile = await ImageCropper().cropImage(
+    //   sourcePath: data!.path,
+    //   // aspectRatioPresets: [
+    //   //   CropAspectRatioPreset.square,
+    //   //   CropAspectRatioPreset.ratio3x2,
+    //   //   // CropAspectRatioPreset.original,
+    //   //   CropAspectRatioPreset.ratio4x3,
+    //   //   // CropAspectRatioPreset.ratio16x9,
+    //   // ],
+    //   maxWidth: 600,
+    //   maxHeight: 600,
+    // );
 
-      _images = File(croppedFile.path);
+    switch (fileTypeCheckk(data!.path)) {
+      case null:
+        Fluttertoast.showToast(msg:"Please select photo or video");
+        return;
+        break;
+      case fileTypeName.Photo:
+        _images = File(data.path);
 
-      print("mdfgkodjgk");
-      print(_images.toString());
+        testCompressFile(_images!);
+        break;
+      case fileTypeName.Video:
+        _video = File(data.path);
+        _videoPlayerController = VideoPlayerController.file(_video!)
+          ..initialize().then((_) {
+            setState(() {});
+            _videoPlayerController?.play();
+          });
+        testCompressFile(_video!);
 
-      // testCompressFile(_images!);
-
-      testCompressFile(_images!);
+        setState(() {});
+        break;
     }
-    // return image??_videoPlayerController;
   }
 
   _imgFromCamera() async {
-    final XFile? photo =
-    await _picker.pickImage(source: ImageSource.camera, imageQuality: 10);
+    final XFile? photo = await _picker.pickImage(source: ImageSource.camera, imageQuality: 10);
     final croppedFile = await ImageCropper().cropImage(
       sourcePath: photo!.path,
 
@@ -126,7 +130,6 @@ class _UserCreatePostState extends State<UserCreatePost> {
     }
   }
 
-
   VideoPlayerController? _videoPlayerController;
 
   _videoFromCamera() async {
@@ -140,7 +143,6 @@ class _UserCreatePostState extends State<UserCreatePost> {
           ..initialize().then((_) {
             setState(() {});
             _videoPlayerController?.play();
-
           });
         print(_video.toString());
         // testCompressFile(_video!);
@@ -196,7 +198,6 @@ class _UserCreatePostState extends State<UserCreatePost> {
         });
   }
 
-
   String getVideoNameFromPath(String videoPath) {
     List<String> pathSegments = videoPath.split('/');
     return pathSegments.last;
@@ -246,7 +247,7 @@ class _UserCreatePostState extends State<UserCreatePost> {
 
   @override
   void dispose() {
-  //  _connectivitySubscription?.cancel();
+    //  _connectivitySubscription?.cancel();
     super.dispose();
   }
 
@@ -274,9 +275,7 @@ class _UserCreatePostState extends State<UserCreatePost> {
       content: Row(
         children: [
           const CircularProgressIndicator(),
-          Container(
-              margin: const EdgeInsets.only(left: 7),
-              child: const Text("Loading...")),
+          Container(margin: const EdgeInsets.only(left: 7), child: const Text("Loading...")),
         ],
       ),
     );
@@ -324,7 +323,6 @@ class _UserCreatePostState extends State<UserCreatePost> {
       print("Compression result1: ${info?.filesize}");
       print("Compression result2: ${info?.duration}");
 
-
       File finalFile = info!.file!;
 
       int fileSizeInBytes22 = finalFile.lengthSync();
@@ -333,7 +331,6 @@ class _UserCreatePostState extends State<UserCreatePost> {
       double fileSizeInMB = fileSizeInKB22 / 1024;
       print("Total_size===>fileSizeInKB_after: ${fileSizeInKB}");
       print("Total_size===>fileSizeInMB_after ${fileSizeInMB}");
-
 
       uploadFileToServerUHome(finalFile);
       // submitReel(finalFile);
@@ -356,14 +353,12 @@ class _UserCreatePostState extends State<UserCreatePost> {
       'Authorization': 'Bearer $token',
     };
 
-    var request = http.MultipartRequest(
-        'POST', Uri.parse('https://forreal.net:4000/create_post'));
+    var request = http.MultipartRequest('POST', Uri.parse('https://forreal.net:4000/create_post'));
     request.files.add(await http.MultipartFile.fromPath('file', file.path));
     request.fields['post_type'] = postType();
-    if(myTextController.text.isNotEmpty){
+    if (myTextController.text.isNotEmpty) {
       request.fields['miniblogs'] = myTextController.text;
     }
-
 
     if (myList != null && myList.isNotEmpty) {
       print(commaSeparatedString);
@@ -386,13 +381,12 @@ class _UserCreatePostState extends State<UserCreatePost> {
     request.headers.addAll(headers);
     http.StreamedResponse response = await request.send();
     if (response.statusCode == 200) {
-
       //_videoPlayerController?.dispose();
       print(await response.stream.bytesToString());
       print("uploadscuessfully");
 
       // postsC.firstLoad();
-      Get.offAll(()=> DashboardPage());
+      Get.offAll(() => DashboardPage());
       // Navigator.push(
       //   context,
       //   MaterialPageRoute(
@@ -405,7 +399,6 @@ class _UserCreatePostState extends State<UserCreatePost> {
     //Ezay for
     EasyLoading.dismiss();
   }
-
 
   void uploadFileToServerUHomeImage() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -453,8 +446,7 @@ class _UserCreatePostState extends State<UserCreatePost> {
         'Authorization': 'Bearer $tokens',
       };
 
-      var request = http.MultipartRequest(
-          "POST", Uri.parse("https://forreal.net:4000/create_post"));
+      var request = http.MultipartRequest("POST", Uri.parse("https://forreal.net:4000/create_post"));
       print(commaSeparatedString);
       commaSeparatedString = myListId.join(', ');
       print("data====>");
@@ -489,13 +481,11 @@ class _UserCreatePostState extends State<UserCreatePost> {
         print("object");
         request.fields['file']?.isEmpty;
       } else if (_images != null) {
-        request.files
-            .add(await http.MultipartFile.fromPath('file', _images!.path ?? ""));
+        request.files.add(await http.MultipartFile.fromPath('file', _images!.path ?? ""));
       }
       request.send().then((response) {
         http.Response.fromStream(response).then((onValue) async {
           if (response.statusCode == 200) {
-
             sendNotification(request.fields['mentions'].toString(), "like");
             // Navigator.push(
             //   context,
@@ -503,7 +493,7 @@ class _UserCreatePostState extends State<UserCreatePost> {
             //     builder: (context) => const DashboardPage(),
             //   ),
             // );
-            Get.offAll(()=>DashboardPage());
+            Get.offAll(() => DashboardPage());
             setState(() {
               myListId.clear();
               myList.clear();
@@ -546,13 +536,7 @@ class _UserCreatePostState extends State<UserCreatePost> {
 
   // List<String> _hashtags = [];
 
-  List<String> availableData = [
-    '@john_doe',
-    '@jane_doe',
-    '@user123',
-    '@flutter_dev',
-    '@developer_xyz'
-  ];
+  List<String> availableData = ['@john_doe', '@jane_doe', '@user123', '@flutter_dev', '@developer_xyz'];
 
   List<String> filteredList = [];
 
@@ -563,9 +547,7 @@ class _UserCreatePostState extends State<UserCreatePost> {
         filteredList = availableData;
       } else {
         // Filter the list to show items that start with '@'
-        filteredList = availableData
-            .where((item) => item.toLowerCase().startsWith(query.toLowerCase()))
-            .toList();
+        filteredList = availableData.where((item) => item.toLowerCase().startsWith(query.toLowerCase())).toList();
       }
     });
   }
@@ -582,10 +564,8 @@ class _UserCreatePostState extends State<UserCreatePost> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: _onWillPop,
-
       child: Scaffold(
         resizeToAvoidBottomInset: true,
-
         appBar: AppBar(
           titleSpacing: 0,
           centerTitle: true,
@@ -593,8 +573,8 @@ class _UserCreatePostState extends State<UserCreatePost> {
             padding: const EdgeInsets.only(left: 10),
             child: InkWell(
                 onTap: () {
-                  _images=null;
-                  _video=null;
+                  _images = null;
+                  _video = null;
                   myTextController.clear();
                   myList.clear();
                   myListId.clear();
@@ -611,18 +591,14 @@ class _UserCreatePostState extends State<UserCreatePost> {
               padding: const EdgeInsets.only(top: 4.0),
               child: IconButton(
                 onPressed: () {
-                  print("nsfkdjfdklf");
                   print(_images?.path);
                   print(myTextController.text);
-                  if (_video != null ||
-                      _images != null ||
-                      myTextController.text.isNotEmpty) {
-                    if(_video != null ){
+                  if (_video != null || _images != null || myTextController.text.isNotEmpty) {
+                    if (_video != null) {
                       compressVideos(_video!);
-                    }else if(_images!=null || myTextController.text.isNotEmpty){
+                    } else if (_images != null || myTextController.text.isNotEmpty) {
                       uploadFileToServerUHomeImage();
                     }
-
                   } else {
                     Fluttertoast.showToast(
                         msg: "Please select image or Text..",
@@ -666,64 +642,57 @@ class _UserCreatePostState extends State<UserCreatePost> {
                           Center(
                             child: _images == null && _video == null
                                 ? Container(
-                              width: MediaQuery.of(context).size.width,
-                              height: 300,
-                              decoration: BoxDecoration(
-                                border: Border.all(color: HexColor('#D9D9D9')),
-                                borderRadius: BorderRadius.circular(15),
-                              ),
-                            )
-                                : _video != null
-                                ? _videoPlayerController!.value.isInitialized
-                                ? Container(
-                              margin: const EdgeInsets.only(top:130),
-                              height: 300,
-                              child: AspectRatio(
-                                aspectRatio: _videoPlayerController!
-                                    .value.aspectRatio,
-                                child: VideoPlayer(
-                                    _videoPlayerController!),
-                              ),
-                            )
-                                : Container()
-                                : Stack(
-                              children: [
-                                _videoPlayerController == null
-                                    ? Container(
-                                  width: MediaQuery.of(context).size.width,
-                                  height: 306,
-                                  margin: const EdgeInsets.only(top:100),
-                                  decoration: BoxDecoration(
-                                    border: Border.all(
-                                        color: HexColor('#D9D9D9')),
-                                    borderRadius: BorderRadius.circular(15),
-                                    image: DecorationImage(
-                                      image: FileImage(File(_images!.path)),
-                                      fit: BoxFit.fill,
+                                    width: MediaQuery.of(context).size.width,
+                                    height: 300,
+                                    decoration: BoxDecoration(
+                                      border: Border.all(color: HexColor('#D9D9D9')),
+                                      borderRadius: BorderRadius.circular(15),
                                     ),
-                                  ),
-                                )
-                                    : Container(
-                                  margin: const EdgeInsets.only(top: 80),
-                                  height: 306,
-                                  child: AspectRatio(
-                                    aspectRatio: _videoPlayerController!
-                                        .value.aspectRatio,
-                                    child: VideoPlayer(
-                                        _videoPlayerController!),
-                                  ),
-                                ),
-                              ],
-                            ),
+                                  )
+                                : _video != null
+                                    ? _videoPlayerController!.value.isInitialized
+                                        ? Container(
+                                            margin: const EdgeInsets.only(top: 130),
+                                            height: 300,
+                                            child: AspectRatio(
+                                              aspectRatio: _videoPlayerController!.value.aspectRatio,
+                                              child: VideoPlayer(_videoPlayerController!),
+                                            ),
+                                          )
+                                        : Container()
+                                    : Stack(
+                                        children: [
+                                          _videoPlayerController == null
+                                              ? Container(
+                                                  width: MediaQuery.of(context).size.width,
+                                                  height: 306,
+                                                  margin: const EdgeInsets.only(top: 100),
+                                                  decoration: BoxDecoration(
+                                                    border: Border.all(color: HexColor('#D9D9D9')),
+                                                    borderRadius: BorderRadius.circular(15),
+                                                    image: DecorationImage(
+                                                      image: FileImage(File(_images!.path)),
+                                                      fit: BoxFit.fill,
+                                                    ),
+                                                  ),
+                                                )
+                                              : Container(
+                                                  margin: const EdgeInsets.only(top: 80),
+                                                  height: 306,
+                                                  child: AspectRatio(
+                                                    aspectRatio: _videoPlayerController!.value.aspectRatio,
+                                                    child: VideoPlayer(_videoPlayerController!),
+                                                  ),
+                                                ),
+                                        ],
+                                      ),
                           ),
                           const SizedBox(height: 10),
                           Container(
                             height: 80,
                             width: MediaQuery.of(context).size.width,
                             decoration: BoxDecoration(
-                              color: _images == null && _video == null
-                                  ? Colors.transparent
-                                  : Colors.white,
+                              color: _images == null && _video == null ? Colors.transparent : Colors.white,
                               borderRadius: BorderRadius.circular(15),
                             ),
                             child: Column(
@@ -773,7 +742,6 @@ class _UserCreatePostState extends State<UserCreatePost> {
                           validator: notEmptyValidator,
                           controller: myTextController,
                           onChanged: (value) {
-
                             if (value.startsWith(' ')) {
                               myTextController.text = value.trim();
                               myTextController.selection = TextSelection.fromPosition(
@@ -812,32 +780,30 @@ class _UserCreatePostState extends State<UserCreatePost> {
                   ),
                 ),
               ),
-
               myList == null
                   ? const Text("data")
                   : Container(
-                height: 150,
-                child: GridView.builder(
-                  itemCount: myList.length,
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 3,
-                    mainAxisSpacing: 0,
-                    childAspectRatio: 0.5,
-                  ),
-                  itemBuilder: (context, index) {
-                    return ListTile(
-                      title: Text(
-                        "@${myList == null ? "NO Tag" : myList[index]}",
-                        style: const TextStyle(
-                          color: Colors.blue,
-                          fontWeight: FontWeight.w600,
+                      height: 150,
+                      child: GridView.builder(
+                        itemCount: myList.length,
+                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 3,
+                          mainAxisSpacing: 0,
+                          childAspectRatio: 0.5,
                         ),
+                        itemBuilder: (context, index) {
+                          return ListTile(
+                            title: Text(
+                              "@${myList == null ? "NO Tag" : myList[index]}",
+                              style: const TextStyle(
+                                color: Colors.blue,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          );
+                        },
                       ),
-                    );
-                  },
-                ),
-              ),
-
+                    ),
               Padding(
                 padding: EdgeInsets.only(
                   bottom: MediaQuery.of(context).viewInsets.bottom,
@@ -902,16 +868,12 @@ class _UserCreatePostState extends State<UserCreatePost> {
                       // key: GlobalKey(),
                       textFieldConfiguration: TextFieldConfiguration(
                         decoration: InputDecoration(
-                          hintText: selectedTag.isNotEmpty
-                              ? selectedTag
-                              : "Tag People..",
+                          hintText: selectedTag.isNotEmpty ? selectedTag : "Tag People..",
                         ),
                       ),
                       suggestionsCallback: (pattern) async {
-                        return userHomeController.userFriend.where(
-                                (userFriend) => userFriend.friendFirstName!
-                                .toLowerCase()
-                                .contains(pattern.toLowerCase()));
+                        return userHomeController.userFriend
+                            .where((userFriend) => userFriend.friendFirstName!.toLowerCase().contains(pattern.toLowerCase()));
                       },
 
                       itemBuilder: (context, MyFriends? suggestion) {
@@ -920,14 +882,12 @@ class _UserCreatePostState extends State<UserCreatePost> {
                         );
                       },
                       onSuggestionSelected: (MyFriends? suggestion) {
-                        setState(() => selectedTag =
-                            suggestion!.friendFirstName.toString());
+                        setState(() => selectedTag = suggestion!.friendFirstName.toString());
                         myList.add(selectedTag);
                         myListId.add(suggestion?.friendId.toString() ?? "1");
                         print(selectedTag);
 
-                        print(
-                            'Selected user: ${suggestion?.friendFirstName.toString()}');
+                        print('Selected user: ${suggestion?.friendFirstName.toString()}');
 
                         print('Selected userId: ${myListId.toList()}');
                       },
@@ -943,9 +903,7 @@ class _UserCreatePostState extends State<UserCreatePost> {
                         return ListTile(
                           title: Text(
                             "@${myList == null ? "NO Tag" : myList[index]}",
-                            style: const TextStyle(
-                                color: Colors.blue,
-                                fontWeight: FontWeight.w600),
+                            style: const TextStyle(color: Colors.blue, fontWeight: FontWeight.w600),
                           ),
                           // subtitle: Text(widget.dataP.parameter2[index]),
                         );
@@ -961,8 +919,6 @@ class _UserCreatePostState extends State<UserCreatePost> {
           );
         });
   }
-
-
 }
 
 class MyData {
@@ -970,4 +926,23 @@ class MyData {
   final List<String> parameter2;
 
   MyData(this.parameter1, this.parameter2);
+}
+
+fileTypeName? fileTypeCheckk(String filePath) {
+  String? mimeType = lookupMimeType(filePath);
+
+  if (mimeType != null) {
+    if (mimeType.startsWith('image/')) {
+      return fileTypeName.Photo;
+    } else if (mimeType.startsWith('video/')) {
+      return fileTypeName.Video;
+    }
+  }
+  print("fileType");
+  print(mimeType);
+}
+
+enum fileTypeName {
+  Photo,
+  Video,
 }

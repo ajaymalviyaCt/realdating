@@ -108,6 +108,7 @@ dependencies:
   pretty_dio_logger: ^1.4.0
   dio_smart_retry: ^7.0.1
   dio_intercept_to_curl: ^0.2.0
+  mime: ^1.0.4
 
 
 

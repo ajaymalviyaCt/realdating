@@ -8,6 +8,7 @@ import 'profile_model.dart';
 
 class ProfileController extends GetxController {
   RxBool isLoadig = true.obs;
+  final RxBool apiLoadingUploadImage = false.obs;
   ProfileModel? profileModel;
 
   RxString username = "".obs;

@@ -15,13 +15,13 @@ import 'package:realdating/welcome_screen/splashscreens.dart';
 import 'firebase_options.dart';
 import 'messaing_service/messaging_service.dart';
 
-// Importing custom files
+
+
+
 
 
  late Size mq;
  final navigatorKey=GlobalKey<NavigatorState>();
-
-// Main function
  List<CameraDescription>? cameras;
 
 void main() async {

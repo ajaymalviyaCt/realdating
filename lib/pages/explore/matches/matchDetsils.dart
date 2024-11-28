@@ -760,7 +760,7 @@ class _MatchDetailsState extends State<MatchDetails> {
                                                           decoration:
                                                               const InputDecoration(
                                                                   hintText:
-                                                                      'Add Commment'),
+                                                                      'Add Comment'),
                                                         ),
                                                         const SizedBox(
                                                           height: 10,
