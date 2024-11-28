@@ -3172,6 +3172,7 @@ class _HomePageState extends State<HomePageUser> {
                     // row with two children
                     child: InkWell(
                       onTap: () {
+                        Get.back();
                         Get.to(
                           () => const CreateReelScreen(),
                         );
@@ -3191,6 +3192,7 @@ class _HomePageState extends State<HomePageUser> {
                     // row with two children
                     child: InkWell(
                       onTap: () {
+                        Get.back();
                         Get.to(
                           () => const HomePage(),
                         );
@@ -3209,6 +3211,7 @@ class _HomePageState extends State<HomePageUser> {
                     // row with two children
                     child: InkWell(
                       onTap: () {
+                        Get.back();
                         Get.to(
                           () => NearByBusiness(),
                         );
