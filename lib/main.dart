@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+
 import 'package:camera/camera.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -12,22 +13,18 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:realdating/welcome_screen/splashscreens.dart';
+
 import 'firebase_options.dart';
 import 'messaing_service/messaging_service.dart';
 
-
-
-
-
-
- late Size mq;
- final navigatorKey=GlobalKey<NavigatorState>();
- List<CameraDescription>? cameras;
+late Size mq;
+final navigatorKey = GlobalKey<NavigatorState>();
+List<CameraDescription>? cameras;
 
 void main() async {
   runZonedGuarded<Future<void>>(() async {
     WidgetsFlutterBinding.ensureInitialized();
-       cameras = await availableCameras();
+    cameras = await availableCameras();
 
     await Permission.notification.isDenied.then((value) {
       if (value) {
@@ -35,25 +32,22 @@ void main() async {
       }
     });
 
-    await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform,);
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       String payloadData = jsonEncode(message.data);
-       print("Got a message in foreground");
+      print("Got a message in foreground");
       if (message.notification != null) {
-        MessagingService.showSimpleNotification(
-            title: message.notification!.title!,
-            body: message.notification!.body!,
-            payload: payloadData);
+        MessagingService.showSimpleNotification(title: message.notification!.title!, body: message.notification!.body!, payload: payloadData);
       }
     });
 
     FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
 
     runApp(const MyApp());
-  }, (error, stack) =>
-      FirebaseCrashlytics.instance.recordError(error, stack, fatal: true));
+  }, (error, stack) => FirebaseCrashlytics.instance.recordError(error, stack, fatal: true));
 }
-
 
 // MyApp widget
 class MyApp extends StatefulWidget {
@@ -64,7 +58,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
-
   @override
   void initState() {
     super.initState();
@@ -79,16 +72,16 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
           checkExist(user);
           break;
         case AppLifecycleState.resumed:
-        // TODO: Handle this case.
+          // TODO: Handle this case.
           break;
         case AppLifecycleState.inactive:
-        // TODO: Handle this case.
+          // TODO: Handle this case.
           break;
         case AppLifecycleState.paused:
-        // TODO: Handle this case.
+          // TODO: Handle this case.
           break;
         // case AppLifecycleState.paused:
-         case AppLifecycleState.hidden:
+        case AppLifecycleState.hidden:
         // TODO: Handle this case.
       }
     }
@@ -97,18 +90,11 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   void checkExist(User? user) async {
     bool exist = false;
     try {
-      await FirebaseFirestore.instance
-          .collection("Liveusers")
-          .doc(user!.uid)
-          .get()
-          .then((doc) {
+      await FirebaseFirestore.instance.collection("Liveusers").doc(user!.uid).get().then((doc) {
         exist = doc.exists;
       });
       if (exist) {
-        FirebaseFirestore.instance
-            .collection("Liveusers")
-            .doc(user.uid)
-            .delete();
+        FirebaseFirestore.instance.collection("Liveusers").doc(user.uid).delete();
       }
     } catch (e) {
       Get.snackbar("Error", e.toString(), snackPosition: SnackPosition.BOTTOM);
@@ -117,7 +103,6 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
-
     // final HomePageUserController postsC = Get.put(HomePageUserController());
 
     mq = Size(MediaQuery.of(context).size.width, MediaQuery.of(context).size.height);
@@ -125,24 +110,19 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
       designSize: const Size(346.97, 750.79),
       minTextAdapt: true,
       splitScreenMode: true,
-      builder: (BuildContext context, Widget ? child) {
+      builder: (BuildContext context, Widget? child) {
         return GetMaterialApp(
-         // routes: {'/notification': (context) =>  MyAllDatesPage()},
+          // routes: {'/notification': (context) =>  MyAllDatesPage()},
           debugShowCheckedModeBanner: false,
           title: 'real Dating',
           theme: ThemeData(
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.redAccent),
             useMaterial3: true,
           ),
-          home:    const SplashPage(),
+          home: const SplashPage(),
           builder: EasyLoading.init(),
         );
       },
     );
   }
 }
-
-
-
-
-
