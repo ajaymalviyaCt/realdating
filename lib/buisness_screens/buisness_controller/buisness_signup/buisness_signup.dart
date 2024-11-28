@@ -131,6 +131,13 @@ class _BuisnessSignUpState extends State<BuisnessSignUp> {
                         CustumTextField(
                           controller: buisbnesssignUpController.buisnessnameController,
                           validator: validateBusinessName,
+                          onChange: (p0) {
+
+                            if (p0.startsWith(' ')) {
+                              buisbnesssignUpController.buisnessnameController.text = p0.trim();
+                            }
+
+                          },
                           keyboardType: TextInputType.emailAddress,
                           hintText: 'Business Name ',
                         ),

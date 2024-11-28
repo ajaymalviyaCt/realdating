@@ -31,6 +31,11 @@ class BusinessDetailsPage extends StatelessWidget {
   }
 
   Padding dealCardWidget(BuildContext context, AllDeal deal) {
+    // Calculate the discounted price
+    num originalPrice = deal.price ?? 0.0; // Assuming deal.price is nullable
+    num discount = num.parse(deal.discount ?? "0") ?? 0.0; // Assuming deal.discount is nullable
+    num discountedPrice = (originalPrice - discount).clamp(0, double.infinity); // Ensure no negative price
+
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: Container(
@@ -113,55 +118,48 @@ class BusinessDetailsPage extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    'Price: ${deal.price}',
-                    style: const TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.black87,
-                    ),
-                  ),
-                  const SizedBox(height: 8),
+                  // Horizontal layout for prices
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text(
-                        'Discount:',
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
+                      // Original Price
                       Text(
-                        '${deal.discount}',
+                        '\$${originalPrice.toStringAsFixed(2)}',
                         style: const TextStyle(
                           fontSize: 16,
-                          color: Colors.green,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.grey,
+                          decoration: TextDecoration.lineThrough,
+                        ),
+                      ),
+                      // Discounted Price
+                      Text(
+                        '\$${discountedPrice.toStringAsFixed(2)}',
+                        style: const TextStyle(
+                          fontSize: 22,
                           fontWeight: FontWeight.bold,
+                          color: Colors.green,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 4),
+                  // Discount Section
+                  Row(
+                    children: [
+                      Icon(Icons.local_offer, color: Colors.red, size: 16),
+                      const SizedBox(width: 4),
+                      Text(
+                        'You save: \$${discount.toStringAsFixed(2)}',
+                        style: const TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.red,
                         ),
                       ),
                     ],
                   ),
                   const SizedBox(height: 16),
-                  // SizedBox(
-                  //   width: double.infinity,
-                  //   child: ElevatedButton(
-                  //     onPressed: () {
-                  //       // Handle deal button action
-                  //     },
-                  //     style: ElevatedButton.styleFrom(
-                  //       backgroundColor: Color(0xFFFB4967), // Primary color
-                  //       shape: RoundedRectangleBorder(
-                  //         borderRadius: BorderRadius.circular(12),
-                  //       ),
-                  //       padding: const EdgeInsets.symmetric(vertical: 12),
-                  //     ),
-                  //     child: const Text(
-                  //       'View Deal',
-                  //       style: TextStyle(fontSize: 16, color: Colors.white),
-                  //     ),
-                  //   ),
-                  // ),
                 ],
               ),
             ),
@@ -170,6 +168,9 @@ class BusinessDetailsPage extends StatelessWidget {
       ),
     );
   }
+
+
+
 
 }
 
