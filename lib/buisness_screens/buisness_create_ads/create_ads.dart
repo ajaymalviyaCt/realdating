@@ -126,8 +126,9 @@ class _CreateAadsState extends State<CreateAads> {
     //       fontSize: 16.0);
     // }
     showLoaderDialog(context);
-Map<String,dynamic>apiData =  await ApiCall.instance.callApi(method: HttpMethod.POST,headers:await
-    authHeader(),
+    Map<String, dynamic> apiData = await ApiCall.instance.callApi(
+        method: HttpMethod.POST,
+        headers: await authHeader(),
         url: "https://forreal.net:4000/create_ads",
         body: dio.FormData.fromMap({
           "title": txt_title.text.toString(),
@@ -138,14 +139,14 @@ Map<String,dynamic>apiData =  await ApiCall.instance.callApi(method: HttpMethod.
           "link": txt_link.text.toString(),
           "range_km": txt_range.text.toString(),
           "business_id": userId.toString(),
-          "file":(await dio.MultipartFile.fromFile(CreateDeal!,filename: "${DateTime.now().toUtc().toIso8601String()}.jpg"))
+          if (CreateDeal != null)
+            "file": (await dio.MultipartFile.fromFile(CreateDeal!, filename: "${DateTime.now().toUtc().toIso8601String()}.jpg"))
         }));
-    if (apiData["success"]==true) {
-
+    if (apiData["success"] == true) {
       Get.off(() => BuisnessHomePage());
       // Navigator.pop(context);
       Fluttertoast.showToast(
-          msg: "Ads created successfully",
+          msg: apiData["message"] ,
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.BOTTOM,
           backgroundColor: Colors.black,
@@ -210,7 +211,6 @@ Map<String,dynamic>apiData =  await ApiCall.instance.callApi(method: HttpMethod.
     });
 
     */
-
   }
 
   @override

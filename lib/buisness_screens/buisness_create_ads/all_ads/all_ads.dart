@@ -24,11 +24,11 @@ class All_Ads extends StatefulWidget {
 }
 
 class _All_AdsState extends State<All_Ads> {
-  AllAdssDealController allAdssDealController =
-      Get.put(AllAdssDealController());
+  AllAdssDealController allAdssDealController = Get.put(AllAdssDealController());
   var success, message, id, email;
   var profile_image, business_name;
   BusinessInfo? profile_data;
+
   void _loadCounter() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     profile_image = prefs.get('profile_image');
@@ -64,13 +64,10 @@ class _All_AdsState extends State<All_Ads> {
 
     print(toMap());
     print('::::::::::::::3');
-    var response = await http.post(
-        Uri.parse('https://forreal.net:4000/myprofile'),
-        body: toMap(),
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-          'Authorization': 'Bearer $token',
-        });
+    var response = await http.post(Uri.parse('https://forreal.net:4000/myprofile'), body: toMap(), headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'Authorization': 'Bearer $token',
+    });
     print(':::::::::::::::::4');
     print("success 123 ==${response.body}");
     success = ProfileDataModal.fromJson(json.decode(response.body)).success;
@@ -78,8 +75,7 @@ class _All_AdsState extends State<All_Ads> {
     print("success 123 ==${response.body}");
     if (success == true) {
       setState(() {
-        profile_data =
-            ProfileDataModal.fromJson(json.decode(response.body)).businessInfo;
+        profile_data = ProfileDataModal.fromJson(json.decode(response.body)).businessInfo;
       });
 
       // Fluttertoast.showToast(
@@ -146,14 +142,14 @@ class _All_AdsState extends State<All_Ads> {
         child: SafeArea(
           child: Obx(
             () => allAdssDealController.isLoadig.value
-                ? const Center(child: CircularProgressIndicator(strokeWidth: 2,))
-                : allAdssDealController.getAllAdsMdoels?.myAdvs.length !=
-                            null &&
-                        allAdssDealController.getAllAdsMdoels?.myAdvs.length !=
-                            0
+                ? const Center(
+                    child: CircularProgressIndicator(
+                    strokeWidth: 2,
+                  ))
+                : allAdssDealController.getAllAdsMdoels?.myAdvs.length != null &&
+                        allAdssDealController.getAllAdsMdoels?.myAdvs.length != 0
                     ? ListView.builder(
-                        itemCount: allAdssDealController
-                            .getAllAdsMdoels?.myAdvs.length,
+                        itemCount: allAdssDealController.getAllAdsMdoels?.myAdvs.length,
                         itemBuilder: (BuildContext context, int index) {
                           return Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 10.0),
@@ -173,11 +169,9 @@ class _All_AdsState extends State<All_Ads> {
                                   ],
                                 ),
                                 child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 15.0),
+                                  padding: const EdgeInsets.symmetric(horizontal: 15.0),
                                   child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       const SizedBox(
                                         height: 10,
@@ -192,23 +186,18 @@ class _All_AdsState extends State<All_Ads> {
                                             child: ClipRRect(
                                               borderRadius: BorderRadius.circular(100),
                                               child: SizedBox(
-                                                width:35,height: 35,
+                                                width: 35,
+                                                height: 35,
                                                 child: CachedNetworkImage(
-                                                  imageUrl: profile_data?.profileImage??""
-                                                    ,
-                                                  placeholder: (context, url) =>
-                                                  const Center(
+                                                  imageUrl: profile_data?.profileImage ?? "",
+                                                  placeholder: (context, url) => const Center(
                                                       child: SizedBox(
                                                           height: 20,
                                                           width: 20,
-                                                          child:
-                                                          CircularProgressIndicator(
+                                                          child: CircularProgressIndicator(
                                                             strokeWidth: 1,
                                                           ))),
-                                                  errorWidget: (context, url,
-                                                      error) =>
-                                                  const Icon(
-                                                      Icons.person_2_outlined),
+                                                  errorWidget: (context, url, error) => const Icon(Icons.person_2_outlined),
                                                   filterQuality: FilterQuality.low,
                                                   fit: BoxFit.fill,
                                                   height: 300,
@@ -220,13 +209,10 @@ class _All_AdsState extends State<All_Ads> {
                                             width: 10,
                                           ),
                                           Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
+                                            crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
                                               customTextCommon(
-                                                text: profile_data
-                                                        ?.businessName ??
-                                                    "Fauget",
+                                                text: profile_data?.businessName ?? "Fauget",
                                                 fSize: 14,
                                                 fWeight: FontWeight.w600,
                                                 lineHeight: 21,
@@ -251,11 +237,7 @@ class _All_AdsState extends State<All_Ads> {
                                           InkWell(
                                               onTap: () {
                                                 Get.to(() => BuisnessEditAds(
-                                                      dataList:
-                                                          allAdssDealController
-                                                              .getAllAdsMdoels!
-                                                              .myAdvs
-                                                              .toList(),
+                                                      dataList: allAdssDealController.getAllAdsMdoels!.myAdvs.toList(),
                                                       indexEdit: index,
                                                     ));
                                               },
@@ -272,24 +254,22 @@ class _All_AdsState extends State<All_Ads> {
                                       ),
                                       Container(
                                           height: 296,
-                                          decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(15)),
+                                          decoration: BoxDecoration(borderRadius: BorderRadius.circular(15)),
                                           child: Container(
-                                            constraints:
-                                                 BoxConstraints.expand(
-                                                    height: 110.0),
-                                            decoration: BoxDecoration(
-                                                borderRadius: const BorderRadius.all(
-                                                    Radius.circular(10)),
-                                                image: DecorationImage(
-                                                  fit: BoxFit.fill,
-
-                                                  image: NetworkImage(
-                                                      "${allAdssDealController.getAllAdsMdoels?.myAdvs[index].adImage}"),
-                                                  // AssetImage(
-                                                  //     'assets/images/Rectangle 4 (1).png')
-                                                )),
+                                            constraints: const BoxConstraints.expand(height: 110.0),
+                                            decoration: const BoxDecoration(
+                                              borderRadius: BorderRadius.all(Radius.circular(10)),
+                                            ),
+                                            child: CachedNetworkImage(
+                                              imageUrl: "${allAdssDealController.getAllAdsMdoels?.myAdvs[index].adImage}",
+                                              placeholder: (context, url) {
+                                                return const Center(
+                                                  child: CircularProgressIndicator(),
+                                                );
+                                              },errorWidget: (context, url, error) {
+                                                return Image.asset('assets/icons/business_ads.png',scale:3,);
+                                              },
+                                            ),
                                             // child: Stack(
                                             //   children: [
                                             //     Center(
@@ -307,8 +287,7 @@ class _All_AdsState extends State<All_Ads> {
                                       ),
                                       //customTextCommon(text: "TTT",  fSize: 14, fWeight: FontWeight.w600, lineHeight: 21, letterSpacing: -0.3,),
                                       customTextCommon(
-                                        text:
-                                            "${allAdssDealController.getAllAdsMdoels?.myAdvs[index].title}",
+                                        text: "${allAdssDealController.getAllAdsMdoels?.myAdvs[index].title}",
                                         fSize: 14,
                                         fWeight: FontWeight.w600,
                                         lineHeight: 21,
@@ -318,8 +297,7 @@ class _All_AdsState extends State<All_Ads> {
                                         height: 5,
                                       ),
                                       customTextCommon(
-                                        text:
-                                            "${allAdssDealController.getAllAdsMdoels?.myAdvs[index].campaignDuration}",
+                                        text: "${allAdssDealController.getAllAdsMdoels?.myAdvs[index].campaignDuration}",
                                         fSize: 12,
                                         fWeight: FontWeight.w400,
                                         lineHeight: 14.52,
