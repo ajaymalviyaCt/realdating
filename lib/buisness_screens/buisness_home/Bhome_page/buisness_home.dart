@@ -312,7 +312,9 @@ class _BuisnessHomePageState extends State<BuisnessHomePage> {
         MyDealController();
       },
       builder: (controller) {
-        return WillPopScope(child:
+        return WillPopScope(
+            onWillPop: _onWillPop,
+            child:
         Scaffold(
           drawer: Drawer(
             child: ListView(children: [
@@ -2514,8 +2516,7 @@ class _BuisnessHomePageState extends State<BuisnessHomePage> {
               onPressed: () {
                 Get.to(() => const BuisnessPost());
               }),
-        ),
-            onWillPop: _onWillPop);
+        ));
       },
     );
   }

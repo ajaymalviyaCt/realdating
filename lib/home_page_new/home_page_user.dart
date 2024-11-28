@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:realdating/Choose_subscription_plan/monthly.dart';
 import 'package:realdating/home_page_new/home_page_user_controller.dart';
@@ -87,9 +88,7 @@ class _HomePageState extends State<HomePageUser> {
                                       padding: const EdgeInsets.all(8.0),
                                       child: Column(
                                         children: [
-                                          if (postsC.homePageModel.posts[index]
-                                                  .postType ==
-                                              "Image")
+                                          if (postsC.homePageModel.posts[index].postType == "Image")
                                             Container(
                                               width: 350.aw,
                                               decoration: ShapeDecoration(
@@ -115,14 +114,7 @@ class _HomePageState extends State<HomePageUser> {
                                                       CrossAxisAlignment.start,
                                                   children: [
                                                     10.ah.heightBox,
-                                                    postsC
-                                                                .homePageModel
-                                                                .posts[index]
-                                                                .postOwnerInfo![
-                                                                    0]
-                                                                .proplan
-                                                                .toString() ==
-                                                            "1"
+                                                    postsC.homePageModel.posts[index].postOwnerInfo![0].proplan.toString() == "1"
                                                         ? Row(
                                                             children: [
                                                               Stack(children: [
@@ -838,9 +830,7 @@ class _HomePageState extends State<HomePageUser> {
                                                 ),
                                               ),
                                             ),
-                                          if (postsC.homePageModel.posts[index]
-                                                  .postType ==
-                                              "miniBlog")
+                                          if (postsC.homePageModel.posts[index].postType == "miniBlog")
                                             Container(
                                               width: 350.aw,
                                               decoration: ShapeDecoration(
@@ -966,14 +956,7 @@ class _HomePageState extends State<HomePageUser> {
                                                     //   ],
                                                     // ),
 
-                                                    postsC
-                                                                .homePageModel
-                                                                .posts[index]
-                                                                .postOwnerInfo![
-                                                                    0]
-                                                                .proplan
-                                                                .toString() ==
-                                                            "1"
+                                                    postsC.homePageModel.posts[index].postOwnerInfo![0].proplan.toString() == "1"
                                                         ? Row(
                                                             children: [
                                                               Stack(children: [
@@ -1216,11 +1199,7 @@ class _HomePageState extends State<HomePageUser> {
                                                             ],
                                                           ),
                                                     15.ah.heightBox,
-                                                    postsC
-                                                                .homePageModel
-                                                                .posts[index]
-                                                                .miniblogs !=
-                                                            "default_miniblogs"
+                                                    postsC.homePageModel.posts[index].miniblogs != "default_miniblogs"
                                                         ? Text(
                                                             '${postsC.homePageModel.posts[index].miniblogs}',
                                                             style: TextStyle(
@@ -1257,14 +1236,7 @@ class _HomePageState extends State<HomePageUser> {
                                                                     30),
                                                         children: [
                                                           for (int i = 0;
-                                                              postsC
-                                                                      .homePageModel
-                                                                      .posts[
-                                                                          index]
-                                                                      .mentionsData!
-                                                                      .length >
-                                                                  i;
-                                                              i++)
+                                                              postsC.homePageModel.posts[index].mentionsData!.length > i; i++)
                                                             InkWell(
                                                               onTap: () {
                                                                 Get.to(
@@ -1611,9 +1583,7 @@ class _HomePageState extends State<HomePageUser> {
                                                 ),
                                               ),
                                             ),
-                                          if (postsC.homePageModel.posts[index]
-                                                  .postType ==
-                                              "AD")
+                                          if (postsC.homePageModel.posts[index].postType == "AD")
                                             Container(
                                               width: 350.aw,
                                               decoration: ShapeDecoration(
@@ -1692,8 +1662,7 @@ class _HomePageState extends State<HomePageUser> {
                                                         10.aw.widthBox,
                                                         Column(
                                                           crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .start,
+                                                              CrossAxisAlignment.start,
                                                           children: [
                                                             Text(
                                                               '${postsC.homePageModel.posts[index].title}',
@@ -1775,12 +1744,12 @@ class _HomePageState extends State<HomePageUser> {
                                                     5.heightBox,
                                                     InkWell(
                                                         onTap: () {
+
+                                                          print('link for launching');
                                                           try {
-                                                            _launchURL(
-                                                                '${postsC.homePageModel.posts[index].link}');
+                                                            _launchURL('${postsC.homePageModel.posts[index].link}');
                                                           } catch (e) {
-                                                            print(
-                                                                "${e.toString()}");
+                                                            Fluttertoast.showToast(msg: 'Url not valid');
                                                           }
                                                         },
                                                         child: Text(
@@ -3290,11 +3259,15 @@ class _HomePageState extends State<HomePageUser> {
     );
   }
 
-  void _launchURL(String url) async {
-    if (await canLaunch(url)) {
-      await launch(url);
-    } else {
-      throw 'Could not launch $url';
+  Future<void> _launchURL(url) async {
+    try {
+      print("line 3263");
+      final Uri uri = Uri.parse(url);
+        await launchUrl(uri);
+    }  catch (e) {
+      Fluttertoast.showToast(msg: 'Url not valid');
     }
+
+
   }
 }
