@@ -34,6 +34,7 @@ import 'matches_controller.dart';
 class MatchDetails extends StatefulWidget {
   bool isfriend;
   String id;
+
   MatchDetails({super.key, required this.id, required this.isfriend});
 
   @override
@@ -43,6 +44,7 @@ class MatchDetails extends StatefulWidget {
 class _MatchDetailsState extends State<MatchDetails> {
   SwipController swipController = Get.put(SwipController());
   MatchessController matchessController = Get.put(MatchessController());
+
   // ConnectivityResult _connectionStatus = ConnectivityResult.none;
   // final Connectivity _connectivity = Connectivity();
   // StreamSubscription<ConnectivityResult>? _connectivitySubscription;
@@ -69,12 +71,13 @@ class _MatchDetailsState extends State<MatchDetails> {
 
   @override
   void dispose() {
-   // _connectivitySubscription?.cancel();
+    // _connectivitySubscription?.cancel();
 
     super.dispose();
   }
 
   var user_Id;
+
   userId() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     user_Id = "${prefs.getInt('user_id')}" ?? "";
@@ -130,17 +133,13 @@ class _MatchDetailsState extends State<MatchDetails> {
     //       textColor: Colors.white,
     //       fontSize: 16.0);
     // }
-    bool isUserReviewed = matchessController
-        .exploreDetailsModel!.userInfo[0].allReviews
-        .any((review) => review.reviewBy == userid);
+    bool isUserReviewed =
+        matchessController.exploreDetailsModel!.userInfo[0].allReviews.any((review) => review.reviewBy == userid);
     if (isUserReviewed) {
       Fluttertoast.showToast(msg: "Review is already given in this post");
     } else {
-      final response = await BaseClient01().post(Appurls.review, {
-        "review": txt_comment.text.toString(),
-        "rating_star": ratingcount.toString() ?? 1,
-        "user_id": widget.id.toString()
-      });
+      final response = await BaseClient01().post(Appurls.review,
+          {"review": txt_comment.text.toString(), "rating_star": ratingcount.toString() ?? 1, "user_id": widget.id.toString()});
       // isLoadig(false);
       bool status = response["success"];
       var msg = response["message"];
@@ -152,7 +151,7 @@ class _MatchDetailsState extends State<MatchDetails> {
         txt_comment.clear();
         await matchessController.get_user_by_id(widget.id);
         Navigator.pop(context);
-      }else{
+      } else {
         Fluttertoast.showToast(msg: msg);
       }
     }
@@ -163,8 +162,7 @@ class _MatchDetailsState extends State<MatchDetails> {
   RxList tapItemIndex = [].obs;
 
   final _formKey = GlobalKey<FormState>();
-  InvaiteForDatesController invaiteForDatesController =
-      Get.put(InvaiteForDatesController());
+  InvaiteForDatesController invaiteForDatesController = Get.put(InvaiteForDatesController());
   DateTime currentDate = DateTime.now();
   final List<String> genderItems = [
     'Sports Events',
@@ -201,8 +199,7 @@ class _MatchDetailsState extends State<MatchDetails> {
     if (picked != null && picked != _selectedTime) {
       setState(() {
         _selectedTime = picked;
-        invaiteForDatesController.selectTimeC.text =
-            "${picked.hour.toString()} : ${picked.minute.toString()}";
+        invaiteForDatesController.selectTimeC.text = "${picked.hour.toString()} : ${picked.minute.toString()}";
         ;
       });
     }
@@ -213,10 +210,12 @@ class _MatchDetailsState extends State<MatchDetails> {
   @override
   Widget build(BuildContext context) {
     print("friend request-------${widget.isfriend}");
-    getUserId().then((value) {
-      print("line 217");
-      print(value);
-    },);
+    getUserId().then(
+      (value) {
+        print("line 217");
+        print(value);
+      },
+    );
 
     // showAllItems ? allItems : allItems.sublist(0, initialItemCount);
     void _showBottomSheet(BuildContext context, String userID) {
@@ -250,8 +249,7 @@ class _MatchDetailsState extends State<MatchDetails> {
                               ),
                             ).centered(),
                             47.h.heightBox,
-                            const Text('Select Date',
-                                style: AppTextStyle.selectDateTextStyle),
+                            const Text('Select Date', style: AppTextStyle.selectDateTextStyle),
                             5.h.heightBox,
                             TextFormField(
                               onTap: () {
@@ -289,10 +287,8 @@ class _MatchDetailsState extends State<MatchDetails> {
 
                                 hintText: "MM-DD-YYYY",
 
-                                hintStyle: TextStyle(
-                                    color: Colors.black.withOpacity(.40),
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 14),
+                                hintStyle:
+                                    TextStyle(color: Colors.black.withOpacity(.40), fontWeight: FontWeight.bold, fontSize: 14),
                                 // prefixIcon: Container(child: SvgPicture.asset('$prefixIcon',fit: BoxFit.none,)),
                                 suffixIcon: IconButton(
                                   icon: const Icon(
@@ -304,8 +300,7 @@ class _MatchDetailsState extends State<MatchDetails> {
                               ),
                             ),
                             10.h.heightBox,
-                            const Text('Select Time',
-                                style: AppTextStyle.selectDateTextStyle),
+                            const Text('Select Time', style: AppTextStyle.selectDateTextStyle),
                             5.h.heightBox,
                             TextFormField(
                               onTap: () {
@@ -343,14 +338,10 @@ class _MatchDetailsState extends State<MatchDetails> {
 
                                 hintText: "hh-mm",
 
-                                hintStyle: TextStyle(
-                                    color: Colors.black.withOpacity(.40),
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 14),
-                                labelStyle: TextStyle(
-                                    color: Colors.black.withOpacity(.40),
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 14),
+                                hintStyle:
+                                    TextStyle(color: Colors.black.withOpacity(.40), fontWeight: FontWeight.bold, fontSize: 14),
+                                labelStyle:
+                                    TextStyle(color: Colors.black.withOpacity(.40), fontWeight: FontWeight.bold, fontSize: 14),
                                 // prefixIcon: Container(child: SvgPicture.asset('$prefixIcon',fit: BoxFit.none,)),
                                 suffixIcon: IconButton(
                                   icon: const Icon(
@@ -362,108 +353,103 @@ class _MatchDetailsState extends State<MatchDetails> {
                               ),
                             ),
                             10.h.heightBox,
-                            const Text('Select Activity',
-                                style: AppTextStyle.selectDateTextStyle),
+                            const Text('Select Activity', style: AppTextStyle.selectDateTextStyle),
                             5.h.heightBox,
 
                             ///  dropdown start /////////////////////////////////////
 
-                          DropdownButtonFormField2<String>(
-                            decoration: InputDecoration(
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
-                                borderSide: const BorderSide(
-                                  width: 1,
-                                  color: Colors.black12,
+                            DropdownButtonFormField2<String>(
+                              decoration: InputDecoration(
+                                enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                  borderSide: const BorderSide(
+                                    width: 1,
+                                    color: Colors.black12,
+                                  ),
                                 ),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
-                                borderSide: const BorderSide(
-                                  width: 1,
-                                  color: Colors.black12,
+                                focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                  borderSide: const BorderSide(
+                                    width: 1,
+                                    color: Colors.black12,
+                                  ),
                                 ),
-                              ),
-                              errorBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
-                                borderSide: const BorderSide(
-                                  width: 1,
-                                  color: Colors.red,
+                                errorBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                  borderSide: const BorderSide(
+                                    width: 1,
+                                    color: Colors.red,
+                                  ),
                                 ),
-                              ),
-                              focusedErrorBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
-                                borderSide: const BorderSide(
-                                  width: 1,
-                                  color: Colors.black,
+                                focusedErrorBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                  borderSide: const BorderSide(
+                                    width: 1,
+                                    color: Colors.black,
+                                  ),
                                 ),
-                              ),
-                              hintText: "Select Activity",
-
-                              hintStyle: TextStyle(
-                                color: Colors.black.withOpacity(.40),
-                                fontWeight: FontWeight.bold,
-                                fontSize: 14,
-
-                              ),
-                              labelStyle: TextStyle(
-                                color: Colors.black.withOpacity(.40),
-                                fontWeight: FontWeight.bold,
-                                fontSize: 14,
-                              ),
-                            ),
-                            items: genderItems
-                                .map((item) => DropdownMenuItem<String>(
-                              value: item,
-                              child: Text(
-                                item,
-                                style: const TextStyle(
+                                hintText: "Select Activity",
+                                hintStyle: TextStyle(
+                                  color: Colors.black.withOpacity(.40),
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 14,
+                                ),
+                                labelStyle: TextStyle(
+                                  color: Colors.black.withOpacity(.40),
+                                  fontWeight: FontWeight.bold,
                                   fontSize: 14,
                                 ),
                               ),
-                            ))
-                                .toList(),
-                            validator: (value) {
-                              if (value == null) {
-                                return 'Please select activity';
-                              }
-                              return null;
-                            },
-                            onChanged: (value) {
-                              print("Value selected: $value");
-                              selectedValue = value.toString();
-                            },
-                            buttonStyleData: const ButtonStyleData(
-                              padding: EdgeInsets.only(right: 8),
-                            ),
-                            iconStyleData: const IconStyleData(
-                              icon: Icon(
-                                Icons.arrow_downward_rounded,
-                                size:16,
-                                color: Colors.red,
+                              items: genderItems
+                                  .map((item) => DropdownMenuItem<String>(
+                                        value: item,
+                                        child: Text(
+                                          item,
+                                          style: const TextStyle(
+                                            fontSize: 14,
+                                          ),
+                                        ),
+                                      ))
+                                  .toList(),
+                              validator: (value) {
+                                if (value == null) {
+                                  return 'Please select activity';
+                                }
+                                return null;
+                              },
+                              onChanged: (value) {
+                                print("Value selected: $value");
+                                selectedValue = value.toString();
+                              },
+                              buttonStyleData: const ButtonStyleData(
+                                padding: EdgeInsets.only(right: 8),
+                              ),
+                              iconStyleData: const IconStyleData(
+                                icon: Icon(
+                                  Icons.arrow_downward_rounded,
+                                  size: 16,
+                                  color: Colors.red,
+                                ),
+                              ),
+                              dropdownStyleData: DropdownStyleData(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(15),
+                                ),
+                              ),
+                              menuItemStyleData: const MenuItemStyleData(
+                                padding: EdgeInsets.symmetric(horizontal: 16),
                               ),
                             ),
-                            dropdownStyleData: DropdownStyleData(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(15),
-                              ),
-                            ),
-                            menuItemStyleData: const MenuItemStyleData(
-                              padding: EdgeInsets.symmetric(horizontal: 16),
-                            ),
-                          ),
 
-                          10.h.heightBox,
+                            10.h.heightBox,
 
                             ///  dropdwon end /////////////////////////////////////
-                            const Text('Location',
-                                style: AppTextStyle.selectDateTextStyle),
+                            const Text('Location', style: AppTextStyle.selectDateTextStyle),
                             5.h.heightBox,
                             primaryTextfield(
                                 validator: notEmptyValidator,
                                 hintText: 'Location',
-                                controller:
-                                    invaiteForDatesController.locationC),
+                                controller: invaiteForDatesController.locationC),
                             15.h.heightBox,
                             Obx(
                               () => invaiteForDatesController.isLoading.value
@@ -474,16 +460,11 @@ class _MatchDetailsState extends State<MatchDetails> {
                                         gradient: const LinearGradient(
                                           begin: Alignment(0.00, -1.00),
                                           end: Alignment(0, 1),
-                                          colors: [
-                                            Color(0xFFF65F51),
-                                            Color(0xFFFB4967)
-                                          ],
+                                          colors: [Color(0xFFF65F51), Color(0xFFFB4967)],
                                         ),
                                         shape: RoundedRectangleBorder(
-                                          side: const BorderSide(
-                                              width: 1, color: Colors.white),
-                                          borderRadius:
-                                              BorderRadius.circular(30),
+                                          side: const BorderSide(width: 1, color: Colors.white),
+                                          borderRadius: BorderRadius.circular(30),
                                         ),
                                       ),
                                       child: const CircularProgressIndicator(
@@ -497,16 +478,11 @@ class _MatchDetailsState extends State<MatchDetails> {
                                         gradient: const LinearGradient(
                                           begin: Alignment(0.00, -1.00),
                                           end: Alignment(0, 1),
-                                          colors: [
-                                            Color(0xFFF65F51),
-                                            Color(0xFFFB4967)
-                                          ],
+                                          colors: [Color(0xFFF65F51), Color(0xFFFB4967)],
                                         ),
                                         shape: RoundedRectangleBorder(
-                                          side: const BorderSide(
-                                              width: 1, color: Colors.white),
-                                          borderRadius:
-                                              BorderRadius.circular(30),
+                                          side: const BorderSide(width: 1, color: Colors.white),
+                                          borderRadius: BorderRadius.circular(30),
                                         ),
                                       ),
                                       child: const Text(
@@ -526,13 +502,10 @@ class _MatchDetailsState extends State<MatchDetails> {
 
                                         invaiteForDatesController.invateForDate(
                                           userID,
-                                          invaiteForDatesController
-                                              .selectDateC.text,
-                                          invaiteForDatesController
-                                              .selectTimeC.text,
+                                          invaiteForDatesController.selectDateC.text,
+                                          invaiteForDatesController.selectTimeC.text,
                                           "$selectedValue",
-                                          invaiteForDatesController
-                                              .locationC.text,
+                                          invaiteForDatesController.locationC.text,
                                         );
                                       } else {
                                         print("Not validatef");
@@ -540,11 +513,7 @@ class _MatchDetailsState extends State<MatchDetails> {
                                       }
                                     }),
                             ),
-                            Padding(
-                                padding: EdgeInsets.only(
-                                    bottom: MediaQuery.of(context)
-                                        .viewInsets
-                                        .bottom)),
+                            Padding(padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom)),
                           ],
                         ),
                       )
@@ -566,8 +535,7 @@ class _MatchDetailsState extends State<MatchDetails> {
                   children: [
                     Stack(
                       children: [
-                        matchessController.exploreDetailsModel?.userInfo[0].profileImage ==
-                                null
+                        matchessController.exploreDetailsModel?.userInfo[0].profileImage == null
                             ? Container(
                                 width: MediaQuery.of(context).size.width,
                                 height: 415,
@@ -584,10 +552,7 @@ class _MatchDetailsState extends State<MatchDetails> {
                                 height: 415,
                                 decoration: BoxDecoration(
                                   image: DecorationImage(
-                                    image: NetworkImage(matchessController
-                                            .exploreDetailsModel
-                                            ?.userInfo[0]
-                                            .profileImage ??
+                                    image: NetworkImage(matchessController.exploreDetailsModel?.userInfo[0].profileImage ??
                                         "https://img.freepik.com/premium-vector/default-image-icon-vector-missing-picture-page-website-design-mobile-app-no-photo-available_87543-11093.jpg"),
                                     fit: BoxFit.fill,
                                   ),
@@ -617,8 +582,8 @@ class _MatchDetailsState extends State<MatchDetails> {
                                   ),
                                   const Spacer(),
                                   InkWell(
-                                    onTap: (){
-                                      Get.to(()=>Monthly());
+                                    onTap: () {
+                                      Get.to(() => Monthly());
                                     },
                                     child: Container(
                                       height: 80,
@@ -626,33 +591,33 @@ class _MatchDetailsState extends State<MatchDetails> {
                                     ),
                                   ),
                                   if (widget.isfriend)
-                                  // if (user_Id.toString() != matchessController.exploreDetailsModel?.userInfo[0].id.toString())
+                                    // if (user_Id.toString() != matchessController.exploreDetailsModel?.userInfo[0].id.toString())
                                     InkWell(
                                         onTap: () async {
                                           try {
                                             APIs.addChatUser(
-                                                    widget.id.toString(),)
-                                                .then((value) {
-                                              Get.to(() => HomeScreen(profileImage: matchessController.exploreDetailsModel!.userInfo[0].profileImage,));
+                                              widget.id.toString(),
+                                            ).then((value) {
+                                              Get.to(() => HomeScreen(
+                                                    profileImage:
+                                                        matchessController.exploreDetailsModel!.userInfo[0].profileImage,
+                                                  ));
                                             });
                                           } catch (e) {}
                                         },
-                                        child: SvgPicture.asset(
-                                            "assets/icons/Group 424.svg"))
+                                        child: SvgPicture.asset("assets/icons/Group 424.svg"))
                                 ],
                               ),
                               const SizedBox(
                                 height: 10,
                               ),
                               Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
                                   Column(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     mainAxisSize: MainAxisSize.min,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       Text(
                                         'Location',
@@ -664,12 +629,10 @@ class _MatchDetailsState extends State<MatchDetails> {
                                         ),
                                       ),
                                       Text(
-                                        matchessController.exploreDetailsModel
-                                                ?.userInfo[0].address ??
+                                        matchessController.exploreDetailsModel?.userInfo[0].address ??
                                             'Chicago, IL United States',
                                         style: TextStyle(
-                                          color: Colors.black
-                                              .withOpacity(0.699999988079071),
+                                          color: Colors.black.withOpacity(0.699999988079071),
                                           fontSize: 12.sp,
                                           fontFamily: 'Inter',
                                           fontWeight: FontWeight.w400,
@@ -712,48 +675,44 @@ class _MatchDetailsState extends State<MatchDetails> {
                                               return Dialog(
                                                 backgroundColor: Colors.white,
                                                 shape: RoundedRectangleBorder(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            20.0)), //this right here
+                                                    borderRadius: BorderRadius.circular(20.0)), //this right here
                                                 child: Container(
                                                   height: 210,
                                                   child: Padding(
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                            12.0),
+                                                    padding: const EdgeInsets.all(12.0),
                                                     child: Column(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .center,
+                                                      mainAxisAlignment: MainAxisAlignment.center,
                                                       // crossAxisAlignment: CrossAxisAlignment.start,
                                                       children: [
-                                                        const Text('Review', textAlign: TextAlign.center, style: TextStyle(color: Colors.black, fontSize: 20.98, fontFamily: 'Roboto', fontWeight: FontWeight.w700, height: 0,),),
-                                                        const SizedBox(height: 10,),
+                                                        const Text(
+                                                          'Review',
+                                                          textAlign: TextAlign.center,
+                                                          style: TextStyle(
+                                                            color: Colors.black,
+                                                            fontSize: 20.98,
+                                                            fontFamily: 'Roboto',
+                                                            fontWeight: FontWeight.w700,
+                                                            height: 0,
+                                                          ),
+                                                        ),
+                                                        const SizedBox(
+                                                          height: 10,
+                                                        ),
                                                         RatingBar.builder(
                                                           itemSize: 30,
                                                           initialRating: 0,
                                                           minRating: 1,
-                                                          direction:
-                                                              Axis.horizontal,
-                                                          allowHalfRating:
-                                                              false,
+                                                          direction: Axis.horizontal,
+                                                          allowHalfRating: false,
                                                           itemCount: 5,
-                                                          itemPadding:
-                                                              const EdgeInsets
-                                                                  .symmetric(
-                                                                  horizontal:
-                                                                      3.0),
-                                                          itemBuilder:
-                                                              (context, _) =>
-                                                                  const Icon(
+                                                          itemPadding: const EdgeInsets.symmetric(horizontal: 3.0),
+                                                          itemBuilder: (context, _) => const Icon(
                                                             Icons.star,
                                                             color: Colors.amber,
                                                           ),
-                                                          onRatingUpdate:
-                                                              (rating) {
+                                                          onRatingUpdate: (rating) {
                                                             setState(() {
-                                                              ratingcount =
-                                                                  rating;
+                                                              ratingcount = rating;
                                                             });
                                                           },
                                                         ),
@@ -761,12 +720,8 @@ class _MatchDetailsState extends State<MatchDetails> {
                                                           height: 10,
                                                         ),
                                                         TextField(
-                                                          controller:
-                                                              txt_comment,
-                                                          decoration:
-                                                              const InputDecoration(
-                                                                  hintText:
-                                                                      'Add Comment'),
+                                                          controller: txt_comment,
+                                                          decoration: const InputDecoration(hintText: 'Add Comment'),
                                                         ),
                                                         const SizedBox(
                                                           height: 10,
@@ -775,36 +730,26 @@ class _MatchDetailsState extends State<MatchDetails> {
                                                           height: 50,
                                                           // width: 200,
                                                           child: Align(
-                                                              alignment: Alignment
-                                                                  .bottomRight,
+                                                              alignment: Alignment.bottomRight,
                                                               child: Row(
                                                                 children: [
                                                                   TextButton(
-                                                                      onPressed:
-                                                                          () {
-                                                                        Navigator.pop(
-                                                                            context); //close Dialog
+                                                                      onPressed: () {
+                                                                        Navigator.pop(context); //close Dialog
                                                                       },
-                                                                      child: const Text(
-                                                                          "Cancel",
-                                                                          style:
-                                                                              TextStyle(color: Colors.black))),
+                                                                      child: const Text("Cancel",
+                                                                          style: TextStyle(color: Colors.black))),
                                                                   TextButton(
-                                                                      onPressed:
-                                                                          () {
-                                                                        if (formKey
-                                                                            .currentState!
-                                                                            .validate()) {
+                                                                      onPressed: () {
+                                                                        if (formKey.currentState!.validate()) {
                                                                           uploadFileToServerInfluencer();
 
                                                                           // if(matchessController.exploreDetailsModel.userInfo.contains())
                                                                         }
                                                                         // uploadFileToServerInfluencer();
                                                                       },
-                                                                      child: const Text(
-                                                                          "Save",
-                                                                          style:
-                                                                              TextStyle(color: Colors.black)))
+                                                                      child: const Text("Save",
+                                                                          style: TextStyle(color: Colors.black)))
                                                                 ],
                                                               )),
                                                         )
@@ -820,8 +765,7 @@ class _MatchDetailsState extends State<MatchDetails> {
                                         child: Text(
                                           'Add Review',
                                           style: TextStyle(
-                                            color:
-                                                Colors.black.withOpacity(.70),
+                                            color: Colors.black.withOpacity(.70),
                                             fontSize: 14,
                                             fontFamily: 'Inter',
                                             fontWeight: FontWeight.w600,
@@ -832,72 +776,45 @@ class _MatchDetailsState extends State<MatchDetails> {
                                 ],
                               ),
                               10.heightBox,
-                              for (int i = 0;
-                                  i < matchessController.displayedItemss.length;
-                                  i++)
+                              for (int i = 0; i < matchessController.displayedItemss.length; i++)
                                 matchessController.displayedItemss == null &&
-                                        matchessController.exploreDetailsModel
-                                                ?.userInfo[0].allReviews ==
-                                            null &&
-                                        matchessController.exploreDetailsModel!
-                                            .userInfo[0].allReviews.isEmpty
+                                        matchessController.exploreDetailsModel?.userInfo[0].allReviews == null &&
+                                        matchessController.exploreDetailsModel!.userInfo[0].allReviews.isEmpty
                                     ? const SizedBox()
                                     : Container(
                                         decoration: BoxDecoration(
-                                            color:
-                                                Colors.black12.withOpacity(.02),
-                                            borderRadius:
-                                                BorderRadius.circular(10)),
+                                            color: Colors.black12.withOpacity(.02), borderRadius: BorderRadius.circular(10)),
                                         child: ListTile(
                                             leading: Container(
                                               height: 50,
                                               width: 50,
                                               child: CachedNetworkImage(
                                                   imageUrl: matchessController
-                                                          .exploreDetailsModel
-                                                          ?.userInfo[0]
-                                                          .allReviews[i]
-                                                          .reviewerProfileImage ??
+                                                          .exploreDetailsModel?.userInfo[0].allReviews[i].reviewerProfileImage ??
                                                       "",
-                                                  imageBuilder: (context,
-                                                          imageProvider) =>
-                                                      CircleAvatar(
+                                                  imageBuilder: (context, imageProvider) => CircleAvatar(
                                                         radius: 25,
-                                                        backgroundImage: NetworkImage(
-                                                            matchessController
-                                                                    .exploreDetailsModel
-                                                                    ?.userInfo[
-                                                                        0]
-                                                                    .allReviews[
-                                                                        i]
-                                                                    .reviewerProfileImage ??
-                                                                ""),
+                                                        backgroundImage: NetworkImage(matchessController.exploreDetailsModel
+                                                                ?.userInfo[0].allReviews[i].reviewerProfileImage ??
+                                                            ""),
                                                       ),
                                                   placeholder: (context, url) {
                                                     return Center(
                                                         child: Image.network(
                                                       "https://raw.githubusercontent.com/prafful98/vue3-shimmer/HEAD/assets/card.gif",
                                                       fit: BoxFit.fill,
-                                                      alignment:
-                                                          Alignment.center,
+                                                      alignment: Alignment.center,
                                                       height: 120,
                                                       width: double.infinity,
                                                     ));
                                                   },
-                                                  errorWidget: (context, url,
-                                                          error) =>
-                                                      const CircleAvatar(
+                                                  errorWidget: (context, url, error) => const CircleAvatar(
                                                         radius: 25,
-                                                        backgroundImage: AssetImage(
-                                                            "assets/images/noImage.png"),
+                                                        backgroundImage: AssetImage("assets/images/noImage.png"),
                                                       )),
                                             ),
                                             title: Text(
-                                              matchessController
-                                                      .exploreDetailsModel
-                                                      ?.userInfo[0]
-                                                      .allReviews[i]
-                                                      .review ??
+                                              matchessController.exploreDetailsModel?.userInfo[0].allReviews[i].review ??
                                                   "Nice boy",
                                               style: const TextStyle(
                                                 color: Colors.black,
@@ -906,18 +823,11 @@ class _MatchDetailsState extends State<MatchDetails> {
                                             subtitle: Row(
                                               mainAxisSize: MainAxisSize.min,
                                               children: List.generate(
-                                                  matchessController
-                                                      .exploreDetailsModel!
-                                                      .userInfo[0]
-                                                      .allReviews[i]
-                                                      .ratingStar, (index) {
-                                                int filledStars =
-                                                    matchessController
-                                                        .exploreDetailsModel!
-                                                        .userInfo[0]
-                                                        .allReviews[i]
-                                                        .ratingStar
-                                                        .floor();
+                                                  matchessController.exploreDetailsModel!.userInfo[0].allReviews[i].ratingStar,
+                                                  (index) {
+                                                int filledStars = matchessController
+                                                    .exploreDetailsModel!.userInfo[0].allReviews[i].ratingStar
+                                                    .floor();
                                                 if (index < filledStars) {
                                                   // Display a filled star
                                                   return const Icon(
@@ -938,20 +848,17 @@ class _MatchDetailsState extends State<MatchDetails> {
                                 onPressed: () {
                                   // Toggle between showing limited and all items
                                   setState(() {
-                                    if(matchessController.exploreDetailsModel!.userInfo[0].allReviews.length==0){
+                                    if (matchessController.exploreDetailsModel!.userInfo[0].allReviews.length == 0) {
                                       Fluttertoast.showToast(msg: 'Data not found for more Review');
-                                    }else{
+                                    } else {
                                       showAllItemsss = !showAllItemsss;
                                       matchessController.displayedItemss = showAllItemsss
-                                          ? List.from(matchessController.exploreDetailsModel!.userInfo[0].allReviews) : matchessController.exploreDetailsModel!.userInfo[0].allReviews.take(1)
-                                          .toList();
+                                          ? List.from(matchessController.exploreDetailsModel!.userInfo[0].allReviews)
+                                          : matchessController.exploreDetailsModel!.userInfo[0].allReviews.take(1).toList();
                                     }
-
-
                                   });
                                 },
-                                child: Text(
-                                    showAllItemsss ? 'Show Less' : 'See More'),
+                                child: Text(showAllItemsss ? 'Show Less' : 'See More'),
                               ),
                               20.heightBox,
                               const Text(
@@ -964,28 +871,17 @@ class _MatchDetailsState extends State<MatchDetails> {
                                 ),
                               ),
                               10.heightBox,
-                              matchessController.exploreDetailsModel
-                                          ?.userInfo[0].insertdata ==
-                                      null
+                              matchessController.exploreDetailsModel?.userInfo[0].insertdata == null
                                   ? const Text("No Intrest Found !!")
                                   : SizedBox(
                                       height: 120,
                                       child: GridView.builder(
-                                        itemCount: matchessController
-                                                    .exploreDetailsModel
-                                                    ?.userInfo[0]
-                                                    .insertdata
-                                                    .length !=
-                                                0
-                                            ? matchessController
-                                                .exploreDetailsModel
-                                                ?.userInfo[0]
-                                                .insertdata
-                                                .length
+                                        itemCount: matchessController.exploreDetailsModel?.userInfo[0].insertdata.length != 0
+                                            ? matchessController.exploreDetailsModel?.userInfo[0].insertdata.length
                                             : 0,
                                         itemBuilder: (ctx, i) {
                                           return Padding(
-                                            padding: const EdgeInsets.only(top:10),
+                                            padding: const EdgeInsets.only(top: 10),
                                             child: Container(
                                               height: 50,
                                               child: DottedBorder(
@@ -994,8 +890,7 @@ class _MatchDetailsState extends State<MatchDetails> {
                                                 borderType: BorderType.RRect,
                                                 radius: const Radius.circular(12),
                                                 child: ClipRRect(
-                                                  borderRadius:
-                                                      const BorderRadius.all(
+                                                  borderRadius: const BorderRadius.all(
                                                     Radius.circular(5),
                                                   ),
                                                   child: Center(
@@ -1003,18 +898,12 @@ class _MatchDetailsState extends State<MatchDetails> {
                                                       width: 220,
                                                       height: 32,
                                                       child: Text(
-                                                        matchessController
-                                                                .exploreDetailsModel
-                                                                ?.userInfo[0]
-                                                                .insertdata[i] ??
-                                                            "",
+                                                        matchessController.exploreDetailsModel?.userInfo[0].insertdata[i] ?? "",
                                                         style: const TextStyle(
-                                                          color:
-                                                              Color(0xFFE94057),
+                                                          color: Color(0xFFE94057),
                                                           fontSize: 8,
                                                           fontFamily: 'Inter',
-                                                          fontWeight:
-                                                              FontWeight.w400,
+                                                          fontWeight: FontWeight.w400,
                                                           height: 0.11,
                                                         ),
                                                       ).centered(),
@@ -1025,11 +914,8 @@ class _MatchDetailsState extends State<MatchDetails> {
                                             ),
                                           );
                                         },
-                                        gridDelegate:
-                                            const SliverGridDelegateWithFixedCrossAxisCount(
-                                                crossAxisCount:3,
-                                                mainAxisExtent:34,
-                                                crossAxisSpacing: 10),
+                                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                                            crossAxisCount: 3, mainAxisExtent: 34, crossAxisSpacing: 10),
                                       ),
                                     ),
                               const Text(
@@ -1045,12 +931,7 @@ class _MatchDetailsState extends State<MatchDetails> {
                               SizedBox(
                                 height: 130,
                                 child: GridView.builder(
-                                  itemCount: matchessController
-                                          .exploreDetailsModel
-                                          ?.userInfo[0]
-                                          .hobbiesdata
-                                          .length ??
-                                      0,
+                                  itemCount: matchessController.exploreDetailsModel?.userInfo[0].hobbiesdata.length ?? 0,
                                   itemBuilder: (ctx, i) {
                                     return Padding(
                                       padding: const EdgeInsets.only(top: 10),
@@ -1070,11 +951,7 @@ class _MatchDetailsState extends State<MatchDetails> {
                                                 width: 220,
                                                 height: 35,
                                                 child: Text(
-                                                  matchessController
-                                                          .exploreDetailsModel
-                                                          ?.userInfo[0]
-                                                          .hobbiesdata[i] ??
-                                                      "",
+                                                  matchessController.exploreDetailsModel?.userInfo[0].hobbiesdata[i] ?? "",
                                                   style: const TextStyle(
                                                     color: Color(0xFFE94057),
                                                     fontSize: 8,
@@ -1090,11 +967,8 @@ class _MatchDetailsState extends State<MatchDetails> {
                                       ),
                                     );
                                   },
-                                  gridDelegate:
-                                      const SliverGridDelegateWithFixedCrossAxisCount(
-                                          crossAxisCount: 3,
-                                          mainAxisExtent: 34,
-                                          crossAxisSpacing: 10),
+                                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                                      crossAxisCount: 3, mainAxisExtent: 34, crossAxisSpacing: 10),
                                 ),
                               ),
                               const Text(
@@ -1107,7 +981,8 @@ class _MatchDetailsState extends State<MatchDetails> {
                                 ),
                               ),
                               20.heightBox,
-                              matchessController.exploreDetailsModel?.userInfo[0].images.length != 0 && matchessController.exploreDetailsModel?.userInfo[0].images != null
+                              matchessController.exploreDetailsModel?.userInfo[0].images.length != 0 &&
+                                      matchessController.exploreDetailsModel?.userInfo[0].images != null
                                   ? Container(
                                       height: 300,
                                       child: GridView.builder(
@@ -1160,8 +1035,7 @@ class _MatchDetailsState extends State<MatchDetails> {
                                                       image: DecorationImage(
                                                         image: imageProvider,
                                                         fit: BoxFit.cover,
-                                                        colorFilter: const ColorFilter.mode(
-                                                            Colors.white, BlendMode.colorBurn),
+                                                        colorFilter: const ColorFilter.mode(Colors.white, BlendMode.colorBurn),
                                                       ),
                                                     ),
                                                   ),
@@ -1175,40 +1049,27 @@ class _MatchDetailsState extends State<MatchDetails> {
                                           );
                                         },
                                       ),
-
-                              )
+                                    )
                                   : const Text("No Images Found !!"),
                               30.heightBox,
                               (widget.isfriend)
-                                  ?
-                              InkWell(
+                                  ? InkWell(
                                       onTap: () {
                                         _showBottomSheet(
-                                            context,
-                                            matchessController
-                                                .exploreDetailsModel!
-                                                .userInfo[0]
-                                                .id
-                                                .toString());
+                                            context, matchessController.exploreDetailsModel!.userInfo[0].id.toString());
                                       },
                                       child: Container(
-                                        width:
-                                            MediaQuery.of(context).size.width,
+                                        width: MediaQuery.of(context).size.width,
                                         height: 56,
                                         decoration: ShapeDecoration(
                                           gradient: const LinearGradient(
                                             begin: Alignment(0.00, -1.00),
                                             end: Alignment(0, 1),
-                                            colors: [
-                                              Color(0xFFF65F51),
-                                              Color(0xFFFB4967)
-                                            ],
+                                            colors: [Color(0xFFF65F51), Color(0xFFFB4967)],
                                           ),
                                           shape: RoundedRectangleBorder(
-                                            side: const BorderSide(
-                                                width: 1, color: Colors.white),
-                                            borderRadius:
-                                                BorderRadius.circular(30),
+                                            side: const BorderSide(width: 1, color: Colors.white),
+                                            borderRadius: BorderRadius.circular(30),
                                           ),
                                         ),
                                         child: const Text(
@@ -1224,32 +1085,27 @@ class _MatchDetailsState extends State<MatchDetails> {
                                         ).centered(),
                                       ),
                                     )
-                                  :   InkWell(
+                                  : InkWell(
                                       onTap: () {
-                                        swipController.sendNotificationOnlyMatch(matchessController.exploreDetailsModel!.userInfo[0].id.toString());
+                                        swipController.sendNotificationOnlyMatch(
+                                            matchessController.exploreDetailsModel!.userInfo[0].id.toString());
 
                                         // _showBottomSheet(
                                         //     context,
                                         //     matchessController.exploreDetailsModel!.userInfo[0].id.toString());
                                       },
                                       child: Container(
-                                        width:
-                                            MediaQuery.of(context).size.width,
+                                        width: MediaQuery.of(context).size.width,
                                         height: 56,
                                         decoration: ShapeDecoration(
                                           gradient: const LinearGradient(
                                             begin: Alignment(0.00, -1.00),
                                             end: Alignment(0, 1),
-                                            colors: [
-                                              Color(0xFFF65F51),
-                                              Color(0xFFFB4967)
-                                            ],
+                                            colors: [Color(0xFFF65F51), Color(0xFFFB4967)],
                                           ),
                                           shape: RoundedRectangleBorder(
-                                            side: const BorderSide(
-                                                width: 1, color: Colors.white),
-                                            borderRadius:
-                                                BorderRadius.circular(30),
+                                            side: const BorderSide(width: 1, color: Colors.white),
+                                            borderRadius: BorderRadius.circular(30),
                                           ),
                                         ),
                                         child: const Text(
@@ -1283,23 +1139,21 @@ class _MatchDetailsState extends State<MatchDetails> {
                                 // Border color, equivalent to var(--border-e-8-e-6-ea, #E8E6EA) in CSS
                                 width: 1.0, // Border width
                               ),
-                              color: const Color(
-                                  0xFFFFFFFF), // Background color, equivalent to var(--white-ffffff, #FFF) in CSS
+                              color: const Color(0xFFFFFFFF), // Background color, equivalent to var(--white-ffffff, #FFF) in CSS
                             ),
-                            child: const Icon(Icons.arrow_back_ios_outlined,
-                                color: colors.primary, size: 18),
+                            child: const Icon(Icons.arrow_back_ios_outlined, color: colors.primary, size: 18),
                           ).paddingOnly(left: 20, top: 20),
                         ),
-                        if("${matchessController.exploreDetailsModel?.userInfo[0].proplan}" == "1")
-                        InkWell(
-                          onTap: () {
-                            Get.back();
-                          },
-                          child: Container(
-                            width: 50,
-                            height: 50,
-                            child:SvgPicture.asset("assets/icons/aa.svg")
-                        ),).paddingOnly(left: 280, top: 310,),
+                        if ("${matchessController.exploreDetailsModel?.userInfo[0].proplan}" == "1")
+                          InkWell(
+                            onTap: () {
+                              Get.back();
+                            },
+                            child: Container(width: 50, height: 50, child: SvgPicture.asset("assets/icons/aa.svg")),
+                          ).paddingOnly(
+                            left: 280,
+                            top: 310,
+                          ),
                       ],
                     ),
                     15.heightBox,

@@ -56,7 +56,7 @@ class MatchessController extends GetxController {
   get_user_by_id(id) async {
     isLoadingget_user_by_id(true);
     Map<String, dynamic> apiData = await ApiCall.instance.callApi(
-        url: "https://forreal.net:4000/users/get_user_by_id", method: HttpMethod.POST, body: {"user_id": await getUserId()}, headers: await authHeader());
+        url: "https://forreal.net:4000/users/get_user_by_id", method: HttpMethod.POST, body: {"user_id":id}, headers: await authHeader());
 
     isLoadingget_user_by_id(false);
 
