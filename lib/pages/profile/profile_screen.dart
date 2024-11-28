@@ -150,14 +150,13 @@ class _ProfilePageState extends State<ProfilePage> {
         body: {"id": imageId},
         headers: await authHeader(),
       );
-
       Fluttertoast.showToast(
         msg: apiData['message'] ?? "Image deleted successfully",
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.BOTTOM,
         backgroundColor: Colors.green,
         textColor: Colors.white,
-        fontSize: 16.0,
+        fontSize: 16.0
       );
      await profileController.profileDaitails();
     } catch (e) {

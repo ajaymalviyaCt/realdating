@@ -18,6 +18,7 @@ import 'package:get/get.dart';
 import 'package:realdating/Choose_subscription_plan/monthly.dart';
 import 'package:realdating/chat/api/apis.dart';
 import 'package:realdating/chat/screens/home_screen.dart';
+import 'package:realdating/pages/mape/NearBy_businesses.dart';
 import 'package:realdating/pages/swipcard/swip_controller.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -59,7 +60,7 @@ class _MatchDetailsState extends State<MatchDetails> {
   void initState() {
     super.initState();
     matchessController.get_user_by_id(widget.id);
-    print("getidd======>>>>>>>>>>>>>>>>>");
+
     print(widget.id);
     userId();
   }
@@ -211,6 +212,15 @@ class _MatchDetailsState extends State<MatchDetails> {
 
   @override
   Widget build(BuildContext context) {
+    print("friend request-------${widget.isfriend}");
+    getUserId().then((value) {
+      print("line 217");
+      print(value);
+    },);
+    print(user_Id);
+    print(matchessController.exploreDetailsModel?.userInfo[0].id);
+    print(user_Id.toString().trim()!=(matchessController.exploreDetailsModel?.userInfo[0].id).toString().trim());
+    print("friend request-------  "+(user_Id.toString() != matchessController.exploreDetailsModel?.userInfo[0].id.toString()).toString());
     // showAllItems ? allItems : allItems.sublist(0, initialItemCount);
     void _showBottomSheet(BuildContext context, String userID) {
       showModalBottomSheet(
@@ -619,7 +629,7 @@ class _MatchDetailsState extends State<MatchDetails> {
                                     ),
                                   ),
                                   if (widget.isfriend)
-                                  if ("$user_Id" != "${matchessController.exploreDetailsModel?.userInfo[0].id}")
+                                  // if (user_Id.toString() != matchessController.exploreDetailsModel?.userInfo[0].id.toString())
                                     InkWell(
                                         onTap: () async {
                                           try {
@@ -1173,7 +1183,8 @@ class _MatchDetailsState extends State<MatchDetails> {
                                   : const Text("No Images Found !!"),
                               30.heightBox,
                               (widget.isfriend)
-                                  ? ("$user_Id" == "${matchessController.exploreDetailsModel?.userInfo[0].id}") ? SizedBox() :  InkWell(
+                                  ?
+                              InkWell(
                                       onTap: () {
                                         _showBottomSheet(
                                             context,

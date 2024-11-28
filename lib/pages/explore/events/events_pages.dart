@@ -182,15 +182,10 @@ class _EventsPageState extends State<EventsPage> {
                                         SizedBox(width: 4,),
                                         Row(
                                           children: [
-                                            SvgPicture.asset(
-                                              "assets/icons/clender.svg",
-                                            ),
-                                            const SizedBox(
-                                              width: 3.5,
-                                            ),
+
                                             customTextCommon(
                                               text:
-                                              eventsController.matchessModel!.getEvents[index].endDate,
+                                              '-  ${eventsController.matchessModel!.getEvents[index].endDate}',
                                               fSize: 10,
                                               fWeight: FontWeight.w500,
                                               lineHeight: 16,
@@ -201,7 +196,13 @@ class _EventsPageState extends State<EventsPage> {
                                         ),
                                       ],
                                     ),
-                                    Text('${eventsController.matchessModel!.getEvents[index].selectTime}',style: TextStyle(fontSize: 10,color: const Color(0xffEBEBF5).withOpacity(.70),),)
+                                    Row(
+                                      children: [
+                                        const Icon(Icons.watch_later_outlined,color: Appcolor.ggrry,size:12,),
+                                        SizedBox(width: 5,),
+                                        Text('${eventsController.matchessModel!.getEvents[index].selectTime}',style: TextStyle(fontSize: 10,color: const Color(0xffEBEBF5).withOpacity(.70),),),
+                                      ],
+                                    )
                                   ],
                                 ),
                               ),

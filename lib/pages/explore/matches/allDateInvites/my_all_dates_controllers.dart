@@ -1,8 +1,9 @@
 import 'package:get/get.dart';
+import 'package:realdating/pages/mape/NearBy_businesses.dart';
+import 'package:realdating/services/apis_related/api_call_services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../services/base_client01.dart';
 import 'my_all_dates_models.dart';
-
 
 class MyAllDatesController extends GetxController {
   @override
@@ -19,24 +20,18 @@ class MyAllDatesController extends GetxController {
   MyAllDatesModel001? myAllDatesModel;
 
   Future<void> classifiedAllPost() async {
-    print("classifiedAllPost".toString());
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    var userId = prefs.get('user_id');
     isLoading.value = true;
-    final response = await BaseClient01()
-        .post(Uri.parse("https://forreal.net:4000/users/ALL_sent_request"), {
-      'user_id': userId.toString(),
-    });
+  Map<String,dynamic>apiData=  await ApiCall.instance.callApi(
+      url: "https://forreal.net:4000/users/ALL_sent_request",
+      method: HttpMethod.POST,
+      body: {
+        'user_id': await getUserId()
+      },
+      headers:await authHeader()
+    );
 
+    myAllDatesModel = MyAllDatesModel001.fromJson(apiData);
     isLoading.value = false;
-    print(response.toString());
-    var satus = "${response["status"]}";
-    if (satus == "200") {
-      print("++++++++++++++++++++++++++++++++++++");
-      print(response.toString());
-      print("sdfgfsdfdf");
-      myAllDatesModel = MyAllDatesModel001.fromJson(response);
-      print("May All Dates here-----------${myAllDatesModel}");
-    }
+
   }
 }

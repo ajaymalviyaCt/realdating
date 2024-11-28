@@ -99,10 +99,14 @@ class _EventDetailsState extends State<EventDetails> {
                       const SizedBox(
                         width: 9,
                       ),
-                      const Icon(Icons.watch_later_outlined,color: Appcolor.Redpink,size: 20,),
-
+                      const Text('-',style: TextStyle(
+                        color: Color(0xFF111111),
+                         fontSize: 14,
+                          fontFamily: 'Inter',
+                         fontWeight: FontWeight.w500,
+                       ),),
                       const SizedBox(
-                        width: 8,
+                        width: 9,
                       ),
                       Text(
                         eventsDetailsController.eventsDetailsModel?.getEvent[0].endDate??  '12 Oct, 2023',
@@ -115,6 +119,7 @@ class _EventDetailsState extends State<EventDetails> {
                       )
                     ],
                   ),
+
                   const SizedBox(height:10,),
                   Row(
                     children: [

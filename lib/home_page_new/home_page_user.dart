@@ -1742,7 +1742,7 @@ class _HomePageState extends State<HomePageUser> {
                                                       ),
                                                     ),
                                                     5.heightBox,
-                                                    InkWell(
+                                                    postsC.homePageModel.posts[index].link?.toLowerCase().trim() =='no'?const SizedBox.shrink():InkWell(
                                                         onTap: () {
 
                                                           print('link for launching');
