@@ -33,7 +33,7 @@ class _NearByBusinessState extends State<NearByBusiness> {
   void initState() {
     super.initState();
     print('line 35');
-    Get.delete<MapeUserController>();
+    Get.delete<MapeUserController>(force: true);
     _getCurrentLocation();
   }
 
@@ -42,7 +42,7 @@ class _NearByBusinessState extends State<NearByBusiness> {
   void dispose() {
     super.dispose();
 
-  Get.delete<MapeUserController>();
+  Get.delete<MapeUserController>(force: true);
 
   }
 
