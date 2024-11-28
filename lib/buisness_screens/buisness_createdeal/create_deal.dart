@@ -393,7 +393,7 @@ class _CreateDealState extends State<CreateDeal> {
                 height: 10,
               ),
               customTextC(
-                  text: "Price",
+                  text: "Price(in dollar)",
                   fSize: 16,
                   fWeight: FontWeight.w500,
                   lineHeight: 36),
@@ -403,14 +403,14 @@ class _CreateDealState extends State<CreateDeal> {
                   keyboardType: TextInputType.number,
                   controller: txt_price,
                   validator: validatePrice,
-                  hintText: 'Please Enter dollar',
+                  hintText: 'Please Enter in dollar',
                 ),
               ),
               const SizedBox(
                 height: 10,
               ),
               customTextC(
-                  text: "Discount",
+                  text: "Discount(in dollar)",
                   fSize: 16,
                   fWeight: FontWeight.w500,
                   lineHeight: 36),

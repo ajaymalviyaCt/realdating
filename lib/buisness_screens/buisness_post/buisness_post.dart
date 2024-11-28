@@ -130,7 +130,12 @@ class _BuisnessPostState extends State<BuisnessPost> {
             _videoPlayerController?.play();
           });
         print(_video.toString());
-        testCompressFile(_video!);
+        try {
+          // testCompressFile(_video!);
+        }  catch (e,s) {
+        print(e);
+        print(s);
+        }
       });
     } else {}
   }
@@ -622,7 +627,7 @@ class _BuisnessPostState extends State<BuisnessPost> {
                           controller: myTextController,
                           validator: reasonValidation,
                           maxLines: null,
-                          keyboardType: TextInputType.multiline,
+                          keyboardType: TextInputType.emailAddress,
                           decoration: InputDecoration(
                             hintText: 'Enter your description here...',
                             hintStyle: TextStyle(color: Colors.black.withOpacity(0.5)),
@@ -647,8 +652,6 @@ class _BuisnessPostState extends State<BuisnessPost> {
                             ),
                           ),
                         ),
-
-
                         const SizedBox(height: 30)
                       ]),
                 )),

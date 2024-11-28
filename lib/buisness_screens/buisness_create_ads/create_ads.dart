@@ -133,7 +133,7 @@ class _CreateAadsState extends State<CreateAads> {
     );
 
     request.fields['title'] = txt_title.text.toString();
-    request.fields['age'] = txt_age.text.toString();
+    // request.fields['age'] = txt_age.text.toString();
     request.fields['interest'] = txt_interest.text.toString();
     request.fields['budget'] = txt_budget.text.toString();
     request.fields['campaign_duration'] = txt_campaign_duration.text.toString();
@@ -301,19 +301,19 @@ class _CreateAadsState extends State<CreateAads> {
                         keyboardType: TextInputType.emailAddress,
                       ),
                     ),
-                    customTextC(
-                        text: "Age(in years)",
-                        fSize: 16,
-                        fWeight: FontWeight.w500,
-                        lineHeight: 36),
-                    SizedBox(
-                      height: 70,
-                      child: CustumProfileAgeTextField1(
-                        controller: txt_age,
-                        validator: validateage,
-                        hintText: 'Enter Age',
-                      ),
-                    ),
+                    // customTextC(
+                    //     text: "Age(in years)",
+                    //     fSize: 16,
+                    //     fWeight: FontWeight.w500,
+                    //     lineHeight: 36),
+                    // SizedBox(
+                    //   height: 70,
+                    //   child: CustumProfileAgeTextField1(
+                    //     controller: txt_age,
+                    //     validator: validateage,
+                    //     hintText: 'Enter Age',
+                    //   ),
+                    // ),
                     customTextC(
                         text: "Interest",
                         fSize: 16,
@@ -341,7 +341,7 @@ class _CreateAadsState extends State<CreateAads> {
                       ),
                     ),
                     customTextC(
-                        text: "  Campaign Duration",
+                        text: "  Campaign Duration(in days)",
                         fSize: 16,
                         fWeight: FontWeight.w500,
                         lineHeight: 36),
@@ -350,7 +350,7 @@ class _CreateAadsState extends State<CreateAads> {
                       child: CustumProfileTextField1(
                         controller: txt_campaign_duration,
                         validator: validateCampaign,
-                        hintText: 'Enter Campaign Duration in days ',
+                        hintText: 'Enter Campaign Duration',
                       ),
                     ),
                     customTextC(
