@@ -115,6 +115,22 @@ class _EventDetailsState extends State<EventDetails> {
                       )
                     ],
                   ),
+                  const SizedBox(height:10,),
+                  Row(
+                    children: [
+                      const Icon(Icons.watch_later_outlined,color: Appcolor.Redpink,size: 20,),
+                      const SizedBox(width:8,),
+                      Text(
+                        eventsDetailsController.eventsDetailsModel?.getEvent[0].selectTime??  '00:00',
+                        style: const TextStyle(
+                          color: Color(0xFF111111),
+                          fontSize: 12,
+                          fontFamily: 'Inter',
+                          fontWeight: FontWeight.w600,
+                        ),
+                      )
+                    ],
+                  ),
                   const SizedBox(
                     height: 20,
                   ),

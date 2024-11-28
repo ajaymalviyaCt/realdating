@@ -2633,7 +2633,7 @@ class _BuisnessHomePageState extends State<BuisnessHomePage> {
                                     const SizedBox(width: 20),
                                     customTextCommon(
                                       text:
-                                          "$${subtractionResult.toString() ?? ""}",
+                                          "\$${subtractionResult.toString() ?? ""}",
                                       fSize: 14,
                                       fWeight: FontWeight.w600,
                                       lineHeight: 0,
@@ -2643,7 +2643,7 @@ class _BuisnessHomePageState extends State<BuisnessHomePage> {
                                       width: 10,
                                     ),
                                     Text(
-                                      "$${controller.myDealsModel?.myDeals[index].price}",
+                                      "\$${controller.myDealsModel?.myDeals[index].price}",
                                       style: const TextStyle(
                                         decoration: TextDecoration.lineThrough,
                                         decorationColor: Colors.grey,

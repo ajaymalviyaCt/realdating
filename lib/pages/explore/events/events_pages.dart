@@ -137,8 +137,8 @@ class _EventsPageState extends State<EventsPage> {
                                 ),
                               ),
                               Positioned(
-                                bottom: 28,
-                                left: 8,
+                                bottom:32,
+                                left:5,
                                 child: customTextCommon(
                                   text:
                                       eventsController.matchessModel!.getEvents[index].eventTitle,
@@ -150,25 +150,58 @@ class _EventsPageState extends State<EventsPage> {
                               ),
 
                               Positioned(
-                                bottom: 10,
-                                left: 8,
-                                child: Row(
+                                bottom:3,
+                                left:6,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    SvgPicture.asset(
-                                      "assets/icons/clender.svg",
+                                    Row(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      children: [
+                                        Row(
+                                          children: [
+                                            SvgPicture.asset(
+                                              "assets/icons/clender.svg",
+                                            ),
+                                            const SizedBox(
+                                              width: 3.5,
+                                            ),
+                                            customTextCommon(
+                                              text:
+                                                  eventsController.matchessModel!.getEvents[index].startDate,
+                                              fSize: 10,
+                                              fWeight: FontWeight.w500,
+                                              lineHeight: 16,
+                                              color: const Color(0xffEBEBF5)
+                                                  .withOpacity(.70),
+                                            ),
+                                          ],
+                                        ),
+                                        SizedBox(width: 4,),
+                                        Row(
+                                          children: [
+                                            SvgPicture.asset(
+                                              "assets/icons/clender.svg",
+                                            ),
+                                            const SizedBox(
+                                              width: 3.5,
+                                            ),
+                                            customTextCommon(
+                                              text:
+                                              eventsController.matchessModel!.getEvents[index].endDate,
+                                              fSize: 10,
+                                              fWeight: FontWeight.w500,
+                                              lineHeight: 16,
+                                              color: const Color(0xffEBEBF5)
+                                                  .withOpacity(.70),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
                                     ),
-                                    const SizedBox(
-                                      width: 3.5,
-                                    ),
-                                    customTextCommon(
-                                      text:
-                                          eventsController.matchessModel!.getEvents[index].startDate,
-                                      fSize: 10,
-                                      fWeight: FontWeight.w500,
-                                      lineHeight: 16,
-                                      color: const Color(0xffEBEBF5)
-                                          .withOpacity(.70),
-                                    ),
+                                    Text('${eventsController.matchessModel!.getEvents[index].selectTime}',style: TextStyle(fontSize: 10,color: const Color(0xffEBEBF5).withOpacity(.70),),)
                                   ],
                                 ),
                               ),
