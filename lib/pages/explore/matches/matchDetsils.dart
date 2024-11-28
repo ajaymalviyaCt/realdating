@@ -217,10 +217,7 @@ class _MatchDetailsState extends State<MatchDetails> {
       print("line 217");
       print(value);
     },);
-    print(user_Id);
-    print(matchessController.exploreDetailsModel?.userInfo[0].id);
-    print(user_Id.toString().trim()!=(matchessController.exploreDetailsModel?.userInfo[0].id).toString().trim());
-    print("friend request-------  "+(user_Id.toString() != matchessController.exploreDetailsModel?.userInfo[0].id.toString()).toString());
+
     // showAllItems ? allItems : allItems.sublist(0, initialItemCount);
     void _showBottomSheet(BuildContext context, String userID) {
       showModalBottomSheet(
