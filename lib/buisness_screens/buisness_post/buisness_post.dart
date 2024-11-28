@@ -508,7 +508,7 @@ class _BuisnessPostState extends State<BuisnessPost> {
         child: Column(
           children: [
             Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20.0),
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
                 child: Form(
                   key: formKey,
                   // autovalidateMode:  AutovalidateMode.always,
@@ -519,7 +519,7 @@ class _BuisnessPostState extends State<BuisnessPost> {
                           height: 30,
                         ),
                         customTextC(
-                            text: "Upload Image and Video",
+                            text: "Upload image or video",
                             fSize: 16,
                             fWeight: FontWeight.w500,
                             lineHeight: 36),

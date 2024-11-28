@@ -145,8 +145,6 @@ String? validateName(String? value) {
 String? validateBusinessName(String? value) {
   if (value == null || value.isEmpty) {
     return 'Business Name is Required.';
-  } else if (value.contains(' ')) {
-    return 'Spaces are not allowed in the Full Name.';
   }
   return null;
 }

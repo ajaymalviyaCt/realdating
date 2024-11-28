@@ -181,7 +181,7 @@ class _BuiusnessDealsState extends State<BuiusnessTopDeals> {
 
                                           customTextCommon(
                                             text:
-                                            "₹${subtractionResult.toString() ?? ""}",
+                                            "$${subtractionResult.toString() ?? ""}",
                                             fSize: 14,
                                             fWeight: FontWeight.w600,
                                             lineHeight: 0,
@@ -192,7 +192,7 @@ class _BuiusnessDealsState extends State<BuiusnessTopDeals> {
                                             width: 10,
                                           ),
                                           Text(
-                                            "₹${myDealController.myDealsModel?.myDeals[index].price}",
+                                            "$${myDealController.myDealsModel?.myDeals[index].price}",
                                             style: TextStyle(
                                               decoration:
                                               TextDecoration.lineThrough,

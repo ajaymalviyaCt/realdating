@@ -338,7 +338,7 @@ class _EDIT_dealState extends State<EDIT_deal> {
                           height: 10,
                         ),
                         customTextC(
-                            text: "Price",
+                            text: "Dollar",
                             fSize: 16,
                             fWeight: FontWeight.w500,
                             lineHeight: 36),

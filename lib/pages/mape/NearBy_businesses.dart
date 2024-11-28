@@ -277,7 +277,7 @@ class _NearByBusinessState extends State<NearByBusiness> {
                     //                                                     children: [
                     //                                                       const SizedBox(width: 20),
                     //                                                       customTextCommon(
-                    //                                                         text: "₹$discountedPrice",
+                    //                                                         text: "$$discountedPrice",
                     //                                                         fSize: 14,
                     //                                                         fWeight: FontWeight.w600,
                     //                                                         color: const Color(0xffFB4967),
@@ -285,7 +285,7 @@ class _NearByBusinessState extends State<NearByBusiness> {
                     //                                                       ),
                     //                                                       const SizedBox(width: 10),
                     //                                                       Text(
-                    //                                                         "₹${deal.price}",
+                    //                                                         "$${deal.price}",
                     //                                                         style: const TextStyle(
                     //                                                           decoration: TextDecoration.lineThrough,
                     //                                                           fontSize: 14,

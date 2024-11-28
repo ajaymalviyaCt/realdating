@@ -312,7 +312,9 @@ class _BuisnessHomePageState extends State<BuisnessHomePage> {
         MyDealController();
       },
       builder: (controller) {
-        return WillPopScope(child:
+        return WillPopScope(
+            onWillPop: _onWillPop,
+            child:
         Scaffold(
           drawer: Drawer(
             child: ListView(children: [
@@ -2514,8 +2516,7 @@ class _BuisnessHomePageState extends State<BuisnessHomePage> {
               onPressed: () {
                 Get.to(() => const BuisnessPost());
               }),
-        ),
-            onWillPop: _onWillPop);
+        ));
       },
     );
   }
@@ -2632,7 +2633,7 @@ class _BuisnessHomePageState extends State<BuisnessHomePage> {
                                     const SizedBox(width: 20),
                                     customTextCommon(
                                       text:
-                                          "₹${subtractionResult.toString() ?? ""}",
+                                          "$${subtractionResult.toString() ?? ""}",
                                       fSize: 14,
                                       fWeight: FontWeight.w600,
                                       lineHeight: 0,
@@ -2642,7 +2643,7 @@ class _BuisnessHomePageState extends State<BuisnessHomePage> {
                                       width: 10,
                                     ),
                                     Text(
-                                      "₹${controller.myDealsModel?.myDeals[index].price}",
+                                      "$${controller.myDealsModel?.myDeals[index].price}",
                                       style: const TextStyle(
                                         decoration: TextDecoration.lineThrough,
                                         decorationColor: Colors.grey,

@@ -324,11 +324,11 @@ class _CreateAadsState extends State<CreateAads> {
                       child: CustumProfileTextField1(
                         controller: txt_interest,
                         validator: validateIntrest,
-                        hintText: 'Enter Interest in price ',
+                        hintText: 'Enter Interest in dollar ',
                       ),
                     ),
                     customTextC(
-                        text: "Budget(₹)",
+                        text: "Budget(\$)",
                         fSize: 16,
                         fWeight: FontWeight.w500,
                         lineHeight: 36),
@@ -350,7 +350,7 @@ class _CreateAadsState extends State<CreateAads> {
                       child: CustumProfileTextField1(
                         controller: txt_campaign_duration,
                         validator: validateCampaign,
-                        hintText: 'Enter Campaign Duration ',
+                        hintText: 'Enter Campaign Duration in days ',
                       ),
                     ),
                     customTextC(
