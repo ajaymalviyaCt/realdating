@@ -26,6 +26,7 @@
 //   static const String iconsComment = 'assets/icons/comment.svg';
 //   static const String iconsCompass = 'assets/icons/compass.svg';
 //   static const String iconsCornermenu = 'assets/icons/cornermenu.svg';
+//   static const String iconsCross = 'assets/icons/cross.svg';
 //   static const String iconsDashb = 'assets/icons/dashb.svg';
 //   static const String iconsDashbord = 'assets/icons/dashbord.png';
 //   static const String iconsDiscoveryIcon = 'assets/icons/discoveryIcon.png';
@@ -69,7 +70,6 @@
 //   static const String iconsSettings = 'assets/icons/settings.svg';
 //   static const String iconsShare = 'assets/icons/Share.png';
 //   static const String iconsShareIcon = 'assets/icons/shareIcon.svg';
-//   static const String iconsSign In Button = 'assets/icons/cross.svg';
 //   static const String iconsSign In Button (1) = 'assets/icons/Sign In Button (1).svg';
 //   static const String iconsSkip = 'assets/icons/skip.png';
 //   static const String iconsUser = 'assets/icons/user.svg';

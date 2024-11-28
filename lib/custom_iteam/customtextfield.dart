@@ -28,6 +28,9 @@ class CustumTextField extends StatelessWidget {
     return    TextFormField(
 
       style: TextStyle(color: Colors.white),
+      onChanged: (value) {
+
+      },
       maxLength: maxLength ?? 200,
       // autovalidateMode: AutovalidateMode.onUserInteraction,
       controller: controller,

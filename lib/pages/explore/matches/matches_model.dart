@@ -1,12 +1,4 @@
-// To parse this JSON data, do
-//
-//     final matchesModel = matchesModelFromJson(jsonString);
-
 import 'dart:convert';
-
-MatchesModel matchesModelFromJson(String str) => MatchesModel.fromJson(json.decode(str));
-
-String matchesModelToJson(MatchesModel data) => json.encode(data.toJson());
 
 class MatchesModel {
   String? message;
@@ -20,6 +12,10 @@ class MatchesModel {
     this.success,
     this.status,
   });
+
+  factory MatchesModel.fromRawJson(String str) => MatchesModel.fromJson(json.decode(str));
+
+  String toRawJson() => json.encode(toJson());
 
   factory MatchesModel.fromJson(Map<String, dynamic> json) => MatchesModel(
     message: json["message"],
@@ -42,6 +38,7 @@ class MyFriend {
   String? friendLastName;
   String? friendUsername;
   String? profileImage;
+  int? age;
   List<Image>? images;
 
   MyFriend({
@@ -50,8 +47,13 @@ class MyFriend {
     this.friendLastName,
     this.friendUsername,
     this.profileImage,
+    this.age,
     this.images,
   });
+
+  factory MyFriend.fromRawJson(String str) => MyFriend.fromJson(json.decode(str));
+
+  String toRawJson() => json.encode(toJson());
 
   factory MyFriend.fromJson(Map<String, dynamic> json) => MyFriend(
     friendId: json["friend_id"],
@@ -59,6 +61,7 @@ class MyFriend {
     friendLastName: json["friend_last_name"],
     friendUsername: json["friend_username"],
     profileImage: json["profile_image"],
+    age: json["age"],
     images: json["images"] == null ? [] : List<Image>.from(json["images"]!.map((x) => Image.fromJson(x))),
   );
 
@@ -68,6 +71,7 @@ class MyFriend {
     "friend_last_name": friendLastName,
     "friend_username": friendUsername,
     "profile_image": profileImage,
+    "age": age,
     "images": images == null ? [] : List<dynamic>.from(images!.map((x) => x.toJson())),
   };
 }
@@ -78,6 +82,10 @@ class Image {
   Image({
     this.profileImages,
   });
+
+  factory Image.fromRawJson(String str) => Image.fromJson(json.decode(str));
+
+  String toRawJson() => json.encode(toJson());
 
   factory Image.fromJson(Map<String, dynamic> json) => Image(
     profileImages: json["profile_images"],

@@ -214,7 +214,7 @@ class _MatchesWidgetState extends State<MatchesWidget> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  '${matchessController.matchessModel!.myFriends![index].friendFirstName} ${matchessController.matchessModel!.myFriends![index].friendLastName},}',
+                                  '${matchessController.matchessModel!.myFriends![index].friendFirstName} ${matchessController.matchessModel!.myFriends![index].friendLastName},${matchessController.matchessModel!.myFriends![index].age}',
                                   style: TextStyle(
                                     color: Colors.white,
                                     fontFamily: 'Inter',
