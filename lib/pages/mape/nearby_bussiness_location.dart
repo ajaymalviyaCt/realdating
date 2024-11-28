@@ -150,7 +150,7 @@ class BusinessDetailsPage extends StatelessWidget {
                       Icon(Icons.local_offer, color: Colors.red, size: 16),
                       const SizedBox(width: 4),
                       Text(
-                        'You save: \$${discount.toStringAsFixed(2)}',
+                        'Discount: \$${discount.toStringAsFixed(2)}',
                         style: const TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w500,
