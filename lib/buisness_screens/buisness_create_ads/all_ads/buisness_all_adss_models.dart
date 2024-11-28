@@ -35,7 +35,7 @@ class GetAllAdsMdoels {
 class MyAdv {
   int id;
   int businessId;
-  int age;
+  int? age;
   String title;
   String interest;
   int budget;

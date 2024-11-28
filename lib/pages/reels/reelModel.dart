@@ -99,7 +99,7 @@ class UserInfo {
   String password;
   String phoneNumber;
   int otp;
-  int age;
+  int ?age;
   int trending;
   String dob;
   String height;
