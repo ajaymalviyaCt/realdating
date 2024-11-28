@@ -5,10 +5,9 @@ import 'package:realdating/widgets/custom_text_styles.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:realdating/widgets/size_utils.dart';
 import 'package:velocity_x/velocity_x.dart';
-import '../../consts/app_colors.dart';
-import '../../function/function_class.dart';
+
 import '../../reel/common_import.dart';
-import 'matches/allDateInvites/my_all_dates_pages.dart';
+
 import 'matches/matches_controller.dart';
 import 'matches/matches_page.dart';
 import 'trainding/treading_page.dart';
