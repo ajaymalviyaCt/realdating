@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -38,7 +39,7 @@ class _BuisnessEditAdsState extends State<BuisnessEditAds> {
   Widget build(BuildContext context) {
     print("sjfdk");
     print(widget.dataList[widget.indexEdit].title);
-    print(  widget.dataList[widget.indexEdit].adImage.trim());
+    print(widget.dataList[widget.indexEdit].adImage.trim());
     // print(widget.indexEdit);
     return Scaffold(
         appBar: customAppbar("Edit Ad", context),
@@ -84,91 +85,17 @@ class _BuisnessEditAdsState extends State<BuisnessEditAds> {
                                   },
                                   child: Container(
                                     height: 135,
+                                    child: CachedNetworkImage(
+                                      imageUrl: "widget.dataList[widget.indexEdit].adImage",
+                                      fit: BoxFit.cover,errorWidget: (context, url, error) {
+                                        return Center(child: addImageWidget(context),);
+                                      },
+                                    ),
                                     decoration: BoxDecoration(
                                         image: DecorationImage(image: NetworkImage(widget.dataList[widget.indexEdit].adImage), fit: BoxFit.cover)),
                                   ),
                                 )
-                              : InkWell(
-                                  onTap: () async {
-                                    final XFile? pickImage = await ImagePicker().pickImage(source: ImageSource.gallery, imageQuality: 10);
-                                    final croppedFile = await ImageCropper().cropImage(
-                                      sourcePath: pickImage!.path,
-
-                                      // aspectRatioPresets: [
-                                      //   CropAspectRatioPreset.square,
-                                      //   CropAspectRatioPreset.ratio3x2,
-                                      //   CropAspectRatioPreset.original,
-                                      //   CropAspectRatioPreset.ratio4x3,
-                                      //   CropAspectRatioPreset.ratio16x9,
-                                      // ],
-                                      maxWidth: 600,
-                                      maxHeight: 600,
-                                    );
-                                    if (croppedFile != null) {
-                                      editAdsController.addImage = croppedFile.path;
-                                      // const Image();
-                                    }
-                                  },
-                                  child: Stack(
-                                    alignment: Alignment.center,
-                                    children: [
-                                      Center(
-                                        child: editAdsController.addImage == null
-                                            ? Container(
-                                                width: MediaQuery.of(context).size.width,
-                                                height: 135,
-                                                decoration: BoxDecoration(
-                                                  border: Border.all(
-                                                    color: HexColor('#D9D9D9'),
-                                                  ),
-                                                  borderRadius: BorderRadius.circular(5),
-                                                ))
-                                            : Container(
-                                                width: MediaQuery.of(context).size.width,
-                                                height: 135,
-                                                decoration: BoxDecoration(
-                                                    border: Border.all(
-                                                      color: HexColor('#D9D9D9'),
-                                                    ),
-                                                    borderRadius: BorderRadius.circular(5),
-                                                    image: DecorationImage(image: FileImage(File(editAdsController.addImage!)), fit: BoxFit.fill)),
-                                              ),
-                                      ),
-
-                                      Container(
-                                        height: 141,
-                                        width: MediaQuery.of(context).size.width,
-                                        decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(10),
-                                        ),
-                                        child: Column(
-                                          mainAxisAlignment: MainAxisAlignment.center,
-                                          crossAxisAlignment: CrossAxisAlignment.center,
-                                          children: [
-                                            //  SvgPicture.asset('assets/icons/file-plus.svg'),
-                                            InkWell(
-                                              onTap: () async {
-                                                final XFile? pickImage = await ImagePicker().pickImage(source: ImageSource.gallery, imageQuality: 10);
-                                                if (pickImage != null) {
-                                                  setState(() {
-                                                    editAdsController.addImage = pickImage.path;
-                                                  });
-                                                }
-                                              },
-                                              child: SvgPicture.asset(
-                                                'assets/icons/galleryicon.svg',
-                                                fit: BoxFit.fill,
-                                              ),
-                                            ),
-                                            const SizedBox(height: 12),
-                                            const Text('Upload Image', style: TextStyle(fontSize: 16, color: Colors.grey))
-                                          ],
-                                        ),
-                                      ),
-                                      // Container(decoration: BoxDecoration(image: DecorationImage(image: NetworkImage(dataList[indexEdit].roomImage))),)
-                                    ],
-                                  ),
-                                ),
+                              : addImageWidget(context),
                         ],
                       ),
 
@@ -339,5 +266,89 @@ class _BuisnessEditAdsState extends State<BuisnessEditAds> {
                     ])),
                   )),
         ));
+  }
+
+  InkWell addImageWidget(BuildContext context) {
+    return InkWell(
+                                onTap: () async {
+                                  final XFile? pickImage = await ImagePicker().pickImage(source: ImageSource.gallery, imageQuality: 10);
+                                  final croppedFile = await ImageCropper().cropImage(
+                                    sourcePath: pickImage!.path,
+
+                                    // aspectRatioPresets: [
+                                    //   CropAspectRatioPreset.square,
+                                    //   CropAspectRatioPreset.ratio3x2,
+                                    //   CropAspectRatioPreset.original,
+                                    //   CropAspectRatioPreset.ratio4x3,
+                                    //   CropAspectRatioPreset.ratio16x9,
+                                    // ],
+                                    maxWidth: 600,
+                                    maxHeight: 600,
+                                  );
+                                  if (croppedFile != null) {
+                                    editAdsController.addImage = croppedFile.path;
+                                    // const Image();
+                                  }
+                                },
+                                child: Stack(
+                                  alignment: Alignment.center,
+                                  children: [
+                                    Center(
+                                      child: editAdsController.addImage == null
+                                          ? Container(
+                                              width: MediaQuery.of(context).size.width,
+                                              height: 135,
+                                              decoration: BoxDecoration(
+                                                border: Border.all(
+                                                  color: HexColor('#D9D9D9'),
+                                                ),
+                                                borderRadius: BorderRadius.circular(5),
+                                              ))
+                                          : Container(
+                                              width: MediaQuery.of(context).size.width,
+                                              height: 135,
+                                              decoration: BoxDecoration(
+                                                  border: Border.all(
+                                                    color: HexColor('#D9D9D9'),
+                                                  ),
+                                                  borderRadius: BorderRadius.circular(5),
+                                                  image: DecorationImage(image: FileImage(File(editAdsController.addImage!)), fit: BoxFit.fill)),
+                                            ),
+                                    ),
+
+                                    Container(
+                                      height: 141,
+                                      width: MediaQuery.of(context).size.width,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
+                                      child: Column(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                        children: [
+                                          //  SvgPicture.asset('assets/icons/file-plus.svg'),
+                                          InkWell(
+                                            onTap: () async {
+                                              final XFile? pickImage = await ImagePicker().pickImage(source: ImageSource.gallery, imageQuality: 10);
+                                              if (pickImage != null) {
+                                                setState(() {
+                                                  editAdsController.addImage = pickImage.path;
+                                                });
+                                              }
+                                            },
+                                            child: SvgPicture.asset(
+                                              'assets/icons/galleryicon.svg',
+                                              fit: BoxFit.fill,
+                                            ),
+                                          ),
+                                          const SizedBox(height: 12),
+                                          const Text('Upload Image', style: TextStyle(fontSize: 16, color: Colors.grey))
+                                        ],
+                                      ),
+                                    ),
+                                    // Container(decoration: BoxDecoration(image: DecorationImage(image: NetworkImage(dataList[indexEdit].roomImage))),)
+                                  ],
+                                ),
+                              );
   }
 }
