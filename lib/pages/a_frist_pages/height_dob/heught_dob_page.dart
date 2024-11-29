@@ -152,6 +152,7 @@ class _HeightDOBpageState extends State<HeightDOBpage> {
               SizedBox(
                 height: 56,
                 child: TextField(
+                  maxLength: 2,
                   controller: heightDOBcontroller.height,
                   keyboardType: const TextInputType.numberWithOptions(decimal: true),
                   inputFormatters: [
@@ -188,11 +189,8 @@ class _HeightDOBpageState extends State<HeightDOBpage> {
               Obx(() => customPrimaryBtn(
                 btnText: "Continue",
                 btnFun: () {
-                  print("pramod${heightDOBcontroller.height.text}");
-                  print("pramod${heightDOBcontroller.dateOfBirth.text}");
                   if(heightDOBcontroller.dateOfBirth.text.toString() != ""){
                     if(heightDOBcontroller.height.text.toString() != ""){
-                       // heightDOBcontroller.updateStatus();
                         heightDOBcontroller.upDateOfBrith();
                         heightDOBcontroller.updateStatus();
                     }else{
@@ -214,3 +212,6 @@ class _HeightDOBpageState extends State<HeightDOBpage> {
         ));
   }
 }
+
+
+
