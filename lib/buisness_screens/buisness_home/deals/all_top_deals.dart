@@ -41,7 +41,7 @@ class _BuiusnessDealsState extends State<BuiusnessTopDeals> {
                   await myDealController.MYDeal();
                 },
                 child: myDealController.myDealsModel?.myDeals.length == null
-                    ? Center(
+                    ? const Center(
                         child: Text("No Deals Found"),
                       )
                     : GridView.builder(
@@ -116,7 +116,7 @@ class _BuiusnessDealsState extends State<BuiusnessTopDeals> {
                                               height: 125,
                                               width: double.infinity,
                                               errorWidget: (context, url, error) {
-                                                return Icon(
+                                                return const Icon(
                                                   Icons.image_not_supported_outlined,
                                                   size: 70,
                                                 );
@@ -179,13 +179,13 @@ class _BuiusnessDealsState extends State<BuiusnessTopDeals> {
                                               ),
                                               Text(
                                                 "\$${myDealController.myDealsModel?.myDeals[index].price}",
-                                                style: TextStyle(
+                                                style: const TextStyle(
                                                   decoration: TextDecoration.lineThrough,
                                                   decorationColor: Colors.grey,
                                                   decorationThickness: 2,
                                                   fontSize: 14,
                                                   fontWeight: FontWeight.w400,
-                                                  color: const Color(0xffAAAAAA),
+                                                  color: Color(0xffAAAAAA),
                                                 ),
                                               ),
                                             ],
