@@ -197,6 +197,7 @@ class _BusinessProfileState extends State<BusinessProfile> {
                                   width: MediaQuery.of(context).size.width,
                                   color: HexColor('#EDEDED'),
                                   child:CachedNetworkImage(
+
                                     imageUrl: profileController.profileData?.businessInfo?.coverPhoto?.toString() ?? "",
                                     placeholder: (context, url) =>
                                     const Center(child: SizedBox(height: 20, width: 20, child: CircularProgressIndicator(strokeWidth: 1,))),
@@ -237,6 +238,7 @@ class _BusinessProfileState extends State<BusinessProfile> {
                                               borderRadius: BorderRadius.circular(100),
                                               child:  Obx(
                                                     ()=> CachedNetworkImage(
+                                                      color: Appcolor.white,
                                                   imageUrl: profileController.bussinessProfilepic.toString(),
                                                   placeholder: (context, url) => const Center(
                                                       child: SizedBox(
@@ -245,8 +247,8 @@ class _BusinessProfileState extends State<BusinessProfile> {
                                                           child: CircularProgressIndicator(
                                                             strokeWidth: 1,
                                                           ))),
-                                                  errorWidget: (context, url, error) => SizedBox(height: 40, child: const Icon(Icons.person_2_outlined,color: Vx.red200,)),
-                                                  filterQuality: FilterQuality.low,
+                                                  errorWidget: (context, url, error) => const SizedBox(height: 40, child: Icon(Icons.person_2_outlined,color: Vx.red200,)),
+                                                  // filterQuality: FilterQuality.low,
                                                   fit: BoxFit.fill,
                                                 ),
                                               ),

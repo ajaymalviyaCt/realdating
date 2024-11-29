@@ -29,7 +29,7 @@ class _AddYourPhotoPageState extends State<AddYourPhotoPage> {
   bool isLoading = false;
 
   void uploadImage(context) async {
-    if (selectedImages.length < 2) {
+    if (selectedImages.where((p0) => p0.file.value!=null,).length < 2) {
       Fluttertoast.showToast(
         msg: "Please upload at least 2 photos.",
         toastLength: Toast.LENGTH_LONG,
