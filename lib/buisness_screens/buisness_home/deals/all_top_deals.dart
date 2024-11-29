@@ -116,6 +116,10 @@ class _BuiusnessDealsState extends State<BuiusnessTopDeals> {
                                               height: 125,
                                               width: double.infinity,
                                               errorWidget: (context, url, error) {
+                                                return Icon(
+                                                  Icons.image_not_supported_outlined,
+                                                  size: 70,
+                                                );
                                                 return CachedNetworkImage(
                                                   imageUrl: "https://upload.wikimedia.org/wikipedia/commons/5/59/Empty.png?20091205084734",
                                                   fit: BoxFit.fill,
