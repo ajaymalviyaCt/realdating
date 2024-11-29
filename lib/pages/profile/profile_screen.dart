@@ -33,12 +33,15 @@ class _ProfilePageState extends State<ProfilePage> {
     // profileController.profileDaitails();
   }
 
+
+
   final picker = ImagePicker();
 
   Future getImages() async {
-    final XFile? pickedFile = await picker.pickImage(imageQuality: 10, maxHeight: 1000, maxWidth: 1000, source: ImageSource.gallery);
+
+    final List<XFile>? pickedFile = await picker.pickMultiImage(imageQuality: 10, maxHeight: 1000, maxWidth: 1000,limit: 6 );
     if (pickedFile != null) {
-      uploadImage(context, file: File(pickedFile.path));
+      uploadImage(context, selectedImages: pickedFile.map((e) => File(e.path),).toList());
       setState(
         () {},
       );
@@ -50,7 +53,7 @@ class _ProfilePageState extends State<ProfilePage> {
   bool isLoading = false;
 
   /// upload images-----------------------------------
-  void uploadImage(BuildContext context, {required File file}) async {
+  void uploadImage(BuildContext context,{required List<File> selectedImages}) async {
     profileController.apiLoadingUploadImage.value = true;
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var token = prefs.getString('token');
@@ -60,11 +63,13 @@ class _ProfilePageState extends State<ProfilePage> {
 
     var request = http.MultipartRequest("POST", Appurls.addYourPhotoas);
 
-    String fileName = file.path.split("/").last;
-    var stream = http.ByteStream(DelegatingStream.typed(file.openRead()));
-    var length = await file.length();
-    var multipartFileSign = http.MultipartFile('files', stream, length, filename: fileName);
-    request.files.add(multipartFileSign);
+    for (var file in selectedImages) {
+      String fileName = file.path.split("/").last;
+      var stream = http.ByteStream(DelegatingStream.typed(file.openRead()));
+      var length = await file.length();
+      var multipartFileSign = http.MultipartFile('files', stream, length, filename: fileName);
+      request.files.add(multipartFileSign);
+    }
 
     request.headers.addAll(headers);
 
