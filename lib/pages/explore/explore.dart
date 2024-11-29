@@ -80,21 +80,21 @@ class _ExplorePageState extends State<ExplorePage> {
       //       lineHeight: 24
       //   ),
       // ),
-      body: Padding(
-        padding: const EdgeInsets.only(left: 20.0),
-        child: SingleChildScrollView(
-          child: RefreshIndicator(child: Column(
-              children: [
-                const SizedBox(height: 20,),
-                MatchesWidget(),
-                32.ah.heightBox,
-                TrendingWidget(),
-                32.ah.heightBox,
-                EventsWidget(),
-                32.ah.heightBox,
-              ]), onRefresh: () async {
-            await matchessController.matches();
-              },)
+      body: RefreshIndicator(
+        onRefresh: () async {
+          await matchessController.matches();
+        },
+        child: ListView(
+          padding: const EdgeInsets.only(left: 20.0),
+          children: [
+            const SizedBox(height: 20),
+            MatchesWidget(),
+            32.ah.heightBox,
+            TrendingWidget(),
+            32.ah.heightBox,
+            EventsWidget(),
+            32.ah.heightBox,
+          ],
         ),
       ),
     );
