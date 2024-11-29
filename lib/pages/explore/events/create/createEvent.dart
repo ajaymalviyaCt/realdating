@@ -245,9 +245,7 @@ class _CreateEventState extends State<CreateEvent> {
     // Description:Description
 
     request.fields['Event_Title'] = txt_eventTitle.text.toString();
-    request.fields['Event_Type'] = txt_eventTitle.text.toString() == ""
-        ? txt_eventTitle.text.toString()
-        : "Online";
+    request.fields['Event_Type'] =(selectedValue??"").trim();
     //request.fields['Event_Type'] = selectedValue.toString();
     request.fields['Select_Time'] = txt_selectTime.text.toString();
     request.fields['Start_Date'] = txt_startDate.text.toString();
