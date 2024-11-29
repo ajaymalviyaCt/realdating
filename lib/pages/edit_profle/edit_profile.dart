@@ -73,9 +73,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
   // }
   //todo 0000000000000
 
-
-
-
   final ImagePicker _picker = ImagePicker();
   Future<void> _imagePicker({required ImageSource source}) async {
     final XFile ?  pickedFile = await _picker.pickImage(source: source,imageQuality: 60);
