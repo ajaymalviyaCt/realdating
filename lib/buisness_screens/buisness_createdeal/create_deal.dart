@@ -1,17 +1,22 @@
 import 'dart:async';
-import 'package:image_cropper/image_cropper.dart';
-import 'package:realdating/validation/validation.dart';
-import 'package:get/get.dart';
-import 'package:http/http.dart' as http;
+import 'dart:io';
+
+import 'package:dio/dio.dart' as dio;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:http/http.dart' as http;
+import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:realdating/pages/mape/NearBy_businesses.dart';
+import 'package:realdating/services/apis_related/api_call_services.dart';
+import 'package:realdating/validation/validation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'dart:io';
+
 import '../../button.dart';
 import '../../const.dart';
 import '../../custom_iteam/coustomtextcommon.dart';
@@ -56,8 +61,7 @@ class _CreateDealState extends State<CreateDeal> {
   String? _validatemobile = null;
 
   _imgFromGallery() async {
-    final XFile? image = (await _picker.pickImage(
-        source: ImageSource.gallery, imageQuality: 10));
+    final XFile? image = (await _picker.pickImage(source: ImageSource.gallery, imageQuality: 10));
     final croppedFile = await ImageCropper().cropImage(
       sourcePath: image!.path,
 
@@ -81,8 +85,7 @@ class _CreateDealState extends State<CreateDeal> {
   }
 
   _imgFromCamera() async {
-    final XFile? photo =
-        await _picker.pickImage(source: ImageSource.camera, imageQuality: 10);
+    final XFile? photo = await _picker.pickImage(source: ImageSource.camera, imageQuality: 10);
     final croppedFile = await ImageCropper().cropImage(
       sourcePath: photo!.path,
       //
@@ -185,9 +188,7 @@ class _CreateDealState extends State<CreateDeal> {
       content: Row(
         children: [
           const CircularProgressIndicator(),
-          Container(
-              margin: const EdgeInsets.only(left: 7),
-              child: const Text("Loading...")),
+          Container(margin: const EdgeInsets.only(left: 7), child: const Text("Loading...")),
         ],
       ),
     );
@@ -201,9 +202,44 @@ class _CreateDealState extends State<CreateDeal> {
   }
 
   void uploadFileToServerInfluencer() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
+    showLoaderDialog(context);
+    Map<String, dynamic> apiData = await ApiCall.instance.callApi(
+      url: "https://forreal.net:4000/create_deals",
+      headers: await authHeader(),
+      method: HttpMethod.POST,
+      body: dio.FormData.fromMap({
+        "Title": txt_title.text.toString(),
+        'Price': txt_price.text.toString(),
+        'Discount': txt_discount.text.toString(),
+        'business_id': await getUserId(),
+        if (_image == null) 'file': dio.MultipartFile.fromFile(_image!.path, filename: ("${DateTime.now().toUtc().toIso8601String()}.jpg"))
+      }),
+    );
+    if (apiData["success"] == true) {
+      myDealController.dealText.text = txt_title.text;
+      // _future = myprofile();
+      //Rahul
+      //  _willPopCallback();
+      Fluttertoast.showToast(
+          msg: "Deal created successfully",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          backgroundColor: Colors.black,
+          textColor: Colors.white,
+          fontSize: 16.0);
+      Get.off(() => BuisnessHomePage());
+    } else {
+      Fluttertoast.showToast(
+          msg: "Something went wrong....",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          backgroundColor: const Color(0xffC83760),
+          textColor: Colors.white,
+          fontSize: 16.0);
+    }
+/*    SharedPreferences prefs = await SharedPreferences.getInstance();
     var user_id = prefs.get("user_id");
-    print('user_id==============' + user_id.toString());
+    print('user_id==============$user_id');
     setState(() {});
     print("CLICKED 123 ==");
 
@@ -221,9 +257,8 @@ class _CreateDealState extends State<CreateDeal> {
     //       textColor: Colors.white,
     //       fontSize: 16.0);
     // }
-    showLoaderDialog(context);
-    var request = http.MultipartRequest(
-        "POST", Uri.parse("https://forreal.net:4000/create_deals"));
+
+    var request = http.MultipartRequest("POST", Uri.parse("https://forreal.net:4000/create_deals"));
 
     request.fields['Title'] = txt_title.text.toString();
     request.fields['Price'] = txt_price.text.toString();
@@ -234,8 +269,7 @@ class _CreateDealState extends State<CreateDeal> {
     if (_image == null) {
       request.fields['file'] = "";
     } else {
-      request.files
-          .add(await http.MultipartFile.fromPath('file', _image!.path));
+      request.files.add(await http.MultipartFile.fromPath('file', _image!.path));
     }
     print("??????????????${request.fields.toString()}");
     request.send().then((response) {
@@ -246,7 +280,7 @@ class _CreateDealState extends State<CreateDeal> {
           print("response.statusCod");
 
           print(onValue.body);
-          myDealController.dealText.text=txt_title.text;
+          myDealController.dealText.text = txt_title.text;
           // _future = myprofile();
           //Rahul
           //  _willPopCallback();
@@ -270,6 +304,8 @@ class _CreateDealState extends State<CreateDeal> {
         }
       });
     });
+
+    */
   }
 
   @override
@@ -302,16 +338,11 @@ class _CreateDealState extends State<CreateDeal> {
           key: formKey,
           // autovalidateMode: AutovalidateMode.onUserInteraction,
           child: SingleChildScrollView(
-            child:
-                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               const SizedBox(
                 height: 30,
               ),
-              customTextC(
-                  text: "Upload Image",
-                  fSize: 16,
-                  fWeight: FontWeight.w500,
-                  lineHeight: 36),
+              customTextC(text: "Upload Image", fSize: 16, fWeight: FontWeight.w500, lineHeight: 36),
               Stack(
                 alignment: Alignment.center,
                 children: [
@@ -334,16 +365,13 @@ class _CreateDealState extends State<CreateDeal> {
                                   color: HexColor('#D9D9D9'),
                                 ),
                                 borderRadius: BorderRadius.circular(5),
-                                image: DecorationImage(
-                                    image: FileImage(File(_image!.path)),
-                                    fit: BoxFit.fill)),
+                                image: DecorationImage(image: FileImage(File(_image!.path)), fit: BoxFit.fill)),
                           ),
                   ),
                   Container(
                     height: 141,
                     width: MediaQuery.of(context).size.width,
-                    decoration:
-                        BoxDecoration(borderRadius: BorderRadius.circular(10)),
+                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -379,24 +407,19 @@ class _CreateDealState extends State<CreateDeal> {
                 lineHeight: 36,
               ),
               SizedBox(
-                height: 70,
-                child: CustumProfileTextField1(
-                  maxlenght: 30,
-                  keyboardType: TextInputType.text,
-                  controller: txt_title,
-                  validator: validateTitle, // Pass the function reference
-                  hintText: 'Please Enter Title',
-                )
-
-              ),
+                  height: 70,
+                  child: CustumProfileTextField1(
+                    maxlenght: 30,
+                    keyboardType: TextInputType.text,
+                    controller: txt_title,
+                    validator: validateTitle,
+                    // Pass the function reference
+                    hintText: 'Please Enter Title',
+                  )),
               const SizedBox(
                 height: 10,
               ),
-              customTextC(
-                  text: "Price(in dollar)",
-                  fSize: 16,
-                  fWeight: FontWeight.w500,
-                  lineHeight: 36),
+              customTextC(text: "Price(in dollar)", fSize: 16, fWeight: FontWeight.w500, lineHeight: 36),
               SizedBox(
                 height: 70,
                 child: CustumProfileTextField1(
@@ -409,11 +432,7 @@ class _CreateDealState extends State<CreateDeal> {
               const SizedBox(
                 height: 10,
               ),
-              customTextC(
-                  text: "Discount(in dollar)",
-                  fSize: 16,
-                  fWeight: FontWeight.w500,
-                  lineHeight: 36),
+              customTextC(text: "Discount(in dollar)", fSize: 16, fWeight: FontWeight.w500, lineHeight: 36),
               SizedBox(
                 height: 70,
                 child: CustumProfileTextField1(
@@ -442,8 +461,7 @@ class _CreateDealState extends State<CreateDeal> {
       child: Button(
         btnColor: Colors.redAccent,
         buttonName: 'CREATE',
-        btnstyle: textstylesubtitle2(context)!
-            .copyWith(color: colorWhite, fontFamily: 'Poppins'),
+        btnstyle: textstylesubtitle2(context)!.copyWith(color: colorWhite, fontFamily: 'Poppins'),
         borderRadius: BorderRadius.circular(30.00),
         btnWidth: deviceWidth(context),
         btnHeight: 60,
@@ -464,7 +482,6 @@ class _CreateDealState extends State<CreateDeal> {
           //       textColor: Colors.white,
           //       fontSize: 16.0);
           // }
-
         },
       ),
     );
