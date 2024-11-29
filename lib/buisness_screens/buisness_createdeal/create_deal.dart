@@ -202,6 +202,7 @@ class _CreateDealState extends State<CreateDeal> {
   }
 
   void uploadFileToServerInfluencer() async {
+    print("line 205");
     showLoaderDialog(context);
     Map<String, dynamic> apiData = await ApiCall.instance.callApi(
       url: "https://forreal.net:4000/create_deals",
@@ -212,7 +213,7 @@ class _CreateDealState extends State<CreateDeal> {
         'Price': txt_price.text.toString(),
         'Discount': txt_discount.text.toString(),
         'business_id': await getUserId(),
-        if (_image == null) 'file': dio.MultipartFile.fromFile(_image!.path, filename: ("${DateTime.now().toUtc().toIso8601String()}.jpg"))
+        if (_image != null) 'file': dio.MultipartFile.fromFile(_image!.path, filename: ("${DateTime.now().toUtc().toIso8601String()}.jpg"))
       }),
     );
     if (apiData["success"] == true) {
