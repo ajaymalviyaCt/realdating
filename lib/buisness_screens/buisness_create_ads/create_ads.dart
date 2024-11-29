@@ -394,76 +394,9 @@ class _CreateAadsState extends State<CreateAads> {
                     cursorColor: Colors.white,
                   ),
                   if (showDropdown)
-                    Container(
-                      decoration: BoxDecoration(
-                        color: Colors.red.withOpacity(0.15),
-                        border: Border.all(color: Colors.white, width: 1),
-                        borderRadius: BorderRadius.circular(5),
-                      ),
-                      child: isLoading
-                          ? const Padding(
-                              padding: EdgeInsets.all(16.0),
-                              child: Center(
-                                child: CircularProgressIndicator(color: Colors.white),
-                              ),
-                            )
-                          : ListView.builder(
-                              shrinkWrap: true,
-                              itemCount: interestList.length,
-                              itemBuilder: (context, index) {
-                                final isSelected = selectedInterest.contains(interestList[index]);
-                                return GestureDetector(
-                                  onTap: () {
-                                    setState(() {
-                                      if (!isSelected) {
-                                        selectedInterest.add(interestList[index]);
-                                      } else {
-                                        selectedInterest.remove(interestList[index]);
-                                      }
-                                      txt_interest.text = selectedInterest.join(", ");
-                                    });
-                                  },
-                                  child: Container(
-                                    margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-                                    padding: const EdgeInsets.all(12.0),
-                                    decoration: BoxDecoration(
-                                      color: isSelected ? Colors.red.withOpacity(0.2) : Colors.white,
-                                      borderRadius: BorderRadius.circular(10),
-                                      border: Border.all(
-                                        color: isSelected ? Colors.redAccent : Colors.grey.shade300,
-                                        width: 1,
-                                      ),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.grey.withOpacity(0.2),
-                                          blurRadius: 5,
-                                          offset: const Offset(0, 2), // Shadow position
-                                        ),
-                                      ],
-                                    ),
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text(
-                                          interestList[index],
-                                          style: TextStyle(
-                                            color: isSelected ? Colors.redAccent.shade700 : Colors.black,
-                                            fontSize: 16,
-                                            fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
-                                          ),
-                                        ),
-                                        if (isSelected)
-                                          const Icon(
-                                            Icons.check_circle,
-                                            color: Colors.redAccent,
-                                          ),
-                                      ],
-                                    ),
-                                  ),
-                                );
-                              },
-                            ),
-                    )
+
+interestDropdownUi(),
+
 
                   // SizedBox(
                   //   height: 70,
@@ -473,7 +406,7 @@ class _CreateAadsState extends State<CreateAads> {
                   //     hintText: 'Enter Interest in dollar ',
                   //   ),
                   // ),
-                  ,
+
                   customTextC(text: "Budget(\$)", fSize: 16, fWeight: FontWeight.w500, lineHeight: 36),
                   SizedBox(
                     height: 70,
@@ -535,6 +468,142 @@ class _CreateAadsState extends State<CreateAads> {
           ),
         ));
   }
+
+  Container interestDropdownUi() {
+    return Container(
+      margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 0),
+      decoration: BoxDecoration(
+        color: Colors.red.withOpacity(0.15),
+        border: Border.all(color: Colors.white, width: 1),
+        borderRadius: BorderRadius.circular(5),
+      ),
+      child: isLoading
+          ? const Padding(
+        padding: EdgeInsets.all(16.0),
+        child: Center(
+          child: CircularProgressIndicator(color: Colors.white),
+        ),
+      )
+          : Stack(
+        children: [
+          // Main Dropdown Container
+          Container(
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(12),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.3),
+                  blurRadius: 10,
+                  offset: const Offset(0, 4), // Shadow position for soft floating effect
+                ),
+              ],
+            ),
+            child: Column(
+              children: [
+                // Close Button at the top-right with a subtle elegant design
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Align(
+                    alignment: Alignment.topRight,
+                    child: GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          showDropdown = false; // Close dropdown on tap
+                        });
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.transparent, // Transparent to make it less intrusive
+                          shape: BoxShape.circle,
+                        ),
+                        padding: const EdgeInsets.all(8.0),
+                        child: Icon(
+                          Icons.close,
+                          color: Colors.redAccent, // Use accent color for contrast
+                          size: 24, // Adjust size for a more prominent close button
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                // Dropdown List View
+                Container(
+                  height: 300, // Set height for scrollable list
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: interestList.length,
+                    itemBuilder: (context, index) {
+                      final isSelected = selectedInterest.contains(interestList[index]);
+                      return GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            if (!isSelected) {
+                              selectedInterest.add(interestList[index]);
+                            } else {
+                              selectedInterest.remove(interestList[index]);
+                            }
+                            txt_interest.text = selectedInterest.join(", ");
+                          });
+                        },
+                        child: Container(
+                          margin: const EdgeInsets.symmetric(vertical: 5),
+                          padding: const EdgeInsets.all(12.0),
+                          decoration: BoxDecoration(
+                            color: isSelected
+                                ? Colors.red.withOpacity(0.2)
+                                : Colors.white,
+                            borderRadius: BorderRadius.circular(12),
+                            border: Border.all(
+                              color: isSelected
+                                  ? Colors.redAccent
+                                  : Colors.grey.shade300,
+                              width: 1.5,
+                            ),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.1),
+                                blurRadius: 5,
+                                offset: const Offset(0, 2),
+                              ),
+                            ],
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                interestList[index],
+                                style: TextStyle(
+                                  color: isSelected
+                                      ? Colors.redAccent.shade700
+                                      : Colors.black,
+                                  fontSize: 16,
+                                  fontWeight: isSelected
+                                      ? FontWeight.bold
+                                      : FontWeight.normal,
+                                ),
+                              ),
+                              if (isSelected)
+                                const Icon(
+                                  Icons.check_circle,
+                                  color: Colors.redAccent,
+                                ),
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+
 
   Widget updateBtn(context) {
     return Container(
