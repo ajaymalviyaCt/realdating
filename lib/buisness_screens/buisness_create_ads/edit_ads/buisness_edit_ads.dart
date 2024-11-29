@@ -273,8 +273,8 @@ class _BuisnessEditAdsState extends State<BuisnessEditAds> {
                             child: CustumProfileTextField1(
                               controller: editAdsController.Intrest,
                               validator: validateName,
-                              hintText:
-                                  "${widget.dataList[widget.indexEdit].interest}",
+                              keyboardType:TextInputType.emailAddress,
+                              hintText: "${widget.dataList[widget.indexEdit].interest}",
                               //hintText: "Music,Sports"
                             ),
                           ),
@@ -297,7 +297,7 @@ class _BuisnessEditAdsState extends State<BuisnessEditAds> {
                           ),
 
                           customTextC(
-                              text: "CampaignDuration",
+                              text: "Campaign Duration in days",
                               fSize: 16,
                               fWeight: FontWeight.w500,
                               lineHeight: 36),
@@ -306,9 +306,12 @@ class _BuisnessEditAdsState extends State<BuisnessEditAds> {
                             height: 50,
                             child: CustumProfileTextField1(
                               controller: editAdsController.CampaignDuration,
+                              onChanged: (p0) {
+                                editAdsController.CampaignDuration.text = widget.dataList[widget.indexEdit].campaignDuration;
+                              },
                               validator: validateName,
                               hintText:
-                                  "${widget.dataList[widget.indexEdit].campaignDuration}",
+                                  "Campaign Duration",
                               //hintText: "3 Months"
                             ),
                           ),
@@ -322,11 +325,15 @@ class _BuisnessEditAdsState extends State<BuisnessEditAds> {
                           SizedBox(
                             height: 50,
                             child: CustumProfileTextField1(
+
+                              onChanged: (p0) {
+                                editAdsController.Location.text = widget.dataList[widget.indexEdit].address;
+                              },
                               controller: editAdsController.Location,
                               keyboardType: TextInputType.emailAddress,
                               validator: validateName,
                               hintText:
-                                  "${widget.dataList[widget.indexEdit].address}",
+                                  "Address",
                               //hintText: "3 Months"
                             ),
                           ),
@@ -340,11 +347,13 @@ class _BuisnessEditAdsState extends State<BuisnessEditAds> {
                           SizedBox(
                             height: 50,
                             child: CustumProfileTextField1(
+                              onChanged: (p0) {
+                                editAdsController.Range.text = widget.dataList[widget.indexEdit].rangeKm!;
+                              },
                               controller: editAdsController.Range,
                               validator: validateRange,
                               hintText:
-                                  "${widget.dataList[widget.indexEdit].rangeKm}" ??
-                                      "",
+                                  "Range",
                               //hintText: "10 Km"
                             ),
                           ),
@@ -360,9 +369,12 @@ class _BuisnessEditAdsState extends State<BuisnessEditAds> {
                             child: CustumProfileTextField1(
                               controller: editAdsController.Link,
                               validator: validateName,
+                              onChanged: (p0) {
+                                editAdsController.Link.text = widget.dataList[widget.indexEdit].link;
+                              },
                               keyboardType: TextInputType.emailAddress,
                               hintText:
-                                  "${widget.dataList[widget.indexEdit].link}",
+                                  "Link",
                             ),
                           ),
 

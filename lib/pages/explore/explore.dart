@@ -22,6 +22,8 @@ class ExplorePage extends StatefulWidget {
 }
 
 class _ExplorePageState extends State<ExplorePage> {
+  final MatchessController matchessController = Get.put(MatchessController());
+
   @override
   void initState() {
     // TODO: implement initState
@@ -81,15 +83,18 @@ class _ExplorePageState extends State<ExplorePage> {
       body: Padding(
         padding: const EdgeInsets.only(left: 20.0),
         child: SingleChildScrollView(
-          child: Column(children: [
-            const SizedBox(height: 20,),
-            MatchesWidget(),
-             32.ah.heightBox,
-            TrendingWidget(),
-            32.ah.heightBox,
-            EventsWidget(),
-            32.ah.heightBox,
-          ]),
+          child: RefreshIndicator(child: Column(
+              children: [
+                const SizedBox(height: 20,),
+                MatchesWidget(),
+                32.ah.heightBox,
+                TrendingWidget(),
+                32.ah.heightBox,
+                EventsWidget(),
+                32.ah.heightBox,
+              ]), onRefresh: () async {
+            await matchessController.matches();
+              },)
         ),
       ),
     );
@@ -117,129 +122,128 @@ class _MatchesWidgetState extends State<MatchesWidget> {
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(right: 20.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              customTextCommon(
-                  text: " Matches",
-                  fSize: 24.adaptSize,
-                  fWeight: FontWeight.w600,
-                  lineHeight: 24),
-              InkWell(
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const MatchesPage()));
-                },
-                child: customTextCommon(
-                  text: "See All",
-                  fSize: 22.adaptSize,
-                  fWeight: FontWeight.w600,
-                  lineHeight: 24,
-                  color: const Color(0xffAAAAAa),
-                ),
-              ),
-            ],
+          children: [
+    Padding(
+      padding: const EdgeInsets.only(right: 20.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          customTextCommon(
+              text: " Matches",
+              fSize: 24.adaptSize,
+              fWeight: FontWeight.w600,
+              lineHeight: 24),
+          InkWell(
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const MatchesPage()));
+            },
+            child: customTextCommon(
+              text: "See All",
+              fSize: 22.adaptSize,
+              fWeight: FontWeight.w600,
+              lineHeight: 24,
+              color: const Color(0xffAAAAAa),
+            ),
           ),
-        ),
-        const SizedBox(
-          height: 20,
-        ),
-        Obx(() => matchessController.isLoadig.value
-            ? SizedBox(
-            height: 360.ah,
-            child: const Center(
-                child: CircularProgressIndicator(
-                  strokeWidth: 2,
-                )))
-            :  matchessController.matchessModel!.myFriends!.isEmpty ? SizedBox( height: 360.ah,
-            child: const Center(child: Text("No Matches Found"),)) : SizedBox(
-          height: 360.ah,
-          child: ListView.builder(
-            scrollDirection: Axis.horizontal,
-            itemCount: matchessController.matchessModel!.myFriends!.length,
-            itemBuilder: (context, index) {
-              return Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: InkWell(
-                  onTap: () {
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => const MatchesPage()));
-                              },
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(14),
-                    child: SizedBox(
-                      width: 240.ah,
-                      child: Stack(
-                        children: [
-                          Container(
-                            color: Colors.black12,
-                            height: 360.ah,
-                            width: 240.ah,
-                            child: CachedNetworkImage(
-                              imageUrl: matchessController.matchessModel!
-                                  .myFriends![index].profileImage
-                                  .toString(),
-                              placeholder: (context, url) => const Center(
-                                  child: SizedBox(
-                                      height: 20,
-                                      width: 20,
-                                      child: CircularProgressIndicator(
-                                        strokeWidth: 1,
-                                      ))),
-                              errorWidget: (context, url, error) =>
-                              const Icon(Icons.person_2_outlined),
-                              filterQuality: FilterQuality.low,
-                              fit: BoxFit.cover,
-                              height: 300,
-                            ),
-                          ),
-                          Container(
-                            width: 240.ah,
-                            decoration: const BoxDecoration(
-                                gradient: LinearGradient(
-                                    colors: [
-                                      Colors.transparent,
-                                      Colors.black
-                                    ],
-                                    begin: Alignment.topCenter,
-                                    end: Alignment.bottomCenter,
-                                    stops: [0.7, 1])),
-                            padding: const EdgeInsets.all(20),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  '${matchessController.matchessModel!.myFriends![index].friendFirstName} ${matchessController.matchessModel!.myFriends![index].friendLastName},${matchessController.matchessModel!.myFriends![index].age}',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontFamily: 'Inter',
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 14.adaptSize,
-                                    overflow: TextOverflow.ellipsis,
-
-                                  ),
-                                ),
-
-                              ],
-                            ),
-                          ),
-                        ],
+        ],
+      ),
+    ),
+    const SizedBox(
+      height: 20,
+    ),
+    Obx(() => matchessController.isLoadig.value
+        ? SizedBox(
+        height: 360.ah,
+        child: const Center(
+            child: CircularProgressIndicator(
+              strokeWidth: 2,
+            )))
+        :  matchessController.matchessModel!.myFriends!.isEmpty ? SizedBox( height: 360.ah,
+        child: const Center(child: Text("No Matches Found"),)) : SizedBox(
+      height: 360.ah,
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: matchessController.matchessModel!.myFriends!.length,
+        itemBuilder: (context, index) {
+          return Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: InkWell(
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => const MatchesPage()));
+              },
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(14),
+                child: SizedBox(
+                  width: 240.ah,
+                  child: Stack(
+                    children: [
+                      Container(
+                        color: Colors.black12,
+                        height: 360.ah,
+                        width: 240.ah,
+                        child: CachedNetworkImage(
+                          imageUrl: matchessController.matchessModel!
+                              .myFriends![index].profileImage
+                              .toString(),
+                          placeholder: (context, url) => const Center(
+                              child: SizedBox(
+                                  height: 20,
+                                  width: 20,
+                                  child: CircularProgressIndicator(
+                                    strokeWidth: 1,
+                                  ))),
+                          errorWidget: (context, url, error) =>
+                          const Icon(Icons.person_2_outlined),
+                          filterQuality: FilterQuality.low,
+                          fit: BoxFit.cover,
+                          height: 300,
+                        ),
                       ),
-                    ),
+                      Container(
+                        width: 240.ah,
+                        decoration: const BoxDecoration(
+                            gradient: LinearGradient(
+                                colors: [
+                                  Colors.transparent,
+                                  Colors.black
+                                ],
+                                begin: Alignment.topCenter,
+                                end: Alignment.bottomCenter,
+                                stops: [0.7, 1])),
+                        padding: const EdgeInsets.all(20),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              '${matchessController.matchessModel!.myFriends![index].friendFirstName} ${matchessController.matchessModel!.myFriends![index].friendLastName},${matchessController.matchessModel!.myFriends![index].age}',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontFamily: 'Inter',
+                                fontWeight: FontWeight.w600,
+                                fontSize: 14.adaptSize,
+                                overflow: TextOverflow.ellipsis,
+
+                              ),
+                            ),
+
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-              );
-            },
-          ),
-        )),
-
-      ],
-    );
+              ),
+            ),
+          );
+        },
+      ),
+    )),
+          ],
+        );
   }
 }
 
@@ -298,64 +302,8 @@ class TrendingWidget extends StatelessWidget {
                     scrollDirection: Axis.horizontal,
                     itemCount: treadingController.treadingModel!.trendingUser?.length,
                     itemBuilder: (context, index) {
-                      // return Padding(
-                      //   padding: const EdgeInsets.all(8.0),
-                      //   child: ClipRRect(
-                      //     borderRadius: BorderRadius.circular(10),
-                      //     child: Container(
-                      //       width: 240.ah,
-                      //       decoration: BoxDecoration(
-                      //         color: Colors.white,
-                      //         image: DecorationImage(
-                      //           image: NetworkImage(treadingController
-                      //               .treadingModel!
-                      //               .trendingUser![index]
-                      //               .profileImage
-                      //               .toString()),
-                      //           fit: BoxFit.cover,
-                      //         ),
-                      //       ),
-                      //       child: Container(
-                      //         decoration: const BoxDecoration(
-                      //             gradient: LinearGradient(
-                      //                 colors: [
-                      //                   Colors.transparent,
-                      //                   Colors.black
-                      //                 ],
-                      //                 begin: Alignment.topCenter,
-                      //                 end: Alignment.bottomCenter,
-                      //                 stops: [0.7, 1])),
-                      //         padding: EdgeInsets.all(20),
-                      //         child: Column(
-                      //           children: [
-                      //             Spacer(),
-                      //             Row(
-                      //               crossAxisAlignment:
-                      //                   CrossAxisAlignment.start,
-                      //               mainAxisAlignment: MainAxisAlignment.start,
-                      //               children: [
-                      //                 Text(
-                      //                   '${treadingController.treadingModel!.trendingUser![index].firstName} ${treadingController.treadingModel!.trendingUser![index].lastName},  ${treadingController.treadingModel!.trendingUser![index].age}',
-                      //                   style: TextStyle(
-                      //                     color: Colors.white,
-                      //                     fontSize: 20.adaptSize,
-                      //                     fontFamily: 'Inter',
-                      //                     fontWeight: FontWeight.w600,
-                      //                     height: 0.06,
-                      //                   ),
-                      //                 ),
-                      //                 SizedBox(
-                      //                   height: 10.ah,
-                      //                 ),
-                      //               ],
-                      //             ),
-                      //           ],
-                      //         ),
-                      //       ),
-                      //     ),
-                      //   ),
-                      // );
-                   return   Padding(
+
+                   return Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(14),
