@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:realdating/buisness_screens/buisness_create_ads/all_ads/buisness_all_adss_models.dart';
 import 'package:realdating/consts/app_urls.dart';
+import 'package:realdating/services/apis_related/api_call_services.dart';
 import 'package:realdating/services/base_client01.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
@@ -9,6 +10,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../all_ads/all_ads.dart';
 import '../all_ads/all_ads_controller.dart';
+
+import 'package:dio/dio.dart' as dio;
 
 class EditAdsController extends GetxController {
   RxBool isLoadig = false.obs;
@@ -38,8 +41,7 @@ class EditAdsController extends GetxController {
 
   var index;
 
-  AllAdssDealController allAdssDealController =
-      Get.put(AllAdssDealController());
+  AllAdssDealController allAdssDealController = Get.put(AllAdssDealController());
 
   EditAdsUpdate(
     addId,
@@ -48,11 +50,25 @@ class EditAdsController extends GetxController {
   ) async {
     print("tittle text");
     print(Title.value.text);
+    await ApiCall.instance.callApi(
+      url: "https://forreal.net:4000/update_advs",
+      method: HttpMethod.POST,
+      body: {
+        "id": addId.toString(),
+        "title": Title.text.isEmpty ? myAdv!.title : Title.text,
+        "interest": Intrest.text.isEmpty ? myAdv!.interest : Intrest.text,
+        "budget": budget.text.isEmpty ? myAdv!.budget.toString() : budget.text,
+        "campaign_duration": CampaignDuration.text.isEmpty ? myAdv!.campaignDuration : CampaignDuration.text,
+        "address": Location.text.isEmpty ? myAdv!.address : Location.text,
+        "range_km": Range.text.isEmpty ? myAdv!.rangeKm.toString() : Range.text,
+        "link": Link.text.isEmpty ? myAdv!.link.toString() : Link.text,
+      },
+      headers: await authHeader(),
+    );
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var userId = prefs.get('user_id');
     var token = prefs.get('token');
-    const apiUrl =
-        'https://forreal.net:4000/update_advs'; // Replace with your API endpoint
+    const apiUrl = 'https://forreal.net:4000/update_advs'; // Replace with your API endpoint
     final headers = {
       'Content-Type': 'multipart/form-data',
       'Authorization': 'Bearer $token',
@@ -63,21 +79,13 @@ class EditAdsController extends GetxController {
       request.headers.addAll(headers);
       request.fields["id"] = addId.toString();
       request.fields["title"] = Title.text.isEmpty ? myAdv!.title : Title.text;
-      request.fields["age"] =
-          Age.text.isEmpty ? myAdv!.age.toString() : Age.text;
-      request.fields["interest"] =
-          Intrest.text.isEmpty ? myAdv!.interest : Intrest.text;
-      request.fields["budget"] =
-          budget.text.isEmpty ? myAdv!.budget.toString() : budget.text;
-      request.fields["campaign_duration"] = CampaignDuration.text.isEmpty
-          ? myAdv!.campaignDuration
-          : CampaignDuration.text;
-      request.fields["address"] =
-          Location.text.isEmpty ? myAdv!.address : Location.text;
-      request.fields["range_km"] =
-          Range.text.isEmpty ? myAdv!.rangeKm.toString() : Range.text;
-      request.fields["link"] =
-          Link.text.isEmpty ? myAdv!.link.toString() : Link.text;
+      request.fields["age"] = Age.text.isEmpty ? myAdv!.age.toString() : Age.text;
+      request.fields["interest"] = Intrest.text.isEmpty ? myAdv!.interest : Intrest.text;
+      request.fields["budget"] = budget.text.isEmpty ? myAdv!.budget.toString() : budget.text;
+      request.fields["campaign_duration"] = CampaignDuration.text.isEmpty ? myAdv!.campaignDuration : CampaignDuration.text;
+      request.fields["address"] = Location.text.isEmpty ? myAdv!.address : Location.text;
+      request.fields["range_km"] = Range.text.isEmpty ? myAdv!.rangeKm.toString() : Range.text;
+      request.fields["link"] = Link.text.isEmpty ? myAdv!.link.toString() : Link.text;
 
       // Add the image file to the request
 
