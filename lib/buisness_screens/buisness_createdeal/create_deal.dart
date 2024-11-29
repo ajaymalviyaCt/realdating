@@ -9,13 +9,11 @@ import 'package:flutter_svg/svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:http/http.dart' as http;
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:realdating/pages/mape/NearBy_businesses.dart';
 import 'package:realdating/services/apis_related/api_call_services.dart';
 import 'package:realdating/validation/validation.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../button.dart';
 import '../../const.dart';
@@ -182,7 +180,10 @@ class _CreateDealState extends State<CreateDeal> {
   }
 
   void uploadFileToServerInfluencer() async {
-    print("line 205");
+    if (!(num.parse(txt_price.text.toString()) > num.parse(txt_discount.text.toString()))) {
+      Fluttertoast.showToast(msg: "Discount cannot be greater than the price");
+      return;
+    }
     showLoaderDialog(context);
     Map<String, dynamic> apiData = await ApiCall.instance.callApi(
       url: "https://forreal.net:4000/create_deals",
@@ -193,7 +194,7 @@ class _CreateDealState extends State<CreateDeal> {
         'Price': txt_price.text.toString(),
         'Discount': txt_discount.text.toString(),
         'business_id': await getUserId(),
-        if (_image != null) 'file':await (dio.MultipartFile.fromFile(_image!.path, filename: ("${DateTime.now().toUtc().toIso8601String()}.jpg")))
+        if (_image != null) 'file': await (dio.MultipartFile.fromFile(_image!.path, filename: ("${DateTime.now().toUtc().toIso8601String()}.jpg")))
       }),
     );
     if (apiData["success"] == true) {
