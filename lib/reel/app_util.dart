@@ -1,14 +1,17 @@
+import 'package:fluttertoast/fluttertoast.dart';
+
 import 'common_import.dart';
 
 class AppUtil {
   static showToast({required String message, required bool isSuccess}) {
-    Get.snackbar(isSuccess == true ? successString.tr : errorString.tr, message,
-        snackPosition: SnackPosition.BOTTOM,
-        colorText: Colors.white,
-        backgroundColor: isSuccess == true
-            ? AppColorConstants.themeColor.darken()
-            : AppColorConstants.red.lighten(),
-        icon: Icon(Icons.person_2_outlined, color: AppColorConstants.iconColor));
+    Fluttertoast.showToast(msg: message,backgroundColor: isSuccess?null:AppColorConstants.red);
+    // Get.snackbar(isSuccess == true ? successString.tr : errorString.tr, message,
+    //     snackPosition: SnackPosition.BOTTOM,
+    //     colorText: Colors.white,
+    //     backgroundColor: isSuccess == true
+    //         ? AppColorConstants.themeColor.darken()
+    //         : AppColorConstants.red.lighten(),
+    //     icon: Icon(Icons.person_2_outlined, color: AppColorConstants.iconColor));
   }
 
   static void hideKeyboard(BuildContext context) {

@@ -31,7 +31,6 @@ class DiscoveryController extends GetxController {
     // TODO: implement onInit
     super.onInit();
     profileDaitails();
-Get.snackbar("title", "message");
     foryou(intrest: true);
   }
 

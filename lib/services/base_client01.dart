@@ -55,7 +55,7 @@ class BaseClient01 {
       return await _processResponse(response);
     } catch (e) {
       print("catch exception :  $e.toString() ");
-      DialogHelper.snackbar("$e ''");
+      // DialogHelper.snackbar("$e ''");
 
     }
   }
@@ -77,7 +77,7 @@ class BaseClient01 {
       case 404:
         var responseJson1 = jsonDecode(response.body);
           print("Wrong url  ${response.request!.url.toString()}");
-        DialogHelper.snackbar("Wrong Url");
+        // DialogHelper.snackbar("Wrong Url");
         print(responseJson1);
         return responseJson1;
         break;
@@ -94,7 +94,7 @@ class BaseClient01 {
             utf8.decode(response.bodyBytes), response.request!.url.toString());
       case 500:
       default:
-        DialogHelper.snackbar("Error occured with code");
+        // DialogHelper.snackbar("Error occured with code");
         throw FetchDataException(
             'Error occured with code : ${response.statusCode}',
             response.request!.url.toString());
