@@ -1,19 +1,20 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:http/http.dart' as http;
+
+import 'package:async/async.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 import 'package:realdating/services/apis_related/api_call_services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
 import '../../consts/app_urls.dart';
 import '../setting/settings_page.dart';
 import 'profile_controller.dart';
-import 'package:async/async.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -32,34 +33,25 @@ class _ProfilePageState extends State<ProfilePage> {
     // profileController.profileDaitails();
   }
 
-  List<File> selectedImages = [];
-
   final picker = ImagePicker();
 
   Future getImages() async {
-    final pickedFile = await picker.pickMultiImage(imageQuality: 10, maxHeight: 1000, maxWidth: 1000);
-    List<XFile> xfilePick = pickedFile;
-
-    setState(
-      () {
-        if (xfilePick.isNotEmpty) {
-          for (var i = 0; i < xfilePick.length; i++) {
-            selectedImages.add(File(xfilePick[i].path));
-            print('Selected images-----${selectedImages}');
-            uploadImage(context);
-          }
-        } else {
-          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Nothing is selected')));
-        }
-      },
-    );
+    final XFile? pickedFile = await picker.pickImage(imageQuality: 10, maxHeight: 1000, maxWidth: 1000, source: ImageSource.gallery);
+    if (pickedFile != null) {
+      uploadImage(context, file: File(pickedFile.path));
+      setState(
+        () {},
+      );
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Nothing is selected')));
+    }
   }
 
   bool isLoading = false;
 
-/// upload images-----------------------------------
-  void uploadImage(BuildContext context) async {
-    profileController. apiLoadingUploadImage.value = true;
+  /// upload images-----------------------------------
+  void uploadImage(BuildContext context, {required File file}) async {
+    profileController.apiLoadingUploadImage.value = true;
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var token = prefs.getString('token');
     var headers = {
@@ -68,13 +60,11 @@ class _ProfilePageState extends State<ProfilePage> {
 
     var request = http.MultipartRequest("POST", Appurls.addYourPhotoas);
 
-    for (var file in selectedImages) {
-      String fileName = file.path.split("/").last;
-      var stream = http.ByteStream(DelegatingStream.typed(file.openRead()));
-      var length = await file.length();
-      var multipartFileSign = http.MultipartFile('files', stream, length, filename: fileName);
-      request.files.add(multipartFileSign);
-    }
+    String fileName = file.path.split("/").last;
+    var stream = http.ByteStream(DelegatingStream.typed(file.openRead()));
+    var length = await file.length();
+    var multipartFileSign = http.MultipartFile('files', stream, length, filename: fileName);
+    request.files.add(multipartFileSign);
 
     request.headers.addAll(headers);
 
@@ -95,10 +85,8 @@ class _ProfilePageState extends State<ProfilePage> {
           textColor: Colors.white,
           fontSize: 16.0,
         );
-       await profileController.profileDaitails();
-        setState(()  {
-
-        });
+        await profileController.profileDaitails();
+        setState(() {});
       } else if (response.statusCode == 400) {
         var responseBody = json.decode(responseData.body);
         String message = responseBody['message'] ?? "An error occurred";
@@ -137,8 +125,7 @@ class _ProfilePageState extends State<ProfilePage> {
     profileController.apiLoadingUploadImage.value = false;
   }
 
-
-/// delete uploaded images--------------------------
+  /// delete uploaded images--------------------------
   void deleteImage(String? imageId) async {
     if (imageId == null) return;
 
@@ -151,14 +138,13 @@ class _ProfilePageState extends State<ProfilePage> {
         headers: await authHeader(),
       );
       Fluttertoast.showToast(
-        msg: apiData['message'] ?? "Image deleted successfully",
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.BOTTOM,
-        backgroundColor: Colors.green,
-        textColor: Colors.white,
-        fontSize: 16.0
-      );
-     await profileController.profileDaitails();
+          msg: apiData['message'] ?? "Image deleted successfully",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          backgroundColor: Colors.green,
+          textColor: Colors.white,
+          fontSize: 16.0);
+      await profileController.profileDaitails();
     } catch (e) {
       Fluttertoast.showToast(
         msg: "Failed to delete image: ${e.toString()}",
@@ -172,7 +158,6 @@ class _ProfilePageState extends State<ProfilePage> {
       profileController.apiLoadingUploadImage.value = false; // Stop loading
     }
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -214,10 +199,11 @@ class _ProfilePageState extends State<ProfilePage> {
                       backgroundImage: imageProvider,
                     ),
                     placeholder: (context, url) => SizedBox(
-                      height: 120,
+                        height: 120,
                         width: 120,
-
-                        child: Center(child: CircularProgressIndicator(),)),
+                        child: Center(
+                          child: CircularProgressIndicator(),
+                        )),
                     errorWidget: (context, url, error) => Center(
                       child: Container(
                         width: 100.0,
@@ -335,7 +321,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                   ),
                                   InkWell(
                                       onTap: () {
-                                        selectedImages.clear();
+
                                         getImages();
                                       },
                                       child: Image.asset(
@@ -355,8 +341,8 @@ class _ProfilePageState extends State<ProfilePage> {
                                       child: GridView.builder(
                                         physics: const NeverScrollableScrollPhysics(),
                                         itemCount: profileController.profileModel?.userInfo.newImages.length,
-                                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                                            crossAxisCount: 3, mainAxisSpacing: 5, crossAxisSpacing: 10),
+                                        gridDelegate:
+                                            const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3, mainAxisSpacing: 5, crossAxisSpacing: 10),
                                         itemBuilder: (ctx, index) {
                                           final data = profileController.profileModel?.userInfo.newImages;
                                           print('profile images----------${data}');
@@ -380,47 +366,43 @@ class _ProfilePageState extends State<ProfilePage> {
                                                         ),
                                                       ),
                                                     ),
-                                                    placeholder: (context, url) =>
-                                                        const Center(child: CircularProgressIndicator()),
+                                                    placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
                                                     errorWidget: (context, url, error) => const Icon(Icons.person_2_outlined),
                                                   ),
                                                 ),
                                               ),
                                               // Cross Icon (Delete Button)
                                               Positioned(
-                                                top: 5,
-                                                right: 5,
-                                                child:GestureDetector(
-                                                  onTap: () {
-                                                    if (profileController.profileModel!.userInfo.newImages.length > 2) {
-
-                                                      deleteImage(data[index].id.toString());
-                                                    } else {
-                                                      Fluttertoast.showToast(
-                                                        msg: "You must have at least 2 photos uploaded.",
-                                                        toastLength: Toast.LENGTH_SHORT,
-                                                        gravity: ToastGravity.BOTTOM,
-                                                        backgroundColor: Colors.red,
-                                                        textColor: Colors.white,
-                                                        fontSize: 16.0,
-                                                      );
-                                                    }
-                                                  },
-                                                  child: Container(
-                                                    decoration: const BoxDecoration(
-                                                      color: Colors.red,
-                                                      shape: BoxShape.circle,
+                                                  top: 5,
+                                                  right: 5,
+                                                  child: GestureDetector(
+                                                    onTap: () {
+                                                      if (profileController.profileModel!.userInfo.newImages.length > 2) {
+                                                        deleteImage(data[index].id.toString());
+                                                      } else {
+                                                        Fluttertoast.showToast(
+                                                          msg: "You must have at least 2 photos uploaded.",
+                                                          toastLength: Toast.LENGTH_SHORT,
+                                                          gravity: ToastGravity.BOTTOM,
+                                                          backgroundColor: Colors.red,
+                                                          textColor: Colors.white,
+                                                          fontSize: 16.0,
+                                                        );
+                                                      }
+                                                    },
+                                                    child: Container(
+                                                      decoration: const BoxDecoration(
+                                                        color: Colors.red,
+                                                        shape: BoxShape.circle,
+                                                      ),
+                                                      padding: const EdgeInsets.all(4),
+                                                      child: const Icon(
+                                                        Icons.close,
+                                                        size: 16,
+                                                        color: Colors.white,
+                                                      ),
                                                     ),
-                                                    padding: const EdgeInsets.all(4),
-                                                    child: const Icon(
-                                                      Icons.close,
-                                                      size: 16,
-                                                      color: Colors.white,
-                                                    ),
-                                                  ),
-                                                )
-
-                                              ),
+                                                  )),
                                             ],
                                           );
                                         },
@@ -428,10 +410,8 @@ class _ProfilePageState extends State<ProfilePage> {
                                     ),
                                   ),
                                   if (profileController.apiLoadingUploadImage.value)
-                                     Center(
-                                      child: Container(
-                                          margin: EdgeInsets.only(top: 50),
-                                          child: CircularProgressIndicator()),
+                                    Center(
+                                      child: Container(margin: EdgeInsets.only(top: 50), child: CircularProgressIndicator()),
                                     )
                                 ],
                               ),
