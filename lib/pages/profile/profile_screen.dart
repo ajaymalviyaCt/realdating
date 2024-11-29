@@ -33,15 +33,17 @@ class _ProfilePageState extends State<ProfilePage> {
     // profileController.profileDaitails();
   }
 
-
-
   final picker = ImagePicker();
 
   Future getImages() async {
-
-    final List<XFile>? pickedFile = await picker.pickMultiImage(imageQuality: 10, maxHeight: 1000, maxWidth: 1000,limit: 6 );
+    final List<XFile>? pickedFile = await picker.pickMultiImage(imageQuality: 10, maxHeight: 1000, maxWidth: 1000, limit: 6);
     if (pickedFile != null) {
-      uploadImage(context, selectedImages: pickedFile.map((e) => File(e.path),).toList());
+      uploadImage(context,
+          selectedImages: pickedFile
+              .map(
+                (e) => File(e.path),
+              )
+              .toList());
       setState(
         () {},
       );
@@ -53,7 +55,7 @@ class _ProfilePageState extends State<ProfilePage> {
   bool isLoading = false;
 
   /// upload images-----------------------------------
-  void uploadImage(BuildContext context,{required List<File> selectedImages}) async {
+  void uploadImage(BuildContext context, {required List<File> selectedImages}) async {
     profileController.apiLoadingUploadImage.value = true;
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var token = prefs.getString('token');
@@ -326,7 +328,6 @@ class _ProfilePageState extends State<ProfilePage> {
                                   ),
                                   InkWell(
                                       onTap: () {
-
                                         getImages();
                                       },
                                       child: Image.asset(
