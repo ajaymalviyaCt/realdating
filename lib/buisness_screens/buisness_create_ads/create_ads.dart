@@ -399,7 +399,7 @@ class _CreateAadsState extends State<CreateAads> {
                 if (showDropdown)
                   Container(
                     decoration: BoxDecoration(
-                      color: Colors.red.withOpacity(.15),
+                      color: Colors.red.withOpacity(0.15),
                       border: Border.all(color: Colors.white, width: 1),
                       borderRadius: BorderRadius.circular(5),
                     ),
@@ -414,33 +414,62 @@ class _CreateAadsState extends State<CreateAads> {
                       shrinkWrap: true,
                       itemCount: interestList.length,
                       itemBuilder: (context, index) {
-                        return ListTile(
-                          title: Text(
-                            interestList[index],
-                            style: const TextStyle(color: Colors.black),
-                          ),
-                          trailing: selectedInterest.contains(interestList[index])
-                              ? const Icon(
-                            Icons.check,
-                            color: Colors.green,
-                          )
-                              : null, // Show checkmark only if selected
+                        final isSelected = selectedInterest.contains(interestList[index]);
+                        return GestureDetector(
                           onTap: () {
                             setState(() {
-                              if (!selectedInterest.contains(interestList[index])) {
+                              if (!isSelected) {
                                 selectedInterest.add(interestList[index]);
                               } else {
-                                selectedInterest.remove(interestList[index]); // Deselect if already selected
+                                selectedInterest.remove(interestList[index]);
                               }
                               txt_interest.text = selectedInterest.join(", ");
-
-                              showDropdown = false; // Close dropdown if required
+                              showDropdown = false;
                             });
                           },
+                          child: Container(
+                            margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                            padding: const EdgeInsets.all(12.0),
+                            decoration: BoxDecoration(
+                              color: isSelected ? Colors.red.withOpacity(0.2) : Colors.white,
+                              borderRadius: BorderRadius.circular(10),
+                              border: Border.all(
+                                color: isSelected ? Colors.redAccent : Colors.grey.shade300,
+                                width: 1,
+                              ),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.2),
+                                  blurRadius: 5,
+                                  offset: const Offset(0, 2), // Shadow position
+                                ),
+                              ],
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  interestList[index],
+                                  style: TextStyle(
+                                    color: isSelected ? Colors.redAccent.shade700 : Colors.black,
+                                    fontSize: 16,
+                                    fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                                  ),
+                                ),
+                                if (isSelected)
+                                  const Icon(
+                                    Icons.check_circle,
+                                    color: Colors.redAccent,
+                                  ),
+                              ],
+                            ),
+                          ),
                         );
                       },
                     ),
                   )
+
+
 
                 // SizedBox(
                 //   height: 70,
