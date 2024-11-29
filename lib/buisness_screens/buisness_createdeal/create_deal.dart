@@ -232,12 +232,12 @@ class _CreateDealState extends State<CreateDeal> {
     // request.fields['business_id'] = '1';
 
     if (_image == null) {
-      request.fields['file'] = "";
+      request.fields['file'] ="";
     } else {
       request.files
           .add(await http.MultipartFile.fromPath('file', _image!.path));
     }
-    print("??????????????${request.fields.toString()}");
+    print("${request.fields.toString()}");
     request.send().then((response) {
       http.Response.fromStream(response).then((onValue) async {
         try {

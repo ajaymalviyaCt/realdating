@@ -154,7 +154,7 @@ class _BuisnessSignUpState extends State<BuisnessSignUp> {
                         const SizedBox(height: 15),
                         Obx(
                           () => CustumTextField(
-                            keyboardType: TextInputType.text,
+                            keyboardType: TextInputType.emailAddress,
                             onTap: () {
                               buisbnesssignUpController.seePassword.value =
                                   !buisbnesssignUpController.seePassword.value;
@@ -187,6 +187,7 @@ class _BuisnessSignUpState extends State<BuisnessSignUp> {
                             controller: buisbnesssignUpController
                                 .bconfirmpasscontroller,
                             validator: validateConfPassword,
+                            keyboardType:TextInputType.emailAddress,
                             suffixIconn:
                                 buisbnesssignUpController.seePassword1 == true
                                     ? 'assets/icons/Eye Slash.svg'

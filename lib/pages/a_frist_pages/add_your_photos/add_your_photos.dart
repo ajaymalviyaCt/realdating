@@ -168,94 +168,99 @@ class _AddYourPhotoPageState extends State<AddYourPhotoPage> {
                             ),
                           ]),
                         ),
+
                   selectedImages.length > 1
                       ? Stack(children: [
-                          Container(
-                            height: 130,
-                            width: 103,
-                            decoration: BoxDecoration(
-                                border: Border.all(
-                                    style: BorderStyle.solid,
-                                    color: Colors.redAccent),
-                                borderRadius: BorderRadius.circular(10),
-                                color: Color(0xffBDBDBD).withOpacity(0.35),
-                                image: DecorationImage(
-                                    image: FileImage(selectedImages[1]),
-                                    fit: BoxFit.fill)),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 105, left: 80),
-                            child: SvgPicture.asset(
-                                'assets/icons/Sign In Button (1).svg'),
-                          ),
-                        ])
+                    Container(
+                      height: 130,
+                      width: 103,
+                      decoration: BoxDecoration(
+                          border: Border.all(
+                              style: BorderStyle.solid,
+                              color: Colors.redAccent),
+                          borderRadius: BorderRadius.circular(10),
+                          color: Color(0xffBDBDBD).withOpacity(0.35),
+                          image: DecorationImage(
+                              image: FileImage(selectedImages[0]),
+                              fit: BoxFit.fill)),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(top: 105, left: 80),
+                      child: SvgPicture.asset(
+                          'assets/icons/Sign In Button (1).svg'),
+                    ),
+                  ])
                       : InkWell(
-                          onTap: () {
-                            getImages();
-                          },
-                          child: Stack(children: [
-                            Container(
-                              height: 130,
-                              width: 103,
-                              decoration: BoxDecoration(
-                                color: Appcolor.backgroundclr,
-                                border: Border.all(
-                                    style: BorderStyle.solid,
-                                    color: Colors.redAccent),
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.only(top: 105, left: 80),
-                              child: SvgPicture.asset(
-                                  'assets/icons/Sign In Button (1).svg'),
-                            ),
-                          ]),
+                    onTap: () {
+                      getImages();
+                      // hobbiesController.interestSelect();
+                    },
+                    child: Stack(children: [
+                      Container(
+                        height: 130,
+                        width: 103,
+                        decoration: BoxDecoration(
+                          color: Appcolor.backgroundclr,
+                          border: Border.all(
+                              style: BorderStyle.solid,
+                              color: Colors.redAccent),
+                          borderRadius: BorderRadius.circular(10),
                         ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(top: 105, left: 80),
+                        child: SvgPicture.asset(
+                            'assets/icons/cross.svg'),
+                      ),
+                    ]),
+                  ),
+
+
                   selectedImages.length > 2
                       ? Stack(children: [
-                          Container(
-                            height: 130,
-                            width: 103,
-                            decoration: BoxDecoration(
-                                border: Border.all(
-                                    style: BorderStyle.solid,
-                                    color: Colors.redAccent),
-                                borderRadius: BorderRadius.circular(10),
-                                color: Color(0xffBDBDBD).withOpacity(0.35),
-                                image: DecorationImage(
-                                    image: FileImage(selectedImages[2]),
-                                    fit: BoxFit.fill)),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.only(top: 105, left: 80),
-                            child: SvgPicture.asset(
-                                'assets/icons/Sign In Button (1).svg'),
-                          ),
-                        ])
+                    Container(
+                      height: 130,
+                      width: 103,
+                      decoration: BoxDecoration(
+                          border: Border.all(
+                              style: BorderStyle.solid,
+                              color: Colors.redAccent),
+                          borderRadius: BorderRadius.circular(10),
+                          color: Color(0xffBDBDBD).withOpacity(0.35),
+                          image: DecorationImage(
+                              image: FileImage(selectedImages[0]),
+                              fit: BoxFit.fill)),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(top: 105, left: 80),
+                      child: SvgPicture.asset(
+                          'assets/icons/Sign In Button (1).svg'),
+                    ),
+                  ])
                       : InkWell(
-                          onTap: () {
-                            getImages();
-                          },
-                          child: Stack(children: [
-                            Container(
-                              height: 130,
-                              width: 103,
-                              decoration: BoxDecoration(
-                                color: Appcolor.backgroundclr,
-                                border: Border.all(
-                                    style: BorderStyle.solid,
-                                    color: Colors.redAccent),
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                            ),
-                            Padding(
-                              padding:const EdgeInsets.only(top: 105, left: 80),
-                              child: SvgPicture.asset(
-                                  'assets/icons/Sign In Button (1).svg'),
-                            ),
-                          ]),
+                    onTap: () {
+                      getImages();
+                      // hobbiesController.interestSelect();
+                    },
+                    child: Stack(children: [
+                      Container(
+                        height: 130,
+                        width: 103,
+                        decoration: BoxDecoration(
+                          color: Appcolor.backgroundclr,
+                          border: Border.all(
+                              style: BorderStyle.solid,
+                              color: Colors.redAccent),
+                          borderRadius: BorderRadius.circular(10),
                         ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(top: 105, left: 80),
+                        child: SvgPicture.asset(
+                            'assets/icons/cross.svg'),
+                      ),
+                    ]),
+                  ),
                 ],
               ),
               const SizedBox(height:20),
