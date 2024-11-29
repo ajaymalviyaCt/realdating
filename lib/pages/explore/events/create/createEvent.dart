@@ -1,28 +1,26 @@
 import 'dart:async';
 import 'dart:io';
+
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:image_cropper/image_cropper.dart';
-import 'package:realdating/pages/dash_board_page.dart';
-import 'package:realdating/validation/validation.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:http/http.dart' as http;
+import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
+import 'package:realdating/pages/dash_board_page.dart';
+import 'package:realdating/validation/validation.dart';
 
 import '../../../../button.dart';
 import '../../../../const.dart';
 import '../../../../custom_iteam/coustomtextcommon.dart';
 import '../../../../custom_iteam/customprofile_textfiiled.dart';
 import '../../../../function/function_class.dart';
-import '../../explore.dart';
-import '../../trainding/trainding_details.dart';
 
 class CreateEvent extends StatefulWidget {
   const CreateEvent({Key? key}) : super(key: key);
@@ -36,8 +34,8 @@ class _CreateEventState extends State<CreateEvent> {
   // final Connectivity _connectivity = Connectivity();
   // StreamSubscription<ConnectivityResult>? _connectivitySubscription;
   var eventTitle, eventType, selectTime, description;
-   DateTime? startDate;
-   DateTime? endDate;
+  DateTime? startDate;
+  DateTime? endDate;
   TextEditingController txt_eventTitle = TextEditingController();
   TextEditingController txt_eventType = TextEditingController();
   TextEditingController txt_selectTime = TextEditingController();
@@ -62,8 +60,7 @@ class _CreateEventState extends State<CreateEvent> {
   String? _validatemobile = null;
 
   _imgFromGallery() async {
-    final XFile? image = (await _picker.pickImage(
-        source: ImageSource.gallery, imageQuality: 20));
+    final XFile? image = (await _picker.pickImage(source: ImageSource.gallery, imageQuality: 20));
     final croppedFile = await ImageCropper().cropImage(
       sourcePath: image!.path,
 
@@ -87,8 +84,7 @@ class _CreateEventState extends State<CreateEvent> {
   }
 
   _imgFromCamera() async {
-    final XFile? photo =
-        await _picker.pickImage(source: ImageSource.camera, imageQuality: 85);
+    final XFile? photo = await _picker.pickImage(source: ImageSource.camera, imageQuality: 85);
     final croppedFile = await ImageCropper().cropImage(
       sourcePath: photo!.path,
       //
@@ -194,9 +190,7 @@ class _CreateEventState extends State<CreateEvent> {
       content: Row(
         children: [
           const CircularProgressIndicator(),
-          Container(
-              margin: const EdgeInsets.only(left: 7),
-              child: const Text("Loading...")),
+          Container(margin: const EdgeInsets.only(left: 7), child: const Text("Loading...")),
         ],
       ),
     );
@@ -233,8 +227,7 @@ class _CreateEventState extends State<CreateEvent> {
     //       fontSize: 16.0);
     // }
     showLoaderDialog(context);
-    var request = http.MultipartRequest(
-        "POST", Uri.parse("https://forreal.net:4000/users/create_event"));
+    var request = http.MultipartRequest("POST", Uri.parse("https://forreal.net:4000/users/create_event"));
 
     // Event_Title:dating night
     // Event_Type:online
@@ -244,10 +237,10 @@ class _CreateEventState extends State<CreateEvent> {
     // End_Date:10AM - 12PM
     // Description:Description
     print("line 246");
-    print((selectedValue??"").trim());
+    print((selectedValue ?? "").trim());
 
     request.fields['Event_Title'] = txt_eventTitle.text.toString();
-    request.fields['Event_Type'] =(selectedValue??"").trim();
+    request.fields['Event_Type'] = (selectedValue ?? "").trim();
     //request.fields['Event_Type'] = selectedValue.toString();
     request.fields['Select_Time'] = txt_selectTime.text.toString();
     request.fields['Start_Date'] = txt_startDate.text.toString();
@@ -257,8 +250,7 @@ class _CreateEventState extends State<CreateEvent> {
     if (_image == null) {
       request.fields['file'] = "";
     } else {
-      request.files
-          .add(await http.MultipartFile.fromPath('file', _image!.path));
+      request.files.add(await http.MultipartFile.fromPath('file', _image!.path));
     }
     print("??????????????${request.fields.toString()}");
     request.send().then((response) {
@@ -272,7 +264,7 @@ class _CreateEventState extends State<CreateEvent> {
           // _future = myprofile();
           //Rahul
           //  _willPopCallback();
-          if(response.statusCode==200){
+          if (response.statusCode == 200) {
             Get.to(() => DashboardPage());
             Fluttertoast.showToast(
                 msg: "Events Created successfully",
@@ -281,7 +273,7 @@ class _CreateEventState extends State<CreateEvent> {
                 backgroundColor: Colors.black,
                 textColor: Colors.white,
                 fontSize: 16.0);
-          }else if(response.statusCode==400){
+          } else if (response.statusCode == 400) {
             Fluttertoast.showToast(
                 msg: "Please Select Valid End Date!",
                 toastLength: Toast.LENGTH_SHORT,
@@ -290,8 +282,6 @@ class _CreateEventState extends State<CreateEvent> {
                 textColor: Colors.white,
                 fontSize: 16.0);
           }
-
-
         } catch (e) {
           Fluttertoast.showToast(
               msg: "Something went wrong....",
@@ -334,400 +324,354 @@ class _CreateEventState extends State<CreateEvent> {
                   key: formKey,
                   // autovalidateMode: AutovalidateMode.onUserInteraction,
                   child: SingleChildScrollView(
-                      child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                        const SizedBox(
-                          height: 30,
-                        ),
-                        customTextC(
-                            text: "Upload Image",
-                            fSize: 16,
-                            fWeight: FontWeight.w500,
-                            lineHeight: 36),
-                        Stack(
-                          alignment: Alignment.center,
-                          children: [
-                            Center(
-                              child: _image == null
-                                  ? Container(
-                                      width: MediaQuery.of(context).size.width,
-                                      height: 135,
-                                      decoration: BoxDecoration(
-                                        border: Border.all(
-                                          color: HexColor('#D9D9D9'),
-                                        ),
-                                        borderRadius: BorderRadius.circular(5),
-                                      ))
-                                  : Container(
-                                      width: MediaQuery.of(context).size.width,
-                                      height: 135,
-                                      decoration: BoxDecoration(
-                                          border: Border.all(
-                                            color: HexColor('#D9D9D9'),
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(5),
-                                          image: DecorationImage(
-                                              image:
-                                                  FileImage(File(_image!.path)),
-                                              fit: BoxFit.fill)),
+                      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                    const SizedBox(
+                      height: 30,
+                    ),
+                    customTextC(text: "Upload Image", fSize: 16, fWeight: FontWeight.w500, lineHeight: 36),
+                    Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        Center(
+                          child: _image == null
+                              ? Container(
+                                  width: MediaQuery.of(context).size.width,
+                                  height: 135,
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
+                                      color: HexColor('#D9D9D9'),
                                     ),
-                            ),
-                            Container(
-                              height: 141,
-                              width: MediaQuery.of(context).size.width,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10)),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  //  SvgPicture.asset('assets/icons/file-plus.svg'),
-                                  InkWell(
-                                    onTap: () {
-                                      _showPicker(context);
-                                    },
-
-                                    // onTap: () async {
-                                    //   final XFile? pickImage = await ImagePicker()
-                                    //       .pickImage(
-                                    //           source: ImageSource.gallery,
-                                    //           imageQuality: 50);
-                                    //   if (pickImage != null) {
-                                    //     setState(() {
-                                    //       CreateDeal = pickImage.path;
-                                    //     });
-                                    //   }
-                                    // },
-
-                                    child: SvgPicture.asset(
-                                      'assets/icons/image-add (1).svg',
-                                      fit: BoxFit.fill,
-                                    ),
-                                  ),
-                                  const SizedBox(height: 12),
-                                  const Text('Upload Image',
-                                      style: TextStyle(
-                                          fontSize: 16, color: Colors.grey))
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 30,
-                        ),
-                        customTextC(
-                            text: "Event Title",
-                            fSize: 16,
-                            fWeight: FontWeight.w500,
-                            lineHeight: 36),
-                        SizedBox(
-                          height: 70,
-                          child: CustumProfileTextField1(
-                            controller: txt_eventTitle,
-                            validator: validateTitle,
-                            hintText: 'Please Enter Title',
-                            keyboardType: TextInputType.emailAddress,
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 1,
-                        ),
-                        customTextC(
-                          text: "Event Type",
-                          fSize: 16,
-                          fWeight: FontWeight.w500,
-                          lineHeight: 36,
-                         ),
-                        SizedBox(
-                          height: 70,
-                          child: DropdownButtonFormField2<String>(
-                            isExpanded: true,
-                            decoration: InputDecoration(
-                              fillColor: Colors.transparent,
-                              filled: true,
-                              contentPadding:
-                                  const EdgeInsets.symmetric(vertical: 16),
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                            ),
-                            hint: const Text(
-                              ' Online',
-                              style: TextStyle(
-                                fontSize: 16,
-                                color: Colors.black,
-                              ),
-                            ),
-                            items: eventtypeItems
-                                .map((item) => DropdownMenuItem<String>(
-                                      value: item,
-                                      child: Text(
-                                        item,
-                                        style: const TextStyle(
-                                          fontSize: 14,
-                                        ),
+                                    borderRadius: BorderRadius.circular(5),
+                                  ))
+                              : Container(
+                                  width: MediaQuery.of(context).size.width,
+                                  height: 135,
+                                  decoration: BoxDecoration(
+                                      border: Border.all(
+                                        color: HexColor('#D9D9D9'),
                                       ),
-                                    ))
-                                .toList(),
-                            // validator: (value) {
-                            //   if (value == null) {
-                            //     return 'Please select type.';
-                            //   }
-                            //   return null;
-                            // },
+                                      borderRadius: BorderRadius.circular(5),
+                                      image: DecorationImage(image: FileImage(File(_image!.path)), fit: BoxFit.fill)),
+                                ),
+                        ),
+                        Container(
+                          height: 141,
+                          width: MediaQuery.of(context).size.width,
+                          decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              //  SvgPicture.asset('assets/icons/file-plus.svg'),
+                              InkWell(
+                                onTap: () {
+                                  _showPicker(context);
+                                },
 
-                            onChanged: (value) {
-                              selectedValue = value;
-                            },
-                            onSaved: (value) {
-                              selectedValue = value.toString();
-                            },
-                            buttonStyleData: const ButtonStyleData(
-                              padding: EdgeInsets.only(right: 8),
-                            ),
-                            iconStyleData: const IconStyleData(
-                              icon: Icon(
-                                Icons.arrow_drop_down_circle_outlined,
-                                size: 22,
-                                color: Colors.black,
+                                // onTap: () async {
+                                //   final XFile? pickImage = await ImagePicker()
+                                //       .pickImage(
+                                //           source: ImageSource.gallery,
+                                //           imageQuality: 50);
+                                //   if (pickImage != null) {
+                                //     setState(() {
+                                //       CreateDeal = pickImage.path;
+                                //     });
+                                //   }
+                                // },
+
+                                child: SvgPicture.asset(
+                                  'assets/icons/image-add (1).svg',
+                                  fit: BoxFit.fill,
+                                ),
                               ),
-                              iconSize: 24,
-                            ),
-                            dropdownStyleData: DropdownStyleData(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                            ),
-                            menuItemStyleData: const MenuItemStyleData(
-                              padding: EdgeInsets.symmetric(horizontal: 16),
-                            ),
+                              const SizedBox(height: 12),
+                              const Text('Upload Image', style: TextStyle(fontSize: 16, color: Colors.grey))
+                            ],
                           ),
-
-                          // CustumProfileTextField1(
-                          //   controller: txt_eventType,
-                          //   validator: validatePrice,
-                          //   hintText: 'Please Enter Type',
-                          // ),
                         ),
-                        const SizedBox(
-                          height: 10,
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 30,
+                    ),
+                    customTextC(text: "Event Title", fSize: 16, fWeight: FontWeight.w500, lineHeight: 36),
+                    SizedBox(
+                      height: 70,
+                      child: CustumProfileTextField1(
+                        controller: txt_eventTitle,
+                        validator: validateTitle,
+                        hintText: 'Please Enter Title',
+                        keyboardType: TextInputType.emailAddress,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 1,
+                    ),
+                    customTextC(
+                      text: "Event Type",
+                      fSize: 16,
+                      fWeight: FontWeight.w500,
+                      lineHeight: 36,
+                    ),
+                    SizedBox(
+                      height: 70,
+                      child: DropdownButtonFormField2<String>(
+                        isExpanded: true,
+                        decoration: InputDecoration(
+                          fillColor: Colors.transparent,
+                          filled: true,
+                          contentPadding: const EdgeInsets.symmetric(vertical: 16),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
                         ),
-                        customTextC(
-                            text: "Select Time",
-                            fSize: 16,
-                            fWeight: FontWeight.w500,
-                            lineHeight: 36),
-                        SizedBox(
-                            height: 70,
-                            child: TextFormField(
-                              validator: validTimeTitle,
-                              controller: txt_selectTime,
-                              style: TextStyle(color: Colors.black),
-                              //editing controller of this TextField
-                              decoration: InputDecoration(
-                                  border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderSide: const BorderSide(
-                                        color: Colors.black, width: 1.0),
-                                    borderRadius: BorderRadius.circular(10.0),
-                                  ),
-                                  focusColor: Colors.black,
-                                  suffixIcon: Icon(
-                                    Icons.timer,
-                                    color: Colors.black,
-                                  ),
-                                  //icon of text field
-                                  labelText: "Enter Time" //label text of field
-
-                                  ),
-                              readOnly: true,
-                              //set it true, so that user will not able to edit text
-                              onTap: () async {
-                                TimeOfDay? pickedTime = await showTimePicker(
-                                  initialTime: TimeOfDay.now(),
-                                  context: context,
-                                );
-
-                                if (pickedTime != null) {
-                                  print(pickedTime
-                                      .format(context)); //output 10:51 PM
-                                  //print(pickedTime);   //output 10:51 PM
-                                  // DateTime parsedTime = DateFormat.jm().parse(pickedTime.format(context).toString());
-                                  //converting to DateTime so that we can further format on different pattern.
-                                  // print(parsedTime); //output 1970-01-01 22:53:00.000
-                                  // String formattedTime = DateFormat('HH:mm:ss').format(parsedTime);
-                                  String formattedTime =
-                                      pickedTime.format(context);
-                                  print(formattedTime); //output 14:59:00
-                                  //DateFormat() is from intl package, you can format the time on any pattern you need.
-
-                                  setState(() {
-                                    txt_selectTime.text =
-                                        formattedTime; //set the value of text field.
-                                  });
-                                } else {
-                                  print("Time is not selected");
-                                }
-                              },
-                            )
-
-                            // CustumProfileTextField1(
-                            //   controller: txt_selectTime,
-                            //   validator: validateDeal,
-                            //   hintText: 'Please Enter Time',
-                            // ),
-                            ),
-                        const SizedBox(
-                          height: 10,
+                        hint: const Text(
+                          ' Online',
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: Colors.black,
+                          ),
                         ),
-                        customTextC(
-                            text: "Select Start Date",
-                            fSize: 16,
-                            fWeight: FontWeight.w500,
-                            lineHeight: 36),
-                        SizedBox(
-                          height: 70,
-                          child: TextFormField(
-                            validator: notEmptyValidator,
-                            controller: txt_startDate,
-                            //editing controller of this TextField
-                            decoration: InputDecoration(
-                              //i
-                              // con of text field
-                              suffixIcon: Icon(
-                                Icons.calendar_month_outlined,
-                                color: Colors.black,
-                              ),
-                              hintText: " MM - DD - YYYY",
+                        items: eventtypeItems
+                            .map((item) => DropdownMenuItem<String>(
+                                  value: item,
+                                  child: Text(
+                                    item,
+                                    style: const TextStyle(
+                                      fontSize: 14,
+                                    ),
+                                  ),
+                                ))
+                            .toList(),
+                        // validator: (value) {
+                        //   if (value == null) {
+                        //     return 'Please select type.';
+                        //   }
+                        //   return null;
+                        // },
+
+                        onChanged: (value) {
+                          selectedValue = value;
+                        },
+                        onSaved: (value) {
+                          selectedValue = value.toString();
+                        },
+                        buttonStyleData: const ButtonStyleData(
+                          padding: EdgeInsets.only(right: 8),
+                        ),
+                        iconStyleData: const IconStyleData(
+                          icon: Icon(
+                            Icons.arrow_drop_down_circle_outlined,
+                            size: 22,
+                            color: Colors.black,
+                          ),
+                          iconSize: 24,
+                        ),
+                        dropdownStyleData: DropdownStyleData(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                        ),
+                        menuItemStyleData: const MenuItemStyleData(
+                          padding: EdgeInsets.symmetric(horizontal: 16),
+                        ),
+                      ),
+
+                      // CustumProfileTextField1(
+                      //   controller: txt_eventType,
+                      //   validator: validatePrice,
+                      //   hintText: 'Please Enter Type',
+                      // ),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    customTextC(text: "Select Time", fSize: 16, fWeight: FontWeight.w500, lineHeight: 36),
+                    SizedBox(
+                        height: 70,
+                        child: TextFormField(
+                          validator: validTimeTitle,
+                          controller: txt_selectTime,
+                          style: TextStyle(color: Colors.black),
+                          //editing controller of this TextField
+                          decoration: InputDecoration(
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10),
                               ),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: const BorderSide(color: Colors.black, width: 1.0),
+                                borderRadius: BorderRadius.circular(10.0),
+                              ),
                               focusColor: Colors.black,
-                            ),
-                            readOnly: true,
-                            //set it true, so that user will not able to edit text
-                            onTap: () async {
-                              DateTime? pickedDate = await showDatePicker(
-                                  context: context,
-                                  initialDate: startDate??DateTime.now(),
-                                  firstDate: DateTime.now(),
-                                  //DateTime.now() - not to allow to choose before today.
-                                  lastDate: DateTime(2999));
-
-                              if (pickedDate != null) {
-                                print(
-                                    pickedDate); //pickedDate output format => 2021-03-10 00:00:00.000
-                                String formattedDate =
-                                    DateFormat('MM-dd-yyyy').format(pickedDate);
-                                print(
-                                    formattedDate); //formatted date output using intl package =>  2021-03-16
-                                //you can implement different kind of Date Format here according to your requirement
-
-                                setState(() {
-                                  startDate = pickedDate;
-                                  txt_startDate.text =
-                                      formattedDate; //set output date to TextField value.
-                                });
-                              } else {
-                                print("Date is not selected");
-                              }
-                            },
-                          ),
-                          // CustumProfileTextField1(
-                          //   controller: txt_startDate,
-                          //   validator: validateDeal,
-                          //   hintText: 'Please Enter Start Date',
-                          // ),
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        customTextC(
-                            text: "Select End Date",
-                            fSize: 16,
-                            fWeight: FontWeight.w500,
-                            lineHeight: 36),
-                        SizedBox(
-                          height: 70,
-                          child: TextFormField(
-                            validator: notEmptyValidator,
-                            controller: txt_endDate,
-                            //editing controller of this TextField
-                            decoration: InputDecoration(
-                              //i
-                              // con of text field
                               suffixIcon: Icon(
-                                Icons.calendar_month_outlined,
+                                Icons.timer,
                                 color: Colors.black,
                               ),
-                              hintText: " MM - DD - YY",
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
+                              //icon of text field
+                              labelText: "Enter Time" //label text of field
+
                               ),
-                              focusColor: Colors.black,
-                            ),
-                            readOnly: true,
-                            //set it true, so that user will not able to edit text
-                            onTap: () async {
-                              DateTime? pickedDate = await showDatePicker(
-                                  context: context,
-                                  initialDate: endDate ??  DateTime.now(),
-                                  firstDate: DateTime(1900),
-                                  //DateTime.now() - not to allow to choose before today.
-                                  lastDate: DateTime(2999));
+                          readOnly: true,
+                          //set it true, so that user will not able to edit text
+                          onTap: () async {
+                            TimeOfDay? pickedTime = await showTimePicker(
+                              initialTime: TimeOfDay.now(),
+                              context: context,
+                            );
 
-                              if (pickedDate != null) {
-                                print(
-                                    pickedDate); //pickedDate output format => 2021-03-10 00:00:00.000
-                                String formattedDate =
-                                    DateFormat('MM-dd-yy').format(pickedDate);
-                                print(
-                                    formattedDate); //formatted date output using intl package =>  2021-03-16
-                                //you can implement different kind of Date Format here according to your requirement
+                            if (pickedTime != null) {
+                              print(pickedTime.format(context)); //output 10:51 PM
+                              //print(pickedTime);   //output 10:51 PM
+                              // DateTime parsedTime = DateFormat.jm().parse(pickedTime.format(context).toString());
+                              //converting to DateTime so that we can further format on different pattern.
+                              // print(parsedTime); //output 1970-01-01 22:53:00.000
+                              // String formattedTime = DateFormat('HH:mm:ss').format(parsedTime);
+                              String formattedTime = pickedTime.format(context);
+                              print(formattedTime); //output 14:59:00
+                              //DateFormat() is from intl package, you can format the time on any pattern you need.
 
-                                setState(() {
-                                  endDate=pickedDate;
-                                  txt_endDate.text =
-                                      formattedDate; //set output date to TextField value.
-                                });
-                              } else {
-                                print("Date is not selected");
-                              }
-                            },
+                              setState(() {
+                                txt_selectTime.text = formattedTime; //set the value of text field.
+                              });
+                            } else {
+                              print("Time is not selected");
+                            }
+                          },
+                        )
+
+                        // CustumProfileTextField1(
+                        //   controller: txt_selectTime,
+                        //   validator: validateDeal,
+                        //   hintText: 'Please Enter Time',
+                        // ),
+                        ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    customTextC(text: "Select Start Date", fSize: 16, fWeight: FontWeight.w500, lineHeight: 36),
+                    SizedBox(
+                      height: 70,
+                      child: TextFormField(
+                        validator: notEmptyValidator,
+                        controller: txt_startDate,
+                        //editing controller of this TextField
+                        decoration: InputDecoration(
+                          //i
+                          // con of text field
+                          suffixIcon: Icon(
+                            Icons.calendar_month_outlined,
+                            color: Colors.black,
                           ),
-                          // CustumProfileTextField1(
-                          //   controller: txt_endDate,
-                          //   validator: validateDeal,
-                          //   hintText: 'Please Enter End Date',
-                          // ),
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        customTextC(
-                            text: "Description",
-                            fSize: 16,
-                            fWeight: FontWeight.w500,
-                            lineHeight: 36),
-                        SizedBox(
-                          height: 70,
-                          child: CustumProfileTextField1(
-                            controller: txt_description,
-                            validator: validateDescriptionn,
-                            hintText: 'Please Enter Description',
-                            keyboardType: TextInputType.emailAddress,
+                          hintText: " MM - DD - YYYY",
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
                           ),
+                          focusColor: Colors.black,
                         ),
-                        updateBtn(context),
-                        const SizedBox(
-                          height: 30,
+                        readOnly: true,
+                        //set it true, so that user will not able to edit text
+                        onTap: () async {
+                          DateTime? pickedDate = await showDatePicker(
+                              context: context,
+                              initialDate: startDate ?? DateTime.now(),
+                              firstDate: DateTime.now(),
+                              //DateTime.now() - not to allow to choose before today.
+                              lastDate: DateTime(2999));
+
+                          if (pickedDate != null) {
+                            print(pickedDate); //pickedDate output format => 2021-03-10 00:00:00.000
+                            String formattedDate = DateFormat('MM-dd-yyyy').format(pickedDate);
+                            print(formattedDate); //formatted date output using intl package =>  2021-03-16
+                            //you can implement different kind of Date Format here according to your requirement
+
+                            setState(() {
+                              startDate = pickedDate;
+                              txt_startDate.text = formattedDate; //set output date to TextField value.
+                            });
+                          } else {
+                            print("Date is not selected");
+                          }
+                        },
+                      ),
+                      // CustumProfileTextField1(
+                      //   controller: txt_startDate,
+                      //   validator: validateDeal,
+                      //   hintText: 'Please Enter Start Date',
+                      // ),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    customTextC(text: "Select End Date", fSize: 16, fWeight: FontWeight.w500, lineHeight: 36),
+                    SizedBox(
+                      height: 70,
+                      child: TextFormField(
+                        validator: notEmptyValidator,
+                        controller: txt_endDate,
+                        //editing controller of this TextField
+                        decoration: InputDecoration(
+                          //i
+                          // con of text field
+                          suffixIcon: Icon(
+                            Icons.calendar_month_outlined,
+                            color: Colors.black,
+                          ),
+                          hintText: " MM - DD - YY",
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          focusColor: Colors.black,
                         ),
-                      ])),
+                        readOnly: true,
+                        //set it true, so that user will not able to edit text
+                        onTap: () async {
+                          DateTime? pickedDate = await showDatePicker(
+                              context: context,
+                              initialDate: endDate ?? DateTime.now(),
+                              firstDate: DateTime(1900),
+                              //DateTime.now() - not to allow to choose before today.
+                              lastDate: DateTime(2999));
+
+                          if (pickedDate != null) {
+                            print(pickedDate); //pickedDate output format => 2021-03-10 00:00:00.000
+                            String formattedDate = DateFormat('MM-dd-yy').format(pickedDate);
+                            print(formattedDate); //formatted date output using intl package =>  2021-03-16
+                            //you can implement different kind of Date Format here according to your requirement
+
+                            setState(() {
+                              endDate = pickedDate;
+                              txt_endDate.text = formattedDate; //set output date to TextField value.
+                            });
+                          } else {
+                            print("Date is not selected");
+                          }
+                        },
+                      ),
+                      // CustumProfileTextField1(
+                      //   controller: txt_endDate,
+                      //   validator: validateDeal,
+                      //   hintText: 'Please Enter End Date',
+                      // ),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    customTextC(text: "Description", fSize: 16, fWeight: FontWeight.w500, lineHeight: 36),
+                    SizedBox(
+                      height: 70,
+                      child: CustumProfileTextField1(
+                        controller: txt_description,
+                        validator: validateDescriptionn,
+                        hintText: 'Please Enter Description',
+                        keyboardType: TextInputType.emailAddress,
+                      ),
+                    ),
+                    updateBtn(context),
+                    const SizedBox(
+                      height: 30,
+                    ),
+                  ])),
                 )),
           ],
         ));
@@ -740,8 +684,7 @@ class _CreateEventState extends State<CreateEvent> {
       child: Button(
         btnColor: Colors.redAccent,
         buttonName: 'CREATE',
-        btnstyle: textstylesubtitle2(context)!
-            .copyWith(color: colorWhite, fontFamily: 'Poppins'),
+        btnstyle: textstylesubtitle2(context)!.copyWith(color: colorWhite, fontFamily: 'Poppins'),
         borderRadius: BorderRadius.circular(30.00),
         btnWidth: deviceWidth(context),
         btnHeight: 60,
@@ -750,17 +693,15 @@ class _CreateEventState extends State<CreateEvent> {
           //Get.to(() => Reset_Pass());
           // uploadFileToServerInfluencer();
           if (formKey.currentState!.validate()) {
-    if (startDate!.isAfter(endDate!)) {
-      Fluttertoast.showToast(msg: "Start date cannot be greater than end date.");
-    }else{
-      if(_image==null ){
-        Fluttertoast.showToast(msg: "Please select any image");
-
-      }else{
-        uploadFileToServerInfluencer();
-      }
-
-    }
+            if (startDate!.isAfter(endDate!)) {
+              Fluttertoast.showToast(msg: "Start date cannot be greater than end date.");
+            } else {
+              if (_image == null) {
+                Fluttertoast.showToast(msg: "Please select any image");
+              } else {
+                uploadFileToServerInfluencer();
+              }
+            }
           }
 
           // else{
