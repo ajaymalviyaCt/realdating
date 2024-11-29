@@ -54,11 +54,17 @@ class _AddYourPhotoPageState extends State<AddYourPhotoPage> {
 
     var request = http.MultipartRequest("POST", Appurls.addYourPhotoas);
     for (var file in selectedImages) {
-      String fileName = file.path.split("/").last;
-      var stream = http.ByteStream(DelegatingStream.typed(file.openRead()));
-      var length = await file.length();
-      var multipartFileSign = http.MultipartFile('files', stream, length, filename: fileName);
-      request.files.add(multipartFileSign);
+      try {
+        if (file.file.value != null) {
+          String fileName = file.file.value!.path.split("/").last;
+          var stream = http.ByteStream(DelegatingStream.typed(file.file.value!.openRead()));
+          var length = await file.file.value!.length();
+          var multipartFileSign = http.MultipartFile('files', stream, length, filename: fileName);
+          request.files.add(multipartFileSign);
+        }
+      } catch (e, s) {
+        // TODO
+      }
     }
 
     request.send().then((response) {
@@ -100,7 +106,14 @@ class _AddYourPhotoPageState extends State<AddYourPhotoPage> {
     request.headers.addAll(headers);
   }
 
-  final RxList<File> selectedImages = <File>[].obs;
+  final RxList<({Rxn<File> file})> selectedImages = <({Rxn<File> file})>[
+    (file: Rxn()),
+    (file: Rxn()),
+    (file: Rxn()),
+    (file: Rxn()),
+    (file: Rxn()),
+    (file: Rxn()),
+  ].obs;
   final picker = ImagePicker();
 
   @override
@@ -130,7 +143,7 @@ class _AddYourPhotoPageState extends State<AddYourPhotoPage> {
                 return Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    selectedImages.isNotEmpty
+                    selectedImages[0].file.value != null
                         ? Stack(children: [
                             Container(
                               height: 130,
@@ -139,7 +152,7 @@ class _AddYourPhotoPageState extends State<AddYourPhotoPage> {
                                   border: Border.all(style: BorderStyle.solid, color: Colors.redAccent),
                                   borderRadius: BorderRadius.circular(10),
                                   color: Color(0xffBDBDBD).withOpacity(0.35),
-                                  image: DecorationImage(image: FileImage(selectedImages[0]), fit: BoxFit.fill)),
+                                  image: DecorationImage(image: FileImage(selectedImages[0].file.value!), fit: BoxFit.fill)),
                             ),
                             Padding(
                               padding: EdgeInsets.only(top: 105, left: 80),
@@ -147,8 +160,22 @@ class _AddYourPhotoPageState extends State<AddYourPhotoPage> {
                             ),
                           ])
                         : InkWell(
-                            onTap: () {
-                              getImages();
+                            onTap: () async {
+                              final pickedFile = await picker.pickMultiImage(imageQuality: 10, maxHeight: 1000, maxWidth: 1000);
+                              List<XFile> xfilePick = pickedFile;
+
+                              setState(
+                                () {
+                                  if (xfilePick.isNotEmpty) {
+                                    for (var i = 0; i < xfilePick.length; i++) {
+                                      selectedImages[0].file.value = File(xfilePick[i].path);
+                                    }
+                                  } else {
+                                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Nothing is selected')));
+                                  }
+                                },
+                              );
+
                               // hobbiesController.interestSelect();
                             },
                             child: Stack(children: [
@@ -167,7 +194,7 @@ class _AddYourPhotoPageState extends State<AddYourPhotoPage> {
                               ),
                             ]),
                           ),
-                    selectedImages.length > 1
+                    selectedImages[1].file.value != null
                         ? Stack(children: [
                             Container(
                               height: 130,
@@ -176,7 +203,7 @@ class _AddYourPhotoPageState extends State<AddYourPhotoPage> {
                                   border: Border.all(style: BorderStyle.solid, color: Colors.redAccent),
                                   borderRadius: BorderRadius.circular(10),
                                   color: Color(0xffBDBDBD).withOpacity(0.35),
-                                  image: DecorationImage(image: FileImage(selectedImages[1]), fit: BoxFit.fill)),
+                                  image: DecorationImage(image: FileImage(selectedImages[1].file.value!), fit: BoxFit.fill)),
                             ),
                             Padding(
                               padding: const EdgeInsets.only(top: 105, left: 80),
@@ -184,8 +211,21 @@ class _AddYourPhotoPageState extends State<AddYourPhotoPage> {
                             ),
                           ])
                         : InkWell(
-                            onTap: () {
-                              getImages();
+                            onTap: () async {
+                              final pickedFile = await picker.pickMultiImage(imageQuality: 10, maxHeight: 1000, maxWidth: 1000);
+                              List<XFile> xfilePick = pickedFile;
+
+                              setState(
+                                () {
+                                  if (xfilePick.isNotEmpty) {
+                                    for (var i = 0; i < xfilePick.length; i++) {
+                                      selectedImages[1].file.value = File(xfilePick[i].path);
+                                    }
+                                  } else {
+                                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Nothing is selected')));
+                                  }
+                                },
+                              );
                             },
                             child: Stack(children: [
                               Container(
@@ -203,7 +243,7 @@ class _AddYourPhotoPageState extends State<AddYourPhotoPage> {
                               ),
                             ]),
                           ),
-                    selectedImages.length > 2
+                    selectedImages[2].file.value != null
                         ? Stack(children: [
                             Container(
                               height: 130,
@@ -212,7 +252,7 @@ class _AddYourPhotoPageState extends State<AddYourPhotoPage> {
                                   border: Border.all(style: BorderStyle.solid, color: Colors.redAccent),
                                   borderRadius: BorderRadius.circular(10),
                                   color: Color(0xffBDBDBD).withOpacity(0.35),
-                                  image: DecorationImage(image: FileImage(selectedImages[2]), fit: BoxFit.fill)),
+                                  image: DecorationImage(image: FileImage(selectedImages[2].file.value!), fit: BoxFit.fill)),
                             ),
                             Padding(
                               padding: EdgeInsets.only(top: 105, left: 80),
@@ -220,8 +260,21 @@ class _AddYourPhotoPageState extends State<AddYourPhotoPage> {
                             ),
                           ])
                         : InkWell(
-                            onTap: () {
-                              getImages();
+                            onTap: () async {
+                              final pickedFile = await picker.pickMultiImage(imageQuality: 10, maxHeight: 1000, maxWidth: 1000);
+                              List<XFile> xfilePick = pickedFile;
+
+                              setState(
+                                () {
+                                  if (xfilePick.isNotEmpty) {
+                                    for (var i = 0; i < xfilePick.length; i++) {
+                                      selectedImages[2].file.value = File(xfilePick[i].path);
+                                    }
+                                  } else {
+                                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Nothing is selected')));
+                                  }
+                                },
+                              );
                             },
                             child: Stack(children: [
                               Container(
@@ -246,7 +299,7 @@ class _AddYourPhotoPageState extends State<AddYourPhotoPage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  selectedImages.length > 3
+                  selectedImages[3].file.value != null
                       ? Stack(children: [
                           Container(
                             height: 130,
@@ -255,7 +308,7 @@ class _AddYourPhotoPageState extends State<AddYourPhotoPage> {
                                 border: Border.all(style: BorderStyle.solid, color: Colors.redAccent),
                                 borderRadius: BorderRadius.circular(10),
                                 color: Color(0xffBDBDBD).withOpacity(0.35),
-                                image: DecorationImage(image: FileImage(selectedImages[3]), fit: BoxFit.fill)),
+                                image: DecorationImage(image: FileImage(selectedImages[3].file.value!), fit: BoxFit.fill)),
                           ),
                           Padding(
                             padding: EdgeInsets.only(top: 105, left: 80),
@@ -263,8 +316,21 @@ class _AddYourPhotoPageState extends State<AddYourPhotoPage> {
                           ),
                         ])
                       : InkWell(
-                          onTap: () {
-                            getImages();
+                          onTap: () async {
+                            final pickedFile = await picker.pickMultiImage(imageQuality: 10, maxHeight: 1000, maxWidth: 1000);
+                            List<XFile> xfilePick = pickedFile;
+
+                            setState(
+                              () {
+                                if (xfilePick.isNotEmpty) {
+                                  for (var i = 0; i < xfilePick.length; i++) {
+                                    selectedImages[3].file.value = File(xfilePick[i].path);
+                                  }
+                                } else {
+                                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Nothing is selected')));
+                                }
+                              },
+                            );
                           },
                           child: Stack(children: [
                             Container(
@@ -282,7 +348,7 @@ class _AddYourPhotoPageState extends State<AddYourPhotoPage> {
                             ),
                           ]),
                         ),
-                  selectedImages.length > 4
+                  selectedImages[4].file.value != null
                       ? Stack(children: [
                           Container(
                             height: 130,
@@ -291,7 +357,7 @@ class _AddYourPhotoPageState extends State<AddYourPhotoPage> {
                                 border: Border.all(style: BorderStyle.solid, color: Colors.redAccent),
                                 borderRadius: BorderRadius.circular(10),
                                 color: Color(0xffBDBDBD).withOpacity(0.35),
-                                image: DecorationImage(image: FileImage(selectedImages[4]), fit: BoxFit.fill)),
+                                image: DecorationImage(image: FileImage(selectedImages[4].file.value!), fit: BoxFit.fill)),
                           ),
                           Padding(
                             padding: EdgeInsets.only(top: 105, left: 80),
@@ -299,8 +365,21 @@ class _AddYourPhotoPageState extends State<AddYourPhotoPage> {
                           ),
                         ])
                       : InkWell(
-                          onTap: () {
-                            getImages();
+                          onTap: () async {
+                            final pickedFile = await picker.pickMultiImage(imageQuality: 10, maxHeight: 1000, maxWidth: 1000);
+                            List<XFile> xfilePick = pickedFile;
+
+                            setState(
+                              () {
+                                if (xfilePick.isNotEmpty) {
+                                  for (var i = 0; i < xfilePick.length; i++) {
+                                    selectedImages[4].file.value = File(xfilePick[i].path);
+                                  }
+                                } else {
+                                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Nothing is selected')));
+                                }
+                              },
+                            );
                           },
                           child: Stack(children: [
                             Container(
@@ -318,7 +397,7 @@ class _AddYourPhotoPageState extends State<AddYourPhotoPage> {
                             ),
                           ]),
                         ),
-                  selectedImages.length > 5
+                  selectedImages[5].file.value != null
                       ? Stack(children: [
                           Container(
                             height: 130,
@@ -327,7 +406,7 @@ class _AddYourPhotoPageState extends State<AddYourPhotoPage> {
                                 border: Border.all(style: BorderStyle.solid, color: Colors.redAccent),
                                 borderRadius: BorderRadius.circular(10),
                                 color: Color(0xffBDBDBD).withOpacity(0.35),
-                                image: DecorationImage(image: FileImage(selectedImages[5]), fit: BoxFit.fill)),
+                                image: DecorationImage(image: FileImage(selectedImages[5].file.value!), fit: BoxFit.fill)),
                           ),
                           Padding(
                             padding: const EdgeInsets.only(top: 105, left: 80),
@@ -335,8 +414,21 @@ class _AddYourPhotoPageState extends State<AddYourPhotoPage> {
                           ),
                         ])
                       : InkWell(
-                          onTap: () {
-                            getImages();
+                          onTap: () async {
+                            final pickedFile = await picker.pickMultiImage(imageQuality: 10, maxHeight: 1000, maxWidth: 1000);
+                            List<XFile> xfilePick = pickedFile;
+
+                            setState(
+                              () {
+                                if (xfilePick.isNotEmpty) {
+                                  for (var i = 0; i < xfilePick.length; i++) {
+                                    selectedImages[5].file.value = File(xfilePick[i].path);
+                                  }
+                                } else {
+                                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Nothing is selected')));
+                                }
+                              },
+                            );
                           },
                           child: Stack(children: [
                             Container(
@@ -394,23 +486,6 @@ class _AddYourPhotoPageState extends State<AddYourPhotoPage> {
           ),
         ),
       ),
-    );
-  }
-
-  Future getImages() async {
-    final pickedFile = await picker.pickMultiImage(imageQuality: 10, maxHeight: 1000, maxWidth: 1000);
-    List<XFile> xfilePick = pickedFile;
-
-    setState(
-      () {
-        if (xfilePick.isNotEmpty) {
-          for (var i = 0; i < xfilePick.length; i++) {
-            selectedImages.add(File(xfilePick[i].path));
-          }
-        } else {
-          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Nothing is selected')));
-        }
-      },
     );
   }
 
