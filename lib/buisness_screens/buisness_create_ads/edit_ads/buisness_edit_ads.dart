@@ -45,9 +45,9 @@ class _BuisnessEditAdsState extends State<BuisnessEditAds> {
         appBar: customAppbar("Edit Ad", context),
         body: Obx(
           () => allAdssDealController.isLoadig.value
-              ? Center(child: CircularProgressIndicator())
+              ? const Center(child: CircularProgressIndicator())
               : Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20.0),
+                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
                   child: Form(
                     // key:_formmKey,
                     // autovalidateMode:  AutovalidateMode.always,
@@ -205,7 +205,7 @@ class _BuisnessEditAdsState extends State<BuisnessEditAds> {
                         ),
                       ),
 
-                      SizedBox(height: 30),
+                      const SizedBox(height: 30),
                       Obx(
                         () => customPrimaryBtn(
                           btnText: "save",
