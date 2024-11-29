@@ -1,7 +1,6 @@
-import 'package:realdating/consts/app_urls.dart';
-import 'package:realdating/services/base_client01.dart';
 import 'package:get/get.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:realdating/pages/mape/NearBy_businesses.dart';
+import 'package:realdating/services/apis_related/api_call_services.dart';
 
 import 'buisness_all_adss_models.dart';
 
@@ -37,11 +36,10 @@ import 'buisness_all_adss_models.dart';
 //   }
 // }
 
-class AllAdssDealController extends GetxController{
+class AllAdssDealController extends GetxController {
+  RxBool isLoadig = false.obs;
 
-  RxBool isLoadig =false.obs;
-
-  GetAllAdsMdoels ? getAllAdsMdoels;
+  GetAllAdsMdoels? getAllAdsMdoels;
 
   @override
   void onReady() {
@@ -49,22 +47,18 @@ class AllAdssDealController extends GetxController{
     All_AdsD();
   }
 
-  All_AdsD()async{
+  All_AdsD() async {
     isLoadig(true);
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    var userId = prefs.get('user_id');
-    final response = await BaseClient01().post(Appurls.getsallads,{
-      "business_id":userId.toString(),
-    });
-    print(response);
-    print("GetAllAdsModel");
-    bool success= response["success"];
-    var msg= response["message"];
-    print( "msg ___$msg");
-    if(success){
-      getAllAdsMdoels = GetAllAdsMdoels.fromJson(response);
-    }
-    isLoadig(false);
+    Map<String, dynamic> apiData = await ApiCall.instance.callApi(
+      url: "https://forreal.net:4000/get_advs",
+      headers: await authHeader(),
+      body: {
+        "business_id": await getUserId(),
+      },
+      method: HttpMethod.POST
+    );
+    getAllAdsMdoels = GetAllAdsMdoels.fromJson(apiData);
 
+    isLoadig(false);
   }
 }
