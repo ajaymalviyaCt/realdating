@@ -244,23 +244,23 @@ class _BuisnessEditAdsState extends State<BuisnessEditAds> {
                               )),
 
                           //  SizedBox(height: 10,),
-                          customTextC(
-                              text: "Age(in years)",
-                              fSize: 16,
-                              fWeight: FontWeight.w500,
-                              lineHeight: 36),
+                          // customTextC(
+                          //     text: "Age(in years)",
+                          //     fSize: 16,
+                          //     fWeight: FontWeight.w500,
+                          //     lineHeight: 36),
 
-                          SizedBox(
-                            height: 50,
-                            child: CustumProfileTextField1(
-                              controller: editAdsController.Age,
-                              validator: validateName,
-                              hintText: widget.dataList[widget.indexEdit].age
-                                      .toString() ??
-                                  "",
-                              // hintText: "22"
-                            ),
-                          ),
+                          // SizedBox(
+                          //   height: 50,
+                          //   child: CustumProfileTextField1(
+                          //     controller: editAdsController.Age,
+                          //     validator: validateName,
+                          //     hintText: widget.dataList[widget.indexEdit].age
+                          //             .toString() ??
+                          //         "",
+                          //     // hintText: "22"
+                          //   ),
+                          // ),
 
                           customTextC(
                               text: "Intrest",

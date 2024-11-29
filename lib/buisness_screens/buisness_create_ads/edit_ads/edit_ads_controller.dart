@@ -82,8 +82,7 @@ class EditAdsController extends GetxController {
       // Add the image file to the request
 
       if (addImage == null) {
-        var fileName =
-            allAdssDealController.getAllAdsMdoels?.myAdvs[index].adImage;
+        var fileName = allAdssDealController.getAllAdsMdoels?.myAdvs[index].adImage;
         request.fields['file'] = fileName.toString();
         print("File======>");
         print(
