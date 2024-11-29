@@ -152,22 +152,24 @@ class _EditProfilePageState extends State<EditProfilePage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Stack(children: [
-                Center(
+              Obx(() {
+                return Center(
                   child: Container(
                     child: editProfileController.profilepic == null
                         ? CircleAvatar(
-                            radius: 70,
-                            backgroundImage: NetworkImage(
-                              profileController.profileImage.value,
-                            ),
-                          )
+                      radius: 70,
+                      backgroundImage: NetworkImage(
+                        profileController.profileImage.value,
+                      ),
+                    )
                         : CircleAvatar(
-                            radius: 70,
-                            backgroundImage: FileImage(
-                                File(editProfileController.profilepic!)),
-                          ),
+                      radius: 70,
+                      backgroundImage: FileImage(
+                          File(editProfileController.profilepic!)),
+                    ),
                   ),
-                ),
+                );
+              },),
                 Padding(
                   padding: const EdgeInsets.only(top: 60),
                   child: Center(

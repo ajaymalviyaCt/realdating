@@ -113,8 +113,7 @@ class _MyAllDatesPageState extends State<MyAllDatesPage> {
                                                     InkWell(
                                                       onTap: () {
                                                         Get.to(() => MatchDetails(
-                                                              id: '${myAllDatesController.myAllDatesModel?.myInvites?[index].requestStatus}' ==
-                                                                      "Received"
+                                                              id: '${myAllDatesController.myAllDatesModel?.myInvites?[index].requestStatus}' == "Received"
                                                                   ? "${myAllDatesController.myAllDatesModel?.myInvites![index].invitedBy!.id}"
                                                                   : "${myAllDatesController.myAllDatesModel?.myInvites![index].invitedTo!.id}",
                                                               isfriend: true,
@@ -184,23 +183,19 @@ class _MyAllDatesPageState extends State<MyAllDatesPage> {
                                                       ],
                                                     ),
                                                     const Spacer(),
-
                                                     Builder(
                                                       builder: (context) {
 
-                                                        if ((myAllDatesController.myAllDatesModel?.myInvites?[index].requestStatus
-                                                                    ?.toLowerCase()
-                                                                    .trim() ==
-                                                                'requested') &&
+
+                                                        print('my status-------${myAllDatesController.myAllDatesModel?.myInvites?[index].status}');
+
+                                                        if ((myAllDatesController.myAllDatesModel?.myInvites?[index].requestStatus?.toLowerCase().trim() == 'requested') &&
                                                             myAllDatesController.myAllDatesModel?.myInvites?[index].status == 2) {
                                                           return const Text('Rejected',
-                                                              style: TextStyle(
-                                                                  color: Colors.red, fontSize: 15, fontWeight: FontWeight.bold));
+                                                              style: TextStyle(color: Colors.red, fontSize: 15, fontWeight: FontWeight.bold));
                                                         }
 
-                                                        if (myAllDatesController
-                                                                .myAllDatesModel?.myInvites?[index].requestStatus ==
-                                                            'Received') {
+                                                        if (myAllDatesController.myAllDatesModel?.myInvites?[index].requestStatus == 'Received') {
                                                           return Row(
                                                             children: [
                                                               SvgPicture.asset("assets/icons/A1arrow_received.svg", height: 12),
@@ -208,9 +203,7 @@ class _MyAllDatesPageState extends State<MyAllDatesPage> {
                                                               "Rececived".text.base.red600.medium.make(),
                                                             ],
                                                           );
-                                                        } else if (myAllDatesController
-                                                                .myAllDatesModel?.myInvites?[index].requestStatus ==
-                                                            'Requested') {
+                                                        } else if (myAllDatesController.myAllDatesModel?.myInvites?[index].requestStatus == 'Requested') {
                                                           return Row(
                                                             children: [
                                                               SvgPicture.asset(
@@ -225,21 +218,15 @@ class _MyAllDatesPageState extends State<MyAllDatesPage> {
                                                         // else if(myAllDatesController.myAllDatesModel?.myInvites?[index].status==0){
                                                         //   return const Text('Pending',style: TextStyle(color: Colors.amber,fontSize: 15,fontWeight:FontWeight.bold),);
                                                         // }
-                                                        else if (myAllDatesController.myAllDatesModel?.myInvites?[index].status ==
-                                                            1) {
-                                                          return const Text(
-                                                            'Accepted',
-                                                            style: TextStyle(
+                                                        else if (myAllDatesController.myAllDatesModel?.myInvites?[index].status == 1) {
+                                                          return const Text('Accepted', style: TextStyle(
                                                                 color: Colors.green, fontSize: 15, fontWeight: FontWeight.bold),
                                                           );
                                                           ;
                                                         } else if (myAllDatesController
-                                                                .myAllDatesModel?.myInvites?[index].status ==
-                                                            2) {
-                                                          print(
-                                                              'status-----${myAllDatesController.myAllDatesModel?.myInvites?[index].status}');
-                                                          return const Text(
-                                                            'Rejected',
+                                                                .myAllDatesModel?.myInvites?[index].status == 2) {
+                                                          print('status-----${myAllDatesController.myAllDatesModel?.myInvites?[index].status}');
+                                                          return const Text('Rejected',
                                                             style: TextStyle(
                                                                 color: Colors.red, fontSize: 15, fontWeight: FontWeight.bold),
                                                           );
