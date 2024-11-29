@@ -78,7 +78,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
 
   final ImagePicker _picker = ImagePicker();
   Future<void> _imagePicker({required ImageSource source}) async {
-    final XFile ?  pickedFile = await _picker.pickImage(source: source);
+    final XFile ?  pickedFile = await _picker.pickImage(source: source,imageQuality: 60);
      CroppedFile ? croppedFile = await ImageCropper().cropImage(
       sourcePath:  pickedFile!.path,
       // aspectRatioPresets: [
