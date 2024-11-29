@@ -324,7 +324,9 @@ class _AddYourPhotoPageState extends State<AddYourPhotoPage> {
                       ),
                       Padding(
                         padding: EdgeInsets.only(top: 105, left: 80),
-                        child: SvgPicture.asset('assets/icons/Sign In Button (1).svg'),
+                        child: InkWell(onTap: () {
+                          selectedImages[3].file.value = null;
+                        },child: SvgPicture.asset('assets/icons/cross.svg')),
                       ),
                     ])
                         : InkWell(
@@ -373,7 +375,9 @@ class _AddYourPhotoPageState extends State<AddYourPhotoPage> {
                       ),
                       Padding(
                         padding: EdgeInsets.only(top: 105, left: 80),
-                        child: SvgPicture.asset('assets/icons/Sign In Button (1).svg'),
+                        child: InkWell(onTap: () {
+                          selectedImages[4].file.value = null;
+                        },child: SvgPicture.asset('assets/icons/cross.svg')),
                       ),
                     ])
                         : InkWell(
