@@ -6,6 +6,7 @@ import 'package:realdating/widgets/custom_text_styles.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../consts/app_colors.dart';
+import '../../reel/app_util.dart';
 import '../a_frist_pages/add_your_photos/add_your_photos.dart';
 import '../a_frist_pages/changepassword/change_password.dart';
 import '../a_frist_pages/login_page/login_controller.dart';
@@ -59,8 +60,8 @@ class _SettingsPageState extends State<SettingsPage> {
         // Handle successful deletion
         // await logoutUser();
         Get.offAll(() => const OptionScreen()); // Redirect to login screen
-        Get.snackbar("Account Deleted", "Your account has been successfully deleted.",
-            backgroundColor: Colors.green, colorText: Colors.white);
+        AppUtil.showToast(message: "Your account has been successfully deleted.", isSuccess: false);
+
       } else {
         // Handle API error
       //  showErrorDialog("Failed to delete account: ${response.statusMessage}");

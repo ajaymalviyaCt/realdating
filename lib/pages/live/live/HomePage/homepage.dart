@@ -11,6 +11,7 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:realdating/chat/api/apis.dart';
 import 'package:zego_uikit_prebuilt_live_streaming/zego_uikit_prebuilt_live_streaming.dart';
 
+import '../../../../reel/app_util.dart';
 import '../../../../zego_live_stream_chat/live_page.dart';
 import '../../../dash_board_page.dart';
 import '../agora/audience.dart';
@@ -119,7 +120,8 @@ class _HomePageState extends State<HomePage> {
     // },);
     // return;
     if (!isDeviceConnected) {
-      Get.snackbar("Error", "No internet connection", snackPosition: SnackPosition.BOTTOM);
+      AppUtil.showToast(message: "No internet connection", isSuccess: false);
+
       return;
     }
 
@@ -149,8 +151,8 @@ class _HomePageState extends State<HomePage> {
 
 
     } else {
-      Get.snackbar("Permission Error", "Camera and Microphone permissions are required to go live",
-          snackPosition: SnackPosition.BOTTOM);
+      AppUtil.showToast(message: "Camera and Microphone permissions are required to go live", isSuccess: false);
+
     }
   }
 
