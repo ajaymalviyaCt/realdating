@@ -18,6 +18,7 @@ class BuisnessSignUpController extends GetxController {
   TextEditingController countryController = TextEditingController();
   TextEditingController categoryController = TextEditingController();
   TextEditingController addressController = TextEditingController();
+
   clearDataUser(){return{
     buisnessnameController.clear(),
     bphonenoController.clear(),
@@ -30,6 +31,7 @@ class BuisnessSignUpController extends GetxController {
     countryController.clear(),
     categoryController.clear(),
     addressController.clear(),
+
   };}
   RxBool isLoadig = false.obs;
   RxBool seePassword = true.obs;

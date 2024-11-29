@@ -331,6 +331,7 @@ class _EDIT_dealState extends State<EDIT_deal> {
                               controller: editUpdateController.Title,
                               validator: validateName,
                               maxlenght: 30,
+                              keyboardType: TextInputType.emailAddress,
                               hintText:
                                   "${myDealController.myDealsModel?.myDeals[index].title}"),
                         ),
@@ -338,7 +339,7 @@ class _EDIT_dealState extends State<EDIT_deal> {
                           height: 10,
                         ),
                         customTextC(
-                            text: "Dollar",
+                            text: "Price",
                             fSize: 16,
                             fWeight: FontWeight.w500,
                             lineHeight: 36),

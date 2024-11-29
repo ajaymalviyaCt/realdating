@@ -37,6 +37,7 @@ class _BuisnessSignUpState extends State<BuisnessSignUp> {
   bool showDropdown = false;
   List<String> categories = [];
 
+
   String? BuisnessValue;
 
 
@@ -45,7 +46,7 @@ class _BuisnessSignUpState extends State<BuisnessSignUp> {
   @override
   void initState() {
     super.initState();
-    fetchCategories(); // Fetch categories when the widget initializes
+    fetchCategories();
   }
 
   Future<void> fetchCategories() async {
@@ -298,6 +299,7 @@ class _BuisnessSignUpState extends State<BuisnessSignUp> {
                           ),
 
                         const SizedBox(height: 15),
+
 
                         // if (_currentPosition != null) Text(
                         //     "LAT: ${_currentPosition?.latitude}, LNG: ${_currentPosition?.longitude}"

@@ -51,6 +51,11 @@ class _CreateAadsState extends State<CreateAads> {
   TextEditingController txt_location = TextEditingController();
   TextEditingController txt_range = TextEditingController();
   TextEditingController txt_link = TextEditingController();
+  final RxList<String> selectedInterest = <String>[].obs;
+
+  bool showDropdown = false;
+  bool isLoading = false;
+  List<String> interestList = ['Music', 'Dancing', 'Cricket', 'Movie', 'Photography', 'Gaming'];
 
   @override
   void initState() {
@@ -146,7 +151,7 @@ class _CreateAadsState extends State<CreateAads> {
       Get.off(() => BuisnessHomePage());
       // Navigator.pop(context);
       Fluttertoast.showToast(
-          msg: apiData["message"] ,
+          msg: apiData["message"],
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.BOTTOM,
           backgroundColor: Colors.black,
@@ -335,14 +340,107 @@ class _CreateAadsState extends State<CreateAads> {
                 //   ),
                 // ),
                 customTextC(text: "Interest", fSize: 16, fWeight: FontWeight.w500, lineHeight: 36),
-                SizedBox(
-                  height: 70,
-                  child: CustumProfileTextField1(
-                    controller: txt_interest,
-                    validator: validateIntrest,
-                    hintText: 'Enter Interest in dollar ',
+
+                TextField(
+                  style: const TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.w600,
                   ),
+                  controller: txt_interest,
+                  readOnly: true,
+                  // Prevent manual typing
+                  onTap: () {
+                    setState(() {
+                      showDropdown = !showDropdown; // Toggle dropdown
+                    });
+                  },
+                  decoration: InputDecoration(
+                    hintText: "Select Interest",
+                    hintStyle: const TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.w400,
+                    ),
+                    contentPadding: const EdgeInsets.symmetric(
+                      horizontal: 15,
+                      vertical: 8,
+                    ),
+                    filled: true,
+                    fillColor: Colors.white.withOpacity(.15),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(
+                        width: 1,
+                        color: Colors.black.withOpacity(.15),
+                      ),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(
+                        width: 1,
+                        color: Colors.black.withOpacity(.15),
+                      ),
+                    ),
+                    suffixIcon: IconButton(
+                      icon: Icon(Icons.arrow_drop_down, color: Colors.black.withOpacity(.15)),
+                      onPressed: () {
+                        setState(() {
+                          if (interestList.isEmpty) {
+                            print('Category Index-----${interestList}');
+                            Fluttertoast.showToast(msg: 'Interest Not found');
+                          } else {
+                            showDropdown = !showDropdown;
+                          }
+                        });
+                      },
+                    ),
+                  ),
+                  cursorColor: Colors.white,
                 ),
+                if (showDropdown)
+                  Container(
+                    decoration: BoxDecoration(
+                      color: Colors.red.withOpacity(.15),
+                      border: Border.all(color: Colors.white, width: 1),
+                      borderRadius: BorderRadius.circular(5),
+                    ),
+                    child: isLoading
+                        ? const Padding(
+                            padding: EdgeInsets.all(16.0),
+                            child: Center(
+                              child: CircularProgressIndicator(color: Colors.white),
+                            ),
+                          )
+                        : ListView.builder(
+                            shrinkWrap: true,
+                            itemCount: interestList.length,
+                            itemBuilder: (context, index) {
+                              return ListTile(
+                                title: Text(
+                                  interestList[index],
+                                  style: const TextStyle(color: Colors.black),
+                                ),
+                                onTap: () {
+                                  setState(() {
+                                    if (selectedInterest.contains(interestList[index])==false) {
+                                      selectedInterest.add(interestList[index]);
+                                    }
+                                    txt_interest.text = selectedInterest.join(", ");
+
+                                    showDropdown = false; // Close dropdown
+                                  });
+                                },
+                              );
+                            },
+                          ),
+                  ),
+                // SizedBox(
+                //   height: 70,
+                //   child: CustumProfileTextField1(
+                //     controller: txt_interest,
+                //     validator: validateIntrest,
+                //     hintText: 'Enter Interest in dollar ',
+                //   ),
+                // ),
                 customTextC(text: "Budget(\$)", fSize: 16, fWeight: FontWeight.w500, lineHeight: 36),
                 SizedBox(
                   height: 70,

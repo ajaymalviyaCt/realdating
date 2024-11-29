@@ -528,15 +528,13 @@ class _BuisnessHomePageState extends State<BuisnessHomePage> {
                               ),
                             ),
                           ),
-
                           // Image.network(myDealController.allDataBusiness?.posts?[0].profileImage ?? "",),
                         );
                       }),
                       const SizedBox(
                         width: 5,
                       ),
-                      Obx(
-                            () => customTextCommon(
+                      Obx(() => customTextCommon(
                           text:
                           profileController.bussinessName.value.toString(),
                           fSize: 20,
