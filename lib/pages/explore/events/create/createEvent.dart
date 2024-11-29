@@ -183,7 +183,7 @@ class _CreateEventState extends State<CreateEvent> {
   // }
 
   final List<String> eventtypeItems = ["Online", "Offline"];
-  String? selectedValue;
+  String? selectedValue="Online";
 
   showLoaderDialog(BuildContext context) {
     AlertDialog alert = AlertDialog(
