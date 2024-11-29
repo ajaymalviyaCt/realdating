@@ -213,29 +213,29 @@ class _CreateAadsState extends State<CreateAads> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        showDropdown = false;
-        setState(() {});
-      },
-      child: Scaffold(
-          resizeToAvoidBottomInset: false,
-          appBar: AppBar(
-            leading: Padding(
-              padding: EdgeInsets.only(left: 10),
-              child: InkWell(
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
-                  child: SvgPicture.asset('assets/icons/btn.svg')),
-            ),
-            title: const Text(
-              'Create Ad',
-              style: CustomTextStyle.black,
-            ),
-            centerTitle: true,
+    return Scaffold(
+        resizeToAvoidBottomInset: false,
+        appBar: AppBar(
+          leading: Padding(
+            padding: EdgeInsets.only(left: 10),
+            child: InkWell(
+                onTap: () {
+                  Navigator.pop(context);
+                },
+                child: SvgPicture.asset('assets/icons/btn.svg')),
           ),
-          body: Padding(
+          title: const Text(
+            'Create Ad',
+            style: CustomTextStyle.black,
+          ),
+          centerTitle: true,
+        ),
+        body: GestureDetector(
+          onTap: () {
+            showDropdown = false;
+            setState(() {});
+          },
+          child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20.0),
             child: Form(
               key: formKey,
@@ -532,8 +532,8 @@ class _CreateAadsState extends State<CreateAads> {
                 ]),
               ),
             ),
-          )),
-    );
+          ),
+        ));
   }
 
   Widget updateBtn(context) {
