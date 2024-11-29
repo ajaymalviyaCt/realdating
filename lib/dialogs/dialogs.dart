@@ -88,7 +88,7 @@ class DialogHelper {
   static void hideLoading() {
     if (Get.isDialogOpen!) Get.back();
   }
-  static void snackbar([String? message]) {
+/*  static void snackbar([String? message]) {
     Get.snackbar(
       "Satus",
       "$message",
@@ -110,7 +110,7 @@ class DialogHelper {
 
     );
 
-  }
+  }*/
 
 
 }
