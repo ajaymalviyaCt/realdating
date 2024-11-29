@@ -160,28 +160,8 @@ class _CreateDealState extends State<CreateDeal> {
 
   @override
   void dispose() {
-    // _connectivitySubscription?.cancel();
     super.dispose();
   }
-
-  // Future<void> initConnectivity() async {
-  //   late ConnectivityResult result;
-  //   try {
-  //     result = await _connectivity.checkConnectivity();
-  //   } on PlatformException catch (e) {
-  //     return;
-  //   }
-  //   if (!mounted) {
-  //     return Future.value(null);
-  //   }
-  //   return _updateConnectionStatus(result);
-  // }
-
-  // Future<void> _updateConnectionStatus(ConnectivityResult result) async {
-  //   setState(() {
-  //     _connectionStatus = result;
-  //   });
-  // }
 
   showLoaderDialog(BuildContext context) {
     AlertDialog alert = AlertDialog(
@@ -218,9 +198,6 @@ class _CreateDealState extends State<CreateDeal> {
     );
     if (apiData["success"] == true) {
       myDealController.dealText.text = txt_title.text;
-      // _future = myprofile();
-      //Rahul
-      //  _willPopCallback();
       Fluttertoast.showToast(
           msg: "Deal created successfully",
           toastLength: Toast.LENGTH_SHORT,

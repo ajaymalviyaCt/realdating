@@ -31,10 +31,10 @@ class BusinessDetailsPage extends StatelessWidget {
   }
 
   Padding dealCardWidget(BuildContext context, AllDeal deal) {
-    // Calculate the discounted price
-    num originalPrice = deal.price ?? 0.0; // Assuming deal.price is nullable
-    num discount = num.parse(deal.discount ?? "0") ?? 0.0; // Assuming deal.discount is nullable
-    num discountedPrice = (originalPrice - discount).clamp(0, double.infinity); // Ensure no negative price
+
+    num originalPrice = deal.price ?? 0.0;
+    num discount = num.parse(deal.discount ?? "0") ?? 0.0;
+    num discountedPrice = (originalPrice - discount).clamp(0, double.infinity);
 
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
