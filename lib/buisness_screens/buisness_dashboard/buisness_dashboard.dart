@@ -133,7 +133,7 @@ class _DashBaordScreenState extends State<DashBaordScreen> {
                               strokeWidth: 1,
                             ))),
                     errorWidget: (context, url, error) =>
-                    const Icon(Icons.add_photo_alternate_outlined),
+                     Image.asset('assets/images/placeholder_image_business.jpg'),
                     filterQuality: FilterQuality.low,
                     fit: BoxFit.fill,
                   ),

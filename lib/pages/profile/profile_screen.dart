@@ -213,17 +213,11 @@ class _ProfilePageState extends State<ProfilePage> {
                       radius: 100,
                       backgroundImage: imageProvider,
                     ),
-                    placeholder: (context, url) => Container(
-                      width: 100.0,
-                      height: 100.0,
-                      decoration: const BoxDecoration(
-                        shape: BoxShape.circle,
-                        image: DecorationImage(
-                          image: NetworkImage("https://www.yiwubazaar.com/resources/assets/images/default-product.jpg"),
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                    ),
+                    placeholder: (context, url) => SizedBox(
+                      height: 120,
+                        width: 120,
+
+                        child: Center(child: CircularProgressIndicator(),)),
                     errorWidget: (context, url, error) => Center(
                       child: Container(
                         width: 100.0,
