@@ -405,34 +405,43 @@ class _CreateAadsState extends State<CreateAads> {
                     ),
                     child: isLoading
                         ? const Padding(
-                            padding: EdgeInsets.all(16.0),
-                            child: Center(
-                              child: CircularProgressIndicator(color: Colors.white),
-                            ),
-                          )
+                      padding: EdgeInsets.all(16.0),
+                      child: Center(
+                        child: CircularProgressIndicator(color: Colors.white),
+                      ),
+                    )
                         : ListView.builder(
-                            shrinkWrap: true,
-                            itemCount: interestList.length,
-                            itemBuilder: (context, index) {
-                              return ListTile(
-                                title: Text(
-                                  interestList[index],
-                                  style: const TextStyle(color: Colors.black),
-                                ),
-                                onTap: () {
-                                  setState(() {
-                                    if (selectedInterest.contains(interestList[index])==false) {
-                                      selectedInterest.add(interestList[index]);
-                                    }
-                                    txt_interest.text = selectedInterest.join(", ");
-
-                                    showDropdown = false; // Close dropdown
-                                  });
-                                },
-                              );
-                            },
+                      shrinkWrap: true,
+                      itemCount: interestList.length,
+                      itemBuilder: (context, index) {
+                        return ListTile(
+                          title: Text(
+                            interestList[index],
+                            style: const TextStyle(color: Colors.black),
                           ),
-                  ),
+                          trailing: selectedInterest.contains(interestList[index])
+                              ? const Icon(
+                            Icons.check,
+                            color: Colors.green,
+                          )
+                              : null, // Show checkmark only if selected
+                          onTap: () {
+                            setState(() {
+                              if (!selectedInterest.contains(interestList[index])) {
+                                selectedInterest.add(interestList[index]);
+                              } else {
+                                selectedInterest.remove(interestList[index]); // Deselect if already selected
+                              }
+                              txt_interest.text = selectedInterest.join(", ");
+
+                              showDropdown = false; // Close dropdown if required
+                            });
+                          },
+                        );
+                      },
+                    ),
+                  )
+
                 // SizedBox(
                 //   height: 70,
                 //   child: CustumProfileTextField1(
@@ -441,7 +450,7 @@ class _CreateAadsState extends State<CreateAads> {
                 //     hintText: 'Enter Interest in dollar ',
                 //   ),
                 // ),
-                customTextC(text: "Budget(\$)", fSize: 16, fWeight: FontWeight.w500, lineHeight: 36),
+                ,customTextC(text: "Budget(\$)", fSize: 16, fWeight: FontWeight.w500, lineHeight: 36),
                 SizedBox(
                   height: 70,
                   child: CustumProfileAgeTextField1(
