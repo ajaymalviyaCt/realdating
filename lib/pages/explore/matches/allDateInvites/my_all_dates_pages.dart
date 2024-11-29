@@ -185,7 +185,12 @@ class _MyAllDatesPageState extends State<MyAllDatesPage> {
                                                     const Spacer(),
                                                     Builder(
                                                       builder: (context) {
-
+                                                        if ((myAllDatesController.myAllDatesModel?.myInvites?[index].requestStatus?.toLowerCase().trim() ==
+                                                            'requested') &&
+                                                            myAllDatesController.myAllDatesModel?.myInvites?[index].status == 1) {
+                                                          return const Text('Accepted',
+                                                              style: TextStyle(color: Colors.red, fontSize: 15, fontWeight: FontWeight.bold));
+                                                        }
 
                                                         print('my status-------${myAllDatesController.myAllDatesModel?.myInvites?[index].status}');
 
