@@ -56,7 +56,10 @@ class _AddYourPhotoPageState extends State<AddYourPhotoPage> {
     for (var file in selectedImages) {
       try {
         if (file.file.value != null) {
-          String fileName = file.file.value!.path.split("/").last;
+          String fileName = file.file.value!
+              .path
+              .split("/")
+              .last;
           var stream = http.ByteStream(DelegatingStream.typed(file.file.value!.openRead()));
           var length = await file.file.value!.length();
           var multipartFileSign = http.MultipartFile('files', stream, length, filename: fileName);
@@ -145,309 +148,323 @@ class _AddYourPhotoPageState extends State<AddYourPhotoPage> {
                   children: [
                     selectedImages[0].file.value != null
                         ? Stack(children: [
-                            Container(
-                              height: 130,
-                              width: 103,
-                              decoration: BoxDecoration(
-                                  border: Border.all(style: BorderStyle.solid, color: Colors.redAccent),
-                                  borderRadius: BorderRadius.circular(10),
-                                  color: Color(0xffBDBDBD).withOpacity(0.35),
-                                  image: DecorationImage(image: FileImage(selectedImages[0].file.value!), fit: BoxFit.fill)),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.only(top: 105, left: 80),
-                              child: SvgPicture.asset('assets/icons/cross.svg'),
-                            ),
-                          ])
-                        : InkWell(
-                            onTap: () async {
-                              final pickedFile = await picker.pickMultiImage(imageQuality: 10, maxHeight: 1000, maxWidth: 1000);
-                              List<XFile> xfilePick = pickedFile;
-
-                              setState(
-                                () {
-                                  if (xfilePick.isNotEmpty) {
-                                    for (var i = 0; i < xfilePick.length; i++) {
-                                      selectedImages[0].file.value = File(xfilePick[i].path);
-                                    }
-                                  } else {
-                                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Nothing is selected')));
-                                  }
-                                },
-                              );
-
-                              // hobbiesController.interestSelect();
+                      Container(
+                        height: 130,
+                        width: 103,
+                        decoration: BoxDecoration(
+                            border: Border.all(style: BorderStyle.solid, color: Colors.redAccent),
+                            borderRadius: BorderRadius.circular(10),
+                            color: Color(0xffBDBDBD).withOpacity(0.35),
+                            image: DecorationImage(image: FileImage(selectedImages[0].file.value!), fit: BoxFit.fill)),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(top: 105, left: 80),
+                        child: InkWell(
+                            onTap: () {
+                              selectedImages[0].file.value = null;
                             },
-                            child: Stack(children: [
-                              Container(
-                                height: 130,
-                                width: 103,
-                                decoration: BoxDecoration(
-                                  color: Appcolor.backgroundclr,
-                                  border: Border.all(style: BorderStyle.solid, color: Colors.redAccent),
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                              ),
-                              Padding(
-                                padding: EdgeInsets.only(top: 105, left: 80),
-                                child: SvgPicture.asset('assets/icons/Sign In Button (1).svg'),
-                              ),
-                            ]),
+                            child: SvgPicture.asset('assets/icons/cross.svg')),
+                      ),
+                    ])
+                        : InkWell(
+                      onTap: () async {
+                        final pickedFile = await picker.pickMultiImage(imageQuality: 10, maxHeight: 1000, maxWidth: 1000);
+                        List<XFile> xfilePick = pickedFile;
+
+                        setState(
+                              () {
+                            if (xfilePick.isNotEmpty) {
+                              for (var i = 0; i < xfilePick.length; i++) {
+                                selectedImages[0].file.value = File(xfilePick[i].path);
+                              }
+                            } else {
+                              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Nothing is selected')));
+                            }
+                          },
+                        );
+
+                        // hobbiesController.interestSelect();
+                      },
+                      child: Stack(children: [
+                        Container(
+                          height: 130,
+                          width: 103,
+                          decoration: BoxDecoration(
+                            color: Appcolor.backgroundclr,
+                            border: Border.all(style: BorderStyle.solid, color: Colors.redAccent),
+                            borderRadius: BorderRadius.circular(10),
                           ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(top: 105, left: 80),
+                          child: SvgPicture.asset('assets/icons/Sign In Button (1).svg'),
+                        ),
+                      ]),
+                    ),
                     selectedImages[1].file.value != null
                         ? Stack(children: [
-                            Container(
-                              height: 130,
-                              width: 103,
-                              decoration: BoxDecoration(
-                                  border: Border.all(style: BorderStyle.solid, color: Colors.redAccent),
-                                  borderRadius: BorderRadius.circular(10),
-                                  color: Color(0xffBDBDBD).withOpacity(0.35),
-                                  image: DecorationImage(image: FileImage(selectedImages[1].file.value!), fit: BoxFit.fill)),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(top: 105, left: 80),
-                              child: SvgPicture.asset('assets/icons/cross.svg'),
-                            ),
-                          ])
-                        : InkWell(
-                            onTap: () async {
-                              final pickedFile = await picker.pickMultiImage(imageQuality: 10, maxHeight: 1000, maxWidth: 1000);
-                              List<XFile> xfilePick = pickedFile;
-
-                              setState(
-                                () {
-                                  if (xfilePick.isNotEmpty) {
-                                    for (var i = 0; i < xfilePick.length; i++) {
-                                      selectedImages[1].file.value = File(xfilePick[i].path);
-                                    }
-                                  } else {
-                                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Nothing is selected')));
-                                  }
-                                },
-                              );
+                      Container(
+                        height: 130,
+                        width: 103,
+                        decoration: BoxDecoration(
+                            border: Border.all(style: BorderStyle.solid, color: Colors.redAccent),
+                            borderRadius: BorderRadius.circular(10),
+                            color: Color(0xffBDBDBD).withOpacity(0.35),
+                            image: DecorationImage(image: FileImage(selectedImages[1].file.value!), fit: BoxFit.fill)),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 105, left: 80),
+                        child: InkWell(
+                            onTap: () {
+                              selectedImages[1].file.value = null;
                             },
-                            child: Stack(children: [
-                              Container(
-                                height: 130,
-                                width: 103,
-                                decoration: BoxDecoration(
-                                  color: Appcolor.backgroundclr,
-                                  border: Border.all(style: BorderStyle.solid, color: Colors.redAccent),
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                              ),
-                              Padding(
-                                padding: EdgeInsets.only(top: 105, left: 80),
-                                child: SvgPicture.asset('assets/icons/Sign In Button (1).svg'),
-                              ),
-                            ]),
+                            child: SvgPicture.asset('assets/icons/cross.svg')),
+                      ),
+                    ])
+                        : InkWell(
+                      onTap: () async {
+                        final pickedFile = await picker.pickMultiImage(imageQuality: 10, maxHeight: 1000, maxWidth: 1000);
+                        List<XFile> xfilePick = pickedFile;
+
+                        setState(
+                              () {
+                            if (xfilePick.isNotEmpty) {
+                              for (var i = 0; i < xfilePick.length; i++) {
+                                selectedImages[1].file.value = File(xfilePick[i].path);
+                              }
+                            } else {
+                              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Nothing is selected')));
+                            }
+                          },
+                        );
+                      },
+                      child: Stack(children: [
+                        Container(
+                          height: 130,
+                          width: 103,
+                          decoration: BoxDecoration(
+                            color: Appcolor.backgroundclr,
+                            border: Border.all(style: BorderStyle.solid, color: Colors.redAccent),
+                            borderRadius: BorderRadius.circular(10),
                           ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(top: 105, left: 80),
+                          child: SvgPicture.asset('assets/icons/Sign In Button (1).svg'),
+                        ),
+                      ]),
+                    ),
                     selectedImages[2].file.value != null
                         ? Stack(children: [
-                            Container(
-                              height: 130,
-                              width: 103,
-                              decoration: BoxDecoration(
-                                  border: Border.all(style: BorderStyle.solid, color: Colors.redAccent),
-                                  borderRadius: BorderRadius.circular(10),
-                                  color: Color(0xffBDBDBD).withOpacity(0.35),
-                                  image: DecorationImage(image: FileImage(selectedImages[2].file.value!), fit: BoxFit.fill)),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.only(top: 105, left: 80),
-                              child: SvgPicture.asset('assets/icons/Sign In Button (1).svg'),
-                            ),
-                          ])
+                      Container(
+                        height: 130,
+                        width: 103,
+                        decoration: BoxDecoration(
+                            border: Border.all(style: BorderStyle.solid, color: Colors.redAccent),
+                            borderRadius: BorderRadius.circular(10),
+                            color: Color(0xffBDBDBD).withOpacity(0.35),
+                            image: DecorationImage(image: FileImage(selectedImages[2].file.value!), fit: BoxFit.fill)),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(top: 105, left: 80),
+                        child: SvgPicture.asset('assets/icons/Sign In Button (1).svg'),
+                      ),
+                    ])
                         : InkWell(
-                            onTap: () async {
-                              final pickedFile = await picker.pickMultiImage(imageQuality: 10, maxHeight: 1000, maxWidth: 1000);
-                              List<XFile> xfilePick = pickedFile;
+                      onTap: () async {
+                        final pickedFile = await picker.pickMultiImage(imageQuality: 10, maxHeight: 1000, maxWidth: 1000);
+                        List<XFile> xfilePick = pickedFile;
 
-                              setState(
-                                () {
-                                  if (xfilePick.isNotEmpty) {
-                                    for (var i = 0; i < xfilePick.length; i++) {
-                                      selectedImages[2].file.value = File(xfilePick[i].path);
-                                    }
-                                  } else {
-                                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Nothing is selected')));
-                                  }
-                                },
-                              );
-                            },
-                            child: Stack(children: [
-                              Container(
-                                height: 130,
-                                width: 103,
-                                decoration: BoxDecoration(
-                                  color: Appcolor.backgroundclr,
-                                  border: Border.all(style: BorderStyle.solid, color: Colors.redAccent),
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(top: 105, left: 80),
-                                child: SvgPicture.asset('assets/icons/Sign In Button (1).svg'),
-                              ),
-                            ]),
+                        setState(
+                              () {
+                            if (xfilePick.isNotEmpty) {
+                              for (var i = 0; i < xfilePick.length; i++) {
+                                selectedImages[2].file.value = File(xfilePick[i].path);
+                              }
+                            } else {
+                              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Nothing is selected')));
+                            }
+                          },
+                        );
+                      },
+                      child: Stack(children: [
+                        Container(
+                          height: 130,
+                          width: 103,
+                          decoration: BoxDecoration(
+                            color: Appcolor.backgroundclr,
+                            border: Border.all(style: BorderStyle.solid, color: Colors.redAccent),
+                            borderRadius: BorderRadius.circular(10),
                           ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 105, left: 80),
+                          child: SvgPicture.asset('assets/icons/Sign In Button (1).svg'),
+                        ),
+                      ]),
+                    ),
                   ],
                 );
               }),
               const SizedBox(height: 20),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  selectedImages[3].file.value != null
-                      ? Stack(children: [
-                          Container(
-                            height: 130,
-                            width: 103,
-                            decoration: BoxDecoration(
-                                border: Border.all(style: BorderStyle.solid, color: Colors.redAccent),
-                                borderRadius: BorderRadius.circular(10),
-                                color: Color(0xffBDBDBD).withOpacity(0.35),
-                                image: DecorationImage(image: FileImage(selectedImages[3].file.value!), fit: BoxFit.fill)),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.only(top: 105, left: 80),
-                            child: SvgPicture.asset('assets/icons/Sign In Button (1).svg'),
-                          ),
-                        ])
-                      : InkWell(
-                          onTap: () async {
-                            final pickedFile = await picker.pickMultiImage(imageQuality: 10, maxHeight: 1000, maxWidth: 1000);
-                            List<XFile> xfilePick = pickedFile;
+              Obx(() {
+                return Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    selectedImages[3].file.value != null
+                        ? Stack(children: [
+                      Container(
+                        height: 130,
+                        width: 103,
+                        decoration: BoxDecoration(
+                            border: Border.all(style: BorderStyle.solid, color: Colors.redAccent),
+                            borderRadius: BorderRadius.circular(10),
+                            color: Color(0xffBDBDBD).withOpacity(0.35),
+                            image: DecorationImage(image: FileImage(selectedImages[3].file.value!), fit: BoxFit.fill)),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(top: 105, left: 80),
+                        child: SvgPicture.asset('assets/icons/Sign In Button (1).svg'),
+                      ),
+                    ])
+                        : InkWell(
+                      onTap: () async {
+                        final pickedFile = await picker.pickMultiImage(imageQuality: 10, maxHeight: 1000, maxWidth: 1000);
+                        List<XFile> xfilePick = pickedFile;
 
-                            setState(
+                        setState(
                               () {
-                                if (xfilePick.isNotEmpty) {
-                                  for (var i = 0; i < xfilePick.length; i++) {
-                                    selectedImages[3].file.value = File(xfilePick[i].path);
-                                  }
-                                } else {
-                                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Nothing is selected')));
-                                }
-                              },
-                            );
+                            if (xfilePick.isNotEmpty) {
+                              for (var i = 0; i < xfilePick.length; i++) {
+                                selectedImages[3].file.value = File(xfilePick[i].path);
+                              }
+                            } else {
+                              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Nothing is selected')));
+                            }
                           },
-                          child: Stack(children: [
-                            Container(
-                              height: 130,
-                              width: 103,
-                              decoration: BoxDecoration(
-                                color: Appcolor.backgroundclr,
-                                border: Border.all(style: BorderStyle.solid, color: Colors.redAccent),
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.only(top: 105, left: 80),
-                              child: SvgPicture.asset('assets/icons/Sign In Button (1).svg'),
-                            ),
-                          ]),
+                        );
+                      },
+                      child: Stack(children: [
+                        Container(
+                          height: 130,
+                          width: 103,
+                          decoration: BoxDecoration(
+                            color: Appcolor.backgroundclr,
+                            border: Border.all(style: BorderStyle.solid, color: Colors.redAccent),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
                         ),
-                  selectedImages[4].file.value != null
-                      ? Stack(children: [
-                          Container(
-                            height: 130,
-                            width: 103,
-                            decoration: BoxDecoration(
-                                border: Border.all(style: BorderStyle.solid, color: Colors.redAccent),
-                                borderRadius: BorderRadius.circular(10),
-                                color: Color(0xffBDBDBD).withOpacity(0.35),
-                                image: DecorationImage(image: FileImage(selectedImages[4].file.value!), fit: BoxFit.fill)),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.only(top: 105, left: 80),
-                            child: SvgPicture.asset('assets/icons/Sign In Button (1).svg'),
-                          ),
-                        ])
-                      : InkWell(
-                          onTap: () async {
-                            final pickedFile = await picker.pickMultiImage(imageQuality: 10, maxHeight: 1000, maxWidth: 1000);
-                            List<XFile> xfilePick = pickedFile;
+                        Padding(
+                          padding: EdgeInsets.only(top: 105, left: 80),
+                          child: SvgPicture.asset('assets/icons/Sign In Button (1).svg'),
+                        ),
+                      ]),
+                    ),
+                    selectedImages[4].file.value != null
+                        ? Stack(children: [
+                      Container(
+                        height: 130,
+                        width: 103,
+                        decoration: BoxDecoration(
+                            border: Border.all(style: BorderStyle.solid, color: Colors.redAccent),
+                            borderRadius: BorderRadius.circular(10),
+                            color: Color(0xffBDBDBD).withOpacity(0.35),
+                            image: DecorationImage(image: FileImage(selectedImages[4].file.value!), fit: BoxFit.fill)),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(top: 105, left: 80),
+                        child: SvgPicture.asset('assets/icons/Sign In Button (1).svg'),
+                      ),
+                    ])
+                        : InkWell(
+                      onTap: () async {
+                        final pickedFile = await picker.pickMultiImage(imageQuality: 10, maxHeight: 1000, maxWidth: 1000);
+                        List<XFile> xfilePick = pickedFile;
 
-                            setState(
+                        setState(
                               () {
-                                if (xfilePick.isNotEmpty) {
-                                  for (var i = 0; i < xfilePick.length; i++) {
-                                    selectedImages[4].file.value = File(xfilePick[i].path);
-                                  }
-                                } else {
-                                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Nothing is selected')));
-                                }
-                              },
-                            );
+                            if (xfilePick.isNotEmpty) {
+                              for (var i = 0; i < xfilePick.length; i++) {
+                                selectedImages[4].file.value = File(xfilePick[i].path);
+                              }
+                            } else {
+                              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Nothing is selected')));
+                            }
                           },
-                          child: Stack(children: [
-                            Container(
-                              height: 130,
-                              width: 103,
-                              decoration: BoxDecoration(
-                                color: Appcolor.backgroundclr,
-                                border: Border.all(style: BorderStyle.solid, color: Colors.redAccent),
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(top: 105, left: 80),
-                              child: SvgPicture.asset('assets/icons/Sign In Button (1).svg'),
-                            ),
-                          ]),
+                        );
+                      },
+                      child: Stack(children: [
+                        Container(
+                          height: 130,
+                          width: 103,
+                          decoration: BoxDecoration(
+                            color: Appcolor.backgroundclr,
+                            border: Border.all(style: BorderStyle.solid, color: Colors.redAccent),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
                         ),
-                  selectedImages[5].file.value != null
-                      ? Stack(children: [
-                          Container(
-                            height: 130,
-                            width: 103,
-                            decoration: BoxDecoration(
-                                border: Border.all(style: BorderStyle.solid, color: Colors.redAccent),
-                                borderRadius: BorderRadius.circular(10),
-                                color: Color(0xffBDBDBD).withOpacity(0.35),
-                                image: DecorationImage(image: FileImage(selectedImages[5].file.value!), fit: BoxFit.fill)),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 105, left: 80),
-                            child: SvgPicture.asset('assets/icons/cross.svg'),
-                          ),
-                        ])
-                      : InkWell(
-                          onTap: () async {
-                            final pickedFile = await picker.pickMultiImage(imageQuality: 10, maxHeight: 1000, maxWidth: 1000);
-                            List<XFile> xfilePick = pickedFile;
+                        Padding(
+                          padding: const EdgeInsets.only(top: 105, left: 80),
+                          child: SvgPicture.asset('assets/icons/Sign In Button (1).svg'),
+                        ),
+                      ]),
+                    ),
+                    selectedImages[5].file.value != null
+                        ? Stack(children: [
+                      Container(
+                        height: 130,
+                        width: 103,
+                        decoration: BoxDecoration(
+                            border: Border.all(style: BorderStyle.solid, color: Colors.redAccent),
+                            borderRadius: BorderRadius.circular(10),
+                            color: Color(0xffBDBDBD).withOpacity(0.35),
+                            image: DecorationImage(image: FileImage(selectedImages[5].file.value!), fit: BoxFit.fill)),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 105, left: 80),
+                        child: InkWell(
+                            onTap: () {
+                              selectedImages[5].file.value = null;
+                            },
+                            child: SvgPicture.asset('assets/icons/cross.svg')),
+                      ),
+                    ])
+                        : InkWell(
+                      onTap: () async {
+                        final pickedFile = await picker.pickMultiImage(imageQuality: 10, maxHeight: 1000, maxWidth: 1000);
+                        List<XFile> xfilePick = pickedFile;
 
-                            setState(
+                        setState(
                               () {
-                                if (xfilePick.isNotEmpty) {
-                                  for (var i = 0; i < xfilePick.length; i++) {
-                                    selectedImages[5].file.value = File(xfilePick[i].path);
-                                  }
-                                } else {
-                                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Nothing is selected')));
-                                }
-                              },
-                            );
+                            if (xfilePick.isNotEmpty) {
+                              for (var i = 0; i < xfilePick.length; i++) {
+                                selectedImages[5].file.value = File(xfilePick[i].path);
+                              }
+                            } else {
+                              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Nothing is selected')));
+                            }
                           },
-                          child: Stack(children: [
-                            Container(
-                              height: 130,
-                              width: 103,
-                              decoration: BoxDecoration(
-                                color: Appcolor.backgroundclr,
-                                border: Border.all(style: BorderStyle.solid, color: Colors.redAccent),
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(top: 105, left: 80),
-                              child: SvgPicture.asset('assets/icons/Sign In Button (1).svg'),
-                            ),
-                          ]),
+                        );
+                      },
+                      child: Stack(children: [
+                        Container(
+                          height: 130,
+                          width: 103,
+                          decoration: BoxDecoration(
+                            color: Appcolor.backgroundclr,
+                            border: Border.all(style: BorderStyle.solid, color: Colors.redAccent),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
                         ),
-                ],
-              ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 105, left: 80),
+                          child: SvgPicture.asset('assets/icons/Sign In Button (1).svg'),
+                        ),
+                      ]),
+                    ),
+                  ],
+                );
+              }),
               const SizedBox(
                 height: 20,
               ),
