@@ -243,6 +243,8 @@ class _CreateEventState extends State<CreateEvent> {
     // Start_Date:10AM - 12PM
     // End_Date:10AM - 12PM
     // Description:Description
+    print("line 246");
+    print((selectedValue??"").trim());
 
     request.fields['Event_Title'] = txt_eventTitle.text.toString();
     request.fields['Event_Type'] =(selectedValue??"").trim();
@@ -477,7 +479,9 @@ class _CreateEventState extends State<CreateEvent> {
                             //   return null;
                             // },
 
-                            onChanged: (value) {},
+                            onChanged: (value) {
+                              selectedValue = value;
+                            },
                             onSaved: (value) {
                               selectedValue = value.toString();
                             },
