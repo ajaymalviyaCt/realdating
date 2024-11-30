@@ -378,7 +378,7 @@ class _BuisnessEditAdsState extends State<BuisnessEditAds> {
                                       widget.indexEdit,
                                       allAdssDealController.getAllAdsMdoels
                                           ?.myAdvs[widget.indexEdit]);
-                                  allAdssDealController.All_AdsD();
+                                  allAdssDealController.getAllAds();
                                 });
                               },
                               loading: editAdsController.isLoadig.value,
@@ -405,7 +405,7 @@ class _BuisnessEditAdsState extends State<BuisnessEditAds> {
                                                         .id);
                                                 setState(() {
                                                   allAdssDealController
-                                                      .All_AdsD();
+                                                      .getAllAds();
                                                   // controller.myDealsModel;
                                                 });
                                                 allAdssDealController.refresh();

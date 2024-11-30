@@ -1,25 +1,24 @@
 import 'dart:async';
 import 'dart:io';
+
 import 'package:flutter/services.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:hexcolor/hexcolor.dart';
+import 'package:http/http.dart' as http;
 import 'package:image_cropper/image_cropper.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:realdating/buisness_screens/buisness_home/Bhome_page/buisness_home.dart';
 import 'package:realdating/custom_iteam/coustomtextcommon.dart';
 import 'package:realdating/function/function_class.dart';
-import 'package:hexcolor/hexcolor.dart';
-import 'package:http/http.dart' as http;
-import 'package:image_picker/image_picker.dart';
 import 'package:realdating/reel/common_import.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:text_area/text_area.dart';
 import 'package:video_compress/video_compress.dart';
 import 'package:video_player/video_player.dart';
+
 import '../../button.dart';
 import '../../const.dart';
-import '../buisness_home/Bhome_page/homepage_bussiness_controller.dart';
 import '../buisness_home/controller/business_home_controller.dart';
-import '../buisness_profile/business_profile_controller.dart';
 
 class BuisnessPost extends StatefulWidget {
   const BuisnessPost({Key? key}) : super(key: key);
@@ -53,8 +52,6 @@ class _BuisnessPostState extends State<BuisnessPost> {
     }
     return null;
   }
-
-
 
   _imgFromGallery() async {
     final XFile? image = (await _picker.pickMedia(
@@ -91,8 +88,7 @@ class _BuisnessPostState extends State<BuisnessPost> {
   }
 
   _imgFromCamera() async {
-    final XFile? photo =
-        await _picker.pickImage(source: ImageSource.camera, imageQuality: 10);
+    final XFile? photo = await _picker.pickImage(source: ImageSource.camera, imageQuality: 10);
     final croppedFile = await ImageCropper().cropImage(
       sourcePath: photo!.path,
 
@@ -132,13 +128,14 @@ class _BuisnessPostState extends State<BuisnessPost> {
         print(_video.toString());
         try {
           // testCompressFile(_video!);
-        }  catch (e,s) {
-        print(e);
-        print(s);
+        } catch (e, s) {
+          print(e);
+          print(s);
         }
       });
     } else {}
   }
+
   Future<void> compressVideos(File file) async {
     // setState(() {
     //   isCompressing = true;
@@ -159,7 +156,6 @@ class _BuisnessPostState extends State<BuisnessPost> {
       print("Compression result1: ${info?.filesize}");
       print("Compression result2: ${info?.duration}");
 
-
       File finalFile = info!.file!;
 
       int fileSizeInBytes22 = finalFile.lengthSync();
@@ -168,7 +164,6 @@ class _BuisnessPostState extends State<BuisnessPost> {
       double fileSizeInMB = fileSizeInKB22 / 1024;
       print("Total_size===>fileSizeInKB_after: ${fileSizeInKB}");
       print("Total_size===>fileSizeInMB_after ${fileSizeInMB}");
-
 
       // uploadFileToServerUHome(finalFile);
       // submitReel(finalFile);
@@ -180,6 +175,7 @@ class _BuisnessPostState extends State<BuisnessPost> {
       // isCompressing = false;
     }
   }
+
   void _showPicker(context) {
     showModalBottomSheet(
         context: context,
@@ -237,7 +233,7 @@ class _BuisnessPostState extends State<BuisnessPost> {
   @override
   void initState() {
     super.initState();
- /*   myTextController.addListener(() {
+    /*   myTextController.addListener(() {
       setState(() {
         reasonValidation = myTextController.text.isEmpty;
       });
@@ -249,6 +245,7 @@ class _BuisnessPostState extends State<BuisnessPost> {
     // _connectivitySubscription?.cancel();
     super.dispose();
   }
+
   //
   // Future<void> initConnectivity() async {
   //   late ConnectivityResult result;
@@ -274,9 +271,7 @@ class _BuisnessPostState extends State<BuisnessPost> {
       content: Row(
         children: [
           const CircularProgressIndicator(),
-          Container(
-              margin: const EdgeInsets.only(left: 7),
-              child: const Text("Loading...")),
+          Container(margin: const EdgeInsets.only(left: 7), child: const Text("Loading...")),
         ],
       ),
     );
@@ -327,15 +322,14 @@ class _BuisnessPostState extends State<BuisnessPost> {
         //       textColor: Colors.white,
         //       fontSize: 16.0);
         // }
-        var request = http.MultipartRequest("POST",
-            Uri.parse("https://forreal.net:4000/create_business_post"));
+        var request = http.MultipartRequest("POST", Uri.parse("https://forreal.net:4000/create_business_post"));
         final headers = {
           'Content-Type': 'multipart/form-data',
           'Authorization': 'Bearer $token',
         };
         request.headers.addAll(headers);
         if (myTextController.text.isNotEmpty) {
-          request.fields['caption'] = myTextController.text.toString();
+          request.fields['caption'] = myTextController.text.toString().trim();
         }
 
         request.fields['post_type'] = _video != null ? "video" : "Image" ?? "";
@@ -362,7 +356,6 @@ class _BuisnessPostState extends State<BuisnessPost> {
             print("Compression result1: ${info?.filesize}");
             print("Compression result2: ${info?.duration}");
 
-
             File finalFile = info!.file!;
 
             int fileSizeInBytes22 = finalFile.lengthSync();
@@ -381,9 +374,8 @@ class _BuisnessPostState extends State<BuisnessPost> {
             EasyLoading.dismiss();
             // isCompressing = false;
           }
-        } else if(_images != null){
-          request.files
-              .add(await http.MultipartFile.fromPath('file', _images!.path));
+        } else if (_images != null) {
+          request.files.add(await http.MultipartFile.fromPath('file', _images!.path));
         }
         request.send().then((response) {
           http.Response.fromStream(response).then((onValue) async {
@@ -409,7 +401,7 @@ class _BuisnessPostState extends State<BuisnessPost> {
                   //         builder: (context) => BuisnessHomePage()));
                 });
               });
-              Get.offAll(()=>BuisnessHomePage());
+              Get.offAll(() => BuisnessHomePage());
               // Navigator.push(
               //     context,
               //     MaterialPageRoute(builder: (context) => BuisnessHomePage()));
@@ -428,16 +420,13 @@ class _BuisnessPostState extends State<BuisnessPost> {
             }
           });
         });
-
       }
     } catch (e) {
       Fluttertoast.showToast(msg: e.toString());
     }
   }
+
   MyDealController myDealController = Get.put(MyDealController());
-
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -484,15 +473,11 @@ class _BuisnessPostState extends State<BuisnessPost> {
             padding: const EdgeInsets.only(top: 4.0),
             child: IconButton(
               onPressed: () {
-                if (_images != null ||
-                    _video != null ||
-                    myTextController.text.isNotEmpty ) {
-
-                    uploadFileToServerBHome();
-
+                if (_images != null || _video != null || myTextController.text.trim().isNotEmpty) {
+                  uploadFileToServerBHome();
                 } else {
                   Fluttertoast.showToast(
-                    msg: "Please select image or Text..",
+                    msg: "Please select image/video or Text..",
                     toastLength: Toast.LENGTH_SHORT,
                     gravity: ToastGravity.BOTTOM,
                     backgroundColor: Colors.black,
@@ -517,89 +502,72 @@ class _BuisnessPostState extends State<BuisnessPost> {
                 child: Form(
                   key: formKey,
                   // autovalidateMode:  AutovalidateMode.always,
-                  child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                  child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                    const SizedBox(
+                      height: 30,
+                    ),
+                    customTextC(text: "Upload image or video", fSize: 16, fWeight: FontWeight.w500, lineHeight: 36),
+                    Stack(
+                      alignment: Alignment.center,
                       children: [
-                        const SizedBox(
-                          height: 30,
-                        ),
-                        customTextC(
-                            text: "Upload image or video",
-                            fSize: 16,
-                            fWeight: FontWeight.w500,
-                            lineHeight: 36),
-                        Stack(
-                          alignment: Alignment.center,
-                          children: [
-                            Center(
-                              child: _images == null && _video == null
-                                  ? Container(
-                                      width: MediaQuery.of(context).size.width,
-                                      height: 306,
-                                      decoration: BoxDecoration(
-                                        border: Border.all(
-                                          color: HexColor('#D9D9D9'),
-                                        ),
-                                        borderRadius: BorderRadius.circular(15),
-                                      ))
-                                  : _video != null
-                                      ? _videoPlayerController!
-                                              .value.isInitialized
-                                          ? Container(
-                                              height: 360,
-                                              child: AspectRatio(
-                                                aspectRatio:
-                                                    _videoPlayerController!
-                                                        .value.aspectRatio,
-                                                child: VideoPlayer(
-                                                    _videoPlayerController!),
+                        Center(
+                          child: _images == null && _video == null
+                              ? Container(
+                                  width: MediaQuery.of(context).size.width,
+                                  height: 306,
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
+                                      color: HexColor('#D9D9D9'),
+                                    ),
+                                    borderRadius: BorderRadius.circular(15),
+                                  ))
+                              : _video != null
+                                  ? _videoPlayerController!.value.isInitialized
+                                      ? Container(
+                                          height: 360,
+                                          child: AspectRatio(
+                                            aspectRatio: _videoPlayerController!.value.aspectRatio,
+                                            child: VideoPlayer(_videoPlayerController!),
+                                          ),
+                                        )
+                                      : Container()
+                                  : Stack(
+                                      children: [
+                                        Container(
+                                          width: MediaQuery.of(context).size.width,
+                                          height: 306,
+                                          decoration: BoxDecoration(
+                                              border: Border.all(
+                                                color: HexColor('#D9D9D9'),
                                               ),
-                                            )
-                                          : Container()
-                                      : Stack(
-                                          children: [
-                                            Container(
-                                              width: MediaQuery.of(context)
-                                                  .size
-                                                  .width,
-                                              height: 306,
-                                              decoration: BoxDecoration(
-                                                  border: Border.all(
-                                                    color: HexColor('#D9D9D9'),
-                                                  ),
-                                                  borderRadius:
-                                                      BorderRadius.circular(15),
-                                                  image: DecorationImage(
-                                                      image: FileImage(
-                                                          File(_images!.path)),
-                                                      fit: BoxFit.fill)),
-                                            ),
-                                            Align(
-                                                alignment: Alignment.topRight,
-                                                child: InkWell(
-                                                    onTap: () {
-                                                      _images = null;
-                                                      setState(() {});
-                                                    },
-                                                    child: Icon(
-                                                      Icons.cancel,
-                                                      color: Colors.white,
-                                                      size: 30,
-                                                    )))
-                                          ],
+                                              borderRadius: BorderRadius.circular(15),
+                                              image: DecorationImage(image: FileImage(File(_images!.path)), fit: BoxFit.fill)),
                                         ),
-                            ),
-                            Container(
-                              height: 120,
-                              width: MediaQuery.of(context).size.width,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(15)),
-                              child: const Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  //  SvgPicture.asset('assets/icons/file-plus.svg'),
-                                  /*    InkWell(
+                                        Align(
+                                            alignment: Alignment.topRight,
+                                            child: InkWell(
+                                                onTap: () {
+                                                  _images = null;
+                                                  setState(() {});
+                                                },
+                                                child: Icon(
+                                                  Icons.cancel,
+                                                  color: Colors.white,
+                                                  size: 30,
+                                                )))
+                                      ],
+                                    ),
+                        ),
+                        Container(
+                          height: 120,
+                          width: MediaQuery.of(context).size.width,
+                          decoration: BoxDecoration(borderRadius: BorderRadius.circular(15)),
+                          child: const Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              //  SvgPicture.asset('assets/icons/file-plus.svg'),
+                              /*    InkWell(
                                     onTap: () {
                                       // _showPicker(context);
                                     },
@@ -608,56 +576,53 @@ class _BuisnessPostState extends State<BuisnessPost> {
                                       fit: BoxFit.fill,
                                     ),
                                   ),*/
-                                  SizedBox(height: 12),
-                                  Text('Upload Image',
-                                      style: TextStyle(
-                                          fontSize: 16, color: Colors.grey))
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(height: 30),
-                        // customTextC(
-                        //     text: "Contents",
-                        //     fSize: 16,
-                        //     fWeight: FontWeight.w500,
-                        //     lineHeight: 36),
-                        TextFormField(
-                          controller: myTextController,
-                          validator: reasonValidation,
-                          maxLines: null,
-                          keyboardType: TextInputType.emailAddress,
-                          decoration: InputDecoration(
-                            hintText: 'Enter your description here...',
-                            hintStyle: TextStyle(color: Colors.black.withOpacity(0.5)),
-                            filled: true,
-                            fillColor: Colors.white,
-                            contentPadding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10), // Adjust padding
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              // borderSide: const BorderSide(color: Colors.transparent),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              borderSide: const BorderSide(color: Colors.transparent),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              borderSide: BorderSide.none,
-                            ),
-                            errorBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              borderSide: const BorderSide(color: Colors.red),
-                            ),
+                              SizedBox(height: 12),
+                              Text('Upload Image', style: TextStyle(fontSize: 16, color: Colors.grey))
+                            ],
                           ),
                         ),
-                        const SizedBox(height: 30)
-                      ]),
+                      ],
+                    ),
+                    SizedBox(height: 30),
+                    // customTextC(
+                    //     text: "Contents",
+                    //     fSize: 16,
+                    //     fWeight: FontWeight.w500,
+                    //     lineHeight: 36),
+                    TextFormField(
+                      controller: myTextController,
+                      validator: reasonValidation,
+                      maxLines: null,
+                      keyboardType: TextInputType.emailAddress,
+                      decoration: InputDecoration(
+                        hintText: 'Enter your description here...',
+                        hintStyle: TextStyle(color: Colors.black.withOpacity(0.5)),
+                        filled: true,
+                        fillColor: Colors.white,
+                        contentPadding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+                        // Adjust padding
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          // borderSide: const BorderSide(color: Colors.transparent),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: const BorderSide(color: Colors.transparent),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: BorderSide.none,
+                        ),
+                        errorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: const BorderSide(color: Colors.red),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 30)
+                  ]),
                 )),
-            Padding(
-                padding: EdgeInsets.only(
-                    bottom: MediaQuery.of(context).viewInsets.bottom)),
+            Padding(padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom)),
           ],
         ),
       ),
@@ -683,8 +648,7 @@ class _BuisnessPostState extends State<BuisnessPost> {
       child: Button(
         btnColor: Colors.redAccent,
         buttonName: 'Share',
-        btnstyle: textstylesubtitle2(context)!
-            .copyWith(color: colorWhite, fontFamily: 'Poppins'),
+        btnstyle: textstylesubtitle2(context)!.copyWith(color: colorWhite, fontFamily: 'Poppins'),
         borderRadius: BorderRadius.circular(30.00),
         btnWidth: deviceWidth(context),
         btnHeight: 60,

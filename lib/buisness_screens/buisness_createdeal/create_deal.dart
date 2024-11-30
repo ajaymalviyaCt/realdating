@@ -181,7 +181,11 @@ class _CreateDealState extends State<CreateDeal> {
 
   void uploadFileToServerInfluencer() async {
     if (!(num.parse(txt_price.text.toString()) > num.parse(txt_discount.text.toString()))) {
-      Fluttertoast.showToast(msg: "Discount cannot be greater than the price");
+      Fluttertoast.showToast(msg:"Discount cannot be greater than or equal to the price.");
+      return;
+    }
+    if(_image==null){
+      Fluttertoast.showToast(msg: "Image can't be empty");
       return;
     }
     showLoaderDialog(context);
@@ -216,75 +220,6 @@ class _CreateDealState extends State<CreateDeal> {
           textColor: Colors.white,
           fontSize: 16.0);
     }
-/*    SharedPreferences prefs = await SharedPreferences.getInstance();
-    var user_id = prefs.get("user_id");
-    print('user_id==============$user_id');
-    setState(() {});
-    print("CLICKED 123 ==");
-
-    // initConnectivity();_connectivitySubscription =
-    //     _connectivity.onConnectivityChanged.listen(_updateConnectionStatus);
-    // if (_connectionStatus != null) {
-    //   // Internet Present Case
-    //   showLoaderDialog(context);
-    // } else {
-    //   Fluttertoast.showToast(
-    //       msg: "Please check your Internet connection!!!!",
-    //       toastLength: Toast.LENGTH_SHORT,
-    //       gravity: ToastGravity.BOTTOM,
-    //       backgroundColor: Colors.black,
-    //       textColor: Colors.white,
-    //       fontSize: 16.0);
-    // }
-
-    var request = http.MultipartRequest("POST", Uri.parse("https://forreal.net:4000/create_deals"));
-
-    request.fields['Title'] = txt_title.text.toString();
-    request.fields['Price'] = txt_price.text.toString();
-    request.fields['Discount'] = txt_discount.text.toString();
-    request.fields['business_id'] = user_id.toString();
-    // request.fields['business_id'] = '1';
-
-    if (_image == null) {
-      request.fields['file'] ="";
-    } else {
-      request.files.add(await http.MultipartFile.fromPath('file', _image!.path));
-    }
-    print("${request.fields.toString()}");
-    request.send().then((response) {
-      http.Response.fromStream(response).then((onValue) async {
-        try {
-          Navigator.pop(context);
-
-          print("response.statusCod");
-
-          print(onValue.body);
-          myDealController.dealText.text = txt_title.text;
-          // _future = myprofile();
-          //Rahul
-          //  _willPopCallback();
-          Fluttertoast.showToast(
-              msg: "Deal created successfully",
-              toastLength: Toast.LENGTH_SHORT,
-              gravity: ToastGravity.BOTTOM,
-              backgroundColor: Colors.black,
-              textColor: Colors.white,
-              fontSize: 16.0);
-          Get.off(() => BuisnessHomePage());
-        } catch (e) {
-          Fluttertoast.showToast(
-              msg: "Something went wrong....",
-              toastLength: Toast.LENGTH_SHORT,
-              gravity: ToastGravity.BOTTOM,
-              backgroundColor: const Color(0xffC83760),
-              textColor: Colors.white,
-              fontSize: 16.0);
-          // handle exeption
-        }
-      });
-    });
-
-    */
   }
 
   @override

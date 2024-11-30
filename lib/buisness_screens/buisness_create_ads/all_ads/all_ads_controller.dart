@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:realdating/main.dart';
 import 'package:realdating/pages/mape/NearBy_businesses.dart';
 import 'package:realdating/services/apis_related/api_call_services.dart';
 
@@ -44,20 +45,23 @@ class AllAdssDealController extends GetxController {
   @override
   void onReady() {
     super.onReady();
-    All_AdsD();
+    getAllAds();
   }
 
-  All_AdsD() async {
+  getAllAds() async {
     isLoadig(true);
-    Map<String, dynamic> apiData = await ApiCall.instance.callApi(
-      url: "https://forreal.net:4000/get_advs",
-      headers: await authHeader(),
-      body: {
-        "business_id": await getUserId(),
-      },
-      method: HttpMethod.POST
-    );
-    getAllAdsMdoels = GetAllAdsMdoels.fromJson(apiData);
+    try {
+      Map<String, dynamic> apiData = await ApiCall.instance.callApi(
+          url: "https://forreal.net:4000/get_advs",
+          headers: await authHeader(),
+          body: {
+            "business_id": await getUserId(),
+          },
+          method: HttpMethod.POST);
+      getAllAdsMdoels = GetAllAdsMdoels.fromJson(apiData);
+    } catch (e, s) {
+      kLogger.e(e, stackTrace: s);
+    }
 
     isLoadig(false);
   }

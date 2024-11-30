@@ -72,7 +72,7 @@ class EditAdsController extends GetxController {
       // Handle a successful response
 
       Get.off(() => All_Ads());
-      allAdssDealController.All_AdsD();
+      allAdssDealController.getAllAds();
       Fluttertoast.showToast(
         msg: "updated Successfully.",
         toastLength: Toast.LENGTH_LONG,
@@ -103,7 +103,7 @@ class EditAdsController extends GetxController {
     if (status) {
       print("editAdssUp");
       // allAdssDealController.All_AdsD();
-      allAdssDealController.All_AdsD();
+      allAdssDealController.getAllAds();
       allAdssDealController.getAllAdsMdoels?.myAdvs.clear();
       Get.to(() => All_Ads());
       //Get.back();
