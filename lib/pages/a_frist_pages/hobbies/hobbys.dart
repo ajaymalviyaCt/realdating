@@ -35,9 +35,6 @@ class _Interest_ScreenState extends State<HobbiesPage> {
     (interest: "Travel & Places", selected: false.obs),
   ];
 
-  List<String> FinalInterest = [];
-  var hobbies;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -72,14 +69,20 @@ class _Interest_ScreenState extends State<HobbiesPage> {
               ),
             ),
             const SizedBox(height: 20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                InkWell(
+            GridView.builder(
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: (MediaQuery.of(context).size.width / 165).floor(),
+                mainAxisSpacing: 20, // Spacing between rows
+                crossAxisSpacing: 10, // Spacing between columns
+                childAspectRatio: 165 / 43, // Aspect ratio of each item
+              ),
+              itemCount: allInterest.length,
+              itemBuilder: (BuildContext context, int index) {
+                return InkWell(
                   onTap: () {
-                    active[0] = !active[0];
+                    allInterest[index].selected.value = !allInterest[index].selected.value;
+
                     setState(() {
-                      InterestS[0] = "Gaming,";
                       //print(InterestS.toString());
                     });
                   },
@@ -87,218 +90,15 @@ class _Interest_ScreenState extends State<HobbiesPage> {
                     height: 43,
                     width: 160,
                     decoration: BoxDecoration(
-                        color: active[0] ? Colors.white : Colors.redAccent,
-                        border: Border.all(style: BorderStyle.solid, color: Colors.redAccent),
-                        borderRadius: BorderRadius.circular(10)),
-                    child: Center(child: Text('🎮   Gaming', style: TextStyle(color: active[0] ? Colors.red : Colors.white, fontSize: 18))),
-                  ),
-                ),
-                InkWell(
-                  onTap: () {
-                    active[1] = !active[1];
-                    setState(() {
-                      InterestS[1] = "Dancing,";
-                    });
-                  },
-                  child: Container(
-                    height: 43,
-                    width: 160,
-                    decoration: BoxDecoration(
-                        color: active[1] ? Colors.white : Colors.redAccent,
+                        color: allInterest[index].selected.value ? Colors.white : Colors.redAccent,
                         border: Border.all(style: BorderStyle.solid, color: Colors.redAccent),
                         borderRadius: BorderRadius.circular(10)),
                     child: Center(
-                        child: Text(
-                      '💃🏻 Dancing',
-                      style: TextStyle(color: active[1] ? Colors.red : Colors.white, fontSize: 18),
-                    )),
+                        child: Text('🎮   Gaming', style: TextStyle(color: allInterest[index].selected.value ? Colors.red : Colors.white, fontSize: 18))),
                   ),
-                )
-              ],
-            ),
-            const SizedBox(height: 20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                InkWell(
-                  onTap: () {
-                    active[2] = !active[2];
-                    setState(() {
-                      InterestS[2] = "Language,";
-                    });
-                  },
-                  child: Container(
-                    height: 43,
-                    width: 160,
-                    decoration: BoxDecoration(
-                        color: active[2] ? Colors.white : Colors.redAccent,
-                        border: Border.all(style: BorderStyle.solid, color: Colors.redAccent),
-                        borderRadius: BorderRadius.circular(10)),
-                    child: Center(
-                        child: Text(
-                      '🗣 Language',
-                      style: TextStyle(color: active[2] ? Colors.red : Colors.white, fontSize: 18),
-                    )),
-                  ),
-                ),
-                InkWell(
-                    onTap: () {
-                      active[3] = !active[3];
-                      setState(() {
-                        InterestS[3] = "Music,";
-                      });
-                    },
-                    child: Container(
-                      height: 43,
-                      width: 160,
-                      decoration: BoxDecoration(
-                          color: active[3] ? Colors.white : Colors.redAccent,
-                          border: Border.all(style: BorderStyle.solid, color: Colors.redAccent),
-                          borderRadius: BorderRadius.circular(10)),
-                      child: Center(
-                          child: Text(
-                        '🎵 Music',
-                        style: TextStyle(color: active[3] ? Colors.red : Colors.white, fontSize: 18),
-                      )),
-                    ))
-              ],
-            ),
-            const SizedBox(height: 20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                InkWell(
-                  onTap: () {
-                    active[4] = !active[4];
-                    setState(() {
-                      InterestS[4] = "Movie,";
-                    });
-                  },
-                  child: Container(
-                    height: 43,
-                    width: 160,
-                    decoration: BoxDecoration(
-                        color: active[4] ? Colors.white : Colors.redAccent,
-                        border: Border.all(style: BorderStyle.solid, color: Colors.redAccent),
-                        borderRadius: BorderRadius.circular(10)),
-                    child: Center(
-                        child: Text(
-                      '🎬 Movie',
-                      style: TextStyle(color: active[4] ? Colors.red : Colors.white, fontSize: 18),
-                    )),
-                  ),
-                ),
-                InkWell(
-                    onTap: () {
-                      active[5] = !active[5];
-                      setState(() {
-                        InterestS[5] = "Photography,";
-                      });
-                    },
-                    child: Container(
-                      height: 43,
-                      width: 160,
-                      decoration: BoxDecoration(
-                          color: active[5] ? Colors.white : Colors.redAccent,
-                          border: Border.all(style: BorderStyle.solid, color: Colors.redAccent),
-                          borderRadius: BorderRadius.circular(10)),
-                      child: Center(
-                          child: Text(
-                        '📸 Photography',
-                        style: TextStyle(color: active[5] ? Colors.red : Colors.white, fontSize: 18),
-                      )),
-                    ))
-              ],
-            ),
-            const SizedBox(height: 20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                InkWell(
-                  onTap: () {
-                    active[6] = !active[6];
-                    setState(() {
-                      InterestS[6] = "Fashion,";
-                    });
-                  },
-                  child: Container(
-                    height: 43,
-                    width: 160,
-                    decoration: BoxDecoration(
-                        color: active[6] ? Colors.white : Colors.redAccent,
-                        border: Border.all(style: BorderStyle.solid, color: Colors.redAccent),
-                        borderRadius: BorderRadius.circular(10)),
-                    child: Center(
-                        child: Text(
-                      '👗 Fashion',
-                      style: TextStyle(color: active[6] ? Colors.red : Colors.white, fontSize: 18),
-                    )),
-                  ),
-                ),
-                InkWell(
-                    onTap: () {
-                      active[7] = !active[7];
-                      setState(() {
-                        InterestS[7] = "Architecture,";
-                      });
-                    },
-                    child: Container(
-                      height: 43,
-                      width: 160,
-                      decoration: BoxDecoration(
-                          color: active[7] ? Colors.white : Colors.redAccent,
-                          border: Border.all(style: BorderStyle.solid, color: Colors.redAccent),
-                          borderRadius: BorderRadius.circular(10)),
-                      child: Center(
-                          child: Text(
-                        '🏛 Architecture',
-                        style: TextStyle(color: active[7] ? Colors.red : Colors.white, fontSize: 18),
-                      )),
-                    ))
-              ],
-            ),
-            const SizedBox(height: 20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                InkWell(
-                  onTap: () {
-                    active[8] = !active[8];
-                    setState(() {
-                      InterestS[8] = "Book,";
-                    });
-                  },
-                  child: Container(
-                    height: 43,
-                    width: 160,
-                    decoration: BoxDecoration(
-                        color: active[8] ? Colors.white : Colors.redAccent,
-                        border: Border.all(style: BorderStyle.solid, color: Colors.redAccent),
-                        borderRadius: BorderRadius.circular(10)),
-                    child: Center(
-                        child: Text(
-                      '📚 Book',
-                      style: TextStyle(color: active[8] ? Colors.red : Colors.white, fontSize: 18),
-                    )),
-                  ),
-                ),
-                InkWell(
-                    onTap: () {
-                      active[9] = !active[9];
-                      setState(() {
-                        InterestS[9] = "Writing,";
-                      });
-                    },
-                    child: Container(
-                      height: 43,
-                      width: 160,
-                      decoration: BoxDecoration(
-                          color: active[9] ? Colors.white : Colors.redAccent,
-                          border: Border.all(style: BorderStyle.solid, color: Colors.redAccent),
-                          borderRadius: BorderRadius.circular(10)),
-                      child: Center(child: Text('✍🏻 Writing', style: TextStyle(color: active[9] ? Colors.red : Colors.white, fontSize: 18))),
-                    ))
-              ],
+                );
+                return Container();
+              },
             ),
             SizedBox(
               height: 180.h,
@@ -306,6 +106,7 @@ class _Interest_ScreenState extends State<HobbiesPage> {
             customPrimaryBtn(
                 btnText: "Continue",
                 btnFun: () {
+                  /*
                   FinalInterest.clear();
                   for (int i = 0; i < allInterest.length; i++) {
                     if (active[i] == false) {
@@ -314,12 +115,25 @@ class _Interest_ScreenState extends State<HobbiesPage> {
                   }
                   print("line 333");
                   print(FinalInterest.length);
-                  if (FinalInterest.isEmpty) {
+
+                  hobbies = FinalInterest.join();
+
+                  */
+                  if (allInterest
+                      .where(
+                        (element) => element.selected.value == true,
+                      )
+                      .toList()
+                      .isEmpty) {
                     Fluttertoast.showToast(msg: "You must select at least one hobby to continue.");
                     return;
                   }
-                  hobbies = FinalInterest.join();
-                  hobbiesController.hobbiesSelect("$hobbies");
+                  hobbiesController.hobbiesSelect(allInterest
+                      .where(
+                        (element) => element.selected.value == true,
+                      )
+                      .toList()
+                      .join(","));
                 }),
           ],
         ),
