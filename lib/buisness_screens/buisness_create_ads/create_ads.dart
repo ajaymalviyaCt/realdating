@@ -18,7 +18,7 @@ import '../../custom_iteam/coustomtextcommon.dart';
 import '../../custom_iteam/customprofile_textfiiled.dart';
 import '../../function/function_class.dart';
 import '../buisness_home/Bhome_page/buisness_home.dart';
-
+List<String> interestList = ['Music', 'Dancing', 'Cricket', 'Movie', 'Photography', 'Gaming'];
 class CreateAads extends StatefulWidget {
   const CreateAads({Key? key}) : super(key: key);
 
@@ -49,7 +49,7 @@ class _CreateAadsState extends State<CreateAads> {
 
   bool showDropdown = false;
   bool isLoading = false;
-  List<String> interestList = ['Music', 'Dancing', 'Cricket', 'Movie', 'Photography', 'Gaming'];
+
 
   @override
   void initState() {

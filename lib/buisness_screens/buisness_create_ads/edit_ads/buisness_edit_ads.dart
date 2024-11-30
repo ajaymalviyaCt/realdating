@@ -3,10 +3,12 @@ import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:realdating/buisness_screens/buisness_create_ads/create_ads.dart';
 import 'package:realdating/custom_iteam/coustomtextcommon.dart';
 import 'package:realdating/custom_iteam/customprofile_textfiiled.dart';
 import 'package:realdating/validation/validation.dart';
@@ -34,7 +36,8 @@ class _BuisnessEditAdsState extends State<BuisnessEditAds> {
   AllAdssDealController allAdssDealController = Get.put(AllAdssDealController());
   EditAdsController editAdsController = Get.put(EditAdsController());
   MyAdv? listdata;
-
+  bool showDropdown = false;
+  final RxList<String> selectedInterest = <String>[].obs;
   @override
   Widget build(BuildContext context) {
     print("sjfdk");
@@ -129,7 +132,7 @@ class _BuisnessEditAdsState extends State<BuisnessEditAds> {
 
                       customTextC(text: "Intrest", fSize: 16, fWeight: FontWeight.w500, lineHeight: 36),
 
-                      SizedBox(
+                /*      SizedBox(
                         height: 50,
                         child: CustumProfileTextField1(
                           controller: editAdsController.Intrest,
@@ -139,7 +142,63 @@ class _BuisnessEditAdsState extends State<BuisnessEditAds> {
                           //hintText: "Music,Sports"
                         ),
                       ),
-
+*/
+                          TextField(
+                            style: const TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.w600,
+                            ),
+                            controller:  editAdsController.Intrest,
+                            readOnly: true,
+                            // Prevent manual typing
+                            onTap: () {
+                              setState(() {
+                                showDropdown = !showDropdown; // Toggle dropdown
+                              });
+                            },
+                            decoration: InputDecoration(
+                              hintText: "Select Interest",
+                              hintStyle: const TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.w400,
+                              ),
+                              contentPadding: const EdgeInsets.symmetric(
+                                horizontal: 15,
+                                vertical: 8,
+                              ),
+                              filled: true,
+                              fillColor: Colors.white.withOpacity(.15),
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                                borderSide: BorderSide(
+                                  width: 1,
+                                  color: Colors.black.withOpacity(.15),
+                                ),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                                borderSide: BorderSide(
+                                  width: 1,
+                                  color: Colors.black.withOpacity(.15),
+                                ),
+                              ),
+                              suffixIcon: IconButton(
+                                icon: Icon(Icons.arrow_drop_down, color: Colors.black.withOpacity(.15)),
+                                onPressed: () {
+                                  setState(() {
+                                    if (interestList.isEmpty) {
+                                      print('Category Index-----${interestList}');
+                                      Fluttertoast.showToast(msg: 'Interest Not found');
+                                    } else {
+                                      showDropdown = !showDropdown;
+                                    }
+                                  });
+                                },
+                              ),
+                            ),
+                            cursorColor: Colors.white,
+                          ),
+                          if (showDropdown) interestDropdownUi(),
                       customTextC(text: "budget", fSize: 16, fWeight: FontWeight.w500, lineHeight: 36),
 
                       SizedBox(
@@ -265,6 +324,123 @@ class _BuisnessEditAdsState extends State<BuisnessEditAds> {
                     ])),
                   )),
         ));
+  }  Container interestDropdownUi() {
+    return Container(
+      margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 0),
+      decoration: BoxDecoration(
+        color: Colors.red.withOpacity(0.15),
+        border: Border.all(color: Colors.white, width: 1),
+        borderRadius: BorderRadius.circular(5),
+      ),
+      child:  Stack(
+        children: [
+          // Main Dropdown Container
+          Container(
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(12),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.3),
+                  blurRadius: 10,
+                  offset: const Offset(0, 4), // Shadow position for soft floating effect
+                ),
+              ],
+            ),
+            child: Column(
+              children: [
+                // Close Button at the top-right with a subtle elegant design
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Align(
+                    alignment: Alignment.topRight,
+                    child: GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          showDropdown = false; // Close dropdown on tap
+                        });
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.transparent, // Transparent to make it less intrusive
+                          shape: BoxShape.circle,
+                        ),
+                        padding: const EdgeInsets.all(8.0),
+                        child: Icon(
+                          Icons.close,
+                          color: Colors.redAccent, // Use accent color for contrast
+                          size: 24, // Adjust size for a more prominent close button
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                // Dropdown List View
+                Container(
+                  height: 300, // Set height for scrollable list
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: interestList.length,
+                    itemBuilder: (context, index) {
+                      final isSelected = selectedInterest.contains(interestList[index]);
+                      return GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            if (!isSelected) {
+                              selectedInterest.add(interestList[index]);
+                            } else {
+                              selectedInterest.remove(interestList[index]);
+                            }
+                            editAdsController.Intrest.text = selectedInterest.join(", ");
+                          });
+                        },
+                        child: Container(
+                          margin: const EdgeInsets.symmetric(vertical: 5),
+                          padding: const EdgeInsets.all(12.0),
+                          decoration: BoxDecoration(
+                            color: isSelected ? Colors.red.withOpacity(0.2) : Colors.white,
+                            borderRadius: BorderRadius.circular(12),
+                            border: Border.all(
+                              color: isSelected ? Colors.redAccent : Colors.grey.shade300,
+                              width: 1.5,
+                            ),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.1),
+                                blurRadius: 5,
+                                offset: const Offset(0, 2),
+                              ),
+                            ],
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                interestList[index],
+                                style: TextStyle(
+                                  color: isSelected ? Colors.redAccent.shade700 : Colors.black,
+                                  fontSize: 16,
+                                  fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                                ),
+                              ),
+                              if (isSelected)
+                                const Icon(
+                                  Icons.check_circle,
+                                  color: Colors.redAccent,
+                                ),
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
   }
 
   InkWell upLoadImageWidget(BuildContext context) {
