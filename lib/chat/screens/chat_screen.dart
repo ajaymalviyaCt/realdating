@@ -89,7 +89,7 @@ class _ChatScreenState extends State<ChatScreen> {
                                                 : messageDateStickyHeader(_list[index]),
                                           );
                                         } catch (e, s) {
-                                          return SizedBox.shrink();
+                                          return const SizedBox.shrink();
                                         }
                                       }),
                                       MessageCard(message: _list[index]),
@@ -380,7 +380,7 @@ class _ChatScreenState extends State<ChatScreen> {
 Widget messageDateStickyHeader(Message messageModel) {
   try {
     return Container(
-      margin: EdgeInsets.only(bottom: 15),
+      margin: const EdgeInsets.only(bottom: 15),
       child: Text(
         DateTimeServices.getRelativeDayNameWithinPast7Days(DateTimeServices.convertMillisecondsToLocalizedDateTime(int.parse(messageModel.sent)).dateTime!) ??
             DateTimeServices.convertMillisecondsToLocalizedDateTime(int.parse(messageModel.sent)).date!,
@@ -388,6 +388,6 @@ Widget messageDateStickyHeader(Message messageModel) {
       ),
     );
   } catch (e) {
-    return SizedBox.shrink();
+    return const SizedBox.shrink();
   }
 }
