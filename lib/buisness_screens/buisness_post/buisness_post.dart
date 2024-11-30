@@ -329,7 +329,7 @@ class _BuisnessPostState extends State<BuisnessPost> {
         };
         request.headers.addAll(headers);
         if (myTextController.text.isNotEmpty) {
-          request.fields['caption'] = myTextController.text.toString();
+          request.fields['caption'] = myTextController.text.toString().trim();
         }
 
         request.fields['post_type'] = _video != null ? "video" : "Image" ?? "";
@@ -473,18 +473,39 @@ class _BuisnessPostState extends State<BuisnessPost> {
             padding: const EdgeInsets.only(top: 4.0),
             child: IconButton(
               onPressed: () {
-                if (_images != null || _video != null || myTextController.text.trim().isNotEmpty) {
+                if (myTextController.text.trim().isNotEmpty && (_images != null || _video != null)) {
                   uploadFileToServerBHome();
                 } else {
-                  Fluttertoast.showToast(
-                    msg: "Please select image or Text..",
-                    toastLength: Toast.LENGTH_SHORT,
-                    gravity: ToastGravity.BOTTOM,
-                    backgroundColor: Colors.black,
-                    textColor: Colors.white,
-                    fontSize: 16.0,
-                  );
+                  if (myTextController.text.trim().isEmpty && (_images == null && _video == null)) {
+                    Fluttertoast.showToast(
+                      msg: "Please add a description and select an image or video.",
+                      toastLength: Toast.LENGTH_SHORT,
+                      gravity: ToastGravity.BOTTOM,
+                      backgroundColor: Colors.black,
+                      textColor: Colors.white,
+                      fontSize: 16.0,
+                    );
+                  } else if (myTextController.text.trim().isEmpty) {
+                    Fluttertoast.showToast(
+                      msg: "Please add a description.",
+                      toastLength: Toast.LENGTH_SHORT,
+                      gravity: ToastGravity.BOTTOM,
+                      backgroundColor: Colors.black,
+                      textColor: Colors.white,
+                      fontSize: 16.0,
+                    );
+                  } else {
+                    Fluttertoast.showToast(
+                      msg: "Please select an image or video.",
+                      toastLength: Toast.LENGTH_SHORT,
+                      gravity: ToastGravity.BOTTOM,
+                      backgroundColor: Colors.black,
+                      textColor: Colors.white,
+                      fontSize: 16.0,
+                    );
+                  }
                 }
+
               },
               icon: Image.asset('assets/icons/Share.png'),
             ),
