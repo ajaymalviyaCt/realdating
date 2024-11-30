@@ -89,9 +89,10 @@ class _LivePageState extends State<LivePage> {
               ? ZegoUIKitPrebuiltLiveStreamingConfig.host()
               : ZegoUIKitPrebuiltLiveStreamingConfig.audience())
             ..avatarBuilder = (context, size, user, extraInfo) {
-              extraInfo['isHost'] = widget.isHost;
-              extraInfo['hostImage'] = widget.image;
-              return customUserPhotoBuilder(context, size, user, extraInfo);
+              if (widget.isHost || !widget.isHost) {
+                return null;
+              }
+              return null;
             },
         ),
       ),
@@ -129,35 +130,9 @@ class _LivePageState extends State<LivePage> {
   }
 }
 
-CachedNetworkImage customUserPhotoBuilder(
-    BuildContext context,
-    Size size,
-    ZegoUIKitUser? user,
-    Map<String, dynamic> extraInfo,
-    ) {
-  final isHost = extraInfo['isHost'] ?? false;
-  final imageUrl = isHost
-      ? extraInfo['hostImage']
-      : (extraInfo['profileImage'] ?? 'https://robohash.org/${user?.id}.png');
 
-  return CachedNetworkImage(
-    imageUrl: imageUrl,
-    imageBuilder: (context, imageProvider) => Container(
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        image: DecorationImage(
-          image: imageProvider,
-          fit: BoxFit.cover,
-        ),
-      ),
-    ),
-    progressIndicatorBuilder: (context, url, downloadProgress) =>
-        CircularProgressIndicator(value: downloadProgress.progress),
-    errorWidget: (context, url, error) {
-      return ZegoAvatar(user: user, avatarSize: size);
-    },
-  );
-}
+
+
 
 
 
