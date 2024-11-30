@@ -8,6 +8,9 @@ class InterestController extends GetxController {
   // TextEditingController passwordController = TextEditingController();
   RxBool isLoadig = false.obs;
   RxString inrest = "".obs;
+  final List<String> ?selectedInterest;
+
+  InterestController({required this.selectedInterest});
 
 
   // Future<void> devicTypeCheck()async{

@@ -9,13 +9,14 @@ import 'interest_controller.dart';
 
 class InterestScreen extends StatefulWidget {
   const InterestScreen({super.key, this.selectedInterest});
- final List<String> ?selectedInterest;
+
+  final List<String>? selectedInterest;
+
   @override
   State<InterestScreen> createState() => _InterestScreenState();
 }
 
 class _InterestScreenState extends State<InterestScreen> {
-  InterestController interestController = Get.put(InterestController());
 
   List<bool> active = [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true];
 
@@ -54,9 +55,16 @@ class _InterestScreenState extends State<InterestScreen> {
 
   List<String> FinalInterest = [];
   var interrest;
+@override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    InterestController interestController = Get.put(InterestController(selectedInterest: widget.selectedInterest));
 
+}
   @override
   Widget build(BuildContext context) {
+    InterestController interestController = Get.find();
     return Scaffold(
       appBar: customAppbar("Your Interest", context),
       body: SingleChildScrollView(
