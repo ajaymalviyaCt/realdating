@@ -437,7 +437,9 @@ class _ProfilePageState extends State<ProfilePage> {
                                   Spacer(),
                                   InkWell(
                                       onTap: () {
-                                        Get.to(Interest_Screen());
+                                        Get.to(InterestScreen(
+                                          selectedInterest: interestList(),
+                                        ));
                                       },
                                       child: Image.asset(
                                         'assets/icons/addition.png',

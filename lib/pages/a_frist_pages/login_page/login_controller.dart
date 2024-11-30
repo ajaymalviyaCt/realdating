@@ -302,7 +302,7 @@ class LoginController extends GetxController {
             Get.offAll(() => const SelectGenderPage());
           }
           if (profileStatus == 1) {
-            Get.offAll(() => const Interest_Screen());
+            Get.offAll(() => const InterestScreen());
           }
           if (profileStatus == 2) {
             Get.offAll(() => const HobbiesPage());

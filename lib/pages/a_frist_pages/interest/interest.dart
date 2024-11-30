@@ -7,14 +7,14 @@ import 'package:realdating/widgets/custom_buttons.dart';
 import '../../../function/function_class.dart';
 import 'interest_controller.dart';
 
-class Interest_Screen extends StatefulWidget {
-  const Interest_Screen({super.key});
-
+class InterestScreen extends StatefulWidget {
+  const InterestScreen({super.key, this.selectedInterest});
+ final List<String> ?selectedInterest;
   @override
-  State<Interest_Screen> createState() => _Interest_ScreenState();
+  State<InterestScreen> createState() => _InterestScreenState();
 }
 
-class _Interest_ScreenState extends State<Interest_Screen> {
+class _InterestScreenState extends State<InterestScreen> {
   InterestController interestController = Get.put(InterestController());
 
   List<bool> active = [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true];

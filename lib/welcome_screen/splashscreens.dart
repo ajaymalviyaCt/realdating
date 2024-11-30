@@ -144,7 +144,7 @@ class _SplashPageState extends State<SplashPage> with SingleTickerProviderStateM
       Get.to(() => const SelectGenderPage());
     }
     if (profileStatus == 1) {
-      Get.to(() => const Interest_Screen());
+      Get.to(() => const InterestScreen());
     }
     if (profileStatus == 2) {
       Get.to(() => const HobbiesPage());
