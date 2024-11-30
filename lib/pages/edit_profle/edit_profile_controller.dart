@@ -64,7 +64,7 @@ class EditProfileController extends GetxController {
       'username': username.value.text,
       'DOB': dateOfbrith.value.text,
       'height': height.value.text,
-      'address': Address.value.text == "" ? "address" : Address.value.text,
+      'address': Address.value.text == "" ? " " : Address.value.text,
     });
 
     var response = await dio.request(
