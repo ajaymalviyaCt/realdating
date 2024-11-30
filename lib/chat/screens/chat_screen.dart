@@ -77,22 +77,27 @@ class _ChatScreenState extends State<ChatScreen> {
                                   print(index);
                                   Message? previousMessageModel;
                                   try {
-
                                     previousMessageModel = messageModel(index + 1);
                                   } catch (e) {}
                                   return Column(
                                     children: [
-                                      (previousMessageModel != null)
-                                          ? DateTimeServices.isSameDate(
-                                          date1: DateTimeServices.convertMillisecondsToLocalizedDateTime(
-                                              int.parse(messageModel(index).sent))
-                                              .dateTime!,
-                                          date2: DateTimeServices.convertMillisecondsToLocalizedDateTime(
-                                              int.parse(previousMessageModel.sent))
-                                              .dateTime!)
-                                          ? const SizedBox.shrink()
-                                          : messageDateStickyHeader(messageModel(index))
-                                          : messageDateStickyHeader(messageModel(index)),
+                                      Builder(builder: (context) {
+                                        try {
+                                          return SizedBox(
+                                            child: (previousMessageModel != null)
+                                                ? DateTimeServices.isSameDate(
+                                                        date1: DateTimeServices.convertMillisecondsToLocalizedDateTime(int.parse(messageModel(index).sent))
+                                                            .dateTime!,
+                                                        date2: DateTimeServices.convertMillisecondsToLocalizedDateTime(int.parse(previousMessageModel.sent))
+                                                            .dateTime!)
+                                                    ? const SizedBox.shrink()
+                                                    : messageDateStickyHeader(messageModel(index))
+                                                : messageDateStickyHeader(messageModel(index)),
+                                          );
+                                        } catch (e, s) {
+                                          return SizedBox();
+                                        }
+                                      }),
                                       MessageCard(message: messageModel(index)),
                                     ],
                                   );
