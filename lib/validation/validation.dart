@@ -341,7 +341,7 @@ String? validateMobile(value) {
 
 String? validateMobile(String? value) {
   // Regular expression for validating international phone numbers (with + sign)
-  RegExp regExp = RegExp(r'^\+?[0-9]{10,15}$'); // Allows + and 10-15 digits
+  RegExp regExp = RegExp(r'^\+?[0-9]{8,15}$'); // Allows + and 8-15 digits
 
   if (value == null || value.isEmpty) {
     return 'Please enter number';
