@@ -437,7 +437,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                   : SizedBox(
                                 height: 120,
                                 child: GridView.builder(
-                                  itemCount:profileController.interests.isNotEmpty ? profileController.interests.length
+                                  itemCount:interestList().isNotEmpty ? interestList().length
                                       : 0,
                                   itemBuilder: (ctx, i) {
                                     return Padding(
@@ -458,7 +458,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                                 width: 220,
                                                 height: 32,
                                                 child: Text(
-                                                  profileController.interests[i] ?? "",
+                                                  interestList()[i] ?? "",
                                                   style: const TextStyle(
                                                     color: Color(0xFFE94057),
                                                     fontSize: 8,
@@ -491,7 +491,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               SizedBox(
                                 height: 130,
                                 child: GridView.builder(
-                                  itemCount: profileController.hobbiesData.length ?? 0,
+                                  itemCount: hobbiesList().length ?? 0,
                                   itemBuilder: (ctx, i) {
                                     return Padding(
                                       padding: const EdgeInsets.only(top: 10),
@@ -511,7 +511,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                                 width: 220,
                                                 height: 35,
                                                 child: Text(
-                                                  profileController.hobbiesData[i] ?? "",
+                                                  hobbiesList()[i] ?? "",
                                                   style: const TextStyle(
                                                     color: Color(0xFFE94057),
                                                     fontSize: 8,
@@ -545,6 +545,9 @@ class _ProfilePageState extends State<ProfilePage> {
       ),
     );
   }
+
+  List<String> interestList() => (profileController.profileModel?.userInfo.interest.split(",")??[]);
+  List<String> hobbiesList() => (profileController.profileModel?.userInfo.hobbies.split(",")??[]);
 
   final speedNotifier = ValueNotifier<double>(1);
 }
