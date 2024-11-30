@@ -10,6 +10,8 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
+import 'package:realdating/pages/a_frist_pages/hobbies/hobbys.dart';
+import 'package:realdating/pages/a_frist_pages/interest/interest.dart';
 import 'package:realdating/services/apis_related/api_call_services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -278,9 +280,9 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                       const SizedBox(height: 8),
                       Text(
-                        profileController.profileModel?.userInfo.address == "0"
-                            ? "33 street  United State"
-                            : profileController.profileModel!.userInfo.address.toString(),
+                        profileController.profileModel.value?.userInfo.address == "0"
+                            ? ""
+                            : profileController.profileModel.value!.userInfo.address.toString(),
                         style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: Color(0xffAAAAAA)),
                       ),
                       const SizedBox(
@@ -343,16 +345,14 @@ class _ProfilePageState extends State<ProfilePage> {
                                   Opacity(
                                     opacity: profileController.apiLoadingUploadImage.value ? 0.5 : 1,
                                     child: SizedBox(
-
                                       child: GridView.builder(
-                                        shrinkWrap: true
-                                        ,
+                                        shrinkWrap: true,
                                         physics: const NeverScrollableScrollPhysics(),
-                                        itemCount: profileController.profileModel?.userInfo.newImages.length,
+                                        itemCount: profileController.profileModel.value?.userInfo.newImages.length,
                                         gridDelegate:
                                             const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3, mainAxisSpacing: 5, crossAxisSpacing: 10),
                                         itemBuilder: (ctx, index) {
-                                          final data = profileController.profileModel?.userInfo.newImages;
+                                          final data = profileController.profileModel.value?.userInfo.newImages;
                                           print('profile images----------$data');
                                           return Stack(
                                             children: [
@@ -384,7 +384,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                                   right: 0,
                                                   child: GestureDetector(
                                                     onTap: () {
-                                                      if (profileController.profileModel!.userInfo.newImages.length > 2) {
+                                                      if (profileController.profileModel.value!.userInfo.newImages.length > 2) {
                                                         deleteImage(data[index].id.toString());
                                                       } else {
                                                         Fluttertoast.showToast(
@@ -423,21 +423,41 @@ class _ProfilePageState extends State<ProfilePage> {
                                 ],
                               ),
                               20.heightBox,
-                              const Text(
-                                'Interests',
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 14,
-                                  fontFamily: 'Inter',
-                                  fontWeight: FontWeight.w500,
-                                ),
+                              Row(
+                                children: [
+                                  const Text(
+                                    'Interests',
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 14,
+                                      fontFamily: 'Inter',
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                  Spacer(),
+                                  InkWell(
+                                      onTap: () {
+                                        Get.to(InterestScreen(
+                                          selectedInterest: interestList(),
+                                        ))?.then((value) {
+                                          profileController.profileDaitails();
+                                        },);;
+                                      },
+                                      child: Image.asset(
+                                        'assets/icons/addition.png',
+                                        scale: 30,
+                                        color: Colors.black,
+                                      ))
+                                ],
                               ),
                               10.heightBox,
-                              profileController.profileModel?.userInfo.interest == null
-                                  ? const Text("No Intrest Found !!")
+                              profileController.profileModel.value?.userInfo.interest == null
+                                  ? const Text("No Interest Found !!")
                                   : SizedBox(
-                                      height: 120,
+                                      // height: 120,
                                       child: GridView.builder(
+                                        primary: false,
+                                        shrinkWrap: true,
                                         itemCount: interestList().isNotEmpty ? interestList().length : 0,
                                         itemBuilder: (ctx, i) {
                                           return Padding(
@@ -478,19 +498,37 @@ class _ProfilePageState extends State<ProfilePage> {
                                             const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3, mainAxisExtent: 34, crossAxisSpacing: 10),
                                       ),
                                     ),
-                              const Text(
-                                'Hobbies',
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 14,
-                                  fontFamily: 'Inter',
-                                  fontWeight: FontWeight.w500,
-                                ),
+                              20.heightBox,
+                              Row(
+                                children: [
+                                  const Text(
+                                    'Hobbies',
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 14,
+                                      fontFamily: 'Inter',
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                  Spacer(),
+                                  InkWell(
+                                      onTap: () {
+                                        Get.to(HobbiesPage(selectedHobby: hobbiesList(),))?.then((value) {
+                                          profileController.profileDaitails();
+                                        },);
+                                      },
+                                      child: Image.asset(
+                                        'assets/icons/addition.png',
+                                        scale: 30,
+                                        color: Colors.black,
+                                      ))
+                                ],
                               ),
                               10.heightBox,
                               SizedBox(
-                                height: 130,
                                 child: GridView.builder(
+                                  primary: false,
+                                  shrinkWrap: true,
                                   itemCount: hobbiesList().length ?? 0,
                                   itemBuilder: (ctx, i) {
                                     return Padding(
@@ -545,13 +583,13 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
-  List<String> interestList() => (profileController.profileModel?.userInfo.interest.trim().split(",") ?? [])
+  List<String> interestList() => (profileController.profileModel.value?.userInfo.interest.trim().split(",") ?? [])
       .where(
         (element) => element.trim().isNotEmpty,
       )
       .toList();
 
-  List<String> hobbiesList() => (profileController.profileModel?.userInfo.hobbies.trim().split(",") ?? [])
+  List<String> hobbiesList() => (profileController.profileModel.value?.userInfo.hobbies.trim().split(",") ?? [])
       .where(
         (element) => element.trim().isNotEmpty,
       )

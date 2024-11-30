@@ -18,7 +18,7 @@ class GenderController extends GetxController {
     var msg = response["message"];
     print("msg ___$msg");
     if (status) {
-      Get.to(() => const Interest_Screen());
+      Get.to(() => const InterestScreen());
     }
   }
 }

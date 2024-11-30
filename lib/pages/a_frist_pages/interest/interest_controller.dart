@@ -1,28 +1,15 @@
 import 'package:get/get.dart';
+
 import '../../../consts/app_urls.dart';
 import '../../../services/base_client01.dart';
 import '../hobbies/hobbys.dart';
 
 class InterestController extends GetxController {
-  // TextEditingController emailController =    TextEditingController();
-  // TextEditingController passwordController = TextEditingController();
   RxBool isLoadig = false.obs;
   RxString inrest = "".obs;
+  final List<String>? selectedInterest;
 
-
-  // Future<void> devicTypeCheck()async{
-  //   if (Platform.isAndroid) {
-  //     var androidInfo = await DeviceInfoPlugin().androidInfo;
-  //     var release = androidInfo.version.release;
-  //     var sdkInt = androidInfo.version.sdkInt;
-  //     var manufacturer = androidInfo.manufacturer;
-  //     var model = androidInfo.model;
-  //     print('Android $release (SDK $sdkInt), $manufacturer $model');
-  //     deviceType="0";
-  //   }else{
-  //     deviceType="1";
-  //   }
-  // }
+  InterestController({required this.selectedInterest});
 
   interestSelect(String interstSelect) async {
     print("call  interestSelect");
@@ -35,7 +22,9 @@ class InterestController extends GetxController {
     print("status ___$status");
     var msg = response["message"];
     print("msg ___$msg");
-    if (status) {
+    if (selectedInterest != null) {
+      Get.back();
+    } else {
       Get.to(() => const HobbiesPage());
     }
   }
