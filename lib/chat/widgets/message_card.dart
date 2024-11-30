@@ -190,7 +190,7 @@ class _MessageCardState extends State<MessageCard> {
                           //         albumName: 'We Chat')
                           //     .then((success) {
                           //   //for hiding bottom sheet
-                          //   Navigator.pop(context);
+                          //  Get.back();
                           //   if (success != null && success) {
                           //     Dialogs.showSnackbar(
                           //         context, 'Image Successfully Saved!');
@@ -216,7 +216,7 @@ class _MessageCardState extends State<MessageCard> {
                     name: 'Edit Message',
                     onTap: () {
                       //for hiding bottom sheet
-                      Navigator.pop(context);
+                     Get.back();
 
                       _showMessageUpdateDialog();
                     }),
