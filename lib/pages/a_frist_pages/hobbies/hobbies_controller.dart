@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 import 'package:realdating/consts/app_urls.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
 import '../../../services/base_client01.dart';
 import '../add_your_photos/add_your_photos.dart';
 
@@ -28,10 +29,11 @@ class HobbiesController extends GetxController {
     var msg = response["message"];
     print("msg ___$msg");
     if (status) {
-      if(selectedHobby!=null){
+      if (selectedHobby != null) {
         Get.back();
-      }else{Get.to(() => const AddYourPhotoPage());}
-
+      } else {
+        Get.to(() => const AddYourPhotoPage());
+      }
     }
   }
 
