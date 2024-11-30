@@ -8,7 +8,7 @@ import 'package:swipe_cards/swipe_cards.dart';
 import '../dash_board_page.dart';
 
 class SwipCardPage extends StatefulWidget {
-  const SwipCardPage({Key? key, this.title}) : super(key: key);
+  const SwipCardPage({super.key, this.title});
 
   final String? title;
 
@@ -19,7 +19,7 @@ class SwipCardPage extends StatefulWidget {
 class _SwipCardPageState extends State<SwipCardPage> {
   TinderSwipController tinderSwipController = Get.put(TinderSwipController());
 
-  List<SwipeItem> _swipeItems = <SwipeItem>[];
+  final List<SwipeItem> _swipeItems = <SwipeItem>[];
   MatchEngine? _matchEngine;
   var indexStatic;
 
@@ -131,7 +131,7 @@ class _SwipCardPageState extends State<SwipCardPage> {
                             itemBuilder: (BuildContext context, int index) {
                               print("firstname$index${tinderSwipController.user[index].firstName}");
                               indexStatic = index;
-                              return TinderCard(user: tinderSwipController.user![index]);
+                              return TinderCard(user: tinderSwipController.user[index]);
                             },
                             onStackFinished: () {
                               tinderSwipController.lastIndex.value = true;
@@ -174,7 +174,7 @@ class _SwipCardPageState extends State<SwipCardPage> {
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsets.only(
+                        padding: const EdgeInsets.only(
                           bottom: 20,
                         ),
                         child: Align(
@@ -273,7 +273,7 @@ class _SwipCardPageState extends State<SwipCardPage> {
         print("fmlgrlg");
         print(indexStatic);
       },
-      child: Container(
+      child: SizedBox(
         height: 70,
         // decoration: BoxDecoration(
         //

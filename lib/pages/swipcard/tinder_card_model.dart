@@ -44,7 +44,7 @@ class MyFriendSwipe {
   String? username;
   String? email;
   String? password;
-  dynamic? age;
+  dynamic age;
   String? gender;
 
   MyFriendSwipe({

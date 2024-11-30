@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:realdating/Choose_subscription_plan/spark.dart';
 import 'package:realdating/reel/common_import.dart';
@@ -18,7 +17,7 @@ class _MonthlyState extends State<Monthly> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFFFF0F0),
+      backgroundColor: const Color(0xFFFFF0F0),
       body: Padding(
         padding: const EdgeInsets.only(left: 15, right: 15, top: 15),
         child: ListView(
@@ -54,16 +53,16 @@ class _MonthlyState extends State<Monthly> {
                           decoration: BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(26.5),
-                            border: Border.all(width: 2, color: Color(0xFFF65F51)),
+                            border: Border.all(width: 2, color: const Color(0xFFF65F51)),
                           ),
                           child: Row(
                             children: [
                               Container(
                                 width: 140.aw,
                                 decoration: BoxDecoration(
-                                  color: Color(0xFFF65F51),
+                                  color: const Color(0xFFF65F51),
                                   borderRadius: BorderRadius.circular(24),
-                                  border: Border.all(width: 2, color: Color(0xFFF65F51)),
+                                  border: Border.all(width: 2, color: const Color(0xFFF65F51)),
                                 ),
                                 child: Center(
                                   child: Text(
@@ -116,9 +115,9 @@ class _MonthlyState extends State<Monthly> {
                           width: 328.aw,
                           height: 106.ah,
                           decoration: BoxDecoration(
-                            color: Color(0xFFF9505F).withOpacity(0.21),
+                            color: const Color(0xFFF9505F).withOpacity(0.21),
                             borderRadius: BorderRadius.circular(26.5),
-                            border: Border.all(width: 2, color: Color(0xFFF65F51)),
+                            border: Border.all(width: 2, color: const Color(0xFFF65F51)),
                           ),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -142,7 +141,7 @@ class _MonthlyState extends State<Monthly> {
                                           fontSize: 14.fSize,
                                           fontWeight: FontWeight.w600,
                                           fontFamily: 'Roboto',
-                                          color: Color(0xFFE20A00),
+                                          color: const Color(0xFFE20A00),
                                         ),
                                       ),
                                     ),
@@ -153,7 +152,7 @@ class _MonthlyState extends State<Monthly> {
                                           fontSize: 14.fSize,
                                           fontWeight: FontWeight.w600,
                                           fontFamily: 'Roboto',
-                                          color: Color(0xFF000000),
+                                          color: const Color(0xFF000000),
                                         ),
                                       ),
                                     ),
@@ -172,7 +171,7 @@ class _MonthlyState extends State<Monthly> {
                                         fontSize: 14.fSize,
                                         fontWeight: FontWeight.w600,
                                         fontFamily: 'Roboto',
-                                        color: Color(0xFF000000),
+                                        color: const Color(0xFF000000),
                                       ),
                                     ),
                                   ),
@@ -183,7 +182,7 @@ class _MonthlyState extends State<Monthly> {
                                         fontSize: 13.fSize,
                                         fontWeight: FontWeight.w500,
                                         fontFamily: 'Roboto',
-                                        color: Color(0xFF000000),
+                                        color: const Color(0xFF000000),
                                       ),
                                     ),
                                   ),
@@ -200,7 +199,7 @@ class _MonthlyState extends State<Monthly> {
                           decoration: BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(26.5),
-                            border: Border.all(width: 2, color: Color(0xFFF65F51)),
+                            border: Border.all(width: 2, color: const Color(0xFFF65F51)),
                           ),
                           child: Padding(
                             padding: const EdgeInsets.only(left: 33, right: 25),
@@ -213,7 +212,7 @@ class _MonthlyState extends State<Monthly> {
                                   width: 279.aw,
                                   height: 40.ah,
                                   decoration: BoxDecoration(
-                                    color: Color(0xFFF3F3F3),
+                                    color: const Color(0xFFF3F3F3),
                                     borderRadius: BorderRadius.circular(8),
                                   ),
                                   child: Row(
@@ -227,7 +226,7 @@ class _MonthlyState extends State<Monthly> {
                                             fontSize: 14.fSize,
                                             fontWeight: FontWeight.w600,
                                             fontFamily: 'Roboto',
-                                            color: Color(0xFFE20A00),
+                                            color: const Color(0xFFE20A00),
                                           ),
                                         ),
                                       ),
@@ -238,7 +237,7 @@ class _MonthlyState extends State<Monthly> {
                                             fontSize: 14.fSize,
                                             fontWeight: FontWeight.w600,
                                             fontFamily: 'Roboto',
-                                            color: Color(0xFF000000),
+                                            color: const Color(0xFF000000),
                                           ),
                                         ),
                                       ),
@@ -257,7 +256,7 @@ class _MonthlyState extends State<Monthly> {
                                           fontSize: 14.fSize,
                                           fontWeight: FontWeight.w600,
                                           fontFamily: 'Roboto',
-                                          color: Color(0xFF000000),
+                                          color: const Color(0xFF000000),
                                         ),
                                       ),
                                     ),
@@ -267,7 +266,7 @@ class _MonthlyState extends State<Monthly> {
                                         fontSize: 13.fSize,
                                         fontWeight: FontWeight.w500,
                                         fontFamily: 'Roboto',
-                                        color: Color(0xFF000000),
+                                        color: const Color(0xFF000000),
                                       ),
                                     ),
                                   ],
@@ -282,7 +281,7 @@ class _MonthlyState extends State<Monthly> {
                                         fontSize: 14.fSize,
                                         fontWeight: FontWeight.w600,
                                         fontFamily: 'Roboto',
-                                        color: Color(0xFF000000),
+                                        color: const Color(0xFF000000),
                                       ),
                                     ),
                                     Text(
@@ -291,7 +290,7 @@ class _MonthlyState extends State<Monthly> {
                                         fontSize: 13.fSize,
                                         fontWeight: FontWeight.w500,
                                         fontFamily: 'Roboto',
-                                        color: Color(0xFF000000),
+                                        color: const Color(0xFF000000),
                                       ),
                                     ),
                                   ],
@@ -307,7 +306,7 @@ class _MonthlyState extends State<Monthly> {
                                           fontSize: 14.fSize,
                                           fontWeight: FontWeight.w600,
                                           fontFamily: 'Roboto',
-                                          color: Color(0xFF000000),
+                                          color: const Color(0xFF000000),
                                         ),
                                       ),
                                     ),
@@ -318,7 +317,7 @@ class _MonthlyState extends State<Monthly> {
                                           fontSize: 13.fSize,
                                           fontWeight: FontWeight.w500,
                                           fontFamily: 'Roboto',
-                                          color: Color(0xFF000000),
+                                          color: const Color(0xFF000000),
                                         ),
                                       ),
                                     ),
@@ -335,7 +334,7 @@ class _MonthlyState extends State<Monthly> {
                                           fontSize: 14.fSize,
                                           fontWeight: FontWeight.w600,
                                           fontFamily: 'Roboto',
-                                          color: Color(0xFF000000),
+                                          color: const Color(0xFF000000),
                                         ),
                                       ),
                                     ),
@@ -346,7 +345,7 @@ class _MonthlyState extends State<Monthly> {
                                           fontSize: 13.fSize,
                                           fontWeight: FontWeight.w500,
                                           fontFamily: 'Roboto',
-                                          color: Color(0xFF000000),
+                                          color: const Color(0xFF000000),
                                         ),
                                       ),
                                     ),
@@ -359,15 +358,15 @@ class _MonthlyState extends State<Monthly> {
                         SizedBox(height: 15.ah),
                         InkWell(
                           onTap: () {
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => SparkScreen()));
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => const SparkScreen()));
                           },
                           child: Container(
                             width: 106.8.aw,
                             height: 32.ah,
                             decoration: BoxDecoration(
-                              color: Color(0xFFF65F51),
+                              color: const Color(0xFFF65F51),
                               borderRadius: BorderRadius.circular(24),
-                              border: Border.all(width: 2, color: Color(0xFFF65F51)),
+                              border: Border.all(width: 2, color: const Color(0xFFF65F51)),
                             ),
                             child: Center(
                               child: Text(
@@ -387,9 +386,9 @@ class _MonthlyState extends State<Monthly> {
                           width: MediaQuery.of(context).size.width,
                           height: 45.ah,
                           decoration: BoxDecoration(
-                            color: Color(0xFFF65F51),
+                            color: const Color(0xFFF65F51),
                             borderRadius: BorderRadius.circular(24),
-                            border: Border.all(width: 2, color: Color(0xFFF65F51)),
+                            border: Border.all(width: 2, color: const Color(0xFFF65F51)),
                           ),
                           child: Center(
                             child: Text(
@@ -412,7 +411,7 @@ class _MonthlyState extends State<Monthly> {
                         decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(26.5),
-                          border: Border.all(width: 2, color: Color(0xFFF65F51)),
+                          border: Border.all(width: 2, color: const Color(0xFFF65F51)),
                         ),
                         child: Row(
                           children: [
@@ -446,9 +445,9 @@ class _MonthlyState extends State<Monthly> {
                             Container(
                               width: 144.aw,
                               decoration: BoxDecoration(
-                                color: Color(0xFFF65F51),
+                                color: const Color(0xFFF65F51),
                                 borderRadius: BorderRadius.circular(24),
-                                border: Border.all(width: 2, color: Color(0xFFF65F51)),
+                                border: Border.all(width: 2, color: const Color(0xFFF65F51)),
                               ),
                               child: Center(
                                 child: Text(
@@ -476,9 +475,9 @@ class _MonthlyState extends State<Monthly> {
                         width: 328.aw,
                         height: 106.ah,
                         decoration: BoxDecoration(
-                          color: Color(0xFFF9505F).withOpacity(0.21),
+                          color: const Color(0xFFF9505F).withOpacity(0.21),
                           borderRadius: BorderRadius.circular(26.5),
-                          border: Border.all(width: 2, color: Color(0xFFF65F51)),
+                          border: Border.all(width: 2, color: const Color(0xFFF65F51)),
                         ),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -502,7 +501,7 @@ class _MonthlyState extends State<Monthly> {
                                         fontSize: 14.fSize,
                                         fontWeight: FontWeight.w600,
                                         fontFamily: 'Roboto',
-                                        color: Color(0xFFE20A00),
+                                        color: const Color(0xFFE20A00),
                                       ),
                                     ),
                                   ),
@@ -517,7 +516,7 @@ class _MonthlyState extends State<Monthly> {
                                             fontSize: 14.fSize,
                                             fontWeight: FontWeight.w600,
                                             fontFamily: 'Roboto',
-                                            color: Color(0xFF000000),
+                                            color: const Color(0xFF000000),
                                           ),
                                         ),
                                         SizedBox(width: 3.aw),
@@ -548,7 +547,7 @@ class _MonthlyState extends State<Monthly> {
                                       fontSize: 14.fSize,
                                       fontWeight: FontWeight.w600,
                                       fontFamily: 'Roboto',
-                                      color: Color(0xFF000000),
+                                      color: const Color(0xFF000000),
                                     ),
                                   ),
                                 ),
@@ -559,7 +558,7 @@ class _MonthlyState extends State<Monthly> {
                                       fontSize: 13.fSize,
                                       fontWeight: FontWeight.w500,
                                       fontFamily: 'Roboto',
-                                      color: Color(0xFF000000),
+                                      color: const Color(0xFF000000),
                                     ),
                                   ),
                                 ),
@@ -576,7 +575,7 @@ class _MonthlyState extends State<Monthly> {
                         decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(26.5),
-                          border: Border.all(width: 2, color: Color(0xFFF65F51)),
+                          border: Border.all(width: 2, color: const Color(0xFFF65F51)),
                         ),
                         child: Padding(
                           padding: const EdgeInsets.only(left: 33, right: 25),
@@ -589,7 +588,7 @@ class _MonthlyState extends State<Monthly> {
                                 width: 279.aw,
                                 height: 40.ah,
                                 decoration: BoxDecoration(
-                                  color: Color(0xFFF3F3F3),
+                                  color: const Color(0xFFF3F3F3),
                                   borderRadius: BorderRadius.circular(8),
                                 ),
                                 child: Row(
@@ -603,7 +602,7 @@ class _MonthlyState extends State<Monthly> {
                                           fontSize: 14.fSize,
                                           fontWeight: FontWeight.w600,
                                           fontFamily: 'Roboto',
-                                          color: Color(0xFFE20A00),
+                                          color: const Color(0xFFE20A00),
                                         ),
                                       ),
                                     ),
@@ -618,7 +617,7 @@ class _MonthlyState extends State<Monthly> {
                                               fontSize: 14.fSize,
                                               fontWeight: FontWeight.w600,
                                               fontFamily: 'Roboto',
-                                              color: Color(0xFF000000),
+                                              color: const Color(0xFF000000),
                                             ),
                                           ),
                                           SizedBox(width: 3.aw),
@@ -649,7 +648,7 @@ class _MonthlyState extends State<Monthly> {
                                         fontSize: 14.fSize,
                                         fontWeight: FontWeight.w600,
                                         fontFamily: 'Roboto',
-                                        color: Color(0xFF000000),
+                                        color: const Color(0xFF000000),
                                       ),
                                     ),
                                   ),
@@ -659,7 +658,7 @@ class _MonthlyState extends State<Monthly> {
                                       fontSize: 13.fSize,
                                       fontWeight: FontWeight.w500,
                                       fontFamily: 'Roboto',
-                                      color: Color(0xFF000000),
+                                      color: const Color(0xFF000000),
                                     ),
                                   ),
                                 ],
@@ -674,7 +673,7 @@ class _MonthlyState extends State<Monthly> {
                                       fontSize: 14.fSize,
                                       fontWeight: FontWeight.w600,
                                       fontFamily: 'Roboto',
-                                      color: Color(0xFF000000),
+                                      color: const Color(0xFF000000),
                                     ),
                                   ),
                                   Text(
@@ -683,7 +682,7 @@ class _MonthlyState extends State<Monthly> {
                                       fontSize: 13.fSize,
                                       fontWeight: FontWeight.w500,
                                       fontFamily: 'Roboto',
-                                      color: Color(0xFF000000),
+                                      color: const Color(0xFF000000),
                                     ),
                                   ),
                                 ],
@@ -699,7 +698,7 @@ class _MonthlyState extends State<Monthly> {
                                         fontSize: 14.fSize,
                                         fontWeight: FontWeight.w600,
                                         fontFamily: 'Roboto',
-                                        color: Color(0xFF000000),
+                                        color: const Color(0xFF000000),
                                       ),
                                     ),
                                   ),
@@ -710,7 +709,7 @@ class _MonthlyState extends State<Monthly> {
                                         fontSize: 13.fSize,
                                         fontWeight: FontWeight.w500,
                                         fontFamily: 'Roboto',
-                                        color: Color(0xFF000000),
+                                        color: const Color(0xFF000000),
                                       ),
                                     ),
                                   ),
@@ -727,7 +726,7 @@ class _MonthlyState extends State<Monthly> {
                                         fontSize: 14.fSize,
                                         fontWeight: FontWeight.w600,
                                         fontFamily: 'Roboto',
-                                        color: Color(0xFF000000),
+                                        color: const Color(0xFF000000),
                                       ),
                                     ),
                                   ),
@@ -738,7 +737,7 @@ class _MonthlyState extends State<Monthly> {
                                         fontSize: 13.fSize,
                                         fontWeight: FontWeight.w500,
                                         fontFamily: 'Roboto',
-                                        color: Color(0xFF000000),
+                                        color: const Color(0xFF000000),
                                       ),
                                     ),
                                   ),
@@ -757,9 +756,9 @@ class _MonthlyState extends State<Monthly> {
                           width: 106.8.aw,
                           height: 42.ah,
                           decoration: BoxDecoration(
-                            color: Color(0xFFF65F51),
+                            color: const Color(0xFFF65F51),
                             borderRadius: BorderRadius.circular(24),
-                            border: Border.all(width: 2, color: Color(0xFFF65F51)),
+                            border: Border.all(width: 2, color: const Color(0xFFF65F51)),
                           ),
                           child: Center(
                             child: Text(
@@ -779,9 +778,9 @@ class _MonthlyState extends State<Monthly> {
                         width: MediaQuery.of(context).size.width,
                         height: 45.ah,
                         decoration: BoxDecoration(
-                          color: Color(0xFFF65F51),
+                          color: const Color(0xFFF65F51),
                           borderRadius: BorderRadius.circular(24),
-                          border: Border.all(width: 2, color: Color(0xFFF65F51)),
+                          border: Border.all(width: 2, color: const Color(0xFFF65F51)),
                         ),
                         child: Center(
                           child: Text(

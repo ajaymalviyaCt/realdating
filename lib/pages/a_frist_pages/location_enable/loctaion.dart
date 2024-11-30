@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:realdating/function/function_class.dart';
 import 'package:realdating/pages/dash_board_page.dart';
@@ -14,7 +13,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
 class LocationScreen extends StatefulWidget {
-  const LocationScreen({Key? key}) : super(key: key);
+  const LocationScreen({super.key});
 
   @override
   State<LocationScreen> createState() => _LocationScreenState();
@@ -185,7 +184,7 @@ class _LocationScreenState extends State<LocationScreen> {
   updateStatus() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var userId = prefs.getInt('user_id');
-    var data = {'userId': '${userId}', 'profile_status': '6'};
+    var data = {'userId': '$userId', 'profile_status': '6'};
     var dio = Dio();
     var response = await dio.request(
       'https://forreal.net:4000/users/user_profile_status_update',

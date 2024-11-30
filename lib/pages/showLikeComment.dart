@@ -10,7 +10,7 @@ class ShowLikeCommentPost extends StatefulWidget {
 class _ShowLikeCommentPostState extends State<ShowLikeCommentPost> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       body: Column(
         children: [],
       ),

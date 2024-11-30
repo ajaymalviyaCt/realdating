@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class LiveUserCard extends StatelessWidget {
   final String image, broadcasterName;
 
-  const LiveUserCard({Key? key, required this.image, required this.broadcasterName}) : super(key: key);
+  const LiveUserCard({super.key, required this.image, required this.broadcasterName});
 
   @override
   Widget build(BuildContext context) {

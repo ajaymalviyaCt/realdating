@@ -10,7 +10,6 @@ import 'package:realdating/widgets/custom_textfiled.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
-import 'package:realdating/widgets/size_utils.dart';
 import 'package:velocity_x/velocity_x.dart';
 import '../profile/profile_controller.dart';
 import 'edit_profile_controller.dart';
@@ -188,49 +187,49 @@ class _EditProfilePageState extends State<EditProfilePage> {
               const SizedBox(
                 height: 40,
               ),
-              StyledText(
+              const StyledText(
                 text: 'Unique User Name',
                 color: Colors.black,
                 fontFamily: 'intel',
                 fontSize: 16,
                 fontWeight: FontWeight.w500,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               editProfileTextField(hintText: "Unique User Name", controller: editProfileController.username, validator: null),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
-              StyledText(
+              const StyledText(
                 text: 'First Name',
                 color: Colors.black,
                 fontFamily: 'intel',
                 fontSize: 16,
                 fontWeight: FontWeight.w500,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               editProfileTextField(hintText: "First Name", controller: editProfileController.first_name, validator: null),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
-              StyledText(
+              const StyledText(
                 text: 'Last Name',
                 color: Colors.black,
                 fontFamily: 'intel',
                 fontSize: 16,
                 fontWeight: FontWeight.w500,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               editProfileTextField(hintText: "Last Name", controller: editProfileController.last_name, validator: null),
               const SizedBox(
                 height: 20,
               ),
-              StyledText(
+              const StyledText(
                 text: 'Height',
                 color: Colors.black,
                 fontFamily: 'intel',
@@ -327,43 +326,43 @@ class _EditProfilePageState extends State<EditProfilePage> {
                         width: 70,
                         child: Row(
                           children: [
-                            Center(
-                              child: const Text(
+                            const Center(
+                              child: Text(
                                 "Feet",
                               ),
                             ),
                             10.widthBox,
-                            Icon(
+                            const Icon(
                               Icons.height,
                               color: Colors.redAccent,
                             )
                           ],
                         ),
                       ),
-                      contentPadding: EdgeInsets.all(10),
+                      contentPadding: const EdgeInsets.all(10),
                       // filled: true,
                       // fillColor: Colors.grey.withOpacity(.25),
                       enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
-                          borderSide: BorderSide(
+                          borderSide: const BorderSide(
                             width: 1,
                             color: Colors.black12,
                           )),
                       focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
-                          borderSide: BorderSide(
+                          borderSide: const BorderSide(
                             width: 1,
                             color: Colors.black12,
                           )),
                       errorBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
-                          borderSide: BorderSide(
+                          borderSide: const BorderSide(
                             width: 1,
                             color: Colors.red,
                           )),
                       focusedErrorBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
-                          borderSide: BorderSide(
+                          borderSide: const BorderSide(
                             width: 1,
                             color: Colors.black,
                           )),
@@ -381,14 +380,14 @@ class _EditProfilePageState extends State<EditProfilePage> {
               const SizedBox(
                 height: 20,
               ),
-              StyledText(
+              const StyledText(
                 text: 'DOB',
                 color: Colors.black,
                 fontFamily: 'intel',
                 fontSize: 16,
                 fontWeight: FontWeight.w500,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
 
@@ -428,7 +427,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                       String formattedDate = DateFormat('MM-dd-yyyy').format(pickedDate);
                       print("only year = ${pickedDate.year}");
                       age = DateTime.now().year - pickedDate.year;
-                      print("${age}");
+                      print("$age");
                       //formatte
                       // d date output using intl package =>  2021-03-16
                       //you can implement different kind of Date Format here according to your requirement
@@ -444,24 +443,24 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   },
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
-              StyledText(
+              const StyledText(
                 text: 'Address',
                 color: Colors.black,
                 fontFamily: 'intel',
                 fontSize: 16,
                 fontWeight: FontWeight.w500,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               editProfileTextField(hintText: "Enter Address", controller: editProfileController.Address, validator: null),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 50,
               ),
               Obx(
@@ -492,7 +491,7 @@ class StyledText extends StatelessWidget {
   final double fontSize;
   final FontWeight fontWeight;
 
-  StyledText({
+  const StyledText({super.key, 
     required this.text,
     required this.color,
     required this.fontFamily,
@@ -504,7 +503,7 @@ class StyledText extends StatelessWidget {
   Widget build(BuildContext context) {
     return RichText(
       text: TextSpan(
-        text: "  ${text}",
+        text: "  $text",
         style: TextStyle(
           color: color,
           fontFamily: fontFamily,

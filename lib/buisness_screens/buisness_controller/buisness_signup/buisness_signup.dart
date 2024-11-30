@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:csc_picker/csc_picker.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -62,7 +61,7 @@ class _BuisnessSignUpState extends State<BuisnessSignUp> {
             );
           });
 
-          print('Categorie list------------${categories}');
+          print('Categorie list------------$categories');
         }
       } else {
         debugPrint('Failed to fetch categories: ${response.statusCode}');
@@ -95,7 +94,7 @@ class _BuisnessSignUpState extends State<BuisnessSignUp> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
+              SizedBox(
                 width: MediaQuery.of(context).size.width,
                 height: 220.h,
                 child: Stack(
@@ -229,7 +228,7 @@ class _BuisnessSignUpState extends State<BuisnessSignUp> {
                           onPressed: () {
                             setState(() {
                               if (categories.isEmpty) {
-                                print('Category Index-----${categories}');
+                                print('Category Index-----$categories');
                                 Fluttertoast.showToast(msg: 'Category Not found');
                               } else {
                                 showDropdown = !showDropdown;
@@ -559,7 +558,7 @@ class _BuisnessSignUpState extends State<BuisnessSignUp> {
                         setState(() {
                           ///store value in state variable
                           buisbnesssignUpController.stateValue = value.toString();
-                          print("state v ${stateValue}");
+                          print("state v $stateValue");
                         });
                       },
 

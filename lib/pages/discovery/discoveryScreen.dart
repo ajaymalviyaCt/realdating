@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:realdating/function/function_class.dart';
-import 'package:realdating/pages/discovery/discovery_model.dart';
 import 'package:realdating/widgets/size_utils.dart';
 import 'package:velocity_x/velocity_x.dart';
 
@@ -10,7 +9,7 @@ import '../../widgets/custom_text_styles.dart';
 import 'discovery_controller.dart';
 
 class DiscoveryPage extends StatefulWidget {
-  const DiscoveryPage({Key? key}) : super(key: key);
+  const DiscoveryPage({super.key});
 
   @override
   State<DiscoveryPage> createState() => _DiscoveryPageState();
@@ -230,7 +229,7 @@ class _DiscoveryPageState extends State<DiscoveryPage> with SingleTickerProvider
                                                                     setState(() {});
 
                                                                     bool sendrequest = await discoveryController.sendNotificationOnlyMatch(
-                                                                        reciverId: '${dataD.id.toString()}', index: i);
+                                                                        reciverId: dataD.id.toString(), index: i);
                                                                     if (sendrequest) {
                                                                     } else {
                                                                       (discoveryController.forYourModel.value?.myFriends ?? [])[i].request = "Request";
@@ -266,7 +265,7 @@ class _DiscoveryPageState extends State<DiscoveryPage> with SingleTickerProvider
                                                                   Expanded(
                                                                     child: Text(
                                                                       dataD.address.toString(),
-                                                                      style: TextStyle(fontSize: 12),
+                                                                      style: const TextStyle(fontSize: 12),
                                                                       maxLines: 3,
                                                                     ),
                                                                   ),
@@ -279,7 +278,7 @@ class _DiscoveryPageState extends State<DiscoveryPage> with SingleTickerProvider
                                                                     width: 10,
                                                                     decoration: BoxDecoration(color: Colors.green, borderRadius: BorderRadius.circular(40)),
                                                                   ),
-                                                                  SizedBox(
+                                                                  const SizedBox(
                                                                     width: 10,
                                                                   ),
                                                                   dataD.onlineStatus == 0
@@ -380,7 +379,7 @@ class _DiscoveryPageState extends State<DiscoveryPage> with SingleTickerProvider
                                                   ),
                                                 );
                                               } else {
-                                                return SizedBox.shrink();
+                                                return const SizedBox.shrink();
                                               }
                                             },
                                           );
@@ -431,7 +430,7 @@ class _DiscoveryPageState extends State<DiscoveryPage> with SingleTickerProvider
                                                                 print(e);
                                                                 print(s);
                                                               }
-                                                              return SizedBox.shrink();
+                                                              return const SizedBox.shrink();
                                                             }),
                                                           ],
                                                         ),
@@ -466,7 +465,7 @@ class _DiscoveryPageState extends State<DiscoveryPage> with SingleTickerProvider
                                                                         (discoveryController.forYourModel.value?.myFriends ?? [])[i].request = "Sent";
                                                                         setState(() {});
                                                                         bool sendrequest = await discoveryController.sendNotificationOnlyMatch(
-                                                                            reciverId: '${dataD.id.toString()}', index: i);
+                                                                            reciverId: dataD.id.toString(), index: i);
                                                                         if (sendrequest) {
                                                                         } else {
                                                                           (discoveryController.forYourModel.value?.myFriends ?? [])[i].request = "Request";
@@ -595,7 +594,7 @@ class _DiscoveryPageState extends State<DiscoveryPage> with SingleTickerProvider
                                                   ),
                                                 );
                                               } else {
-                                                return SizedBox.shrink();
+                                                return const SizedBox.shrink();
                                               }
                                             },
                                           );

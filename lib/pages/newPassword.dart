@@ -10,7 +10,7 @@ import 'a_frist_pages/changepassword/chanage_password_controller.dart';
 class NewPasswordPage extends StatefulWidget {
   String email;
 
-  NewPasswordPage({Key? key, required this.email}) : super(key: key);
+  NewPasswordPage({super.key, required this.email});
 
   @override
   State<NewPasswordPage> createState() => _NewPasswordPageState();
@@ -31,10 +31,10 @@ class _NewPasswordPageState extends State<NewPasswordPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(
+            const SizedBox(
               height: 30,
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             customTextCommon(text: " New Password", fSize: 16, fWeight: FontWeight.w500, lineHeight: 36),
@@ -54,7 +54,7 @@ class _NewPasswordPageState extends State<NewPasswordPage> {
                 hintText: '',
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             customTextCommon(text: " Confirm Password", fSize: 16, fWeight: FontWeight.w500, lineHeight: 36),
@@ -74,7 +74,7 @@ class _NewPasswordPageState extends State<NewPasswordPage> {
                 hintText: '',
               ),
             ),
-            Spacer(),
+            const Spacer(),
             Obx(() => customPrimaryBtn(
                   btnText: "Save",
                   btnFun: () {
@@ -82,7 +82,7 @@ class _NewPasswordPageState extends State<NewPasswordPage> {
                   },
                   loading: cpController.isLoadig.value,
                 )),
-            SizedBox(
+            const SizedBox(
               height: 30,
             ),
           ],

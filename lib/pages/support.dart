@@ -1,23 +1,16 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:realdating/pages/dash_board_page.dart';
 import 'package:realdating/validation/validation.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:text_area/text_area.dart';
 
-import '../buisness_screens/buisness_controller/buisness_login/buisness_login.dart';
 import '../button.dart';
 import '../const.dart';
 import '../consts/app_urls.dart';
 import '../custom_iteam/coustomtextcommon.dart';
 import '../custom_iteam/customprofile_textfiiled.dart';
-import '../custom_iteam/customtextfield.dart';
 import '../function/function_class.dart';
 import '../services/base_client01.dart';
 
@@ -177,10 +170,10 @@ class _SupportScreenState extends State<SupportScreen> {
     final response = await BaseClient01().post(
       Appurls.supportUri,
       {
-        'name': '${nameController.value.text}',
-        'email': '${emailController.value.text}',
-        'user_id': '${userId.toString()}',
-        'message': '${messageController.value.text}',
+        'name': nameController.value.text,
+        'email': emailController.value.text,
+        'user_id': userId.toString(),
+        'message': messageController.value.text,
       },
     );
 
@@ -193,7 +186,7 @@ class _SupportScreenState extends State<SupportScreen> {
       nameController.clear();
       emailController.clear();
       messageController.clear();
-      Get.off(() => DashboardPage());
+      Get.off(() => const DashboardPage());
 
       /*  buisnessnameController.clear();
       bphonenoController.clear();
@@ -222,7 +215,7 @@ class _SupportScreenState extends State<SupportScreen> {
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
           leading: Padding(
-            padding: EdgeInsets.only(left: 10),
+            padding: const EdgeInsets.only(left: 10),
             child: InkWell(
                 onTap: () {
                   Navigator.pop(context);

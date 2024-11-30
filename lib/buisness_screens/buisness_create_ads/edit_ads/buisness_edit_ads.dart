@@ -24,7 +24,7 @@ class BuisnessEditAds extends StatefulWidget {
   final List<MyAdv> dataList; // Define a list of data to receive
   final int indexEdit;
 
-  BuisnessEditAds({super.key, required this.dataList, required this.indexEdit});
+  const BuisnessEditAds({super.key, required this.dataList, required this.indexEdit});
 
   @override
   State<BuisnessEditAds> createState() => _BuisnessEditAdsState();
@@ -85,7 +85,7 @@ class _BuisnessEditAdsState extends State<BuisnessEditAds> {
                                       });
                                     }
                                   },
-                                  child: Container(
+                                  child: SizedBox(
                                     height: 135,
                                     width: double.infinity,
                                     child: CachedNetworkImage(
@@ -188,7 +188,7 @@ class _BuisnessEditAdsState extends State<BuisnessEditAds> {
                             onPressed: () {
                               setState(() {
                                 if (interestList.isEmpty) {
-                                  print('Category Index-----${interestList}');
+                                  print('Category Index-----$interestList');
                                   Fluttertoast.showToast(msg: 'Interest Not found');
                                 } else {
                                   showDropdown = !showDropdown;
@@ -364,12 +364,12 @@ class _BuisnessEditAdsState extends State<BuisnessEditAds> {
                         });
                       },
                       child: Container(
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           color: Colors.transparent, // Transparent to make it less intrusive
                           shape: BoxShape.circle,
                         ),
                         padding: const EdgeInsets.all(8.0),
-                        child: Icon(
+                        child: const Icon(
                           Icons.close,
                           color: Colors.redAccent, // Use accent color for contrast
                           size: 24, // Adjust size for a more prominent close button
@@ -379,7 +379,7 @@ class _BuisnessEditAdsState extends State<BuisnessEditAds> {
                   ),
                 ),
                 // Dropdown List View
-                Container(
+                SizedBox(
                   height: 300, // Set height for scrollable list
                   child: ListView.builder(
                     shrinkWrap: true,

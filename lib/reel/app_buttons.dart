@@ -12,7 +12,7 @@ class AppThemeButton extends StatelessWidget {
   final VoidCallback? onPress;
 
   const AppThemeButton({
-    Key? key,
+    super.key,
     required this.text,
     required this.onPress,
     this.height,
@@ -21,7 +21,7 @@ class AppThemeButton extends StatelessWidget {
     this.leading,
     this.trailing,
     this.backgroundColor,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -59,8 +59,7 @@ class AppThemeBorderButton extends StatelessWidget {
   final double? width;
 
   const AppThemeBorderButton(
-      {Key? key, required this.text, required this.onPress, this.height, this.width, this.cornerRadius, this.borderColor, this.backgroundColor, this.textStyle})
-      : super(key: key);
+      {super.key, required this.text, required this.onPress, this.height, this.width, this.cornerRadius, this.borderColor, this.backgroundColor, this.textStyle});
 
   @override
   Widget build(BuildContext context) {

@@ -14,15 +14,11 @@ class OtpController extends GetxController {
   final formkey1 = GlobalKey<FormState>();
   var deviceType;
 
-  @override
-  void onReady() {
-    super.onReady();
-  }
 
   otpverify(String mobileNo) async {
     print("loginwithEmail");
     isLoadig(true);
-    final response = await BaseClient01().post(Appurls.otp_verifcation, {'code': '${Codecontroller.value.text}', 'phone_number': '$mobileNo'});
+    final response = await BaseClient01().post(Appurls.otp_verifcation, {'code': Codecontroller.value.text, 'phone_number': mobileNo});
     print(response);
     isLoadig(false);
     bool success = response["success"];
@@ -32,7 +28,7 @@ class OtpController extends GetxController {
     print("msg ___$msg");
     print("otp ___$otp");
     if (success) {
-      Get.to(() => LoginScreenPage());
+      Get.to(() => const LoginScreenPage());
       Codecontroller.clear();
       Fluttertoast.showToast(
         msg: '$msg',
@@ -58,7 +54,7 @@ class OtpController extends GetxController {
   otpverifyForgot(email) async {
     print("loginwithEmail");
     isLoadig(true);
-    final response = await BaseClient01().post(Appurls.email_verifcation, {'OTP': '${Codecontroller.value.text}', 'email': '${email}'});
+    final response = await BaseClient01().post(Appurls.email_verifcation, {'OTP': Codecontroller.value.text, 'email': '$email'});
     print(response);
     isLoadig(false);
     bool success = response["success"];

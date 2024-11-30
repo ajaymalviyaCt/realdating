@@ -68,8 +68,8 @@ class _MatchesPageState extends State<MatchesPage> {
         DateTime parsedTime = militaryFormat.parse(militaryTimeString);
         String convertedTime = twelveHourFormat.format(parsedTime);
         print("asdfgfdsdfgfds$convertedTime");
-        print("zccxccccccccccc${_selectedTime}");
-        invaiteForDatesController.selectTimeC.text = "${convertedTime}";
+        print("zccxccccccccccc$_selectedTime");
+        invaiteForDatesController.selectTimeC.text = convertedTime;
       });
     }
   }
@@ -134,7 +134,7 @@ class _MatchesPageState extends State<MatchesPage> {
             ),
             InkWell(
               onTap: () {
-                Get.to(() => MyAllDatesPage());
+                Get.to(() => const MyAllDatesPage());
               },
               child: Container(
                   padding: const EdgeInsets.only(left: 8, right: 8, top: 8, bottom: 8),
@@ -156,14 +156,14 @@ class _MatchesPageState extends State<MatchesPage> {
           ],
         ),
         body: Obx(() => matchessController.isLoadig.value
-            ? Center(
-                child: const CircularProgressIndicator(
+            ? const Center(
+                child: CircularProgressIndicator(
                 strokeWidth: 2,
               ))
             : matchessController.matchessModel!.myFriends!.isEmpty
                 ? SizedBox(
                     height: MediaQuery.of(context).size.height - 200,
-                    child: Center(
+                    child: const Center(
                       child: Text("No Matches Found"),
                     ))
                 : RefreshIndicator(

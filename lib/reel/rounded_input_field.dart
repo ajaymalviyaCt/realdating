@@ -31,7 +31,7 @@ class InputField extends StatefulWidget {
   final Function(bool)? focusStatusChangeHandler;
 
   InputField(
-      {Key? key,
+      {super.key,
       this.label,
       this.showLabelInNewLine = true,
       this.hintText,
@@ -53,8 +53,7 @@ class InputField extends StatefulWidget {
       this.cornerRadius = 12,
       this.cursorColor,
       this.maxLength,
-      this.focusStatusChangeHandler})
-      : super(key: key);
+      this.focusStatusChangeHandler});
 
   @override
   State<InputField> createState() => _InputFieldState();
@@ -181,7 +180,7 @@ class PasswordField extends StatefulWidget {
   final Color? cursorColor;
 
   PasswordField({
-    Key? key,
+    super.key,
     required this.onChanged,
     this.controller,
     this.label,
@@ -199,7 +198,7 @@ class PasswordField extends StatefulWidget {
     this.startedEditing = false,
     this.cornerRadius = 12,
     this.cursorColor,
-  }) : super(key: key);
+  });
 
   @override
   State<PasswordField> createState() => _PasswordFieldState();
@@ -351,7 +350,7 @@ class RoundedInputMobileNumberField extends StatefulWidget {
   final ValueChanged<String>? countrycodeValueChanged;
 
   RoundedInputMobileNumberField({
-    Key? key,
+    super.key,
     this.label,
     this.showLabelInNewLine = true,
     this.hintText,
@@ -375,7 +374,7 @@ class RoundedInputMobileNumberField extends StatefulWidget {
     this.textStyle,
     this.countryCodeText,
     this.countrycodeValueChanged,
-  }) : super(key: key);
+  });
 
   @override
   State<RoundedInputMobileNumberField> createState() => _RoundedInputMobileNumberFieldState();
@@ -536,7 +535,7 @@ class RoundedInputDateField extends StatefulWidget {
   final DateTime? maxDate;
 
   RoundedInputDateField({
-    Key? key,
+    super.key,
     this.label,
     this.showLabelInNewLine = true,
     this.hintText,
@@ -559,7 +558,7 @@ class RoundedInputDateField extends StatefulWidget {
     this.textStyle,
     this.minDate,
     this.maxDate,
-  }) : super(key: key);
+  });
 
   @override
   State<RoundedInputDateField> createState() => _RoundedInputDateFieldState();
@@ -683,7 +682,7 @@ class RoundedInputPriceField extends StatefulWidget {
   final TextStyle? textStyle;
 
   RoundedInputPriceField({
-    Key? key,
+    super.key,
     this.label,
     this.showLabelInNewLine = true,
     this.hintText,
@@ -708,7 +707,7 @@ class RoundedInputPriceField extends StatefulWidget {
     this.cornerRadius = 12,
     this.cursorColor,
     this.textStyle,
-  }) : super(key: key);
+  });
 
   @override
   State<RoundedInputPriceField> createState() => _RoundedInputPriceFieldState();
@@ -856,7 +855,7 @@ class RoundedInputDateTimeField extends StatefulWidget {
   final DateTime? maxDate;
 
   RoundedInputDateTimeField({
-    Key? key,
+    super.key,
     this.label,
     this.showLabelInNewLine = true,
     this.hintText,
@@ -880,7 +879,7 @@ class RoundedInputDateTimeField extends StatefulWidget {
     this.textStyle,
     this.minDate,
     this.maxDate,
-  }) : super(key: key);
+  });
 
   @override
   State<RoundedInputDateTimeField> createState() => _RoundedInputDateTimeFieldState();
@@ -1018,7 +1017,7 @@ class RoundedDropdownField extends StatefulWidget {
   final List<String> options;
 
   const RoundedDropdownField(
-      {Key? key,
+      {super.key,
       this.label,
       this.showLabelInNewLine = true,
       this.hintText,
@@ -1035,8 +1034,7 @@ class RoundedDropdownField extends StatefulWidget {
       this.borderColor,
       this.cornerRadius = 12,
       this.textStyle,
-      required this.options})
-      : super(key: key);
+      required this.options});
 
   @override
   State<RoundedDropdownField> createState() => _RoundedDropdownFieldState();
@@ -1137,7 +1135,7 @@ class DropdownBorderedField extends StatefulWidget {
   final TextStyle? textStyle;
 
   const DropdownBorderedField(
-      {Key? key,
+      {super.key,
       this.hintText,
       this.controller,
       this.icon,
@@ -1148,8 +1146,7 @@ class DropdownBorderedField extends StatefulWidget {
       this.borderColor,
       this.cornerRadius = 0,
       this.textStyle,
-      this.onTap})
-      : super(key: key);
+      this.onTap});
 
   @override
   State<DropdownBorderedField> createState() => _DropdownBorderedState();

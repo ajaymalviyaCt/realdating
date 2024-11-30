@@ -96,17 +96,17 @@ class _OptionScreenState extends State<OptionScreen> with SingleTickerProviderSt
                           ),
                           child: ElevatedButton(
                             style: ButtonStyle(
-                              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                              shape: WidgetStateProperty.all<RoundedRectangleBorder>(
                                 RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(30.0),
                                 ),
                               ),
-                              minimumSize: MaterialStateProperty.all(Size(MediaQuery.of(context).size.width, 56)),
-                              backgroundColor: MaterialStateProperty.all(Colors.transparent),
-                              shadowColor: MaterialStateProperty.all(Colors.transparent),
+                              minimumSize: WidgetStateProperty.all(Size(MediaQuery.of(context).size.width, 56)),
+                              backgroundColor: WidgetStateProperty.all(Colors.transparent),
+                              shadowColor: WidgetStateProperty.all(Colors.transparent),
                             ),
                             onPressed: () {
-                              Get.to(() => LoginScreenPage());
+                              Get.to(() => const LoginScreenPage());
                             },
                             child: const Padding(
                                 padding: EdgeInsets.only(
@@ -148,14 +148,14 @@ class _OptionScreenState extends State<OptionScreen> with SingleTickerProviderSt
                           ),
                           child: ElevatedButton(
                             style: ButtonStyle(
-                              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                              shape: WidgetStateProperty.all<RoundedRectangleBorder>(
                                 RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(30.0),
                                 ),
                               ),
-                              minimumSize: MaterialStateProperty.all(Size(MediaQuery.of(context).size.width, 56)),
-                              backgroundColor: MaterialStateProperty.all(Colors.transparent),
-                              shadowColor: MaterialStateProperty.all(Colors.transparent),
+                              minimumSize: WidgetStateProperty.all(Size(MediaQuery.of(context).size.width, 56)),
+                              backgroundColor: WidgetStateProperty.all(Colors.transparent),
+                              shadowColor: WidgetStateProperty.all(Colors.transparent),
                             ),
                             onPressed: () {
                               Get.to(() => const BuisnessLogin());

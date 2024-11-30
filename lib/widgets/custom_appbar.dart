@@ -7,7 +7,7 @@ AppBar customAppbar(String title, context) {
   return AppBar(
     surfaceTintColor: Colors.white,
     title: customTextCommon(
-      text: '$title',
+      text: title,
       fSize: 24,
       fWeight: FontWeight.w600,
       lineHeight: 24,
@@ -17,7 +17,7 @@ AppBar customAppbar(String title, context) {
     centerTitle: true,
     leading: Row(
       children: [
-        SizedBox(
+        const SizedBox(
           width: 15,
         ),
         InkWell(
@@ -31,12 +31,12 @@ AppBar customAppbar(String title, context) {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(15.0),
               border: Border.all(
-                color: Color(0xFFE8E6EA), // Border color, equivalent to var(--border-e-8-e-6-ea, #E8E6EA) in CSS
+                color: const Color(0xFFE8E6EA), // Border color, equivalent to var(--border-e-8-e-6-ea, #E8E6EA) in CSS
                 width: 1.0, // Border width
               ),
-              color: Color(0xFFFFFFFF), // Background color, equivalent to var(--white-ffffff, #FFF) in CSS
+              color: const Color(0xFFFFFFFF), // Background color, equivalent to var(--white-ffffff, #FFF) in CSS
             ),
-            child: Icon(Icons.arrow_back_ios_outlined, color: colors.primary, size: 18),
+            child: const Icon(Icons.arrow_back_ios_outlined, color: colors.primary, size: 18),
           ),
         ),
       ],
@@ -48,7 +48,7 @@ AppBar customGenderAppbar(String title, context) {
   return AppBar(
     surfaceTintColor: Colors.white,
     title: customTextCommon(
-      text: '$title',
+      text: title,
       fSize: 24,
       fWeight: FontWeight.w600,
       lineHeight: 24,
@@ -56,7 +56,7 @@ AppBar customGenderAppbar(String title, context) {
     elevation: 0,
     backgroundColor: Colors.transparent,
     centerTitle: true,
-    leading: Row(
+    leading: const Row(
       children: [
         SizedBox(
           width: 15,

@@ -21,7 +21,7 @@ import '../../const.dart';
 import '../buisness_home/controller/business_home_controller.dart';
 
 class BuisnessPost extends StatefulWidget {
-  const BuisnessPost({Key? key}) : super(key: key);
+  const BuisnessPost({super.key});
 
   @override
   State<BuisnessPost> createState() => _BuisnessPostState();
@@ -145,8 +145,8 @@ class _BuisnessPostState extends State<BuisnessPost> {
     print("Total_size===>: ${file.lengthSync()}");
     double fileSizeInKB = fileSizeInBytes / 1024; // Convert bytes to kilobytes
     double fileSizeInMB = fileSizeInKB / 1024;
-    print("Total_size===>fileSizeInKB: ${fileSizeInKB}");
-    print("Total_size===>fileSizeInMB ${fileSizeInMB}");
+    print("Total_size===>fileSizeInKB: $fileSizeInKB");
+    print("Total_size===>fileSizeInMB $fileSizeInMB");
     try {
       final info = await VideoCompress.compressVideo(
         file.path,
@@ -162,8 +162,8 @@ class _BuisnessPostState extends State<BuisnessPost> {
       print("Total_size_after===>: ${file.lengthSync()}");
       double fileSizeInKB22 = fileSizeInBytes22 / 1024; // Convert bytes to kilobytes
       double fileSizeInMB = fileSizeInKB22 / 1024;
-      print("Total_size===>fileSizeInKB_after: ${fileSizeInKB}");
-      print("Total_size===>fileSizeInMB_after ${fileSizeInMB}");
+      print("Total_size===>fileSizeInKB_after: $fileSizeInKB");
+      print("Total_size===>fileSizeInMB_after $fileSizeInMB");
 
       // uploadFileToServerUHome(finalFile);
       // submitReel(finalFile);
@@ -345,8 +345,8 @@ class _BuisnessPostState extends State<BuisnessPost> {
           print("Total_size===>: ${_video!.lengthSync()}");
           double fileSizeInKB = fileSizeInBytes / 1024; // Convert bytes to kilobytes
           double fileSizeInMB = fileSizeInKB / 1024;
-          print("Total_size===>fileSizeInKB: ${fileSizeInKB}");
-          print("Total_size===>fileSizeInMB ${fileSizeInMB}");
+          print("Total_size===>fileSizeInKB: $fileSizeInKB");
+          print("Total_size===>fileSizeInMB $fileSizeInMB");
           try {
             final info = await VideoCompress.compressVideo(
               _video!.path,
@@ -362,8 +362,8 @@ class _BuisnessPostState extends State<BuisnessPost> {
             print("Total_size_after===>: ${_video!.lengthSync()}");
             double fileSizeInKB22 = fileSizeInBytes22 / 1024; // Convert bytes to kilobytes
             double fileSizeInMB = fileSizeInKB22 / 1024;
-            print("Total_size===>fileSizeInKB_after: ${fileSizeInKB}");
-            print("Total_size===>fileSizeInMB_after ${fileSizeInMB}");
+            print("Total_size===>fileSizeInKB_after: $fileSizeInKB");
+            print("Total_size===>fileSizeInMB_after $fileSizeInMB");
 
             request.files.add(await http.MultipartFile.fromPath('file', finalFile.path));
             // submitReel(finalFile);
@@ -392,7 +392,7 @@ class _BuisnessPostState extends State<BuisnessPost> {
                 myDealController.pagingController.appendLastPage([]);
               });
               // Delay the page refresh to allow server processing time
-              Future.delayed(Duration(seconds: 2), () {
+              Future.delayed(const Duration(seconds: 2), () {
                 setState(() {
                   myDealController.pagingController.refresh();
                   // Navigator.push(
@@ -401,7 +401,7 @@ class _BuisnessPostState extends State<BuisnessPost> {
                   //         builder: (context) => BuisnessHomePage()));
                 });
               });
-              Get.offAll(() => BuisnessHomePage());
+              Get.offAll(() => const BuisnessHomePage());
               // Navigator.push(
               //     context,
               //     MaterialPageRoute(builder: (context) => BuisnessHomePage()));
@@ -491,7 +491,7 @@ class _BuisnessPostState extends State<BuisnessPost> {
           ),
 
           // SvgPicture.asset('assets/icons/Share.svg'),
-          SizedBox(width: 20)
+          const SizedBox(width: 20)
         ],
       ),
       body: SingleChildScrollView(
@@ -523,7 +523,7 @@ class _BuisnessPostState extends State<BuisnessPost> {
                                   ))
                               : _video != null
                                   ? _videoPlayerController!.value.isInitialized
-                                      ? Container(
+                                      ? SizedBox(
                                           height: 360,
                                           child: AspectRatio(
                                             aspectRatio: _videoPlayerController!.value.aspectRatio,
@@ -550,7 +550,7 @@ class _BuisnessPostState extends State<BuisnessPost> {
                                                   _images = null;
                                                   setState(() {});
                                                 },
-                                                child: Icon(
+                                                child: const Icon(
                                                   Icons.cancel,
                                                   color: Colors.white,
                                                   size: 30,
@@ -583,7 +583,7 @@ class _BuisnessPostState extends State<BuisnessPost> {
                         ),
                       ],
                     ),
-                    SizedBox(height: 30),
+                    const SizedBox(height: 30),
                     // customTextC(
                     //     text: "Contents",
                     //     fSize: 16,

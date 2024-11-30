@@ -1,9 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 class Searchbar extends StatefulWidget {
-  const Searchbar({Key? key}) : super(key: key);
+  const Searchbar({super.key});
 
   @override
   State<Searchbar> createState() => _SearchbarState();
@@ -42,14 +41,14 @@ class _SearchbarState extends State<Searchbar> {
       body: Column(
         children: [
           Container(
-            padding: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+            padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
             child: TextFormField(
               onChanged: (value) {
                 //   onChanged:(value) => fetchSearchResults(value);
                 // fetchSearchResults(value);
               },
 
-              style: TextStyle(
+              style: const TextStyle(
                   color: Colors.green,
                   //   HexColor('#B1B1B1'),
                   fontFamily: 'Aboshi',
@@ -74,9 +73,9 @@ class _SearchbarState extends State<Searchbar> {
                     Radius.circular(15),
                   ),
                 ),
-                focusedBorder: OutlineInputBorder(
+                focusedBorder: const OutlineInputBorder(
                   borderSide: BorderSide(color: Colors.white10),
-                  borderRadius: const BorderRadius.all(
+                  borderRadius: BorderRadius.all(
                     Radius.circular(15),
                   ),
                 ),
@@ -89,7 +88,7 @@ class _SearchbarState extends State<Searchbar> {
           ),
           Expanded(
             child: isLoading
-                ? Center(child: CircularProgressIndicator())
+                ? const Center(child: CircularProgressIndicator())
                 : ListView.builder(
                     itemCount: searchResults.length,
                     itemBuilder: (context, index) => ListTile(

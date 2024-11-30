@@ -35,7 +35,7 @@ class DashboardPageState extends State<DashboardPage> {
   static final List<Widget> _widgetOptions = [
     const HomePageUser(),
     const ExplorePage(),
-    SwipCardPage(),
+    const SwipCardPage(),
     const GetClassifiedRequestPage(),
     const ProfilePage(),
   ];
@@ -50,6 +50,7 @@ class DashboardPageState extends State<DashboardPage> {
     return false; //<-- SEE HERE
   }
 
+  @override
   Widget build(BuildContext context) {
     // final colorScheme = Theme.of(context).colorScheme;
     final textTheme = Theme.of(context).textTheme;
@@ -141,12 +142,10 @@ const ColorScheme _shrineColorScheme = ColorScheme(
   primary: shrinePink100,
   secondary: shrinePink50,
   surface: shrineSurfaceWhite,
-  background: shrineBackgroundWhite,
   error: shrineErrorRed,
   onPrimary: shrineBrown900,
   onSecondary: shrineBrown900,
   onSurface: shrineBrown900,
-  onBackground: shrineBrown900,
   onError: shrineSurfaceWhite,
   brightness: Brightness.light,
 );

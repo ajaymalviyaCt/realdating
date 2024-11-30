@@ -13,12 +13,12 @@ class LivePage extends StatefulWidget {
   final String userId;
 
   const LivePage({
-    Key? key,
+    super.key,
     required this.liveID,
     this.isHost = false,
     required this.userId,
     required this.userNmae,
-  }) : super(key: key);
+  });
 
   @override
   State<StatefulWidget> createState() => LivePageState();

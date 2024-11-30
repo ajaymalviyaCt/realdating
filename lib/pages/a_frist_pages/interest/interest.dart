@@ -8,7 +8,7 @@ import '../../../function/function_class.dart';
 import 'interest_controller.dart';
 
 class Interest_Screen extends StatefulWidget {
-  const Interest_Screen({Key? key}) : super(key: key);
+  const Interest_Screen({super.key});
 
   @override
   State<Interest_Screen> createState() => _Interest_ScreenState();

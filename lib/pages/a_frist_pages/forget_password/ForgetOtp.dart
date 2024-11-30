@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -13,7 +12,7 @@ import 'forgetPass_control.dart';
 class ForgetOtp extends StatefulWidget {
   String? email;
 
-  ForgetOtp({Key? key, required this.email}) : super(key: key);
+  ForgetOtp({super.key, required this.email});
 
   @override
   State<ForgetOtp> createState() => _ForgetOtpState();
@@ -28,7 +27,7 @@ class _ForgetOtpState extends State<ForgetOtp> {
 
   @override
   void initState() {
-    print("rahul" + "${widget.email}");
+    print("rahul" "${widget.email}");
     // TODO: implement initState
     super.initState();
   }
@@ -53,14 +52,14 @@ class _ForgetOtpState extends State<ForgetOtp> {
         // key: _formKey,
         child: Center(
           child: Padding(
-            padding: EdgeInsets.symmetric(vertical: 50),
+            padding: const EdgeInsets.symmetric(vertical: 50),
             child: Column(
               children: [
                 customTextCommon(text: "Type the verification code", fSize: 18, fWeight: FontWeight.w500, lineHeight: 20),
                 customTextCommon(text: " we’ve sent you", fSize: 18, fWeight: FontWeight.w500, lineHeight: 20),
                 SizedBox(height: 140.h),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 30, vertical: 30),
+                  padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 30),
                   child: PinCodeTextField(
                     keyboardType: TextInputType.number,
                     enablePinAutofill: true,
@@ -69,7 +68,7 @@ class _ForgetOtpState extends State<ForgetOtp> {
                     onChanged: (value) {
                       setState(() {
                         otp = value;
-                        print("$value");
+                        print(value);
                       });
                     },
                     pinTheme: PinTheme(
@@ -85,13 +84,13 @@ class _ForgetOtpState extends State<ForgetOtp> {
                     ),
                     animationType: AnimationType.fade,
                     cursorColor: Colors.black,
-                    animationDuration: Duration(milliseconds: 300),
+                    animationDuration: const Duration(milliseconds: 300),
                     controller: otpController.Codecontroller,
                   ),
                 ),
 
-                SizedBox(height: 20),
-                Text(
+                const SizedBox(height: 20),
+                const Text(
                   'Send again',
                   style: CustomTextStyle.ote,
                 ),
@@ -100,14 +99,14 @@ class _ForgetOtpState extends State<ForgetOtp> {
                 //   print("sdfghfd");
                 //   print(Codecontroller.value.text);
                 // }, child: Text("sumbit")),
-                Spacer(),
+                const Spacer(),
                 customPrimaryBtn(
                     btnText: "Submit",
                     btnFun: () {
                       print(otpController.Codecontroller.value.text);
                       otpController.otpverify("${widget.email}");
                     }),
-                SizedBox(
+                const SizedBox(
                   height: 30,
                 )
               ],

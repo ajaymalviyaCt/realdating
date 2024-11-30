@@ -13,6 +13,8 @@ import '../../function/function_class.dart';
 import 'mapeController.dart';
 
 class NearByBusiness extends StatefulWidget {
+  const NearByBusiness({super.key});
+
   @override
   _NearByBusinessState createState() => _NearByBusinessState();
 }
@@ -53,7 +55,7 @@ class _NearByBusinessState extends State<NearByBusiness> {
     try {
       List<Placemark> placemarks = await placemarkFromCoordinates(lat, long);
 
-      if (placemarks != null && placemarks.isNotEmpty) {
+      if (placemarks.isNotEmpty) {
         Placemark place = placemarks[0];
         String formattedAddress = "${place.name}, ${place.subLocality}, ${place.locality}, ${place.postalCode}, ${place.country}";
         setState(() {
@@ -344,8 +346,8 @@ class _NearByBusinessState extends State<NearByBusiness> {
                 onTap: () {
                   // Navigator.pop(context);
                 },
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 10),
+                child: const Padding(
+                  padding: EdgeInsets.only(left: 10),
                 ),
               ),
             ],
@@ -400,11 +402,11 @@ class _NearByBusinessState extends State<NearByBusiness> {
         Obx(
           () {
             if (userMapeController.apiLoadingMapLocation.value) {
-              return Center(
+              return const Center(
                 child: CircularProgressIndicator(),
               );
             }
-            return SizedBox.shrink();
+            return const SizedBox.shrink();
           },
         )
       ],

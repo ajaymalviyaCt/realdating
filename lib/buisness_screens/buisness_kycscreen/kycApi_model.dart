@@ -20,7 +20,7 @@ class BusinessKycController extends GetxController {
   BusinessDocumentKycFunction() async {
     // print(cityValue);
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    var user_id = prefs.get("user_id");
+    var userId = prefs.get("user_id");
     print("signwithBuissEmail");
     isLoadig(true);
     File file = File(KYCBDOC ?? "");
@@ -31,9 +31,9 @@ class BusinessKycController extends GetxController {
     final response = await BaseClient01().post(
       Appurls.buisnessKYCDocument,
       {
-        'business_id': user_id,
+        'business_id': userId,
         'document_name': 'BusinessDocument',
-        'file': '${fileName}',
+        'file': fileName,
       },
     );
 
@@ -70,15 +70,15 @@ class BusinessKycController extends GetxController {
   PersonalIdentificationKycFunction() async {
     // print(cityValue);
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    var user_id = prefs.get("user_id");
+    var userId = prefs.get("user_id");
     print("buisnessKYCIdentificationUrl====>>");
     isLoadig(true);
 
     final response = await BaseClient01().post(
       Appurls.buisnessKYCIdentificationUrl,
       {
-        'business_id': user_id,
-        'file': '${KYCBDOC}',
+        'business_id': userId,
+        'file': '$KYCBDOC',
       },
     );
 
@@ -130,18 +130,18 @@ class BusinessKycController extends GetxController {
 
   asyncUploadInfo(File file) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    var user_id = prefs.get("user_id");
+    var userId = prefs.get("user_id");
     //create multipart request for POST or PATCH method
     var request = http.MultipartRequest("POST", Uri.parse("https://forreal.net:4000/business_document_camera"));
     //add text fields
-    request.fields["business_id"] = user_id.toString();
+    request.fields["business_id"] = userId.toString();
     //create multipart using filepath, string or bytes
     var pic = await http.MultipartFile.fromPath("file", file.path);
     //add multipart to request
     request.files.add(pic);
     var response = await request.send();
     if (response.statusCode == 200) {
-      Get.off(() => BuisnessHomePage());
+      Get.off(() => const BuisnessHomePage());
       print("issuesss");
     }
     //Get the response from the server

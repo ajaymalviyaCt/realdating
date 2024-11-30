@@ -1,11 +1,9 @@
 import 'dart:convert';
-import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:realdating/buisness_screens/buisness_home/Bhome_page/buisness_home.dart';
 import 'package:realdating/function/function_class.dart';
 import 'package:realdating/widgets/custom_text_styles.dart';
-import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -57,7 +55,7 @@ class _All_AdsState extends State<All_Ads> {
     // });
     //`showLoaderDialog(context);
     Map toMap() {
-      var map = new Map<String, dynamic>();
+      var map = <String, dynamic>{};
       map["id"] = userId.toString();
       return map;
     }
@@ -141,7 +139,7 @@ class _All_AdsState extends State<All_Ads> {
                     child: CircularProgressIndicator(
                     strokeWidth: 2,
                   ))
-                : allAdssDealController.getAllAdsMdoels?.myAdvs.length != null && allAdssDealController.getAllAdsMdoels?.myAdvs.length != 0
+                : allAdssDealController.getAllAdsMdoels?.myAdvs.length != null && (allAdssDealController.getAllAdsMdoels?.myAdvs??[]).isNotEmpty
                     ? ListView.builder(
                         itemCount: allAdssDealController.getAllAdsMdoels?.myAdvs.length,
                         itemBuilder: (BuildContext context, int index) {

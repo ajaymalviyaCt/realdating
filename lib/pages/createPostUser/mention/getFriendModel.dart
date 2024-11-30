@@ -11,7 +11,7 @@ class GetAllFriendModel {
     if (json['my_friends'] != null) {
       myFriends = <MyFriends>[];
       json['my_friends'].forEach((v) {
-        myFriends!.add(new MyFriends.fromJson(v));
+        myFriends!.add(MyFriends.fromJson(v));
       });
     }
     success = json['success'];
@@ -19,13 +19,13 @@ class GetAllFriendModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['message'] = this.message;
-    if (this.myFriends != null) {
-      data['my_friends'] = this.myFriends!.map((v) => v.toJson()).toList();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['message'] = message;
+    if (myFriends != null) {
+      data['my_friends'] = myFriends!.map((v) => v.toJson()).toList();
     }
-    data['success'] = this.success;
-    data['status'] = this.status;
+    data['success'] = success;
+    data['status'] = status;
     return data;
   }
 }
@@ -49,20 +49,20 @@ class MyFriends {
     if (json['images'] != null) {
       images = <Images>[];
       json['images'].forEach((v) {
-        images!.add(new Images.fromJson(v));
+        images!.add(Images.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['friend_id'] = this.friendId;
-    data['friend_first_name'] = this.friendFirstName;
-    data['friend_last_name'] = this.friendLastName;
-    data['friend_username'] = this.friendUsername;
-    data['profile_image'] = this.profileImage;
-    if (this.images != null) {
-      data['images'] = this.images!.map((v) => v.toJson()).toList();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['friend_id'] = friendId;
+    data['friend_first_name'] = friendFirstName;
+    data['friend_last_name'] = friendLastName;
+    data['friend_username'] = friendUsername;
+    data['profile_image'] = profileImage;
+    if (images != null) {
+      data['images'] = images!.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -78,8 +78,8 @@ class Images {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['profile_images'] = this.profileImages;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['profile_images'] = profileImages;
     return data;
   }
 }

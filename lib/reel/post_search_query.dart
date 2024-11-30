@@ -30,8 +30,6 @@ class PostSearchQuery {
         other.hashTag == hashTag;
   }
 
-  @override
-  int get hashCode => super.hashCode;
 }
 
 class MentionedPostSearchQuery {

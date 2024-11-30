@@ -15,12 +15,14 @@ class MyApp22 extends StatelessWidget {
     Video(title: "Video 3", videoUrl: "https://forreal.net:4000/reels/1705676257972.mp4"),
   ];
 
+  MyApp22({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: Text('Video List'),
+          title: const Text('Video List'),
         ),
         body: VideoList(videoList: videoList),
       ),
@@ -31,7 +33,7 @@ class MyApp22 extends StatelessWidget {
 class VideoList extends StatefulWidget {
   final List<Video> videoList;
 
-  VideoList({required this.videoList});
+  const VideoList({super.key, required this.videoList});
 
   @override
   _VideoListState createState() => _VideoListState();

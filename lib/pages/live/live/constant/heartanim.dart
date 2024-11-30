@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 class HeartAnim extends StatefulWidget {
   final double top, left, opacity;
 
-  const HeartAnim({Key? key, required this.top, required this.left, required this.opacity}) : super(key: key);
+  const HeartAnim({super.key, required this.top, required this.left, required this.opacity});
 
   @override
   State<HeartAnim> createState() => _HeartAnimState();

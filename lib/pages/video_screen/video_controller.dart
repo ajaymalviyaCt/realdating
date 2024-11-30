@@ -30,7 +30,7 @@ class VideoController extends GetxController {
     print("fsfsfsdfsfs");
     try {
       getReelModel = GetReelsModel.fromJson(response);
-      reels = GetReelsModel.fromJson(response).reels!;
+      reels = GetReelsModel.fromJson(response).reels;
     } catch (e) {
       print("sad1234567sfsffsf$e");
     }

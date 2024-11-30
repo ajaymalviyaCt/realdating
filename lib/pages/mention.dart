@@ -9,6 +9,8 @@ import 'createPostUser/createUserPost.dart';
 import 'homepage/userHomeController.dart';
 
 class mention extends StatefulWidget {
+  const mention({super.key});
+
   @override
   _mentionState createState() => _mentionState();
 }
@@ -54,7 +56,7 @@ class _mentionState extends State<mention> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => UserCreatePost(),
+                    builder: (context) => const UserCreatePost(),
                   ),
                 );
                 /*  Navigator.push(
@@ -78,12 +80,12 @@ class _mentionState extends State<mention> {
           ),
 
           // SvgPicture.asset('assets/icons/Share.svg'),
-          SizedBox(width: 20)
+          const SizedBox(width: 20)
         ],
       ),
       body: Column(
         children: [
-          SizedBox(
+          const SizedBox(
             height: 30,
           ),
           Padding(
@@ -136,7 +138,7 @@ class _mentionState extends State<mention> {
           //   }),
           // ),
 
-          Container(
+          SizedBox(
             height: 150,
             child: ListView.builder(
               itemCount: myList.length,

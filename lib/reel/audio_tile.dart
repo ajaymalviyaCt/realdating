@@ -8,8 +8,7 @@ class AudioTile extends StatelessWidget {
   final VoidCallback stopBack;
   final VoidCallback useAudioBack;
 
-  const AudioTile({Key? key, required this.audio, required this.isPlaying, required this.playCallBack, required this.useAudioBack, required this.stopBack})
-      : super(key: key);
+  const AudioTile({super.key, required this.audio, required this.isPlaying, required this.playCallBack, required this.useAudioBack, required this.stopBack});
 
   @override
   Widget build(BuildContext context) {

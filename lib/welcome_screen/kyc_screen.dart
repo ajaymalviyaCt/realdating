@@ -1,5 +1,4 @@
 import 'package:dotted_border/dotted_border.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -7,7 +6,7 @@ import 'package:hexcolor/hexcolor.dart';
 import '../function/function_class.dart';
 
 class KycScreen extends StatefulWidget {
-  const KycScreen({Key? key}) : super(key: key);
+  const KycScreen({super.key});
 
   @override
   State<KycScreen> createState() => _KycScreenState();
@@ -19,10 +18,10 @@ class _KycScreenState extends State<KycScreen> {
     return Scaffold(
       appBar: AppBar(
         leading: Padding(
-          padding: EdgeInsets.only(left: 10),
+          padding: const EdgeInsets.only(left: 10),
           child: SvgPicture.asset('assets/icons/btn.svg'),
         ),
-        title: Text(
+        title: const Text(
           'Face recognize',
           style: CustomTextStyle.black,
         ),
@@ -32,10 +31,13 @@ class _KycScreenState extends State<KycScreen> {
         child: Column(
           children: [
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 100, vertical: 60),
+              padding: const EdgeInsets.symmetric(horizontal: 100, vertical: 60),
               child: DottedBorder(
-                child: ClipOval(
-                  child: Container(
+                borderType: BorderType.Oval,
+                color: HexColor('#FB4967'),
+                dashPattern: const [10, 5, 10, 5, 10, 5],
+                child: const ClipOval(
+                  child: SizedBox(
                     height: 180,
                     width: 160,
                     child: Icon(
@@ -44,13 +46,10 @@ class _KycScreenState extends State<KycScreen> {
                     ),
                   ),
                 ),
-                borderType: BorderType.Oval,
-                color: HexColor('#FB4967'),
-                dashPattern: [10, 5, 10, 5, 10, 5],
               ),
             ),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20),
+              padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Container(
                 height: 58,
                 decoration: BoxDecoration(
@@ -66,22 +65,22 @@ class _KycScreenState extends State<KycScreen> {
                       child: Text(' ID Proof                                                      ',
                           style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400, fontFamily: 'Aboshi', color: HexColor('#000000'))),
                     ),
-                    Icon(Icons.arrow_drop_down)
+                    const Icon(Icons.arrow_drop_down)
                   ],
                 ),
               ),
             ),
             Padding(
-              padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+              padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
               child: DottedBorder(
-                dashPattern: [10, 5, 10, 5, 10, 5],
+                dashPattern: const [10, 5, 10, 5, 10, 5],
                 strokeWidth: 1,
-                radius: Radius.circular(10),
+                radius: const Radius.circular(10),
                 color: HexColor('#FB4967'),
                 child: Container(
                   height: 141,
                   width: 350,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                       //  borderRadius: BorderRadius.circular(10)
                       ),
                   child: Column(
@@ -89,19 +88,19 @@ class _KycScreenState extends State<KycScreen> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       SvgPicture.asset('assets/icons/file-plus.svg'),
-                      Center(child: Text('Upload document here')),
+                      const Center(child: Text('Upload document here')),
                     ],
                   ),
                 ),
               ),
             ),
             Padding(
-              padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+              padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
               child: Container(
                 decoration: BoxDecoration(color: Colors.redAccent, borderRadius: BorderRadius.circular(35)),
                 width: MediaQuery.of(context).size.width,
                 height: 56,
-                child: Center(
+                child: const Center(
                   child: Text(
                     'Upload',
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400, fontFamily: 'Aboshi', color: Colors.white),

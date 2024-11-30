@@ -52,7 +52,7 @@ class _EventDetailsState extends State<EventDetails> {
                       const SizedBox(
                         height: 20,
                       ),
-                      Container(
+                      SizedBox(
                         height: 200,
                         width: MediaQuery.of(context).size.width,
                         child: ClipRRect(
@@ -207,7 +207,7 @@ class _EventDetailsState extends State<EventDetails> {
                             width: 15,
                           ),
                           Text(
-                            "${ticketsCount}",
+                            "$ticketsCount",
                             textAlign: TextAlign.center,
                             style: const TextStyle(
                               color: Colors.black,

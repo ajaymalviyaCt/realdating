@@ -15,7 +15,7 @@ class PreviewReelsScreen extends StatefulWidget {
   final double? audioStartTime;
   final double? audioEndTime;
 
-  const PreviewReelsScreen({Key? key, required this.reel, this.audioId, this.audioStartTime, this.audioEndTime}) : super(key: key);
+  const PreviewReelsScreen({super.key, required this.reel, this.audioId, this.audioStartTime, this.audioEndTime});
 
   @override
   State<StatefulWidget> createState() {
@@ -86,7 +86,7 @@ class _PreviewReelsState extends State<PreviewReelsScreen> {
                 SizedBox(
                   // height: 70,
                   child: TextFormField(
-                    style: TextStyle(color: Colors.white),
+                    style: const TextStyle(color: Colors.white),
                     onChanged: (value) {
                       if (value.startsWith(' ')) {
                         _textController.text = value.trim();
@@ -126,8 +126,8 @@ class _PreviewReelsState extends State<PreviewReelsScreen> {
                             color: Colors.white,
                           )),
                       hintText: 'Caption',
-                      hintStyle: TextStyle(color: Colors.white),
-                      border: OutlineInputBorder(borderSide: BorderSide(color: Colors.white)),
+                      hintStyle: const TextStyle(color: Colors.white),
+                      border: const OutlineInputBorder(borderSide: BorderSide(color: Colors.white)),
                     ),
                   ),
                 ),
@@ -258,8 +258,8 @@ class _PreviewReelsState extends State<PreviewReelsScreen> {
     print("Total_size===>: ${file.lengthSync()}");
     double fileSizeInKB = fileSizeInBytes / 1024; // Convert bytes to kilobytes
     double fileSizeInMB = fileSizeInKB / 1024;
-    print("Total_size===>fileSizeInKB: ${fileSizeInKB}");
-    print("Total_size===>fileSizeInMB ${fileSizeInMB}");
+    print("Total_size===>fileSizeInKB: $fileSizeInKB");
+    print("Total_size===>fileSizeInMB $fileSizeInMB");
     try {
       final info = await VideoCompress.compressVideo(
         file.path,
@@ -275,8 +275,8 @@ class _PreviewReelsState extends State<PreviewReelsScreen> {
       print("Total_size_after===>: ${file.lengthSync()}");
       double fileSizeInKB22 = fileSizeInBytes22 / 1024; // Convert bytes to kilobytes
       double fileSizeInMB = fileSizeInKB22 / 1024;
-      print("Total_size===>fileSizeInKB_after: ${fileSizeInKB}");
-      print("Total_size===>fileSizeInMB_after ${fileSizeInMB}");
+      print("Total_size===>fileSizeInKB_after: $fileSizeInKB");
+      print("Total_size===>fileSizeInMB_after $fileSizeInMB");
 
       submitReel(finalFile);
       // Handle the compressed video file, for example, you can upload it or play it.

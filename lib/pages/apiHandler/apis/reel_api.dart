@@ -3,7 +3,6 @@ import 'package:realdating/reel/category_model.dart';
 import 'package:realdating/reel/reel_music_model.dart';
 
 import '../api_wrapper.dart';
-import '../network_constant.dart';
 
 class ReelApi {
   static getReelCategories({required Function(List<CategoryModel>) resultCallback}) async {

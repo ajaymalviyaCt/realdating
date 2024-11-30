@@ -157,9 +157,6 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../../../chat/api/apis.dart';
-import '../../../consts/app_urls.dart';
-import '../../../services/base_client01.dart';
 import '../add_your_photos/add_your_photos.dart';
 import '../gender/gender.dart';
 import '../height_dob/heught_dob_page.dart';
@@ -177,10 +174,6 @@ class LoginController extends GetxController {
 
   var deviceType;
 
-  @override
-  void onReady() {
-    super.onReady();
-  }
 
   // loginwixxxthEmail() async {
   //   isLoadig(true);
@@ -298,33 +291,33 @@ class LoginController extends GetxController {
         var status = response.data["status"];
 
         if ("$status" == "200") {
-          var profile_status = response.data["user_info"]["profile_status"];
+          var profileStatus = response.data["user_info"]["profile_status"];
           String token = response.data["token"];
-          int user_id = response.data["user_info"]["id"];
+          int userId = response.data["user_info"]["id"];
           SharedPreferences prefs = await SharedPreferences.getInstance();
           prefs.setString("token", token);
-          prefs.setInt("user_id", user_id);
+          prefs.setInt("user_id", userId);
           prefs.setString("email", emailController.text);
-          if (profile_status == 0) {
-            Get.offAll(() => SelectGenderPage());
+          if (profileStatus == 0) {
+            Get.offAll(() => const SelectGenderPage());
           }
-          if (profile_status == 1) {
-            Get.offAll(() => Interest_Screen());
+          if (profileStatus == 1) {
+            Get.offAll(() => const Interest_Screen());
           }
-          if (profile_status == 2) {
-            Get.offAll(() => HobbiesPage());
+          if (profileStatus == 2) {
+            Get.offAll(() => const HobbiesPage());
           }
-          if (profile_status == 3) {
-            Get.offAll(() => AddYourPhotoPage());
+          if (profileStatus == 3) {
+            Get.offAll(() => const AddYourPhotoPage());
           }
-          if (profile_status == 4) {
+          if (profileStatus == 4) {
             Get.offAll(() => const HeightDOBpage());
           }
-          if (profile_status == 5) {
+          if (profileStatus == 5) {
             prefs.setBool("isLogin", true);
-            Get.offAll(() => LocationScreen());
+            Get.offAll(() => const LocationScreen());
           }
-          if (profile_status == 6) {
+          if (profileStatus == 6) {
             prefs.setBool("isLogin", true);
             Get.offAll(() => const DashboardPage());
           }

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../consts/app_colors.dart';
 
 class DialogHelper {
   //show error dialog
@@ -25,7 +24,7 @@ class DialogHelper {
                 onPressed: () {
                   if (Get.isDialogOpen!) Get.back();
                 },
-                child: Text('Okay'),
+                child: const Text('Okay'),
               ),
             ],
           ),
@@ -54,7 +53,7 @@ class DialogHelper {
                 onPressed: () {
                   if (Get.isDialogOpen!) Get.back();
                 },
-                child: Text('Okay'),
+                child: const Text('Okay'),
               ),
             ],
           ),

@@ -10,16 +10,16 @@ class ProfileDataModal {
     status = json['status'];
     success = json['success'];
     message = json['message'];
-    businessInfo = json['business_info'] != null ? new BusinessInfo.fromJson(json['business_info']) : null;
+    businessInfo = json['business_info'] != null ? BusinessInfo.fromJson(json['business_info']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['status'] = this.status;
-    data['success'] = this.success;
-    data['message'] = this.message;
-    if (this.businessInfo != null) {
-      data['business_info'] = this.businessInfo!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['status'] = status;
+    data['success'] = success;
+    data['message'] = message;
+    if (businessInfo != null) {
+      data['business_info'] = businessInfo!.toJson();
     }
     return data;
   }
@@ -129,39 +129,39 @@ class BusinessInfo {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['business_name'] = this.businessName;
-    data['email'] = this.email;
-    data['password'] = this.password;
-    data['phone_number'] = this.phoneNumber;
-    data['KYC'] = this.kYC;
-    data['website'] = this.website;
-    data['profile_image'] = this.profileImage;
-    data['cover_photo'] = this.coverPhoto;
-    data['show_password'] = this.showPassword;
-    data['category'] = this.category;
-    data['instagram_link'] = this.instagramLink;
-    data['twitter_link'] = this.twitterLink;
-    data['facebook_link'] = this.facebookLink;
-    data['description'] = this.description;
-    data['city'] = this.city;
-    data['state'] = this.state;
-    data['country'] = this.country;
-    data['address'] = this.address;
-    data['latitude'] = this.latitude;
-    data['longitude'] = this.longitude;
-    data['verify_business'] = this.verifyBusiness;
-    data['act_token'] = this.actToken;
-    data['created_at'] = this.createdAt;
-    data['token'] = this.token;
-    data['Monday'] = this.monday;
-    data['Tuesday'] = this.tuesday;
-    data['Wednesday'] = this.wednesday;
-    data['Thursday'] = this.thursday;
-    data['Friday'] = this.friday;
-    data['Saturday'] = this.saturday;
-    data['Sunday'] = this.sunday;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['business_name'] = businessName;
+    data['email'] = email;
+    data['password'] = password;
+    data['phone_number'] = phoneNumber;
+    data['KYC'] = kYC;
+    data['website'] = website;
+    data['profile_image'] = profileImage;
+    data['cover_photo'] = coverPhoto;
+    data['show_password'] = showPassword;
+    data['category'] = category;
+    data['instagram_link'] = instagramLink;
+    data['twitter_link'] = twitterLink;
+    data['facebook_link'] = facebookLink;
+    data['description'] = description;
+    data['city'] = city;
+    data['state'] = state;
+    data['country'] = country;
+    data['address'] = address;
+    data['latitude'] = latitude;
+    data['longitude'] = longitude;
+    data['verify_business'] = verifyBusiness;
+    data['act_token'] = actToken;
+    data['created_at'] = createdAt;
+    data['token'] = token;
+    data['Monday'] = monday;
+    data['Tuesday'] = tuesday;
+    data['Wednesday'] = wednesday;
+    data['Thursday'] = thursday;
+    data['Friday'] = friday;
+    data['Saturday'] = saturday;
+    data['Sunday'] = sunday;
     return data;
   }
 }

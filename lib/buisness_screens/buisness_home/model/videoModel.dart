@@ -2,7 +2,6 @@
 //
 //     final businessHomeVideoModel = businessHomeVideoModelFromJson(jsonString);
 
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
 BusinessHomeVideoModel businessHomeVideoModelFromJson(String str) => BusinessHomeVideoModel.fromJson(json.decode(str));

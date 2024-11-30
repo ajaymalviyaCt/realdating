@@ -5,7 +5,6 @@ import 'package:realdating/pages/a_frist_pages/location_enable/loctaion.dart';
 import 'package:get/get.dart';
 import 'package:realdating/services/base_client01.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:velocity_x/velocity_x.dart';
 
 class HeightDOBcontroller extends GetxController {
   TextEditingController dateOfBirth = TextEditingController();
@@ -14,10 +13,6 @@ class HeightDOBcontroller extends GetxController {
   RxString gender = "male".obs;
   DateTime? dob;
 
-  @override
-  void onReady() {
-    super.onReady();
-  }
 
   Future<void> upDateOfBrith() async {
     print("dateofbirth ${dateOfBirth.text}");
@@ -52,7 +47,7 @@ class HeightDOBcontroller extends GetxController {
         "height": height.text,
       });
 
-      print('my response------------${response}');
+      print('my response------------$response');
     } catch (e) {
       print("updatehight error$e");
     }
@@ -62,7 +57,7 @@ class HeightDOBcontroller extends GetxController {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var userId = prefs.getInt('user_id');
     print('safsfssaf');
-    var data = {'userId': '${userId}', 'profile_status': '5'};
+    var data = {'userId': '$userId', 'profile_status': '5'};
     var dio = Dio();
     var response = await dio.request(
       'https://forreal.net:4000/users/user_profile_status_update',
@@ -73,7 +68,7 @@ class HeightDOBcontroller extends GetxController {
     );
 
     if (response.statusCode == 200) {
-      Get.to(() => LocationScreen());
+      Get.to(() => const LocationScreen());
     } else {
       print(response.statusMessage);
     }

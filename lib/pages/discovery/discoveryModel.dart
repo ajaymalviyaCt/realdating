@@ -30,7 +30,7 @@ class DiscoveryModel {
 
   Map<String, dynamic> toJson() => {
         "message": message,
-        "my_friends": myFriends == null ? [] : List<dynamic>.from(myFriends!.map((x) => x.toJson())),
+        "my_friends": myFriends == null ? [] : List<dynamic>.from(myFriends.map((x) => x.toJson())),
         "success": success,
         "status": status,
       };

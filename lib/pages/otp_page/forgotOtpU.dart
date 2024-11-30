@@ -12,7 +12,7 @@ class OtpPageForgot extends StatefulWidget {
   String mail;
   String otp;
 
-  OtpPageForgot({Key? key, required this.otp, required this.mail}) : super(key: key);
+  OtpPageForgot({super.key, required this.otp, required this.mail});
 
   @override
   State<OtpPageForgot> createState() => _OtpPageForgotState();
@@ -38,7 +38,7 @@ class _OtpPageForgotState extends State<OtpPageForgot> {
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         leading: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 8, vertical: 5),
+          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
           child: InkWell(
               onTap: () {
                 Get.back();
@@ -52,7 +52,7 @@ class _OtpPageForgotState extends State<OtpPageForgot> {
         // key: _formKey,
         child: Center(
           child: Padding(
-            padding: EdgeInsets.symmetric(vertical: 50),
+            padding: const EdgeInsets.symmetric(vertical: 50),
             child: Column(
               children: [
                 customTextCommon(text: "Type the verification code", fSize: 18, fWeight: FontWeight.w500, lineHeight: 20),
@@ -60,10 +60,10 @@ class _OtpPageForgotState extends State<OtpPageForgot> {
                 SizedBox(height: 140.h),
                 Text(
                   "OTP : ${widget.otp}",
-                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+                  style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
                 ),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 30, vertical: 30),
+                  padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 30),
                   child: PinCodeTextField(
                     keyboardType: TextInputType.number,
                     enablePinAutofill: true,
@@ -72,7 +72,7 @@ class _OtpPageForgotState extends State<OtpPageForgot> {
                     onChanged: (value) {
                       setState(() {
                         otp = value;
-                        print("$value");
+                        print(value);
                       });
                     },
                     pinTheme: PinTheme(
@@ -88,17 +88,17 @@ class _OtpPageForgotState extends State<OtpPageForgot> {
                     ),
                     animationType: AnimationType.fade,
                     cursorColor: Colors.black,
-                    animationDuration: Duration(milliseconds: 300),
+                    animationDuration: const Duration(milliseconds: 300),
                     controller: otpController.Codecontroller,
                   ),
                 ),
 
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 InkWell(
                     onTap: () {
                       // otpController.otpverify("${widget.number}");
                     },
-                    child: Text(
+                    child: const Text(
                       'Send again',
                       style: CustomTextStyle.ote,
                     )),
@@ -107,7 +107,7 @@ class _OtpPageForgotState extends State<OtpPageForgot> {
                 //   print("sdfghfd");
                 //   print(Codecontroller.value.text);
                 // }, child: Text("sumbit")),
-                Spacer(),
+                const Spacer(),
                 customPrimaryBtn(
                     btnText: "Submit",
                     btnFun: () {
@@ -115,7 +115,7 @@ class _OtpPageForgotState extends State<OtpPageForgot> {
                       print(otpController.Codecontroller.value.text);
                       otpController.otpverifyForgot(widget.mail);
                     }),
-                SizedBox(
+                const SizedBox(
                   height: 30,
                 )
               ],

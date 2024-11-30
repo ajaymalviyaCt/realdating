@@ -1,4 +1,3 @@
-import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:realdating/widgets/size_utils.dart';
 import '../consts/app_colors.dart';
@@ -90,7 +89,7 @@ class customTextCommon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text(
-      "$text",
+      text,
       style: TextStyle(
         fontFamily: 'Inter',
         overflow: textOverflow,

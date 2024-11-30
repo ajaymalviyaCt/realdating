@@ -24,7 +24,7 @@ import '../buisness_home/Bhome_page/buisness_home.dart';
 import '../buisness_home/controller/business_home_controller.dart';
 
 class CreateDeal extends StatefulWidget {
-  const CreateDeal({Key? key}) : super(key: key);
+  const CreateDeal({super.key});
 
   @override
   State<CreateDeal> createState() => _CreateDealState();
@@ -55,8 +55,7 @@ class _CreateDealState extends State<CreateDeal> {
   final ImagePicker _picker = ImagePicker();
   File? _image;
 
-  Future? _future;
-  String? _validatemobile = null;
+
 
   _imgFromGallery() async {
     final XFile? image = (await _picker.pickImage(source: ImageSource.gallery, imageQuality: 10));
@@ -210,7 +209,7 @@ class _CreateDealState extends State<CreateDeal> {
           backgroundColor: Colors.black,
           textColor: Colors.white,
           fontSize: 16.0);
-      Get.off(() => BuisnessHomePage());
+      Get.off(() => const BuisnessHomePage());
     } else {
       Fluttertoast.showToast(
           msg: "Something went wrong....",
@@ -233,7 +232,7 @@ class _CreateDealState extends State<CreateDeal> {
       //     child: updateBtn(context)),
       appBar: AppBar(
         leading: Padding(
-          padding: EdgeInsets.only(left: 10),
+          padding: const EdgeInsets.only(left: 10),
           child: InkWell(
               onTap: () {
                 Navigator.pop(context);

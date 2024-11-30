@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:realdating/welcome_screen/onbording.dart';
 import 'package:get/get.dart';
-import 'package:realdating/welcome_screen/onbording.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../buisness_screens/buisness_home/Bhome_page/buisness_home.dart';
 import '../messaing_service/messaging_service.dart';
@@ -119,9 +118,9 @@ class _SplashPageState extends State<SplashPage> with SingleTickerProviderStateM
 
   Future<void> getprofileSatus() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    var user_id = prefs.getInt("user_id");
+    var userId = prefs.getInt("user_id");
     var headers = {'Content-Type': 'application/x-www-form-urlencoded'};
-    var data = {'userId': user_id.toString()};
+    var data = {'userId': userId.toString()};
     var dio = Dio();
     var response = await dio.request(
       'https://forreal.net:4000/users/user_profile_status',
@@ -132,34 +131,34 @@ class _SplashPageState extends State<SplashPage> with SingleTickerProviderStateM
       data: data,
     );
     if (response.statusCode == 200) {
-      print("user_id==${user_id.toString()}");
+      print("user_id==${userId.toString()}");
       print("response==${response.data}");
       profile_status = response.data["profile_status"];
       profile_satuss(profile_status);
     } else {}
   }
 
-  void profile_satuss(var profile_status) {
-    print("prfsdfdfdsfsdfdsfsdfsf$profile_status");
-    if (profile_status == 0) {
-      Get.to(() => SelectGenderPage());
+  void profile_satuss(var profileStatus) {
+    print("prfsdfdfdsfsdfdsfsdfsf$profileStatus");
+    if (profileStatus == 0) {
+      Get.to(() => const SelectGenderPage());
     }
-    if (profile_status == 1) {
-      Get.to(() => Interest_Screen());
+    if (profileStatus == 1) {
+      Get.to(() => const Interest_Screen());
     }
-    if (profile_status == 2) {
-      Get.to(() => HobbiesPage());
+    if (profileStatus == 2) {
+      Get.to(() => const HobbiesPage());
     }
-    if (profile_status == 3) {
-      Get.to(() => AddYourPhotoPage());
+    if (profileStatus == 3) {
+      Get.to(() => const AddYourPhotoPage());
     }
-    if (profile_status == 4) {
-      Get.to(() => HeightDOBpage());
+    if (profileStatus == 4) {
+      Get.to(() => const HeightDOBpage());
     }
-    if (profile_status == 5) {
+    if (profileStatus == 5) {
       Get.to(() => const DashboardPage());
     }
-    if (profile_status == 6) {
+    if (profileStatus == 6) {
       Get.to(() => const DashboardPage());
     } else {
       // Get.to(() => const OptionScreen());

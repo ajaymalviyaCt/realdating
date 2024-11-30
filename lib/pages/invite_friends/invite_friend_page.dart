@@ -54,13 +54,13 @@ class _InviteFriendPageState extends State<InviteFriendPage> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Image(image: AssetImage('assets/images/undraw_love_re_mwbq 1.png')),
-          SizedBox(height: 50),
+          const Image(image: AssetImage('assets/images/undraw_love_re_mwbq 1.png')),
+          const SizedBox(height: 50),
           customTextCommon(text: 'Share With Friends', fSize: 24, fWeight: FontWeight.w600, lineHeight: 30),
-          SizedBox(height: 44),
+          const SizedBox(height: 44),
           customTextCommon(
               text: ' "Share app, invite friends, together \n explore endless possibilities. Enjoy!" ', fSize: 16, fWeight: FontWeight.w500, lineHeight: 22),
-          Spacer(),
+          const Spacer(),
           InkWell(
             onTap: () {
               const String linkToShare = 'https://play.google.com/store/apps?hl=en_IN&pli=1'; // Replace
@@ -71,13 +71,13 @@ class _InviteFriendPageState extends State<InviteFriendPage> {
               width: MediaQuery.of(context).size.width,
               height: 56,
               decoration: ShapeDecoration(
-                gradient: LinearGradient(
+                gradient: const LinearGradient(
                   begin: Alignment(0.00, -1.00),
                   end: Alignment(0, 1),
                   colors: [Color(0xFFF65F51), Color(0xFFFB4967)],
                 ),
                 shape: RoundedRectangleBorder(
-                  side: BorderSide(width: 1, color: Colors.white),
+                  side: const BorderSide(width: 1, color: Colors.white),
                   borderRadius: BorderRadius.circular(30),
                 ),
               ),
@@ -96,7 +96,7 @@ class _InviteFriendPageState extends State<InviteFriendPage> {
               ),
             ).paddingOnly(left: 20, right: 20),
           ),
-          SizedBox(height: 30),
+          const SizedBox(height: 30),
         ],
       ),
     );
@@ -126,20 +126,20 @@ class _InviteFriendPageState extends State<InviteFriendPage> {
               left: 16.w,
             ),
           ),
-          Spacer(),
+          const Spacer(),
           Text(
             title,
             textAlign: TextAlign.center,
             style: TextStyle(
-              color: Color(0xFF111111),
+              color: const Color(0xFF111111),
               fontSize: 20.sp,
               fontFamily: 'Inter',
               fontWeight: FontWeight.w600,
               height: 0,
             ),
           ),
-          Spacer(),
-          Container(
+          const Spacer(),
+          SizedBox(
             width: 54.08.h * .90,
             height: 52.h * .90,
           ).paddingOnly(

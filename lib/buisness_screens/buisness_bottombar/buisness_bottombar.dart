@@ -1,9 +1,10 @@
 import 'package:flutter/cupertino.dart';
 
-import '../buisness_home/Bhome_page/buisness_home.dart';
 import '../buisness_profile/buisness_profile.dart';
 
 class BuisnessBottomBar extends StatefulWidget {
+  const BuisnessBottomBar({super.key});
+
   @override
   State<BuisnessBottomBar> createState() => _BuisnessBottomBarState();
 }
@@ -12,13 +13,13 @@ class _BuisnessBottomBarState extends State<BuisnessBottomBar> {
   PageController controller = PageController();
   int _selectedIndex = 0;
 
-  static List<Widget> _widgetOptions = [
+  static final List<Widget> _widgetOptions = [
     //BuisnessHomePage(),
     // ExplorePage(),
     // Matches(),
     // MatchesPage(),
     // EventsPage(),
-    BusinessProfile(),
+    const BusinessProfile(),
   ];
 
   void _onItemTapped(int index) {

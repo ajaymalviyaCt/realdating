@@ -12,7 +12,7 @@ class SelectMusic extends StatefulWidget {
   final int duration;
   final Function(File, ReelMusicModel) selectedAudioCallback;
 
-  const SelectMusic({Key? key, required this.selectedAudioCallback, required this.duration}) : super(key: key);
+  const SelectMusic({super.key, required this.selectedAudioCallback, required this.duration});
 
   @override
   State<SelectMusic> createState() => _SelectMusicState();
@@ -61,7 +61,7 @@ class _SelectMusicState extends State<SelectMusic> {
               const Spacer(),
               segmentView(),
               const Spacer(),
-              SizedBox(
+              const SizedBox(
                 width: 25,
               )
             ],

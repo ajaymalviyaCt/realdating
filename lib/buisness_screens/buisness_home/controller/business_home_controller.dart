@@ -30,23 +30,15 @@ class MyDealController extends GetxController implements GetxService {
   RxBool cont = false.obs;
   var data = <String>[].obs;
 
-  @override
-  void onReady() {
-    super.onReady();
-    // MYDeal();
-    // getAllBusinessPost();
-    // getDashBoard();
-    // getCommentPost(postIdComment);
-  }
 
   MYDeal() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    var user_id = prefs.get("user_id");
+    var userId = prefs.get("user_id");
 
     try {
       isLoadigDeal(true);
       final response = await BaseClient01().post(Appurls.mydeal, {
-        "business_id": user_id.toString(),
+        "business_id": userId.toString(),
       });
       print(response);
       print("TreadingModel");
@@ -55,7 +47,7 @@ class MyDealController extends GetxController implements GetxService {
       print("msg ___$msg");
       if (success == true) {
         myDealsModel = MyDealsModel.fromJson(response);
-        Get.off(() => BuisnessHomePage());
+        Get.off(() => const BuisnessHomePage());
       }
       isLoadigDeal(false);
     } catch (e, s) {
@@ -69,7 +61,7 @@ class MyDealController extends GetxController implements GetxService {
     // myDealsModel?.myDeals.clear();
     // isLoadig(true);
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    var user_id = prefs.get("user_id");
+    var userId = prefs.get("user_id");
     // isLoadig(true);
 
     try {
@@ -107,14 +99,14 @@ class MyDealController extends GetxController implements GetxService {
   File? videoFile;
 
   getV(index) async {
-    controller = VideoPlayerController.network(allDataBusiness?.posts?[index].post ?? "https://forreal.net:4000/business_post/1698312729544.mp4");
+    controller = VideoPlayerController.network(allDataBusiness?.posts[index].post ?? "https://forreal.net:4000/business_post/1698312729544.mp4");
 /*    final appDir = await getApplicationDocumentsDirectory();
     final filename =  allDataBusiness?.posts?[index].post;
     videoFile=  File('${appDir.path}/$filename');
     controller?.initialize();
     await controller?.play();*/
     print('Video saved to: ${videoFile?.path}');
-    print("hdfkj${allDataBusiness?.posts?[index].post}");
+    print("hdfkj${allDataBusiness?.posts[index].post}");
   }
 
   final PagingController<int, Post> pagingController = PagingController(firstPageKey: 1);
@@ -142,11 +134,11 @@ class MyDealController extends GetxController implements GetxService {
 
   fetchPage(int pageKey) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    var user_id = prefs.get("user_id");
+    var userId = prefs.get("user_id");
 
     try {
       final response = await BaseClient01().post(Appurls.buisnessAllPostHome, {
-        "business_id": user_id.toString(),
+        "business_id": userId.toString(),
         "page": pageKey.toString(),
         "pageSize": _pageSize.toString(),
       });
@@ -156,7 +148,7 @@ class MyDealController extends GetxController implements GetxService {
       if (success) {
         AllBusinessPostModel newData = AllBusinessPostModel.fromJson(response);
 
-        if (newData.posts != null && newData.posts.isNotEmpty) {
+        if (newData.posts.isNotEmpty) {
           List<Post> posts = newData.posts;
 
           // Assuming _pageSize is the desired number of posts per page
@@ -248,12 +240,12 @@ class MyDealController extends GetxController implements GetxService {
     }
   }
 
-  Future<void> likePost(String post_id, String like_status) async {
+  Future<void> likePost(String postId, String likeStatus) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var token = prefs.get('token');
     var headers = {'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Bearer $token'};
-    print("post_id==>$post_id");
-    var data = {'post_id': post_id, 'like_status': "$like_status"};
+    print("post_id==>$postId");
+    var data = {'post_id': postId, 'like_status': likeStatus};
     var dio = Dio();
     var response = await dio.request(
       'https://forreal.net:4000/Like_business_post',
@@ -266,7 +258,7 @@ class MyDealController extends GetxController implements GetxService {
 
     if (response.statusCode == 200) {
       print(json.encode(response.data));
-      if (like_status == "1") {
+      if (likeStatus == "1") {
         // sendNotification(user_id, "like");
       }
     } else {
@@ -296,7 +288,7 @@ class MyDealController extends GetxController implements GetxService {
       if (status) {
         print("editDealsUp");
         commentText.clear();
-        sendNotification("${businessId}", "business_comment");
+        sendNotification("$businessId", "business_comment");
         // getCommentPost(postIdComment);
         // await fetchPage(pagingController.nextPageKey!);
         print(msg);

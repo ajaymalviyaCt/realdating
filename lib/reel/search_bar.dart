@@ -16,7 +16,7 @@ class SFSearchBar extends StatefulWidget {
   final String? hintText;
 
   const SFSearchBar({
-    Key? key,
+    super.key,
     required this.onSearchCompleted,
     this.onSearchStarted,
     this.onSearchChanged,
@@ -28,7 +28,7 @@ class SFSearchBar extends StatefulWidget {
     this.textStyle,
     this.shadowOpacity,
     this.hintText,
-  }) : super(key: key);
+  });
 
   @override
   State<SFSearchBar> createState() => _SFSearchBarState();

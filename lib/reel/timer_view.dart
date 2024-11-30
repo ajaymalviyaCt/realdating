@@ -6,7 +6,7 @@ class UnlockTimerView extends StatefulWidget {
   final int unlockTime; // Time in seconds to unlock the lesson
   final VoidCallback completionHandler;
 
-  const UnlockTimerView({Key? key, required this.unlockTime, required this.completionHandler}) : super(key: key);
+  const UnlockTimerView({super.key, required this.unlockTime, required this.completionHandler});
 
   @override
   UnlockTimerViewState createState() => UnlockTimerViewState();

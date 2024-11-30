@@ -9,10 +9,6 @@ class InterestController extends GetxController {
   RxBool isLoadig = false.obs;
   RxString inrest = "".obs;
 
-  @override
-  void onReady() {
-    super.onReady();
-  }
 
   // Future<void> devicTypeCheck()async{
   //   if (Platform.isAndroid) {
@@ -31,7 +27,7 @@ class InterestController extends GetxController {
   interestSelect(String interstSelect) async {
     print("call  interestSelect");
     isLoadig(true);
-    final response = await BaseClient01().post(Appurls.gender, {"Interest": "$interstSelect", "profile_status": "2"});
+    final response = await BaseClient01().post(Appurls.gender, {"Interest": interstSelect, "profile_status": "2"});
     print(response.toString());
     print(interstSelect.toString());
     isLoadig(false);

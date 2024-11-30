@@ -19,7 +19,7 @@ import '../../../function/function_class.dart';
 import '../../../widgets/custom_appbar.dart';
 
 class AddYourPhotoPage extends StatefulWidget {
-  const AddYourPhotoPage({Key? key}) : super(key: key);
+  const AddYourPhotoPage({super.key});
 
   @override
   State<AddYourPhotoPage> createState() => _AddYourPhotoPageState();
@@ -67,7 +67,7 @@ class _AddYourPhotoPageState extends State<AddYourPhotoPage> {
           var multipartFileSign = http.MultipartFile('files', stream, length, filename: fileName);
           request.files.add(multipartFileSign);
         }
-      } catch (e, s) {
+      } catch (e) {
         // TODO
       }
     }
@@ -92,7 +92,7 @@ class _AddYourPhotoPageState extends State<AddYourPhotoPage> {
           Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => HeightDOBpage(),
+                builder: (context) => const HeightDOBpage(),
               ));
         } catch (e) {
           Fluttertoast.showToast(
@@ -156,11 +156,11 @@ class _AddYourPhotoPageState extends State<AddYourPhotoPage> {
                               decoration: BoxDecoration(
                                   border: Border.all(style: BorderStyle.solid, color: Colors.redAccent),
                                   borderRadius: BorderRadius.circular(10),
-                                  color: Color(0xffBDBDBD).withOpacity(0.35),
+                                  color: const Color(0xffBDBDBD).withOpacity(0.35),
                                   image: DecorationImage(image: FileImage(selectedImages[0].file.value!), fit: BoxFit.fill)),
                             ),
                             Padding(
-                              padding: EdgeInsets.only(top: 105, left: 80),
+                              padding: const EdgeInsets.only(top: 105, left: 80),
                               child: InkWell(
                                   onTap: () {
                                     selectedImages[0].file.value = null;
@@ -195,7 +195,7 @@ class _AddYourPhotoPageState extends State<AddYourPhotoPage> {
                                 ),
                               ),
                               Padding(
-                                padding: EdgeInsets.only(top: 105, left: 80),
+                                padding: const EdgeInsets.only(top: 105, left: 80),
                                 child: SvgPicture.asset('assets/icons/Sign In Button (1).svg'),
                               ),
                             ]),
@@ -208,7 +208,7 @@ class _AddYourPhotoPageState extends State<AddYourPhotoPage> {
                               decoration: BoxDecoration(
                                   border: Border.all(style: BorderStyle.solid, color: Colors.redAccent),
                                   borderRadius: BorderRadius.circular(10),
-                                  color: Color(0xffBDBDBD).withOpacity(0.35),
+                                  color: const Color(0xffBDBDBD).withOpacity(0.35),
                                   image: DecorationImage(image: FileImage(selectedImages[1].file.value!), fit: BoxFit.fill)),
                             ),
                             Padding(
@@ -245,7 +245,7 @@ class _AddYourPhotoPageState extends State<AddYourPhotoPage> {
                                 ),
                               ),
                               Padding(
-                                padding: EdgeInsets.only(top: 105, left: 80),
+                                padding: const EdgeInsets.only(top: 105, left: 80),
                                 child: SvgPicture.asset('assets/icons/Sign In Button (1).svg'),
                               ),
                             ]),
@@ -258,11 +258,11 @@ class _AddYourPhotoPageState extends State<AddYourPhotoPage> {
                               decoration: BoxDecoration(
                                   border: Border.all(style: BorderStyle.solid, color: Colors.redAccent),
                                   borderRadius: BorderRadius.circular(10),
-                                  color: Color(0xffBDBDBD).withOpacity(0.35),
+                                  color: const Color(0xffBDBDBD).withOpacity(0.35),
                                   image: DecorationImage(image: FileImage(selectedImages[2].file.value!), fit: BoxFit.fill)),
                             ),
                             Padding(
-                              padding: EdgeInsets.only(top: 105, left: 80),
+                              padding: const EdgeInsets.only(top: 105, left: 80),
                               child: InkWell(
                                   onTap: () {
                                     selectedImages[2].file.value = null;
@@ -277,7 +277,7 @@ class _AddYourPhotoPageState extends State<AddYourPhotoPage> {
                               setState(
                                 () {
                                   if (pickedFile != null) {
-                                    selectedImages[2].file.value = File(pickedFile!.path);
+                                    selectedImages[2].file.value = File(pickedFile.path);
                                   } else {
                                     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Nothing is selected')));
                                   }
@@ -316,11 +316,11 @@ class _AddYourPhotoPageState extends State<AddYourPhotoPage> {
                               decoration: BoxDecoration(
                                   border: Border.all(style: BorderStyle.solid, color: Colors.redAccent),
                                   borderRadius: BorderRadius.circular(10),
-                                  color: Color(0xffBDBDBD).withOpacity(0.35),
+                                  color: const Color(0xffBDBDBD).withOpacity(0.35),
                                   image: DecorationImage(image: FileImage(selectedImages[3].file.value!), fit: BoxFit.fill)),
                             ),
                             Padding(
-                              padding: EdgeInsets.only(top: 105, left: 80),
+                              padding: const EdgeInsets.only(top: 105, left: 80),
                               child: InkWell(
                                   onTap: () {
                                     selectedImages[3].file.value = null;
@@ -353,7 +353,7 @@ class _AddYourPhotoPageState extends State<AddYourPhotoPage> {
                                 ),
                               ),
                               Padding(
-                                padding: EdgeInsets.only(top: 105, left: 80),
+                                padding: const EdgeInsets.only(top: 105, left: 80),
                                 child: SvgPicture.asset('assets/icons/Sign In Button (1).svg'),
                               ),
                             ]),
@@ -366,11 +366,11 @@ class _AddYourPhotoPageState extends State<AddYourPhotoPage> {
                               decoration: BoxDecoration(
                                   border: Border.all(style: BorderStyle.solid, color: Colors.redAccent),
                                   borderRadius: BorderRadius.circular(10),
-                                  color: Color(0xffBDBDBD).withOpacity(0.35),
+                                  color: const Color(0xffBDBDBD).withOpacity(0.35),
                                   image: DecorationImage(image: FileImage(selectedImages[4].file.value!), fit: BoxFit.fill)),
                             ),
                             Padding(
-                              padding: EdgeInsets.only(top: 105, left: 80),
+                              padding: const EdgeInsets.only(top: 105, left: 80),
                               child: InkWell(
                                   onTap: () {
                                     selectedImages[4].file.value = null;
@@ -416,7 +416,7 @@ class _AddYourPhotoPageState extends State<AddYourPhotoPage> {
                               decoration: BoxDecoration(
                                   border: Border.all(style: BorderStyle.solid, color: Colors.redAccent),
                                   borderRadius: BorderRadius.circular(10),
-                                  color: Color(0xffBDBDBD).withOpacity(0.35),
+                                  color: const Color(0xffBDBDBD).withOpacity(0.35),
                                   image: DecorationImage(image: FileImage(selectedImages[5].file.value!), fit: BoxFit.fill)),
                             ),
                             Padding(
@@ -505,7 +505,7 @@ class _AddYourPhotoPageState extends State<AddYourPhotoPage> {
   updateStatus() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var userId = prefs.getInt('user_id');
-    var data = {'userId': '${userId}', 'profile_status': '4'};
+    var data = {'userId': '$userId', 'profile_status': '4'};
     var dio = Dio();
     var response = await dio.request(
       'https://forreal.net:4000/users/user_profile_status_update',

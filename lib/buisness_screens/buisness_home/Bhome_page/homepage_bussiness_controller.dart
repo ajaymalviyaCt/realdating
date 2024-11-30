@@ -64,7 +64,7 @@ class HomepageBusinessController extends GetxController {
           print("firstLoad${bHomePagetModelNOTUSE.value.posts.length}");
           bHomePagetModelNOTUSE.refresh();
         } catch (e) {
-          print("object${e}");
+          print("object$e");
         }
       } else {
         print(response.statusMessage);
@@ -88,7 +88,7 @@ class HomepageBusinessController extends GetxController {
       try {
         SharedPreferences prefs = await SharedPreferences.getInstance();
         var userId = prefs.get('user_id');
-        var data = {'business_id': '${userId}', 'page': page.value, 'pageSize': limit};
+        var data = {'business_id': '$userId', 'page': page.value, 'pageSize': limit};
         var dio = Dio();
         var headers = {
           'Content-Type': 'application/x-www-form-urlencoded',
@@ -142,7 +142,7 @@ class HomepageBusinessController extends GetxController {
   RxBool isLoadingCommentList = false.obs;
 
   Future<void> getAllCommentBYpostID({required String postID, required bool alreadlyLoad, required int indexx}) async {
-    print("getAllCommentBPostID${postID}");
+    print("getAllCommentBPostID$postID");
     isLoadingCommentList.value = true;
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var userId = prefs.get('user_id');
@@ -177,7 +177,7 @@ class HomepageBusinessController extends GetxController {
     }
   }
 
-  Future<void> postComments(String post_id, String comment, String user_id, int indexxx) async {
+  Future<void> postComments(String postId, String comment, String userId, int indexxx) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     if (comment.trim().isEmpty) {
       print("Error: Comment is empty or spaces only.");
@@ -186,8 +186,8 @@ class HomepageBusinessController extends GetxController {
 
     var token = prefs.get('token');
     print("tokentokentokentoken==>$token");
-    var headers = {'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Bearer ${token}'};
-    var data = {'post_id': post_id, 'comment': comment};
+    var headers = {'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Bearer $token'};
+    var data = {'post_id': postId, 'comment': comment};
     commentsController.clear();
     var dio = Dio();
     var response = await dio.request(
@@ -200,11 +200,11 @@ class HomepageBusinessController extends GetxController {
     );
 
     if (response.statusCode == 200) {
-      sendNotification(user_id, "comment");
-      print("${token}");
+      sendNotification(userId, "comment");
+      print("$token");
       print("dsdsffsfs");
       print(json.encode(response.data));
-      getAllCommentBYpostID(postID: post_id, alreadlyLoad: false, indexx: indexxx);
+      getAllCommentBYpostID(postID: postId, alreadlyLoad: false, indexx: indexxx);
       //   getPostHomePage();
     } else {
       print(response.statusMessage);

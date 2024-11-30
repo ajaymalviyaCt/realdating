@@ -16,7 +16,7 @@ import '../../../dash_board_page.dart';
 import '../constant/liveusercard.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  const HomePage({super.key});
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -41,7 +41,7 @@ class _HomePageState extends State<HomePage> {
     fetchLiveUsers();
     removeExistingUserIfNeeded();
 
-    print('login user id------------${user_uid}');
+    print('login user id------------$user_uid');
   }
 
   Future<void> fetchLoggedInUserData(String userId) async {

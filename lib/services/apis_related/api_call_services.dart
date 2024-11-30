@@ -90,7 +90,7 @@ class ApiCall {
       if (dismissKeyBoard) {
         FocusManager.instance.primaryFocus?.unfocus();
       }
-    } catch (e, s) {}
+    } catch (e) {}
     try {
       Response response;
 
@@ -128,7 +128,7 @@ class ApiCall {
           break;
       }
       return _handleResponse(response);
-    } on DioException catch (ex, s) {
+    } on DioException catch (ex) {
       if (ex.type == DioExceptionType.connectionTimeout) {
         throw Exception("Connection Timeout Exception");
       } else if (ex.type == DioExceptionType.connectionError) {
@@ -136,7 +136,7 @@ class ApiCall {
       }
 
       rethrow;
-    } catch (e, s) {
+    } catch (e) {
       rethrow;
     }
   }
@@ -170,7 +170,7 @@ List<String> extractErrorMessages(Map<String, dynamic> response) {
         }
       });
     }
-  } catch (e, s) {}
+  } catch (e) {}
   if (errorMessages.isEmpty) {
     errorMessages.add(response["message"]);
   }

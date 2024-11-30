@@ -37,7 +37,7 @@ class _NotificationPageState extends State<NotificationPage> {
                     child: CircularProgressIndicator(),
                   )
                 : notificationController.noficactionModel?.notification?.length == 0
-                    ? Center(
+                    ? const Center(
                         child: Text("No Notification Found"),
                       )
                     : ListView.builder(
@@ -55,19 +55,19 @@ class _NotificationPageState extends State<NotificationPage> {
                                     'reciverIdreciverIdreciverIdreciverIdreciverId${notificationController.noficactionModel?.notification?[index].reciverId}');
                               }
                               if ("${notificationController.noficactionModel?.notification?[index].body}" == "invite_date") {
-                                Get.to(() => MyAllDatesPage());
+                                Get.to(() => const MyAllDatesPage());
                                 print('senderIdsenderIdsenderIdsenderId${notificationController.noficactionModel?.notification?[index].reciverId}');
                                 print(
                                     'reciverIdreciverIdreciverIdreciverIdreciverId${notificationController.noficactionModel?.notification?[index].reciverId}');
                               }
                               if ("${notificationController.noficactionModel?.notification?[index].body}" == "chat") {
-                                Get.to(() => HomePageUser());
+                                Get.to(() => const HomePageUser());
                                 print('senderIdsenderIdsenderIdsenderId${notificationController.noficactionModel?.notification?[index].reciverId}');
                                 print(
                                     'reciverIdreciverIdreciverIdreciverIdreciverId${notificationController.noficactionModel?.notification?[index].reciverId}');
                               }
                               if ("${notificationController.noficactionModel?.notification?[index].body}" == "like") {
-                                Get.to(() => HomePageUser());
+                                Get.to(() => const HomePageUser());
                                 print('senderIdsenderIdsenderIdsenderId${notificationController.noficactionModel?.notification?[index].reciverId}');
                                 print(
                                     'reciverIdreciverIdreciverIdreciverIdreciverId${notificationController.noficactionModel?.notification?[index].reciverId}');

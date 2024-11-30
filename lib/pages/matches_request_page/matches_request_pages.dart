@@ -74,7 +74,7 @@ class _MatchesRequestPagesState extends State<MatchesRequestPages> {
                                             ),
                                             fit: BoxFit.fill,
                                           ),
-                                          shape: OvalBorder(),
+                                          shape: const OvalBorder(),
                                         ),
                                       ),
                                     ),

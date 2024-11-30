@@ -11,7 +11,7 @@ import '../../validation/validation.dart';
 import '../a_frist_pages/login_page/login.dart';
 
 class SignUpPage extends StatelessWidget {
-  SignUpPage({Key? key}) : super(key: key);
+  SignUpPage({super.key});
 
   SignUpController signUpController = Get.put(SignUpController());
 
@@ -149,7 +149,7 @@ class SignUpPage extends StatelessWidget {
                       const SizedBox(height: 20),
                       InkWell(
                         onTap: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => LoginScreenPage()));
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => const LoginScreenPage()));
                         },
                         child: Container(
                           height: 50,

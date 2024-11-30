@@ -226,7 +226,6 @@ class _MyAllDatesPageState extends State<MyAllDatesPage> {
                                                             'Accepted',
                                                             style: TextStyle(color: Colors.green, fontSize: 15, fontWeight: FontWeight.bold),
                                                           );
-                                                          ;
                                                         } else if (myAllDatesController.myAllDatesModel?.myInvites?[index].status == 2) {
                                                           print('status-----${myAllDatesController.myAllDatesModel?.myInvites?[index].status}');
                                                           return const Text(

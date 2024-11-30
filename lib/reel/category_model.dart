@@ -43,14 +43,14 @@ class TvCategoryModel extends CategoryModel {
   // List<CategoryModel> subCategories = [];
 
   TvCategoryModel({
-    required String name,
-    required int id,
+    required super.name,
+    required super.id,
     // required this.logo,
-    required String coverImage,
+    required super.coverImage,
     required this.tvs,
 
     // required this.subCategories,
-  }) : super(name: name, id: id, coverImage: coverImage);
+  });
 
   factory TvCategoryModel.fromJson(Map<String, dynamic> json) => TvCategoryModel(
         name: json["name"],
@@ -65,13 +65,13 @@ class GiftCategoryModel extends CategoryModel {
   List<GiftModel> gifts = [];
 
   GiftCategoryModel({
-    required String name,
-    required int id,
+    required super.name,
+    required super.id,
     required this.gifts,
-    required String coverImage,
+    required super.coverImage,
 
     // required this.subCategories,
-  }) : super(name: name, id: id, coverImage: coverImage);
+  });
 
   factory GiftCategoryModel.fromJson(Map<String, dynamic> json) => GiftCategoryModel(
         name: json["name"],
@@ -85,13 +85,13 @@ class PodcastCategoryModel extends CategoryModel {
   List<HostModel> podcasts = [];
 
   PodcastCategoryModel({
-    required String name,
-    required int id,
+    required super.name,
+    required super.id,
     required this.podcasts,
-    required String coverImage,
+    required super.coverImage,
 
     // required this.subCategories,
-  }) : super(name: name, id: id, coverImage: coverImage);
+  });
 
   factory PodcastCategoryModel.fromJson(Map<String, dynamic> json) => PodcastCategoryModel(
         name: json["name"],

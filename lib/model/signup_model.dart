@@ -12,17 +12,17 @@ class signup_model {
     success = json['success'];
     message = json['message'];
     token = json['token'];
-    userInfo = json['user_info'] != null ? new UserInfo.fromJson(json['user_info']) : null;
+    userInfo = json['user_info'] != null ? UserInfo.fromJson(json['user_info']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['status'] = this.status;
-    data['success'] = this.success;
-    data['message'] = this.message;
-    data['token'] = this.token;
-    if (this.userInfo != null) {
-      data['user_info'] = this.userInfo!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['status'] = status;
+    data['success'] = success;
+    data['message'] = message;
+    data['token'] = token;
+    if (userInfo != null) {
+      data['user_info'] = userInfo!.toJson();
     }
     return data;
   }
@@ -108,31 +108,31 @@ class UserInfo {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['username'] = this.username;
-    data['first_name'] = this.firstName;
-    data['last_name'] = this.lastName;
-    data['email'] = this.email;
-    data['profile_image'] = this.profileImage;
-    data['password'] = this.password;
-    data['show_password'] = this.showPassword;
-    data['phone_number'] = this.phoneNumber;
-    data['age'] = this.age;
-    data['gender'] = this.gender;
-    data['DOB'] = this.dOB;
-    data['height'] = this.height;
-    data['user_type'] = this.userType;
-    data['fcm_token'] = this.fcmToken;
-    data['verify_user'] = this.verifyUser;
-    data['phone_verify'] = this.phoneVerify;
-    data['Interest'] = this.interest;
-    data['hobbies'] = this.hobbies;
-    data['OTP'] = this.oTP;
-    data['token'] = this.token;
-    data['act_token'] = this.actToken;
-    data['created_at'] = this.createdAt;
-    data['update_at'] = this.updateAt;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['username'] = username;
+    data['first_name'] = firstName;
+    data['last_name'] = lastName;
+    data['email'] = email;
+    data['profile_image'] = profileImage;
+    data['password'] = password;
+    data['show_password'] = showPassword;
+    data['phone_number'] = phoneNumber;
+    data['age'] = age;
+    data['gender'] = gender;
+    data['DOB'] = dOB;
+    data['height'] = height;
+    data['user_type'] = userType;
+    data['fcm_token'] = fcmToken;
+    data['verify_user'] = verifyUser;
+    data['phone_verify'] = phoneVerify;
+    data['Interest'] = interest;
+    data['hobbies'] = hobbies;
+    data['OTP'] = oTP;
+    data['token'] = token;
+    data['act_token'] = actToken;
+    data['created_at'] = createdAt;
+    data['update_at'] = updateAt;
     return data;
   }
 }

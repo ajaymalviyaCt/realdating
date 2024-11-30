@@ -22,10 +22,10 @@ class TinderSwipController extends GetxController {
   Future<void> getAllUser() async {
     isLoadinggetAllUser.value = true;
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    var user_id = prefs.getInt('user_id');
+    var userId = prefs.getInt('user_id');
     var token = prefs.get('token');
-    var headers = {'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Bearer ${token}'};
-    Map<String, String> body = {'user_id': user_id.toString()};
+    var headers = {'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Bearer $token'};
+    Map<String, String> body = {'user_id': userId.toString()};
     var dio = Dio();
 
     try {
@@ -47,7 +47,7 @@ class TinderSwipController extends GetxController {
         print(response.statusMessage);
       }
     } catch (e) {
-      if (e is DioError) {
+      if (e is DioException) {
         if (e.error is SocketException) {
           print("EROOR_PRAMOD");
           print("${e.message}EROOR_PRAMOD");

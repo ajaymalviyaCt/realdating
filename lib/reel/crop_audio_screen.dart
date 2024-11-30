@@ -7,7 +7,7 @@ class CropAudioScreen extends StatefulWidget {
   final ReelMusicModel reelMusicModel;
   final int duration;
 
-  const CropAudioScreen({Key? key, required this.reelMusicModel, required this.duration}) : super(key: key);
+  const CropAudioScreen({super.key, required this.reelMusicModel, required this.duration});
 
   @override
   State<StatefulWidget> createState() {

@@ -177,7 +177,6 @@ class _MatchDetailsState extends State<MatchDetails> {
       setState(() {
         _selectedTime = picked;
         invaiteForDatesController.selectTimeC.text = "${picked.hour.toString()} : ${picked.minute.toString()}";
-        ;
       });
     }
   }
@@ -195,7 +194,7 @@ class _MatchDetailsState extends State<MatchDetails> {
     );
 
     // showAllItems ? allItems : allItems.sublist(0, initialItemCount);
-    void _showBottomSheet(BuildContext context, String userID) {
+    void showBottomSheet(BuildContext context, String userID) {
       showModalBottomSheet(
           isScrollControlled: true,
           context: context,
@@ -475,7 +474,7 @@ class _MatchDetailsState extends State<MatchDetails> {
                                           userID,
                                           invaiteForDatesController.selectDateC.text,
                                           invaiteForDatesController.selectTimeC.text,
-                                          "$selectedValue",
+                                          selectedValue,
                                           invaiteForDatesController.locationC.text,
                                         );
                                       } else {
@@ -554,9 +553,9 @@ class _MatchDetailsState extends State<MatchDetails> {
                                   const Spacer(),
                                   InkWell(
                                     onTap: () {
-                                      Get.to(() => Monthly());
+                                      Get.to(() => const Monthly());
                                     },
-                                    child: Container(
+                                    child: SizedBox(
                                       height: 80,
                                       child: SvgPicture.asset("assets/images/pro_icon.svg"),
                                     ),
@@ -645,7 +644,7 @@ class _MatchDetailsState extends State<MatchDetails> {
                                               return Dialog(
                                                 backgroundColor: Colors.white,
                                                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)), //this right here
-                                                child: Container(
+                                                child: SizedBox(
                                                   height: 210,
                                                   child: Padding(
                                                     padding: const EdgeInsets.all(12.0),
@@ -695,7 +694,7 @@ class _MatchDetailsState extends State<MatchDetails> {
                                                         const SizedBox(
                                                           height: 10,
                                                         ),
-                                                        Container(
+                                                        SizedBox(
                                                           height: 50,
                                                           // width: 200,
                                                           child: Align(
@@ -751,7 +750,7 @@ class _MatchDetailsState extends State<MatchDetails> {
                                     : Container(
                                         decoration: BoxDecoration(color: Colors.black12.withOpacity(.02), borderRadius: BorderRadius.circular(10)),
                                         child: ListTile(
-                                            leading: Container(
+                                            leading: SizedBox(
                                               height: 50,
                                               width: 50,
                                               child: CachedNetworkImage(
@@ -806,7 +805,7 @@ class _MatchDetailsState extends State<MatchDetails> {
                                 onPressed: () {
                                   // Toggle between showing limited and all items
                                   setState(() {
-                                    if (matchessController.exploreDetailsModel!.userInfo[0].allReviews.length == 0) {
+                                    if (matchessController.exploreDetailsModel!.userInfo[0].allReviews.isEmpty) {
                                       Fluttertoast.showToast(msg: 'Data not found for more Review');
                                     } else {
                                       showAllItemsss = !showAllItemsss;
@@ -834,13 +833,13 @@ class _MatchDetailsState extends State<MatchDetails> {
                                   : SizedBox(
                                       height: 120,
                                       child: GridView.builder(
-                                        itemCount: matchessController.exploreDetailsModel?.userInfo[0].insertdata.length != 0
+                                        itemCount: (matchessController.exploreDetailsModel?.userInfo[0].insertdata??[]).isNotEmpty
                                             ? matchessController.exploreDetailsModel?.userInfo[0].insertdata.length
                                             : 0,
                                         itemBuilder: (ctx, i) {
                                           return Padding(
                                             padding: const EdgeInsets.only(top: 10),
-                                            child: Container(
+                                            child: SizedBox(
                                               height: 50,
                                               child: DottedBorder(
                                                 strokeWidth: 1,
@@ -852,7 +851,7 @@ class _MatchDetailsState extends State<MatchDetails> {
                                                     Radius.circular(5),
                                                   ),
                                                   child: Center(
-                                                    child: Container(
+                                                    child: SizedBox(
                                                       width: 220,
                                                       height: 32,
                                                       child: Text(
@@ -905,7 +904,7 @@ class _MatchDetailsState extends State<MatchDetails> {
                                               Radius.circular(5),
                                             ),
                                             child: Center(
-                                              child: Container(
+                                              child: SizedBox(
                                                 width: 220,
                                                 height: 35,
                                                 child: Text(
@@ -938,9 +937,9 @@ class _MatchDetailsState extends State<MatchDetails> {
                                 ),
                               ),
                               20.heightBox,
-                              matchessController.exploreDetailsModel?.userInfo[0].images.length != 0 &&
+                              (matchessController.exploreDetailsModel?.userInfo[0].images??[]).isNotEmpty &&
                                       matchessController.exploreDetailsModel?.userInfo[0].images != null
-                                  ? Container(
+                                  ? SizedBox(
                                       height: 300,
                                       child: GridView.builder(
                                         physics: const NeverScrollableScrollPhysics(),
@@ -1012,7 +1011,7 @@ class _MatchDetailsState extends State<MatchDetails> {
                               (widget.isfriend)
                                   ? InkWell(
                                       onTap: () {
-                                        _showBottomSheet(context, matchessController.exploreDetailsModel!.userInfo[0].id.toString());
+                                        showBottomSheet(context, matchessController.exploreDetailsModel!.userInfo[0].id.toString());
                                       },
                                       child: Container(
                                         width: MediaQuery.of(context).size.width,
@@ -1104,7 +1103,7 @@ class _MatchDetailsState extends State<MatchDetails> {
                             onTap: () {
                               Get.back();
                             },
-                            child: Container(width: 50, height: 50, child: SvgPicture.asset("assets/icons/aa.svg")),
+                            child: SizedBox(width: 50, height: 50, child: SvgPicture.asset("assets/icons/aa.svg")),
                           ).paddingOnly(
                             left: 280,
                             top: 310,

@@ -23,7 +23,7 @@ import '../controller/editDeal_controller.dart';
 import '../model/myDealModel.dart';
 
 class EDIT_deal extends StatefulWidget {
-  EDIT_deal({super.key});
+  const EDIT_deal({super.key});
 
   @override
   State<EDIT_deal> createState() => _EDIT_dealState();
@@ -43,8 +43,8 @@ class _EDIT_dealState extends State<EDIT_deal> {
   void uploadFileToServerInfluencer(editId, index, MyDeal myDeal) async {
     editDealApiLoading.value = true;
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    var user_id = prefs.get("user_id");
-    print('user_id==============' + myDeal.title);
+    var userId = prefs.get("user_id");
+    print('user_id==============${myDeal.title}');
     // setState(() {
     //
     // });
@@ -93,7 +93,7 @@ class _EDIT_dealState extends State<EDIT_deal> {
               textColor: Colors.white,
               fontSize: 16.0);
           editDealApiLoading.value = false;
-          Get.off(() => BuisnessHomePage());
+          Get.off(() => const BuisnessHomePage());
         } catch (e) {
           Fluttertoast.showToast(
             msg: "Something went wrong....",
@@ -133,7 +133,7 @@ class _EDIT_dealState extends State<EDIT_deal> {
       setState(() {
         myDealController.MYDeal();
       });
-      Get.to(() => BuisnessHomePage());
+      Get.to(() => const BuisnessHomePage());
 
       Fluttertoast.showToast(
         msg: msg,

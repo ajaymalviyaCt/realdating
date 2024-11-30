@@ -291,7 +291,7 @@ class _TrendingPageState extends State<TrendingPage> {
             const Spacer(),
             InkWell(
               onTap: onTap,
-              child: Container(
+              child: SizedBox(
                 width: 54.08.ah * .90,
                 height: 52.ah * .90,
               ).paddingOnly(right: 16.w),
