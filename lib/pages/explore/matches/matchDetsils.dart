@@ -117,7 +117,7 @@ class _MatchDetailsState extends State<MatchDetails> {
       Fluttertoast.showToast(msg: "Comment can't be empty");
     } else {
       final response = await BaseClient01()
-          .post(Appurls.review, {"review": txt_comment.text.toString(), "rating_star": ratingcount.toString() ?? 1, "user_id": widget.id.toString()});
+          .post(Appurls.review, {"review": txt_comment.text.trim().toString(), "rating_star": ratingcount.toString() ?? 1, "user_id": widget.id.toString()});
       // isLoadig(false);
       bool status = response["success"];
       var msg = response["message"];
