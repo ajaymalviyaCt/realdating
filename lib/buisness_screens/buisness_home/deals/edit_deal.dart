@@ -1,17 +1,19 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get/get.dart';
+import 'package:hexcolor/hexcolor.dart';
+import 'package:http/http.dart' as http;
+import 'package:image_picker/image_picker.dart';
 import 'package:realdating/custom_iteam/coustomtextcommon.dart';
 import 'package:realdating/custom_iteam/customprofile_textfiiled.dart';
 import 'package:realdating/function/function_class.dart';
+import 'package:realdating/validation/validation.dart';
 import 'package:realdating/widgets/custom_appbar.dart';
 import 'package:realdating/widgets/custom_buttons.dart';
-import 'package:hexcolor/hexcolor.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:realdating/validation/validation.dart';
-import 'package:get/get.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'dart:io';
 
 import '../../../consts/app_urls.dart';
 import '../../../services/base_client01.dart';
@@ -19,7 +21,6 @@ import '../Bhome_page/buisness_home.dart';
 import '../controller/business_home_controller.dart';
 import '../controller/editDeal_controller.dart';
 import '../model/myDealModel.dart';
-import 'package:http/http.dart' as http;
 
 class EDIT_deal extends StatefulWidget {
   // Define an index to access data in the list
@@ -30,13 +31,13 @@ class EDIT_deal extends StatefulWidget {
 }
 
 class _EDIT_dealState extends State<EDIT_deal> {
+  final RxBool editDealApiLoading = false.obs;
   MyDealController myDealController = Get.put(MyDealController());
   RxBool isLoadig = false.obs;
   EditUpdateController editUpdateController = Get.put(EditUpdateController());
 
   void uploadFileToServerInfluencer(editId, index, MyDeal myDeal) async {
-
-
+    editDealApiLoading.value = true;
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var user_id = prefs.get("user_id");
     print('user_id==============' + myDeal.title);
@@ -49,8 +50,7 @@ class _EDIT_dealState extends State<EDIT_deal> {
 
     request.fields['Title'] = editUpdateController.Title.text.isEmpty ? myDeal.title : editUpdateController.Title.text;
     request.fields['Price'] = editUpdateController.Price.text.isEmpty ? myDeal.price.toString() : editUpdateController.Price.text;
-    request.fields['Discount'] =
-        editUpdateController.Discount.text.isEmpty ? myDeal.discount : editUpdateController.Discount.text;
+    request.fields['Discount'] = editUpdateController.Discount.text.isEmpty ? myDeal.discount : editUpdateController.Discount.text;
     request.fields['id'] = editId.toString();
     // request.fields['business_id'] = '1';
 
@@ -102,6 +102,7 @@ class _EDIT_dealState extends State<EDIT_deal> {
         }
       });
     });
+    editDealApiLoading.value = false;
   }
 
   EditDealsDelete(editId) async {
@@ -187,8 +188,7 @@ class _EDIT_dealState extends State<EDIT_deal> {
                     myDealController.myDealsModel?.myDeals[index].roomImage != null && editUpdateController.fileEdit == null
                         ? InkWell(
                             onTap: () async {
-                              final XFile? pickImage =
-                                  await ImagePicker().pickImage(source: ImageSource.gallery, imageQuality: 50);
+                              final XFile? pickImage = await ImagePicker().pickImage(source: ImageSource.gallery, imageQuality: 50);
                               if (pickImage != null) {
                                 setState(() {
                                   editUpdateController.fileEdit = pickImage.path;
@@ -202,13 +202,17 @@ class _EDIT_dealState extends State<EDIT_deal> {
                                 image: NetworkImage(myDealController.myDealsModel?.myDeals[index].roomImage ?? ""),
                                 fit: BoxFit.cover,
                               )),
-                              child:  const Center(child: Icon(Icons.add_a_photo_outlined,color: Colors.black,size:40,)),
+                              child: const Center(
+                                  child: Icon(
+                                Icons.add_a_photo_outlined,
+                                color: Colors.black,
+                                size: 40,
+                              )),
                             ),
                           )
                         : InkWell(
                             onTap: () async {
-                              final XFile? pickImage =
-                                  await ImagePicker().pickImage(source: ImageSource.gallery, imageQuality: 50);
+                              final XFile? pickImage = await ImagePicker().pickImage(source: ImageSource.gallery, imageQuality: 50);
                               if (pickImage != null) {
                                 editUpdateController.fileEdit = pickImage.path;
                                 // const Image();
@@ -242,8 +246,7 @@ class _EDIT_dealState extends State<EDIT_deal> {
                                                 color: HexColor('#D9D9D9'),
                                               ),
                                               borderRadius: BorderRadius.circular(5),
-                                              image: DecorationImage(
-                                                  image: FileImage(File(editUpdateController.fileEdit!)), fit: BoxFit.fill)),
+                                              image: DecorationImage(image: FileImage(File(editUpdateController.fileEdit!)), fit: BoxFit.fill)),
                                         ),
                                 ),
 
@@ -260,8 +263,7 @@ class _EDIT_dealState extends State<EDIT_deal> {
                                       //  SvgPicture.asset('assets/icons/file-plus.svg'),
                                       InkWell(
                                         onTap: () async {
-                                          final XFile? pickImage =
-                                              await ImagePicker().pickImage(source: ImageSource.gallery, imageQuality: 50);
+                                          final XFile? pickImage = await ImagePicker().pickImage(source: ImageSource.gallery, imageQuality: 50);
                                           if (pickImage != null) {
                                             setState(() {
                                               editUpdateController.fileEdit = pickImage.path;
@@ -335,7 +337,6 @@ class _EDIT_dealState extends State<EDIT_deal> {
                       () => customPrimaryBtn(
                         btnText: "save",
                         btnFun: () async {
-
                           print("objectssss");
                           print(myDealController.myDealsModel?.myDeals[index].roomImage);
                           print("data");
@@ -346,18 +347,23 @@ class _EDIT_dealState extends State<EDIT_deal> {
                           editUpdateController.Title.text ??= myDealController.myDealsModel!.myDeals[index].title;
                           editUpdateController.Price.text ??= myDealController.myDealsModel!.myDeals[index].price.toString();
                           editUpdateController.Discount.text ??= myDealController.myDealsModel!.myDeals[index].discount;
-                          if (!(num.parse(editUpdateController.Price.text.isEmpty ? myDealController.myDealsModel!.myDeals[index].price.toString() : editUpdateController.Price.text) > num.parse(editUpdateController.Discount.text.isEmpty ? myDealController.myDealsModel!.myDeals[index].discount : editUpdateController.Discount.text))) {
-                            Fluttertoast.showToast(msg:"Discount cannot be greater than or equal to the price.");
+                          if (!(num.parse(editUpdateController.Price.text.isEmpty
+                                  ? myDealController.myDealsModel!.myDeals[index].price.toString()
+                                  : editUpdateController.Price.text) >
+                              num.parse(editUpdateController.Discount.text.isEmpty
+                                  ? myDealController.myDealsModel!.myDeals[index].discount
+                                  : editUpdateController.Discount.text))) {
+                            Fluttertoast.showToast(msg: "Discount cannot be greater than or equal to the price.");
                             return;
                           }
                           setState(() {
-                            uploadFileToServerInfluencer(myDealController.myDealsModel?.myDeals[index].id.toString(), index,
-                                myDealController.myDealsModel!.myDeals[index]);
+                            uploadFileToServerInfluencer(
+                                myDealController.myDealsModel?.myDeals[index].id.toString(), index, myDealController.myDealsModel!.myDeals[index]);
                             //editUpdateController.demmooup();
                           });
                           await myDealController.MYDeal();
                         },
-                        loading: editUpdateController.isLoadig.value,
+                        loading: editDealApiLoading.value,
                       ),
                     ),
 
