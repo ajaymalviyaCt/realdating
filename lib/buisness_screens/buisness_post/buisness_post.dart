@@ -473,39 +473,18 @@ class _BuisnessPostState extends State<BuisnessPost> {
             padding: const EdgeInsets.only(top: 4.0),
             child: IconButton(
               onPressed: () {
-                if (myTextController.text.trim().isNotEmpty && (_images != null || _video != null)) {
+                if (_images != null || _video != null || myTextController.text.trim().isNotEmpty) {
                   uploadFileToServerBHome();
                 } else {
-                  if (myTextController.text.trim().isEmpty && (_images == null && _video == null)) {
-                    Fluttertoast.showToast(
-                      msg: "Please add a description and select an image or video.",
-                      toastLength: Toast.LENGTH_SHORT,
-                      gravity: ToastGravity.BOTTOM,
-                      backgroundColor: Colors.black,
-                      textColor: Colors.white,
-                      fontSize: 16.0,
-                    );
-                  } else if (myTextController.text.trim().isEmpty) {
-                    Fluttertoast.showToast(
-                      msg: "Please add a description.",
-                      toastLength: Toast.LENGTH_SHORT,
-                      gravity: ToastGravity.BOTTOM,
-                      backgroundColor: Colors.black,
-                      textColor: Colors.white,
-                      fontSize: 16.0,
-                    );
-                  } else {
-                    Fluttertoast.showToast(
-                      msg: "Please select an image or video.",
-                      toastLength: Toast.LENGTH_SHORT,
-                      gravity: ToastGravity.BOTTOM,
-                      backgroundColor: Colors.black,
-                      textColor: Colors.white,
-                      fontSize: 16.0,
-                    );
-                  }
+                  Fluttertoast.showToast(
+                    msg: "Please select image or Text..",
+                    toastLength: Toast.LENGTH_SHORT,
+                    gravity: ToastGravity.BOTTOM,
+                    backgroundColor: Colors.black,
+                    textColor: Colors.white,
+                    fontSize: 16.0,
+                  );
                 }
-
               },
               icon: Image.asset('assets/icons/Share.png'),
             ),
