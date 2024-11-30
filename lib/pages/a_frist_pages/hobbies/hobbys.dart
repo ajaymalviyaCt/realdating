@@ -10,31 +10,30 @@ import 'hobbies_controller.dart';
 
 class HobbiesPage extends StatefulWidget {
   const HobbiesPage({super.key, this.selectedHobby});
-  final List<String> ?selectedHobby;
+
+  final List<String>? selectedHobby;
+
   @override
   State<HobbiesPage> createState() => _Interest_ScreenState();
 }
 
 class _Interest_ScreenState extends State<HobbiesPage> {
-
-
   List<({String interest, RxBool selected})> allInterest = <({String interest, RxBool selected})>[
     (interest: "Gaming,", selected: false.obs),
-    (interest: "Dancing,", selected: false.obs),
-    (interest: "Language,", selected: false.obs),
-    (interest: "Music,", selected: false.obs),
-    (interest: "Movie,", selected: false.obs),
-    (interest: "Photography,", selected: false.obs),
-    (interest: "Fashion,", selected: false.obs),
-    (interest: "Architecture,", selected: false.obs),
-    (interest: "Book,", selected: false.obs),
+    (interest: "Dancing", selected: false.obs),
+    (interest: "Language", selected: false.obs),
+    (interest: "Music", selected: false.obs),
+    (interest: "Movie", selected: false.obs),
+    (interest: "Photography", selected: false.obs),
+    (interest: "Fashion", selected: false.obs),
+    (interest: "Architecture", selected: false.obs),
+    (interest: "Book", selected: false.obs),
     (interest: "Writing,", selected: false.obs),
     (interest: "Animals", selected: false.obs),
     (interest: "Football", selected: false.obs),
     (interest: "Gym & Fitness", selected: false.obs),
     (interest: "Travel & Places", selected: false.obs),
   ];
-
 
   @override
   void initState() {
@@ -102,11 +101,12 @@ class _Interest_ScreenState extends State<HobbiesPage> {
                       height: 43,
                       width: 160,
                       decoration: BoxDecoration(
-                          color: allInterest[index].selected.value ? Colors.white : Colors.redAccent,
+                          color: allInterest[index].selected.value == false ? Colors.white : Colors.redAccent,
                           border: Border.all(style: BorderStyle.solid, color: Colors.redAccent),
                           borderRadius: BorderRadius.circular(10)),
                       child: Center(
-                          child: Text(allInterest[index].interest, style: TextStyle(color: allInterest[index].selected.value ? Colors.red : Colors.white, fontSize: 18))),
+                          child: Text(allInterest[index].interest,
+                              style: TextStyle(color: allInterest[index].selected.value == false ? Colors.red : Colors.white, fontSize: 18))),
                     ),
                   );
                   return Container();
