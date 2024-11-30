@@ -91,7 +91,7 @@ class _PreviewReelsState extends State<PreviewReelsScreen> {
                       if (value.startsWith(' ')) {
                         _textController.text = value.trim();
                         _textController.selection = TextSelection.fromPosition(
-                          TextPosition(offset: _textController.text.length),
+                          TextPosition(offset: _textController.text.trim().length),
                         );
                       }
                     },
@@ -301,9 +301,9 @@ class _PreviewReelsState extends State<PreviewReelsScreen> {
 
     request.files.add(await http.MultipartFile.fromPath('file', file.path));
 
-    request.fields['caption'] = _textController.text;
+    request.fields['caption'] = _textController.text.trim();
 
-    print("Caption: ${_textController.text}");
+    print("Caption: ${_textController.text.trim()}");
     request.headers.addAll(headers);
 
     http.StreamedResponse response = await request.send();

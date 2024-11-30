@@ -1,16 +1,13 @@
 import 'package:get/get.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:realdating/pages/mape/NearBy_businesses.dart';
+import 'package:realdating/services/apis_related/api_call_services.dart';
 
-import '../../consts/app_urls.dart';
-import '../../services/base_client01.dart';
 import 'profile_model.dart';
 
 class ProfileController extends GetxController {
   RxBool isLoadig = true.obs;
   final RxBool apiLoadingUploadImage = false.obs;
   ProfileModel? profileModel;
-  List<String> interests = [];
-  List<String> hobbiesData = [];
 
   RxString username = "".obs;
   RxString firstName = "User Name".obs;
@@ -28,44 +25,19 @@ class ProfileController extends GetxController {
   }
 
   Future<void> profileDaitails() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    var userId = prefs.getInt('user_id');
-    print("call  profileDaitails");
-    final response = await BaseClient01().post(Appurls.profile, {
-      "id": "$userId",
+    Map<String, dynamic> apiData =
+        await ApiCall.instance.callApi(url: "https://forreal.net:4000/users/myprofile", headers: await authHeader(), method: HttpMethod.POST, body: {
+      "id": await getUserId(),
     });
-    print(response.toString());
-
-    bool status = response["success"];
-    print("status ___$status");
-    var msg = response["message"];
-    print("msg ___$msg");
-    profileModel = ProfileModel.fromJson(response);
-
-
-
-    if (profileModel?.userInfo.interest != null &&
-        profileModel!.userInfo.interest.isNotEmpty) {
-      interests = profileModel!.userInfo.interest.split(',').map((e) => e.trim()).toList();
-    }
-    print("Parsed interests: $interests");
-
-    if (profileModel?.userInfo.hobbies != null &&
-        profileModel!.userInfo.hobbies.isNotEmpty) {
-      hobbiesData = profileModel!.userInfo.hobbies.split(',').map((e) => e.trim()).toList();
-    }
-
+    profileModel = ProfileModel.fromJson(apiData);
     username.value = profileModel!.userInfo.username;
-    firstName.value = ProfileModel.fromJson(response).userInfo.firstName;
-    idUser.value = ProfileModel.fromJson(response).userInfo.id.toString();
-    lastName.value = ProfileModel.fromJson(response).userInfo.lastName;
-    email.value = ProfileModel.fromJson(response).userInfo.email;
-    profileImage.value = ProfileModel.fromJson(response).userInfo.profileImage;
-    //  profile_image1.value=ProfileModel.fromJson(response).userInfo.profile_image1;
+    firstName.value = profileModel!.userInfo.firstName;
+    idUser.value = profileModel!.userInfo.id.toString();
+    lastName.value = profileModel!.userInfo.lastName;
+    email.value = profileModel!.userInfo.email;
+    profileImage.value = profileModel!.userInfo.profileImage;
+
     isLoadig(false);
     update();
-    // if (status) {
-    //   Get.to(() => const UplodePhoto());
-    // }
   }
 }

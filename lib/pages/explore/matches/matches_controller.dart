@@ -13,6 +13,7 @@ import 'matches_model.dart';
 class MatchessController extends GetxController {
   RxBool isLoadig = false.obs;
   MatchesModel? matchessModel;
+  final RxBool showMore=false.obs;
 
   @override
   void onInit() {
@@ -49,7 +50,7 @@ class MatchessController extends GetxController {
 
   ExploreDetailsModel? exploreDetailsModel;
   String? id;
-  List<AllReview> displayedItemss = [];
+
   RxBool isLoadingget_user_by_id = false.obs;
 
   get_user_by_id(id) async {
@@ -60,7 +61,8 @@ class MatchessController extends GetxController {
     isLoadingget_user_by_id(false);
 
     exploreDetailsModel = ExploreDetailsModel.fromJson(apiData);
-    displayedItemss = exploreDetailsModel!.userInfo[0].allReviews.take(1).toList();
+
+
     update();
 
     update();

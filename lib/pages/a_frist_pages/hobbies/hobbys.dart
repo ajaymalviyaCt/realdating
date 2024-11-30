@@ -324,11 +324,14 @@ class _Interest_ScreenState extends State<HobbiesPage> {
             customPrimaryBtn(
                 btnText: "Continue",
                 btnFun: () {
+                  FinalInterest.clear();
                   for (int i = 0; i < AllInters.length; i++) {
                     if (active[i] == false) {
                       FinalInterest.add(AllInters[i]);
                     }
                   }
+                  print("line 333");
+                  print(FinalInterest.length);
                   if (FinalInterest.isEmpty) {
                     Fluttertoast.showToast(msg: "You must select at least one hobby to continue.");
                     return;

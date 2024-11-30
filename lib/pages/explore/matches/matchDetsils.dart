@@ -741,82 +741,76 @@ class _MatchDetailsState extends State<MatchDetails> {
                                     )
                                 ],
                               ),
+
                               10.heightBox,
-                              for (int i = 0; i < matchessController.displayedItemss.length; i++)
-                                matchessController.displayedItemss == null &&
-                                        matchessController.exploreDetailsModel?.userInfo[0].allReviews == null &&
-                                        matchessController.exploreDetailsModel!.userInfo[0].allReviews.isEmpty
-                                    ? const SizedBox()
-                                    : Container(
-                                        decoration: BoxDecoration(color: Colors.black12.withOpacity(.02), borderRadius: BorderRadius.circular(10)),
-                                        child: ListTile(
-                                            leading: SizedBox(
-                                              height: 50,
-                                              width: 50,
-                                              child: CachedNetworkImage(
-                                                  imageUrl: matchessController.exploreDetailsModel?.userInfo[0].allReviews[i].reviewerProfileImage ?? "",
-                                                  imageBuilder: (context, imageProvider) => CircleAvatar(
-                                                        radius: 25,
-                                                        backgroundImage: NetworkImage(
-                                                            matchessController.exploreDetailsModel?.userInfo[0].allReviews[i].reviewerProfileImage ?? ""),
-                                                      ),
-                                                  placeholder: (context, url) {
-                                                    return Center(
-                                                        child: Image.network(
-                                                      "https://raw.githubusercontent.com/prafful98/vue3-shimmer/HEAD/assets/card.gif",
-                                                      fit: BoxFit.fill,
-                                                      alignment: Alignment.center,
-                                                      height: 120,
-                                                      width: double.infinity,
-                                                    ));
-                                                  },
-                                                  errorWidget: (context, url, error) => const CircleAvatar(
-                                                        radius: 25,
-                                                        backgroundImage: AssetImage("assets/images/noImage.png"),
-                                                      )),
-                                            ),
-                                            title: Text(
-                                              matchessController.exploreDetailsModel?.userInfo[0].allReviews[i].review ?? "Nice boy",
-                                              style: const TextStyle(
-                                                color: Colors.black,
+
+// Ensure `allReviews` is not null or empty before entering the loop
+                              if (matchessController.exploreDetailsModel?.userInfo[0].allReviews != null &&
+                                  matchessController.exploreDetailsModel!.userInfo[0].allReviews.isNotEmpty)
+                                for (int i = 0; i < (matchessController.exploreDetailsModel!.userInfo[0].allReviews.take(matchessController.showMore.value?matchessController.exploreDetailsModel!.userInfo[0].allReviews.length:1)).length; i++)
+                                  Container(
+                                    decoration: BoxDecoration(
+                                      color: Colors.black12.withOpacity(.02),
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                    child: ListTile(
+                                      leading: SizedBox(
+                                        height: 50,
+                                        width: 50,
+                                        child: CachedNetworkImage(
+                                          imageUrl: matchessController.exploreDetailsModel?.userInfo[0].allReviews[i].reviewerProfileImage ?? "",
+                                          imageBuilder: (context, imageProvider) => CircleAvatar(
+                                            radius: 25,
+                                            backgroundImage: imageProvider,
+                                          ),
+                                          placeholder: (context, url) {
+                                            return Center(
+                                              child: Image.network(
+                                                "https://raw.githubusercontent.com/prafful98/vue3-shimmer/HEAD/assets/card.gif",
+                                                fit: BoxFit.fill,
+                                                alignment: Alignment.center,
+                                                height: 120,
+                                                width: double.infinity,
                                               ),
-                                            ),
-                                            subtitle: Row(
-                                              mainAxisSize: MainAxisSize.min,
-                                              children: List.generate(matchessController.exploreDetailsModel!.userInfo[0].allReviews[i].ratingStar, (index) {
-                                                int filledStars = matchessController.exploreDetailsModel!.userInfo[0].allReviews[i].ratingStar.floor();
-                                                if (index < filledStars) {
-                                                  // Display a filled star
-                                                  return const Icon(
-                                                    Icons.star,
-                                                    color: Colors.amberAccent,
-                                                  );
-                                                } else {
-                                                  // Display an outline star
-                                                  return const Icon(
-                                                    Icons.star_border,
-                                                    color: Colors.grey,
-                                                  );
-                                                }
-                                              }),
-                                            ))).paddingOnly(bottom: 10),
+                                            );
+                                          },
+                                          errorWidget: (context, url, error) => const CircleAvatar(
+                                            radius: 25,
+                                            backgroundImage: AssetImage("assets/images/noImage.png"),
+                                          ),
+                                        ),
+                                      ),
+                                      title: Text(
+                                        matchessController.exploreDetailsModel?.userInfo[0].allReviews[i].review ?? "Nice boy",
+                                        style: const TextStyle(
+                                          color: Colors.black,
+                                        ),
+                                      ),
+                                      subtitle: Row(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: List.generate(
+                                          matchessController.exploreDetailsModel?.userInfo[0].allReviews[i].ratingStar ?? 0,
+                                          (index) => const Icon(
+                                            Icons.star,
+                                            color: Colors.amberAccent,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ).paddingOnly(bottom: 10),
                               10.heightBox,
-                              ElevatedButton(
-                                onPressed: () {
-                                  // Toggle between showing limited and all items
-                                  setState(() {
-                                    if (matchessController.exploreDetailsModel!.userInfo[0].allReviews.isEmpty) {
-                                      Fluttertoast.showToast(msg: 'Data not found for more Review');
-                                    } else {
-                                      showAllItemsss = !showAllItemsss;
-                                      matchessController.displayedItemss = showAllItemsss
-                                          ? List.from(matchessController.exploreDetailsModel!.userInfo[0].allReviews)
-                                          : matchessController.exploreDetailsModel!.userInfo[0].allReviews.take(1).toList();
-                                    }
-                                  });
-                                },
-                                child: Text(showAllItemsss ? 'Show Less' : 'See More'),
-                              ),
+
+// Only show the button if there are at least 2 reviews
+                              if ((matchessController.exploreDetailsModel?.userInfo[0].allReviews.length ?? 0) > 2)
+                                ElevatedButton(
+                                  onPressed: () {
+                                    setState(() {
+                                    matchessController.showMore.value=!matchessController.showMore.value;
+                                    });
+                                  },
+                                  child: Text(showAllItemsss ? 'Show Less' : 'See More'),
+                                ),
+
                               20.heightBox,
                               const Text(
                                 'Interests',
@@ -833,7 +827,7 @@ class _MatchDetailsState extends State<MatchDetails> {
                                   : SizedBox(
                                       height: 120,
                                       child: GridView.builder(
-                                        itemCount: (matchessController.exploreDetailsModel?.userInfo[0].insertdata??[]).isNotEmpty
+                                        itemCount: (matchessController.exploreDetailsModel?.userInfo[0].insertdata ?? []).isNotEmpty
                                             ? matchessController.exploreDetailsModel?.userInfo[0].insertdata.length
                                             : 0,
                                         itemBuilder: (ctx, i) {
@@ -937,7 +931,7 @@ class _MatchDetailsState extends State<MatchDetails> {
                                 ),
                               ),
                               20.heightBox,
-                              (matchessController.exploreDetailsModel?.userInfo[0].images??[]).isNotEmpty &&
+                              (matchessController.exploreDetailsModel?.userInfo[0].images ?? []).isNotEmpty &&
                                       matchessController.exploreDetailsModel?.userInfo[0].images != null
                                   ? SizedBox(
                                       height: 300,

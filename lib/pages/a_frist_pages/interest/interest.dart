@@ -400,6 +400,7 @@ class _Interest_ScreenState extends State<Interest_Screen> {
             customPrimaryBtn(
               btnText: "Continue",
               btnFun: () {
+                FinalInterest.clear();
                 for (int i = 0; i < AllInters.length; i++) {
                   if (active[i] == false) {
                     FinalInterest.add(AllInters[i]);
