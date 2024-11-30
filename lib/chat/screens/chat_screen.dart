@@ -330,18 +330,18 @@ class _ChatScreenState extends State<ChatScreen> {
                         }
 
                         // Remove emojis or unwanted characters
-                        String filteredText = value.replaceAll(
-                            RegExp(
-                                r'[^\w\s.,!?@#\$%^&*()\-+=<>:;"\[\]{}|~`/\\]'),
-                            '');
-                        if (value != filteredText) {
-                          _textController.text = filteredText;
-                          _textController.selection =
-                              TextSelection.fromPosition(
-                                TextPosition(
-                                    offset: _textController.text.length),
-                              );
-                        }
+                        // String filteredText = value.replaceAll(
+                        //     RegExp(
+                        //         r'[^\w\s.,!?@#\$%^&*()\-+=<>:;"\[\]{}|~`/\\]'),
+                        //     '');
+                        // if (value != filteredText) {
+                        //   _textController.text = filteredText;
+                        //   _textController.selection =
+                        //       TextSelection.fromPosition(
+                        //         TextPosition(
+                        //             offset: _textController.text.length),
+                        //       );
+                        // }
                       },
                       onTap: () {
                         if (_showEmoji.value)
@@ -367,10 +367,10 @@ class _ChatScreenState extends State<ChatScreen> {
               if (_textController.text.isNotEmpty) {
                 if (_list.isEmpty) {
                   APIs.sendFirstMessage(
-                      widget.user, _textController.text, Type.text);
+                      widget.user, _textController.text.trim(), Type.text);
                 } else {
                   APIs.sendMessage(
-                      widget.user, _textController.text, Type.text);
+                      widget.user, _textController.text.trim(), Type.text);
                 }
                 _textController.text = '';
               }
