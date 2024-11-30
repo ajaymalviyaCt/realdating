@@ -17,8 +17,6 @@ class InterestScreen extends StatefulWidget {
 }
 
 class _InterestScreenState extends State<InterestScreen> {
-
-
   List<({String emoji, String interest, RxBool selected})> allInterest = <({String emoji, String interest, RxBool selected})>[
     (emoji: "🎮", interest: "Gaming", selected: false.obs),
     (emoji: "💃🏻", interest: "Dancing", selected: false.obs),
@@ -36,14 +34,23 @@ class _InterestScreenState extends State<InterestScreen> {
     (emoji: "🌇", interest: "Travel & Places", selected: false.obs),
   ];
 
-
-@override
+  @override
   void initState() {
     // TODO: implement initState
     super.initState();
     InterestController interestController = Get.put(InterestController(selectedInterest: widget.selectedInterest));
+    widget.selectedInterest?.forEach(
+      (e) {
+        allInterest
+            .firstWhereOrNull(
+              (element) => element.interest.trim().toLowerCase() == e.toString().toLowerCase().trim(),
+            )
+            ?.selected
+            .value = true;
+      },
+    );
+  }
 
-}
   @override
   Widget build(BuildContext context) {
     InterestController interestController = Get.find();
@@ -61,7 +68,6 @@ class _InterestScreenState extends State<InterestScreen> {
               ),
             ),
             const SizedBox(height: 20),
-
             Container(
               padding: EdgeInsets.symmetric(horizontal: 20),
               child: GridView.builder(
@@ -109,19 +115,21 @@ class _InterestScreenState extends State<InterestScreen> {
                 if (allInterest
                     .where(
                       (element) => element.selected.value == true,
-                )
+                    )
                     .toList()
                     .isEmpty) {
                   Fluttertoast.showToast(msg: "You must select at least one hobby to continue.");
                   return;
                 }
                 interestController.interestSelect((allInterest
-                    .where(
-                      (element) => element.selected.value == true,
-                )
-                    .toList()).map((e) => e.interest,)
+                        .where(
+                          (element) => element.selected.value == true,
+                        )
+                        .toList())
+                    .map(
+                      (e) => e.interest,
+                    )
                     .join(","));
-
               },
               loading: interestController.isLoadig.value,
             ),
