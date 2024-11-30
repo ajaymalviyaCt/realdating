@@ -75,24 +75,25 @@ class _ChatScreenState extends State<ChatScreen> {
                                 itemBuilder: (context, index) {
                                   print("line 80");
                                   print(index);
+                                  Message? previousMessageModel;
+                                  try {
+
+                                    previousMessageModel = messageModel(index + 1);
+                                  } catch (e) {}
                                   return Column(
                                     children: [
-                                      Builder(builder: (context) {
-                                        try {
-                                          return Container(
-                                            child: (index != 0)
-                                                ? DateTimeServices.isSameDate(
-                                                        date1: DateTimeServices.convertMillisecondsToLocalizedDateTime(int.parse(_list[index].sent)).dateTime!,
-                                                        date2: DateTimeServices.convertMillisecondsToLocalizedDateTime(int.parse(_list[index].sent)).dateTime!)
-                                                    ? const SizedBox.shrink()
-                                                    : messageDateStickyHeader(_list[index])
-                                                : messageDateStickyHeader(_list[index]),
-                                          );
-                                        } catch (e, s) {
-                                          return const SizedBox.shrink();
-                                        }
-                                      }),
-                                      MessageCard(message: _list[index]),
+                                      (previousMessageModel != null)
+                                          ? DateTimeServices.isSameDate(
+                                          date1: DateTimeServices.convertMillisecondsToLocalizedDateTime(
+                                              int.parse(messageModel(index).sent))
+                                              .dateTime!,
+                                          date2: DateTimeServices.convertMillisecondsToLocalizedDateTime(
+                                              int.parse(previousMessageModel.sent))
+                                              .dateTime!)
+                                          ? const SizedBox.shrink()
+                                          : messageDateStickyHeader(messageModel(index))
+                                          : messageDateStickyHeader(messageModel(index)),
+                                      MessageCard(message: messageModel(index)),
                                     ],
                                   );
                                 });
@@ -125,6 +126,8 @@ class _ChatScreenState extends State<ChatScreen> {
       ),
     );
   }
+
+  Message messageModel(int index) => _list[index];
 
   // app bar widget
   Widget _appBar() {
@@ -380,7 +383,7 @@ class _ChatScreenState extends State<ChatScreen> {
 Widget messageDateStickyHeader(Message messageModel) {
   try {
     return Container(
-      margin: const EdgeInsets.only(bottom: 15),
+      margin: EdgeInsets.only(bottom: 15),
       child: Text(
         DateTimeServices.getRelativeDayNameWithinPast7Days(DateTimeServices.convertMillisecondsToLocalizedDateTime(int.parse(messageModel.sent)).dateTime!) ??
             DateTimeServices.convertMillisecondsToLocalizedDateTime(int.parse(messageModel.sent)).date!,
@@ -388,6 +391,6 @@ Widget messageDateStickyHeader(Message messageModel) {
       ),
     );
   } catch (e) {
-    return const SizedBox.shrink();
+    return SizedBox.shrink();
   }
 }
