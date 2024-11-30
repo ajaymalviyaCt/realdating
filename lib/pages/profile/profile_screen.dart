@@ -10,6 +10,8 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
+import 'package:realdating/pages/a_frist_pages/hobbies/hobbys.dart';
+import 'package:realdating/pages/a_frist_pages/interest/interest.dart';
 import 'package:realdating/services/apis_related/api_call_services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -434,7 +436,9 @@ class _ProfilePageState extends State<ProfilePage> {
                                   ),
                                   Spacer(),
                                   InkWell(
-                                      onTap: () {},
+                                      onTap: () {
+                                        Get.to(Interest_Screen());
+                                      },
                                       child: Image.asset(
                                         'assets/icons/addition.png',
                                         scale: 30,
@@ -503,7 +507,9 @@ class _ProfilePageState extends State<ProfilePage> {
                                   ),
                                   Spacer(),
                                   InkWell(
-                                      onTap: () {},
+                                      onTap: () {
+                                        Get.to(HobbiesPage());
+                                      },
                                       child: Image.asset(
                                         'assets/icons/addition.png',
                                         scale: 30,
