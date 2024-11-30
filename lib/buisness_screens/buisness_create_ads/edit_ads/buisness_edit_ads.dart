@@ -32,12 +32,12 @@ class BuisnessEditAds extends StatefulWidget {
 
 class _BuisnessEditAdsState extends State<BuisnessEditAds> {
   String? EditAds;
-
+  final RxList<String> selectedInterest = <String>[].obs;
   AllAdssDealController allAdssDealController = Get.put(AllAdssDealController());
   EditAdsController editAdsController = Get.put(EditAdsController());
   MyAdv? listdata;
   bool showDropdown = false;
-  final RxList<String> selectedInterest = <String>[].obs;
+
   @override
   Widget build(BuildContext context) {
     print("sjfdk");
