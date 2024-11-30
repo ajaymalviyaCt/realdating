@@ -1,19 +1,13 @@
 import 'dart:async';
+
 import 'package:cached_network_image/cached_network_image.dart';
-
 import 'package:dotted_border/dotted_border.dart';
-
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
-
-import 'package:flutter/services.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-
 import 'package:fluttertoast/fluttertoast.dart';
-
 import 'package:get/get.dart';
 import 'package:realdating/Choose_subscription_plan/monthly.dart';
 import 'package:realdating/chat/api/apis.dart';
@@ -22,6 +16,7 @@ import 'package:realdating/pages/mape/NearBy_businesses.dart';
 import 'package:realdating/pages/swipcard/swip_controller.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:velocity_x/velocity_x.dart';
+
 import '../../../consts/app_colors.dart';
 import '../../../consts/app_urls.dart';
 import '../../../services/base_client01.dart';
@@ -115,31 +110,14 @@ class _MatchDetailsState extends State<MatchDetails> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
     var userid = prefs.getInt('user_id');
-    print('user_id============== $userid');
-    print('user ki id ============== ${widget.id}');
-
-    // initConnectivity();
-    // _connectivitySubscription =
-    //     _connectivity.onConnectivityChanged.listen(_updateConnectionStatus);
-    // if (_connectionStatus != null) {
-    //   // Internet Present Case
-    //   // showLoaderDialog(context);
-    // } else {
-    //   Fluttertoast.showToast(
-    //       msg: "Please check your Internet connection!!!!",
-    //       toastLength: Toast.LENGTH_SHORT,
-    //       gravity: ToastGravity.BOTTOM,
-    //       backgroundColor: Colors.black,
-    //       textColor: Colors.white,
-    //       fontSize: 16.0);
-    // }
-    bool isUserReviewed =
-        matchessController.exploreDetailsModel!.userInfo[0].allReviews.any((review) => review.reviewBy == userid);
+    bool isUserReviewed = matchessController.exploreDetailsModel!.userInfo[0].allReviews.any((review) => review.reviewBy == userid);
     if (isUserReviewed) {
       Fluttertoast.showToast(msg: "Review is already given in this post");
+    } else if (txt_comment.text.trim().isEmpty) {
+      Fluttertoast.showToast(msg: "Comment can't be empty");
     } else {
-      final response = await BaseClient01().post(Appurls.review,
-          {"review": txt_comment.text.toString(), "rating_star": ratingcount.toString() ?? 1, "user_id": widget.id.toString()});
+      final response = await BaseClient01()
+          .post(Appurls.review, {"review": txt_comment.text.toString(), "rating_star": ratingcount.toString() ?? 1, "user_id": widget.id.toString()});
       // isLoadig(false);
       bool status = response["success"];
       var msg = response["message"];
@@ -183,8 +161,7 @@ class _MatchDetailsState extends State<MatchDetails> {
 
     if (picked != null && picked != DateTime.now()) {
       setState(() {
-        invaiteForDatesController.selectDateC.text =
-            "${picked.day.toString()}-${picked.month.toString()}-${picked.year.toString()}";
+        invaiteForDatesController.selectDateC.text = "${picked.day.toString()}-${picked.month.toString()}-${picked.year.toString()}";
       });
     }
   }
@@ -287,8 +264,7 @@ class _MatchDetailsState extends State<MatchDetails> {
 
                                 hintText: "MM-DD-YYYY",
 
-                                hintStyle:
-                                    TextStyle(color: Colors.black.withOpacity(.40), fontWeight: FontWeight.bold, fontSize: 14),
+                                hintStyle: TextStyle(color: Colors.black.withOpacity(.40), fontWeight: FontWeight.bold, fontSize: 14),
                                 // prefixIcon: Container(child: SvgPicture.asset('$prefixIcon',fit: BoxFit.none,)),
                                 suffixIcon: IconButton(
                                   icon: const Icon(
@@ -338,10 +314,8 @@ class _MatchDetailsState extends State<MatchDetails> {
 
                                 hintText: "hh-mm",
 
-                                hintStyle:
-                                    TextStyle(color: Colors.black.withOpacity(.40), fontWeight: FontWeight.bold, fontSize: 14),
-                                labelStyle:
-                                    TextStyle(color: Colors.black.withOpacity(.40), fontWeight: FontWeight.bold, fontSize: 14),
+                                hintStyle: TextStyle(color: Colors.black.withOpacity(.40), fontWeight: FontWeight.bold, fontSize: 14),
+                                labelStyle: TextStyle(color: Colors.black.withOpacity(.40), fontWeight: FontWeight.bold, fontSize: 14),
                                 // prefixIcon: Container(child: SvgPicture.asset('$prefixIcon',fit: BoxFit.none,)),
                                 suffixIcon: IconButton(
                                   icon: const Icon(
@@ -446,10 +420,7 @@ class _MatchDetailsState extends State<MatchDetails> {
                             ///  dropdwon end /////////////////////////////////////
                             const Text('Location', style: AppTextStyle.selectDateTextStyle),
                             5.h.heightBox,
-                            primaryTextfield(
-                                validator: notEmptyValidator,
-                                hintText: 'Location',
-                                controller: invaiteForDatesController.locationC),
+                            primaryTextfield(validator: notEmptyValidator, hintText: 'Location', controller: invaiteForDatesController.locationC),
                             15.h.heightBox,
                             Obx(
                               () => invaiteForDatesController.isLoading.value
@@ -599,8 +570,7 @@ class _MatchDetailsState extends State<MatchDetails> {
                                               widget.id.toString(),
                                             ).then((value) {
                                               Get.to(() => HomeScreen(
-                                                    profileImage:
-                                                        matchessController.exploreDetailsModel!.userInfo[0].profileImage,
+                                                    profileImage: matchessController.exploreDetailsModel!.userInfo[0].profileImage,
                                                   ));
                                             });
                                           } catch (e) {}
@@ -629,8 +599,7 @@ class _MatchDetailsState extends State<MatchDetails> {
                                         ),
                                       ),
                                       Text(
-                                        matchessController.exploreDetailsModel?.userInfo[0].address ??
-                                            'Chicago, IL United States',
+                                        matchessController.exploreDetailsModel?.userInfo[0].address ?? 'Chicago, IL United States',
                                         style: TextStyle(
                                           color: Colors.black.withOpacity(0.699999988079071),
                                           fontSize: 12.sp,
@@ -674,8 +643,7 @@ class _MatchDetailsState extends State<MatchDetails> {
                                             builder: (BuildContext context) {
                                               return Dialog(
                                                 backgroundColor: Colors.white,
-                                                shape: RoundedRectangleBorder(
-                                                    borderRadius: BorderRadius.circular(20.0)), //this right here
+                                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)), //this right here
                                                 child: Container(
                                                   height: 210,
                                                   child: Padding(
@@ -737,8 +705,7 @@ class _MatchDetailsState extends State<MatchDetails> {
                                                                       onPressed: () {
                                                                         Navigator.pop(context); //close Dialog
                                                                       },
-                                                                      child: const Text("Cancel",
-                                                                          style: TextStyle(color: Colors.black))),
+                                                                      child: const Text("Cancel", style: TextStyle(color: Colors.black))),
                                                                   TextButton(
                                                                       onPressed: () {
                                                                         if (formKey.currentState!.validate()) {
@@ -748,8 +715,7 @@ class _MatchDetailsState extends State<MatchDetails> {
                                                                         }
                                                                         // uploadFileToServerInfluencer();
                                                                       },
-                                                                      child: const Text("Save",
-                                                                          style: TextStyle(color: Colors.black)))
+                                                                      child: const Text("Save", style: TextStyle(color: Colors.black)))
                                                                 ],
                                                               )),
                                                         )
@@ -782,21 +748,17 @@ class _MatchDetailsState extends State<MatchDetails> {
                                         matchessController.exploreDetailsModel!.userInfo[0].allReviews.isEmpty
                                     ? const SizedBox()
                                     : Container(
-                                        decoration: BoxDecoration(
-                                            color: Colors.black12.withOpacity(.02), borderRadius: BorderRadius.circular(10)),
+                                        decoration: BoxDecoration(color: Colors.black12.withOpacity(.02), borderRadius: BorderRadius.circular(10)),
                                         child: ListTile(
                                             leading: Container(
                                               height: 50,
                                               width: 50,
                                               child: CachedNetworkImage(
-                                                  imageUrl: matchessController
-                                                          .exploreDetailsModel?.userInfo[0].allReviews[i].reviewerProfileImage ??
-                                                      "",
+                                                  imageUrl: matchessController.exploreDetailsModel?.userInfo[0].allReviews[i].reviewerProfileImage ?? "",
                                                   imageBuilder: (context, imageProvider) => CircleAvatar(
                                                         radius: 25,
-                                                        backgroundImage: NetworkImage(matchessController.exploreDetailsModel
-                                                                ?.userInfo[0].allReviews[i].reviewerProfileImage ??
-                                                            ""),
+                                                        backgroundImage: NetworkImage(
+                                                            matchessController.exploreDetailsModel?.userInfo[0].allReviews[i].reviewerProfileImage ?? ""),
                                                       ),
                                                   placeholder: (context, url) {
                                                     return Center(
@@ -814,20 +776,15 @@ class _MatchDetailsState extends State<MatchDetails> {
                                                       )),
                                             ),
                                             title: Text(
-                                              matchessController.exploreDetailsModel?.userInfo[0].allReviews[i].review ??
-                                                  "Nice boy",
+                                              matchessController.exploreDetailsModel?.userInfo[0].allReviews[i].review ?? "Nice boy",
                                               style: const TextStyle(
                                                 color: Colors.black,
                                               ),
                                             ),
                                             subtitle: Row(
                                               mainAxisSize: MainAxisSize.min,
-                                              children: List.generate(
-                                                  matchessController.exploreDetailsModel!.userInfo[0].allReviews[i].ratingStar,
-                                                  (index) {
-                                                int filledStars = matchessController
-                                                    .exploreDetailsModel!.userInfo[0].allReviews[i].ratingStar
-                                                    .floor();
+                                              children: List.generate(matchessController.exploreDetailsModel!.userInfo[0].allReviews[i].ratingStar, (index) {
+                                                int filledStars = matchessController.exploreDetailsModel!.userInfo[0].allReviews[i].ratingStar.floor();
                                                 if (index < filledStars) {
                                                   // Display a filled star
                                                   return const Icon(
@@ -914,8 +871,8 @@ class _MatchDetailsState extends State<MatchDetails> {
                                             ),
                                           );
                                         },
-                                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                                            crossAxisCount: 3, mainAxisExtent: 34, crossAxisSpacing: 10),
+                                        gridDelegate:
+                                            const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3, mainAxisExtent: 34, crossAxisSpacing: 10),
                                       ),
                                     ),
                               const Text(
@@ -967,8 +924,7 @@ class _MatchDetailsState extends State<MatchDetails> {
                                       ),
                                     );
                                   },
-                                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                                      crossAxisCount: 3, mainAxisExtent: 34, crossAxisSpacing: 10),
+                                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3, mainAxisExtent: 34, crossAxisSpacing: 10),
                                 ),
                               ),
                               const Text(
@@ -1055,8 +1011,7 @@ class _MatchDetailsState extends State<MatchDetails> {
                               (widget.isfriend)
                                   ? InkWell(
                                       onTap: () {
-                                        _showBottomSheet(
-                                            context, matchessController.exploreDetailsModel!.userInfo[0].id.toString());
+                                        _showBottomSheet(context, matchessController.exploreDetailsModel!.userInfo[0].id.toString());
                                       },
                                       child: Container(
                                         width: MediaQuery.of(context).size.width,
@@ -1087,8 +1042,7 @@ class _MatchDetailsState extends State<MatchDetails> {
                                     )
                                   : InkWell(
                                       onTap: () {
-                                        swipController.sendNotificationOnlyMatch(
-                                            matchessController.exploreDetailsModel!.userInfo[0].id.toString());
+                                        swipController.sendNotificationOnlyMatch(matchessController.exploreDetailsModel!.userInfo[0].id.toString());
 
                                         // _showBottomSheet(
                                         //     context,
