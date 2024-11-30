@@ -510,7 +510,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                   Spacer(),
                                   InkWell(
                                       onTap: () {
-                                        Get.to(HobbiesPage());
+                                        Get.to(HobbiesPage(selectedHobby: hobbiesList(),));
                                       },
                                       child: Image.asset(
                                         'assets/icons/addition.png',

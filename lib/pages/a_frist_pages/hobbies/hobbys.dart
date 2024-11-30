@@ -9,14 +9,14 @@ import 'package:realdating/widgets/custom_buttons.dart';
 import 'hobbies_controller.dart';
 
 class HobbiesPage extends StatefulWidget {
-  const HobbiesPage({super.key});
-
+  const HobbiesPage({super.key, this.selectedHobby});
+  final List<String> ?selectedHobby;
   @override
   State<HobbiesPage> createState() => _Interest_ScreenState();
 }
 
 class _Interest_ScreenState extends State<HobbiesPage> {
-  HobbiesController hobbiesController = Get.put(HobbiesController());
+
 
   List<({String interest, RxBool selected})> allInterest = <({String interest, RxBool selected})>[
     (interest: "Gaming,", selected: false.obs),
@@ -35,8 +35,17 @@ class _Interest_ScreenState extends State<HobbiesPage> {
     (interest: "Travel & Places", selected: false.obs),
   ];
 
+
+  @override
+  void initState() {
+    super.initState();
+
+    HobbiesController hobbiesController = Get.put(HobbiesController(selectedHobby: widget.selectedHobby));
+  }
+
   @override
   Widget build(BuildContext context) {
+    HobbiesController hobbiesController = Get.find();
     return Scaffold(
       appBar: AppBar(
         leading: InkWell(
@@ -69,36 +78,40 @@ class _Interest_ScreenState extends State<HobbiesPage> {
               ),
             ),
             const SizedBox(height: 20),
-            GridView.builder(
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: (MediaQuery.of(context).size.width / 165).floor(),
-                mainAxisSpacing: 20, // Spacing between rows
-                crossAxisSpacing: 10, // Spacing between columns
-                childAspectRatio: 165 / 43, // Aspect ratio of each item
-              ),
-              itemCount: allInterest.length,
-              itemBuilder: (BuildContext context, int index) {
-                return InkWell(
-                  onTap: () {
-                    allInterest[index].selected.value = !allInterest[index].selected.value;
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              child: GridView.builder(
+                shrinkWrap: true,
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: (MediaQuery.of(context).size.width / 165).floor(),
+                  mainAxisSpacing: 20, // Spacing between rows
+                  crossAxisSpacing: 10, // Spacing between columns
+                  childAspectRatio: 165 / 43, // Aspect ratio of each item
+                ),
+                itemCount: allInterest.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return InkWell(
+                    onTap: () {
+                      allInterest[index].selected.value = !allInterest[index].selected.value;
 
-                    setState(() {
-                      //print(InterestS.toString());
-                    });
-                  },
-                  child: Container(
-                    height: 43,
-                    width: 160,
-                    decoration: BoxDecoration(
-                        color: allInterest[index].selected.value ? Colors.white : Colors.redAccent,
-                        border: Border.all(style: BorderStyle.solid, color: Colors.redAccent),
-                        borderRadius: BorderRadius.circular(10)),
-                    child: Center(
-                        child: Text('🎮   Gaming', style: TextStyle(color: allInterest[index].selected.value ? Colors.red : Colors.white, fontSize: 18))),
-                  ),
-                );
-                return Container();
-              },
+                      setState(() {
+                        //print(InterestS.toString());
+                      });
+                    },
+                    child: Container(
+                      height: 43,
+                      width: 160,
+                      decoration: BoxDecoration(
+                          color: allInterest[index].selected.value ? Colors.white : Colors.redAccent,
+                          border: Border.all(style: BorderStyle.solid, color: Colors.redAccent),
+                          borderRadius: BorderRadius.circular(10)),
+                      child: Center(
+                          child: Text(allInterest[index].interest, style: TextStyle(color: allInterest[index].selected.value ? Colors.red : Colors.white, fontSize: 18))),
+                    ),
+                  );
+                  return Container();
+                },
+              ),
             ),
             SizedBox(
               height: 180.h,
