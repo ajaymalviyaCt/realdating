@@ -434,9 +434,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                   ),
                                   Spacer(),
                                   InkWell(
-                                      onTap: () {
-
-                                      },
+                                      onTap: () {},
                                       child: Image.asset(
                                         'assets/icons/addition.png',
                                         scale: 30,
@@ -505,9 +503,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                   ),
                                   Spacer(),
                                   InkWell(
-                                      onTap: () {
-
-                                      },
+                                      onTap: () {},
                                       child: Image.asset(
                                         'assets/icons/addition.png',
                                         scale: 30,
