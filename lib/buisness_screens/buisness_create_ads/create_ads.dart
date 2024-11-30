@@ -18,7 +18,7 @@ import '../../custom_iteam/coustomtextcommon.dart';
 import '../../custom_iteam/customprofile_textfiiled.dart';
 import '../../function/function_class.dart';
 import '../buisness_home/Bhome_page/buisness_home.dart';
-
+List<String> interestList = ['Music', 'Dancing', 'Cricket', 'Movie', 'Photography', 'Gaming'];
 class CreateAads extends StatefulWidget {
   const CreateAads({Key? key}) : super(key: key);
 
@@ -49,7 +49,7 @@ class _CreateAadsState extends State<CreateAads> {
 
   bool showDropdown = false;
   bool isLoading = false;
-  List<String> interestList = ['Music', 'Dancing', 'Cricket', 'Movie', 'Photography', 'Gaming'];
+
 
   @override
   void initState() {
@@ -393,10 +393,7 @@ class _CreateAadsState extends State<CreateAads> {
                     ),
                     cursorColor: Colors.white,
                   ),
-                  if (showDropdown)
-
-interestDropdownUi(),
-
+                  if (showDropdown) interestDropdownUi(),
 
                   // SizedBox(
                   //   height: 70,
@@ -479,131 +476,121 @@ interestDropdownUi(),
       ),
       child: isLoading
           ? const Padding(
-        padding: EdgeInsets.all(16.0),
-        child: Center(
-          child: CircularProgressIndicator(color: Colors.white),
-        ),
-      )
+              padding: EdgeInsets.all(16.0),
+              child: Center(
+                child: CircularProgressIndicator(color: Colors.white),
+              ),
+            )
           : Stack(
-        children: [
-          // Main Dropdown Container
-          Container(
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(12),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.withOpacity(0.3),
-                  blurRadius: 10,
-                  offset: const Offset(0, 4), // Shadow position for soft floating effect
-                ),
-              ],
-            ),
-            child: Column(
               children: [
-                // Close Button at the top-right with a subtle elegant design
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Align(
-                    alignment: Alignment.topRight,
-                    child: GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          showDropdown = false; // Close dropdown on tap
-                        });
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.transparent, // Transparent to make it less intrusive
-                          shape: BoxShape.circle,
-                        ),
+                // Main Dropdown Container
+                Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(12),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.3),
+                        blurRadius: 10,
+                        offset: const Offset(0, 4), // Shadow position for soft floating effect
+                      ),
+                    ],
+                  ),
+                  child: Column(
+                    children: [
+                      // Close Button at the top-right with a subtle elegant design
+                      Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Icon(
-                          Icons.close,
-                          color: Colors.redAccent, // Use accent color for contrast
-                          size: 24, // Adjust size for a more prominent close button
+                        child: Align(
+                          alignment: Alignment.topRight,
+                          child: GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                showDropdown = false; // Close dropdown on tap
+                              });
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: Colors.transparent, // Transparent to make it less intrusive
+                                shape: BoxShape.circle,
+                              ),
+                              padding: const EdgeInsets.all(8.0),
+                              child: Icon(
+                                Icons.close,
+                                color: Colors.redAccent, // Use accent color for contrast
+                                size: 24, // Adjust size for a more prominent close button
+                              ),
+                            ),
+                          ),
                         ),
                       ),
-                    ),
-                  ),
-                ),
-                // Dropdown List View
-                Container(
-                  height: 300, // Set height for scrollable list
-                  child: ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: interestList.length,
-                    itemBuilder: (context, index) {
-                      final isSelected = selectedInterest.contains(interestList[index]);
-                      return GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            if (!isSelected) {
-                              selectedInterest.add(interestList[index]);
-                            } else {
-                              selectedInterest.remove(interestList[index]);
-                            }
-                            txt_interest.text = selectedInterest.join(", ");
-                          });
-                        },
-                        child: Container(
-                          margin: const EdgeInsets.symmetric(vertical: 5),
-                          padding: const EdgeInsets.all(12.0),
-                          decoration: BoxDecoration(
-                            color: isSelected
-                                ? Colors.red.withOpacity(0.2)
-                                : Colors.white,
-                            borderRadius: BorderRadius.circular(12),
-                            border: Border.all(
-                              color: isSelected
-                                  ? Colors.redAccent
-                                  : Colors.grey.shade300,
-                              width: 1.5,
-                            ),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(0.1),
-                                blurRadius: 5,
-                                offset: const Offset(0, 2),
-                              ),
-                            ],
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                interestList[index],
-                                style: TextStyle(
-                                  color: isSelected
-                                      ? Colors.redAccent.shade700
-                                      : Colors.black,
-                                  fontSize: 16,
-                                  fontWeight: isSelected
-                                      ? FontWeight.bold
-                                      : FontWeight.normal,
+                      // Dropdown List View
+                      Container(
+                        height: 300, // Set height for scrollable list
+                        child: ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: interestList.length,
+                          itemBuilder: (context, index) {
+                            final isSelected = selectedInterest.contains(interestList[index]);
+                            return GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  if (!isSelected) {
+                                    selectedInterest.add(interestList[index]);
+                                  } else {
+                                    selectedInterest.remove(interestList[index]);
+                                  }
+                                  txt_interest.text = selectedInterest.join(", ");
+                                });
+                              },
+                              child: Container(
+                                margin: const EdgeInsets.symmetric(vertical: 5),
+                                padding: const EdgeInsets.all(12.0),
+                                decoration: BoxDecoration(
+                                  color: isSelected ? Colors.red.withOpacity(0.2) : Colors.white,
+                                  borderRadius: BorderRadius.circular(12),
+                                  border: Border.all(
+                                    color: isSelected ? Colors.redAccent : Colors.grey.shade300,
+                                    width: 1.5,
+                                  ),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.grey.withOpacity(0.1),
+                                      blurRadius: 5,
+                                      offset: const Offset(0, 2),
+                                    ),
+                                  ],
+                                ),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      interestList[index],
+                                      style: TextStyle(
+                                        color: isSelected ? Colors.redAccent.shade700 : Colors.black,
+                                        fontSize: 16,
+                                        fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                                      ),
+                                    ),
+                                    if (isSelected)
+                                      const Icon(
+                                        Icons.check_circle,
+                                        color: Colors.redAccent,
+                                      ),
+                                  ],
                                 ),
                               ),
-                              if (isSelected)
-                                const Icon(
-                                  Icons.check_circle,
-                                  color: Colors.redAccent,
-                                ),
-                            ],
-                          ),
+                            );
+                          },
                         ),
-                      );
-                    },
+                      ),
+                    ],
                   ),
                 ),
               ],
             ),
-          ),
-        ],
-      ),
     );
   }
-
-
 
   Widget updateBtn(context) {
     return Container(

@@ -1,17 +1,14 @@
+import 'package:dio/dio.dart' as dio;
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get/get.dart';
 import 'package:realdating/buisness_screens/buisness_create_ads/all_ads/buisness_all_adss_models.dart';
 import 'package:realdating/consts/app_urls.dart';
 import 'package:realdating/services/apis_related/api_call_services.dart';
 import 'package:realdating/services/base_client01.dart';
-import 'package:get/get.dart';
-import 'package:http/http.dart' as http;
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../all_ads/all_ads.dart';
 import '../all_ads/all_ads_controller.dart';
-
-import 'package:dio/dio.dart' as dio;
 
 class EditAdsController extends GetxController {
   RxBool isLoadig = false.obs;
@@ -25,6 +22,7 @@ class EditAdsController extends GetxController {
   TextEditingController Range = TextEditingController();
   TextEditingController Link = TextEditingController();
   TextEditingController file = TextEditingController();
+
 
   bool _obscureText = false;
   bool loading = false;
@@ -56,14 +54,13 @@ class EditAdsController extends GetxController {
       body: dio.FormData.fromMap({
         "id": addId.toString(),
         "title": Title.text.isEmpty ? myAdv!.title : Title.text,
-        "interest": Intrest.text.isEmpty ? myAdv!.interest : Intrest.text,
+        "interest": (Intrest.text.isEmpty ? myAdv!.interest : Intrest.text),
         "budget": budget.text.isEmpty ? myAdv!.budget.toString() : budget.text,
         "campaign_duration": CampaignDuration.text.isEmpty ? myAdv!.campaignDuration : CampaignDuration.text,
         "address": Location.text.isEmpty ? myAdv!.address : Location.text,
         "range_km": Range.text.isEmpty ? myAdv!.rangeKm.toString() : Range.text,
         "link": Link.text.isEmpty ? myAdv!.link.toString() : Link.text,
-        if (addImage != null)
-          "file": (await dio.MultipartFile.fromFile(addImage!, filename: "${DateTime.now().toUtc().toIso8601String()}.jpg"))
+        if (addImage != null) "file": (await dio.MultipartFile.fromFile(addImage!, filename: "${DateTime.now().toUtc().toIso8601String()}.jpg"))
       }),
       headers: await authHeader(),
     );
