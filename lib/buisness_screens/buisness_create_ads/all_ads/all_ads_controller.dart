@@ -58,7 +58,9 @@ class AllAdssDealController extends GetxController {
           },
           method: HttpMethod.POST);
       getAllAdsMdoels = GetAllAdsMdoels.fromJson(apiData);
-    } catch (e, s) {}
+    } catch (e, s) {
+
+    }
 
     isLoadig(false);
   }
