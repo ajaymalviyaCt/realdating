@@ -421,8 +421,6 @@ class _ProfilePageState extends State<ProfilePage> {
                                 ],
                               ),
 
-
-
                               20.heightBox,
                               const Text(
                                 'Interests',
