@@ -13,6 +13,7 @@ import 'matches_model.dart';
 class MatchessController extends GetxController {
   RxBool isLoadig = false.obs;
   MatchesModel? matchessModel;
+  final RxBool showMore=false.obs;
 
   @override
   void onInit() {

@@ -747,7 +747,7 @@ class _MatchDetailsState extends State<MatchDetails> {
 // Ensure `allReviews` is not null or empty before entering the loop
                               if (matchessController.exploreDetailsModel?.userInfo[0].allReviews != null &&
                                   matchessController.exploreDetailsModel!.userInfo[0].allReviews.isNotEmpty)
-                                for (int i = 0; i < matchessController.exploreDetailsModel!.userInfo[0].allReviews.length; i++)
+                                for (int i = 0; i < (matchessController.exploreDetailsModel!.userInfo[0].allReviews.take(matchessController.showMore.value?matchessController.exploreDetailsModel!.userInfo[0].allReviews.length:1)).length; i++)
                                   Container(
                                     decoration: BoxDecoration(
                                       color: Colors.black12.withOpacity(.02),
@@ -805,16 +805,7 @@ class _MatchDetailsState extends State<MatchDetails> {
                                 ElevatedButton(
                                   onPressed: () {
                                     setState(() {
-                                      // Toggle between showing all or only 2 reviews
-                                      if (matchessController.exploreDetailsModel?.userInfo[0].allReviews == null ||
-                                          matchessController.exploreDetailsModel!.userInfo[0].allReviews.isEmpty) {
-                                        Fluttertoast.showToast(msg: 'No data available for more reviews');
-                                      } else {
-                                        showAllItemsss = !showAllItemsss;
-                                        matchessController.exploreDetailsModel!.userInfo[0].allReviews = showAllItemsss
-                                            ? List.from(matchessController.exploreDetailsModel!.userInfo[0].allReviews)
-                                            : matchessController.exploreDetailsModel!.userInfo[0].allReviews.take(2).toList(); // Limit to 2
-                                      }
+                                    matchessController.showMore.value=!matchessController.showMore.value;
                                     });
                                   },
                                   child: Text(showAllItemsss ? 'Show Less' : 'See More'),
