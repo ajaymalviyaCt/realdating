@@ -48,7 +48,7 @@ class _ProfilePageState extends State<ProfilePage> {
     setState(
       () {},
     );
-    }
+  }
 
   bool isLoading = false;
 
@@ -422,7 +422,6 @@ class _ProfilePageState extends State<ProfilePage> {
                                     )
                                 ],
                               ),
-
                               20.heightBox,
                               const Text(
                                 'Interests',
@@ -434,52 +433,51 @@ class _ProfilePageState extends State<ProfilePage> {
                                 ),
                               ),
                               10.heightBox,
-                              profileController.profileModel?.userInfo.interest== null
+                              profileController.profileModel?.userInfo.interest == null
                                   ? const Text("No Intrest Found !!")
                                   : SizedBox(
-                                height: 120,
-                                child: GridView.builder(
-                                  itemCount:interestList().isNotEmpty ? interestList().length
-                                      : 0,
-                                  itemBuilder: (ctx, i) {
-                                    return Padding(
-                                      padding: const EdgeInsets.only(top: 10),
-                                      child: SizedBox(
-                                        height: 50,
-                                        child: DottedBorder(
-                                          strokeWidth: 1,
-                                          color: const Color(0xFFE94057),
-                                          borderType: BorderType.RRect,
-                                          radius: const Radius.circular(12),
-                                          child: ClipRRect(
-                                            borderRadius: const BorderRadius.all(
-                                              Radius.circular(5),
-                                            ),
-                                            child: Center(
-                                              child: SizedBox(
-                                                width: 220,
-                                                height: 32,
-                                                child: Text(
-                                                  interestList()[i] ?? "",
-                                                  style: const TextStyle(
-                                                    color: Color(0xFFE94057),
-                                                    fontSize: 8,
-                                                    fontFamily: 'Inter',
-                                                    fontWeight: FontWeight.w400,
-                                                    height: 0.11,
+                                      height: 120,
+                                      child: GridView.builder(
+                                        itemCount: interestList().isNotEmpty ? interestList().length : 0,
+                                        itemBuilder: (ctx, i) {
+                                          return Padding(
+                                            padding: const EdgeInsets.only(top: 10),
+                                            child: SizedBox(
+                                              height: 50,
+                                              child: DottedBorder(
+                                                strokeWidth: 1,
+                                                color: const Color(0xFFE94057),
+                                                borderType: BorderType.RRect,
+                                                radius: const Radius.circular(12),
+                                                child: ClipRRect(
+                                                  borderRadius: const BorderRadius.all(
+                                                    Radius.circular(5),
                                                   ),
-                                                ).centered(),
+                                                  child: Center(
+                                                    child: SizedBox(
+                                                      width: 220,
+                                                      height: 32,
+                                                      child: Text(
+                                                        interestList()[i] ?? "",
+                                                        style: const TextStyle(
+                                                          color: Color(0xFFE94057),
+                                                          fontSize: 8,
+                                                          fontFamily: 'Inter',
+                                                          fontWeight: FontWeight.w400,
+                                                          height: 0.11,
+                                                        ),
+                                                      ).centered(),
+                                                    ),
+                                                  ),
+                                                ),
                                               ),
                                             ),
-                                          ),
-                                        ),
+                                          );
+                                        },
+                                        gridDelegate:
+                                            const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3, mainAxisExtent: 34, crossAxisSpacing: 10),
                                       ),
-                                    );
-                                  },
-                                  gridDelegate:
-                                  const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3, mainAxisExtent: 34, crossAxisSpacing: 10),
-                                ),
-                              ),
+                                    ),
                               const Text(
                                 'Hobbies',
                                 style: TextStyle(
@@ -532,7 +530,6 @@ class _ProfilePageState extends State<ProfilePage> {
                                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3, mainAxisExtent: 34, crossAxisSpacing: 10),
                                 ),
                               ),
-
                             ],
                           ),
                         );
@@ -548,8 +545,17 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
-  List<String> interestList() => (profileController.profileModel?.userInfo.interest.trim().split(",")??[]).where((element) => element.trim().isNotEmpty,).toList();
-  List<String> hobbiesList() => (profileController.profileModel?.userInfo.hobbies.trim().split(",")??[]).where((element) => element.trim().isNotEmpty,).toList();
+  List<String> interestList() => (profileController.profileModel?.userInfo.interest.trim().split(",") ?? [])
+      .where(
+        (element) => element.trim().isNotEmpty,
+      )
+      .toList();
+
+  List<String> hobbiesList() => (profileController.profileModel?.userInfo.hobbies.trim().split(",") ?? [])
+      .where(
+        (element) => element.trim().isNotEmpty,
+      )
+      .toList();
 
   final speedNotifier = ValueNotifier<double>(1);
 }
