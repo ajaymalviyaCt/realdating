@@ -18,22 +18,37 @@ class HobbiesPage extends StatefulWidget {
 }
 
 class _Interest_ScreenState extends State<HobbiesPage> {
-  List<({String emoji,String interest, RxBool selected})> allInterest = <({String emoji,String interest, RxBool selected})>[
-    (emoji: "🎮",interest: "Gaming,", selected: false.obs),
-    (emoji: "💃🏻",interest: "Dancing", selected: false.obs),
-    (emoji: "🗣",interest: "Language", selected: false.obs),
-    (emoji: "🎵",interest: "Music", selected: false.obs),
-    (emoji: "🎬",interest: "Movie", selected: false.obs),
-    (emoji: "✍🏻",interest: "Photography", selected: false.obs),
-    (emoji: "👗",interest: "Fashion", selected: false.obs),
-    (emoji: "📚",interest: "Architecture", selected: false.obs),
-    (emoji: "🐼",interest: "Book", selected: false.obs),
-    (emoji: "✍🏻",interest: "Writing,", selected: false.obs),
-    (emoji: "🐼",interest: "Animals", selected: false.obs),
-    (emoji: "⚽",interest: "Football", selected: false.obs),
-    (emoji: "💪",interest: "Gym & Fitness", selected: false.obs),
-    (emoji: "🌇",interest: "Travel & Places", selected: false.obs),
+  List<({String emoji, String interest, RxBool selected})> allInterest = <({String emoji, String interest, RxBool selected})>[
+    (emoji: "🎮", interest: "Gaming,", selected: false.obs),
+    (emoji: "💃🏻", interest: "Dancing", selected: false.obs),
+    (emoji: "🗣", interest: "Language", selected: false.obs),
+    (emoji: "🎵", interest: "Music", selected: false.obs),
+    (emoji: "🎬", interest: "Movie", selected: false.obs),
+    (emoji: "✍🏻", interest: "Photography", selected: false.obs),
+    (emoji: "👗", interest: "Fashion", selected: false.obs),
+    (emoji: "📚", interest: "Architecture", selected: false.obs),
+    (emoji: "🐼", interest: "Book", selected: false.obs),
+    (emoji: "✍🏻", interest: "Writing,", selected: false.obs),
+    (emoji: "🐼", interest: "Animals", selected: false.obs),
+    (emoji: "⚽", interest: "Football", selected: false.obs),
+    (emoji: "💪", interest: "Gym & Fitness", selected: false.obs),
+    (emoji: "🌇", interest: "Travel & Places", selected: false.obs),
   ];
+
+  // "Gaming,",
+  // "Dancing,",
+  // "Language,",
+  // "Music,",
+  // "Movie,",
+  // "Photography,",
+  // "Fashion,",
+  // "Architecture,",
+  // "Book,",
+  // "Writing,",
+  // "Animals,",
+  // "Football,",
+  // 'Gym & Fitness,',
+  // 'Travel & Places,',
 
   @override
   void initState() {
@@ -72,7 +87,7 @@ class _Interest_ScreenState extends State<HobbiesPage> {
               padding: EdgeInsets.only(top: 10, bottom: 10, left: 8, right: 8),
               child: Text(
                 'Select your hobby to match with users who '
-                '\nhave similar things in common.',
+                    '\nhave similar things in common.',
                 style: CustomTextStyle.blacky,
               ),
             ),
@@ -82,7 +97,10 @@ class _Interest_ScreenState extends State<HobbiesPage> {
               child: GridView.builder(
                 shrinkWrap: true,
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: (MediaQuery.of(context).size.width / 165).floor(),
+                  crossAxisCount: (MediaQuery
+                      .of(context)
+                      .size
+                      .width / 165).floor(),
                   mainAxisSpacing: 20, // Spacing between rows
                   crossAxisSpacing: 10, // Spacing between columns
                   childAspectRatio: 165 / 43, // Aspect ratio of each item
@@ -105,7 +123,7 @@ class _Interest_ScreenState extends State<HobbiesPage> {
                           border: Border.all(style: BorderStyle.solid, color: Colors.redAccent),
                           borderRadius: BorderRadius.circular(10)),
                       child: Center(
-                          child: Text(allInterest[index].interest,
+                          child: Text(allInterest[index].emoji + (allInterest[index].interest),
                               style: TextStyle(color: allInterest[index].selected.value == false ? Colors.red : Colors.white, fontSize: 18))),
                     ),
                   );
@@ -135,7 +153,7 @@ class _Interest_ScreenState extends State<HobbiesPage> {
                   if (allInterest
                       .where(
                         (element) => element.selected.value == true,
-                      )
+                  )
                       .toList()
                       .isEmpty) {
                     Fluttertoast.showToast(msg: "You must select at least one hobby to continue.");
@@ -144,7 +162,7 @@ class _Interest_ScreenState extends State<HobbiesPage> {
                   hobbiesController.hobbiesSelect(allInterest
                       .where(
                         (element) => element.selected.value == true,
-                      )
+                  )
                       .toList()
                       .join(","));
                 }),
