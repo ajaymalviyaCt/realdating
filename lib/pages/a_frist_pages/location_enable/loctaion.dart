@@ -1,16 +1,17 @@
 import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
+import 'package:permission_handler/permission_handler.dart';
 import 'package:realdating/function/function_class.dart';
 import 'package:realdating/pages/dash_board_page.dart';
 import 'package:realdating/widgets/custom_buttons.dart';
-import 'package:geocoding/geocoding.dart';
-import 'package:get/get.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:http/http.dart' as http;
 
 class LocationScreen extends StatefulWidget {
   const LocationScreen({super.key});
@@ -23,6 +24,8 @@ class _LocationScreenState extends State<LocationScreen> {
   String _currentAddress = '';
   Position? _currentPosition;
 
+  // --------------- Permission & Location Handling ---------------
+
   Future<void> requestLocationPermission() async {
     var status = await Permission.location.request();
     if (status == PermissionStatus.granted) {
@@ -30,10 +33,8 @@ class _LocationScreenState extends State<LocationScreen> {
       if (_currentPosition != null) {
         await getAddress(_currentPosition!.latitude, _currentPosition!.longitude);
       }
-    } else {
-      if (await Permission.location.isPermanentlyDenied) {
-        openAppSettings();
-      }
+    } else if (await Permission.location.isPermanentlyDenied) {
+      openAppSettings();
     }
   }
 
@@ -49,7 +50,6 @@ class _LocationScreenState extends State<LocationScreen> {
   Future<void> getAddress(double latitude, double longitude) async {
     try {
       List<Placemark> placemarks = await placemarkFromCoordinates(latitude, longitude);
-
       if (placemarks.isNotEmpty) {
         Placemark firstPlacemark = placemarks[0];
         _currentAddress = "${firstPlacemark.street}, ${firstPlacemark.locality}, ${firstPlacemark.country}";
@@ -62,15 +62,17 @@ class _LocationScreenState extends State<LocationScreen> {
     }
   }
 
+  // --------------- Profile Update Handling ---------------
+
   Future<void> editProfile() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var token = prefs.get('token');
     var headers = {
       'Authorization': 'Bearer $token',
-      'Content-Type': 'application/json', // Ensure the correct content type is set
+      'Content-Type': 'application/json',
     };
 
-    // Fetch location data
+    // Fetch location data if missing
     if (_currentPosition == null) {
       _currentPosition = await getCurrentLocation();
       if (_currentPosition != null) {
@@ -83,11 +85,8 @@ class _LocationScreenState extends State<LocationScreen> {
     // Prepare data
     var data = {
       'address': _currentAddress.isEmpty ? "address" : _currentAddress,
-      // 'latitude': _currentPosition?.latitude ?? '',
-      // 'longitude': _currentPosition?.longitude ?? '',
     };
 
-    // Convert the data to JSON
     var body = jsonEncode(data);
 
     // Make the HTTP POST request
@@ -98,17 +97,56 @@ class _LocationScreenState extends State<LocationScreen> {
       body: body,
     );
 
-    // Handle the response
+    // Handle response
     if (response.statusCode == 200) {
       var responseData = json.decode(response.body);
       print(responseData);
-
-      // Fluttertoast.showToast(msg: "${responseData["message"]}");
       Get.back();
     } else {
       print("Edit Profile Error: ${response.reasonPhrase}");
     }
   }
+
+  Future<void> updateStatus() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var userId = prefs.getInt('user_id');
+    var data = {'userId': '$userId', 'profile_status': '6'};
+    var dio = Dio();
+    var response = await dio.request(
+      'https://forreal.net:4000/users/user_profile_status_update',
+      options: Options(method: 'POST'),
+      data: data,
+    );
+
+    if (response.statusCode == 200) {
+      print(response.data);
+    } else {
+      print(response.statusMessage);
+    }
+  }
+
+  Future<void> uploadProfileImage() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var token = prefs.get('token');
+
+    var headers = {'Authorization': 'Bearer $token'};
+    var data = {};
+    var dio = Dio();
+
+    var response = await dio.request(
+      'https://forreal.net:4000/users/new_profile_image',
+      options: Options(method: 'POST', headers: headers),
+      data: data,
+    );
+
+    if (response.statusCode == 200) {
+      print(json.encode(response.data));
+    } else {
+      print(response.statusMessage);
+    }
+  }
+
+  // --------------- UI ---------------
 
   @override
   Widget build(BuildContext context) {
@@ -137,67 +175,30 @@ class _LocationScreenState extends State<LocationScreen> {
           ),
           const SizedBox(height: 12),
           const Text(
-              'You’ll need to enable your '
-              '\n location in order to use.',
-              style: CustomTextStyle.blackLoc),
+            'You’ll need to enable your \n location in order to use.',
+            style: CustomTextStyle.blackLoc,
+          ),
           const Spacer(),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: customPrimaryBtn(
-                btnText: "Continue",
-                btnFun: () async {
-                  updateStatus();
-                  SharedPreferences prefs = await SharedPreferences.getInstance();
-                  var token = prefs.get('token');
+              btnText: "Continue",
+              btnFun: () async {
+                await requestLocationPermission();
+                await updateStatus();
+                await uploadProfileImage();
+                await editProfile();
 
-                  var headers = {'Authorization': 'Bearer $token'};
-                  var data = {};
-                  var dio = Dio();
-                  var response = await dio.request(
-                    'https://forreal.net:4000/users/new_profile_image',
-                    options: Options(
-                      method: 'POST',
-                      headers: headers,
-                    ),
-                    data: data,
-                  );
+                SharedPreferences prefs = await SharedPreferences.getInstance();
+                await prefs.setBool("isLogin", true);
 
-                  if (response.statusCode == 200) {
-                    print(json.encode(response.data));
-                  } else {
-                    print(response.statusMessage);
-                  }
-                  await requestLocationPermission();
-                  await editProfile();
-                  await prefs.setBool("isLogin", true);
-                  Get.offAll(() => const DashboardPage());
-                }),
+                Get.offAll(() => const DashboardPage());
+              },
+            ),
           ),
-          const SizedBox(
-            height: 30,
-          ),
+          const SizedBox(height: 30),
         ],
       ),
     );
-  }
-
-  updateStatus() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    var userId = prefs.getInt('user_id');
-    var data = {'userId': '$userId', 'profile_status': '6'};
-    var dio = Dio();
-    var response = await dio.request(
-      'https://forreal.net:4000/users/user_profile_status_update',
-      options: Options(
-        method: 'POST',
-      ),
-      data: data,
-    );
-
-    if (response.statusCode == 200) {
-      print(response.data);
-    } else {
-      print(response.statusMessage);
-    }
   }
 }
