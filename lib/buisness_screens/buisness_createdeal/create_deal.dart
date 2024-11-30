@@ -181,7 +181,7 @@ class _CreateDealState extends State<CreateDeal> {
 
   void uploadFileToServerInfluencer() async {
     if (!(num.parse(txt_price.text.toString()) > num.parse(txt_discount.text.toString()))) {
-      Fluttertoast.showToast(msg: "Discount cannot be greater than the price");
+      Fluttertoast.showToast(msg:"Discount cannot be greater than or equal to the price.");
       return;
     }
     if(_image==null){
