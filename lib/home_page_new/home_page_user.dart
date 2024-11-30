@@ -1630,11 +1630,7 @@ class _HomePageState extends State<HomePageUser> {
                                                               child:
                                                                   CachedNetworkImage(
                                                                 imageUrl: postsC
-                                                                    .homePageModel
-                                                                    .posts[
-                                                                        index]
-                                                                    .adImage
-                                                                    .toString(),
+                                                                    .homePageModel.posts[index].adImage.toString(),
                                                                 placeholder: (context,
                                                                         url) =>
                                                                     const Center(
@@ -1664,21 +1660,24 @@ class _HomePageState extends State<HomePageUser> {
                                                           crossAxisAlignment:
                                                               CrossAxisAlignment.start,
                                                           children: [
-                                                            Text(
-                                                              '${postsC.homePageModel.posts[index].title}',
-                                                              style: TextStyle(
-                                                                color: const Color(
-                                                                    0xFF111111),
-                                                                fontSize: 14
-                                                                    .adaptSize,
-                                                                fontFamily:
-                                                                    'Inter',
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w600,
-                                                                height: 0,
-                                                                letterSpacing:
-                                                                    -0.30,
+                                                            Container(
+                                                              width: MediaQuery.of(context).size.width/1.5,
+                                                              child: Text(
+                                                                '${postsC.homePageModel.posts[index].title}',
+                                                                overflow: TextOverflow.ellipsis,
+                                                                maxLines:2,
+                                                                style: TextStyle(
+                                                                  color: const Color(0xFF111111),
+                                                                  fontSize: 14.adaptSize,
+                                                                  fontFamily:
+                                                                      'Inter',
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w600,
+                                                                  height: 0,
+                                                                  letterSpacing:
+                                                                      -0.30,
+                                                                ),
                                                               ),
                                                             ),
                                                             6.heightBox,
@@ -1709,17 +1708,9 @@ class _HomePageState extends State<HomePageUser> {
                                                           BorderRadius.circular(
                                                               10),
                                                       child: SizedBox(
-                                                        width: MediaQuery.of(
-                                                                context)
-                                                            .size
-                                                            .width,
-                                                        child:
-                                                            CachedNetworkImage(
-                                                          imageUrl: postsC
-                                                              .homePageModel
-                                                              .posts[index]
-                                                              .adImage
-                                                              .toString(),
+                                                        width: MediaQuery.of(context).size.width,
+                                                        child: CachedNetworkImage(
+                                                          imageUrl: postsC.homePageModel.posts[index].adImage.toString(),
                                                           placeholder: (context,
                                                                   url) =>
                                                               const Center(
