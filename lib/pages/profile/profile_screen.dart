@@ -424,6 +424,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               ),
                               20.heightBox,
                               Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   const Text(
                                     'Interests',
@@ -500,6 +501,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                     ),
                               20.heightBox,
                               Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   const Text(
                                     'Hobbies',

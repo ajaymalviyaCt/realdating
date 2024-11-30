@@ -823,7 +823,7 @@ class _MatchDetailsState extends State<MatchDetails> {
                               ),
                               10.heightBox,
                               matchessController.exploreDetailsModel?.userInfo[0].insertdata == null
-                                  ? const Text("No Intrest Found !!")
+                                  ? const Text("No Interest Found !!")
                                   : SizedBox(
                                       height: 120,
                                       child: GridView.builder(
