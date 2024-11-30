@@ -18,25 +18,7 @@ class HobbiesPage extends StatefulWidget {
 class _Interest_ScreenState extends State<HobbiesPage> {
   HobbiesController hobbiesController = Get.put(HobbiesController());
 
-  List<bool> active = [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true];
-
-  List<String> InterestS = [
-    "Gaming,",
-    "Dancing,",
-    "Language,",
-    "Music,",
-    "Movie,",
-    "Photography,",
-    "Fashion,",
-    "Architecture,",
-    "Book,",
-    "Writing,",
-    "Animals,",
-    "Football,",
-    'Gym & Fitness,',
-    'Travel & Places,',
-  ];
-  List<String> AllInters = [
+  List<({String interest, RxBool selected})> allInterest = <({String interest, RxBool selected})>[
     "Gaming,",
     "Dancing,",
     "Language,",
@@ -325,9 +307,9 @@ class _Interest_ScreenState extends State<HobbiesPage> {
                 btnText: "Continue",
                 btnFun: () {
                   FinalInterest.clear();
-                  for (int i = 0; i < AllInters.length; i++) {
+                  for (int i = 0; i < allInterest.length; i++) {
                     if (active[i] == false) {
-                      FinalInterest.add(AllInters[i]);
+                      FinalInterest.add(allInterest[i]);
                     }
                   }
                   print("line 333");
