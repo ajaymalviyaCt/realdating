@@ -199,7 +199,7 @@ class _BuisnessEditAdsState extends State<BuisnessEditAds> {
                             cursorColor: Colors.white,
                           ),
                           if (showDropdown) interestDropdownUi(),
-                      customTextC(text: "budget", fSize: 16, fWeight: FontWeight.w500, lineHeight: 36),
+                      customTextC(text: "Budget(\$)", fSize: 16, fWeight: FontWeight.w500, lineHeight: 36),
 
                       SizedBox(
                         height: 50,
@@ -211,7 +211,7 @@ class _BuisnessEditAdsState extends State<BuisnessEditAds> {
                         ),
                       ),
 
-                      customTextC(text: "CampaignDuration", fSize: 16, fWeight: FontWeight.w500, lineHeight: 36),
+                      customTextC(text: "Campaign Duration(in days)", fSize: 16, fWeight: FontWeight.w500, lineHeight: 36),
 
                       SizedBox(
                         height: 50,
@@ -263,7 +263,7 @@ class _BuisnessEditAdsState extends State<BuisnessEditAds> {
                       const SizedBox(height: 30),
                       Obx(
                         () => customPrimaryBtn(
-                          btnText: "save",
+                          btnText: "Save",
                           btnFun: () {
                             setState(() {
                               editAdsController.EditAdsUpdate(widget.dataList[widget.indexEdit].id.toString(), widget.indexEdit,
@@ -277,7 +277,7 @@ class _BuisnessEditAdsState extends State<BuisnessEditAds> {
 
                       Obx(
                         () => customPrimaryBtnBlk(
-                          btnText: 'delete',
+                          btnText: 'Delete',
                           btnFun: () {
                             showDialog(
                                 context: context,
