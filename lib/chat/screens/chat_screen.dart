@@ -1,13 +1,10 @@
-import 'dart:developer';
-import 'dart:io';
-
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:realdating/pages/explore/exploreDetailsModel.dart';
 import 'package:realdating/widgets/emoji_picker.dart';
+
 import '../../main.dart';
 import '../../services/date_time_services.dart';
 import '../api/apis.dart';
@@ -18,6 +15,7 @@ import '../widgets/message_card.dart';
 class ChatScreen extends StatefulWidget {
   final ChatUser user;
   final Rxn<ExploreDetailsModel> exploreDetailsModel;
+
   const ChatScreen({super.key, required this.user, required this.exploreDetailsModel});
 
   @override
@@ -67,10 +65,7 @@ class _ChatScreenState extends State<ChatScreen> {
                         case ConnectionState.active:
                         case ConnectionState.done:
                           final data = snapshot.data?.docs;
-                          _list = data
-                              ?.map((e) => Message.fromJson(e.data()))
-                              .toList() ??
-                              [];
+                          _list = data?.map((e) => Message.fromJson(e.data())).toList() ?? [];
                           if (_list.isNotEmpty) {
                             return ListView.builder(
                                 reverse: true,
@@ -84,14 +79,10 @@ class _ChatScreenState extends State<ChatScreen> {
                                     children: [
                                       (index != 0)
                                           ? DateTimeServices.isSameDate(
-                                          date1: DateTimeServices.convertMillisecondsToLocalizedDateTime(
-                                              int.parse(_list[index].read))
-                                              .dateTime!,
-                                          date2: DateTimeServices.convertMillisecondsToLocalizedDateTime(
-                                              int.parse(_list[index].read))
-                                              .dateTime!)
-                                          ? const SizedBox.shrink()
-                                          : messageDateStickyHeader(_list[index])
+                                                  date1: DateTimeServices.convertMillisecondsToLocalizedDateTime(int.parse(_list[index].read)).dateTime!,
+                                                  date2: DateTimeServices.convertMillisecondsToLocalizedDateTime(int.parse(_list[index].read)).dateTime!)
+                                              ? const SizedBox.shrink()
+                                              : messageDateStickyHeader(_list[index])
                                           : messageDateStickyHeader(_list[index]),
                                       MessageCard(message: _list[index]),
                                     ],
@@ -99,8 +90,7 @@ class _ChatScreenState extends State<ChatScreen> {
                                 });
                           } else {
                             return const Center(
-                              child: Text('Say Hii! 👋',
-                                  style: TextStyle(fontSize: 20)),
+                              child: Text('Say Hii! 👋', style: TextStyle(fontSize: 20)),
                             );
                           }
                       }
@@ -110,14 +100,10 @@ class _ChatScreenState extends State<ChatScreen> {
                 if (_isUploading)
                   const Align(
                       alignment: Alignment.centerRight,
-                      child: Padding(
-                          padding:
-                          EdgeInsets.symmetric(vertical: 8, horizontal: 20),
-                          child: CircularProgressIndicator(strokeWidth: 2))),
-
+                      child: Padding(padding: EdgeInsets.symmetric(vertical: 8, horizontal: 20), child: CircularProgressIndicator(strokeWidth: 2))),
                 _chatInput(),
                 Obx(() {
-                  if(_showEmoji.value==false){
+                  if (_showEmoji.value == false) {
                     return const SizedBox.shrink();
                   }
                   return EmojiPickerWidget(
@@ -147,29 +133,21 @@ class _ChatScreenState extends State<ChatScreen> {
               final data = snapshot.data?.docs;
 
               print('user data--------------${data}');
-              final list =
-                  data?.map((e) => ChatUser.fromJson(e.data())).toList() ?? [];
+              final list = data?.map((e) => ChatUser.fromJson(e.data())).toList() ?? [];
 
               return Row(
                 children: [
                   //back button
-                  IconButton(
-                      onPressed: () => Navigator.pop(context),
-                      icon:
-                      const Icon(Icons.arrow_back, color: Colors.black54)),
+                  IconButton(onPressed: () => Navigator.pop(context), icon: const Icon(Icons.arrow_back, color: Colors.black54)),
 
                   ClipRRect(
                     borderRadius: BorderRadius.circular(mq.height * .03),
                     child: CachedNetworkImage(
                       fit: BoxFit.cover,
-
                       width: mq.height * .05,
                       height: mq.height * .05,
-                      imageUrl:
-                      "${widget.exploreDetailsModel.value?.userInfo[0].profileImage??""}",
-                      errorWidget: (context, url, error) =>
-                      const CircleAvatar(
-                          child: Icon(CupertinoIcons.person)),
+                      imageUrl: "${widget.exploreDetailsModel.value?.userInfo[0].profileImage ?? ""}",
+                      errorWidget: (context, url, error) => const CircleAvatar(child: Icon(CupertinoIcons.person)),
                     ),
                   ),
 
@@ -182,11 +160,8 @@ class _ChatScreenState extends State<ChatScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       //user name
-                      Text("${widget.exploreDetailsModel.value?.userInfo[0].firstName??""} ${widget.exploreDetailsModel.value?.userInfo[0].lastName??""}",
-                          style: const TextStyle(
-                              fontSize: 16,
-                              color: Colors.black87,
-                              fontWeight: FontWeight.w500)),
+                      Text("${widget.exploreDetailsModel.value?.userInfo[0].firstName ?? ""} ${widget.exploreDetailsModel.value?.userInfo[0].lastName ?? ""}",
+                          style: const TextStyle(fontSize: 16, color: Colors.black87, fontWeight: FontWeight.w500)),
                     ],
                   )
                 ],
@@ -310,14 +285,12 @@ class _ChatScreenState extends State<ChatScreen> {
 
   Widget _chatInput() {
     return Padding(
-      padding: EdgeInsets.symmetric(
-          vertical: mq.height * .01, horizontal: mq.width * .025),
+      padding: EdgeInsets.symmetric(vertical: mq.height * .01, horizontal: mq.width * .025),
       child: Row(
         children: [
           Expanded(
             child: Card(
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15)),
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
               child: Row(
                 children: [
                   // Emoji button
@@ -326,10 +299,8 @@ class _ChatScreenState extends State<ChatScreen> {
                       FocusScope.of(context).unfocus();
                       setState(() => _showEmoji.value = !_showEmoji.value);
                     },
-                    icon: const Icon(Icons.emoji_emotions,
-                        color: Colors.blueAccent, size: 25),
+                    icon: const Icon(Icons.emoji_emotions, color: Colors.blueAccent, size: 25),
                   ),
-
 
                   Expanded(
                     child: TextField(
@@ -340,11 +311,9 @@ class _ChatScreenState extends State<ChatScreen> {
                         // Remove leading spaces
                         if (value.startsWith(' ')) {
                           _textController.text = value.trimLeft();
-                          _textController.selection =
-                              TextSelection.fromPosition(
-                                TextPosition(
-                                    offset: _textController.text.length),
-                              );
+                          _textController.selection = TextSelection.fromPosition(
+                            TextPosition(offset: _textController.text.length),
+                          );
                         }
 
                         // Remove emojis or unwanted characters
@@ -362,13 +331,10 @@ class _ChatScreenState extends State<ChatScreen> {
                         // }
                       },
                       onTap: () {
-                        if (_showEmoji.value)
-                          setState(() => _showEmoji.value = !_showEmoji.value);
+                        if (_showEmoji.value) setState(() => _showEmoji.value = !_showEmoji.value);
                       },
-                      decoration: const InputDecoration(
-                          hintText: 'Type Something...',
-                          hintStyle: TextStyle(color: Colors.blueAccent),
-                          border: InputBorder.none),
+                      decoration:
+                          const InputDecoration(hintText: 'Type Something...', hintStyle: TextStyle(color: Colors.blueAccent), border: InputBorder.none),
                     ),
                   ),
 
@@ -384,18 +350,15 @@ class _ChatScreenState extends State<ChatScreen> {
             onPressed: () {
               if (_textController.text.isNotEmpty) {
                 if (_list.isEmpty) {
-                  APIs.sendFirstMessage(
-                      widget.user, _textController.text.trim(), Type.text);
+                  APIs.sendFirstMessage(widget.user, _textController.text.trim(), Type.text);
                 } else {
-                  APIs.sendMessage(
-                      widget.user, _textController.text.trim(), Type.text);
+                  APIs.sendMessage(widget.user, _textController.text.trim(), Type.text);
                 }
                 _textController.text = '';
               }
             },
             minWidth: 0,
-            padding:
-            const EdgeInsets.only(top: 10, bottom: 10, right: 5, left: 10),
+            padding: const EdgeInsets.only(top: 10, bottom: 10, right: 5, left: 10),
             shape: const CircleBorder(),
             color: Colors.green,
             child: const Icon(Icons.send, color: Colors.white, size: 28),
@@ -405,13 +368,12 @@ class _ChatScreenState extends State<ChatScreen> {
     );
   }
 }
+
 Container messageDateStickyHeader(Message messageModel) {
   return Container(
     margin: EdgeInsets.only(bottom: 15),
     child: Text(
-      DateTimeServices.getRelativeDayNameWithinPast7Days(
-          DateTimeServices.convertMillisecondsToLocalizedDateTime(int.parse(messageModel.read))
-              .dateTime!) ??
+      DateTimeServices.getRelativeDayNameWithinPast7Days(DateTimeServices.convertMillisecondsToLocalizedDateTime(int.parse(messageModel.read)).dateTime!) ??
           DateTimeServices.convertMillisecondsToLocalizedDateTime(int.parse(messageModel.read)).date!,
       // style: ,
     ),
