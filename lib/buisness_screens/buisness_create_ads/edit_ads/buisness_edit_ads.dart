@@ -130,7 +130,7 @@ class _BuisnessEditAdsState extends State<BuisnessEditAds> {
                       //   ),
                       // ),
 
-                      customTextC(text: "Intrest", fSize: 16, fWeight: FontWeight.w500, lineHeight: 36),
+                      customTextC(text: "Interest", fSize: 16, fWeight: FontWeight.w500, lineHeight: 36),
 
                 /*      SizedBox(
                         height: 50,
@@ -157,7 +157,7 @@ class _BuisnessEditAdsState extends State<BuisnessEditAds> {
                               });
                             },
                             decoration: InputDecoration(
-                              hintText: "Select Interest",
+                              hintText: widget.dataList[widget.indexEdit].interest?? "Select Interest",
                               hintStyle: const TextStyle(
                                 color: Colors.black,
                                 fontWeight: FontWeight.w400,
@@ -218,7 +218,7 @@ class _BuisnessEditAdsState extends State<BuisnessEditAds> {
                         child: CustumProfileTextField1(
                           controller: editAdsController.CampaignDuration,
                           validator: validateName,
-                          hintText: "${widget.dataList[widget.indexEdit].campaignDuration}",
+                          hintText: widget.dataList[widget.indexEdit].campaignDuration,
                           //hintText: "3 Months"
                         ),
                       ),
@@ -231,7 +231,7 @@ class _BuisnessEditAdsState extends State<BuisnessEditAds> {
                           controller: editAdsController.Location,
                           keyboardType: TextInputType.emailAddress,
                           validator: validateName,
-                          hintText: "${widget.dataList[widget.indexEdit].address}",
+                          hintText: widget.dataList[widget.indexEdit].address,
                           //hintText: "3 Months"
                         ),
                       ),
@@ -256,7 +256,7 @@ class _BuisnessEditAdsState extends State<BuisnessEditAds> {
                           controller: editAdsController.Link,
                           validator: validateName,
                           keyboardType: TextInputType.emailAddress,
-                          hintText: "${widget.dataList[widget.indexEdit].link}",
+                          hintText: widget.dataList[widget.indexEdit].link,
                         ),
                       ),
 
