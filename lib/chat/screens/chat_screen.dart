@@ -9,6 +9,7 @@ import 'package:get/get.dart';
 import 'package:realdating/pages/explore/exploreDetailsModel.dart';
 import 'package:realdating/widgets/emoji_picker.dart';
 import '../../main.dart';
+import '../../services/date_time_services.dart';
 import '../api/apis.dart';
 import '../models/chat_user.dart';
 import '../models/message.dart';
@@ -77,7 +78,24 @@ class _ChatScreenState extends State<ChatScreen> {
                                 padding: EdgeInsets.only(top: mq.height * .01),
                                 physics: const BouncingScrollPhysics(),
                                 itemBuilder: (context, index) {
-                                  return MessageCard(message: _list[index]);
+                                  print("line 80");
+                                  print(index);
+                                  return Column(
+                                    children: [
+                                      (index != 0)
+                                          ? DateTimeServices.isSameDate(
+                                          date1: DateTimeServices.convertMillisecondsToLocalizedDateTime(
+                                              int.parse(_list[index].read))
+                                              .dateTime!,
+                                          date2: DateTimeServices.convertMillisecondsToLocalizedDateTime(
+                                              int.parse(_list[index].read))
+                                              .dateTime!)
+                                          ? const SizedBox.shrink()
+                                          : messageDateStickyHeader(_list[index])
+                                          : messageDateStickyHeader(_list[index]),
+                                      MessageCard(message: _list[index]),
+                                    ],
+                                  );
                                 });
                           } else {
                             return const Center(
@@ -386,4 +404,16 @@ class _ChatScreenState extends State<ChatScreen> {
       ),
     );
   }
+}
+Container messageDateStickyHeader(Message messageModel) {
+  return Container(
+    margin: EdgeInsets.only(bottom: 15),
+    child: Text(
+      DateTimeServices.getRelativeDayNameWithinPast7Days(
+          DateTimeServices.convertMillisecondsToLocalizedDateTime(int.parse(messageModel.read))
+              .dateTime!) ??
+          DateTimeServices.convertMillisecondsToLocalizedDateTime(int.parse(messageModel.read)).date!,
+      // style: ,
+    ),
+  );
 }
