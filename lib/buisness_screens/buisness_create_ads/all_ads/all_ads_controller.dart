@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:realdating/main.dart';
 import 'package:realdating/pages/mape/NearBy_businesses.dart';
 import 'package:realdating/services/apis_related/api_call_services.dart';
 
@@ -59,7 +60,7 @@ class AllAdssDealController extends GetxController {
           method: HttpMethod.POST);
       getAllAdsMdoels = GetAllAdsMdoels.fromJson(apiData);
     } catch (e, s) {
-
+      kLogger.e(e, stackTrace: s);
     }
 
     isLoadig(false);

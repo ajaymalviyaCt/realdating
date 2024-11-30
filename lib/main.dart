@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:logger/logger.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:realdating/welcome_screen/splashscreens.dart';
 
@@ -20,6 +21,7 @@ import 'messaing_service/messaging_service.dart';
 late Size mq;
 final navigatorKey = GlobalKey<NavigatorState>();
 List<CameraDescription>? cameras;
+final Logger kLogger=Logger();
 
 void main() async {
   runZonedGuarded<Future<void>>(() async {
