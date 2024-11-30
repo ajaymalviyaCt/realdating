@@ -79,8 +79,8 @@ class _ChatScreenState extends State<ChatScreen> {
                                     children: [
                                       (index != 0)
                                           ? DateTimeServices.isSameDate(
-                                                  date1: DateTimeServices.convertMillisecondsToLocalizedDateTime(int.parse(_list[index].read)).dateTime!,
-                                                  date2: DateTimeServices.convertMillisecondsToLocalizedDateTime(int.parse(_list[index].read)).dateTime!)
+                                                  date1: DateTimeServices.convertMillisecondsToLocalizedDateTime(int.parse(_list[index].sent)).dateTime!,
+                                                  date2: DateTimeServices.convertMillisecondsToLocalizedDateTime(int.parse(_list[index].sent)).dateTime!)
                                               ? const SizedBox.shrink()
                                               : messageDateStickyHeader(_list[index])
                                           : messageDateStickyHeader(_list[index]),
@@ -373,8 +373,8 @@ Container messageDateStickyHeader(Message messageModel) {
   return Container(
     margin: EdgeInsets.only(bottom: 15),
     child: Text(
-      DateTimeServices.getRelativeDayNameWithinPast7Days(DateTimeServices.convertMillisecondsToLocalizedDateTime(int.parse(messageModel.read)).dateTime!) ??
-          DateTimeServices.convertMillisecondsToLocalizedDateTime(int.parse(messageModel.read)).date!,
+      DateTimeServices.getRelativeDayNameWithinPast7Days(DateTimeServices.convertMillisecondsToLocalizedDateTime(int.parse(messageModel.sent)).dateTime!) ??
+          DateTimeServices.convertMillisecondsToLocalizedDateTime(int.parse(messageModel.sent)).date!,
       // style: ,
     ),
   );
