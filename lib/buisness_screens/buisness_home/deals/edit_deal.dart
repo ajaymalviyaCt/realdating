@@ -35,6 +35,8 @@ class _EDIT_dealState extends State<EDIT_deal> {
   EditUpdateController editUpdateController = Get.put(EditUpdateController());
 
   void uploadFileToServerInfluencer(editId, index, MyDeal myDeal) async {
+
+
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var user_id = prefs.get("user_id");
     print('user_id==============' + myDeal.title);
@@ -333,6 +335,7 @@ class _EDIT_dealState extends State<EDIT_deal> {
                       () => customPrimaryBtn(
                         btnText: "save",
                         btnFun: () async {
+
                           print("objectssss");
                           print(myDealController.myDealsModel?.myDeals[index].roomImage);
                           print("data");
@@ -343,6 +346,10 @@ class _EDIT_dealState extends State<EDIT_deal> {
                           editUpdateController.Title.text ??= myDealController.myDealsModel!.myDeals[index].title;
                           editUpdateController.Price.text ??= myDealController.myDealsModel!.myDeals[index].price.toString();
                           editUpdateController.Discount.text ??= myDealController.myDealsModel!.myDeals[index].discount;
+                          if (!(num.parse(editUpdateController.Price.text.isEmpty ? myDealController.myDealsModel!.myDeals[index].price.toString() : editUpdateController.Price.text) > num.parse(editUpdateController.Discount.text.isEmpty ? myDealController.myDealsModel!.myDeals[index].discount : editUpdateController.Discount.text))) {
+                            Fluttertoast.showToast(msg:"Discount cannot be greater than or equal to the price.");
+                            return;
+                          }
                           setState(() {
                             uploadFileToServerInfluencer(myDealController.myDealsModel?.myDeals[index].id.toString(), index,
                                 myDealController.myDealsModel!.myDeals[index]);
