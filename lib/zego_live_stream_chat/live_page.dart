@@ -10,7 +10,7 @@ import 'constatent.dart';
 class LivePage extends StatefulWidget {
   final String liveID;
   final bool isHost;
-  final String userNmae;
+  final String userName;
   final String userId;
   final String? image;
 
@@ -19,7 +19,7 @@ class LivePage extends StatefulWidget {
     required this.liveID,
     this.isHost = false,
     required this.userId,
-    required this.userNmae,
+    required this.userName,
     this.image
   });
 
@@ -77,7 +77,7 @@ class LivePageState extends State<LivePage> {
           appID: 426171095,
           appSign: '02d978a9a7bda152641751dd6629f656e5c7412f238903b87b36155f0fd3474f',
           userID: localUserID,
-          userName: widget.userNmae,
+          userName: widget.userName,
           liveID: widget.liveID,
           config: (widget.isHost ? ZegoUIKitPrebuiltLiveStreamingConfig.host() : ZegoUIKitPrebuiltLiveStreamingConfig.audience())
 
