@@ -24,6 +24,9 @@ List<CameraDescription>? cameras;
 void main() async {
   runZonedGuarded<Future<void>>(() async {
     WidgetsFlutterBinding.ensureInitialized();
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
     cameras = await availableCameras();
 
     await Permission.notification.isDenied.then((value) {
@@ -32,9 +35,7 @@ void main() async {
       }
     });
 
-    await Firebase.initializeApp(
-      options: DefaultFirebaseOptions.currentPlatform,
-    );
+
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       String payloadData = jsonEncode(message.data);
       print("Got a message in foreground");
