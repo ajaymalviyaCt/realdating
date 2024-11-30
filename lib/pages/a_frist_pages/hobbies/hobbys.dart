@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:realdating/function/function_class.dart';
 import 'package:realdating/widgets/custom_buttons.dart';
@@ -327,6 +328,10 @@ class _Interest_ScreenState extends State<HobbiesPage> {
                     if (active[i] == false) {
                       FinalInterest.add(AllInters[i]);
                     }
+                  }
+                  if (FinalInterest.isEmpty) {
+                    Fluttertoast.showToast(msg: "You must select at least one hobby to continue.");
+                    return;
                   }
                   hobbies = FinalInterest.join();
                   hobbiesController.hobbiesSelect("$hobbies");
