@@ -19,7 +19,7 @@ class HobbiesPage extends StatefulWidget {
 
 class _Interest_ScreenState extends State<HobbiesPage> {
   List<({String emoji, String interest, RxBool selected})> allInterest = <({String emoji, String interest, RxBool selected})>[
-    (emoji: "🎮", interest: "Gaming,", selected: false.obs),
+    (emoji: "🎮", interest: "Gaming", selected: false.obs),
     (emoji: "💃🏻", interest: "Dancing", selected: false.obs),
     (emoji: "🗣", interest: "Language", selected: false.obs),
     (emoji: "🎵", interest: "Music", selected: false.obs),
@@ -55,8 +55,16 @@ class _Interest_ScreenState extends State<HobbiesPage> {
     super.initState();
 
     HobbiesController hobbiesController = Get.put(HobbiesController(selectedHobby: widget.selectedHobby));
-
-
+    widget.selectedHobby?.forEach(
+      (e) {
+        allInterest
+            .firstWhereOrNull(
+              (element) => element.interest.trim().toLowerCase() == e.toString().toLowerCase().trim(),
+            )
+            ?.selected
+            .value = true;
+      },
+    );
   }
 
   @override
@@ -89,7 +97,7 @@ class _Interest_ScreenState extends State<HobbiesPage> {
               padding: EdgeInsets.only(top: 10, bottom: 10, left: 8, right: 8),
               child: Text(
                 'Select your hobby to match with users who '
-                    '\nhave similar things in common.',
+                '\nhave similar things in common.',
                 style: CustomTextStyle.blacky,
               ),
             ),
@@ -99,10 +107,7 @@ class _Interest_ScreenState extends State<HobbiesPage> {
               child: GridView.builder(
                 shrinkWrap: true,
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: (MediaQuery
-                      .of(context)
-                      .size
-                      .width / 165).floor(),
+                  crossAxisCount: (MediaQuery.of(context).size.width / 165).floor(),
                   mainAxisSpacing: 20, // Spacing between rows
                   crossAxisSpacing: 10, // Spacing between columns
                   childAspectRatio: 165 / 43, // Aspect ratio of each item
@@ -157,17 +162,17 @@ class _Interest_ScreenState extends State<HobbiesPage> {
                   if (allInterest
                       .where(
                         (element) => element.selected.value == true,
-                  )
+                      )
                       .toList()
                       .isEmpty) {
                     Fluttertoast.showToast(msg: "You must select at least one hobby to continue.");
                     return;
                   }
-                  hobbiesController.hobbiesSelect(allInterest
+                  hobbiesController.hobbiesSelect((allInterest
                       .where(
                         (element) => element.selected.value == true,
-                  )
-                      .toList()
+                      )
+                      .toList()).map((e) => e.interest,)
                       .join(","));
                 }),
           ],
