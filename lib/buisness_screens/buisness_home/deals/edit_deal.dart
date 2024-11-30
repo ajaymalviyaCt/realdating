@@ -88,6 +88,7 @@ class _EDIT_dealState extends State<EDIT_deal> {
               backgroundColor: Colors.black,
               textColor: Colors.white,
               fontSize: 16.0);
+          editDealApiLoading.value = false;
           Get.off(() => BuisnessHomePage());
         } catch (e) {
           Fluttertoast.showToast(
@@ -102,7 +103,7 @@ class _EDIT_dealState extends State<EDIT_deal> {
         }
       });
     });
-    editDealApiLoading.value = false;
+
   }
 
   EditDealsDelete(editId) async {
