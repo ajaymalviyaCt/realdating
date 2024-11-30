@@ -26,16 +26,33 @@ class _LocationScreenState extends State<LocationScreen> {
 
   // --------------- Permission & Location Handling ---------------
 
-  Future<void> requestLocationPermission() async {
+  Future<bool> requestLocationPermission() async {
     var status = await Permission.location.request();
+
     if (status == PermissionStatus.granted) {
       _currentPosition = await getCurrentLocation();
       if (_currentPosition != null) {
         await getAddress(_currentPosition!.latitude, _currentPosition!.longitude);
+        return true;
       }
-    } else if (await Permission.location.isPermanentlyDenied) {
+    } else if (status == PermissionStatus.denied) {
+      Get.snackbar(
+        "Permission Required",
+        "Location permission is required to proceed.",
+        snackPosition: SnackPosition.BOTTOM,
+      );
+      return false;
+    } else if (status == PermissionStatus.permanentlyDenied) {
       openAppSettings();
+      Get.snackbar(
+        "Permission Required",
+        "Please enable location permission from app settings.",
+        snackPosition: SnackPosition.BOTTOM,
+      );
+      return false;
     }
+
+    return false;
   }
 
   Future<Position?> getCurrentLocation() async {
@@ -206,7 +223,9 @@ class _LocationScreenState extends State<LocationScreen> {
             child: customPrimaryBtn(
               btnText: "Continue",
               btnFun: () async {
-                await requestLocationPermission();
+                bool permissionGranted = await requestLocationPermission();
+                if (!permissionGranted) return;
+
                 await updateStatus();
                 await uploadProfileImage();
                 await editProfile();
