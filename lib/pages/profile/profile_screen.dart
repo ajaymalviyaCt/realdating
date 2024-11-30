@@ -343,8 +343,10 @@ class _ProfilePageState extends State<ProfilePage> {
                                   Opacity(
                                     opacity: profileController.apiLoadingUploadImage.value ? 0.5 : 1,
                                     child: SizedBox(
-                                      height: 300,
+
                                       child: GridView.builder(
+                                        shrinkWrap: true
+                                        ,
                                         physics: const NeverScrollableScrollPhysics(),
                                         itemCount: profileController.profileModel?.userInfo.newImages.length,
                                         gridDelegate:
