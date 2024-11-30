@@ -49,15 +49,16 @@ class AllAdssDealController extends GetxController {
 
   getAllAds() async {
     isLoadig(true);
-    Map<String, dynamic> apiData = await ApiCall.instance.callApi(
-      url: "https://forreal.net:4000/get_advs",
-      headers: await authHeader(),
-      body: {
-        "business_id": await getUserId(),
-      },
-      method: HttpMethod.POST
-    );
-    getAllAdsMdoels = GetAllAdsMdoels.fromJson(apiData);
+    try {
+      Map<String, dynamic> apiData = await ApiCall.instance.callApi(
+          url: "https://forreal.net:4000/get_advs",
+          headers: await authHeader(),
+          body: {
+            "business_id": await getUserId(),
+          },
+          method: HttpMethod.POST);
+      getAllAdsMdoels = GetAllAdsMdoels.fromJson(apiData);
+    } catch (e, s) {}
 
     isLoadig(false);
   }
