@@ -55,6 +55,8 @@ class _Interest_ScreenState extends State<HobbiesPage> {
     super.initState();
 
     HobbiesController hobbiesController = Get.put(HobbiesController(selectedHobby: widget.selectedHobby));
+
+
   }
 
   @override
@@ -107,26 +109,28 @@ class _Interest_ScreenState extends State<HobbiesPage> {
                 ),
                 itemCount: allInterest.length,
                 itemBuilder: (BuildContext context, int index) {
-                  return InkWell(
-                    onTap: () {
-                      allInterest[index].selected.value = !allInterest[index].selected.value;
+                  return Obx(() {
+                    return InkWell(
+                      onTap: () {
+                        allInterest[index].selected.value = !allInterest[index].selected.value;
 
-                      setState(() {
-                        //print(InterestS.toString());
-                      });
-                    },
-                    child: Container(
-                      height: 43,
-                      width: 160,
-                      decoration: BoxDecoration(
-                          color: allInterest[index].selected.value == false ? Colors.white : Colors.redAccent,
-                          border: Border.all(style: BorderStyle.solid, color: Colors.redAccent),
-                          borderRadius: BorderRadius.circular(10)),
-                      child: Center(
-                          child: Text(allInterest[index].emoji + (allInterest[index].interest),
-                              style: TextStyle(color: allInterest[index].selected.value == false ? Colors.red : Colors.white, fontSize: 18))),
-                    ),
-                  );
+                        setState(() {
+                          //print(InterestS.toString());
+                        });
+                      },
+                      child: Container(
+                        height: 43,
+                        width: 160,
+                        decoration: BoxDecoration(
+                            color: allInterest[index].selected.value == false ? Colors.white : Colors.redAccent,
+                            border: Border.all(style: BorderStyle.solid, color: Colors.redAccent),
+                            borderRadius: BorderRadius.circular(10)),
+                        child: Center(
+                            child: Text(allInterest[index].emoji + (allInterest[index].interest),
+                                style: TextStyle(color: allInterest[index].selected.value == false ? Colors.red : Colors.white, fontSize: 18))),
+                      ),
+                    );
+                  });
                   return Container();
                 },
               ),
