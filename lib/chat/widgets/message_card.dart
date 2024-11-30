@@ -304,7 +304,7 @@ class _MessageCardState extends State<MessageCard> {
         MaterialButton(
             onPressed: () {
               //hide alert dialog
-              Navigator.pop(context);
+             Get.back();
               APIs.updateMessage(widget.message, updatedMsg);
             },
             child: const Text(
