@@ -801,7 +801,7 @@ class _MatchDetailsState extends State<MatchDetails> {
                               10.heightBox,
 
 // Only show the button if there are at least 2 reviews
-                              if ((matchessController.exploreDetailsModel?.userInfo[0].allReviews?.length ?? 0) > 2)
+                              if ((matchessController.exploreDetailsModel?.userInfo[0].allReviews.length ?? 0) > 2)
                                 ElevatedButton(
                                   onPressed: () {
                                     setState(() {

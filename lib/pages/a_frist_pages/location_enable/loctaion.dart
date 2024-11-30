@@ -91,6 +91,10 @@ class _LocationScreenState extends State<LocationScreen> {
 
     // Make the HTTP POST request
     var url = Uri.parse('https://forreal.net:4000/users/editProfile');
+    print('--- Edit Profile API Call ---');
+    print('URL: $url');
+    print('Headers: $headers');
+    print('Body: $body');
     var response = await http.post(
       url,
       headers: headers,
@@ -98,6 +102,8 @@ class _LocationScreenState extends State<LocationScreen> {
     );
 
     // Handle response
+    print('Response Status: ${response.statusCode}');
+    print('Response Body: ${response.body}');
     if (response.statusCode == 200) {
       var responseData = json.decode(response.body);
       print(responseData);
@@ -112,12 +118,20 @@ class _LocationScreenState extends State<LocationScreen> {
     var userId = prefs.getInt('user_id');
     var data = {'userId': '$userId', 'profile_status': '6'};
     var dio = Dio();
+
+    print('--- Update Status API Call ---');
+    print('URL: https://forreal.net:4000/users/user_profile_status_update');
+    print('Body: $data');
+
     var response = await dio.request(
       'https://forreal.net:4000/users/user_profile_status_update',
       options: Options(method: 'POST'),
       data: data,
     );
 
+    // Handle response
+    print('Response Status: ${response.statusCode}');
+    print('Response Data: ${response.data}');
     if (response.statusCode == 200) {
       print(response.data);
     } else {
@@ -133,12 +147,20 @@ class _LocationScreenState extends State<LocationScreen> {
     var data = {};
     var dio = Dio();
 
+    print('--- Upload Profile Image API Call ---');
+    print('URL: https://forreal.net:4000/users/new_profile_image');
+    print('Headers: $headers');
+    print('Body: $data');
+
     var response = await dio.request(
       'https://forreal.net:4000/users/new_profile_image',
       options: Options(method: 'POST', headers: headers),
       data: data,
     );
 
+    // Handle response
+    print('Response Status: ${response.statusCode}');
+    print('Response Data: ${response.data}');
     if (response.statusCode == 200) {
       print(json.encode(response.data));
     } else {
