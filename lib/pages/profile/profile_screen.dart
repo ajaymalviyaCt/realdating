@@ -546,8 +546,8 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
-  List<String> interestList() => (profileController.profileModel?.userInfo.interest.split(",")??[]);
-  List<String> hobbiesList() => (profileController.profileModel?.userInfo.hobbies.split(",")??[]);
+  List<String> interestList() => (profileController.profileModel?.userInfo.interest.trim().split(",")??[]).where((element) => element.trim().isNotEmpty,).toList();
+  List<String> hobbiesList() => (profileController.profileModel?.userInfo.hobbies.trim().split(",")??[]).where((element) => element.trim().isNotEmpty,).toList();
 
   final speedNotifier = ValueNotifier<double>(1);
 }
