@@ -44,10 +44,10 @@ class AllAdssDealController extends GetxController {
   @override
   void onReady() {
     super.onReady();
-    All_AdsD();
+    getAllAds();
   }
 
-  All_AdsD() async {
+  getAllAds() async {
     isLoadig(true);
     Map<String, dynamic> apiData = await ApiCall.instance.callApi(
       url: "https://forreal.net:4000/get_advs",

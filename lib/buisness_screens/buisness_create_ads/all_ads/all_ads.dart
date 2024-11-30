@@ -137,7 +137,7 @@ class _All_AdsState extends State<All_Ads> {
       ),
       body: RefreshIndicator(
         onRefresh: () async {
-          await allAdssDealController.All_AdsD();
+          await allAdssDealController.getAllAds();
         },
         child: SafeArea(
           child: Obx(
