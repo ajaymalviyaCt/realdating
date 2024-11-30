@@ -150,113 +150,111 @@ class _MessageCardState extends State<MessageCard> {
 
   // bottom sheet for modifying message details
   void _showBottomSheet(bool isMe) {
-    showModalBottomSheet(
-        context: context,
-        shape: const RoundedRectangleBorder(borderRadius: BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20))),
-        builder: (_) {
-          return ListView(
-            shrinkWrap: true,
-            children: [
-              //black divider
-              Container(
-                height: 4,
-                margin: EdgeInsets.symmetric(vertical: mq.height * .015, horizontal: mq.width * .4),
-                decoration: BoxDecoration(color: Colors.grey, borderRadius: BorderRadius.circular(8)),
-              ),
+    Get.bottomSheet(
+      backgroundColor: Colors.white,
+        shape: const RoundedRectangleBorder(borderRadius: BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20))),ListView(
+      shrinkWrap: true,
+      children: [
+        //black divider
+        Container(
+          height: 4,
+          margin: EdgeInsets.symmetric(vertical: mq.height * .015, horizontal: mq.width * .4),
+          decoration: BoxDecoration(color: Colors.grey, borderRadius: BorderRadius.circular(8)),
+        ),
 
-              widget.message.type == Type.text
-                  ?
-                  //copy option
-                  _OptionItem(
-                      icon: const Icon(Icons.copy_all_rounded, color: Colors.blue, size: 26),
-                      name: 'Copy Text',
-                      onTap: () async {
-                        await Clipboard.setData(ClipboardData(text: widget.message.msg)).then((value) {
-                          //for hiding bottom sheet
-                          Get.back();
+        widget.message.type == Type.text
+            ?
+        //copy option
+        _OptionItem(
+            icon: const Icon(Icons.copy_all_rounded, color: Colors.blue, size: 26),
+            name: 'Copy Text',
+            onTap: () async {
+              await Clipboard.setData(ClipboardData(text: widget.message.msg)).then((value) {
+                //for hiding bottom sheet
+                Get.back();
 
-                          Dialogs.showSnackbar(context, 'Text Copied!');
-                        });
-                      })
-                  :
-                  //save option
-                  _OptionItem(
-                      icon: const Icon(Icons.download_rounded, color: Colors.blue, size: 26),
-                      name: 'Save Image',
-                      onTap: () async {
-                        try {
-                          log('todooooooooooooooImage Url: ${widget.message.msg}');
-                          // await GallerySaver.saveImage(widget.message.msg,
-                          //         albumName: 'We Chat')
-                          //     .then((success) {
-                          //   //for hiding bottom sheet
-                          //  Get.back();
-                          //   if (success != null && success) {
-                          //     Dialogs.showSnackbar(
-                          //         context, 'Image Successfully Saved!');
-                          //   }
-                          // });
-                        } catch (e) {
-                          log('ErrorWhileSavingImg: $e');
-                        }
-                      }),
+                Dialogs.showSnackbar(context, 'Text Copied!');
+              });
+            })
+            :
+        //save option
+        _OptionItem(
+            icon: const Icon(Icons.download_rounded, color: Colors.blue, size: 26),
+            name: 'Save Image',
+            onTap: () async {
+              try {
+                log('todooooooooooooooImage Url: ${widget.message.msg}');
+                // await GallerySaver.saveImage(widget.message.msg,
+                //         albumName: 'We Chat')
+                //     .then((success) {
+                //   //for hiding bottom sheet
+                //  Get.back();
+                //   if (success != null && success) {
+                //     Dialogs.showSnackbar(
+                //         context, 'Image Successfully Saved!');
+                //   }
+                // });
+              } catch (e) {
+                log('ErrorWhileSavingImg: $e');
+              }
+            }),
 
-              //separator or divider
-              if (isMe)
-                Divider(
-                  color: Colors.black54,
-                  endIndent: mq.width * .04,
-                  indent: mq.width * .04,
-                ),
+        //separator or divider
+        if (isMe)
+          Divider(
+            color: Colors.black54,
+            endIndent: mq.width * .04,
+            indent: mq.width * .04,
+          ),
 
-              //edit option
-              if (widget.message.type == Type.text && isMe)
-                _OptionItem(
-                    icon: const Icon(Icons.edit, color: Colors.blue, size: 26),
-                    name: 'Edit Message',
-                    onTap: () {
-                      //for hiding bottom sheet
-                     Get.back();
+        //edit option
+        if (widget.message.type == Type.text && isMe)
+          _OptionItem(
+              icon: const Icon(Icons.edit, color: Colors.blue, size: 26),
+              name: 'Edit Message',
+              onTap: () {
+                //for hiding bottom sheet
+                Get.back();
 
-                      _showMessageUpdateDialog();
-                    }),
+                _showMessageUpdateDialog();
+              }),
 
-              //delete option
-              if (isMe)
-                _OptionItem(
-                    icon: const Icon(Icons.delete_forever, color: Colors.red, size: 26),
-                    name: 'Delete Message',
-                    onTap: () async {
-                      await APIs.deleteMessage(widget.message).then((value) {
-                        //for hiding bottom sheet
-                        Get.back();
-                      });
-                    }),
+        //delete option
+        if (isMe)
+          _OptionItem(
+              icon: const Icon(Icons.delete_forever, color: Colors.red, size: 26),
+              name: 'Delete Message',
+              onTap: () async {
+                await APIs.deleteMessage(widget.message).then((value) {
+                  //for hiding bottom sheet
+                  Get.back();
+                });
+              }),
 
-              const SizedBox(
-                height: 20,
-              ),
+        const SizedBox(
+          height: 20,
+        ),
 
-              //separator or divider
-              // Divider(
-              //   color: Colors.black54,
-              //   endIndent: mq.width * .04,
-              //   indent: mq.width * .04,
-              // ),
+        //separator or divider
+        // Divider(
+        //   color: Colors.black54,
+        //   endIndent: mq.width * .04,
+        //   indent: mq.width * .04,
+        // ),
 
-              //sent time
-              // _OptionItem(
-              //     icon: const Icon(Icons.remove_red_eye, color: Colors.blue),
-              //     name: 'Sent At: ${MyDateUtil.getMessageTime(context: context, time: widget.message.sent)}',
-              //     onTap: () {}),
-              // //
-              // // //read time
-              // _OptionItem(
-              //     icon: const Icon(Icons.remove_red_eye, color: Colors.green),
-              //     name: widget.message.read.isEmpty ? 'Read At: Not seen yet' : 'Read At: ${MyDateUtil.getMessageTime(context: context, time: widget.message.read)}', onTap: () {}),
-            ],
-          );
-        });
+        //sent time
+        // _OptionItem(
+        //     icon: const Icon(Icons.remove_red_eye, color: Colors.blue),
+        //     name: 'Sent At: ${MyDateUtil.getMessageTime(context: context, time: widget.message.sent)}',
+        //     onTap: () {}),
+        // //
+        // // //read time
+        // _OptionItem(
+        //     icon: const Icon(Icons.remove_red_eye, color: Colors.green),
+        //     name: widget.message.read.isEmpty ? 'Read At: Not seen yet' : 'Read At: ${MyDateUtil.getMessageTime(context: context, time: widget.message.read)}', onTap: () {}),
+      ],
+    ));
+
   }
 
   //dialog for updating message content
