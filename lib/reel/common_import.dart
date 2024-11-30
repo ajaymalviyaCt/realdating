@@ -26,6 +26,6 @@ export 'theme_icon.dart';
 export 'timer_view.dart';
 export 'top_navigation_bar.dart';
 export 'user_model.dart';
-export 'user_profile_managerart';
+
 
 //export 'package:foap/manager/service_locator.dart';
