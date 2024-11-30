@@ -18,21 +18,21 @@ class HobbiesPage extends StatefulWidget {
 }
 
 class _Interest_ScreenState extends State<HobbiesPage> {
-  List<({String interest, RxBool selected})> allInterest = <({String interest, RxBool selected})>[
-    (interest: "Gaming,", selected: false.obs),
-    (interest: "Dancing", selected: false.obs),
-    (interest: "Language", selected: false.obs),
-    (interest: "Music", selected: false.obs),
-    (interest: "Movie", selected: false.obs),
-    (interest: "Photography", selected: false.obs),
-    (interest: "Fashion", selected: false.obs),
-    (interest: "Architecture", selected: false.obs),
-    (interest: "Book", selected: false.obs),
-    (interest: "Writing,", selected: false.obs),
-    (interest: "Animals", selected: false.obs),
-    (interest: "Football", selected: false.obs),
-    (interest: "Gym & Fitness", selected: false.obs),
-    (interest: "Travel & Places", selected: false.obs),
+  List<({String emoji,String interest, RxBool selected})> allInterest = <({String emoji,String interest, RxBool selected})>[
+    (emoji: "🎮",interest: "Gaming,", selected: false.obs),
+    (emoji: "💃🏻",interest: "Dancing", selected: false.obs),
+    (emoji: "🗣",interest: "Language", selected: false.obs),
+    (emoji: "🎵",interest: "Music", selected: false.obs),
+    (emoji: "🎬",interest: "Movie", selected: false.obs),
+    (emoji: "✍🏻",interest: "Photography", selected: false.obs),
+    (emoji: "👗",interest: "Fashion", selected: false.obs),
+    (emoji: "📚",interest: "Architecture", selected: false.obs),
+    (emoji: "🐼",interest: "Book", selected: false.obs),
+    (emoji: "✍🏻",interest: "Writing,", selected: false.obs),
+    (emoji: "🐼",interest: "Animals", selected: false.obs),
+    (emoji: "⚽",interest: "Football", selected: false.obs),
+    (emoji: "💪",interest: "Gym & Fitness", selected: false.obs),
+    (emoji: "🌇",interest: "Travel & Places", selected: false.obs),
   ];
 
   @override
