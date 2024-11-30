@@ -19,20 +19,20 @@ class _Interest_ScreenState extends State<HobbiesPage> {
   HobbiesController hobbiesController = Get.put(HobbiesController());
 
   List<({String interest, RxBool selected})> allInterest = <({String interest, RxBool selected})>[
-    "Gaming,",
-    "Dancing,",
-    "Language,",
-    "Music,",
-    "Movie,",
-    "Photography,",
-    "Fashion,",
-    "Architecture,",
-    "Book,",
-    "Writing,",
-    "Animals,",
-    "Football,",
-    'Gym & Fitness,',
-    'Travel & Places,',
+    (interest: "Gaming,", selected: false.obs),
+    (interest: "Dancing,", selected: false.obs),
+    (interest: "Language,", selected: false.obs),
+    (interest: "Music,", selected: false.obs),
+    (interest: "Movie,", selected: false.obs),
+    (interest: "Photography,", selected: false.obs),
+    (interest: "Fashion,", selected: false.obs),
+    (interest: "Architecture,", selected: false.obs),
+    (interest: "Book,", selected: false.obs),
+    (interest: "Writing,", selected: false.obs),
+    (interest: "Animals", selected: false.obs),
+    (interest: "Football", selected: false.obs),
+    (interest: "Gym & Fitness", selected: false.obs),
+    (interest: "Travel & Places", selected: false.obs),
   ];
 
   List<String> FinalInterest = [];
