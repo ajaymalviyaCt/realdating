@@ -452,7 +452,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               ),
                               10.heightBox,
                               profileController.profileModel.value?.userInfo.interest == null
-                                  ? const Text("No Intrest Found !!")
+                                  ? const Text("No Interest Found !!")
                                   : SizedBox(
                                       // height: 120,
                                       child: GridView.builder(
