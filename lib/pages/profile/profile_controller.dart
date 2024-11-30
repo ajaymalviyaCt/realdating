@@ -1,10 +1,7 @@
 import 'package:get/get.dart';
 import 'package:realdating/pages/mape/NearBy_businesses.dart';
 import 'package:realdating/services/apis_related/api_call_services.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../consts/app_urls.dart';
-import '../../services/base_client01.dart';
 import 'profile_model.dart';
 
 class ProfileController extends GetxController {
@@ -32,33 +29,15 @@ class ProfileController extends GetxController {
         await ApiCall.instance.callApi(url: "https://forreal.net:4000/users/myprofile", headers: await authHeader(), method: HttpMethod.POST, body: {
       "id": await getUserId(),
     });
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    var userId = prefs.getInt('user_id');
-    print("call  profileDaitails");
-    final response = await BaseClient01().post(Appurls.profile, {
-      "id": "$userId",
-    });
-    print(response.toString());
-
-    bool status = response["success"];
-    print("status ___$status");
-    var msg = response["message"];
-    print("msg ___$msg");
-    profileModel = ProfileModel.fromJson(response);
-    print("profile model data--------$profileModel");
-    print("profile model data--------${profileModel?.userInfo.address}");
-
+    profileModel = ProfileModel.fromJson(apiData);
     username.value = profileModel!.userInfo.username;
-    firstName.value = ProfileModel.fromJson(response).userInfo.firstName;
-    idUser.value = ProfileModel.fromJson(response).userInfo.id.toString();
-    lastName.value = ProfileModel.fromJson(response).userInfo.lastName;
-    email.value = ProfileModel.fromJson(response).userInfo.email;
-    profileImage.value = ProfileModel.fromJson(response).userInfo.profileImage;
-    //  profile_image1.value=ProfileModel.fromJson(response).userInfo.profile_image1;
+    firstName.value = profileModel!.userInfo.firstName;
+    idUser.value = profileModel!.userInfo.id.toString();
+    lastName.value = profileModel!.userInfo.lastName;
+    email.value = profileModel!.userInfo.email;
+    profileImage.value = profileModel!.userInfo.profileImage;
+
     isLoadig(false);
     update();
-    // if (status) {
-    //   Get.to(() => const UplodePhoto());
-    // }
   }
 }
