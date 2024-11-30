@@ -3,6 +3,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/get_instance.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
@@ -19,6 +20,10 @@ import '../../function/function_class.dart';
 import '../../pages/edit_profle/edit_profile.dart';
 import '../buisness_hourbutton/buisness_hourbutton.dart';
 import 'business_profile_controller.dart';
+import 'package:http/http.dart'as http;
+
+
+
 
 class BusinessProfile extends StatefulWidget {
   const BusinessProfile({Key? key}) : super(key: key);
@@ -34,6 +39,12 @@ class _BusinessProfileState extends State<BusinessProfile> {
 
   final BusinessProfileController profileController = Get.put(BusinessProfileController());
 
+
+
+
+  bool showDropdown = false;
+  List<String> categories = [];
+  bool isLoading = false;
 
   Future<void>  updateProfilePic() async {
     image = await ImagePicker().pickImage(source: ImageSource.gallery);
@@ -141,8 +152,48 @@ class _BusinessProfileState extends State<BusinessProfile> {
   @override
   void initState() {
     super.initState();
+    fetchCategories();
     profileController.myProfile();
+
+
+    print('Business Category-----${profileController.profileData?.businessInfo?.category}');
+
   }
+
+
+  Future<void> fetchCategories() async {
+    setState(() {
+      isLoading = true;
+    });
+    try {
+      final response = await http.get(
+        Uri.parse('https://forreal.net:4000/fetchAllBussinessCategory'),
+      );
+      if (response.statusCode == 200) {
+        final data = json.decode(response.body);
+        if (data['success'] == true) {
+          setState(() {
+            categories = List<String>.from(
+              data['allCategory'].map((category) => category['category_name']),
+            );
+          });
+
+          print('Categorie list------------${categories}');
+        }
+      } else {
+        debugPrint('Failed to fetch categories: ${response.statusCode}');
+      }
+    } catch (e) {
+      debugPrint('Error fetching categories: $e');
+    } finally {
+      setState(() {
+        isLoading = false;
+      });
+    }
+  }
+
+
+
 
 
   final _formKey = GlobalKey<FormState>();
@@ -506,42 +557,139 @@ class _BusinessProfileState extends State<BusinessProfile> {
                                         fontSize: 16,
                                         fontWeight: FontWeight.w500,
                                       ),
-                                      Container(
-                                        margin: const EdgeInsets.only(
-                                            top: 10, bottom: 20),
-                                        // height: 48,
-                                        padding: const EdgeInsets.only(
-                                            left: 5),
-                                        //width: 350,
-                                        width: MediaQuery.of(context)
-                                            .size
-                                            .width,
-                                        height: 50,
-                                        constraints: BoxConstraints(
-                                            maxWidth:
-                                            MediaQuery.of(context)
-                                                .size
-                                                .width,
-                                            maxHeight: 100),
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                          BorderRadius.circular(5),
-                                          border: Border.all(
-                                              color: const Color(
-                                                  0xffD9D9D9)),
-                                          color: const Color(0xffEDEDED)
-                                              .withOpacity(.20),
+
+                                      const SizedBox(height: 10,),
+
+                                      TextField(
+                                        style: const TextStyle(
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.w400,
                                         ),
-                                        child: TextFormField(
-                                          controller: profileController
-                                              .businessCategoryController,
-                                          // validator: "",
-                                          decoration: InputDecoration(
-                                              hintText:
-                                              " ${profileController.profileData?.businessInfo?.category ?? 'Category'}",
-                                              border: InputBorder.none),
+                                        controller:profileController.businessCategoryController,
+                                        readOnly: true, // Prevent manual typing
+                                        onTap: () {
+                                          setState(() {
+                                            showDropdown = !showDropdown; // Toggle dropdown
+                                          });
+                                        },
+                                        decoration: InputDecoration(
+                                          hintText: "${profileController.profileData?.businessInfo?.category ?? 'Category'}",
+                                          hintStyle: const TextStyle(
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.w400,
+                                          ),
+                                          contentPadding: const EdgeInsets.symmetric(
+                                            horizontal: 15,
+                                            vertical: 8,
+                                          ),
+                                          filled: true,
+                                          fillColor: Colors.white.withOpacity(.15),
+                                          enabledBorder: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(5),
+                                            borderSide:BorderSide(
+                                              width: 1,
+                                              color: Colors.black.withOpacity(0.2),
+                                            ),
+                                          ),
+                                          focusedBorder: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(5),
+                                            borderSide:BorderSide(
+                                              width: 1,
+                                              color: Colors.black.withOpacity(0.2),
+                                            ),
+                                          ),
+                                          suffixIcon: IconButton(
+                                            icon: const Icon(Icons.arrow_drop_down, color: Colors.black),
+                                            onPressed: () {
+                                              setState(() {
+                                                if(categories.isEmpty){
+                                                  print('Category Index-----${categories}');
+                                                  Fluttertoast.showToast(msg: 'Category Not found');
+                                                }else{
+                                                  showDropdown = !showDropdown;
+                                                }
+                                              });
+                                            },
+                                          ),
                                         ),
+                                        cursorColor: Colors.black,
                                       ),
+                                      if (showDropdown)
+                                        Container(
+                                          height:200,
+                                          decoration: BoxDecoration(
+                                            color: Colors.red.withOpacity(0.2),
+                                            border: Border.all(color: Colors.white, width: 1),
+                                            borderRadius: BorderRadius.circular(5),
+                                          ),
+                                          child: isLoading
+                                              ? const Padding(
+                                            padding: EdgeInsets.all(16.0),
+                                            child: Center(
+                                              child: CircularProgressIndicator(color: Colors.white),
+                                            ),
+                                          )
+                                              : ListView.builder(
+                                            shrinkWrap: true,
+                                            itemCount: categories.length,
+                                            padding: const EdgeInsets.all(0),
+                                            itemBuilder: (context, index) {
+                                              return Padding(
+                                                padding: const EdgeInsets.all(10),
+                                                child: InkWell(
+                                                  onTap: () {
+                                                    setState(() {
+                                                      profileController.businessCategoryController.text = categories[index];
+                                                      showDropdown = false; // Close dropdown
+                                                    });
+                                                  },
+                                                  child: Text(
+                                                    categories[index],
+                                                    style: const TextStyle(color: Colors.black),
+                                                  ),
+                                                ),
+                                              );
+                                            },
+                                          ),
+                                        ),
+                                      const SizedBox(height: 10,),
+                                      // Container(
+                                      //   margin: const EdgeInsets.only(
+                                      //       top: 10, bottom: 20),
+                                      //   // height: 48,
+                                      //   padding: const EdgeInsets.only(
+                                      //       left: 5),
+                                      //   //width: 350,
+                                      //   width: MediaQuery.of(context)
+                                      //       .size
+                                      //       .width,
+                                      //   height: 50,
+                                      //   constraints: BoxConstraints(
+                                      //       maxWidth:
+                                      //       MediaQuery.of(context)
+                                      //           .size
+                                      //           .width,
+                                      //       maxHeight: 100),
+                                      //   decoration: BoxDecoration(
+                                      //     borderRadius:
+                                      //     BorderRadius.circular(5),
+                                      //     border: Border.all(
+                                      //         color: const Color(
+                                      //             0xffD9D9D9)),
+                                      //     color: const Color(0xffEDEDED)
+                                      //         .withOpacity(.20),
+                                      //   ),
+                                      //   child: TextFormField(
+                                      //     controller: profileController
+                                      //         .businessCategoryController,
+                                      //     // validator: "",
+                                      //     decoration: InputDecoration(
+                                      //         hintText:
+                                      //         " ${profileController.profileData?.businessInfo?.category ?? 'Category'}",
+                                      //         border: InputBorder.none),
+                                      //   ),
+                                      // ),
+
                                       StyledText(
                                         text: 'Instagram',
                                         color: Colors.black,

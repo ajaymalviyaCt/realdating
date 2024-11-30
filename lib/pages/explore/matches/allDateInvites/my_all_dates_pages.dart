@@ -205,7 +205,7 @@ class _MyAllDatesPageState extends State<MyAllDatesPage> {
                                                             children: [
                                                               SvgPicture.asset("assets/icons/A1arrow_received.svg", height: 12),
                                                               5.widthBox,
-                                                              "Rececived".text.base.red600.medium.make(),
+                                                              "Received".text.base.red600.medium.make(),
                                                             ],
                                                           );
                                                         } else if (myAllDatesController.myAllDatesModel?.myInvites?[index].requestStatus == 'Requested') {

@@ -206,7 +206,7 @@ class _BuisnessSignUpState extends State<BuisnessSignUp> {
                           maxLength: 15,
                           controller: buisbnesssignUpController.bphonenoController,
                           validator: validateMobile,
-                          hintText: 'Number',
+                          hintText: 'Phone Number',
                           keyboardType: TextInputType.phone,
                         ),
                         const SizedBox(height: 15),
@@ -267,6 +267,7 @@ class _BuisnessSignUpState extends State<BuisnessSignUp> {
                         ),
                         if (showDropdown)
                           Container(
+                            height:200,
                             decoration: BoxDecoration(
                               color: Colors.white,
                               border: Border.all(color: Colors.white, width: 1),
@@ -282,19 +283,25 @@ class _BuisnessSignUpState extends State<BuisnessSignUp> {
                                 : ListView.builder(
                               shrinkWrap: true,
                               itemCount: categories.length,
+                              padding: const EdgeInsets.all(0),
                               itemBuilder: (context, index) {
-                                return ListTile(
-                                  title: Text(
-                                    categories[index],
-                                    style: const TextStyle(color: Colors.black),
-                                  ),
-                                  onTap: () {
+                                return Padding(
+                                  padding: const EdgeInsets.all(10),
+                                  child: InkWell(
+                                    onTap: () {
                                     setState(() {
                                       buisbnesssignUpController.categoryController.text = categories[index];
                                       showDropdown = false; // Close dropdown
                                     });
                                   },
+                                    child: Text(
+                                        categories[index],
+                                        style: const TextStyle(color: Colors.black),
+                                      ),
+                                  ),
                                 );
+
+
                               },
                             ),
                           ),

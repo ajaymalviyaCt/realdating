@@ -403,7 +403,7 @@ interestDropdownUi(),
                   //   child: CustumProfileTextField1(
                   //     controller: txt_interest,
                   //     validator: validateIntrest,
-                  //     hintText: 'Enter Interest in dollar ',
+                  //     hintText: 'Enter Interest $ ',
                   //   ),
                   // ),
 

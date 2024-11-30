@@ -305,7 +305,7 @@ class _EDIT_dealState extends State<EDIT_deal> {
                     const SizedBox(
                       height: 10,
                     ),
-                    customTextC(text: "Price", fSize: 16, fWeight: FontWeight.w500, lineHeight: 36),
+                    customTextC(text: "Price(\$)", fSize: 16, fWeight: FontWeight.w500, lineHeight: 36),
                     SizedBox(
                       height: 50,
                       child: CustumProfileTextField1(
@@ -316,7 +316,7 @@ class _EDIT_dealState extends State<EDIT_deal> {
                     ),
                     const SizedBox(height: 10),
                     customTextC(
-                      text: "Discount",
+                      text: "Discount(\$)",
                       fSize: 16,
                       fWeight: FontWeight.w500,
                       lineHeight: 36,
@@ -331,7 +331,7 @@ class _EDIT_dealState extends State<EDIT_deal> {
                     const SizedBox(height: 30),
                     Obx(
                       () => customPrimaryBtn(
-                        btnText: "save",
+                        btnText: "Save",
                         btnFun: () async {
                           print("objectssss");
                           print(myDealController.myDealsModel?.myDeals[index].roomImage);
@@ -355,7 +355,7 @@ class _EDIT_dealState extends State<EDIT_deal> {
                     ),
 
                     customPrimaryBtnBlk(
-                      btnText: 'delete',
+                      btnText: 'Delete',
                       btnFun: () async {
                         var myData;
 

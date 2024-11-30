@@ -398,27 +398,27 @@ class _CreateDealState extends State<CreateDeal> {
               const SizedBox(
                 height: 10,
               ),
-              customTextC(text: "Price(in dollar)", fSize: 16, fWeight: FontWeight.w500, lineHeight: 36),
+              customTextC(text: "Price(\$)", fSize: 16, fWeight: FontWeight.w500, lineHeight: 36),
               SizedBox(
                 height: 70,
                 child: CustumProfileTextField1(
                   keyboardType: TextInputType.number,
                   controller: txt_price,
                   validator: validatePrice,
-                  hintText: 'Please Enter in dollar',
+                  hintText: 'Please Enter \$',
                 ),
               ),
               const SizedBox(
                 height: 10,
               ),
-              customTextC(text: "Discount(in dollar)", fSize: 16, fWeight: FontWeight.w500, lineHeight: 36),
+              customTextC(text: "Discount(\$)", fSize: 16, fWeight: FontWeight.w500, lineHeight: 36),
               SizedBox(
                 height: 70,
                 child: CustumProfileTextField1(
                   keyboardType: TextInputType.number,
                   controller: txt_discount,
                   validator: validateDiscount,
-                  hintText: 'Please Enter Discount in dollar',
+                  hintText: 'Please Enter Discount \$',
                 ),
               ),
               const SizedBox(

@@ -30,6 +30,7 @@ import '../../buisness_dashboard/buisness_dashboard.dart';
 import '../../buisness_post/buisness_post.dart';
 import '../../buisness_profile/buisness_profile.dart';
 import '../../buisness_profile/business_profile_controller.dart';
+import '../deals/edit_deal.dart';
 import 'comment_screen.dart';
 import 'homepage_bussiness_controller.dart';
 import '../controller/business_home_controller.dart';
@@ -2554,110 +2555,118 @@ class _BuisnessHomePageState extends State<BuisnessHomePage> {
 
                     result = 'Result: $subtractionResult';
 
-                    return Padding(
-                      padding: const EdgeInsets.only(right: 4.0),
-                      child: Card(
-                        color: Colors.white,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(16.0),
-                        ),
-                        elevation: 2.0,
-                        child: Container(
-                            // height: 168,
-                            width: 150,
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(10)),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(10),
-                                  child: SizedBox(
-                                    height: 120,
-                                    width: double.infinity,
-                                    child: CachedNetworkImage(
-                                      imageUrl: controller.myDealsModel
-                                              ?.myDeals[index].roomImage ??
-                                          "",
-                                      placeholder: (context, url) =>
-                                          const Center(
-                                              child: SizedBox(
-                                                  height: 20,
-                                                  width: 20,
-                                                  child:
-                                                      CircularProgressIndicator(
-                                                    strokeWidth: 1,
-                                                  ))),
-                                      errorWidget: (context, url, error) =>
-                                          const Icon(Icons.person_2_outlined),
-                                      filterQuality: FilterQuality.low,
-                                      fit: BoxFit.fill,
-                                      height: 300,
-                                    ),
-                                  ),
-                                ),
-                                controller.myDealsModel?.myDeals[index]
-                                    .title ==""?SizedBox.shrink():Padding(
-                                  padding:
-                                      const EdgeInsets.only(left: 20, right: 5),
-                                  child: ReadMoreText(
-                                    controller.myDealsModel?.myDeals[index]
-                                            .title ??
-                                        "",
-                                    trimLines: 2,
-                                    colorClickableText: Colors.pink,
-                                    trimMode: TrimMode.Line,
-                                    trimCollapsedText: 'Show more',
-                                    trimExpandedText: 'Show less',
-                                    moreStyle: const TextStyle(
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.w600),
-                                  ),
-                                  // customTextCommon(
-                                  //   text:
-                                  //       "${controller.myDealsModel?.myDeals[index].title}",
-                                  //   fSize: 16,
-                                  //   fWeight: FontWeight.w500,
-                                  //   lineHeight: 16,
-                                  // ),
-                                ),
-                                const SizedBox(
-                                  height: 5,
-                                ),
-                                Row(
-                                  children: [
-                                    const SizedBox(width: 20),
-                                    customTextCommon(
-                                      text:
-                                          "\$${subtractionResult.toString() ?? ""}",
-                                      fSize: 14,
-                                      fWeight: FontWeight.w600,
-                                      lineHeight: 0,
-                                      color: const Color(0xffFB4967),
-                                    ),
-                                    const SizedBox(
-                                      width: 10,
-                                    ),
-                                    Text(
-                                      "\$${controller.myDealsModel?.myDeals[index].price}",
-                                      style: const TextStyle(
-                                        decoration: TextDecoration.lineThrough,
-                                        decorationColor: Colors.grey,
-                                        decorationThickness: 2,
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w400,
-                                        color: Color(0xffAAAAAA),
+                    return InkWell(
+                      onTap: () {
+                      Get.to(
+                            () => EDIT_deal(),
+                        arguments: index, // Replace with your index value
+                      );
+                    },
+                      child: Padding(
+                        padding: const EdgeInsets.only(right: 4.0),
+                        child: Card(
+                          color: Colors.white,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(16.0),
+                          ),
+                          elevation: 2.0,
+                          child: Container(
+                              // height: 168,
+                              width: 150,
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(10)),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                children: [
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(10),
+                                    child: SizedBox(
+                                      height: 120,
+                                      width: double.infinity,
+                                      child: CachedNetworkImage(
+                                        imageUrl: controller.myDealsModel
+                                                ?.myDeals[index].roomImage ??
+                                            "",
+                                        placeholder: (context, url) =>
+                                            const Center(
+                                                child: SizedBox(
+                                                    height: 20,
+                                                    width: 20,
+                                                    child:
+                                                        CircularProgressIndicator(
+                                                      strokeWidth: 1,
+                                                    ))),
+                                        errorWidget: (context, url, error) =>
+                                            const Icon(Icons.person_2_outlined),
+                                        filterQuality: FilterQuality.low,
+                                        fit: BoxFit.fill,
+                                        height: 300,
                                       ),
                                     ),
-                                  ],
-                                ),
-                                const SizedBox(
-                                  height: 5,
-                                )
-                              ],
-                            )),
+                                  ),
+                                  controller.myDealsModel?.myDeals[index]
+                                      .title ==""?SizedBox.shrink():Padding(
+                                    padding:
+                                        const EdgeInsets.only(left: 20, right: 5),
+                                    child: ReadMoreText(
+                                      controller.myDealsModel?.myDeals[index]
+                                              .title ??
+                                          "",
+                                      trimLines: 2,
+                                      colorClickableText: Colors.pink,
+                                      trimMode: TrimMode.Line,
+                                      trimCollapsedText: 'Show more',
+                                      trimExpandedText: 'Show less',
+                                      moreStyle: const TextStyle(
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w600),
+                                    ),
+                                    // customTextCommon(
+                                    //   text:
+                                    //       "${controller.myDealsModel?.myDeals[index].title}",
+                                    //   fSize: 16,
+                                    //   fWeight: FontWeight.w500,
+                                    //   lineHeight: 16,
+                                    // ),
+                                  ),
+                                  const SizedBox(
+                                    height: 5,
+                                  ),
+                                  Row(
+                                    children: [
+                                      const SizedBox(width: 20),
+                                      customTextCommon(
+                                        text:
+                                            "\$${subtractionResult.toString() ?? ""}",
+                                        fSize: 14,
+                                        fWeight: FontWeight.w600,
+                                        lineHeight: 0,
+                                        color: const Color(0xffFB4967),
+                                      ),
+                                      const SizedBox(
+                                        width: 10,
+                                      ),
+                                      Text(
+                                        "\$${controller.myDealsModel?.myDeals[index].price}",
+                                        style: const TextStyle(
+                                          decoration: TextDecoration.lineThrough,
+                                          decorationColor: Colors.grey,
+                                          decorationThickness: 2,
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w400,
+                                          color: Color(0xffAAAAAA),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(
+                                    height: 5,
+                                  )
+                                ],
+                              )),
+                        ),
                       ),
                     );
                   },
