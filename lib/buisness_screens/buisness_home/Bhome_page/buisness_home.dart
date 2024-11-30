@@ -745,11 +745,7 @@ class _BuisnessHomePageState extends State<BuisnessHomePage> {
                                                           width: 35,
                                                           child:
                                                           CachedNetworkImage(
-                                                            imageUrl: postsC
-                                                                .bHomePagetModel
-                                                                .posts[index]
-                                                                .profileImage
-                                                                .toString(),
+                                                            imageUrl: postsC.bHomePagetModel.posts[index].profileImage.toString(),
                                                             placeholder: (context, url) => const Center(
                                                                 child: SizedBox(
                                                                     height: 20,
@@ -762,8 +758,7 @@ class _BuisnessHomePageState extends State<BuisnessHomePage> {
                                                                 error) =>Image.asset('assets/images/business_image_icon.png'),
                                                             filterQuality:
                                                             FilterQuality.low,
-                                                            fit: BoxFit
-                                                                .cover,
+                                                            fit: BoxFit.cover,
                                                           ),
                                                         ),
                                                       ),
@@ -771,8 +766,7 @@ class _BuisnessHomePageState extends State<BuisnessHomePage> {
                                                     10.aw.widthBox,
                                                     Column(
                                                       crossAxisAlignment:
-                                                      CrossAxisAlignment
-                                                          .start,
+                                                      CrossAxisAlignment.start,
                                                       children: [
                                                         Text(
                                                           '${postsC.bHomePagetModel.posts[index].businessName}',
@@ -794,8 +788,7 @@ class _BuisnessHomePageState extends State<BuisnessHomePage> {
                                                           '${postsC.bHomePagetModel.posts[index].createdAt!.day}-${postsC.bHomePagetModel.posts[index].createdAt!.month}-${postsC.bHomePagetModel.posts[index].createdAt!.year}',
                                                           style:
                                                           TextStyle(
-                                                            color: const Color(
-                                                                0xFFAAAAAA),
+                                                            color: const Color(0xFFAAAAAA),
                                                             fontSize:
                                                             10.adaptSize,
                                                             fontFamily:
@@ -832,9 +825,7 @@ class _BuisnessHomePageState extends State<BuisnessHomePage> {
                                                                         onPressed: () {
                                                                           Navigator.pop(context);
                                                                         },
-                                                                        child: const Text(
-                                                                          "No",
-                                                                          style: TextStyle(color: Appcolor.Redpink, fontSize: 16),
+                                                                        child: const Text("No", style: TextStyle(color: Appcolor.Redpink, fontSize: 16),
                                                                         ))
                                                                   ]));
                                                         },

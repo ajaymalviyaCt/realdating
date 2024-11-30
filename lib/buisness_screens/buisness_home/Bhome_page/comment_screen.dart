@@ -62,7 +62,7 @@ class _CommentPageState extends State<BCommentPage> {
                       controller: BhomepageBusinessController.commentsController,
                       decoration: const InputDecoration(
                         border: InputBorder.none,
-                        hintText: ' Add a comment...',
+                        hintText: ' Add comment...',
                       ),
                     ),
                   ),
@@ -138,8 +138,7 @@ class _CommentPageState extends State<BCommentPage> {
                                       child: CircularProgressIndicator(
                                         strokeWidth: 1,
                                       ))),
-                              errorWidget: (context, url, error) =>
-                                  const Icon(Icons.person_2_outlined),
+                              errorWidget: (context, url, error) => Image.asset('assets/images/business_image_icon.png'),
                               filterQuality: FilterQuality.low,
                               fit: BoxFit.cover,
                             ),
