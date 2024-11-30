@@ -14,10 +14,7 @@ class DatabaseService {
     // });
     //   await storageReference.getDownloadURL().then((fileURL) async {
     try {
-      await FirebaseFirestore.instance
-          .collection(usersCollection)
-          .doc(uid)
-          .set({
+      await FirebaseFirestore.instance.collection(usersCollection).doc(uid).set({
         'name': name,
         'email': email,
         'userid': uid,

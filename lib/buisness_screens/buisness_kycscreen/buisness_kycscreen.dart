@@ -33,9 +33,8 @@ class _BuisnessKycVerifyState extends State<BuisnessKycVerify> {
 //
 // //and when you need to change you do like this:
 //   _controller.updateID(newId);
-  BusinessKycController businessKYCController =
-      Get.put(BusinessKycController());
- var user_id;
+  BusinessKycController businessKYCController = Get.put(BusinessKycController());
+  var user_id;
   var status, message, data;
 
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
@@ -51,14 +50,13 @@ class _BuisnessKycVerifyState extends State<BuisnessKycVerify> {
   RxBool isLoadig = false.obs;
 
   String state = "";
+
   showLoaderDialog(BuildContext context) {
     AlertDialog alert = AlertDialog(
       content: Row(
         children: [
           const CircularProgressIndicator(),
-          Container(
-              margin: const EdgeInsets.only(left: 7),
-              child: const Text("Please Wait...")),
+          Container(margin: const EdgeInsets.only(left: 7), child: const Text("Please Wait...")),
         ],
       ),
     );
@@ -84,11 +82,11 @@ class _BuisnessKycVerifyState extends State<BuisnessKycVerify> {
   _asyncFileUpload(File file, context) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
-      setState(() {
-        user_id = prefs.get('user_id');
-        // token = prefs.get('token');
-        // print('user_id==============' + user_id!);
-      });
+    setState(() {
+      user_id = prefs.get('user_id');
+      // token = prefs.get('token');
+      // print('user_id==============' + user_id!);
+    });
     //create multipart request for POST or PATCH method
     isLoadig(true);
     showLoaderDialog(context);
@@ -107,8 +105,7 @@ class _BuisnessKycVerifyState extends State<BuisnessKycVerify> {
     //         fontSize: 16.0);
     //   }
     // });
-    var request = http.MultipartRequest(
-        "POST", Uri.parse("https://forreal.net:4000/business_document_1"));
+    var request = http.MultipartRequest("POST", Uri.parse("https://forreal.net:4000/business_document_1"));
     //add text fields
     request.fields["business_id"] = user_id.toString();
     request.fields["document_name"] = "document_name";
@@ -118,8 +115,7 @@ class _BuisnessKycVerifyState extends State<BuisnessKycVerify> {
     request.files.add(pic);
     var response = await request.send();
     if (response.statusCode == 200) {
-      var ress = await businessKYCController
-          .asyncUploadInfo(File(businessKYCController.KYCDOC ?? ""));
+      var ress = await businessKYCController.asyncUploadInfo(File(businessKYCController.KYCDOC ?? ""));
       setState(() {
         state = ress.toString();
         print(ress);
@@ -188,11 +184,7 @@ class _BuisnessKycVerifyState extends State<BuisnessKycVerify> {
                       : Container(
                           height: 141,
                           width: 400,
-                          decoration: BoxDecoration(
-                              image: DecorationImage(
-                                  image: FileImage(
-                                      File(businessKYCController.KYCBDOC!)),
-                                  fit: BoxFit.fill)
+                          decoration: BoxDecoration(image: DecorationImage(image: FileImage(File(businessKYCController.KYCBDOC!)), fit: BoxFit.fill)
                               //  borderRadius: BorderRadius.circular(10)
                               ),
                         ),
@@ -211,10 +203,7 @@ class _BuisnessKycVerifyState extends State<BuisnessKycVerify> {
                       //  SvgPicture.asset('assets/icons/file-plus.svg'),
                       InkWell(
                         onTap: () async {
-                          final XFile? pickImage = await ImagePicker()
-                              .pickImage(
-                                  source: ImageSource.gallery,
-                                  imageQuality: 10);
+                          final XFile? pickImage = await ImagePicker().pickImage(source: ImageSource.gallery, imageQuality: 10);
                           if (pickImage != null) {
                             setState(() {
                               businessKYCController.KYCBDOC = pickImage.path;
@@ -231,8 +220,7 @@ class _BuisnessKycVerifyState extends State<BuisnessKycVerify> {
                       const SizedBox(
                         height: 5,
                       ),
-                      const Text('Upload document here',
-                          style: TextStyle(fontSize: 16, color: Colors.grey))
+                      const Text('Upload document here', style: TextStyle(fontSize: 16, color: Colors.grey))
                     ],
                   ),
                 ),
@@ -265,11 +253,7 @@ class _BuisnessKycVerifyState extends State<BuisnessKycVerify> {
                       : Container(
                           height: 141,
                           width: 400,
-                          decoration: BoxDecoration(
-                              image: DecorationImage(
-                                  image: FileImage(
-                                      File(businessKYCController.KYCDOC!)),
-                                  fit: BoxFit.fill)
+                          decoration: BoxDecoration(image: DecorationImage(image: FileImage(File(businessKYCController.KYCDOC!)), fit: BoxFit.fill)
                               //  borderRadius: BorderRadius.circular(10)
 
                               ),
@@ -289,10 +273,7 @@ class _BuisnessKycVerifyState extends State<BuisnessKycVerify> {
                       //  SvgPicture.asset('assets/icons/file-plus.svg'),
                       InkWell(
                         onTap: () async {
-                          final XFile? pickImage = await ImagePicker()
-                              .pickImage(
-                                  source: ImageSource.gallery,
-                                  imageQuality: 10);
+                          final XFile? pickImage = await ImagePicker().pickImage(source: ImageSource.gallery, imageQuality: 10);
                           if (pickImage != null) {
                             setState(() {
                               businessKYCController.KYCDOC = pickImage.path;
@@ -309,8 +290,7 @@ class _BuisnessKycVerifyState extends State<BuisnessKycVerify> {
                       const SizedBox(
                         height: 5,
                       ),
-                      const Text('Upload document here',
-                          style: TextStyle(fontSize: 16, color: Colors.grey))
+                      const Text('Upload document here', style: TextStyle(fontSize: 16, color: Colors.grey))
                     ],
                   ),
                 ),
@@ -340,20 +320,16 @@ class _BuisnessKycVerifyState extends State<BuisnessKycVerify> {
               customPrimaryBtn(
                 btnText: "Upload",
                 btnFun: () async {
-                  if(businessKYCController.KYCBDOC!.isEmpty && businessKYCController.KYCDOC!.isEmpty){
+                  if (businessKYCController.KYCBDOC!.isEmpty && businessKYCController.KYCDOC!.isEmpty) {
                     Fluttertoast.showToast(msg: 'Fill Documents first');
-                  }else{
-
-                    var res = await _asyncFileUpload(
-                        File(businessKYCController.KYCBDOC ?? ""), context);
+                  } else {
+                    var res = await _asyncFileUpload(File(businessKYCController.KYCBDOC ?? ""), context);
 
                     setState(() {
                       state = res.toString();
                       print(res);
                     });
-
                   }
-
 
                   // genderController.selectGender();
                   // businessKYCController.uploadImage(businessKYCController.KYCBDOC??"","https://forreal.net:4000/business_document_1");

@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:realdating/widgets/custom_appbar.dart';
 import 'package:realdating/widgets/custom_buttons.dart';
@@ -16,16 +15,13 @@ class ChangePasswordPagePage extends StatefulWidget {
 }
 
 class _ChangePasswordPagePageState extends State<ChangePasswordPagePage> {
-
-
-  ChangePasswordController cpController =Get.put(ChangePasswordController());
-
+  ChangePasswordController cpController = Get.put(ChangePasswordController());
 
   var isLoading = false;
 
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: customAppbar("Change Password", context),
       body: Padding(
@@ -33,64 +29,78 @@ class _ChangePasswordPagePageState extends State<ChangePasswordPagePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: 30,),
+            SizedBox(
+              height: 30,
+            ),
             customTextCommon(text: " Old Password", fSize: 16, fWeight: FontWeight.w500, lineHeight: 36),
             SizedBox(
               height: 48,
               child: CustumProfileTextField(
-                onTap: (){
+                onTap: () {
                   print("OP");
                   setState(() {
                     cpController.OldPassowrdsee.value = !cpController.OldPassowrdsee.value;
                   });
-                  },
+                },
                 controller: cpController.OldPassword,
                 validator: null,
                 obscureText: cpController.OldPassowrdsee.value,
                 // prefixIcon: 'assets/icons/Lock.svg',
-                suffixIconn: cpController.OldPassowrdsee.value==true ?  'assets/icons/Eye Slash.svg' : 'assets/icons/eye.svg',
-                hintText: '',),
+                suffixIconn: cpController.OldPassowrdsee.value == true ? 'assets/icons/Eye Slash.svg' : 'assets/icons/eye.svg',
+                hintText: '',
+              ),
             ),
-
-            SizedBox(height: 10,),
+            SizedBox(
+              height: 10,
+            ),
             customTextCommon(text: " New Password", fSize: 16, fWeight: FontWeight.w500, lineHeight: 36),
             SizedBox(
               height: 48,
               child: CustumProfileTextField(
-                onTap: (){
+                onTap: () {
                   print("np");
                   setState(() {
-                    cpController.NewPassowrdsee.value =!cpController.NewPassowrdsee.value;
+                    cpController.NewPassowrdsee.value = !cpController.NewPassowrdsee.value;
                   });
                 },
                 controller: cpController.NPassword,
                 validator: null,
                 obscureText: cpController.NewPassowrdsee.value,
-                suffixIconn: cpController.NewPassowrdsee.value==true ?  'assets/icons/Eye Slash.svg' : 'assets/icons/eye.svg',
-                hintText: '',),
+                suffixIconn: cpController.NewPassowrdsee.value == true ? 'assets/icons/Eye Slash.svg' : 'assets/icons/eye.svg',
+                hintText: '',
+              ),
             ),
-
-            SizedBox(height: 10,),
+            SizedBox(
+              height: 10,
+            ),
             customTextCommon(text: " Confirm Password", fSize: 16, fWeight: FontWeight.w500, lineHeight: 36),
             SizedBox(
               height: 48,
               child: CustumProfileTextField(
-                onTap: (){
+                onTap: () {
                   print("cp");
                   setState(() {
-                   cpController.ConfirmPassowrdsee.value  =! cpController.ConfirmPassowrdsee.value ;
+                    cpController.ConfirmPassowrdsee.value = !cpController.ConfirmPassowrdsee.value;
                   });
                 },
                 controller: cpController.CPassword,
                 validator: null,
                 obscureText: cpController.ConfirmPassowrdsee.value,
-                suffixIconn: cpController.ConfirmPassowrdsee.value==true ?  'assets/icons/Eye Slash.svg' : 'assets/icons/eye.svg',
-                hintText: '',),
+                suffixIconn: cpController.ConfirmPassowrdsee.value == true ? 'assets/icons/Eye Slash.svg' : 'assets/icons/eye.svg',
+                hintText: '',
+              ),
             ),
             Spacer(),
-
-            Obx(()=> customPrimaryBtn(btnText: "Save", btnFun: (){cpController.loginwithEmail();},loading: cpController.isLoadig.value,)),
-            const SizedBox(height: 30,),
+            Obx(() => customPrimaryBtn(
+                  btnText: "Save",
+                  btnFun: () {
+                    cpController.loginwithEmail();
+                  },
+                  loading: cpController.isLoadig.value,
+                )),
+            const SizedBox(
+              height: 30,
+            ),
           ],
         ),
       ),

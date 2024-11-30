@@ -21,7 +21,8 @@ TextFormField primaryTextfield({
     initialValue: initialValue,
     keyboardType: textInputType ?? TextInputType.text,
     style: const TextStyle(color: Colors.black),
-    inputFormatters: inputFormatters ?? null, //
+    inputFormatters: inputFormatters ?? null,
+    //
     // Apply the custom formatter
     maxLines: maxLines ?? 1,
     // autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -58,10 +59,7 @@ TextFormField primaryTextfield({
           )),
 
       hintText: hintText,
-      hintStyle: TextStyle(
-          color: Colors.black.withOpacity(.40),
-          fontWeight: FontWeight.bold,
-          fontSize: 14),
+      hintStyle: TextStyle(color: Colors.black.withOpacity(.40), fontWeight: FontWeight.bold, fontSize: 14),
       // prefixIcon: Container(child: SvgPicture.asset('$prefixIcon',fit: BoxFit.none,)),
 
       suffixIcon: suffixIconn == null

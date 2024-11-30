@@ -40,7 +40,6 @@ class MyDealController extends GetxController implements GetxService {
   }
 
   MYDeal() async {
-
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var user_id = prefs.get("user_id");
 
@@ -108,9 +107,7 @@ class MyDealController extends GetxController implements GetxService {
   File? videoFile;
 
   getV(index) async {
-    controller = VideoPlayerController.network(
-        allDataBusiness?.posts?[index].post ??
-            "https://forreal.net:4000/business_post/1698312729544.mp4");
+    controller = VideoPlayerController.network(allDataBusiness?.posts?[index].post ?? "https://forreal.net:4000/business_post/1698312729544.mp4");
 /*    final appDir = await getApplicationDocumentsDirectory();
     final filename =  allDataBusiness?.posts?[index].post;
     videoFile=  File('${appDir.path}/$filename');
@@ -125,7 +122,8 @@ class MyDealController extends GetxController implements GetxService {
   int currentPage = 1;
   int pageSize = 10;
   static const _pageSize = 5;
-   fetchPages(int pageKey) async {
+
+  fetchPages(int pageKey) async {
     try {
       // Fetch data based on pageKey
       List<Post> newData = await fetchPage(pageKey);
@@ -133,17 +131,16 @@ class MyDealController extends GetxController implements GetxService {
       final isLastPage = newData.length < pageSize;
 
       if (isLastPage) {
-       pagingController.appendLastPage(newData);
+        pagingController.appendLastPage(newData);
       } else {
-   // pagingController.appendPage(newData, pageKey + 1);
+        // pagingController.appendPage(newData, pageKey + 1);
       }
     } catch (error) {
-  pagingController.error = error;
+      pagingController.error = error;
     }
   }
 
-
-   fetchPage(int pageKey) async {
+  fetchPage(int pageKey) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var user_id = prefs.get("user_id");
 
@@ -187,21 +184,19 @@ class MyDealController extends GetxController implements GetxService {
     }
   }
 
-
   List<String> videoUrls = [];
 
   Future<List<AllVideoLink>> fetchVideos() async {
-    final response =
-        await http.get(Uri.parse('https://forreal.net:4000/all_video_list'));
+    final response = await http.get(Uri.parse('https://forreal.net:4000/all_video_list'));
     if (response.statusCode == 200) {
       List<dynamic> body = jsonDecode(response.body);
-      List<AllVideoLink> videos =
-          body.map((dynamic item) => AllVideoLink.fromJson(item)).toList();
+      List<AllVideoLink> videos = body.map((dynamic item) => AllVideoLink.fromJson(item)).toList();
       return videos;
     } else {
       throw Exception('Failed to load videos');
     }
   }
+
   // Future<List<String>> fetchDataFromApi() async {
   //   // Simulating API call delay
   //   await Future.delayed(Duration(seconds: 1));
@@ -221,7 +216,6 @@ class MyDealController extends GetxController implements GetxService {
       //'file': "${file.value.toString()}",
     });
 
-
     isLoadig(false);
     bool status = response["success"];
 
@@ -230,7 +224,7 @@ class MyDealController extends GetxController implements GetxService {
     if (status) {
       print("editDealsUp");
 
-  pagingController.refresh();
+      pagingController.refresh();
       update();
       Fluttertoast.showToast(
         msg: msg,
@@ -257,10 +251,7 @@ class MyDealController extends GetxController implements GetxService {
   Future<void> likePost(String post_id, String like_status) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var token = prefs.get('token');
-    var headers = {
-      'Content-Type': 'application/x-www-form-urlencoded',
-      'Authorization': 'Bearer $token'
-    };
+    var headers = {'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Bearer $token'};
     print("post_id==>$post_id");
     var data = {'post_id': post_id, 'like_status': "$like_status"};
     var dio = Dio();
@@ -375,7 +366,7 @@ class MyDealController extends GetxController implements GetxService {
   getDashBoard() async {
     print("dashboard");
     print(postIdComment);
-isLoadig(true);
+    isLoadig(true);
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var userId = prefs.get('user_id');
     try {
@@ -404,5 +395,4 @@ isLoadig(true);
     }
     isLoadig(false);
   }
-
 }

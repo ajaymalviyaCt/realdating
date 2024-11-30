@@ -4,8 +4,9 @@ import 'package:realdating/pages/swipcard/tinder_card_model.dart';
 import '../discovery/discoveryModel.dart';
 
 class TinderCard extends StatefulWidget {
-  final MyFriendSwipe user ;
-  const TinderCard({super.key,required this.user});
+  final MyFriendSwipe user;
+
+  const TinderCard({super.key, required this.user});
 
   @override
   State<TinderCard> createState() => _TinderCardState();
@@ -15,67 +16,59 @@ class _TinderCardState extends State<TinderCard> {
   @override
   Widget build(BuildContext context) => buildCard();
 
-  Widget buildCard()=> ClipRRect(
-    borderRadius: BorderRadius.circular(20),
-    child: Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        image :   DecorationImage(
-          image: NetworkImage(widget.user.profileImage.toString()),
-          fit: BoxFit.cover,
+  Widget buildCard() => ClipRRect(
+        borderRadius: BorderRadius.circular(20),
+        child: Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            image: DecorationImage(
+              image: NetworkImage(widget.user.profileImage.toString()),
+              fit: BoxFit.cover,
+            ),
+          ),
+          child: Container(
+            decoration: const BoxDecoration(
+                gradient: LinearGradient(colors: [Colors.transparent, Colors.black], begin: Alignment.topCenter, end: Alignment.bottomCenter, stops: [0.7, 1])),
+            padding: EdgeInsets.all(20),
+            child: Column(
+              children: [
+                Spacer(),
+                SizedBox(
+                  height: 8,
+                ),
+                buildName(),
+                // SizedBox(height: 8,),
+                // buildSatus()
+              ],
+            ),
+          ),
         ),
-      ),
-      child: Container(
-        decoration: const BoxDecoration(
-            gradient: LinearGradient(
-                colors: [Colors.transparent,Colors.black],
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                stops: [0.7,1]
-            )
-        ),
-        padding: EdgeInsets.all(20),
-        child: Column(
-          children: [
-            Spacer(),
-            SizedBox(height: 8,),
-            buildName(),
-            // SizedBox(height: 8,),
-            // buildSatus()
-          ],
-        ),
-      ),
-    ),
-  );
-  Widget buildName(){
+      );
+
+  Widget buildName() {
     return Row(
       children: [
-        Text("${widget.user.firstName} ${widget.user.lastName} ,${widget.user.age}",
-    style: const TextStyle(
-            fontSize: 24,color: Colors.white,fontWeight: FontWeight.bold),
+        Text(
+          "${widget.user.firstName} ${widget.user.lastName} ,${widget.user.age}",
+          style: const TextStyle(fontSize: 24, color: Colors.white, fontWeight: FontWeight.bold),
         ),
-        const SizedBox(width: 16,),
+        const SizedBox(
+          width: 16,
+        ),
         // Text(widget.user.age.toString(),
         //   style: TextStyle(
         //       fontSize: 32,color: Colors.white,fontWeight: FontWeight.bold),
         // ),
       ],
-    );  // Widget buildSatus(){
+    ); // Widget buildSatus(){
     //   return Row(
     //     children: [
     //       const Text("",style: TextStyle(color: Colors.white),),
     //     ],
     //   );
     // }
-
   }
-
-
 }
-
-
-
-
 
 //
 //
@@ -205,6 +198,3 @@ class _TinderCardState extends State<TinderCard> {
 //   });
 //
 // }
-
-
-

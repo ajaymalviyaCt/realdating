@@ -4,11 +4,9 @@
 
 import 'dart:convert';
 
-MyAllDatesModel001 myAllDatesModel001FromJson(String str) =>
-    MyAllDatesModel001.fromJson(json.decode(str));
+MyAllDatesModel001 myAllDatesModel001FromJson(String str) => MyAllDatesModel001.fromJson(json.decode(str));
 
-String myAllDatesModel001ToJson(MyAllDatesModel001 data) =>
-    json.encode(data.toJson());
+String myAllDatesModel001ToJson(MyAllDatesModel001 data) => json.encode(data.toJson());
 
 class MyAllDatesModel001 {
   bool? success;
@@ -23,24 +21,18 @@ class MyAllDatesModel001 {
     this.myInvites,
   });
 
-  factory MyAllDatesModel001.fromJson(Map<String, dynamic> json) =>
-      MyAllDatesModel001(
+  factory MyAllDatesModel001.fromJson(Map<String, dynamic> json) => MyAllDatesModel001(
         success: json["success"],
         message: json["message"],
         status: json["status"],
-        myInvites: json["My_invites"] == null
-            ? []
-            : List<MyInvite>.from(
-                json["My_invites"]!.map((x) => MyInvite.fromJson(x))),
+        myInvites: json["My_invites"] == null ? [] : List<MyInvite>.from(json["My_invites"]!.map((x) => MyInvite.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
         "success": success,
         "message": message,
         "status": status,
-        "My_invites": myInvites == null
-            ? []
-            : List<dynamic>.from(myInvites!.map((x) => x.toJson())),
+        "My_invites": myInvites == null ? [] : List<dynamic>.from(myInvites!.map((x) => x.toJson())),
       };
 }
 
@@ -77,12 +69,8 @@ class MyInvite {
         time: json["time"],
         activity: json["activity"],
         location: json["location"],
-        invitedTo: json["invited_to"] == null
-            ? null
-            : Invited.fromJson(json["invited_to"]),
-        invitedBy: json["invited_by"] == null
-            ? null
-            : Invited.fromJson(json["invited_by"]),
+        invitedTo: json["invited_to"] == null ? null : Invited.fromJson(json["invited_to"]),
+        invitedBy: json["invited_by"] == null ? null : Invited.fromJson(json["invited_by"]),
         classifiedPost: json["classified_post"],
         classifiedPostStatus: json["classified_post_status"],
         status: json["status"],
@@ -193,8 +181,7 @@ class Invited {
         "fcm_token": fcmToken,
         "verify_user": verifyUser,
         "phone_verify": phoneVerify,
-        "Interest":
-            interest == null ? [] : List<dynamic>.from(interest!.map((x) => x)),
+        "Interest": interest == null ? [] : List<dynamic>.from(interest!.map((x) => x)),
         "hobbies": hobbies,
         "gender": gender,
         "address": address,
@@ -211,8 +198,7 @@ class Invited {
 
 enum ActToken { EMPTY, F5_A_FN8_II }
 
-final actTokenValues =
-    EnumValues({"": ActToken.EMPTY, "F5aFN8II": ActToken.F5_A_FN8_II});
+final actTokenValues = EnumValues({"": ActToken.EMPTY, "F5aFN8II": ActToken.F5_A_FN8_II});
 
 enum UserType { USER }
 
@@ -220,8 +206,7 @@ final userTypeValues = EnumValues({"user": UserType.USER});
 
 enum RequestStatus { RECEIVED, REQUESTED }
 
-final requestStatusValues = EnumValues(
-    {"Received": RequestStatus.RECEIVED, "Requested": RequestStatus.REQUESTED});
+final requestStatusValues = EnumValues({"Received": RequestStatus.RECEIVED, "Requested": RequestStatus.REQUESTED});
 
 class EnumValues<T> {
   Map<String, T> map;

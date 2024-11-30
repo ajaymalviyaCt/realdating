@@ -17,9 +17,11 @@ AppBar customAppbar(String title, context) {
     centerTitle: true,
     leading: Row(
       children: [
-        SizedBox(width: 15,),
+        SizedBox(
+          width: 15,
+        ),
         InkWell(
-          onTap: (){
+          onTap: () {
             print("Go back");
             Get.back();
           },
@@ -29,21 +31,18 @@ AppBar customAppbar(String title, context) {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(15.0),
               border: Border.all(
-                color: Color(
-                    0xFFE8E6EA), // Border color, equivalent to var(--border-e-8-e-6-ea, #E8E6EA) in CSS
+                color: Color(0xFFE8E6EA), // Border color, equivalent to var(--border-e-8-e-6-ea, #E8E6EA) in CSS
                 width: 1.0, // Border width
               ),
-              color: Color(
-                  0xFFFFFFFF), // Background color, equivalent to var(--white-ffffff, #FFF) in CSS
+              color: Color(0xFFFFFFFF), // Background color, equivalent to var(--white-ffffff, #FFF) in CSS
             ),
-            child: Icon(Icons.arrow_back_ios_outlined,color: colors.primary,size: 18),
+            child: Icon(Icons.arrow_back_ios_outlined, color: colors.primary, size: 18),
           ),
         ),
       ],
     ),
   );
 }
-
 
 AppBar customGenderAppbar(String title, context) {
   return AppBar(
@@ -59,7 +58,9 @@ AppBar customGenderAppbar(String title, context) {
     centerTitle: true,
     leading: Row(
       children: [
-        SizedBox(width: 15,),
+        SizedBox(
+          width: 15,
+        ),
         // InkWell(
         //   onTap: (){
         //     print("Go back");

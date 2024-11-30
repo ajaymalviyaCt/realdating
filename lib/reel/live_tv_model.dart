@@ -40,7 +40,7 @@ class TvModel {
     return isPaid == 1 && isSubscribed == 0;
   }
 
-  bool get isLiveBroadcasting{
+  bool get isLiveBroadcasting {
     return isLive == 1;
   }
 }

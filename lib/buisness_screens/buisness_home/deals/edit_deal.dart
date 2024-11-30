@@ -36,7 +36,6 @@ class _EDIT_dealState extends State<EDIT_deal> {
   EditUpdateController editUpdateController = Get.put(EditUpdateController());
 
 
-
   // final indexs = ModalRoute.of(context)!.settings.arguments as int;
 
   final index = Get.arguments as int;
@@ -108,7 +107,6 @@ class _EDIT_dealState extends State<EDIT_deal> {
         }
       });
     });
-
   }
 
   EditDealsDelete(editId) async {
@@ -164,256 +162,270 @@ class _EDIT_dealState extends State<EDIT_deal> {
     return Scaffold(
       appBar: customAppbar("Edit Deals", context),
       body: Obx(
-        () => myDealController.isLoadig.value
+            () =>
+        myDealController.isLoadig.value
             ? const Center(child: CircularProgressIndicator())
             : Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                child: Form(
-                    // key:_formmKey,
-                    // autovalidateMode:  AutovalidateMode.always,
-                    child: SingleChildScrollView(
-                  child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                    const SizedBox(
-                      height: 30,
-                    ),
-                    customTextC(
-                      text: "Upload Image",
-                      fSize: 16,
-                      fWeight: FontWeight.w500,
-                      lineHeight: 36,
-                    ),
+          padding: const EdgeInsets.symmetric(horizontal: 20.0),
+          child: Form(
+            // key:_formmKey,
+            // autovalidateMode:  AutovalidateMode.always,
+              child: SingleChildScrollView(
+                child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  customTextC(
+                    text: "Upload Image",
+                    fSize: 16,
+                    fWeight: FontWeight.w500,
+                    lineHeight: 36,
+                  ),
 
-                    myDealController.myDealsModel?.myDeals[index].roomImage != null && editUpdateController.fileEdit == null
-                        ? InkWell(
-                            onTap: () async {
-                              final XFile? pickImage = await ImagePicker().pickImage(source: ImageSource.gallery, imageQuality: 50);
-                              if (pickImage != null) {
-                                setState(() {
-                                  editUpdateController.fileEdit = pickImage.path;
-                                });
-                              }
-                            },
-                            child: Container(
-                              height: 135,
-                              decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                image: NetworkImage(myDealController.myDealsModel?.myDeals[index].roomImage ?? ""),
-                                fit: BoxFit.cover,
-                              )),
-                              child: const Center(
-                                  child: Icon(
-                                Icons.add_a_photo_outlined,
-                                color: Colors.black,
-                                size: 40,
-                              )),
+                  myDealController.myDealsModel?.myDeals[index].roomImage != null && editUpdateController.fileEdit == null
+                      ? InkWell(
+                    onTap: () async {
+                      final XFile? pickImage = await ImagePicker().pickImage(source: ImageSource.gallery, imageQuality: 50);
+                      if (pickImage != null) {
+                        setState(() {
+                          editUpdateController.fileEdit = pickImage.path;
+                        });
+                      }
+                    },
+                    child: Container(
+                      height: 135,
+                      decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: NetworkImage(myDealController.myDealsModel?.myDeals[index].roomImage ?? ""),
+                            fit: BoxFit.cover,
+                          )),
+                      child: const Center(
+                          child: Icon(
+                            Icons.add_a_photo_outlined,
+                            color: Colors.black,
+                            size: 40,
+                          )),
+                    ),
+                  )
+                      : InkWell(
+                    onTap: () async {
+                      final XFile? pickImage = await ImagePicker().pickImage(source: ImageSource.gallery, imageQuality: 50);
+                      if (pickImage != null) {
+                        editUpdateController.fileEdit = pickImage.path;
+                        // const Image();
+                      }
+                    },
+                    child: Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        Center(
+                          child: editUpdateController.fileEdit == null
+                              ? Container(
+                            width: MediaQuery
+                                .of(context)
+                                .size
+                                .width,
+                            height: 135,
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                color: HexColor('#D9D9D9'),
+                              ),
+                              borderRadius: BorderRadius.circular(5),
                             ),
+                            child: const Center(
+                                child: Icon(
+                                  Icons.camera_alt_outlined,
+                                  color: Colors.black,
+                                )),
                           )
-                        : InkWell(
-                            onTap: () async {
-                              final XFile? pickImage = await ImagePicker().pickImage(source: ImageSource.gallery, imageQuality: 50);
-                              if (pickImage != null) {
-                                editUpdateController.fileEdit = pickImage.path;
-                                // const Image();
-                              }
-                            },
-                            child: Stack(
-                              alignment: Alignment.center,
-                              children: [
-                                Center(
-                                  child: editUpdateController.fileEdit == null
-                                      ? Container(
-                                          width: MediaQuery.of(context).size.width,
-                                          height: 135,
-                                          decoration: BoxDecoration(
-                                            border: Border.all(
-                                              color: HexColor('#D9D9D9'),
-                                            ),
-                                            borderRadius: BorderRadius.circular(5),
-                                          ),
-                                          child: const Center(
-                                              child: Icon(
-                                            Icons.camera_alt_outlined,
-                                            color: Colors.black,
-                                          )),
-                                        )
-                                      : Container(
-                                          width: MediaQuery.of(context).size.width,
-                                          height: 135,
-                                          decoration: BoxDecoration(
-                                              border: Border.all(
-                                                color: HexColor('#D9D9D9'),
-                                              ),
-                                              borderRadius: BorderRadius.circular(5),
-                                              image: DecorationImage(image: FileImage(File(editUpdateController.fileEdit!)), fit: BoxFit.fill)),
-                                        ),
+                              : Container(
+                            width: MediaQuery
+                                .of(context)
+                                .size
+                                .width,
+                            height: 135,
+                            decoration: BoxDecoration(
+                                border: Border.all(
+                                  color: HexColor('#D9D9D9'),
                                 ),
-
-                                Container(
-                                  height: 141,
-                                  width: MediaQuery.of(context).size.width,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                    children: [
-                                      //  SvgPicture.asset('assets/icons/file-plus.svg'),
-                                      InkWell(
-                                        onTap: () async {
-                                          final XFile? pickImage = await ImagePicker().pickImage(source: ImageSource.gallery, imageQuality: 50);
-                                          if (pickImage != null) {
-                                            setState(() {
-                                              editUpdateController.fileEdit = pickImage.path;
-                                            });
-                                          }
-                                        },
-                                        child: SvgPicture.asset(
-                                          'assets/icons/galleryicon.svg',
-                                          fit: BoxFit.fill,
-                                        ),
-                                      ),
-                                      const SizedBox(height: 12),
-                                      const Text('Upload Image',
-                                          style: TextStyle(
-                                            fontSize: 16,
-                                            color: Colors.grey,
-                                          ))
-                                    ],
-                                  ),
-                                ),
-                                // Container(decoration: BoxDecoration(image: DecorationImage(image: NetworkImage(dataList[indexEdit].roomImage))),)
-                              ],
-                            ),
+                                borderRadius: BorderRadius.circular(5),
+                                image: DecorationImage(image: FileImage(File(editUpdateController.fileEdit!)), fit: BoxFit.fill)),
                           ),
-                    const SizedBox(
-                      height: 30,
+                        ),
+
+                        Container(
+                          height: 141,
+                          width: MediaQuery
+                              .of(context)
+                              .size
+                              .width,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              //  SvgPicture.asset('assets/icons/file-plus.svg'),
+                              InkWell(
+                                onTap: () async {
+                                  final XFile? pickImage = await ImagePicker().pickImage(source: ImageSource.gallery, imageQuality: 50);
+                                  if (pickImage != null) {
+                                    setState(() {
+                                      editUpdateController.fileEdit = pickImage.path;
+                                    });
+                                  }
+                                },
+                                child: SvgPicture.asset(
+                                  'assets/icons/galleryicon.svg',
+                                  fit: BoxFit.fill,
+                                ),
+                              ),
+                              const SizedBox(height: 12),
+                              const Text('Upload Image',
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    color: Colors.grey,
+                                  ))
+                            ],
+                          ),
+                        ),
+                        // Container(decoration: BoxDecoration(image: DecorationImage(image: NetworkImage(dataList[indexEdit].roomImage))),)
+                      ],
                     ),
-                    customTextC(
-                      text: "Title",
-                      fSize: 16,
-                      fWeight: FontWeight.w500,
-                      lineHeight: 36,
-                    ),
-                    SizedBox(
-                      // height: 50,
-                      child: CustumProfileTextField1(
-                          controller: editUpdateController.Title,
-                          validator: validateName,
-                          maxlenght: 30,
-                          keyboardType: TextInputType.emailAddress,
-                          hintText: "${myDealController.myDealsModel?.myDeals[index].title}"),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    customTextC(text: "Price(\$)", fSize: 16, fWeight: FontWeight.w500, lineHeight: 36),
-                    SizedBox(
-                      height: 50,
-                      child: CustumProfileTextField1(
-                        controller: editUpdateController.Price,
+                  ),
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  customTextC(
+                    text: "Title",
+                    fSize: 16,
+                    fWeight: FontWeight.w500,
+                    lineHeight: 36,
+                  ),
+                  SizedBox(
+                    // height: 50,
+                    child: CustumProfileTextField1(
+                        controller: editUpdateController.Title,
                         validator: validateName,
-                        hintText: "${myDealController.myDealsModel?.myDeals[index].price}",
-                      ),
+                        maxlenght: 30,
+                        keyboardType: TextInputType.emailAddress,
+                        hintText: "${myDealController.myDealsModel?.myDeals[index].title}"),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  customTextC(text: "Price(\$)", fSize: 16, fWeight: FontWeight.w500, lineHeight: 36),
+                  SizedBox(
+                    height: 50,
+                    child: CustumProfileTextField1(
+                      controller: editUpdateController.Price,
+                      validator: validateName,
+                      hintText: "${myDealController.myDealsModel?.myDeals[index].price}",
                     ),
-                    const SizedBox(height: 10),
-                    customTextC(
-                      text: "Discount(\$)",
-                      fSize: 16,
-                      fWeight: FontWeight.w500,
-                      lineHeight: 36,
-                    ),
-                    SizedBox(
-                      height: 50,
-                      child: CustumProfileTextField1(
-                          controller: editUpdateController.Discount,
-                          validator: validateName,
-                          hintText: myDealController.myDealsModel?.myDeals[index].discount ?? editUpdateController.Discount.text),
-                    ),
-                    const SizedBox(height: 30),
-                    Obx(
-                      () => customPrimaryBtn(
-                        btnText: "Save",
-                        btnFun: () async {
-                          print("objectssss");
-                          print(myDealController.myDealsModel?.myDeals[index].roomImage);
-                          print("data");
-                          print(myDealController.myDealsModel?.myDeals[index].roomImage.split("/").last);
-                          if (editUpdateController.fileEdit == null) {
-                            myDealController.myDealsModel?.myDeals[index].roomImage;
-                          }
-                          editUpdateController.Title.text ??= myDealController.myDealsModel!.myDeals[index].title;
-                          editUpdateController.Price.text ??= myDealController.myDealsModel!.myDeals[index].price.toString();
-                          editUpdateController.Discount.text ??= myDealController.myDealsModel!.myDeals[index].discount;
-                          if (!(num.parse(editUpdateController.Price.text.isEmpty
-                                  ? myDealController.myDealsModel!.myDeals[index].price.toString()
-                                  : editUpdateController.Price.text) >
-                              num.parse(editUpdateController.Discount.text.isEmpty
-                                  ? myDealController.myDealsModel!.myDeals[index].discount
-                                  : editUpdateController.Discount.text))) {
-                            Fluttertoast.showToast(msg: "Discount cannot be greater than or equal to the price.");
-                            return;
-                          }
-                          setState(() {
-                            uploadFileToServerInfluencer(
-                                myDealController.myDealsModel?.myDeals[index].id.toString(), index, myDealController.myDealsModel!.myDeals[index]);
-                            //editUpdateController.demmooup();
-                          });
-                          await myDealController.MYDeal();
-                        },
-                        loading: editDealApiLoading.value,
-                      ),
-                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  customTextC(
+                    text: "Discount(\$)",
+                    fSize: 16,
+                    fWeight: FontWeight.w500,
+                    lineHeight: 36,
+                  ),
+                  SizedBox(
+                    height: 50,
+                    child: CustumProfileTextField1(
+                        controller: editUpdateController.Discount,
+                        validator: validateName,
+                        hintText: myDealController.myDealsModel?.myDeals[index].discount ?? editUpdateController.Discount.text),
+                  ),
+                  const SizedBox(height: 30),
+                  Obx(
+                        () =>
+                        customPrimaryBtn(
+                          btnText: "Save",
+                          btnFun: () async {
+                            print("objectssss");
+                            print(myDealController.myDealsModel?.myDeals[index].roomImage);
+                            print("data");
+                            print(myDealController.myDealsModel?.myDeals[index].roomImage
+                                .split("/")
+                                .last);
+                            if (editUpdateController.fileEdit == null) {
+                              myDealController.myDealsModel?.myDeals[index].roomImage;
+                            }
+                            editUpdateController.Title.text ??= myDealController.myDealsModel!.myDeals[index].title;
+                            editUpdateController.Price.text ??= myDealController.myDealsModel!.myDeals[index].price.toString();
+                            editUpdateController.Discount.text ??= myDealController.myDealsModel!.myDeals[index].discount;
+                            if (!(num.parse(editUpdateController.Price.text.isEmpty
+                                ? myDealController.myDealsModel!.myDeals[index].price.toString()
+                                : editUpdateController.Price.text) >
+                                num.parse(editUpdateController.Discount.text.isEmpty
+                                    ? myDealController.myDealsModel!.myDeals[index].discount
+                                    : editUpdateController.Discount.text))) {
+                              Fluttertoast.showToast(msg: "Discount cannot be greater than or equal to the price.");
+                              return;
+                            }
+                            setState(() {
+                              uploadFileToServerInfluencer(
+                                  myDealController.myDealsModel?.myDeals[index].id.toString(), index, myDealController.myDealsModel!.myDeals[index]);
+                              //editUpdateController.demmooup();
+                            });
+                            await myDealController.MYDeal();
+                          },
+                          loading: editDealApiLoading.value,
+                        ),
+                  ),
 
-                    customPrimaryBtnBlk(
-                      btnText: 'Delete',
-                      btnFun: () async {
-                        var myData;
+                  customPrimaryBtnBlk(
+                    btnText: 'Delete',
+                    btnFun: () async {
+                      var myData;
 
-                        showDialog(
-                            context: context,
-                            builder: (BuildContext context) => AlertDialog(
-                                  title: const Text("Are you sure you want to delete this Deal?"),
-                                  actions: [
-                                    TextButton(
-                                      onPressed: () {
-                                        EditDealsDelete(myDealController.myDealsModel?.myDeals[index].id.toString());
-                                        setState(() {
-                                          myDealController.MYDeal();
-                                          // controller.myDealsModel;
-                                        });
-                                        myDealController.refresh();
-                                        Navigator.pop(context);
-                                      },
-                                      child: const Text(
-                                        "Yes",
-                                        style: TextStyle(color: Appcolor.Redpink, fontSize: 16),
-                                      ),
+                      showDialog(
+                          context: context,
+                          builder: (BuildContext context) =>
+                              AlertDialog(
+                                title: const Text("Are you sure you want to delete this Deal?"),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () {
+                                      EditDealsDelete(myDealController.myDealsModel?.myDeals[index].id.toString());
+                                      setState(() {
+                                        myDealController.MYDeal();
+                                        // controller.myDealsModel;
+                                      });
+                                      myDealController.refresh();
+                                      Navigator.pop(context);
+                                    },
+                                    child: const Text(
+                                      "Yes",
+                                      style: TextStyle(color: Appcolor.Redpink, fontSize: 16),
                                     ),
-                                    TextButton(
-                                      onPressed: () {
-                                        Navigator.pop(context);
-                                      },
-                                      child: const Text(
-                                        "No",
-                                        style: TextStyle(color: Appcolor.Redpink, fontSize: 16),
-                                      ),
+                                  ),
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                    child: const Text(
+                                      "No",
+                                      style: TextStyle(color: Appcolor.Redpink, fontSize: 16),
                                     ),
-                                  ],
-                                ));
+                                  ),
+                                ],
+                              ));
 
-                        /*   EditDealsDelete(myDealController
+                      /*   EditDealsDelete(myDealController
                                 .myDealsModel?.myDeals[index].id
                                 .toString());
                             await myDealController.MYDeal();
                             myDealController.MYDeal();*/
-                      },
-                      loading: editUpdateController.isLoadig.value,
-                    ),
-                    //)
-                  ]),
-                )),
-              ),
+                    },
+                    loading: editUpdateController.isLoadig.value,
+                  ),
+                  //)
+                ]),
+              )),
+        ),
       ),
     );
   }

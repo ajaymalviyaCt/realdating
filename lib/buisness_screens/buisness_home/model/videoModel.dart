@@ -36,18 +36,18 @@ class BusinessHomeVideoModel {
       );
 
   factory BusinessHomeVideoModel.fromJson(Map<String, dynamic> json) => BusinessHomeVideoModel(
-    success: json["success"],
-    message: json["message"],
-    status: json["status"],
-    allVideoLinks: List<AllVideoLink>.from(json["ALL_video_Links"].map((x) => AllVideoLink.fromJson(x))),
-  );
+        success: json["success"],
+        message: json["message"],
+        status: json["status"],
+        allVideoLinks: List<AllVideoLink>.from(json["ALL_video_Links"].map((x) => AllVideoLink.fromJson(x))),
+      );
 
   Map<String, dynamic> toJson() => {
-    "success": success,
-    "message": message,
-    "status": status,
-    "ALL_video_Links": List<dynamic>.from(allVideoLinks.map((x) => x.toJson())),
-  };
+        "success": success,
+        "message": message,
+        "status": status,
+        "ALL_video_Links": List<dynamic>.from(allVideoLinks.map((x) => x.toJson())),
+      };
 }
 
 class AllVideoLink {
@@ -65,10 +65,10 @@ class AllVideoLink {
       );
 
   factory AllVideoLink.fromJson(Map<String, dynamic> json) => AllVideoLink(
-    videoLinks: json["video_links"],
-  );
+        videoLinks: json["video_links"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "video_links": videoLinks,
-  };
+        "video_links": videoLinks,
+      };
 }

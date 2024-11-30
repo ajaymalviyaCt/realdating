@@ -19,20 +19,21 @@ class BuisnessSignUpController extends GetxController {
   TextEditingController categoryController = TextEditingController();
   TextEditingController addressController = TextEditingController();
 
-  clearDataUser(){return{
-    buisnessnameController.clear(),
-    bphonenoController.clear(),
-    bpasswordcontroller.clear(),
-    bconfirmpasscontroller.clear(),
-    bemailController.clear(),
+  clearDataUser() {
+    return {
+      buisnessnameController.clear(),
+      bphonenoController.clear(),
+      bpasswordcontroller.clear(),
+      bconfirmpasscontroller.clear(),
+      bemailController.clear(),
+      cityController.clear(),
+      stateController.clear(),
+      countryController.clear(),
+      categoryController.clear(),
+      addressController.clear(),
+    };
+  }
 
-    cityController.clear(),
-    stateController.clear(),
-    countryController.clear(),
-    categoryController.clear(),
-    addressController.clear(),
-
-  };}
   RxBool isLoadig = false.obs;
   RxBool seePassword = true.obs;
   RxBool seePassword1 = true.obs;
@@ -51,34 +52,31 @@ class BuisnessSignUpController extends GetxController {
   void onReady() {
     super.onReady();
   }
+
   Position? currentPosition;
   String? currentAddress;
+
   getCurrentLocation() async {
     loadAddress(true);
     print("entry===");
-    ;   addressController.clear();
+    ;
+    addressController.clear();
     LocationPermission permission;
     permission = await Geolocator.requestPermission();
 
     // Replace with your actual address
 
-    Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.best,
-        forceAndroidLocationManager: true)
-        .then((Position position) {
-
-        currentPosition = position;
-        getAddress(currentPosition!.latitude, currentPosition!.longitude);
-        // Address? streetAddress = await FlutterAddressFromLatLng().getStreetAddress(
-        //   latitude: _currentPosition!.latitude,
-        //   longitude: _currentPosition!.longitude,
-        //   googleApiKey: googleApiKey,
-        // );
-
+    Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.best, forceAndroidLocationManager: true).then((Position position) {
+      currentPosition = position;
+      getAddress(currentPosition!.latitude, currentPosition!.longitude);
+      // Address? streetAddress = await FlutterAddressFromLatLng().getStreetAddress(
+      //   latitude: _currentPosition!.latitude,
+      //   longitude: _currentPosition!.longitude,
+      //   googleApiKey: googleApiKey,
+      // );
 
       print("closeinggggggg");
-      print(loadAddress)
-      ;
+      print(loadAddress);
     }).catchError((e) {
       print(e);
     });
@@ -86,19 +84,14 @@ class BuisnessSignUpController extends GetxController {
 
   Future<void> getAddress(double latitude, double longitude) async {
     try {
-
-      List<Placemark> placemarks =
-      await placemarkFromCoordinates(latitude, longitude);
+      List<Placemark> placemarks = await placemarkFromCoordinates(latitude, longitude);
 
       if (placemarks != null && placemarks.isNotEmpty) {
-
-
-          Placemark firstPlacemark = placemarks[0];
-          currentAddress =
-          "${firstPlacemark.street} ${firstPlacemark.subLocality}, ${firstPlacemark.locality},${firstPlacemark.country}";
-          print("Address: $currentAddress");
-addressController.text = currentAddress!;
-   update();
+        Placemark firstPlacemark = placemarks[0];
+        currentAddress = "${firstPlacemark.street} ${firstPlacemark.subLocality}, ${firstPlacemark.locality},${firstPlacemark.country}";
+        print("Address: $currentAddress");
+        addressController.text = currentAddress!;
+        update();
         // buisbnesssignUpController.loadAddress=false.obs;
       } else {
         print("No address found for the given coordinates");
@@ -108,11 +101,13 @@ addressController.text = currentAddress!;
       print("Error getting address: $e");
     }
   }
+
   var manualLatitude;
   var manualLongitude;
+
   Future<void> getCoordinates(String address) async {
     try {
-    // loadAddress=true.obs;
+      // loadAddress=true.obs;
       List<Location> locations = await locationFromAddress(address);
 
       if (locations != null && locations.isNotEmpty) {
@@ -129,7 +124,8 @@ addressController.text = currentAddress!;
     }
 // loadAddress=true.obs;
   }
-  BuisnesssignUpfunction(lat,long) async {
+
+  BuisnesssignUpfunction(lat, long) async {
     print(cityValue);
 
     print("signwithBuissEmail");
@@ -147,8 +143,8 @@ addressController.text = currentAddress!;
         'country': "${countryValue}",
         'category': '${categoryController.value.text}',
         'address': '${addressController.text}',
-        'latitude': '${lat??""}',
-        'longitude': '${long??""}',
+        'latitude': '${lat ?? ""}',
+        'longitude': '${long ?? ""}',
       },
     );
 

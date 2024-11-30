@@ -1,5 +1,3 @@
-
-
 import 'package:realdating/widgets/custom_appbar.dart';
 
 import '../../reel/common_import.dart';
@@ -7,7 +5,6 @@ import '../../reel/common_import.dart';
 import 'package:flutter/material.dart';
 
 import 'mapeModel.dart';
-
 
 class BusinessDetailsPage extends StatelessWidget {
   final Bussiness business;
@@ -31,7 +28,6 @@ class BusinessDetailsPage extends StatelessWidget {
   }
 
   Padding dealCardWidget(BuildContext context, AllDeal deal) {
-
     num originalPrice = deal.price ?? 0.0;
     num discount = num.parse(deal.discount ?? "0") ?? 0.0;
     num discountedPrice = (originalPrice - discount).clamp(0, double.infinity);
@@ -65,17 +61,17 @@ class BusinessDetailsPage extends StatelessWidget {
                   ),
                   child: deal.roomImage != null
                       ? Image.network(
-                    deal.roomImage.toString(),
-                    width: double.infinity,
-                    height: 180,
-                    fit: BoxFit.cover,
-                  )
+                          deal.roomImage.toString(),
+                          width: double.infinity,
+                          height: 180,
+                          fit: BoxFit.cover,
+                        )
                       : Container(
-                    width: double.infinity,
-                    height: 180,
-                    color: Colors.grey[300],
-                    child: const Icon(Icons.image, size: 80, color: Colors.grey),
-                  ),
+                          width: double.infinity,
+                          height: 180,
+                          color: Colors.grey[300],
+                          child: const Icon(Icons.image, size: 80, color: Colors.grey),
+                        ),
                 ),
                 Positioned.fill(
                   child: Container(
@@ -168,10 +164,4 @@ class BusinessDetailsPage extends StatelessWidget {
       ),
     );
   }
-
-
-
-
 }
-
-

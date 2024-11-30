@@ -98,33 +98,30 @@ class _CameraAppState extends State<CameraApp> {
       ),
       body: isCameraInitialized
           ? Stack(
-        children: [
-          Transform(
-              alignment: Alignment.topCenter,
-              transform: Matrix4.rotationY(GetPlatform.isAndroid ? pi : 0),
-              child: CameraPreview(cameraController)),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  // Start/Pause Recording Button
-                  FloatingActionButton(
-                    backgroundColor: Colors.red,
-                    onPressed: isRecording ? stopRecording : startRecording,
-                    child: Icon(
-                      isRecording ? Icons.pause : Icons.videocam,
-                      color: Colors.white,
+              children: [
+                Transform(alignment: Alignment.topCenter, transform: Matrix4.rotationY(GetPlatform.isAndroid ? pi : 0), child: CameraPreview(cameraController)),
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        // Start/Pause Recording Button
+                        FloatingActionButton(
+                          backgroundColor: Colors.red,
+                          onPressed: isRecording ? stopRecording : startRecording,
+                          child: Icon(
+                            isRecording ? Icons.pause : Icons.videocam,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                ],
-              ),
-            ),
-          ),
-        ],
-      )
+                ),
+              ],
+            )
           : Center(child: CircularProgressIndicator()),
     );
   }

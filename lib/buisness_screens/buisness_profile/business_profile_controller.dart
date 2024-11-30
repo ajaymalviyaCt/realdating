@@ -9,7 +9,6 @@ import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class BusinessProfileController extends GetxController {
-
   @override
   void onInit() {
     super.onInit();
@@ -49,8 +48,8 @@ class BusinessProfileController extends GetxController {
   RxString bussinessProfilepic = "".obs;
   RxString bussinessCoverprofilepic = "".obs;
 
-
   RxBool isLoadigGetProfile = false.obs;
+
   Future<void> myProfile() async {
     isLoadigGetProfile(true);
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -58,10 +57,7 @@ class BusinessProfileController extends GetxController {
     var token = prefs.get('token');
 
     try {
-      var headers = {
-        'Content-Type': 'application/x-www-form-urlencoded',
-        'Authorization': 'Bearer $token'
-      };
+      var headers = {'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Bearer $token'};
       var data = {'id': '$userId'};
       var dio = Dio();
       var response = await dio.request(
@@ -82,11 +78,11 @@ class BusinessProfileController extends GetxController {
         businessNameController.text = profileData!.businessInfo!.businessName ?? '';
         businessDescriptionController.text = profileData!.businessInfo!.description ?? "";
         businessNumberController.text = profileData!.businessInfo!.phoneNumber;
-        businessCategoryController.text = profileData!.businessInfo!.category  ;
+        businessCategoryController.text = profileData!.businessInfo!.category;
         businessFaceBookController.text = profileData!.businessInfo!.facebookLink;
-        businessTwitterController.text = profileData!.businessInfo!.twitterLink ;
-        businessInstagramController.text = profileData!.businessInfo!.instagramLink ;
-        businessWebsiteController.text = profileData!.businessInfo!.website ;
+        businessTwitterController.text = profileData!.businessInfo!.twitterLink;
+        businessInstagramController.text = profileData!.businessInfo!.instagramLink;
+        businessWebsiteController.text = profileData!.businessInfo!.website;
         isLoadigGetProfile(false);
 
         print("json.encode(response.data)");
@@ -270,6 +266,4 @@ class BusinessProfileController extends GetxController {
       isLoadingupdateProfile(false);
     }
   }
-
-
 }

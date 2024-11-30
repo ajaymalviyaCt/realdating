@@ -28,8 +28,8 @@ class _DiscoveryPageState extends State<DiscoveryPage> with SingleTickerProvider
     _tabController.addListener(
       () {
         if (_tabController.indexIsChanging == false) {
-          discoveryController.searchText.value="";
-          discoveryController.searchController.text="";
+          discoveryController.searchText.value = "";
+          discoveryController.searchController.text = "";
           if (_tabController.index == 1) {
             discoveryController.foryou();
           } else {
@@ -173,8 +173,9 @@ class _DiscoveryPageState extends State<DiscoveryPage> with SingleTickerProvider
                                           return Obx(
                                             () {
                                               var dataD = (discoveryController.forYourModel.value?.myFriends ?? [])[i];
-                                              if ((dataD.firstName?.toLowerCase().contains(
-                                                      discoveryController.searchText.value.toString().trim().toLowerCase()) ==
+                                              if ((dataD.firstName
+                                                      ?.toLowerCase()
+                                                      .contains(discoveryController.searchText.value.toString().trim().toLowerCase()) ==
                                                   true)) {
                                                 return Padding(
                                                   padding: const EdgeInsets.only(top: 20),
@@ -189,9 +190,7 @@ class _DiscoveryPageState extends State<DiscoveryPage> with SingleTickerProvider
                                                               decoration: BoxDecoration(
                                                                   borderRadius: BorderRadius.circular(8),
                                                                   image: DecorationImage(
-                                                                    image: NetworkImage(dataD.images?.length == 0
-                                                                        ? ""
-                                                                        : dataD.images?[0].profileImages ?? ""),
+                                                                    image: NetworkImage(dataD.images?.length == 0 ? "" : dataD.images?[0].profileImages ?? ""),
                                                                     fit: BoxFit.cover,
                                                                   )),
                                                             ),
@@ -213,16 +212,12 @@ class _DiscoveryPageState extends State<DiscoveryPage> with SingleTickerProvider
                                                                 children: [
                                                                   Text(
                                                                     "${dataD.firstName},",
-                                                                    style: const TextStyle(
-                                                                        fontSize: 16, fontWeight: FontWeight.w500),
+                                                                    style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
                                                                   ),
                                                                   const SizedBox(width: 5),
                                                                   Text(
                                                                     dataD.age.toString(),
-                                                                    style: const TextStyle(
-                                                                        color: Colors.red,
-                                                                        fontWeight: FontWeight.w500,
-                                                                        fontSize: 16),
+                                                                    style: const TextStyle(color: Colors.red, fontWeight: FontWeight.w500, fontSize: 16),
                                                                   ),
                                                                   const Spacer(),
                                                                 ],
@@ -231,17 +226,14 @@ class _DiscoveryPageState extends State<DiscoveryPage> with SingleTickerProvider
                                                                 padding: const EdgeInsets.only(top: 4.0),
                                                                 child: InkWell(
                                                                   onTap: () async {
-                                                                    (discoveryController.forYourModel.value?.myFriends ?? [])[i]
-                                                                        .request = "Sent";
+                                                                    (discoveryController.forYourModel.value?.myFriends ?? [])[i].request = "Sent";
                                                                     setState(() {});
 
-                                                                    bool sendrequest =
-                                                                        await discoveryController.sendNotificationOnlyMatch(
-                                                                            reciverId: '${dataD.id.toString()}', index: i);
+                                                                    bool sendrequest = await discoveryController.sendNotificationOnlyMatch(
+                                                                        reciverId: '${dataD.id.toString()}', index: i);
                                                                     if (sendrequest) {
                                                                     } else {
-                                                                      (discoveryController.forYourModel.value?.myFriends ?? [])[i]
-                                                                          .request = "Request";
+                                                                      (discoveryController.forYourModel.value?.myFriends ?? [])[i].request = "Request";
                                                                       setState(() {});
                                                                     }
                                                                   },
@@ -254,8 +246,7 @@ class _DiscoveryPageState extends State<DiscoveryPage> with SingleTickerProvider
                                                                     width: 70.aw,
                                                                     child: Center(
                                                                         child: customTextCommon(
-                                                                      text:
-                                                                          "${(discoveryController.forYourModel.value?.myFriends ?? [])[i].request}",
+                                                                      text: "${(discoveryController.forYourModel.value?.myFriends ?? [])[i].request}",
                                                                       fSize: 14.adaptSize,
                                                                       fWeight: FontWeight.w600,
                                                                       lineHeight: 24,
@@ -286,9 +277,7 @@ class _DiscoveryPageState extends State<DiscoveryPage> with SingleTickerProvider
                                                                   Container(
                                                                     height: 10,
                                                                     width: 10,
-                                                                    decoration: BoxDecoration(
-                                                                        color: Colors.green,
-                                                                        borderRadius: BorderRadius.circular(40)),
+                                                                    decoration: BoxDecoration(color: Colors.green, borderRadius: BorderRadius.circular(40)),
                                                                   ),
                                                                   SizedBox(
                                                                     width: 10,
@@ -296,12 +285,12 @@ class _DiscoveryPageState extends State<DiscoveryPage> with SingleTickerProvider
                                                                   dataD.onlineStatus == 0
                                                                       ? const Text(
                                                                           'Offline',
-                                                                          style: TextStyle(color: Colors.black,fontSize: 12),
+                                                                          style: TextStyle(color: Colors.black, fontSize: 12),
                                                                           maxLines: 1,
                                                                         )
                                                                       : const Text(
                                                                           'Active',
-                                                                          style: TextStyle(color: Colors.green,fontSize: 12),
+                                                                          style: TextStyle(color: Colors.green, fontSize: 12),
                                                                           maxLines: 1,
                                                                         ),
                                                                 ],
@@ -371,7 +360,7 @@ class _DiscoveryPageState extends State<DiscoveryPage> with SingleTickerProvider
                                                                           padding: const EdgeInsets.all(4.0),
                                                                           child: Center(
                                                                               child: customTextCommon(
-                                                                                textOverflow: TextOverflow.ellipsis,
+                                                                            textOverflow: TextOverflow.ellipsis,
                                                                             text: dataD.hobbiesData![i].toString(),
                                                                             fSize: 14.adaptSize,
                                                                             fWeight: FontWeight.w600,
@@ -415,8 +404,9 @@ class _DiscoveryPageState extends State<DiscoveryPage> with SingleTickerProvider
                                           return Obx(
                                             () {
                                               var dataD = (discoveryController.forYourModel.value?.myFriends ?? [])[i];
-                                              if ((dataD.firstName?.toLowerCase().contains(
-                                                      discoveryController.searchText.value.toString().trim().toLowerCase()) ==
+                                              if ((dataD.firstName
+                                                      ?.toLowerCase()
+                                                      .contains(discoveryController.searchText.value.toString().trim().toLowerCase()) ==
                                                   true)) {
                                                 return Padding(
                                                   padding: const EdgeInsets.only(top: 20),
@@ -461,34 +451,25 @@ class _DiscoveryPageState extends State<DiscoveryPage> with SingleTickerProvider
                                                                 children: [
                                                                   Text(
                                                                     "${dataD.firstName},",
-                                                                    style: const TextStyle(
-                                                                        fontSize: 16, fontWeight: FontWeight.w500),
+                                                                    style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
                                                                   ),
                                                                   const SizedBox(width: 5),
                                                                   Text(
                                                                     dataD.age.toString(),
-                                                                    style: const TextStyle(
-                                                                        color: Colors.red,
-                                                                        fontWeight: FontWeight.w500,
-                                                                        fontSize: 16),
+                                                                    style: const TextStyle(color: Colors.red, fontWeight: FontWeight.w500, fontSize: 16),
                                                                   ),
                                                                   const Spacer(),
                                                                   Padding(
                                                                     padding: const EdgeInsets.only(top: 4.0),
                                                                     child: InkWell(
                                                                       onTap: () async {
-                                                                        (discoveryController.forYourModel.value?.myFriends ??
-                                                                                [])[i]
-                                                                            .request = "Sent";
+                                                                        (discoveryController.forYourModel.value?.myFriends ?? [])[i].request = "Sent";
                                                                         setState(() {});
-                                                                        bool sendrequest =
-                                                                            await discoveryController.sendNotificationOnlyMatch(
-                                                                                reciverId: '${dataD.id.toString()}', index: i);
+                                                                        bool sendrequest = await discoveryController.sendNotificationOnlyMatch(
+                                                                            reciverId: '${dataD.id.toString()}', index: i);
                                                                         if (sendrequest) {
                                                                         } else {
-                                                                          (discoveryController.forYourModel.value?.myFriends ??
-                                                                                  [])[i]
-                                                                              .request = "Request";
+                                                                          (discoveryController.forYourModel.value?.myFriends ?? [])[i].request = "Request";
                                                                           setState(() {});
                                                                         }
                                                                       },
@@ -501,8 +482,7 @@ class _DiscoveryPageState extends State<DiscoveryPage> with SingleTickerProvider
                                                                         width: 70.aw,
                                                                         child: Center(
                                                                             child: customTextCommon(
-                                                                          text:
-                                                                              "${(discoveryController.forYourModel.value?.myFriends ?? [])[i].request}",
+                                                                          text: "${(discoveryController.forYourModel.value?.myFriends ?? [])[i].request}",
                                                                           fSize: 14.adaptSize,
                                                                           fWeight: FontWeight.w600,
                                                                           lineHeight: 24,

@@ -33,8 +33,7 @@ class ReceivedGiftModel {
     // required this.subCategories,
   });
 
-  factory ReceivedGiftModel.fromJson(Map<String, dynamic> json) =>
-      ReceivedGiftModel(
+  factory ReceivedGiftModel.fromJson(Map<String, dynamic> json) => ReceivedGiftModel(
         giftDetail: GiftModel.fromJson(json["giftDetail"]),
         sender: UserModel.fromJson(json["senderDetail"]),
       );

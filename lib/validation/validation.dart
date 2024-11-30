@@ -6,8 +6,6 @@ String? notEmptyValidator(String? value) {
   return null; // Input is not empty
 }
 
-
-
 String? notEmptyAddValidator(String? value) {
   var value1 = value?.trim();
   if (value1 == null || value1.isEmpty) {
@@ -25,8 +23,7 @@ String? notEmptyMsgValidator(String? value) {
 }
 
 String? validateEmailField(value) {
-  Pattern pattern =
-      r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)'
+  Pattern pattern = r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)'
       r'|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
   RegExp regex = RegExp(pattern as String);
   if (value.isEmpty) {
@@ -46,7 +43,6 @@ String? validatePassword(value) {
     return 'Password required at least 8 numbers';
   }
 }
-
 
 String? validateConfPassword(value) {
   Pattern pattern = r'^(?=.*[0-9]+.*)(?=.*[a-zA-Z]+.*)[0-9a-zA-Z]{6,}$';
@@ -73,7 +69,6 @@ String? validateConfPassword(value) {
 //   }
 // }
 
-
 //   else String passNonNullValue;
 //  if (!regex.hasMatch(passNonNullValue)) {
 //     return ("Password should contain upper,lower,digit and Special character ");
@@ -81,7 +76,6 @@ String? validateConfPassword(value) {
 //   return null;
 // }
 //   return 'Password must contain numbers, letter, and at least six characters';
-
 
 //
 // String? validateConfirmPassword(value) {
@@ -112,16 +106,14 @@ String? validateNewPassword(value) {
 }
 */
 
-
-String? validateNewPassword( value) {
-  RegExp regex =
-  RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8}$');
+String? validateNewPassword(value) {
+  RegExp regex = RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8}$');
   if (value.isEmpty) {
     return 'New Password is Required';
   } else {
     if (!regex.hasMatch(value)) {
       return 'Password must contain numbers, letter, and at least six characters';
-    } else if (value.length < 8)  {
+    } else if (value.length < 8) {
       return null;
     }
   }
@@ -138,19 +130,12 @@ String? validateName(String? value) {
   return null;
 }
 
-
-
-
-
 String? validateBusinessName(String? value) {
   if (value == null || value.isEmpty) {
     return 'Business Name is Required.';
   }
   return null;
 }
-
-
-
 
 String? validateRange(value) {
   if (value.isEmpty) {
@@ -172,20 +157,18 @@ String? validTimeTitle(String? value) {
   return null; // Return null if validation passes
 }
 
-
 String? validateLink(value) {
   if (value.isEmpty) {
     return 'Link is Required.';
   }
 }
 
-
-
 String? validateLocation(value) {
   if (value.isEmpty) {
     return 'Location is Required.';
   }
 }
+
 String? validateDescriptionn(value) {
   if (value.isEmpty) {
     return 'Description is Required.';
@@ -233,6 +216,7 @@ String? validateage(value) {
     return 'Age is Required.';
   }
 }
+
 String? validateDeal(value) {
   if (value.isEmpty) {
     return 'Title Name is Required.';

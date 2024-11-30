@@ -11,8 +11,6 @@ import '../home_page_new/home_page_user_controller.dart';
 import 'classified_request/get_classified_request_pages.dart';
 import 'explore/explore.dart';
 
-
-
 class DashboardPage extends StatefulWidget {
   const DashboardPage({super.key});
 
@@ -21,12 +19,11 @@ class DashboardPage extends StatefulWidget {
 }
 
 class DashboardPageState extends State<DashboardPage> {
-
   PageController controller = PageController();
   int _selectedIndex = 0;
   ProfileController profileController = Get.put(ProfileController());
-  HomepageBusinessController postsddC =Get.put(HomepageBusinessController());
-   TinderSwipController tinderSwipController = Get.put(TinderSwipController());
+  HomepageBusinessController postsddC = Get.put(HomepageBusinessController());
+  TinderSwipController tinderSwipController = Get.put(TinderSwipController());
   HomePageUserController postsC = Get.put(HomePageUserController());
 
   @override
@@ -72,46 +69,33 @@ class DashboardPageState extends State<DashboardPage> {
               label: 'Home',
               icon: Padding(
                   padding: const EdgeInsets.only(top: 8.0, bottom: 4),
-                  child: SvgPicture.asset('assets/icons/home-04.svg',
-                      color: _selectedIndex == 0
-                          ? Colors.redAccent
-                          : Colors.black))),
+                  child: SvgPicture.asset('assets/icons/home-04.svg', color: _selectedIndex == 0 ? Colors.redAccent : Colors.black))),
           BottomNavigationBarItem(
             label: 'Explore',
             icon: Padding(
                 padding: const EdgeInsets.only(top: 8.0, bottom: 4),
                 child: SvgPicture.asset(
                   'assets/icons/compass.svg',
-                  color:
-                      _selectedIndex == 1 ? Colors.redAccent : Colors.black,
+                  color: _selectedIndex == 1 ? Colors.redAccent : Colors.black,
                 )),
           ),
           BottomNavigationBarItem(
             label: 'Match',
             icon: Padding(
                 padding: const EdgeInsets.only(top: 8.0, bottom: 4),
-                child: SvgPicture.asset('assets/icons/heart_new.svg',
-                    color: _selectedIndex == 2
-                        ? Colors.redAccent
-                        : Colors.black)),
+                child: SvgPicture.asset('assets/icons/heart_new.svg', color: _selectedIndex == 2 ? Colors.redAccent : Colors.black)),
           ),
           BottomNavigationBarItem(
             label: 'Classified',
             icon: Padding(
                 padding: const EdgeInsets.only(top: 8.0, bottom: 4),
-                child: SvgPicture.asset('assets/icons/iconlock.svg',
-                    color: _selectedIndex == 3
-                        ? Colors.redAccent
-                        : Colors.black)),
+                child: SvgPicture.asset('assets/icons/iconlock.svg', color: _selectedIndex == 3 ? Colors.redAccent : Colors.black)),
           ),
           BottomNavigationBarItem(
             label: 'Profile',
             icon: Padding(
                 padding: const EdgeInsets.only(top: 8.0, bottom: 4),
-                child: SvgPicture.asset('assets/icons/Groupperson.svg',
-                    color: _selectedIndex == 4
-                        ? Colors.redAccent
-                        : Colors.black)),
+                child: SvgPicture.asset('assets/icons/Groupperson.svg', color: _selectedIndex == 4 ? Colors.redAccent : Colors.black)),
           ),
         ],
       ),

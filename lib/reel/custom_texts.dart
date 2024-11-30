@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import 'app_config_constants.dart';
 
-
 class FontSizes {
   static double scale = 1;
 
@@ -39,7 +38,6 @@ class TextWeight {
   static FontWeight get bold => FontWeight.w900;
 }
 
-
 class Heading1Text extends StatelessWidget {
   final String text;
   final int? maxLines;
@@ -47,9 +45,7 @@ class Heading1Text extends StatelessWidget {
   final Color? color;
   final TextAlign? textAlign;
 
-  const Heading1Text(this.text,
-      {Key? key, this.textAlign, this.maxLines, this.weight, this.color})
-      : super(key: key);
+  const Heading1Text(this.text, {Key? key, this.textAlign, this.maxLines, this.weight, this.color}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -58,10 +54,7 @@ class Heading1Text extends StatelessWidget {
       maxLines: maxLines,
       overflow: TextOverflow.clip,
       textAlign: textAlign ?? TextAlign.left,
-      style: TextStyle(
-          fontSize: FontSizes.h1,
-          color: color ?? AppColorConstants.mainTextColor,
-          fontWeight: weight ?? TextWeight.medium),
+      style: TextStyle(fontSize: FontSizes.h1, color: color ?? AppColorConstants.mainTextColor, fontWeight: weight ?? TextWeight.medium),
     );
   }
 }
@@ -74,9 +67,7 @@ class Heading2Text extends StatelessWidget {
   final FontWeight? weight;
   final Color? color;
 
-  const Heading2Text(this.text,
-      {Key? key, this.textAlign, this.maxLines, this.weight, this.color})
-      : super(key: key);
+  const Heading2Text(this.text, {Key? key, this.textAlign, this.maxLines, this.weight, this.color}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -85,10 +76,7 @@ class Heading2Text extends StatelessWidget {
       maxLines: maxLines,
       overflow: TextOverflow.clip,
       textAlign: textAlign ?? TextAlign.left,
-      style: TextStyle(
-          fontSize: FontSizes.h2,
-          color: color ?? AppColorConstants.mainTextColor,
-          fontWeight: weight ?? TextWeight.medium),
+      style: TextStyle(fontSize: FontSizes.h2, color: color ?? AppColorConstants.mainTextColor, fontWeight: weight ?? TextWeight.medium),
     );
   }
 }
@@ -101,9 +89,7 @@ class Heading3Text extends StatelessWidget {
   final FontWeight? weight;
   final Color? color;
 
-  const Heading3Text(this.text,
-      {Key? key, this.textAlign, this.maxLines, this.weight, this.color})
-      : super(key: key);
+  const Heading3Text(this.text, {Key? key, this.textAlign, this.maxLines, this.weight, this.color}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -111,10 +97,7 @@ class Heading3Text extends StatelessWidget {
         maxLines: maxLines,
         overflow: TextOverflow.clip,
         textAlign: textAlign ?? TextAlign.left,
-        style: TextStyle(
-            fontSize: FontSizes.h3,
-            color: color ?? AppColorConstants.mainTextColor,
-            fontWeight: weight ?? TextWeight.medium));
+        style: TextStyle(fontSize: FontSizes.h3, color: color ?? AppColorConstants.mainTextColor, fontWeight: weight ?? TextWeight.medium));
   }
 }
 
@@ -126,9 +109,7 @@ class Heading4Text extends StatelessWidget {
   final FontWeight? weight;
   final Color? color;
 
-  const Heading4Text(this.text,
-      {Key? key, this.textAlign, this.maxLines, this.weight, this.color})
-      : super(key: key);
+  const Heading4Text(this.text, {Key? key, this.textAlign, this.maxLines, this.weight, this.color}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -137,10 +118,7 @@ class Heading4Text extends StatelessWidget {
       maxLines: maxLines,
       overflow: TextOverflow.clip,
       textAlign: textAlign ?? TextAlign.left,
-      style: TextStyle(
-          fontSize: FontSizes.h4,
-          color: color ?? AppColorConstants.mainTextColor,
-          fontWeight: weight ?? TextWeight.medium),
+      style: TextStyle(fontSize: FontSizes.h4, color: color ?? AppColorConstants.mainTextColor, fontWeight: weight ?? TextWeight.medium),
     );
   }
 }
@@ -153,9 +131,7 @@ class Heading5Text extends StatelessWidget {
   final FontWeight? weight;
   final Color? color;
 
-  const Heading5Text(this.text,
-      {Key? key, this.textAlign, this.maxLines, this.weight, this.color})
-      : super(key: key);
+  const Heading5Text(this.text, {Key? key, this.textAlign, this.maxLines, this.weight, this.color}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -164,10 +140,7 @@ class Heading5Text extends StatelessWidget {
       maxLines: maxLines,
       overflow: TextOverflow.clip,
       textAlign: textAlign ?? TextAlign.left,
-      style: TextStyle(
-          fontSize: FontSizes.h5,
-          color: color ?? AppColorConstants.mainTextColor,
-          fontWeight: weight ?? TextWeight.medium),
+      style: TextStyle(fontSize: FontSizes.h5, color: color ?? AppColorConstants.mainTextColor, fontWeight: weight ?? TextWeight.medium),
     );
   }
 }
@@ -180,9 +153,7 @@ class Heading6Text extends StatelessWidget {
   final FontWeight? weight;
   final Color? color;
 
-  const Heading6Text(this.text,
-      {Key? key, this.textAlign, this.maxLines, this.weight, this.color})
-      : super(key: key);
+  const Heading6Text(this.text, {Key? key, this.textAlign, this.maxLines, this.weight, this.color}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -191,10 +162,7 @@ class Heading6Text extends StatelessWidget {
       maxLines: maxLines,
       overflow: TextOverflow.clip,
       textAlign: textAlign ?? TextAlign.left,
-      style: TextStyle(
-          fontSize: FontSizes.h6,
-          color: color ?? AppColorConstants.mainTextColor,
-          fontWeight: weight ?? TextWeight.medium),
+      style: TextStyle(fontSize: FontSizes.h6, color: color ?? AppColorConstants.mainTextColor, fontWeight: weight ?? TextWeight.medium),
     );
   }
 }
@@ -208,9 +176,7 @@ class BodyExtraLargeText extends StatelessWidget {
   final FontWeight? weight;
   final Color? color;
 
-  const BodyExtraLargeText(this.text,
-      {Key? key, this.textAlign, this.maxLines, this.weight, this.color})
-      : super(key: key);
+  const BodyExtraLargeText(this.text, {Key? key, this.textAlign, this.maxLines, this.weight, this.color}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -218,10 +184,7 @@ class BodyExtraLargeText extends StatelessWidget {
         textAlign: textAlign ?? TextAlign.left,
         overflow: TextOverflow.clip,
         maxLines: maxLines,
-        style: TextStyle(
-            fontSize: FontSizes.b1,
-            color: color ?? AppColorConstants.mainTextColor,
-            fontWeight: weight ?? TextWeight.medium));
+        style: TextStyle(fontSize: FontSizes.b1, color: color ?? AppColorConstants.mainTextColor, fontWeight: weight ?? TextWeight.medium));
   }
 }
 
@@ -233,9 +196,7 @@ class BodyLargeText extends StatelessWidget {
   final FontWeight? weight;
   final Color? color;
 
-  const BodyLargeText(this.text,
-      {Key? key, this.textAlign, this.maxLines, this.weight, this.color})
-      : super(key: key);
+  const BodyLargeText(this.text, {Key? key, this.textAlign, this.maxLines, this.weight, this.color}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -243,10 +204,7 @@ class BodyLargeText extends StatelessWidget {
         textAlign: textAlign ?? TextAlign.left,
         overflow: TextOverflow.clip,
         maxLines: maxLines,
-        style: TextStyle(
-            fontSize: FontSizes.b2,
-            color: color ?? AppColorConstants.mainTextColor,
-            fontWeight: weight ?? TextWeight.medium));
+        style: TextStyle(fontSize: FontSizes.b2, color: color ?? AppColorConstants.mainTextColor, fontWeight: weight ?? TextWeight.medium));
   }
 }
 
@@ -258,9 +216,7 @@ class BodyMediumText extends StatelessWidget {
   final FontWeight? weight;
   final Color? color;
 
-  const BodyMediumText(this.text,
-      {Key? key, this.textAlign, this.maxLines, this.weight, this.color})
-      : super(key: key);
+  const BodyMediumText(this.text, {Key? key, this.textAlign, this.maxLines, this.weight, this.color}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -268,10 +224,7 @@ class BodyMediumText extends StatelessWidget {
         textAlign: textAlign ?? TextAlign.left,
         overflow: TextOverflow.clip,
         maxLines: maxLines,
-        style: TextStyle(
-            fontSize: FontSizes.b3,
-            color: color ?? AppColorConstants.mainTextColor,
-            fontWeight: weight ?? TextWeight.medium));
+        style: TextStyle(fontSize: FontSizes.b3, color: color ?? AppColorConstants.mainTextColor, fontWeight: weight ?? TextWeight.medium));
   }
 }
 
@@ -283,9 +236,7 @@ class BodySmallText extends StatelessWidget {
   final FontWeight? weight;
   final Color? color;
 
-  const BodySmallText(this.text,
-      {Key? key, this.textAlign, this.maxLines, this.weight, this.color})
-      : super(key: key);
+  const BodySmallText(this.text, {Key? key, this.textAlign, this.maxLines, this.weight, this.color}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -293,10 +244,7 @@ class BodySmallText extends StatelessWidget {
         textAlign: textAlign ?? TextAlign.left,
         maxLines: maxLines,
         overflow: TextOverflow.clip,
-        style: TextStyle(
-            fontSize: FontSizes.b4,
-            color: color ?? AppColorConstants.mainTextColor,
-            fontWeight: weight ?? TextWeight.medium));
+        style: TextStyle(fontSize: FontSizes.b4, color: color ?? AppColorConstants.mainTextColor, fontWeight: weight ?? TextWeight.medium));
   }
 }
 
@@ -308,9 +256,7 @@ class BodyExtraSmallText extends StatelessWidget {
   final FontWeight? weight;
   final Color? color;
 
-  const BodyExtraSmallText(this.text,
-      {Key? key, this.textAlign, this.maxLines, this.weight, this.color})
-      : super(key: key);
+  const BodyExtraSmallText(this.text, {Key? key, this.textAlign, this.maxLines, this.weight, this.color}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -318,9 +264,6 @@ class BodyExtraSmallText extends StatelessWidget {
         textAlign: textAlign ?? TextAlign.left,
         overflow: TextOverflow.clip,
         maxLines: maxLines,
-        style: TextStyle(
-            fontSize: FontSizes.b5,
-            color: color ?? AppColorConstants.mainTextColor,
-            fontWeight: weight ?? TextWeight.medium));
+        style: TextStyle(fontSize: FontSizes.b5, color: color ?? AppColorConstants.mainTextColor, fontWeight: weight ?? TextWeight.medium));
   }
 }

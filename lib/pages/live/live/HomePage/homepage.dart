@@ -2,10 +2,9 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:realdating/chat/api/apis.dart';
@@ -14,9 +13,7 @@ import 'package:zego_uikit_prebuilt_live_streaming/zego_uikit_prebuilt_live_stre
 import '../../../../reel/app_util.dart';
 import '../../../../zego_live_stream_chat/live_page.dart';
 import '../../../dash_board_page.dart';
-import '../agora/audience.dart';
 import '../constant/liveusercard.dart';
-
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -27,13 +24,13 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   List<LiveUser> liveUsers = [];
+
   // User? currentUser ;
   bool isDeviceConnected = false;
   StreamSubscription<ConnectivityResult>? connectivitySubscription;
 
-
-  var userName ='';
-  var userID ='';
+  var userName = '';
+  var userID = '';
 
   @override
   void initState() {
@@ -45,14 +42,10 @@ class _HomePageState extends State<HomePage> {
     removeExistingUserIfNeeded();
 
     print('login user id------------${user_uid}');
-
   }
-
-
 
   Future<void> fetchLoggedInUserData(String userId) async {
     try {
-
       final collection = FirebaseFirestore.instance.collection('users');
       final querySnapshot = await collection.where('id', isEqualTo: userId).get();
 
@@ -75,9 +68,6 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-
-
-
   void setupConnectivityListener() {
     Connectivity().checkConnectivity().then((result) {
       isDeviceConnected = result != ConnectivityResult.none;
@@ -89,7 +79,6 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-
   void fetchLiveUsers() {
     FirebaseFirestore.instance.collection("Liveusers").snapshots().listen((snapshot) {
       setState(() {
@@ -98,8 +87,6 @@ class _HomePageState extends State<HomePage> {
       });
     });
   }
-
-
 
   Future<void> removeExistingUserIfNeeded() async {
     if (user_uid != null) {
@@ -110,9 +97,7 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-
   Future<void> goLive() async {
-
     // Permission.microphone.request().then((value) {
     //   print(value);
     // },);Permission.camera.request().then((value) {
@@ -131,31 +116,21 @@ class _HomePageState extends State<HomePage> {
 
       /// Add live user to Firestore------
       await FirebaseFirestore.instance.collection("Liveusers").doc(user_uid).set({
-        'username':userName,
+        'username': userName,
         'userimage': 'https://www.yiwubazaar.com/resources/assets/images/default-product.jpg',
         'channelname': channelName,
-        'userid':userID,
+        'userid': userID,
       });
 
       if (ZegoUIKitPrebuiltLiveStreamingController().minimize.isMinimizing) {
         return;
       }
 
-      jumpToLivePage(
-          context,
-          liveID:'12345',
-          isHost: true,
-          userNmae: userName,
-          userId: userID
-      );
-
-
+      jumpToLivePage(context, liveID: '12345', isHost: true, userNmae: userName, userId: userID);
     } else {
       AppUtil.showToast(message: "Camera and Microphone permissions are required to go live", isSuccess: false);
-
     }
   }
-
 
   String generateRandomString(int length) {
     const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -170,7 +145,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -231,14 +205,17 @@ class _HomePageState extends State<HomePage> {
   //   );
   // }
 
-
   Widget buildLiveUserTile(LiveUser liveUser) {
     return Container(
       margin: const EdgeInsets.all(10),
       child: InkWell(
         onTap: () {
-          Get.to(() => LivePage(liveID:'12345', isHost: false, userId: liveUser.userId,
-            userNmae:userName,));
+          Get.to(() => LivePage(
+                liveID: '12345',
+                isHost: false,
+                userId: liveUser.userId,
+                userNmae: userName,
+              ));
         },
         child: LiveUserCard(
           broadcasterName: liveUser.userName,
@@ -247,8 +224,6 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
-
-
 }
 
 class LiveUser {
@@ -275,8 +250,7 @@ class LiveUser {
   }
 }
 
-void jumpToLivePage(BuildContext context,
-    {required String liveID, required bool isHost, required String userNmae, required String userId}) {
+void jumpToLivePage(BuildContext context, {required String liveID, required bool isHost, required String userNmae, required String userId}) {
   Navigator.push(
     context,
     MaterialPageRoute(
@@ -289,10 +263,3 @@ void jumpToLivePage(BuildContext context,
     ),
   );
 }
-
-
-
-
-
-
-

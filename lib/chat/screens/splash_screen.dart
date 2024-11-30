@@ -23,19 +23,15 @@ class _SplashScreenState extends State<SplashScreen> {
     Future.delayed(const Duration(seconds: 2), () {
       //exit full-screen
       SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
-      SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-          systemNavigationBarColor: Colors.white,
-          statusBarColor: Colors.white));
+      SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(systemNavigationBarColor: Colors.white, statusBarColor: Colors.white));
 
       if (APIs.auth.currentUser != null) {
         log('\nUser: ${APIs.auth.currentUser}');
         //navigate to home screen
-        Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (_) =>  HomeScreen()));
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => HomeScreen()));
       } else {
         //navigate to login screen
-        Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (_) => const LoginScreen()));
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => const LoginScreen()));
       }
     });
   }
@@ -49,20 +45,13 @@ class _SplashScreenState extends State<SplashScreen> {
       //body
       body: Stack(children: [
         //app logo
-        Positioned(
-            top: mq.height * .15,
-            right: mq.width * .25,
-            width: mq.width * .5,
-            child: Image.asset('images/icon.png')),
+        Positioned(top: mq.height * .15, right: mq.width * .25, width: mq.width * .5, child: Image.asset('images/icon.png')),
 
         //google login button
         Positioned(
             bottom: mq.height * .15,
             width: mq.width,
-            child: const Text('MADE IN INDIA WITH ❤️',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                    fontSize: 16, color: Colors.black87, letterSpacing: .5))),
+            child: const Text('MADE IN INDIA WITH ❤️', textAlign: TextAlign.center, style: TextStyle(fontSize: 16, color: Colors.black87, letterSpacing: .5))),
       ]),
     );
   }

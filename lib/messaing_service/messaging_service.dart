@@ -24,10 +24,7 @@ class MessagingService {
 
   MessagingService._internal();
 
-
-
   final FirebaseMessaging _fcm = FirebaseMessaging.instance;
-
 
   static FirebaseMessaging fMessaging = FirebaseMessaging.instance;
 
@@ -42,6 +39,7 @@ class MessagingService {
       }
     });
   }
+
   Future<void> init(BuildContext context) async {
     getFirebaseMessagingToken();
     // Requesting permission for notifications
@@ -55,8 +53,7 @@ class MessagingService {
       sound: true,
     );
 
-    debugPrint(
-        'User granted notifications permission: ${settings.authorizationStatus}');
+    debugPrint('User granted notifications permission: ${settings.authorizationStatus}');
 
     // Retrieving the FCM token
     fcmToken = await _fcm.getToken();
@@ -64,7 +61,6 @@ class MessagingService {
 
     // Handling background messages using the specified handler
     FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-
 
     // Handling the initial message received when the app is launched from dead (killed state)
     // When the app is killed and a new notification arrives when user clicks on it
@@ -88,45 +84,47 @@ class MessagingService {
     final data = message.data;
 
     print("qwertyio${data["screen"]}");
-    if("${data["screen"]}" =="matches"){
+    if ("${data["screen"]}" == "matches") {
       print("pramodqwertyuytrewerty${data["sender_id"]}");
-      Get.to(()=>const MatchesRequestPages());
+      Get.to(() => const MatchesRequestPages());
     }
-    if("${data["screen"]}" =="like"){
-      Get.to(()=>MyAllDatesPage());
-    }if("${data["screen"]}" =="business_like"){
-      Get.to(()=>const BuisnessHomePage());
-    } if("${data["screen"]}" =="business_comment"){
-      Get.to(()=>const BuisnessHomePage());
-    }if("${data["screen"]}" =="chat"){
-      Get.to(()=>HomeScreen());
+    if ("${data["screen"]}" == "like") {
+      Get.to(() => MyAllDatesPage());
     }
-    if("${data["screen"]}" =="comment"){
-      Get.to(()=>const NotificationPage());
+    if ("${data["screen"]}" == "business_like") {
+      Get.to(() => const BuisnessHomePage());
     }
-    if("${data["screen"]}" =="invite_date"){
-      Get.to(()=>const MyAllDatesPage());
+    if ("${data["screen"]}" == "business_comment") {
+      Get.to(() => const BuisnessHomePage());
     }
-    if("${data["screen"]}" =="review"){
-      Get.to(()=>MatchDetails(id:'${data["reciver_id"]}', isfriend: true,));
+    if ("${data["screen"]}" == "chat") {
+      Get.to(() => HomeScreen());
     }
-    if("${data["screen"]}" =="invite_accept"){
-      Get.to(()=> const MyAllDatesPage());
+    if ("${data["screen"]}" == "comment") {
+      Get.to(() => const NotificationPage());
     }
-    if("${data["screen"]}" =="Tag_you"){
-      Get.to(()=>MyAllDatesPage());
+    if ("${data["screen"]}" == "invite_date") {
+      Get.to(() => const MyAllDatesPage());
     }
-    if("${data["screen"]}" =="accept_your_classified_request"){
-      Get.to(()=>MyAllDatesPage());
+    if ("${data["screen"]}" == "review") {
+      Get.to(() => MatchDetails(
+            id: '${data["reciver_id"]}',
+            isfriend: true,
+          ));
     }
-    if("${data["screen"]}" =="accept_your_classified_request"){
-      Get.to(()=>MyAllDatesPage());
+    if ("${data["screen"]}" == "invite_accept") {
+      Get.to(() => const MyAllDatesPage());
     }
-
+    if ("${data["screen"]}" == "Tag_you") {
+      Get.to(() => MyAllDatesPage());
+    }
+    if ("${data["screen"]}" == "accept_your_classified_request") {
+      Get.to(() => MyAllDatesPage());
+    }
+    if ("${data["screen"]}" == "accept_your_classified_request") {
+      Get.to(() => MyAllDatesPage());
+    }
   }
-
-
-
 
 ////////////////////local notification   start
 
@@ -136,45 +134,29 @@ class MessagingService {
     required String body,
     required String payload,
   }) async {
-    const AndroidNotificationDetails androidNotificationDetails =
-    AndroidNotificationDetails('your channel id', 'your channel name',
-        channelDescription: 'your channel description',
-        importance: Importance.max,
-        priority: Priority.high,
-        ticker: 'ticker');
-    const NotificationDetails notificationDetails =
-    NotificationDetails(android: androidNotificationDetails);
+    const AndroidNotificationDetails androidNotificationDetails = AndroidNotificationDetails('your channel id', 'your channel name',
+        channelDescription: 'your channel description', importance: Importance.max, priority: Priority.high, ticker: 'ticker');
+    const NotificationDetails notificationDetails = NotificationDetails(android: androidNotificationDetails);
     await _flutterLocalNotificationsPlugin.show(0, title, body, notificationDetails, payload: payload);
   }
-
-
-
 
   // initalize local notifications
   static Future localNotiInit(BuildContext context) async {
     // initialise the plugin. app_icon needs to be a added as a drawable resource to the Android head project
-    const AndroidInitializationSettings initializationSettingsAndroid =
-    AndroidInitializationSettings('@mipmap/ic_launcher');
-    final DarwinInitializationSettings initializationSettingsDarwin =
-    DarwinInitializationSettings(
+    const AndroidInitializationSettings initializationSettingsAndroid = AndroidInitializationSettings('@mipmap/ic_launcher');
+    final DarwinInitializationSettings initializationSettingsDarwin = DarwinInitializationSettings(
       onDidReceiveLocalNotification: (id, title, body, payload) => null,
     );
-    const LinuxInitializationSettings initializationSettingsLinux =
-    LinuxInitializationSettings(defaultActionName: 'Open notification');
+    const LinuxInitializationSettings initializationSettingsLinux = LinuxInitializationSettings(defaultActionName: 'Open notification');
     final InitializationSettings initializationSettings =
-    InitializationSettings(
-        android: initializationSettingsAndroid,
-        iOS: initializationSettingsDarwin,
-        linux: initializationSettingsLinux);
-    _flutterLocalNotificationsPlugin.initialize(
-        initializationSettings,
-        onDidReceiveNotificationResponse: onNotificationTap,
-        onDidReceiveBackgroundNotificationResponse: onNotificationTap);
+        InitializationSettings(android: initializationSettingsAndroid, iOS: initializationSettingsDarwin, linux: initializationSettingsLinux);
+    _flutterLocalNotificationsPlugin.initialize(initializationSettings,
+        onDidReceiveNotificationResponse: onNotificationTap, onDidReceiveBackgroundNotificationResponse: onNotificationTap);
   }
+
   static void onNotificationTap(NotificationResponse notificationResponse) {
     print(notificationResponse.payload);
-    try{
-
+    try {
       print("qwerty");
       Map data = jsonDecode(notificationResponse.payload.toString());
 
@@ -182,55 +164,50 @@ class MessagingService {
       print("qwertyio${data["screen"]}");
       print("1234${data}");
 
-      if("${data["screen"]}" =="matches"){
+      if ("${data["screen"]}" == "matches") {
         print("pramodqwertyuytrewerty${data["sender_id"]}");
-        Get.to(()=>const MatchesRequestPages());
+        Get.to(() => const MatchesRequestPages());
       }
-      if("${data["screen"]}" =="like"){
-        Get.to(()=>MyAllDatesPage());
-      }if("${data["screen"]}" =="business_like"){
-        Get.to(()=>const BuisnessHomePage());
-      } if("${data["screen"]}" =="business_comment"){
-        Get.to(()=>const BuisnessHomePage());
-      }if("${data["screen"]}" =="chat"){
-        Get.to(()=>HomeScreen());
+      if ("${data["screen"]}" == "like") {
+        Get.to(() => MyAllDatesPage());
       }
-      if("${data["screen"]}" =="comment"){
-        Get.to(()=> HomePageUser());
+      if ("${data["screen"]}" == "business_like") {
+        Get.to(() => const BuisnessHomePage());
       }
-      if("${data["screen"]}" =="invite_date"){
-        Get.to(()=>const MyAllDatesPage());
+      if ("${data["screen"]}" == "business_comment") {
+        Get.to(() => const BuisnessHomePage());
       }
-      if("${data["screen"]}" =="review"){
-        Get.to(()=>MatchDetails(id:'${data["reciver_id"]}', isfriend: true,));
+      if ("${data["screen"]}" == "chat") {
+        Get.to(() => HomeScreen());
       }
-      if("${data["screen"]}" =="invite_accept"){
-        Get.to(()=>MyAllDatesPage());
+      if ("${data["screen"]}" == "comment") {
+        Get.to(() => HomePageUser());
       }
-      if("${data["screen"]}" =="Tag_you"){
-        Get.to(()=>MyAllDatesPage());
+      if ("${data["screen"]}" == "invite_date") {
+        Get.to(() => const MyAllDatesPage());
       }
-      if("${data["screen"]}" =="accept_your_classified_request"){
-        Get.to(()=>MyAllDatesPage());
+      if ("${data["screen"]}" == "review") {
+        Get.to(() => MatchDetails(
+              id: '${data["reciver_id"]}',
+              isfriend: true,
+            ));
       }
-      if("${data["screen"]}" =="accept_your_matches_request"){
-        Get.to(()=>MyAllDatesPage());
+      if ("${data["screen"]}" == "invite_accept") {
+        Get.to(() => MyAllDatesPage());
       }
-
-
-    }catch(e){
+      if ("${data["screen"]}" == "Tag_you") {
+        Get.to(() => MyAllDatesPage());
+      }
+      if ("${data["screen"]}" == "accept_your_classified_request") {
+        Get.to(() => MyAllDatesPage());
+      }
+      if ("${data["screen"]}" == "accept_your_matches_request") {
+        Get.to(() => MyAllDatesPage());
+      }
+    } catch (e) {
       print("qwertyio${e}");
     }
   }
-
-
-
-
-
-
-
-
-
 }
 
 // Handler for background messages
@@ -241,5 +218,4 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   debugPrint('Minimaig  Handling a background message: ${message.notification!.title}');
 
   // Navigator.of(context).pushNamed(screen);
-
 }

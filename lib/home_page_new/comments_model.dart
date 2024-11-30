@@ -22,18 +22,18 @@ class CommentsModel {
   });
 
   factory CommentsModel.fromJson(Map<String, dynamic> json) => CommentsModel(
-    success: json["success"],
-    message: json["message"],
-    status: json["status"],
-    comments: json["Comments"] == null ? [] : List<CommentList>.from(json["Comments"]!.map((x) => CommentList.fromJson(x))),
-  );
+        success: json["success"],
+        message: json["message"],
+        status: json["status"],
+        comments: json["Comments"] == null ? [] : List<CommentList>.from(json["Comments"]!.map((x) => CommentList.fromJson(x))),
+      );
 
   Map<String, dynamic> toJson() => {
-    "success": success,
-    "message": message,
-    "status": status,
-    "Comments": comments == null ? [] : List<dynamic>.from(comments!.map((x) => x.toJson())),
-  };
+        "success": success,
+        "message": message,
+        "status": status,
+        "Comments": comments == null ? [] : List<dynamic>.from(comments!.map((x) => x.toJson())),
+      };
 }
 
 class CommentList {
@@ -58,24 +58,24 @@ class CommentList {
   });
 
   factory CommentList.fromJson(Map<String, dynamic> json) => CommentList(
-    id: json["id"],
-    userId: json["user_id"],
-    postId: json["post_id"],
-    postComment: json["post_comment"],
-    updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
-    createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
-    commentOwnerName: json["comment_owner_name"],
-    profileImage: json["profile_image"],
-  );
+        id: json["id"],
+        userId: json["user_id"],
+        postId: json["post_id"],
+        postComment: json["post_comment"],
+        updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
+        createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
+        commentOwnerName: json["comment_owner_name"],
+        profileImage: json["profile_image"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "id": id,
-    "user_id": userId,
-    "post_id": postId,
-    "post_comment": postComment,
-    "updated_at": updatedAt?.toIso8601String(),
-    "created_at": createdAt?.toIso8601String(),
-    "comment_owner_name": commentOwnerName,
-    "profile_image": profileImage,
-  };
+        "id": id,
+        "user_id": userId,
+        "post_id": postId,
+        "post_comment": postComment,
+        "updated_at": updatedAt?.toIso8601String(),
+        "created_at": createdAt?.toIso8601String(),
+        "comment_owner_name": commentOwnerName,
+        "profile_image": profileImage,
+      };
 }

@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+
 //todo 0000000000000
 // import 'package:flutter_picker/picker.dart';
 import 'package:image_cropper/image_cropper.dart';
@@ -15,7 +16,9 @@ import '../profile/profile_controller.dart';
 import 'edit_profile_controller.dart';
 
 class EditProfilePage extends StatefulWidget {
-  const EditProfilePage({super.key,});
+  const EditProfilePage({
+    super.key,
+  });
 
   @override
   State<EditProfilePage> createState() => _EditProfilePageState();
@@ -25,7 +28,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
   EditProfileController editProfileController = Get.put(EditProfileController());
   ProfileController profileController = Get.put(ProfileController());
   bool isLoadig = false;
-  int ? age;
+  int? age;
   final List<String> genderItems = [
     'Feet',
     'CM',
@@ -74,10 +77,11 @@ class _EditProfilePageState extends State<EditProfilePage> {
   //todo 0000000000000
 
   final ImagePicker _picker = ImagePicker();
+
   Future<void> _imagePicker({required ImageSource source}) async {
-    final XFile ?  pickedFile = await _picker.pickImage(source: source,imageQuality: 60);
-     CroppedFile ? croppedFile = await ImageCropper().cropImage(
-      sourcePath:  pickedFile!.path,
+    final XFile? pickedFile = await _picker.pickImage(source: source, imageQuality: 60);
+    CroppedFile? croppedFile = await ImageCropper().cropImage(
+      sourcePath: pickedFile!.path,
       // aspectRatioPresets: [
       //   CropAspectRatioPreset.square,
       //   // CropAspectRatioPreset.ratio3x2,
@@ -95,6 +99,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
       });
     }
   }
+
   void _showPicker(context) {
     showModalBottomSheet(
         context: context,
@@ -126,7 +131,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
         });
   }
 
-
   @override
   void initState() {
     // TODO: implement initState
@@ -149,24 +153,25 @@ class _EditProfilePageState extends State<EditProfilePage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Stack(children: [
-              Obx(() {
-                return Center(
-                  child: Container(
-                    child: editProfileController.profilepic == null
-                        ? CircleAvatar(
-                      radius: 70,
-                      backgroundImage: NetworkImage(
-                        profileController.profileImage.value,
+                Obx(
+                  () {
+                    return Center(
+                      child: Container(
+                        child: editProfileController.profilepic == null
+                            ? CircleAvatar(
+                                radius: 70,
+                                backgroundImage: NetworkImage(
+                                  profileController.profileImage.value,
+                                ),
+                              )
+                            : CircleAvatar(
+                                radius: 70,
+                                backgroundImage: FileImage(File(editProfileController.profilepic!)),
+                              ),
                       ),
-                    )
-                        : CircleAvatar(
-                      radius: 70,
-                      backgroundImage: FileImage(
-                          File(editProfileController.profilepic!)),
-                    ),
-                  ),
-                );
-              },),
+                    );
+                  },
+                ),
                 Padding(
                   padding: const EdgeInsets.only(top: 60),
                   child: Center(
@@ -193,10 +198,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
               SizedBox(
                 height: 10,
               ),
-              editProfileTextField(
-                  hintText: "Unique User Name",
-                  controller: editProfileController.username,
-                  validator: null),
+              editProfileTextField(hintText: "Unique User Name", controller: editProfileController.username, validator: null),
               SizedBox(
                 height: 20,
               ),
@@ -210,10 +212,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
               SizedBox(
                 height: 10,
               ),
-              editProfileTextField(
-                  hintText: "First Name",
-                  controller: editProfileController.first_name,
-                  validator: null),
+              editProfileTextField(hintText: "First Name", controller: editProfileController.first_name, validator: null),
               SizedBox(
                 height: 20,
               ),
@@ -227,10 +226,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
               SizedBox(
                 height: 10,
               ),
-              editProfileTextField(
-                  hintText: "Last Name",
-                  controller: editProfileController.last_name,
-                  validator: null),
+              editProfileTextField(hintText: "Last Name", controller: editProfileController.last_name, validator: null),
               const SizedBox(
                 height: 20,
               ),
@@ -327,7 +323,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   controller: editProfileController.height,
                   decoration: InputDecoration(
                       suffixIcon: SizedBox(
-                        height: 50,width: 70,
+                        height: 50,
+                        width: 70,
                         child: Row(
                           children: [
                             Center(
@@ -336,39 +333,42 @@ class _EditProfilePageState extends State<EditProfilePage> {
                               ),
                             ),
                             10.widthBox,
-                            Icon(Icons.height,
+                            Icon(
+                              Icons.height,
                               color: Colors.redAccent,
                             )
                           ],
                         ),
                       ),
-                    contentPadding: EdgeInsets.all(10),
-                    // filled: true,
-                    // fillColor: Colors.grey.withOpacity(.25),
-                    enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(
-                          width: 1,color:Colors.black12,
-                        )),
-                    focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(
-                          width: 1,color: Colors.black12,
-                        )),
-                    errorBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(
-                          width: 1,color: Colors.red,
-                        )),
-                    focusedErrorBorder:  OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(
-                          width: 1,color: Colors.black,
-                        )
-                    ),
-                    hintText: "Height",
-                    hintStyle: TextStyle(color: Colors.black.withOpacity(.55))),
-
+                      contentPadding: EdgeInsets.all(10),
+                      // filled: true,
+                      // fillColor: Colors.grey.withOpacity(.25),
+                      enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: BorderSide(
+                            width: 1,
+                            color: Colors.black12,
+                          )),
+                      focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: BorderSide(
+                            width: 1,
+                            color: Colors.black12,
+                          )),
+                      errorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: BorderSide(
+                            width: 1,
+                            color: Colors.red,
+                          )),
+                      focusedErrorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: BorderSide(
+                            width: 1,
+                            color: Colors.black,
+                          )),
+                      hintText: "Height",
+                      hintStyle: TextStyle(color: Colors.black.withOpacity(.55))),
                   readOnly: true,
                   onTap: () async {
                     //todo 0000000000000
@@ -377,7 +377,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   },
                 ),
               ),
-
 
               const SizedBox(
                 height: 20,
@@ -390,7 +389,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 fontWeight: FontWeight.w500,
               ),
               SizedBox(
-                height:10,
+                height: 10,
               ),
 
               Container(
@@ -428,7 +427,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                       print(pickedDate); //pickedDate output format => 2021-03-10 00:00:00.000
                       String formattedDate = DateFormat('MM-dd-yyyy').format(pickedDate);
                       print("only year = ${pickedDate.year}");
-                       age =DateTime.now().year - pickedDate.year;
+                      age = DateTime.now().year - pickedDate.year;
                       print("${age}");
                       //formatte
                       // d date output using intl package =>  2021-03-16
@@ -458,10 +457,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
               SizedBox(
                 height: 10,
               ),
-              editProfileTextField(
-                  hintText: "Enter Address",
-                  controller: editProfileController.Address,
-                  validator: null),
+              editProfileTextField(hintText: "Enter Address", controller: editProfileController.Address, validator: null),
               SizedBox(
                 height: 20,
               ),
@@ -473,12 +469,10 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   btnText: "Save Changes",
                   btnFun: () {
                     editProfileController.editProfile();
-                    if(age!=null){
+                    if (age != null) {
                       editProfileController.onlyage(age!);
-                      age=null;
-
+                      age = null;
                     }
-
                   },
                   loading: editProfileController.isLoadig.value,
                 ),

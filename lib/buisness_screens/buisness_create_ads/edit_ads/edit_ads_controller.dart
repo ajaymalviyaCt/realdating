@@ -23,7 +23,6 @@ class EditAdsController extends GetxController {
   TextEditingController Link = TextEditingController();
   TextEditingController file = TextEditingController();
 
-
   bool _obscureText = false;
   bool loading = false;
   var isLoading = false;

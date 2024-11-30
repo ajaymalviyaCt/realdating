@@ -1,4 +1,3 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -11,11 +10,10 @@ class Searchbar extends StatefulWidget {
 }
 
 class _SearchbarState extends State<Searchbar> {
-
   List<String> searchResults = [];
   bool isLoading = false;
 
- /* Future<void> fetchSearchResults(String query) async {
+  /* Future<void> fetchSearchResults(String query) async {
     setState(() {
       isLoading = true;
     });
@@ -38,17 +36,16 @@ class _SearchbarState extends State<Searchbar> {
     }
   }*/
 
-
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    return Scaffold(
       body: Column(
         children: [
           Container(
-            padding: EdgeInsets.symmetric(vertical:20,horizontal: 10),
+            padding: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
             child: TextFormField(
               onChanged: (value) {
-                 //   onChanged:(value) => fetchSearchResults(value);
+                //   onChanged:(value) => fetchSearchResults(value);
                 // fetchSearchResults(value);
               },
 
@@ -61,15 +58,12 @@ class _SearchbarState extends State<Searchbar> {
               textAlign: TextAlign.start,
               //  controller: search,
               decoration: InputDecoration(
-                contentPadding: const EdgeInsets.symmetric(
-                    vertical: 16, horizontal: 16),
+                contentPadding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
                 filled: true,
                 fillColor: Colors.green.withOpacity(0.15),
-                prefixIcon: Icon(
-                    Icons.search, color: HexColor('#B1B1B1')),
+                prefixIcon: Icon(Icons.search, color: HexColor('#B1B1B1')),
                 border: OutlineInputBorder(
-                  borderSide: BorderSide(
-                      color: HexColor("#CCCBCB")),
+                  borderSide: BorderSide(color: HexColor("#CCCBCB")),
                   borderRadius: const BorderRadius.all(
                     Radius.circular(15),
                   ),
@@ -86,20 +80,22 @@ class _SearchbarState extends State<Searchbar> {
                     Radius.circular(15),
                   ),
                 ),
-                hintStyle: TextStyle(color: HexColor('#B1B1B1'),
+                hintStyle: TextStyle(
+                  color: HexColor('#B1B1B1'),
                 ),
-                hintText: "Search for fruits, vegetables...",),
+                hintText: "Search for fruits, vegetables...",
+              ),
             ),
           ),
           Expanded(
             child: isLoading
                 ? Center(child: CircularProgressIndicator())
                 : ListView.builder(
-              itemCount: searchResults.length,
-              itemBuilder: (context, index) => ListTile(
-                title: Text(searchResults[index]),
-              ),
-            ),
+                    itemCount: searchResults.length,
+                    itemBuilder: (context, index) => ListTile(
+                      title: Text(searchResults[index]),
+                    ),
+                  ),
           ),
         ],
       ),

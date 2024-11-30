@@ -18,10 +18,9 @@ class DiscoveryController extends GetxController {
   RxBool isLoadingForYourModel = false.obs;
   RxBool isLoadig1 = false.obs;
   final TextEditingController searchController = TextEditingController();
-  final RxString searchText="".obs;
+  final RxString searchText = "".obs;
 
-  final Rxn<Discovery2Model> forYourModel=Rxn<Discovery2Model>();
-
+  final Rxn<Discovery2Model> forYourModel = Rxn<Discovery2Model>();
 
   RxBool isLoadig = false.obs;
   ProfileModel? profileModel;
@@ -58,49 +57,34 @@ class DiscoveryController extends GetxController {
     // }
   }
 
-
-
-
-
-  Future<void> foryou({bool intrest=true}) async {
+  Future<void> foryou({bool intrest = true}) async {
     isLoadingForYourModel.value = true;
-    forYourModel.value=null;
+    forYourModel.value = null;
     Map<String, dynamic> apiData = await ApiCall.instance.callApi(
         url: 'https://forreal.net:4000/users/discovery_filter',
         method: HttpMethod.POST,
-        body: {
-          'user_id': await getUserId(),
-         if(intrest) 'Interest':( profileModel?.userInfo.interest.split(",").take(1).toList())![0]
-        },
+        body: {'user_id': await getUserId(), if (intrest) 'Interest': (profileModel?.userInfo.interest.split(",").take(1).toList())![0]},
         headers: await authHeader());
 
     isLoadingForYourModel.value = false;
     try {
       forYourModel.value = Discovery2Model.fromJson(apiData);
-
-
     } catch (e) {
       print("responseee=>$e");
     }
   }
 
-  Future<bool> sendNotificationOnlyMatch(
-      {required String reciverId, required int index}) async {
+  Future<bool> sendNotificationOnlyMatch({required String reciverId, required int index}) async {
     print("_notification_response ==>$reciverId");
     try {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       var user_id = prefs.getInt('user_id');
       print("SwipModel");
       final response = await BaseClient01()
-          .post(Uri.parse("https://forreal.net:4000/send_notification"), {
-        "sender_id": "$user_id",
-        "reciver_id": "$reciverId",
-        'notification_type': 'matches'
-      });
+          .post(Uri.parse("https://forreal.net:4000/send_notification"), {"sender_id": "$user_id", "reciver_id": "$reciverId", 'notification_type': 'matches'});
       print("notificationResponse ==> $response");
       isLoadig1.value = true;
-      final response2 = await BaseClient01()
-          .post(Uri.parse("https://forreal.net:4000/users/friend_request"), {
+      final response2 = await BaseClient01().post(Uri.parse("https://forreal.net:4000/users/friend_request"), {
         "sender_id": "$user_id",
         "reciver_id": "$reciverId",
       });

@@ -8,13 +8,7 @@ class AudioTile extends StatelessWidget {
   final VoidCallback stopBack;
   final VoidCallback useAudioBack;
 
-  const AudioTile(
-      {Key? key,
-      required this.audio,
-      required this.isPlaying,
-      required this.playCallBack,
-      required this.useAudioBack,
-      required this.stopBack})
+  const AudioTile({Key? key, required this.audio, required this.isPlaying, required this.playCallBack, required this.useAudioBack, required this.stopBack})
       : super(key: key);
 
   @override
@@ -63,9 +57,7 @@ class AudioTile extends StatelessWidget {
                     width: 5,
                     color: AppColorConstants.dividerColor,
                   ).circular.hP8,
-                  BodySmallText(audio.duration.formatTime,
-                      weight: TextWeight.medium,
-                      color: AppColorConstants.mainTextColor),
+                  BodySmallText(audio.duration.formatTime, weight: TextWeight.medium, color: AppColorConstants.mainTextColor),
                 ],
               ),
             ],
@@ -73,9 +65,7 @@ class AudioTile extends StatelessWidget {
             useAudioBack();
           }),
           const Spacer(),
-          if (isPlaying)
-            Container(
-                child: Lottie.asset('assets/lottie/audio_playing.json').p4.rP8),
+          if (isPlaying) Container(child: Lottie.asset('assets/lottie/audio_playing.json').p4.rP8),
           Container(
             child: ThemeIconWidget(
               isPlaying ? ThemeIcon.pause : ThemeIcon.play,

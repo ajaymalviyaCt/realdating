@@ -90,7 +90,8 @@ class _BuisnessEditAdsState extends State<BuisnessEditAds> {
                                     width: double.infinity,
                                     child: CachedNetworkImage(
                                       imageUrl: widget.dataList[widget.indexEdit].adImage,
-                                      fit: BoxFit.fill,errorWidget: (context, url, error) {
+                                      fit: BoxFit.fill,
+                                      errorWidget: (context, url, error) {
                                         return upLoadImageWidget(context);
                                       },
                                     ),
@@ -132,7 +133,7 @@ class _BuisnessEditAdsState extends State<BuisnessEditAds> {
 
                       customTextC(text: "Interest", fSize: 16, fWeight: FontWeight.w500, lineHeight: 36),
 
-                /*      SizedBox(
+                      /*      SizedBox(
                         height: 50,
                         child: CustumProfileTextField1(
                           controller: editAdsController.Intrest,
@@ -143,62 +144,62 @@ class _BuisnessEditAdsState extends State<BuisnessEditAds> {
                         ),
                       ),
 */
-                          TextField(
-                            style: const TextStyle(
-                              color: Colors.black,
-                              fontWeight: FontWeight.w600,
+                      TextField(
+                        style: const TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.w600,
+                        ),
+                        controller: editAdsController.Intrest,
+                        readOnly: true,
+                        // Prevent manual typing
+                        onTap: () {
+                          setState(() {
+                            showDropdown = !showDropdown; // Toggle dropdown
+                          });
+                        },
+                        decoration: InputDecoration(
+                          hintText: widget.dataList[widget.indexEdit].interest ?? "Select Interest",
+                          hintStyle: const TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.w400,
+                          ),
+                          contentPadding: const EdgeInsets.symmetric(
+                            horizontal: 15,
+                            vertical: 8,
+                          ),
+                          filled: true,
+                          fillColor: Colors.white.withOpacity(.15),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide: BorderSide(
+                              width: 1,
+                              color: Colors.black.withOpacity(.15),
                             ),
-                            controller:  editAdsController.Intrest,
-                            readOnly: true,
-                            // Prevent manual typing
-                            onTap: () {
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide: BorderSide(
+                              width: 1,
+                              color: Colors.black.withOpacity(.15),
+                            ),
+                          ),
+                          suffixIcon: IconButton(
+                            icon: Icon(Icons.arrow_drop_down, color: Colors.black.withOpacity(.15)),
+                            onPressed: () {
                               setState(() {
-                                showDropdown = !showDropdown; // Toggle dropdown
+                                if (interestList.isEmpty) {
+                                  print('Category Index-----${interestList}');
+                                  Fluttertoast.showToast(msg: 'Interest Not found');
+                                } else {
+                                  showDropdown = !showDropdown;
+                                }
                               });
                             },
-                            decoration: InputDecoration(
-                              hintText: widget.dataList[widget.indexEdit].interest?? "Select Interest",
-                              hintStyle: const TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.w400,
-                              ),
-                              contentPadding: const EdgeInsets.symmetric(
-                                horizontal: 15,
-                                vertical: 8,
-                              ),
-                              filled: true,
-                              fillColor: Colors.white.withOpacity(.15),
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
-                                borderSide: BorderSide(
-                                  width: 1,
-                                  color: Colors.black.withOpacity(.15),
-                                ),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
-                                borderSide: BorderSide(
-                                  width: 1,
-                                  color: Colors.black.withOpacity(.15),
-                                ),
-                              ),
-                              suffixIcon: IconButton(
-                                icon: Icon(Icons.arrow_drop_down, color: Colors.black.withOpacity(.15)),
-                                onPressed: () {
-                                  setState(() {
-                                    if (interestList.isEmpty) {
-                                      print('Category Index-----${interestList}');
-                                      Fluttertoast.showToast(msg: 'Interest Not found');
-                                    } else {
-                                      showDropdown = !showDropdown;
-                                    }
-                                  });
-                                },
-                              ),
-                            ),
-                            cursorColor: Colors.white,
                           ),
-                          if (showDropdown) interestDropdownUi(),
+                        ),
+                        cursorColor: Colors.white,
+                      ),
+                      if (showDropdown) interestDropdownUi(),
                       customTextC(text: "Budget(\$)", fSize: 16, fWeight: FontWeight.w500, lineHeight: 36),
 
                       SizedBox(
@@ -324,7 +325,9 @@ class _BuisnessEditAdsState extends State<BuisnessEditAds> {
                     ])),
                   )),
         ));
-  }  Container interestDropdownUi() {
+  }
+
+  Container interestDropdownUi() {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 0),
       decoration: BoxDecoration(
@@ -332,7 +335,7 @@ class _BuisnessEditAdsState extends State<BuisnessEditAds> {
         border: Border.all(color: Colors.white, width: 1),
         borderRadius: BorderRadius.circular(5),
       ),
-      child:  Stack(
+      child: Stack(
         children: [
           // Main Dropdown Container
           Container(

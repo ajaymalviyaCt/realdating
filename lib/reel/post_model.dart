@@ -1,7 +1,5 @@
-import 'date_extension.dart';
 import 'common_import.dart';
-//import 'package:foap/model/post_gallery.dart';
-import 'reel_music_model.dart';
+import 'date_extension.dart';
 //import 'club_model.dart';
 
 class PostModel {
@@ -29,7 +27,8 @@ class PostModel {
   List<MentionedUsers> mentionedUsers = [];
 
   ReelMusicModel? audio;
- // ClubModel? club;
+
+  // ClubModel? club;
 
   String postTime = '';
   DateTime? createDate;
@@ -43,8 +42,7 @@ class PostModel {
     model.title = json['title'] ?? 'No title';
     model.type = json['type'];
 
-    model.user =
-        json['user'] == null ? UserModel() : UserModel.fromJson(json['user']);
+    model.user = json['user'] == null ? UserModel() : UserModel.fromJson(json['user']);
     model.competitionId = json['competition_id'];
     model.totalView = json['total_view'] ?? 0;
     model.totalLike = json['total_like'] ?? 0;
@@ -69,26 +67,17 @@ class PostModel {
     // }
 
     if (json['mentionUsers'] != null && json['mentionUsers'].length > 0) {
-      model.mentionedUsers = List<MentionedUsers>.from(
-          json['mentionUsers'].map((x) => MentionedUsers.fromJson(x)));
+      model.mentionedUsers = List<MentionedUsers>.from(json['mentionUsers'].map((x) => MentionedUsers.fromJson(x)));
     }
 
-    model.createDate = json['created_at'] == null
-        ? null
-        : DateTime.fromMillisecondsSinceEpoch(json['created_at'] * 1000)
-            .toUtc();
+    model.createDate = json['created_at'] == null ? null : DateTime.fromMillisecondsSinceEpoch(json['created_at'] * 1000).toUtc();
 
-    model.postTime = model.createDate != null
-        ? model.createDate!.getTimeAgo
-        : justNowString.tr;
-    model.audio =
-        json['audio'] == null ? null : ReelMusicModel.fromJson(json['audio']);
+    model.postTime = model.createDate != null ? model.createDate!.getTimeAgo : justNowString.tr;
+    model.audio = json['audio'] == null ? null : ReelMusicModel.fromJson(json['audio']);
     // model.club = json['clubDetail'] == null
     //     ? null
     //     : ClubModel.fromJson(json['clubDetail']);
-    model.sharedPost = json['originPost'] == null
-        ? null
-        : PostModel.fromJson(json['originPost']);
+    model.sharedPost = json['originPost'] == null ? null : PostModel.fromJson(json['originPost']);
 
     return model;
   }
@@ -167,8 +156,7 @@ class PostInsight {
       viewFromOther: json['other'],
       viewFromGenderNotDisclosed: json['gender_not_disclose'],
       viewFromCountryNotDisclosed: json['country_not_disclose'],
-      viewFromProfileCategoryNotDisclosed:
-          json['profile_category_type_not_disclose'],
+      viewFromProfileCategoryNotDisclosed: json['profile_category_type_not_disclose'],
       viewFromAgeNotDisclosed: json['age_not_disclose'],
       profileViewFromPost: json['profile_view'],
       followFromPost: json['follow_by_post']);

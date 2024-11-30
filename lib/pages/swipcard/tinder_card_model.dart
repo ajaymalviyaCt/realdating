@@ -22,18 +22,18 @@ class GetAllUserModel {
   });
 
   factory GetAllUserModel.fromJson(Map<String, dynamic> json) => GetAllUserModel(
-    message: json["message"],
-    myFriends: json["my_friends"] == null ? [] : List<MyFriendSwipe>.from(json["my_friends"]!.map((x) => MyFriendSwipe.fromJson(x))),
-    success: json["success"],
-    status: json["status"],
-  );
+        message: json["message"],
+        myFriends: json["my_friends"] == null ? [] : List<MyFriendSwipe>.from(json["my_friends"]!.map((x) => MyFriendSwipe.fromJson(x))),
+        success: json["success"],
+        status: json["status"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "message": message,
-    "my_friends": myFriends == null ? [] : List<dynamic>.from(myFriends!.map((x) => x.toJson())),
-    "success": success,
-    "status": status,
-  };
+        "message": message,
+        "my_friends": myFriends == null ? [] : List<dynamic>.from(myFriends!.map((x) => x.toJson())),
+        "success": success,
+        "status": status,
+      };
 }
 
 class MyFriendSwipe {
@@ -58,25 +58,23 @@ class MyFriendSwipe {
   });
 
   factory MyFriendSwipe.fromJson(Map<String, dynamic> json) => MyFriendSwipe(
-    id: json["id"],
-    firstName: json["first_name"],
-    lastName: json["last_name"],
-    profileImage: json["profile_image"],
-    username: json["username"],
-    age: json["age"],
-  );
+        id: json["id"],
+        firstName: json["first_name"],
+        lastName: json["last_name"],
+        profileImage: json["profile_image"],
+        username: json["username"],
+        age: json["age"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "id": id,
-    "first_name": firstName,
-    "last_name": lastName,
-    "profile_image": profileImage,
-    "username": username,
-    "email": email,
-    "password": password,
-    "age": age,
-    "gender": gender,
-  };
+        "id": id,
+        "first_name": firstName,
+        "last_name": lastName,
+        "profile_image": profileImage,
+        "username": username,
+        "email": email,
+        "password": password,
+        "age": age,
+        "gender": gender,
+      };
 }
-
-

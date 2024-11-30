@@ -38,13 +38,7 @@ class MyFriends {
   String? profileImage;
   List<Images>? images;
 
-  MyFriends(
-      {this.friendId,
-        this.friendFirstName,
-        this.friendLastName,
-        this.friendUsername,
-        this.profileImage,
-        this.images});
+  MyFriends({this.friendId, this.friendFirstName, this.friendLastName, this.friendUsername, this.profileImage, this.images});
 
   MyFriends.fromJson(Map<String, dynamic> json) {
     friendId = json['friend_id'];

@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
-import 'package:realdating/pages/explore/trainding/treading_model.dart';
 import 'package:get/get.dart';
+import 'package:realdating/pages/explore/trainding/treading_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class TreadingController extends GetxController {
@@ -18,10 +18,7 @@ class TreadingController extends GetxController {
     isLoadingTreandingUser(true);
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var token = prefs.get('token');
-    var headers = {
-      'Content-Type': 'application/x-www-form-urlencoded',
-      'Authorization': 'Bearer $token'
-    };
+    var headers = {'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Bearer $token'};
     var data = {'user_id': ''};
     print('Authorization===>"$token');
     var dio = Dio();

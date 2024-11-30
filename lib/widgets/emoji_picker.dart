@@ -17,7 +17,6 @@ class EmojiPickerWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return KeyboardVisibilityBuilder(
       builder: (p0, isKeyboardVisible) {
-
         // if (isKeyboardVisible) {
         //   return Container();
         // }

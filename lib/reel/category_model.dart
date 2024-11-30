@@ -52,17 +52,12 @@ class TvCategoryModel extends CategoryModel {
     // required this.subCategories,
   }) : super(name: name, id: id, coverImage: coverImage);
 
-  factory TvCategoryModel.fromJson(Map<String, dynamic> json) =>
-      TvCategoryModel(
+  factory TvCategoryModel.fromJson(Map<String, dynamic> json) => TvCategoryModel(
         name: json["name"],
         id: json["id"],
         // logo: json["logoUrl"] ?? 'https://images.unsplash.com/photo-1662286844552-81c31af1416c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwzfHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=800&q=60',
         coverImage: json["imageUrl"],
-        tvs: json["liveTv"] == null
-            ? []
-            : (json["liveTv"] as List<dynamic>)
-                .map((e) => TvModel.fromJson(e))
-                .toList(),
+        tvs: json["liveTv"] == null ? [] : (json["liveTv"] as List<dynamic>).map((e) => TvModel.fromJson(e)).toList(),
       );
 }
 
@@ -78,16 +73,11 @@ class GiftCategoryModel extends CategoryModel {
     // required this.subCategories,
   }) : super(name: name, id: id, coverImage: coverImage);
 
-  factory GiftCategoryModel.fromJson(Map<String, dynamic> json) =>
-      GiftCategoryModel(
+  factory GiftCategoryModel.fromJson(Map<String, dynamic> json) => GiftCategoryModel(
         name: json["name"],
         id: json["id"],
         coverImage: json["imageUrl"],
-        gifts: json["gift"] == null
-            ? []
-            : (json["gift"] as List<dynamic>)
-                .map((e) => GiftModel.fromJson(e))
-                .toList(),
+        gifts: json["gift"] == null ? [] : (json["gift"] as List<dynamic>).map((e) => GiftModel.fromJson(e)).toList(),
       );
 }
 
@@ -103,15 +93,10 @@ class PodcastCategoryModel extends CategoryModel {
     // required this.subCategories,
   }) : super(name: name, id: id, coverImage: coverImage);
 
-  factory PodcastCategoryModel.fromJson(Map<String, dynamic> json) =>
-      PodcastCategoryModel(
+  factory PodcastCategoryModel.fromJson(Map<String, dynamic> json) => PodcastCategoryModel(
         name: json["name"],
         id: json["id"],
         coverImage: json["imageUrl"],
-        podcasts: json["podcastList"] == null
-            ? []
-            : (json["podcastList"] as List<dynamic>)
-            .map((e) => HostModel.fromJson(e))
-            .toList(),
+        podcasts: json["podcastList"] == null ? [] : (json["podcastList"] as List<dynamic>).map((e) => HostModel.fromJson(e)).toList(),
       );
 }

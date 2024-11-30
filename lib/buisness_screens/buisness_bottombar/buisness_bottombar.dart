@@ -9,12 +9,10 @@ class BuisnessBottomBar extends StatefulWidget {
 }
 
 class _BuisnessBottomBarState extends State<BuisnessBottomBar> {
-
   PageController controller = PageController();
   int _selectedIndex = 0;
 
-
-  static  List<Widget> _widgetOptions = [
+  static List<Widget> _widgetOptions = [
     //BuisnessHomePage(),
     // ExplorePage(),
     // Matches(),
@@ -22,12 +20,12 @@ class _BuisnessBottomBarState extends State<BuisnessBottomBar> {
     // EventsPage(),
     BusinessProfile(),
   ];
+
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
     });
   }
-
 
   @override
   Widget build(BuildContext context) {

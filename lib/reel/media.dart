@@ -3,8 +3,6 @@ import 'dart:typed_data';
 
 import 'common_import.dart';
 
-
-
 ///This class will contain the necessary data of selected media
 class Media {
   ///File saved on local storage
@@ -64,7 +62,6 @@ class Media {
     this.id,
     this.file,
     this.filePath,
-
     this.thumbnail,
     this.mainFileBytes,
     this.size,
@@ -88,6 +85,4 @@ class Media {
     media.fileSize = fileSize;
     return media;
   }
-
 }
-

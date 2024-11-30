@@ -70,7 +70,7 @@ class UserPosts {
       this.totalComments,
       this.totalLikes,
       this.updatedAt,
-        this.mentionsData,
+      this.mentionsData,
       this.likedByUser,
       this.postOwnerInfo,
       this.comments,
@@ -118,16 +118,16 @@ class UserPosts {
       });
     }
     aD = json['AD'];
-    businessId = json['business_id']??"";
-    age = json['age']??"";
-    title = json['title']??"";
-    interest = json['interest']??"";
-    budget = json['budget']??"";
-    campaignDuration = json['campaign_duration']??"";
-    adImage = json['ad_image']??"";
-    address = json['address']??"";
-    link = json['link']??"";
-    rangeKm = json['range_km']??"";
+    businessId = json['business_id'] ?? "";
+    age = json['age'] ?? "";
+    title = json['title'] ?? "";
+    interest = json['interest'] ?? "";
+    budget = json['budget'] ?? "";
+    campaignDuration = json['campaign_duration'] ?? "";
+    adImage = json['ad_image'] ?? "";
+    address = json['address'] ?? "";
+    link = json['link'] ?? "";
+    rangeKm = json['range_km'] ?? "";
   }
 
   Map<String, dynamic> toJson() {
@@ -145,13 +145,11 @@ class UserPosts {
 
     data['updated_at'] = this.updatedAt;
     if (this.mentionsData != null) {
-      data['mentions_data'] =
-          this.mentionsData!.map((v) => v.toJson()).toList();
+      data['mentions_data'] = this.mentionsData!.map((v) => v.toJson()).toList();
     }
     data['liked_by_user'] = this.likedByUser;
     if (this.postOwnerInfo != null) {
-      data['post_owner_info'] =
-          this.postOwnerInfo!.map((v) => v.toJson()).toList();
+      data['post_owner_info'] = this.postOwnerInfo!.map((v) => v.toJson()).toList();
     }
     if (this.comments != null) {
       data['comments'] = this.comments!.map((v) => v.toJson()).toList();
@@ -200,44 +198,44 @@ class MentionsData {
   String? token;
   int? kYC;
   String? actToken;
- var totalReviewStar;
+  var totalReviewStar;
   int? onlineStatus;
   String? createdAt;
   String? updateAt;
 
   MentionsData(
       {this.id,
-        this.firstName,
-        this.lastName,
-        this.profileImage,
-        this.username,
-        this.email,
-        this.password,
-        this.showPassword,
-        this.phoneNumber,
-        this.oTP,
-        this.age,
-        this.trending,
-        this.dOB,
-        this.height,
-        this.userType,
-        this.fcmToken,
-        this.verifyUser,
-        this.phoneVerify,
-        this.interest,
-        this.hobbies,
-        this.gender,
-        this.address,
-        this.logitude,
-        this.latitude,
-        this.profileStatus,
-        this.token,
-        this.kYC,
-        this.actToken,
-        this.totalReviewStar,
-        this.onlineStatus,
-        this.createdAt,
-        this.updateAt});
+      this.firstName,
+      this.lastName,
+      this.profileImage,
+      this.username,
+      this.email,
+      this.password,
+      this.showPassword,
+      this.phoneNumber,
+      this.oTP,
+      this.age,
+      this.trending,
+      this.dOB,
+      this.height,
+      this.userType,
+      this.fcmToken,
+      this.verifyUser,
+      this.phoneVerify,
+      this.interest,
+      this.hobbies,
+      this.gender,
+      this.address,
+      this.logitude,
+      this.latitude,
+      this.profileStatus,
+      this.token,
+      this.kYC,
+      this.actToken,
+      this.totalReviewStar,
+      this.onlineStatus,
+      this.createdAt,
+      this.updateAt});
 
   MentionsData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -311,8 +309,6 @@ class MentionsData {
     return data;
   }
 }
-
-
 
 class PostOwnerInfo {
   int? id;

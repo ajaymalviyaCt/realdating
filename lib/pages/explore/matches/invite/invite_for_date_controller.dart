@@ -2,11 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:realdating/pages/swipcard/swip_controller.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../services/base_client01.dart';
-
-
 
 class InvaiteForDatesController extends GetxController {
   @override
@@ -22,8 +19,7 @@ class InvaiteForDatesController extends GetxController {
   final activityC = TextEditingController();
   final locationC = TextEditingController();
 
-  Future<void> invateForDate(String id, String date, String time,
-      String activity, String location) async {
+  Future<void> invateForDate(String id, String date, String time, String activity, String location) async {
     // SharedPreferences prefs = await SharedPreferences.getInstance();
     // var user_id = prefs.getInt('user_id');
     print("InviteForDate Api===>".toString());
@@ -37,13 +33,11 @@ class InvaiteForDatesController extends GetxController {
       'location': location,
     });
 
-    sendNotification("${id}" ,"invite_date");
+    sendNotification("${id}", "invite_date");
     isLoading.value = false;
     print(response.toString());
     var satus = "${response["status"]}";
     if (satus == "200") {
-
-
       // sendNotification(id, "");
       Get.back();
       // Get.to(() => InviteRequestsPage());
@@ -53,9 +47,8 @@ class InvaiteForDatesController extends GetxController {
       activityC.clear();
       locationC.clear();
       Fluttertoast.showToast(msg: "Invitation sent successfully.");
-    }else{
+    } else {
       Fluttertoast.showToast(msg: "${response["message"]}");
     }
-
   }
 }

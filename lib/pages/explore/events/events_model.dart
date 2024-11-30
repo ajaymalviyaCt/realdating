@@ -22,18 +22,18 @@ class EventssModel {
   });
 
   factory EventssModel.fromJson(Map<String, dynamic> json) => EventssModel(
-    success: json["success"],
-    message: json["message"],
-    status: json["status"],
-    getEvents: List<GetEvent>.from(json["Get_events"].map((x) => GetEvent.fromJson(x))),
-  );
+        success: json["success"],
+        message: json["message"],
+        status: json["status"],
+        getEvents: List<GetEvent>.from(json["Get_events"].map((x) => GetEvent.fromJson(x))),
+      );
 
   Map<String, dynamic> toJson() => {
-    "success": success,
-    "message": message,
-    "status": status,
-    "Get_events": List<dynamic>.from(getEvents.map((x) => x.toJson())),
-  };
+        "success": success,
+        "message": message,
+        "status": status,
+        "Get_events": List<dynamic>.from(getEvents.map((x) => x.toJson())),
+      };
 }
 
 class GetEvent {
@@ -62,28 +62,28 @@ class GetEvent {
   });
 
   factory GetEvent.fromJson(Map<String, dynamic> json) => GetEvent(
-    id: json["id"],
-    eventTitle: json["Event_Title"],
-    eventType: json["Event_Type"],
-    startDate: json["Start_Date"],
-    endDate: json["End_Date"],
-    selectTime: json["Select_Time"],
-    eventImage: json["Event_image"],
-    createdAt: DateTime.parse(json["created_at"]),
-    description: json["Description"],
-    updatedAt: DateTime.parse(json["updated_at"]),
-  );
+        id: json["id"],
+        eventTitle: json["Event_Title"],
+        eventType: json["Event_Type"],
+        startDate: json["Start_Date"],
+        endDate: json["End_Date"],
+        selectTime: json["Select_Time"],
+        eventImage: json["Event_image"],
+        createdAt: DateTime.parse(json["created_at"]),
+        description: json["Description"],
+        updatedAt: DateTime.parse(json["updated_at"]),
+      );
 
   Map<String, dynamic> toJson() => {
-    "id": id,
-    "Event_Title": eventTitle,
-    "Event_Type": eventType,
-    "Start_Date": startDate,
-    "End_Date": endDate,
-    "Select_Time": selectTime,
-    "Event_image": eventImage,
-    "created_at": createdAt.toIso8601String(),
-    "Description": description,
-    "updated_at": updatedAt.toIso8601String(),
-  };
+        "id": id,
+        "Event_Title": eventTitle,
+        "Event_Type": eventType,
+        "Start_Date": startDate,
+        "End_Date": endDate,
+        "Select_Time": selectTime,
+        "Event_image": eventImage,
+        "created_at": createdAt.toIso8601String(),
+        "Description": description,
+        "updated_at": updatedAt.toIso8601String(),
+      };
 }

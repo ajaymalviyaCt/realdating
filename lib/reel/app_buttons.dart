@@ -36,10 +36,7 @@ class AppThemeButton extends StatelessWidget {
           Center(
             child: Text(
               text!,
-              style: TextStyle(
-                  fontSize: FontSizes.b2,
-                  fontWeight: TextWeight.medium,
-                  color: Colors.white),
+              style: TextStyle(fontSize: FontSizes.b2, fontWeight: TextWeight.medium, color: Colors.white),
             ).hP8,
           ),
           trailing != null ? trailing!.hP4 : Container()
@@ -62,15 +59,7 @@ class AppThemeBorderButton extends StatelessWidget {
   final double? width;
 
   const AppThemeBorderButton(
-      {Key? key,
-      required this.text,
-      required this.onPress,
-      this.height,
-      this.width,
-      this.cornerRadius,
-      this.borderColor,
-      this.backgroundColor,
-      this.textStyle})
+      {Key? key, required this.text, required this.onPress, this.height, this.width, this.cornerRadius, this.borderColor, this.backgroundColor, this.textStyle})
       : super(key: key);
 
   @override
@@ -82,18 +71,9 @@ class AppThemeBorderButton extends StatelessWidget {
       child: Center(
         child: Text(
           text!,
-          style: textStyle ??
-              TextStyle(
-                  fontSize: FontSizes.b2,
-                  fontWeight: TextWeight.medium,
-                  color: AppColorConstants.mainTextColor),
+          style: textStyle ?? TextStyle(fontSize: FontSizes.b2, fontWeight: TextWeight.medium, color: AppColorConstants.mainTextColor),
         ).hP8,
       ),
-    )
-        .borderWithRadius(
-            value: 1,
-            radius: 10,
-            color: borderColor ?? AppColorConstants.dividerColor)
-        .ripple(onPress!);
+    ).borderWithRadius(value: 1, radius: 10, color: borderColor ?? AppColorConstants.dividerColor).ripple(onPress!);
   }
 }

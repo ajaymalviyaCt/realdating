@@ -28,10 +28,12 @@ extension ResponsiveExtension on num {
 
   ///This method is used to set padding/margin (for the left and Right side) & width of the screen or widget according to the Viewport width.
   double get h => ((this * _width) / FIGMA_DESIGN_WIDTH);
+
   double get aw => ((this * _width) / FIGMA_DESIGN_WIDTH);
 
   ///This method is used to set padding/margin (for the top and bottom side) & height of the screen or widget according to the Viewport height.
   double get v => (this * _height) / (FIGMA_DESIGN_HEIGHT - FIGMA_DESIGN_STATUS_BAR);
+
   double get ah => (this * _height) / (FIGMA_DESIGN_HEIGHT - FIGMA_DESIGN_STATUS_BAR);
 
   ///This method is used to set smallest px in image height and width

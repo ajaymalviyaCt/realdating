@@ -1,4 +1,3 @@
-import 'package:realdating/reel/rounded_input_field.dart';
 import 'common_import.dart';
 
 class AppTextField extends StatelessWidget {
@@ -13,15 +12,7 @@ class AppTextField extends StatelessWidget {
   final Function(bool)? focusStatusChangeHandler;
 
   const AppTextField(
-      {Key? key,
-        required this.controller,
-        this.hintText,
-        this.label,
-        this.maxLines,
-        this.onChanged,
-        this.icon,
-        this.maxLength,
-        this.focusStatusChangeHandler})
+      {Key? key, required this.controller, this.hintText, this.label, this.maxLines, this.onChanged, this.icon, this.maxLength, this.focusStatusChangeHandler})
       : super(key: key);
 
   @override
@@ -47,13 +38,7 @@ class AppPasswordTextField extends StatelessWidget {
   final ThemeIcon? icon;
   final ValueChanged<String> onChanged;
 
-  const AppPasswordTextField(
-      {Key? key,
-      required this.controller,
-      required this.onChanged,
-      this.hintText,
-      this.icon})
-      : super(key: key);
+  const AppPasswordTextField({Key? key, required this.controller, required this.onChanged, this.hintText, this.icon}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -230,15 +215,7 @@ class AppDropdownField extends StatelessWidget {
   final ValueChanged<String> onChanged;
   final List<String> options;
 
-  const AppDropdownField(
-      {Key? key,
-      this.hintText,
-      this.label,
-      this.icon,
-      this.value,
-      required this.onChanged,
-      required this.options})
-      : super(key: key);
+  const AppDropdownField({Key? key, this.hintText, this.label, this.icon, this.value, required this.onChanged, required this.options}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

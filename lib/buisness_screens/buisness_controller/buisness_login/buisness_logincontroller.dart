@@ -28,12 +28,8 @@ class BuisnessLoginController extends GetxController {
     try {
       final fcmToken = await FirebaseMessaging.instance.getToken();
       isLoadigLogin(true);
-      final response = await BaseClient01()
-          .post(Uri.parse("https://forreal.net:4000/loginbusiness"), {
-        "email": buisnessemailController.text.trim(),
-        "password": buisnesspasswordController.text,
-        "fcm_token": fcmToken
-      });
+      final response = await BaseClient01().post(Uri.parse("https://forreal.net:4000/loginbusiness"),
+          {"email": buisnessemailController.text.trim(), "password": buisnesspasswordController.text, "fcm_token": fcmToken});
       bool success = response["success"];
       String msg = response["message"];
       if (success) {

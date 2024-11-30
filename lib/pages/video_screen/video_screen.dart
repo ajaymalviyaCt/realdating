@@ -27,13 +27,12 @@ class _VideoScreenState extends State<VideoScreen> {
     final size = MediaQuery.of(context).size;
 
     return Scaffold(
-
         appBar: AppBar(
           leading: InkWell(
             onTap: () {
               print("Go back");
               // Get.back();
-             Navigator.pop(context);
+              Navigator.pop(context);
               // Get.to(() => const DashboardPage());
             },
             child: Container(
@@ -49,8 +48,7 @@ class _VideoScreenState extends State<VideoScreen> {
                 ),
                 color: const Color(0xFFFFFFFF), // Background color, equivalent to var(--white-ffffff, #FFF) in CSS
               ),
-              child: const Icon(Icons.arrow_back_ios_outlined,
-                  color: colors.primary, size: 18),
+              child: const Icon(Icons.arrow_back_ios_outlined, color: colors.primary, size: 18),
             ),
           ),
           title: customTextCommon(
@@ -69,78 +67,67 @@ class _VideoScreenState extends State<VideoScreen> {
           },
           child: Obx(() => videoController.isLoadig.value
               ? const Center(child: CircularProgressIndicator())
-              :videoController.reels.isNotEmpty? PageView.builder(
-                  itemCount: videoController.reels.length,
-                  controller: PageController(initialPage: 0, viewportFraction: 1),
-                  scrollDirection: Axis.vertical,
-                  itemBuilder: (context, index) {
-                    return Scaffold(
-                        body:
-                        RefreshIndicator(
+              : videoController.reels.isNotEmpty
+                  ? PageView.builder(
+                      itemCount: videoController.reels.length,
+                      controller: PageController(initialPage: 0, viewportFraction: 1),
+                      scrollDirection: Axis.vertical,
+                      itemBuilder: (context, index) {
+                        return Scaffold(
+                            body: RefreshIndicator(
                           onRefresh: () async {
                             await videoController.watchReels();
                             videoController.refresh();
                           },
                           child: Obx(() => videoController.isLoadig.value
                               ? const Center(child: CircularProgressIndicator())
-                              :videoController.reels.isNotEmpty? PageView.builder(
-                            itemCount: videoController.reels.length,
-                            controller: PageController(initialPage: 0, viewportFraction: 1),
-                            scrollDirection: Axis.vertical,
-
-                            itemBuilder: (context, index) {
-                              return Scaffold(
-                                  body: Center(
-                                    child: Stack(
-                                      children: [
-                                        VideoPlayerItem(videoUrl: "${videoController.reels[index].reel}"),
-                                        Align(
-                                            alignment: Alignment.bottomLeft,
-                                            child: Padding(
-                                              padding:
-                                              const EdgeInsets.only(bottom:65.0, left:15),
-                                              child: Container(
-                                                padding: EdgeInsets.all(5),
-                                                decoration: BoxDecoration(
-                                                    borderRadius: BorderRadius.circular(10),
-                                                    color: Colors.white
+                              : videoController.reels.isNotEmpty
+                                  ? PageView.builder(
+                                      itemCount: videoController.reels.length,
+                                      controller: PageController(initialPage: 0, viewportFraction: 1),
+                                      scrollDirection: Axis.vertical,
+                                      itemBuilder: (context, index) {
+                                        return Scaffold(
+                                            body: Center(
+                                          child: Stack(
+                                            children: [
+                                              VideoPlayerItem(videoUrl: "${videoController.reels[index].reel}"),
+                                              Align(
+                                                  alignment: Alignment.bottomLeft,
+                                                  child: Padding(
+                                                    padding: const EdgeInsets.only(bottom: 65.0, left: 15),
+                                                    child: Container(
+                                                      padding: EdgeInsets.all(5),
+                                                      decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: Colors.white),
+                                                      child: Text(
+                                                        videoController.getReelModel?.reels[index].userInfo[0].firstName ?? "UserName",
+                                                        style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 18),
+                                                      ),
+                                                    ),
+                                                  )),
+                                              Positioned(
+                                                left: 15,
+                                                right: 0,
+                                                bottom: 10,
+                                                child: Container(
+                                                  padding: EdgeInsets.all(5),
+                                                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: Colors.white),
+                                                  child: Text(
+                                                    videoController.getReelModel?.reels[index].caption ?? "Not Found",
+                                                    style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 18),
+                                                  ),
                                                 ),
-                                                child: Text(
-                                                  videoController
-                                                      .getReelModel?.reels[index].userInfo[0].firstName ??
-                                                      "UserName",
-                                                  style: const TextStyle(
-                                                      fontWeight: FontWeight.w500, fontSize: 18),
-                                                ),
-                                              ),
-                                            )),
-                                        Positioned(
-                                          left:15,
-                                          right: 0,
-                                          bottom: 10,
-                                          child: Container(
-                                            padding: EdgeInsets.all(5),
-                                            decoration: BoxDecoration(
-                                                borderRadius: BorderRadius.circular(10),
-                                                color: Colors.white
-                                            ),
-                                            child: Text(
-                                              videoController
-                                                  .getReelModel?.reels[index].caption??
-                                                  "Not Found",
-                                              style: const TextStyle(
-                                                  fontWeight: FontWeight.w500, fontSize: 18),
-                                            ),
+                                              )
+                                            ],
                                           ),
-                                        )
-                                      ],
-                                    ),
-                                  ));
-                            },
-                          ):const Center(child: Text("No Reels Found !!"))),
+                                        ));
+                                      },
+                                    )
+                                  : const Center(child: Text("No Reels Found !!"))),
                         ));
-                  },
-                ):const Center(child: Text("No Reels Found !!"))),
+                      },
+                    )
+                  : const Center(child: Text("No Reels Found !!"))),
         ));
   }
 }

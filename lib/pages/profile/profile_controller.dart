@@ -2,7 +2,6 @@ import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../consts/app_urls.dart';
-
 import '../../services/base_client01.dart';
 import 'profile_model.dart';
 

@@ -22,18 +22,18 @@ class ExploreDetailsModel {
   });
 
   factory ExploreDetailsModel.fromJson(Map<String, dynamic> json) => ExploreDetailsModel(
-    success: json["success"],
-    message: json["message"],
-    status: json["status"],
-    userInfo: List<UserInfo>.from(json["user_info"].map((x) => UserInfo.fromJson(x))),
-  );
+        success: json["success"],
+        message: json["message"],
+        status: json["status"],
+        userInfo: List<UserInfo>.from(json["user_info"].map((x) => UserInfo.fromJson(x))),
+      );
 
   Map<String, dynamic> toJson() => {
-    "success": success,
-    "message": message,
-    "status": status,
-    "user_info": List<dynamic>.from(userInfo.map((x) => x.toJson())),
-  };
+        "success": success,
+        "message": message,
+        "status": status,
+        "user_info": List<dynamic>.from(userInfo.map((x) => x.toJson())),
+      };
 }
 
 class UserInfo {
@@ -118,86 +118,86 @@ class UserInfo {
   });
 
   factory UserInfo.fromJson(Map<String, dynamic> json) => UserInfo(
-    id: json["id"],
-    firstName: json["first_name"],
-    lastName: json["last_name"],
-    profileImage: json["profile_image"],
-    username: json["username"],
-    email: json["email"],
-    password: json["password"],
-    showPassword: json["show_password"],
-    phoneNumber: json["phone_number"],
-    otp: json["OTP"],
-    age: json["age"],
-    trending: json["trending"],
-    dob: json["DOB"],
-    height: json["height"],
-    userType: json["user_type"],
-    fcmToken: json["fcm_token"],
-    verifyUser: json["verify_user"],
-    phoneVerify: json["phone_verify"],
-    interest: json["Interest"],
-    hobbies: json["hobbies"],
-    gender: json["gender"],
-    address: json["address"],
-    logitude: json["logitude"],
-    latitude: json["latitude"],
-    proplan: json["pro_plan"],
-    profileStatus: json["profile_status"],
-    token: json["token"],
-    kyc: json["KYC"],
-    actToken: json["act_token"],
-    totalReviewStar: json["Total_review_star"],
-    onlineStatus: json["online_status"],
-    createdAt: DateTime.parse(json["created_at"]),
-    updateAt: DateTime.parse(json["updated_at"]),
-    insertdata: List<String>.from(json["insertdata"].map((x) => x)),
-    hobbiesdata: List<String>.from(json["hobbiesdata"].map((x) => x)),
-    reviewCount: json["review_count"],
-    allReviews: List<AllReview>.from(json["all_reviews"].map((x) => AllReview.fromJson(x))),
-    images: List<Image>.from(json["images"].map((x) => Image.fromJson(x))),
-  );
+        id: json["id"],
+        firstName: json["first_name"],
+        lastName: json["last_name"],
+        profileImage: json["profile_image"],
+        username: json["username"],
+        email: json["email"],
+        password: json["password"],
+        showPassword: json["show_password"],
+        phoneNumber: json["phone_number"],
+        otp: json["OTP"],
+        age: json["age"],
+        trending: json["trending"],
+        dob: json["DOB"],
+        height: json["height"],
+        userType: json["user_type"],
+        fcmToken: json["fcm_token"],
+        verifyUser: json["verify_user"],
+        phoneVerify: json["phone_verify"],
+        interest: json["Interest"],
+        hobbies: json["hobbies"],
+        gender: json["gender"],
+        address: json["address"],
+        logitude: json["logitude"],
+        latitude: json["latitude"],
+        proplan: json["pro_plan"],
+        profileStatus: json["profile_status"],
+        token: json["token"],
+        kyc: json["KYC"],
+        actToken: json["act_token"],
+        totalReviewStar: json["Total_review_star"],
+        onlineStatus: json["online_status"],
+        createdAt: DateTime.parse(json["created_at"]),
+        updateAt: DateTime.parse(json["updated_at"]),
+        insertdata: List<String>.from(json["insertdata"].map((x) => x)),
+        hobbiesdata: List<String>.from(json["hobbiesdata"].map((x) => x)),
+        reviewCount: json["review_count"],
+        allReviews: List<AllReview>.from(json["all_reviews"].map((x) => AllReview.fromJson(x))),
+        images: List<Image>.from(json["images"].map((x) => Image.fromJson(x))),
+      );
 
   Map<String, dynamic> toJson() => {
-    "id": id,
-    "first_name": firstName,
-    "last_name": lastName,
-    "profile_image": profileImage,
-    "username": username,
-    "email": email,
-    "password": password,
-    "show_password": showPassword,
-    "phone_number": phoneNumber,
-    "OTP": otp,
-    "age": age,
-    "trending": trending,
-    "DOB": dob,
-    "height": height,
-    "user_type": userType,
-    "fcm_token": fcmToken,
-    "verify_user": verifyUser,
-    "phone_verify": phoneVerify,
-    "Interest": interest,
-    "hobbies": hobbies,
-    "gender": gender,
-    "address": address,
-    "logitude": logitude,
-    "latitude": latitude,
-    "pro_plan": proplan,
-    "profile_status": profileStatus,
-    "token": token,
-    "KYC": kyc,
-    "act_token": actToken,
-    "Total_review_star": totalReviewStar,
-    "online_status": onlineStatus,
-    "created_at": createdAt.toIso8601String(),
-    "update_at": updateAt.toIso8601String(),
-    "insertdata": List<dynamic>.from(insertdata.map((x) => x)),
-    "hobbiesdata": List<dynamic>.from(hobbiesdata.map((x) => x)),
-    "review_count": reviewCount,
-    "all_reviews": List<dynamic>.from(allReviews.map((x) => x.toJson())),
-    "images": List<dynamic>.from(images.map((x) => x.toJson())),
-  };
+        "id": id,
+        "first_name": firstName,
+        "last_name": lastName,
+        "profile_image": profileImage,
+        "username": username,
+        "email": email,
+        "password": password,
+        "show_password": showPassword,
+        "phone_number": phoneNumber,
+        "OTP": otp,
+        "age": age,
+        "trending": trending,
+        "DOB": dob,
+        "height": height,
+        "user_type": userType,
+        "fcm_token": fcmToken,
+        "verify_user": verifyUser,
+        "phone_verify": phoneVerify,
+        "Interest": interest,
+        "hobbies": hobbies,
+        "gender": gender,
+        "address": address,
+        "logitude": logitude,
+        "latitude": latitude,
+        "pro_plan": proplan,
+        "profile_status": profileStatus,
+        "token": token,
+        "KYC": kyc,
+        "act_token": actToken,
+        "Total_review_star": totalReviewStar,
+        "online_status": onlineStatus,
+        "created_at": createdAt.toIso8601String(),
+        "update_at": updateAt.toIso8601String(),
+        "insertdata": List<dynamic>.from(insertdata.map((x) => x)),
+        "hobbiesdata": List<dynamic>.from(hobbiesdata.map((x) => x)),
+        "review_count": reviewCount,
+        "all_reviews": List<dynamic>.from(allReviews.map((x) => x.toJson())),
+        "images": List<dynamic>.from(images.map((x) => x.toJson())),
+      };
 }
 
 class AllReview {
@@ -222,26 +222,26 @@ class AllReview {
   });
 
   factory AllReview.fromJson(Map<String, dynamic> json) => AllReview(
-    id: json["id"],
-    userId: json["user_id"],
-    review: json["review"],
-    ratingStar: json["rating_star"],
-    reviewBy: json["review_by"],
-    createdAt: DateTime.parse(json["created_at"]),
-    reviewerUsername: json["reviewer_username"],
-    reviewerProfileImage: json["reviewer_profile_image"]??"",
-  );
+        id: json["id"],
+        userId: json["user_id"],
+        review: json["review"],
+        ratingStar: json["rating_star"],
+        reviewBy: json["review_by"],
+        createdAt: DateTime.parse(json["created_at"]),
+        reviewerUsername: json["reviewer_username"],
+        reviewerProfileImage: json["reviewer_profile_image"] ?? "",
+      );
 
   Map<String, dynamic> toJson() => {
-    "id": id,
-    "user_id": userId,
-    "review": review,
-    "rating_star": ratingStar,
-    "review_by": reviewBy,
-    "created_at": createdAt.toIso8601String(),
-    "reviewer_username": reviewerUsername,
-    "reviewer_profile_image": reviewerProfileImage,
-  };
+        "id": id,
+        "user_id": userId,
+        "review": review,
+        "rating_star": ratingStar,
+        "review_by": reviewBy,
+        "created_at": createdAt.toIso8601String(),
+        "reviewer_username": reviewerUsername,
+        "reviewer_profile_image": reviewerProfileImage,
+      };
 }
 
 class Image {
@@ -252,10 +252,10 @@ class Image {
   });
 
   factory Image.fromJson(Map<String, dynamic> json) => Image(
-    profileImages: json["profile_images"]??"",
-  );
+        profileImages: json["profile_images"] ?? "",
+      );
 
   Map<String, dynamic> toJson() => {
-    "profile_images": profileImages,
-  };
+        "profile_images": profileImages,
+      };
 }

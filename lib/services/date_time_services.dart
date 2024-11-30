@@ -1,4 +1,3 @@
-
 import 'package:intl/intl.dart';
 import 'package:logger/logger.dart';
 
@@ -53,8 +52,7 @@ abstract class DateTimeServices {
     }
   }
 
-  static ({String? date, String? time, DateTime? dateTime}) convertMillisecondsToLocalizedDateTime(
-      int millisecondsSinceEpoch) {
+  static ({String? date, String? time, DateTime? dateTime}) convertMillisecondsToLocalizedDateTime(int millisecondsSinceEpoch) {
     DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(millisecondsSinceEpoch);
     return convertUtcToLocalDateTime(dateTime.toIso8601String());
   }
@@ -114,8 +112,7 @@ abstract class DateTimeServices {
     return age;
   }
 
-  static ({int gapInMilliseconds, int gapInMinutes}) calculateTimeGapOfMillisecondsSinceEpoch(
-      {required int timestamp1, required int timestamp2}) {
+  static ({int gapInMilliseconds, int gapInMinutes}) calculateTimeGapOfMillisecondsSinceEpoch({required int timestamp1, required int timestamp2}) {
     int gapInMilliseconds = timestamp2 - timestamp1;
 
     int gapInMinutes = (gapInMilliseconds / (1000 * 60)).round();

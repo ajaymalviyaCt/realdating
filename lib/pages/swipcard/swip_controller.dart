@@ -13,10 +13,7 @@ class SwipController extends GetxController implements GetxService {
   @override
   void onReady() {
     super.onReady();
-
   }
-
-
 
   sendNotificationOnlyMatch(reciverId) async {
     print("_notification_response ==>$reciverId");
@@ -25,15 +22,10 @@ class SwipController extends GetxController implements GetxService {
       var user_id = prefs.getInt('user_id');
       print("SwipModel");
       final response = await BaseClient01()
-          .post(Uri.parse("https://forreal.net:4000/send_notification"), {
-        "sender_id": "$user_id",
-        "reciver_id": "$reciverId",
-        'notification_type': 'matches'
-      });
+          .post(Uri.parse("https://forreal.net:4000/send_notification"), {"sender_id": "$user_id", "reciver_id": "$reciverId", 'notification_type': 'matches'});
       print("notificationResponse ==> $response");
       isLoadig1.value = true;
-      final response2 = await BaseClient01()
-          .post(Uri.parse("https://forreal.net:4000/users/friend_request"), {
+      final response2 = await BaseClient01().post(Uri.parse("https://forreal.net:4000/users/friend_request"), {
         "sender_id": "$user_id",
         "reciver_id": "$reciverId",
       });
@@ -41,10 +33,8 @@ class SwipController extends GetxController implements GetxService {
 
       isLoadig1.value = false;
       print(response2.toString());
-     Fluttertoast.showToast(msg: "${response2["message"]}");
+      Fluttertoast.showToast(msg: "${response2["message"]}");
       print("friend_request==> friend_request==>" + response2.toString());
-
-
     } catch (e) {
       print(e);
     }
@@ -56,12 +46,8 @@ class SwipController extends GetxController implements GetxService {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       var user_id = prefs.getInt('user_id');
       print("SwipModel");
-      final response = await BaseClient01().post(
-          Uri.parse("https://forreal.net:4000/send_notification"), {
-        "sender_id": "$user_id",
-        "reciver_id": "$reciverId",
-        'notification_type': type
-      });
+      final response = await BaseClient01()
+          .post(Uri.parse("https://forreal.net:4000/send_notification"), {"sender_id": "$user_id", "reciver_id": "$reciverId", 'notification_type': type});
       print("responseNotiFication");
       print(response);
     } catch (e) {
@@ -69,27 +55,21 @@ class SwipController extends GetxController implements GetxService {
     }
   }
 }
+
 sendNotification(reciverId, type) async {
   print("_notification_response ==>$reciverId");
   try {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var user_id = prefs.getInt('user_id');
     print("SwipModel");
-    if("$user_id"=="$reciverId"){
+    if ("$user_id" == "$reciverId") {
       print("sameUser");
-
-    }else{
-      final response = await BaseClient01().post(
-          Uri.parse("https://forreal.net:4000/send_notification"), {
-        "sender_id": "$user_id",
-        "reciver_id": "$reciverId",
-        'notification_type': type
-      });
+    } else {
+      final response = await BaseClient01()
+          .post(Uri.parse("https://forreal.net:4000/send_notification"), {"sender_id": "$user_id", "reciver_id": "$reciverId", 'notification_type': type});
       print("responseNotiFication==> $response");
       print(response);
     }
-
-
   } catch (e) {
     print(e);
   }

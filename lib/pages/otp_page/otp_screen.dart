@@ -11,7 +11,8 @@ import 'otp_controller.dart';
 class OtpPage extends StatefulWidget {
   String number;
   String otp;
-  OtpPage(  {Key? key, required this.number,required this.otp}) : super(key: key);
+
+  OtpPage({Key? key, required this.number, required this.otp}) : super(key: key);
 
   @override
   State<OtpPage> createState() => _OtpPageState();
@@ -138,18 +139,13 @@ class _OtpPageState extends State<OtpPage> {
             padding: EdgeInsets.symmetric(vertical: 50),
             child: Column(
               children: [
-                customTextCommon(
-                    text: "Type the verification code",
-                    fSize: 18,
-                    fWeight: FontWeight.w500,
-                    lineHeight: 20),
-                customTextCommon(
-                    text: " we’ve sent you",
-                    fSize: 18,
-                    fWeight: FontWeight.w500,
-                    lineHeight: 20),
+                customTextCommon(text: "Type the verification code", fSize: 18, fWeight: FontWeight.w500, lineHeight: 20),
+                customTextCommon(text: " we’ve sent you", fSize: 18, fWeight: FontWeight.w500, lineHeight: 20),
                 SizedBox(height: 140.h),
-                Text("OTP : ${widget.otp}",style: TextStyle(fontSize: 14,fontWeight: FontWeight.w500),),
+                Text(
+                  "OTP : ${widget.otp}",
+                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+                ),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 30, vertical: 30),
                   child: PinCodeTextField(

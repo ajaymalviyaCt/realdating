@@ -11,6 +11,7 @@ import 'bussines_comments_model.dart';
 class HomepageBusinessController extends GetxController {
   TextEditingController commentsController = TextEditingController();
   var bHomePagetModelNOTUSE = BHomePagetModel(posts: []).obs;
+
   BHomePagetModel get bHomePagetModel => bHomePagetModelNOTUSE.value;
 
   @override
@@ -45,38 +46,26 @@ class HomepageBusinessController extends GetxController {
 
     isFirstLoadRunning.value = true;
     try {
-      var headers = {
-        'Content-Type': 'application/x-www-form-urlencoded',
-        'Authorization': 'Bearer $token'
-      };
-      var data = {
-        'business_id': '$userId',
-        'page': page.value,
-        'pageSize': limit
-      };
+      var headers = {'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Bearer $token'};
+      var data = {'business_id': '$userId', 'page': page.value, 'pageSize': limit};
       var dio = Dio();
       var response = await dio.request(
         'https://forreal.net:4000/Get_all_business_post',
-        options: Options(
-          method: 'POST',
-            headers : headers
-        ),
+        options: Options(method: 'POST', headers: headers),
         data: data,
-
       );
 
       if (response.statusCode == 200) {
         print("one1111${json.encode(response.data)}");
-        try{
+        try {
           posts = BHomePagetModel.fromJson(response.data).posts;
           var firstLoad = BHomePagetModel(posts: posts);
           bHomePagetModelNOTUSE(firstLoad);
           print("firstLoad${bHomePagetModelNOTUSE.value.posts.length}");
           bHomePagetModelNOTUSE.refresh();
-        }catch(e){
-               print("object${e}");
+        } catch (e) {
+          print("object${e}");
         }
-
       } else {
         print(response.statusMessage);
         print("two${json.encode(response.data)}");
@@ -93,33 +82,22 @@ class HomepageBusinessController extends GetxController {
   }
 
   void loadMore() async {
-    if (hasNextPage.value == true &&
-        isFirstLoadRunning.value == false &&
-        isLoadMoreRunning.value == false &&
-        controller.position.extentAfter < 300) {
-      isLoadMoreRunning.value =
-          true; // Display a progress indicator at the bottom
+    if (hasNextPage.value == true && isFirstLoadRunning.value == false && isLoadMoreRunning.value == false && controller.position.extentAfter < 300) {
+      isLoadMoreRunning.value = true; // Display a progress indicator at the bottom
       page += 1; // Increase _page by 1
       try {
         SharedPreferences prefs = await SharedPreferences.getInstance();
         var userId = prefs.get('user_id');
-        var data = {
-          'business_id': '${userId}',
-          'page': page.value,
-          'pageSize': limit
-        };
+        var data = {'business_id': '${userId}', 'page': page.value, 'pageSize': limit};
         var dio = Dio();
         var headers = {
           'Content-Type': 'application/x-www-form-urlencoded',
-          'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImlkIjoxN30sImlhdCI6MTcwNjc3MjQ5N30.CG2TxFYexg9FjNhQyWUBiKFJhspSXp4zh20uDmIstWE'
+          'Authorization':
+              'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImlkIjoxN30sImlhdCI6MTcwNjc3MjQ5N30.CG2TxFYexg9FjNhQyWUBiKFJhspSXp4zh20uDmIstWE'
         };
         var response = await dio.request(
           'https://forreal.net:4000/Get_all_business_post',
-          options: Options(
-            method: 'POST',
-              headers : headers
-
-          ),
+          options: Options(method: 'POST', headers: headers),
           data: data,
         );
 
@@ -129,8 +107,7 @@ class HomepageBusinessController extends GetxController {
           print(response.statusMessage);
         }
 
-        final List<BPost> fetchedPosts =
-            BHomePagetModel.fromJson(response.data).posts;
+        final List<BPost> fetchedPosts = BHomePagetModel.fromJson(response.data).posts;
 
         if (fetchedPosts.isNotEmpty) {
           //setState
@@ -160,37 +137,22 @@ class HomepageBusinessController extends GetxController {
 
   late ScrollController controller;
 
-
-
-
-
-
-
-
-
-
-
   BcommentsModel? bcommentsModel;
   RxList<BComments> comments = <BComments>[].obs;
   RxBool isLoadingCommentList = false.obs;
 
-  Future<void> getAllCommentBYpostID(
-      {required String postID,
-        required bool alreadlyLoad,
-        required int indexx}) async {
+  Future<void> getAllCommentBYpostID({required String postID, required bool alreadlyLoad, required int indexx}) async {
     print("getAllCommentBPostID${postID}");
     isLoadingCommentList.value = true;
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var userId = prefs.get('user_id');
     var token = prefs.get('token');
-   print("post_idddd===> $postID");
-    var headers = {
-      'Content-Type': 'application/x-www-form-urlencoded',
-      'Authorization': 'Bearer $token'
-    };
+    print("post_idddd===> $postID");
+    var headers = {'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Bearer $token'};
     var data = {'post_id': postID};
     var dio = Dio();
-    var response = await dio.request('https://forreal.net:4000/business_post_comments',
+    var response = await dio.request(
+      'https://forreal.net:4000/business_post_comments',
       options: Options(
         method: 'POST',
         headers: headers,
@@ -198,11 +160,11 @@ class HomepageBusinessController extends GetxController {
       data: data,
     );
     if (response.statusCode == 200) {
-      try{
+      try {
         comments.value = BcommentsModel.fromJson(response.data).comments;
         bHomePagetModelNOTUSE.value.posts[indexx].totalComments = comments.length;
         bHomePagetModelNOTUSE.refresh();
-      }catch(e){
+      } catch (e) {
         print("objectasfsf${e.toString()}");
       }
 
@@ -215,10 +177,7 @@ class HomepageBusinessController extends GetxController {
     }
   }
 
-
-
-  Future<void> postComments(
-      String post_id, String comment, String user_id, int indexxx) async {
+  Future<void> postComments(String post_id, String comment, String user_id, int indexxx) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     if (comment.trim().isEmpty) {
       print("Error: Comment is empty or spaces only.");
@@ -227,10 +186,7 @@ class HomepageBusinessController extends GetxController {
 
     var token = prefs.get('token');
     print("tokentokentokentoken==>$token");
-    var headers = {
-      'Content-Type': 'application/x-www-form-urlencoded',
-      'Authorization': 'Bearer ${token}'
-    };
+    var headers = {'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Bearer ${token}'};
     var data = {'post_id': post_id, 'comment': comment};
     commentsController.clear();
     var dio = Dio();
@@ -254,12 +210,4 @@ class HomepageBusinessController extends GetxController {
       print(response.statusMessage);
     }
   }
-
-
-
-
-
-
-
-
 }

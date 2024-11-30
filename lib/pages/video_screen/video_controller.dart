@@ -7,27 +7,25 @@ import '../reels/reelModel.dart';
 
 class VideoController extends GetxController {
   final Rx<List<Video>> _videoList = Rx<List<Video>>([]);
-  List<Reel> reels = <Reel> [].obs;
-  RxBool load=false.obs;
+  List<Reel> reels = <Reel>[].obs;
+  RxBool load = false.obs;
 
-  RxBool isLoadig =false.obs;
+  RxBool isLoadig = false.obs;
+
   @override
   void onInit() {
     super.onInit();
-      watchReels();
+    watchReels();
     print("fsfsfsdfsfs");
   }
 
-
-
   GetReelsModel? getReelModel;
-  watchReels() async {
 
+  watchReels() async {
     isLoadig(true);
     final response = await BaseClient01().get(Appurls.getAllReels);
     isLoadig(false);
     print(response);
-
 
     print("fsfsfsdfsfs");
     try {
@@ -36,4 +34,5 @@ class VideoController extends GetxController {
     } catch (e) {
       print("sad1234567sfsffsf$e");
     }
-  }}
+  }
+}

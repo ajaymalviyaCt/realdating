@@ -1,8 +1,8 @@
 import 'dart:async';
 
-import 'common_import.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
+import 'common_import.dart';
 
 class UserProfileManager extends GetxController {
   //final DashboardController _dashboardController = Get.find();
@@ -14,9 +14,9 @@ class UserProfileManager extends GetxController {
   // }
 
   logout() async {
-   // user.value = null;
+    // user.value = null;
 
-   // await AuthApi.logout();
+    // await AuthApi.logout();
 
     // SharedPrefs().clearPreferences();
     // Get.offAll(() => const AuthTab());
@@ -29,23 +29,23 @@ class UserProfileManager extends GetxController {
     Future.delayed(const Duration(seconds: 2), () {
       //_dashboardController.indexChanged(0);
     });
-   // SharedPrefs().setBioMetricAuthStatus(false);
+    // SharedPrefs().setBioMetricAuthStatus(false);
   }
 
-  // Future refreshProfile() async {
-  //  // String? authKey = await SharedPrefs().getAuthorizationKey();
-  //
-  //   if (authKey != null) {
-  //    // await ProfileApi.getMyProfile(resultCallback: (result) {
-  //       user.value = result;
-  //
-  //       if (user.value != null) {
-  //       //  setupSocketServiceLocator1();
-  //       }
-  //       return;
-  //     });
-  //   } else {
-  //     return;
-  //     // print('no auth token found');
-  //   }
-  }
+// Future refreshProfile() async {
+//  // String? authKey = await SharedPrefs().getAuthorizationKey();
+//
+//   if (authKey != null) {
+//    // await ProfileApi.getMyProfile(resultCallback: (result) {
+//       user.value = result;
+//
+//       if (user.value != null) {
+//       //  setupSocketServiceLocator1();
+//       }
+//       return;
+//     });
+//   } else {
+//     return;
+//     // print('no auth token found');
+//   }
+}

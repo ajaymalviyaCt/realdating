@@ -1,4 +1,3 @@
-
 import 'common_import.dart';
 
 int postTypeValueFrom(PostType postType) {
@@ -167,9 +166,9 @@ int uploadMediaTypeId(UploadMediaType type) {
     case UploadMediaType.verification:
       return 12;
     case UploadMediaType.shop:
-      // TODO: Handle this case.
+    // TODO: Handle this case.
     case UploadMediaType.uploadResume:
-      // TODO: Handle this case.
+    // TODO: Handle this case.
   }
   return 1;
 }

@@ -96,7 +96,6 @@ class _SFSearchBarState extends State<SFSearchBar> {
                   })
                 : Container(),
             Expanded(
-
               child: TextField(
                   autocorrect: false,
                   controller: controller,
@@ -116,16 +115,10 @@ class _SFSearchBarState extends State<SFSearchBar> {
                       onSearchStarted!();
                     }
                   },
-                  style: textStyle ??
-                      TextStyle(
-                          fontSize: FontSizes.b3,
-                          color: AppColorConstants.mainTextColor),
+                  style: textStyle ?? TextStyle(fontSize: FontSizes.b3, color: AppColorConstants.mainTextColor),
                   cursorColor: AppColorConstants.iconColor,
                   decoration: InputDecoration(
-                    hintStyle: textStyle ??
-                        TextStyle(
-                            fontSize: FontSizes.b3,
-                            color: AppColorConstants.mainTextColor),
+                    hintStyle: textStyle ?? TextStyle(fontSize: FontSizes.b3, color: AppColorConstants.mainTextColor),
                     hintText: hintText ?? searchAnythingString.tr,
                     border: InputBorder.none,
                   )).setPadding(bottom: 4, left: 8),
@@ -133,9 +126,6 @@ class _SFSearchBarState extends State<SFSearchBar> {
           ],
         ),
       ),
-    ).backgroundCard(
-        radius: radius ?? 20,
-        fillColor: backgroundColor,
-        shadowOpacity: shadowOpacity);
+    ).backgroundCard(radius: radius ?? 20, fillColor: backgroundColor, shadowOpacity: shadowOpacity);
   }
 }

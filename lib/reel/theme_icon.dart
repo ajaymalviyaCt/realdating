@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+
 import 'common_import.dart';
 
 enum ThemeIcon {
@@ -136,8 +136,7 @@ class ThemeIconWidget extends StatelessWidget {
   final double? size;
   final Color? color;
 
-  const ThemeIconWidget(this.icon, {Key? key, this.size, this.color})
-      : super(key: key);
+  const ThemeIconWidget(this.icon, {Key? key, this.size, this.color}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

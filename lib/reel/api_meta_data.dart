@@ -11,12 +11,10 @@ class APIMetaData {
     required this.perPage,
   });
 
-  factory APIMetaData.fromJson(Map<String, dynamic> json) =>
-      APIMetaData(
-        totalCount: json["totalCount"] ,
-        pageCount: json["pageCount"] ,
-        currentPage: json["currentPage"] ,
+  factory APIMetaData.fromJson(Map<String, dynamic> json) => APIMetaData(
+        totalCount: json["totalCount"],
+        pageCount: json["pageCount"],
+        currentPage: json["currentPage"],
         perPage: json["perPage"] = 20,
       );
-
 }

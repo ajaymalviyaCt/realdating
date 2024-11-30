@@ -196,43 +196,41 @@ class _VideoPlayerItemState extends State<VideoPlayerItem> {
               },
             ),
           ),
-
-                      Center(
-              child: FutureBuilder(
-                future: _initializeVideoPlayerFuture,
-                builder: (context, snapshot) {
-                  if (_controller.value.isInitialized ) {
-                    return FloatingActionButton(
-                      backgroundColor: Appcolor.Redpink,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(100),
-                      ),
-                      mini: true,
-                      onPressed: () {
-                        setState(() {
-                          if (_controller.value.isPlaying) {
-                            _controller.pause();
-                          } else {
-                            _controller.play();
-                          }
-                        });
-                      },
-                      child: Icon(
-                        _controller.value.isPlaying ? Icons.pause : Icons.play_arrow,
-                        color: Colors.white,
-                      ),
-                    );
-                  } else {
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  }
-                },
-              ),
+          Center(
+            child: FutureBuilder(
+              future: _initializeVideoPlayerFuture,
+              builder: (context, snapshot) {
+                if (_controller.value.isInitialized) {
+                  return FloatingActionButton(
+                    backgroundColor: Appcolor.Redpink,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(100),
+                    ),
+                    mini: true,
+                    onPressed: () {
+                      setState(() {
+                        if (_controller.value.isPlaying) {
+                          _controller.pause();
+                        } else {
+                          _controller.play();
+                        }
+                      });
+                    },
+                    child: Icon(
+                      _controller.value.isPlaying ? Icons.pause : Icons.play_arrow,
+                      color: Colors.white,
+                    ),
+                  );
+                } else {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+              },
             ),
+          ),
 
-
-         /* Center(
+          /* Center(
             child: FloatingActionButton(
               backgroundColor: Appcolor.Redpink,
               shape: RoundedRectangleBorder(
@@ -259,5 +257,3 @@ class _VideoPlayerItemState extends State<VideoPlayerItem> {
     );
   }
 }
-
-

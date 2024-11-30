@@ -8,14 +8,16 @@ class CustumProfileTextField1 extends StatelessWidget {
   String hintText;
   String? initialText;
   bool? obscureText;
+
   //String prefixIcon;
   String? suffixIconn;
   VoidCallback? onTap;
-  int ? maxlenght;
+  int? maxlenght;
   TextInputType? keyboardType;
   Function(String)? onChanged;
   TextEditingController controller;
-  final int ? maxLine;
+  final int? maxLine;
+
   CustumProfileTextField1(
       {super.key,
       required this.controller,
@@ -25,14 +27,17 @@ class CustumProfileTextField1 extends StatelessWidget {
       this.obscureText,
       this.onTap,
       required this.hintText,
-        this.onChanged,
-      this.initialText,this.maxlenght,this.keyboardType, this.maxLine});
+      this.onChanged,
+      this.initialText,
+      this.maxlenght,
+      this.keyboardType,
+      this.maxLine});
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      maxLines:maxLine?? 1,
-      keyboardType:keyboardType?? TextInputType.number,
+      maxLines: maxLine ?? 1,
+      keyboardType: keyboardType ?? TextInputType.number,
 
       // inputFormatters: [
       //   FilteringTextInputFormatter.allow(RegExp(r'^\d*\.?\d{0,2}')), // Allow numbers with up to 2 decimals
@@ -110,11 +115,13 @@ class CustumProfileAgeTextField1 extends StatelessWidget {
   var validator;
   String hintText;
   bool? obscureText;
+
   //String prefixIcon;
   String? suffixIconn;
   VoidCallback? onTap;
 
   TextEditingController controller;
+
   CustumProfileAgeTextField1(
       {super.key,
       required this.controller,
@@ -199,11 +206,13 @@ class CustumDescriotionTextField1 extends StatelessWidget {
   var validator;
   String hintText;
   bool? obscureText;
+
   //String prefixIcon;
   String? suffixIconn;
   VoidCallback? onTap;
 
   TextEditingController controller;
+
   CustumDescriotionTextField1(
       {super.key,
       required this.controller,

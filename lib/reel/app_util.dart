@@ -4,7 +4,7 @@ import 'common_import.dart';
 
 class AppUtil {
   static showToast({required String message, required bool isSuccess}) {
-    Fluttertoast.showToast(msg: message,backgroundColor: isSuccess?null:AppColorConstants.red);
+    Fluttertoast.showToast(msg: message, backgroundColor: isSuccess ? null : AppColorConstants.red);
     // Get.snackbar(isSuccess == true ? successString.tr : errorString.tr, message,
     //     snackPosition: SnackPosition.BOTTOM,
     //     colorText: Colors.white,
@@ -23,10 +23,8 @@ class AppUtil {
         child: SizedBox(
       width: size ?? 50,
       height: size ?? 50,
-      child: CircularProgressIndicator(
-          strokeWidth: 2.0,
-          backgroundColor: Colors.black12,
-          valueColor: AlwaysStoppedAnimation<Color>(AppColorConstants.themeColor)),
+      child:
+          CircularProgressIndicator(strokeWidth: 2.0, backgroundColor: Colors.black12, valueColor: AlwaysStoppedAnimation<Color>(AppColorConstants.themeColor)),
     ));
   }
 
@@ -50,10 +48,7 @@ class AppUtil {
   //   return false;
   // }
 
-  static void showConfirmationAlert(
-      {required String title,
-      required String subTitle,
-      required VoidCallback okHandler}) {
+  static void showConfirmationAlert({required String title, required String subTitle, required VoidCallback okHandler}) {
     showDialog(
       context: Get.context!,
       builder: (BuildContext context) {
@@ -125,10 +120,7 @@ class AppUtil {
   }
 
   static void showNewConfirmationAlert(
-      {required String title,
-      required String subTitle,
-      required VoidCallback okHandler,
-      required VoidCallback cancelHandler}) {
+      {required String title, required String subTitle, required VoidCallback okHandler, required VoidCallback cancelHandler}) {
     showModalBottomSheet(
       backgroundColor: Colors.transparent,
       context: Get.context!,
@@ -163,19 +155,14 @@ class AppUtil {
                     BodyLargeText(
                       okString,
                       color: AppColorConstants.subHeadingTextColor,
-                    )
-                        .makeChip(
-                            backGroundColor: AppColorConstants.mainTextColor)
-                        .ripple(() {
+                    ).makeChip(backGroundColor: AppColorConstants.mainTextColor).ripple(() {
                       Get.back(closeOverlays: true);
                       okHandler();
                     }),
                     BodyLargeText(
                       cancelString,
                       color: Colors.white,
-                    )
-                        .makeChip(backGroundColor: AppColorConstants.red)
-                        .ripple(() {
+                    ).makeChip(backGroundColor: AppColorConstants.red).ripple(() {
                       cancelHandler();
                       Get.back(closeOverlays: true);
                     }),
@@ -190,11 +177,7 @@ class AppUtil {
   }
 
   static void showNewConfirmationAlertWithTimer(
-      {required String title,
-      required String subTitle,
-      required int time,
-      required VoidCallback okHandler,
-      required VoidCallback cancelHandler}) {
+      {required String title, required String subTitle, required int time, required VoidCallback okHandler, required VoidCallback cancelHandler}) {
     showModalBottomSheet(
       backgroundColor: Colors.transparent,
       context: Get.context!,
@@ -258,19 +241,14 @@ class AppUtil {
                     BodyLargeText(
                       acceptString,
                       color: AppColorConstants.subHeadingTextColor,
-                    )
-                        .makeChip(
-                            backGroundColor: AppColorConstants.mainTextColor)
-                        .ripple(() {
+                    ).makeChip(backGroundColor: AppColorConstants.mainTextColor).ripple(() {
                       Get.back(closeOverlays: true);
                       okHandler();
                     }),
                     BodyLargeText(
                       declineString,
                       color: Colors.white,
-                    )
-                        .makeChip(backGroundColor: AppColorConstants.red)
-                        .ripple(() {
+                    ).makeChip(backGroundColor: AppColorConstants.red).ripple(() {
                       cancelHandler();
                       Get.back(closeOverlays: true);
                     }),
@@ -284,10 +262,7 @@ class AppUtil {
     );
   }
 
-  static void showDemoAppConfirmationAlert(
-      {required String title,
-      required String subTitle,
-      required VoidCallback okHandler}) {
+  static void showDemoAppConfirmationAlert({required String title, required String subTitle, required VoidCallback okHandler}) {
     showDialog(
       context: Get.context!,
       builder: (BuildContext context) {

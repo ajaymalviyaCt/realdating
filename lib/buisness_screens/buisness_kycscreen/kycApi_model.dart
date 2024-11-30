@@ -132,8 +132,7 @@ class BusinessKycController extends GetxController {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var user_id = prefs.get("user_id");
     //create multipart request for POST or PATCH method
-    var request = http.MultipartRequest("POST",
-        Uri.parse("https://forreal.net:4000/business_document_camera"));
+    var request = http.MultipartRequest("POST", Uri.parse("https://forreal.net:4000/business_document_camera"));
     //add text fields
     request.fields["business_id"] = user_id.toString();
     //create multipart using filepath, string or bytes

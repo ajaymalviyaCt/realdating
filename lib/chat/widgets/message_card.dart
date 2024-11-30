@@ -173,7 +173,7 @@ class _MessageCardState extends State<MessageCard> {
                       onTap: () async {
                         await Clipboard.setData(ClipboardData(text: widget.message.msg)).then((value) {
                           //for hiding bottom sheet
-Get.back();
+                          Get.back();
 
                           Dialogs.showSnackbar(context, 'Text Copied!');
                         });
@@ -304,7 +304,7 @@ Get.back();
         MaterialButton(
             onPressed: () {
               //hide alert dialog
-             Get.back();
+              Get.back();
               APIs.updateMessage(widget.message, updatedMsg);
             },
             child: const Text(

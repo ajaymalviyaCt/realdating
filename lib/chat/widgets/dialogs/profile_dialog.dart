@@ -1,8 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
 import '../../../main.dart';
-import '../../main.dart';
 import '../../models/chat_user.dart';
 import '../../screens/view_profile_screen.dart';
 
@@ -32,8 +32,7 @@ class ProfileDialog extends StatelessWidget {
                     width: mq.width * .5,
                     fit: BoxFit.cover,
                     imageUrl: user.image,
-                    errorWidget: (context, url, error) =>
-                        const CircleAvatar(child: Icon(CupertinoIcons.person)),
+                    errorWidget: (context, url, error) => const CircleAvatar(child: Icon(CupertinoIcons.person)),
                   ),
                 ),
               ),
@@ -43,9 +42,7 @@ class ProfileDialog extends StatelessWidget {
                 left: mq.width * .04,
                 top: mq.height * .02,
                 width: mq.width * .55,
-                child: Text(user.name,
-                    style: const TextStyle(
-                        fontSize: 18, fontWeight: FontWeight.w500)),
+                child: Text(user.name, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
               ),
 
               //info button
@@ -58,16 +55,12 @@ class ProfileDialog extends StatelessWidget {
                       Navigator.pop(context);
 
                       //move to view profile screen
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (_) => ViewProfileScreen(user: user)));
+                      Navigator.push(context, MaterialPageRoute(builder: (_) => ViewProfileScreen(user: user)));
                     },
                     minWidth: 0,
                     padding: const EdgeInsets.all(0),
                     shape: const CircleBorder(),
-                    child: const Icon(Icons.info_outline,
-                        color: Colors.blue, size: 30),
+                    child: const Icon(Icons.info_outline, color: Colors.blue, size: 30),
                   ))
             ],
           )),

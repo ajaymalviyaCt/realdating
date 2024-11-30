@@ -54,8 +54,7 @@ class SocketConstants {
   static const String invitedInLive = "newliveBattleInvitation";
 
   static const String replyInvitationInLive = "replyLiveBattleInvitation";
-  static const String inviteInLiveConfirmation =
-      "inviteUserInLiveBattleConfirm";
+  static const String inviteInLiveConfirmation = "inviteUserInLiveBattleConfirm";
   static const String liveBattleStatusUpdated = "liveBattleInvitationUpated";
   static const String liveBattleHostUpdated = "liveBattleHostUpdated";
   static const String endLiveBattle = "endLiveBattle";

@@ -4,15 +4,14 @@ import 'package:realdating/pages/swipcard/tinder_card_model.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+class TinderSwipController extends GetxController {
+  List<MyFriendSwipe> user = <MyFriendSwipe>[];
+  List<MyFriendSwipe> user2 = <MyFriendSwipe>[];
+  GetAllUserModel? getAllUserModel;
 
-class TinderSwipController extends GetxController{
+  RxBool lastIndex = false.obs;
 
-  List<MyFriendSwipe>  user = <MyFriendSwipe>[];
-  List<MyFriendSwipe>  user2 = <MyFriendSwipe>[];
-  GetAllUserModel ? getAllUserModel ;
-  RxBool lastIndex = false.obs ;
-  RxBool isLoadinggetAllUser = false.obs ;
-
+  RxBool isLoadinggetAllUser = false.obs;
 
   @override
   void onInit() {
@@ -20,21 +19,14 @@ class TinderSwipController extends GetxController{
     super.onInit();
   }
 
-  Future<void> getAllUser() async{
-    isLoadinggetAllUser.value =true;
+  Future<void> getAllUser() async {
+    isLoadinggetAllUser.value = true;
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var user_id = prefs.getInt('user_id');
-  var  token = prefs.get('token');
-    var headers = {
-      'Content-Type': 'application/x-www-form-urlencoded',
-      'Authorization': 'Bearer ${token}'
-    };
-    Map<String, String>  body = {
-      'user_id': user_id.toString()
-    };
+    var token = prefs.get('token');
+    var headers = {'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Bearer ${token}'};
+    Map<String, String> body = {'user_id': user_id.toString()};
     var dio = Dio();
-
-
 
     try {
       var response = await dio.request(
@@ -47,13 +39,11 @@ class TinderSwipController extends GetxController{
       );
 
       if (response.statusCode == 200) {
-        user =GetAllUserModel.fromJson(response.data).myFriends!;
-        user2 =GetAllUserModel.fromJson(response.data).myFriends!;
-        isLoadinggetAllUser.value =true;
-        isLoadinggetAllUser.value =false;
-
-      }
-      else {
+        user = GetAllUserModel.fromJson(response.data).myFriends!;
+        user2 = GetAllUserModel.fromJson(response.data).myFriends!;
+        isLoadinggetAllUser.value = true;
+        isLoadinggetAllUser.value = false;
+      } else {
         print(response.statusMessage);
       }
     } catch (e) {
@@ -68,16 +58,8 @@ class TinderSwipController extends GetxController{
         // Handle other types of exceptions
       }
     }
-    try{
-
-
-    }catch(e){
+    try {} catch (e) {
       print(e.toString());
-
     }
   }
-
-
-
-
 }

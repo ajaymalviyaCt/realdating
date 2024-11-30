@@ -151,16 +151,15 @@ class _HeightDOBpageState extends State<HeightDOBpage> {
                   controller: heightDOBcontroller.height,
                   keyboardType: const TextInputType.numberWithOptions(decimal: true),
                   inputFormatters: [
-
                     // Regular expression to allow up to two decimal places
                     FilteringTextInputFormatter.allow(RegExp(r'^\d+(\.\d{0,2})?$')),
                     // LengthLimitingTextInputFormatter(5), // Limits input length to 5 characters (i.e., 11.99)
                     // LengthLimitingTextInputFormatter(5), // Limits input length to 5 characters (i.e., 11.99)
                   ],
                   onChanged: (value) {
-                    if(value.trim().isEmpty){
+                    if (value.trim().isEmpty) {
                       print("Line 160");
-                    }else{
+                    } else {
                       try {
                         print("line 160");
                         print(value);
@@ -175,7 +174,6 @@ class _HeightDOBpageState extends State<HeightDOBpage> {
                         }
                       } catch (e, s) {}
                     }
-
                   },
                   decoration: InputDecoration(
                     suffixIcon: SizedBox(

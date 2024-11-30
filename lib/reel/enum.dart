@@ -122,19 +122,7 @@ enum RelationsRevealSetting { none, followers, all }
 
 enum GenderType { male, female, other }
 
-enum NotificationType {
-  like,
-  comment,
-  follow,
-  followRequest,
-  gift,
-  clubInvitation,
-  competitionAdded,
-  relationInvite,
-  none,
-  verification,
-  supportRequest
-}
+enum NotificationType { like, comment, follow, followRequest, gift, clubInvitation, competitionAdded, relationInvite, none, verification, supportRequest }
 
 enum CommentType { text, image, video, gif }
 
@@ -161,14 +149,7 @@ enum PaymentType {
   redeemCoin,
 }
 
-enum PaymentMode {
-  inAppPurchase,
-  paypal,
-  wallet,
-  stripe,
-  razorpay,
-  flutterWave
-}
+enum PaymentMode { inAppPurchase, paypal, wallet, stripe, razorpay, flutterWave }
 
 enum DatingActions {
   liked,

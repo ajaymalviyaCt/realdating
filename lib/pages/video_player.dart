@@ -14,24 +14,23 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
   late VideoPlayerController _controller;
   late Future<void> _initializeVideoPlayerFuture;
 
-    @override
-    void initState() {
-      super.initState();
-      print("url=====");
-      print(widget.url);
-      // Create and store the VideoPlayerController. The VideoPlayerController
-      // offers several different constructors to play videos from assets, files,
-      // or the internet.
-      _controller = VideoPlayerController.network(
-      "https://www.shutterstock.com/shutterstock/videos/1054511090/preview/stock-footage-traffic-increase-search-engine-optimization-boost-website-visitor-growth-digital-promotion.webm"
-      );
+  @override
+  void initState() {
+    super.initState();
+    print("url=====");
+    print(widget.url);
+    // Create and store the VideoPlayerController. The VideoPlayerController
+    // offers several different constructors to play videos from assets, files,
+    // or the internet.
+    _controller = VideoPlayerController.network(
+        "https://www.shutterstock.com/shutterstock/videos/1054511090/preview/stock-footage-traffic-increase-search-engine-optimization-boost-website-visitor-growth-digital-promotion.webm");
 
-      // Initialize the controller and store the Future for later use.
-      _initializeVideoPlayerFuture = _controller.initialize();
+    // Initialize the controller and store the Future for later use.
+    _initializeVideoPlayerFuture = _controller.initialize();
 
-      // Use the controller to loop the video.
-      _controller.setLooping(true);
-    }
+    // Use the controller to loop the video.
+    _controller.setLooping(true);
+  }
 
   @override
   void dispose() {

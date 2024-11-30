@@ -11,7 +11,7 @@ import 'package:geocoding/geocoding.dart';
 import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:http/http.dart'as http;
+import 'package:http/http.dart' as http;
 
 class LocationScreen extends StatefulWidget {
   const LocationScreen({Key? key}) : super(key: key);
@@ -21,7 +21,6 @@ class LocationScreen extends StatefulWidget {
 }
 
 class _LocationScreenState extends State<LocationScreen> {
-
   String _currentAddress = '';
   Position? _currentPosition;
 
@@ -41,8 +40,7 @@ class _LocationScreenState extends State<LocationScreen> {
 
   Future<Position?> getCurrentLocation() async {
     try {
-      return await Geolocator.getCurrentPosition(
-          desiredAccuracy: LocationAccuracy.high);
+      return await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
     } catch (e) {
       print("Error getting location: $e");
       return null;
@@ -51,13 +49,11 @@ class _LocationScreenState extends State<LocationScreen> {
 
   Future<void> getAddress(double latitude, double longitude) async {
     try {
-      List<Placemark> placemarks =
-      await placemarkFromCoordinates(latitude, longitude);
+      List<Placemark> placemarks = await placemarkFromCoordinates(latitude, longitude);
 
       if (placemarks.isNotEmpty) {
         Placemark firstPlacemark = placemarks[0];
-        _currentAddress =
-        "${firstPlacemark.street}, ${firstPlacemark.locality}, ${firstPlacemark.country}";
+        _currentAddress = "${firstPlacemark.street}, ${firstPlacemark.locality}, ${firstPlacemark.country}";
         print("Address: $_currentAddress");
       } else {
         print("No address found for the given coordinates");
@@ -115,9 +111,6 @@ class _LocationScreenState extends State<LocationScreen> {
     }
   }
 
-
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -154,14 +147,11 @@ class _LocationScreenState extends State<LocationScreen> {
             child: customPrimaryBtn(
                 btnText: "Continue",
                 btnFun: () async {
-
                   updateStatus();
                   SharedPreferences prefs = await SharedPreferences.getInstance();
                   var token = prefs.get('token');
 
-                  var headers = {
-                    'Authorization': 'Bearer $token'
-                  };
+                  var headers = {'Authorization': 'Bearer $token'};
                   var data = {};
                   var dio = Dio();
                   var response = await dio.request(
@@ -175,13 +165,12 @@ class _LocationScreenState extends State<LocationScreen> {
 
                   if (response.statusCode == 200) {
                     print(json.encode(response.data));
-                  }
-                  else {
+                  } else {
                     print(response.statusMessage);
                   }
-                  await  requestLocationPermission();
+                  await requestLocationPermission();
                   await editProfile();
-                  await prefs.setBool("isLogin",true);
+                  await prefs.setBool("isLogin", true);
                   Get.offAll(() => const DashboardPage());
                 }),
           ),
@@ -193,14 +182,10 @@ class _LocationScreenState extends State<LocationScreen> {
     );
   }
 
-
   updateStatus() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var userId = prefs.getInt('user_id');
-    var data = {
-      'userId': '${userId}',
-      'profile_status': '6'
-    };
+    var data = {'userId': '${userId}', 'profile_status': '6'};
     var dio = Dio();
     var response = await dio.request(
       'https://forreal.net:4000/users/user_profile_status_update',
@@ -212,14 +197,8 @@ class _LocationScreenState extends State<LocationScreen> {
 
     if (response.statusCode == 200) {
       print(response.data);
-    }
-    else {
+    } else {
       print(response.statusMessage);
     }
-
   }
-
 }
-
-
-

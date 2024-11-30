@@ -14,14 +14,14 @@ class AppScaffold extends StatelessWidget {
 
   const AppScaffold(
       {Key? key,
-        required this.body,
-        this.backgroundColor,
-        this.appBar,
-        this.floatingActionButton,
-        this.bottomNavigationBar,
-        this.resizeToAvoidBottomInset,
-        this.extendBodyBehindAppBar,
-        this.floatingActionButtonLocation})
+      required this.body,
+      this.backgroundColor,
+      this.appBar,
+      this.floatingActionButton,
+      this.bottomNavigationBar,
+      this.resizeToAvoidBottomInset,
+      this.extendBodyBehindAppBar,
+      this.floatingActionButtonLocation})
       : super(key: key);
 
   @override
@@ -31,8 +31,7 @@ class AppScaffold extends StatelessWidget {
           return false;
         },
         child: Scaffold(
-            backgroundColor:
-            backgroundColor ?? AppColorConstants.backgroundColor,
+            backgroundColor: backgroundColor ?? AppColorConstants.backgroundColor,
             body: GestureDetector(
                 onTap: () {
                   FocusScope.of(context).requestFocus(FocusNode());

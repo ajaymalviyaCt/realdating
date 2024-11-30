@@ -87,9 +87,7 @@ class UserModel {
     UserModel model = UserModel();
     model.id = json['id'];
     model.name = json['name'];
-    model.userName = json['username'] == null
-        ? ''
-        : json['username'].toString().toLowerCase();
+    model.userName = json['username'] == null ? '' : json['username'].toString().toLowerCase();
     // model.category = json['category'] ?? 'Other';
 
     model.email = json['email'];
@@ -100,8 +98,8 @@ class UserModel {
     model.followingStatus = json['isFollowing'] == 0
         ? FollowingStatus.notFollowing
         : json['isFollowing'] == 1
-        ? FollowingStatus.following
-        : FollowingStatus.requested;
+            ? FollowingStatus.following
+            : FollowingStatus.requested;
     model.isFollower = json['isFollower'] == 1;
 
     model.latitude = json['latitude'];
@@ -115,8 +113,8 @@ class UserModel {
     model.genderType = model.gender == '1'
         ? GenderType.male
         : model.gender == '2'
-        ? GenderType.female
-        : GenderType.other;
+            ? GenderType.female
+            : GenderType.other;
 
     model.totalPost = json['totalActivePost'] ?? json['totalPost'] ?? 0;
     model.totalReels = json['totalReel'] ?? 0;
@@ -135,22 +133,15 @@ class UserModel {
     model.chatLastTimeOnline = json['chat_last_time_online'];
     model.accountCreatedWith = json['account_created_with'] ?? 1;
     model.isVerified = json['is_verified'] == 1;
-    model.chatDeleteTime =
-        json['chat_delete_period'] ?? AppConfigConstants.secondsInADay;
+    model.chatDeleteTime = json['chat_delete_period'] ?? AppConfigConstants.secondsInADay;
 
     model.paypalId = json['paypal_id'];
     model.balance = (json['available_balance'] ?? '').toString();
     model.isBioMetricLoginEnabled = json['is_biometric_login'];
-    model.commentPushNotificationStatus =
-        json['comment_push_notification_status'] ?? 0;
-    model.likePushNotificationStatus =
-        json['like_push_notification_status'] ?? 0;
-    model.liveCallDetail = json['userLiveDetail'] != null
-        ? UserLiveCallDetail.fromJson(json['userLiveDetail'])
-        : null;
-    model.giftSummary = json['giftSummary'] != null
-        ? GiftSummary.fromJson(json['giftSummary'])
-        : null;
+    model.commentPushNotificationStatus = json['comment_push_notification_status'] ?? 0;
+    model.likePushNotificationStatus = json['like_push_notification_status'] ?? 0;
+    model.liveCallDetail = json['userLiveDetail'] != null ? UserLiveCallDetail.fromJson(json['userLiveDetail']) : null;
+    model.giftSummary = json['giftSummary'] != null ? GiftSummary.fromJson(json['giftSummary']) : null;
 
     model.dob = json['dob'] ?? '';
     model.height = json['height'] ?? '121.0';
@@ -167,43 +158,34 @@ class UserModel {
     model.experienceMonth = json['work_experience_month'];
     model.experienceYear = json['work_experience_year'];
 
-    model.interests = json['interest'] != null
-        ? List<InterestModel>.from(
-        json['interest'].map((x) => InterestModel.fromJson(x)))
-        : null;
-    model.languages = json['language'] != null
-        ? List<LanguageModel>.from(
-        json['language'].map((x) => LanguageModel.fromJson(x)))
-        : null;
+    model.interests = json['interest'] != null ? List<InterestModel>.from(json['interest'].map((x) => InterestModel.fromJson(x))) : null;
+    model.languages = json['language'] != null ? List<LanguageModel>.from(json['language'].map((x) => LanguageModel.fromJson(x))) : null;
 
     model.profileCategoryTypeId = json['profile_category_type'] ?? 0;
     model.profileCategoryTypeName = json['profileCategoryName'] ?? 'Other';
 
-    model.userSetting = json['userSetting'] != null
-        ? List<UserSetting>.from(
-        json['userSetting'].map((x) => UserSetting.fromJson(x)))
-        : null;
+    model.userSetting = json['userSetting'] != null ? List<UserSetting>.from(json['userSetting'].map((x) => UserSetting.fromJson(x))) : null;
 
     return model;
   }
 
   Map<String, dynamic> toJson() => {
-    "id": id,
-    "username": userName,
-    "email": email,
-    "picture": picture,
-    "bio": bio,
-    "phone": phone,
-    "country": country,
-    "country_code": countryCode,
-    "city": city,
-    "sex": gender,
-    "totalPost": totalPost,
-    "available_coin": coins,
-    "is_reported": isReported,
-    "paypal_id": paypalId,
-    "available_balance": balance
-  };
+        "id": id,
+        "username": userName,
+        "email": email,
+        "picture": picture,
+        "bio": bio,
+        "phone": phone,
+        "country": country,
+        "country_code": countryCode,
+        "city": city,
+        "sex": gender,
+        "totalPost": totalPost,
+        "available_coin": coins,
+        "is_reported": isReported,
+        "paypal_id": paypalId,
+        "available_balance": balance
+      };
 
   static UserModel placeholderUser() {
     UserModel model = UserModel();
@@ -237,8 +219,7 @@ class UserModel {
   String get getInitials {
     List<String> nameParts = userName.trim().split(' ');
     if (nameParts.length > 1) {
-      return nameParts[0].substring(0, 1).toUpperCase() +
-          nameParts[1].substring(0, 1).toUpperCase();
+      return nameParts[0].substring(0, 1).toUpperCase() + nameParts[1].substring(0, 1).toUpperCase();
     } else {
       if (nameParts[0].isEmpty) {
         return '*';
@@ -252,8 +233,7 @@ class UserModel {
       return offlineString.tr;
     }
 
-    DateTime dateTime =
-    DateTime.fromMillisecondsSinceEpoch(chatLastTimeOnline! * 1000).toUtc();
+    DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(chatLastTimeOnline! * 1000).toUtc();
     // return '${lastSeenString.tr} ${timeago.format(dateTime)}';
     return '${lastSeenString.tr} ${dateTime.getTimeAgo}';
   }
@@ -287,8 +267,7 @@ class UserModel {
   bool get canViewRelations {
     if (relationsRevealSetting == RelationsRevealSetting.none) {
       return false;
-    } else if (relationsRevealSetting == RelationsRevealSetting.followers &&
-        followingStatus == FollowingStatus.following) {
+    } else if (relationsRevealSetting == RelationsRevealSetting.followers && followingStatus == FollowingStatus.following) {
       return true;
     } else {
       return true;
@@ -302,22 +281,15 @@ class LiveCallHostUser {
   int totalCoins;
   int totalGifts;
 
-  LiveCallHostUser(
-      {required this.userDetail,
-      required this.isMainHost,
-      required this.totalCoins,
-      required this.totalGifts});
+  LiveCallHostUser({required this.userDetail, required this.isMainHost, required this.totalCoins, required this.totalGifts});
 
   factory LiveCallHostUser.fromJson(dynamic json) {
     UserModel user = UserModel();
     user.id = json['userId'];
     user.userName = json['username'] ?? json['userName'];
     user.picture = json['userImageUrl'] ?? 'test';
-    LiveCallHostUser model = LiveCallHostUser(
-        userDetail: user,
-        isMainHost: json['isSuperHost'] == 1,
-        totalCoins: json['totalCoin'] ?? 0,
-        totalGifts: json['totalGift'] ?? 0);
+    LiveCallHostUser model =
+        LiveCallHostUser(userDetail: user, isMainHost: json['isSuperHost'] == 1, totalCoins: json['totalCoin'] ?? 0, totalGifts: json['totalGift'] ?? 0);
 
     return model;
   }

@@ -6,12 +6,12 @@ import '../pages/a_frist_pages/login_page/login.dart';
 
 class OptionScreen extends StatefulWidget {
   const OptionScreen({super.key});
+
   @override
   State<OptionScreen> createState() => _OptionScreenState();
 }
 
-class _OptionScreenState extends State<OptionScreen>
-    with SingleTickerProviderStateMixin {
+class _OptionScreenState extends State<OptionScreen> with SingleTickerProviderStateMixin {
   @override
   void initState() {
     // zoomContainer();
@@ -71,17 +71,9 @@ class _OptionScreenState extends State<OptionScreen>
                 children: [
                   const Padding(
                     padding: EdgeInsets.symmetric(vertical: 55),
-                    child: Center(
-                        child: Image(
-                            image: AssetImage('assets/images/Foreground.png'),
-                            fit: BoxFit.none,
-                            height: 400,
-                            width: 300)),
+                    child: Center(child: Image(image: AssetImage('assets/images/Foreground.png'), fit: BoxFit.none, height: 400, width: 300)),
                   ),
-                  const Image(
-                      image:
-                          AssetImage('assets/images/Background Pattern.png'),
-                      fit: BoxFit.fill),
+                  const Image(image: AssetImage('assets/images/Background Pattern.png'), fit: BoxFit.fill),
                   Positioned(
                     bottom: 0,
                     right: 22,
@@ -90,12 +82,7 @@ class _OptionScreenState extends State<OptionScreen>
                       children: [
                         Container(
                           decoration: BoxDecoration(
-                            boxShadow: const [
-                              BoxShadow(
-                                  color: Colors.black26,
-                                  offset: Offset(0, 2),
-                                  blurRadius: 2.0)
-                            ],
+                            boxShadow: const [BoxShadow(color: Colors.black26, offset: Offset(0, 2), blurRadius: 2.0)],
                             gradient: const LinearGradient(
                               begin: Alignment.topLeft,
                               end: Alignment.bottomRight,
@@ -109,21 +96,17 @@ class _OptionScreenState extends State<OptionScreen>
                           ),
                           child: ElevatedButton(
                             style: ButtonStyle(
-                              shape: MaterialStateProperty.all<
-                                  RoundedRectangleBorder>(
+                              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                                 RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(30.0),
                                 ),
                               ),
-                              minimumSize: MaterialStateProperty.all(Size(
-                                  MediaQuery.of(context).size.width, 56)),
-                              backgroundColor: MaterialStateProperty.all(
-                                  Colors.transparent),
-                              shadowColor: MaterialStateProperty.all(
-                                  Colors.transparent),
+                              minimumSize: MaterialStateProperty.all(Size(MediaQuery.of(context).size.width, 56)),
+                              backgroundColor: MaterialStateProperty.all(Colors.transparent),
+                              shadowColor: MaterialStateProperty.all(Colors.transparent),
                             ),
                             onPressed: () {
-                              Get.to(() =>LoginScreenPage());
+                              Get.to(() => LoginScreenPage());
                             },
                             child: const Padding(
                                 padding: EdgeInsets.only(
@@ -131,16 +114,12 @@ class _OptionScreenState extends State<OptionScreen>
                                   bottom: 10,
                                 ),
                                 child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
                                     SizedBox(),
                                     Text(
                                       "Login as User",
-                                      style: TextStyle(
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.w500,
-                                          fontSize: 16),
+                                      style: TextStyle(color: Colors.black, fontWeight: FontWeight.w500, fontSize: 16),
                                     ),
                                     Icon(
                                       Icons.arrow_forward,
@@ -155,12 +134,7 @@ class _OptionScreenState extends State<OptionScreen>
                         ),
                         Container(
                           decoration: BoxDecoration(
-                            boxShadow: const [
-                              BoxShadow(
-                                  color: Colors.black26,
-                                  offset: Offset(0, 2),
-                                  blurRadius: 2.0)
-                            ],
+                            boxShadow: const [BoxShadow(color: Colors.black26, offset: Offset(0, 2), blurRadius: 2.0)],
                             gradient: const LinearGradient(
                               begin: Alignment.topLeft,
                               end: Alignment.bottomRight,
@@ -174,18 +148,14 @@ class _OptionScreenState extends State<OptionScreen>
                           ),
                           child: ElevatedButton(
                             style: ButtonStyle(
-                              shape: MaterialStateProperty.all<
-                                  RoundedRectangleBorder>(
+                              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                                 RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(30.0),
                                 ),
                               ),
-                              minimumSize: MaterialStateProperty.all(Size(
-                                  MediaQuery.of(context).size.width, 56)),
-                              backgroundColor: MaterialStateProperty.all(
-                                  Colors.transparent),
-                              shadowColor: MaterialStateProperty.all(
-                                  Colors.transparent),
+                              minimumSize: MaterialStateProperty.all(Size(MediaQuery.of(context).size.width, 56)),
+                              backgroundColor: MaterialStateProperty.all(Colors.transparent),
+                              shadowColor: MaterialStateProperty.all(Colors.transparent),
                             ),
                             onPressed: () {
                               Get.to(() => const BuisnessLogin());
@@ -196,16 +166,12 @@ class _OptionScreenState extends State<OptionScreen>
                                   bottom: 10,
                                 ),
                                 child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
                                     SizedBox(),
                                     Text(
                                       "Login as Business",
-                                      style: TextStyle(
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.w500,
-                                          fontSize: 16),
+                                      style: TextStyle(color: Colors.black, fontWeight: FontWeight.w500, fontSize: 16),
                                     ),
                                     Icon(
                                       Icons.arrow_forward,

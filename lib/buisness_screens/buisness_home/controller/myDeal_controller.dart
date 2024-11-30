@@ -5,10 +5,9 @@ import '../../../consts/app_urls.dart';
 import '../../../services/base_client01.dart';
 import '../model/myDealModel.dart';
 
-class MyDealController extends GetxController{
-
-  RxBool isLoadig =false.obs;
-  MyDealsModel ? myDealsModel ;
+class MyDealController extends GetxController {
+  RxBool isLoadig = false.obs;
+  MyDealsModel? myDealsModel;
 
   @override
   void onReady() {
@@ -16,23 +15,20 @@ class MyDealController extends GetxController{
     MYDeal();
   }
 
-  MYDeal()async{
+  MYDeal() async {
     print("Events");
     isLoadig(true);
-    final response = await BaseClient01().post(Appurls.mydeal,{
+    final response = await BaseClient01().post(Appurls.mydeal, {
       "business_id": "1",
-
     });
     print(response);
     print("TopDeal");
-    bool success= response["success"];
-    var msg= response["message"];
-    print( "msg ___$msg");
-    if(success){
-      myDealsModel =MyDealsModel.fromJson(response);
+    bool success = response["success"];
+    var msg = response["message"];
+    print("msg ___$msg");
+    if (success) {
+      myDealsModel = MyDealsModel.fromJson(response);
     }
     isLoadig(false);
-
   }
-
 }

@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:realdating/widgets/custom_appbar.dart';
-import 'package:realdating/widgets/custom_text_styles.dart';
 import 'package:get/get.dart';
-import 'package:velocity_x/velocity_x.dart';
+import 'package:realdating/widgets/custom_text_styles.dart';
 
 import '../../../consts/app_colors.dart';
 import '../../../function/function_class.dart';
@@ -42,8 +40,7 @@ class _EventsPageState extends State<EventsPage> {
                 ? GridView.builder(
                     itemCount: eventsController.matchessModel?.getEvents.length,
                     padding: const EdgeInsets.all(18),
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
+                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
                       crossAxisSpacing: 10,
                       mainAxisSpacing: 10,
@@ -53,11 +50,7 @@ class _EventsPageState extends State<EventsPage> {
                       return InkWell(
                         onTap: () {
                           Get.to(
-                            () => EventDetails(
-                                id: eventsController
-                                        .matchessModel!.getEvents[index].id
-                                        .toString() ??
-                                    "1"),
+                            () => EventDetails(id: eventsController.matchessModel!.getEvents[index].id.toString() ?? "1"),
                           );
                         },
                         child: SizedBox(
@@ -72,13 +65,8 @@ class _EventsPageState extends State<EventsPage> {
                                   borderRadius: BorderRadius.circular(8),
                                   image: DecorationImage(
                                     image: NetworkImage(
-                                      eventsController
-                                              .matchessModel!
-                                              .getEvents[index]
-                                              .eventImage
-                                              .isNotEmpty
-                                          ? eventsController.matchessModel!
-                                              .getEvents[index].eventImage
+                                      eventsController.matchessModel!.getEvents[index].eventImage.isNotEmpty
+                                          ? eventsController.matchessModel!.getEvents[index].eventImage
                                           : "https://www.yiwubazaar.com/resources/assets/images/default-product.jpg",
                                     ),
                                     fit: BoxFit.cover,
@@ -89,9 +77,7 @@ class _EventsPageState extends State<EventsPage> {
                                 top: 12,
                                 left: 10,
                                 child: Container(
-                                  decoration: BoxDecoration(
-                                      color: Colors.white.withOpacity(.60),
-                                      borderRadius: BorderRadius.circular(30)),
+                                  decoration: BoxDecoration(color: Colors.white.withOpacity(.60), borderRadius: BorderRadius.circular(30)),
                                   height: 32,
                                   width: 105,
                                   child: Center(
@@ -110,11 +96,7 @@ class _EventsPageState extends State<EventsPage> {
                                       ),
                                       Expanded(
                                         child: customTextCommon(
-                                          text: eventsController
-                                                  .matchessModel
-                                                  ?.getEvents[index]
-                                                  .eventType ??
-                                              "Event Online",
+                                          text: eventsController.matchessModel?.getEvents[index].eventType ?? "Event Online",
                                           fSize: 12,
                                           fWeight: FontWeight.w500,
                                           lineHeight: 10,
@@ -129,29 +111,25 @@ class _EventsPageState extends State<EventsPage> {
                                 child: Container(
                                   decoration: BoxDecoration(
                                       color: Colors.red.withOpacity(.60),
-                                      borderRadius: const BorderRadius.only(
-                                          bottomLeft: Radius.circular(0),
-                                          bottomRight: Radius.circular(0))),
+                                      borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(0), bottomRight: Radius.circular(0))),
                                   height: 54,
                                   width: 180,
                                 ),
                               ),
                               Positioned(
-                                bottom:32,
-                                left:5,
+                                bottom: 32,
+                                left: 5,
                                 child: customTextCommon(
-                                  text:
-                                      eventsController.matchessModel!.getEvents[index].eventTitle,
+                                  text: eventsController.matchessModel!.getEvents[index].eventTitle,
                                   fSize: 15,
                                   fWeight: FontWeight.w600,
                                   lineHeight: 24,
                                   color: Colors.white,
                                 ),
                               ),
-
                               Positioned(
-                                bottom:3,
-                                left:6,
+                                bottom: 3,
+                                left: 6,
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -169,28 +147,25 @@ class _EventsPageState extends State<EventsPage> {
                                               width: 3.5,
                                             ),
                                             customTextCommon(
-                                              text:
-                                                  eventsController.matchessModel!.getEvents[index].startDate,
+                                              text: eventsController.matchessModel!.getEvents[index].startDate,
                                               fSize: 10,
                                               fWeight: FontWeight.w500,
                                               lineHeight: 16,
-                                              color: const Color(0xffEBEBF5)
-                                                  .withOpacity(.70),
+                                              color: const Color(0xffEBEBF5).withOpacity(.70),
                                             ),
                                           ],
                                         ),
-                                        SizedBox(width: 4,),
+                                        SizedBox(
+                                          width: 4,
+                                        ),
                                         Row(
                                           children: [
-
                                             customTextCommon(
-                                              text:
-                                              '-  ${eventsController.matchessModel!.getEvents[index].endDate}',
+                                              text: '-  ${eventsController.matchessModel!.getEvents[index].endDate}',
                                               fSize: 10,
                                               fWeight: FontWeight.w500,
                                               lineHeight: 16,
-                                              color: const Color(0xffEBEBF5)
-                                                  .withOpacity(.70),
+                                              color: const Color(0xffEBEBF5).withOpacity(.70),
                                             ),
                                           ],
                                         ),
@@ -198,15 +173,26 @@ class _EventsPageState extends State<EventsPage> {
                                     ),
                                     Row(
                                       children: [
-                                        const Icon(Icons.watch_later_outlined,color: Appcolor.ggrry,size:12,),
-                                        SizedBox(width: 5,),
-                                        Text('${eventsController.matchessModel!.getEvents[index].selectTime}',style: TextStyle(fontSize: 10,color: const Color(0xffEBEBF5).withOpacity(.70),),),
+                                        const Icon(
+                                          Icons.watch_later_outlined,
+                                          color: Appcolor.ggrry,
+                                          size: 12,
+                                        ),
+                                        SizedBox(
+                                          width: 5,
+                                        ),
+                                        Text(
+                                          '${eventsController.matchessModel!.getEvents[index].selectTime}',
+                                          style: TextStyle(
+                                            fontSize: 10,
+                                            color: const Color(0xffEBEBF5).withOpacity(.70),
+                                          ),
+                                        ),
                                       ],
                                     )
                                   ],
                                 ),
                               ),
-
                             ]),
                           ),
                         ),
@@ -218,8 +204,7 @@ class _EventsPageState extends State<EventsPage> {
     );
   }
 
-  PreferredSize preferredSizeAppBar(
-      String title, String icon, Function()? onTap) {
+  PreferredSize preferredSizeAppBar(String title, String icon, Function()? onTap) {
     return PreferredSize(
       preferredSize: Size.fromHeight(100.h), // preferred height for the app bar
       child: Padding(
@@ -240,11 +225,9 @@ class _EventsPageState extends State<EventsPage> {
                     // Border color, equivalent to var(--border-e-8-e-6-ea, #E8E6EA) in CSS
                     width: 1.0, // Border width
                   ),
-                  color: const Color(
-                      0xFFFFFFFF), // Background color, equivalent to var(--white-ffffff, #FFF) in CSS
+                  color: const Color(0xFFFFFFFF), // Background color, equivalent to var(--white-ffffff, #FFF) in CSS
                 ),
-                child: const Icon(Icons.arrow_back_ios_outlined,
-                    color: colors.primary, size: 18),
+                child: const Icon(Icons.arrow_back_ios_outlined, color: colors.primary, size: 18),
               ).paddingOnly(
                 left: 16.w,
               ),

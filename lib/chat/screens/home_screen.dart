@@ -300,11 +300,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:realdating/buisness_screens/buisness_profile/widget/myProfileModel.dart';
 import 'package:realdating/pages/explore/exploreDetailsModel.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../consts/app_urls.dart';
 import '../../main.dart';
 import '../api/apis.dart';
 import '../models/chat_user.dart';
@@ -321,9 +319,13 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final RxList<ExploreDetailsModel>otherUserList=<ExploreDetailsModel>[].obs;
+  final RxList<ExploreDetailsModel> otherUserList = <ExploreDetailsModel>[].obs;
+
   Future<void> getUserById({required int userid}) async {
-    if(otherUserList.firstWhereOrNull((element) => element?.userInfo[0].id==userid,)!=null){
+    if (otherUserList.firstWhereOrNull(
+          (element) => element?.userInfo[0].id == userid,
+        ) !=
+        null) {
       print("line 325");
       return;
     }
@@ -334,7 +336,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
     try {
       var headers = {'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Bearer $token'};
-      var data = {  "user_id": '$userid'};
+      var data = {"user_id": '$userid'};
       var dio = Dio();
       var response = await dio.request(
         "https://forreal.net:4000/users/get_user_by_id",
@@ -346,8 +348,7 @@ class _HomeScreenState extends State<HomeScreen> {
       );
 
       if (response.statusCode == 200) {
-
-        otherUserList.add( ExploreDetailsModel.fromJson(response.data));
+        otherUserList.add(ExploreDetailsModel.fromJson(response.data));
 
         print("json.encode(response.data)");
         print(json.encode(response.data));
@@ -545,7 +546,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                 padding: EdgeInsets.only(top: mq.height * .01),
                                 physics: const BouncingScrollPhysics(),
                                 itemBuilder: (context, index) {
-                                  return ChatUserCard(user: _isSearching ? _searchList[index] : _list[index], otherUserList: otherUserList,);
+                                  return ChatUserCard(
+                                    user: _isSearching ? _searchList[index] : _list[index],
+                                    otherUserList: otherUserList,
+                                  );
                                 });
                           } else {
                             return const Center(

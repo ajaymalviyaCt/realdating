@@ -9,10 +9,7 @@ import 'package:realdating/reel/shared_prefs.dart';
 import '../api_wrapper.dart';
 
 class AuthApi {
-  static login(
-      {required String email,
-      required String password,
-      required Function(String) successCallback}) async {
+  static login({required String email, required String password, required Function(String) successCallback}) async {
     String? fcmToken = await SharedPrefs().getFCMToken();
     String? voipToken = await SharedPrefs().getVoipToken();
     dynamic param = {
@@ -24,18 +21,14 @@ class AuthApi {
     };
     EasyLoading.show(status: loadingString.tr);
 
-    ApiWrapper()
-        .postApiWithoutToken(url: NetworkConstantsUtil.login, param: param)
-        .then((response) {
+    ApiWrapper().postApiWithoutToken(url: NetworkConstantsUtil.login, param: param).then((response) {
       EasyLoading.dismiss();
 
       if (response?.success == true) {
         String authKey = response!.data!['auth_key'];
         successCallback(authKey);
       } else {
-        AppUtil.showToast(
-            message: response?.message ?? errorMessageString.tr,
-            isSuccess: false);
+        AppUtil.showToast(message: response?.message ?? errorMessageString.tr, isSuccess: false);
       }
     });
   }
@@ -43,23 +36,17 @@ class AuthApi {
   static logout() async {
     EasyLoading.show(status: loadingString.tr);
 
-    ApiWrapper()
-        .postApi(url: NetworkConstantsUtil.logout, param: {}).then((response) {
+    ApiWrapper().postApi(url: NetworkConstantsUtil.logout, param: {}).then((response) {
       EasyLoading.dismiss();
 
       if (response?.success == true) {
       } else {
-        AppUtil.showToast(
-            message: response?.message ?? errorMessageString.tr,
-            isSuccess: false);
+        AppUtil.showToast(message: response?.message ?? errorMessageString.tr, isSuccess: false);
       }
     });
   }
 
-  static loginWithPhone(
-      {required String code,
-      required String phone,
-      required Function(String) successCallback}) async {
+  static loginWithPhone({required String code, required String phone, required Function(String) successCallback}) async {
     String? fcmToken = await SharedPrefs().getFCMToken();
     String? voipToken = await SharedPrefs().getVoipToken();
 
@@ -72,10 +59,7 @@ class AuthApi {
     };
     // EasyLoading.show(status: loadingString.tr);
 
-    ApiWrapper()
-        .postApiWithoutToken(
-            url: NetworkConstantsUtil.loginWithPhone, param: param)
-        .then((response) {
+    ApiWrapper().postApiWithoutToken(url: NetworkConstantsUtil.loginWithPhone, param: param).then((response) {
       EasyLoading.dismiss();
 
       if (response?.success == true) {
@@ -83,25 +67,18 @@ class AuthApi {
 
         successCallback(token);
       } else {
-        AppUtil.showToast(
-            message: response?.message ?? errorMessageString.tr,
-            isSuccess: false);
+        AppUtil.showToast(message: response?.message ?? errorMessageString.tr, isSuccess: false);
       }
     });
   }
 
   static socialLogin(
-      {required String name,
-      required String socialType,
-      required String socialId,
-      required String email,
-      required Function(String) successCallback}) async {
+      {required String name, required String socialType, required String socialId, required String email, required Function(String) successCallback}) async {
     String? fcmToken = await SharedPrefs().getFCMToken();
     String? voipToken = await SharedPrefs().getVoipToken();
     EasyLoading.show(status: loadingString.tr);
 
-    ApiWrapper()
-        .postApiWithoutToken(url: NetworkConstantsUtil.socialLogin, param: {
+    ApiWrapper().postApiWithoutToken(url: NetworkConstantsUtil.socialLogin, param: {
       "name": name,
       "username": "",
       "social_type": socialType,
@@ -118,23 +95,16 @@ class AuthApi {
 
         successCallback(authKey);
       } else {
-        AppUtil.showToast(
-            message: response?.message ?? errorMessageString.tr,
-            isSuccess: false);
+        AppUtil.showToast(message: response?.message ?? errorMessageString.tr, isSuccess: false);
       }
     });
   }
 
-  static register(
-      {required String email,
-      required String name,
-      required String password,
-      required Function(String) successCallback}) async {
+  static register({required String email, required String name, required String password, required Function(String) successCallback}) async {
     String? fcmToken = await SharedPrefs().getFCMToken();
     String? voipToken = await SharedPrefs().getVoipToken();
     EasyLoading.show(status: loadingString.tr);
-    ApiWrapper()
-        .postApiWithoutToken(url: NetworkConstantsUtil.register, param: {
+    ApiWrapper().postApiWithoutToken(url: NetworkConstantsUtil.register, param: {
       "username": name,
       "name": name,
       "email": email,
@@ -149,9 +119,7 @@ class AuthApi {
 
         successCallback(token);
       } else {
-        AppUtil.showToast(
-            message: response?.message ?? errorMessageString.tr,
-            isSuccess: false);
+        AppUtil.showToast(message: response?.message ?? errorMessageString.tr, isSuccess: false);
       }
     });
   }
@@ -159,17 +127,13 @@ class AuthApi {
   static deleteAccount({required VoidCallback successCallback}) async {
     EasyLoading.show(status: loadingString.tr);
 
-    ApiWrapper()
-        .postApi(url: NetworkConstantsUtil.deleteAccount, param: null)
-        .then((response) {
+    ApiWrapper().postApi(url: NetworkConstantsUtil.deleteAccount, param: null).then((response) {
       EasyLoading.dismiss();
 
       if (response?.success == true) {
         successCallback();
       } else {
-        AppUtil.showToast(
-            message: response?.message ?? errorMessageString.tr,
-            isSuccess: false);
+        AppUtil.showToast(message: response?.message ?? errorMessageString.tr, isSuccess: false);
       }
     });
   }
@@ -179,31 +143,23 @@ class AuthApi {
     String? voipToken = await SharedPrefs().getVoipToken();
     // EasyLoading.show(status: loadingString.tr);
 
-    ApiWrapper().postApi(url: NetworkConstantsUtil.updatedDeviceToken, param: {
-      "device_type": Platform.isAndroid ? '1' : '2',
-      "device_token": fcmToken ?? '',
-      "device_token_voip_ios": voipToken ?? ''
-    }).then((response) {
+    ApiWrapper().postApi(
+        url: NetworkConstantsUtil.updatedDeviceToken,
+        param: {"device_type": Platform.isAndroid ? '1' : '2', "device_token": fcmToken ?? '', "device_token_voip_ios": voipToken ?? ''}).then((response) {
       // EasyLoading.dismiss();
 
       if (response?.success == true) {
         // successCallback();
       } else {
-        AppUtil.showToast(
-            message: response?.message ?? errorMessageString.tr,
-            isSuccess: false);
+        AppUtil.showToast(message: response?.message ?? errorMessageString.tr, isSuccess: false);
       }
     });
   }
 
-  static checkUsername(
-      {required String username,
-      required VoidCallback successCallback,
-      required VoidCallback failureCallback}) async {
+  static checkUsername({required String username, required VoidCallback successCallback, required VoidCallback failureCallback}) async {
     // EasyLoading.show(status: loadingString.tr);
 
-    ApiWrapper()
-        .postApiWithoutToken(url: NetworkConstantsUtil.checkUserName, param: {
+    ApiWrapper().postApiWithoutToken(url: NetworkConstantsUtil.checkUserName, param: {
       "username": username,
     }).then((response) {
       // EasyLoading.dismiss();
@@ -216,64 +172,42 @@ class AuthApi {
     });
   }
 
-  static forgotPassword(
-      {required String email,
-      required Function(String) successCallback}) async {
-    dynamic param = {
-      "verification_with": '1',
-      "email": email,
-      "country_code": '',
-      "phone": ''
-    };
+  static forgotPassword({required String email, required Function(String) successCallback}) async {
+    dynamic param = {"verification_with": '1', "email": email, "country_code": '', "phone": ''};
     EasyLoading.show(status: loadingString.tr);
-    ApiWrapper()
-        .postApiWithoutToken(
-            url: NetworkConstantsUtil.forgotPassword, param: param)
-        .then((response) {
+    ApiWrapper().postApiWithoutToken(url: NetworkConstantsUtil.forgotPassword, param: param).then((response) {
       EasyLoading.dismiss();
       if (response?.success == true) {
         String token = response!.data!['token'];
 
         successCallback(token);
       } else {
-        AppUtil.showToast(
-            message: response?.message ?? errorMessageString.tr,
-            isSuccess: false);
+        AppUtil.showToast(message: response?.message ?? errorMessageString.tr, isSuccess: false);
       }
     });
   }
 
-  static resetPassword(
-      {required String token,
-      required String newPassword,
-      required VoidCallback successCallback}) async {
+  static resetPassword({required String token, required String newPassword, required VoidCallback successCallback}) async {
     dynamic param = {
       "token": token,
       "password": newPassword,
     };
     EasyLoading.show(status: loadingString.tr);
 
-    ApiWrapper()
-        .postApiWithoutToken(
-            url: NetworkConstantsUtil.resetPassword, param: param)
-        .then((response) {
+    ApiWrapper().postApiWithoutToken(url: NetworkConstantsUtil.resetPassword, param: param).then((response) {
       EasyLoading.dismiss();
       if (response?.success == true) {
         successCallback();
       } else {
-        AppUtil.showToast(
-            message: response?.message ?? errorMessageString.tr,
-            isSuccess: false);
+        AppUtil.showToast(message: response?.message ?? errorMessageString.tr, isSuccess: false);
       }
     });
   }
 
-  static resendOTP(
-      {required String token, required VoidCallback successCallback}) async {
+  static resendOTP({required String token, required VoidCallback successCallback}) async {
     EasyLoading.show(status: loadingString.tr);
 
-    ApiWrapper()
-        .postApiWithoutToken(url: NetworkConstantsUtil.resendOTP, param: {
+    ApiWrapper().postApiWithoutToken(url: NetworkConstantsUtil.resendOTP, param: {
       "token": token,
     }).then((response) {
       EasyLoading.dismiss();
@@ -281,25 +215,18 @@ class AuthApi {
       if (response?.success == true) {
         successCallback();
       } else {
-        AppUtil.showToast(
-            message: response?.message ?? errorMessageString.tr,
-            isSuccess: false);
+        AppUtil.showToast(message: response?.message ?? errorMessageString.tr, isSuccess: false);
       }
     });
   }
 
-  static verifyRegistrationOTP(
-      {required String otp,
-      required String token,
-      required Function(String) successCallback}) async {
+  static verifyRegistrationOTP({required String otp, required String token, required Function(String) successCallback}) async {
     EasyLoading.show(status: loadingString.tr);
 
-    ApiWrapper().postApiWithoutToken(
-        url: NetworkConstantsUtil.verifyRegistrationOTP,
-        param: {
-          "otp": otp,
-          "token": token,
-        }).then((response) {
+    ApiWrapper().postApiWithoutToken(url: NetworkConstantsUtil.verifyRegistrationOTP, param: {
+      "otp": otp,
+      "token": token,
+    }).then((response) {
       EasyLoading.dismiss();
 
       if (response?.success == true) {
@@ -307,21 +234,15 @@ class AuthApi {
 
         successCallback(authKey);
       } else {
-        AppUtil.showToast(
-            message: response?.message ?? errorMessageString.tr,
-            isSuccess: false);
+        AppUtil.showToast(message: response?.message ?? errorMessageString.tr, isSuccess: false);
       }
     });
   }
 
-  static verifyForgotPasswordOTP(
-      {required String otp,
-      required String token,
-      required Function(String) successCallback}) async {
+  static verifyForgotPasswordOTP({required String otp, required String token, required Function(String) successCallback}) async {
     EasyLoading.show(status: loadingString.tr);
 
-    ApiWrapper()
-        .postApiWithoutToken(url: NetworkConstantsUtil.verifyFwdPWDOTP, param: {
+    ApiWrapper().postApiWithoutToken(url: NetworkConstantsUtil.verifyFwdPWDOTP, param: {
       "otp": otp,
       "token": token,
     }).then((response) {
@@ -332,21 +253,15 @@ class AuthApi {
 
         successCallback(token);
       } else {
-        AppUtil.showToast(
-            message: response?.message ?? errorMessageString.tr,
-            isSuccess: false);
+        AppUtil.showToast(message: response?.message ?? errorMessageString.tr, isSuccess: false);
       }
     });
   }
 
-  static verifyChangePhoneOTP(
-      {required String otp,
-      required String token,
-      required VoidCallback successCallback}) async {
+  static verifyChangePhoneOTP({required String otp, required String token, required VoidCallback successCallback}) async {
     EasyLoading.show(status: loadingString.tr);
 
-    ApiWrapper()
-        .postApi(url: NetworkConstantsUtil.verifyChangePhoneOTP, param: {
+    ApiWrapper().postApi(url: NetworkConstantsUtil.verifyChangePhoneOTP, param: {
       "otp": otp,
       "verify_token": token,
     }).then((response) {
@@ -355,9 +270,7 @@ class AuthApi {
       if (response?.success == true) {
         successCallback();
       } else {
-        AppUtil.showToast(
-            message: response?.message ?? errorMessageString.tr,
-            isSuccess: false);
+        AppUtil.showToast(message: response?.message ?? errorMessageString.tr, isSuccess: false);
       }
     });
   }

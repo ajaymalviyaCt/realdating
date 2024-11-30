@@ -12,7 +12,6 @@ class SparkScreen extends StatefulWidget {
 }
 
 class _SparkScreenState extends State<SparkScreen> {
-
   int selected = 0;
 
   @override
@@ -20,380 +19,459 @@ class _SparkScreenState extends State<SparkScreen> {
     return Scaffold(
       backgroundColor: Color(0xFFFFF0F0),
       body: Padding(
-        padding: const EdgeInsets.only(left: 30,right: 30,top :15),
+        padding: const EdgeInsets.only(left: 30, right: 30, top: 15),
         child: ListView(
           children: [
             SizedBox(height: 30.ah),
             Center(
-              child: Text('Choose your need of extra -',
-                style: TextStyle(fontSize: 14.fSize,fontWeight: FontWeight.w500,
-                  fontFamily: 'Roboto',color: Color(0xFFF9505F),
+              child: Text(
+                'Choose your need of extra -',
+                style: TextStyle(
+                  fontSize: 14.fSize,
+                  fontWeight: FontWeight.w500,
+                  fontFamily: 'Roboto',
+                  color: Color(0xFFF9505F),
                 ),
               ),
             ),
             SizedBox(height: 20.ah),
-            SvgPicture.asset('assets/images/real_reveal.svg',),
+            SvgPicture.asset(
+              'assets/images/real_reveal.svg',
+            ),
             SizedBox(height: 15.ah),
-            SvgPicture.asset("assets/images/daimond.svg",height: 120,),
-
+            SvgPicture.asset(
+              "assets/images/daimond.svg",
+              height: 120,
+            ),
             SizedBox(height: 15.ah),
-
-            selected==1 ? InkWell(
-              onTap: (){
-                selected=1;
-                setState(() {
-
-                });
-              },
-              child: Container(
-                //width: MediaQuery.of(context).size.width,
-                width: 328.aw,
-                height: 90.ah,
-                decoration: BoxDecoration(
-                  color: Color(0xFFF9505F).withOpacity(0.21),
-                  borderRadius: BorderRadius.circular(26.5),
-                  border: Border.all(width: 2,color:Color(0xFFF65F51)),
-                ),
-                child:  Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color:Colors.white,
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child:  Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Center(
-                          child: Text('1 Real Reveal',
-                            style: TextStyle(fontSize: 14.fSize,fontWeight: FontWeight.w600,
-                              fontFamily: 'Roboto',color: Color(0xFFE20A00),
-                            ),
+            selected == 1
+                ? InkWell(
+                    onTap: () {
+                      selected = 1;
+                      setState(() {});
+                    },
+                    child: Container(
+                      //width: MediaQuery.of(context).size.width,
+                      width: 328.aw,
+                      height: 90.ah,
+                      decoration: BoxDecoration(
+                        color: Color(0xFFF9505F).withOpacity(0.21),
+                        borderRadius: BorderRadius.circular(26.5),
+                        border: Border.all(width: 2, color: Color(0xFFF65F51)),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(8),
                           ),
-                        ),
-                        Center(
-                          child: Text('\$5',
-                            style: TextStyle(fontSize: 14.fSize,fontWeight: FontWeight.w600,
-                              fontFamily: 'Roboto',color: Color(0xFF000000),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            ) :InkWell(onTap: (){
-              selected=1;
-              setState(() {
-
-              });
-            }, child: Container(
-              //width: MediaQuery.of(context).size.width,
-              width: 328.aw,
-              height: 90.ah,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(26.5),
-                border: Border.all(width: 2,color:Colors.black26),
-              ),
-              child:  Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Container(
-                  decoration: BoxDecoration(
-                    color:Colors.white,
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child:  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Center(
-                        child: Text('1 Real Reveal',
-                          style: TextStyle(fontSize: 14.fSize,fontWeight: FontWeight.w600,
-                            fontFamily: 'Roboto',color: Color(0xFFE20A00),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Center(
+                                child: Text(
+                                  '1 Real Reveal',
+                                  style: TextStyle(
+                                    fontSize: 14.fSize,
+                                    fontWeight: FontWeight.w600,
+                                    fontFamily: 'Roboto',
+                                    color: Color(0xFFE20A00),
+                                  ),
+                                ),
+                              ),
+                              Center(
+                                child: Text(
+                                  '\$5',
+                                  style: TextStyle(
+                                    fontSize: 14.fSize,
+                                    fontWeight: FontWeight.w600,
+                                    fontFamily: 'Roboto',
+                                    color: Color(0xFF000000),
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ),
-                      Center(
-                        child: Text('\$5',
-                          style: TextStyle(fontSize: 14.fSize,fontWeight: FontWeight.w600,
-                            fontFamily: 'Roboto',color: Color(0xFF000000),
+                    ),
+                  )
+                : InkWell(
+                    onTap: () {
+                      selected = 1;
+                      setState(() {});
+                    },
+                    child: Container(
+                      //width: MediaQuery.of(context).size.width,
+                      width: 328.aw,
+                      height: 90.ah,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(26.5),
+                        border: Border.all(width: 2, color: Colors.black26),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Center(
+                                child: Text(
+                                  '1 Real Reveal',
+                                  style: TextStyle(
+                                    fontSize: 14.fSize,
+                                    fontWeight: FontWeight.w600,
+                                    fontFamily: 'Roboto',
+                                    color: Color(0xFFE20A00),
+                                  ),
+                                ),
+                              ),
+                              Center(
+                                child: Text(
+                                  '\$5',
+                                  style: TextStyle(
+                                    fontSize: 14.fSize,
+                                    fontWeight: FontWeight.w600,
+                                    fontFamily: 'Roboto',
+                                    color: Color(0xFF000000),
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ),
-                    ],
+                    ),
                   ),
-                ),
-              ),
-            ),),
             SizedBox(height: 15.ah),
-            selected==2 ? InkWell(
-              onTap: (){
-                selected=2;
-                setState(() {
-
-                });
-              },
-              child: Container(
-                //width: MediaQuery.of(context).size.width,
-                width: 328.aw,
-                height: 90.ah,
-                decoration: BoxDecoration(
-                  color: Color(0xFFF9505F).withOpacity(0.21),
-                  borderRadius: BorderRadius.circular(26.5),
-                  border: Border.all(width: 2,color:Color(0xFFF65F51)),
-                ),
-                child:  Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color:Colors.white,
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child:  Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Center(
-                          child: Text('3 Real Reveal',
-                            style: TextStyle(fontSize: 14.fSize,fontWeight: FontWeight.w600,
-                              fontFamily: 'Roboto',color: Color(0xFFE20A00),
-                            ),
+            selected == 2
+                ? InkWell(
+                    onTap: () {
+                      selected = 2;
+                      setState(() {});
+                    },
+                    child: Container(
+                      //width: MediaQuery.of(context).size.width,
+                      width: 328.aw,
+                      height: 90.ah,
+                      decoration: BoxDecoration(
+                        color: Color(0xFFF9505F).withOpacity(0.21),
+                        borderRadius: BorderRadius.circular(26.5),
+                        border: Border.all(width: 2, color: Color(0xFFF65F51)),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(8),
                           ),
-                        ),
-                        Center(
-                          child: Text('\$15',
-                            style: TextStyle(fontSize: 14.fSize,fontWeight: FontWeight.w600,
-                              fontFamily: 'Roboto',color: Color(0xFF000000),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            ) :InkWell(onTap: (){selected=2;setState(() {
-
-            });}, child: Container(
-              //width: MediaQuery.of(context).size.width,
-              width: 328.aw,
-              height: 90.ah,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(26.5),
-                border: Border.all(width: 2,color:Colors.black26),
-              ),
-              child:  Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Container(
-                  decoration: BoxDecoration(
-                    color:Colors.white,
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child:  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Center(
-                        child: Text('3 Real Reveal',
-                          style: TextStyle(fontSize: 14.fSize,fontWeight: FontWeight.w600,
-                            fontFamily: 'Roboto',color: Color(0xFFE20A00),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Center(
+                                child: Text(
+                                  '3 Real Reveal',
+                                  style: TextStyle(
+                                    fontSize: 14.fSize,
+                                    fontWeight: FontWeight.w600,
+                                    fontFamily: 'Roboto',
+                                    color: Color(0xFFE20A00),
+                                  ),
+                                ),
+                              ),
+                              Center(
+                                child: Text(
+                                  '\$15',
+                                  style: TextStyle(
+                                    fontSize: 14.fSize,
+                                    fontWeight: FontWeight.w600,
+                                    fontFamily: 'Roboto',
+                                    color: Color(0xFF000000),
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ),
-                      Center(
-                        child: Text('\$15',
-                          style: TextStyle(fontSize: 14.fSize,fontWeight: FontWeight.w600,
-                            fontFamily: 'Roboto',color: Color(0xFF000000),
+                    ),
+                  )
+                : InkWell(
+                    onTap: () {
+                      selected = 2;
+                      setState(() {});
+                    },
+                    child: Container(
+                      //width: MediaQuery.of(context).size.width,
+                      width: 328.aw,
+                      height: 90.ah,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(26.5),
+                        border: Border.all(width: 2, color: Colors.black26),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Center(
+                                child: Text(
+                                  '3 Real Reveal',
+                                  style: TextStyle(
+                                    fontSize: 14.fSize,
+                                    fontWeight: FontWeight.w600,
+                                    fontFamily: 'Roboto',
+                                    color: Color(0xFFE20A00),
+                                  ),
+                                ),
+                              ),
+                              Center(
+                                child: Text(
+                                  '\$15',
+                                  style: TextStyle(
+                                    fontSize: 14.fSize,
+                                    fontWeight: FontWeight.w600,
+                                    fontFamily: 'Roboto',
+                                    color: Color(0xFF000000),
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ),
-                    ],
+                    ),
                   ),
-                ),
-              ),
-            ),),
             SizedBox(height: 15.ah),
-            selected==3 ? InkWell(
-              onTap: (){
-                selected=3;
-                setState(() {
-
-                });
-              },
-              child: Container(
-                //width: MediaQuery.of(context).size.width,
-                width: 328.aw,
-                height: 90.ah,
-                decoration: BoxDecoration(
-                  color: Color(0xFFF9505F).withOpacity(0.21),
-                  borderRadius: BorderRadius.circular(26.5),
-                  border: Border.all(width: 2,color:Color(0xFFF65F51)),
-                ),
-                child:  Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color:Colors.white,
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child:  Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Center(
-                          child: Text('5 Real Reveal',
-                            style: TextStyle(fontSize: 14.fSize,fontWeight: FontWeight.w600,
-                              fontFamily: 'Roboto',color: Color(0xFFE20A00),
-                            ),
+            selected == 3
+                ? InkWell(
+                    onTap: () {
+                      selected = 3;
+                      setState(() {});
+                    },
+                    child: Container(
+                      //width: MediaQuery.of(context).size.width,
+                      width: 328.aw,
+                      height: 90.ah,
+                      decoration: BoxDecoration(
+                        color: Color(0xFFF9505F).withOpacity(0.21),
+                        borderRadius: BorderRadius.circular(26.5),
+                        border: Border.all(width: 2, color: Color(0xFFF65F51)),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(8),
                           ),
-                        ),
-                        Center(
-                          child: Text('\$25',
-                            style: TextStyle(fontSize: 14.fSize,fontWeight: FontWeight.w600,
-                              fontFamily: 'Roboto',color: Color(0xFF000000),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            ) :InkWell(onTap: (){
-              selected=3;
-              setState(() {
-
-              });
-            }, child: Container(
-              //width: MediaQuery.of(context).size.width,
-              width: 328.aw,
-              height: 90.ah,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(26.5),
-                border: Border.all(width: 2,color:Colors.black26),
-              ),
-              child:  Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Container(
-                  decoration: BoxDecoration(
-                    color:Colors.white,
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child:  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Center(
-                        child: Text('5 Real Reveal',
-                          style: TextStyle(fontSize: 14.fSize,fontWeight: FontWeight.w600,
-                            fontFamily: 'Roboto',color: Color(0xFFE20A00),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Center(
+                                child: Text(
+                                  '5 Real Reveal',
+                                  style: TextStyle(
+                                    fontSize: 14.fSize,
+                                    fontWeight: FontWeight.w600,
+                                    fontFamily: 'Roboto',
+                                    color: Color(0xFFE20A00),
+                                  ),
+                                ),
+                              ),
+                              Center(
+                                child: Text(
+                                  '\$25',
+                                  style: TextStyle(
+                                    fontSize: 14.fSize,
+                                    fontWeight: FontWeight.w600,
+                                    fontFamily: 'Roboto',
+                                    color: Color(0xFF000000),
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ),
-                      Center(
-                        child: Text('\$25',
-                          style: TextStyle(fontSize: 14.fSize,fontWeight: FontWeight.w600,
-                            fontFamily: 'Roboto',color: Color(0xFF000000),
+                    ),
+                  )
+                : InkWell(
+                    onTap: () {
+                      selected = 3;
+                      setState(() {});
+                    },
+                    child: Container(
+                      //width: MediaQuery.of(context).size.width,
+                      width: 328.aw,
+                      height: 90.ah,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(26.5),
+                        border: Border.all(width: 2, color: Colors.black26),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Center(
+                                child: Text(
+                                  '5 Real Reveal',
+                                  style: TextStyle(
+                                    fontSize: 14.fSize,
+                                    fontWeight: FontWeight.w600,
+                                    fontFamily: 'Roboto',
+                                    color: Color(0xFFE20A00),
+                                  ),
+                                ),
+                              ),
+                              Center(
+                                child: Text(
+                                  '\$25',
+                                  style: TextStyle(
+                                    fontSize: 14.fSize,
+                                    fontWeight: FontWeight.w600,
+                                    fontFamily: 'Roboto',
+                                    color: Color(0xFF000000),
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ),
-                    ],
+                    ),
                   ),
-                ),
-              ),
-            ),),
             SizedBox(height: 15.ah),
-            selected==4 ? InkWell(
-              onTap: (){
-                selected=2;
-                setState(() {
-
-                });
-              },
-              child: Container(
-                //width: MediaQuery.of(context).size.width,
-                width: 328.aw,
-                height: 90.ah,
-                decoration: BoxDecoration(
-                  color: Color(0xFFF9505F).withOpacity(0.21),
-                  borderRadius: BorderRadius.circular(26.5),
-                  border: Border.all(width: 2,color:Color(0xFFF65F51)),
-                ),
-                child:  Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color:Colors.white,
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child:  Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Center(
-                          child: Text('10 Real Reveal',
-                            style: TextStyle(fontSize: 14.fSize,fontWeight: FontWeight.w600,
-                              fontFamily: 'Roboto',color: Color(0xFFE20A00),
-                            ),
+            selected == 4
+                ? InkWell(
+                    onTap: () {
+                      selected = 2;
+                      setState(() {});
+                    },
+                    child: Container(
+                      //width: MediaQuery.of(context).size.width,
+                      width: 328.aw,
+                      height: 90.ah,
+                      decoration: BoxDecoration(
+                        color: Color(0xFFF9505F).withOpacity(0.21),
+                        borderRadius: BorderRadius.circular(26.5),
+                        border: Border.all(width: 2, color: Color(0xFFF65F51)),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(8),
                           ),
-                        ),
-                        Center(
-                          child: Text('\$50',
-                            style: TextStyle(fontSize: 14.fSize,fontWeight: FontWeight.w600,
-                              fontFamily: 'Roboto',color: Color(0xFF000000),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            ) :InkWell(onTap: (){selected=4;setState(() {
-
-            });}, child: Container(
-              //width: MediaQuery.of(context).size.width,
-              width: 328.aw,
-              height: 90.ah,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(26.5),
-                border: Border.all(width: 2,color:Colors.black26),
-              ),
-              child:  Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Container(
-                  decoration: BoxDecoration(
-                    color:Colors.white,
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child:  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Center(
-                        child: Text('10 Real Reveal',
-                          style: TextStyle(fontSize: 14.fSize,fontWeight: FontWeight.w600,
-                            fontFamily: 'Roboto',color: Color(0xFFE20A00),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Center(
+                                child: Text(
+                                  '10 Real Reveal',
+                                  style: TextStyle(
+                                    fontSize: 14.fSize,
+                                    fontWeight: FontWeight.w600,
+                                    fontFamily: 'Roboto',
+                                    color: Color(0xFFE20A00),
+                                  ),
+                                ),
+                              ),
+                              Center(
+                                child: Text(
+                                  '\$50',
+                                  style: TextStyle(
+                                    fontSize: 14.fSize,
+                                    fontWeight: FontWeight.w600,
+                                    fontFamily: 'Roboto',
+                                    color: Color(0xFF000000),
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ),
-                      Center(
-                        child: Text('\$50',
-                          style: TextStyle(fontSize: 14.fSize,fontWeight: FontWeight.w600,
-                            fontFamily: 'Roboto',color: Color(0xFF000000),
+                    ),
+                  )
+                : InkWell(
+                    onTap: () {
+                      selected = 4;
+                      setState(() {});
+                    },
+                    child: Container(
+                      //width: MediaQuery.of(context).size.width,
+                      width: 328.aw,
+                      height: 90.ah,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(26.5),
+                        border: Border.all(width: 2, color: Colors.black26),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Center(
+                                child: Text(
+                                  '10 Real Reveal',
+                                  style: TextStyle(
+                                    fontSize: 14.fSize,
+                                    fontWeight: FontWeight.w600,
+                                    fontFamily: 'Roboto',
+                                    color: Color(0xFFE20A00),
+                                  ),
+                                ),
+                              ),
+                              Center(
+                                child: Text(
+                                  '\$50',
+                                  style: TextStyle(
+                                    fontSize: 14.fSize,
+                                    fontWeight: FontWeight.w600,
+                                    fontFamily: 'Roboto',
+                                    color: Color(0xFF000000),
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ),
-                    ],
+                    ),
                   ),
-                ),
-              ),
-            ),),
-
-
-            SizedBox(height:30.ah),
+            SizedBox(height: 30.ah),
             InkWell(
               onTap: () {
                 Fluttertoast.showToast(msg: 'Payment feature coming soon...');
@@ -402,21 +480,23 @@ class _SparkScreenState extends State<SparkScreen> {
                 width: MediaQuery.of(context).size.width,
                 height: 45.ah,
                 decoration: BoxDecoration(
-                  color:Color(0xFFF65F51),
+                  color: Color(0xFFF65F51),
                   borderRadius: BorderRadius.circular(24),
-                  border: Border.all(width: 2,color:Color(0xFFF65F51)),
+                  border: Border.all(width: 2, color: Color(0xFFF65F51)),
                 ),
                 child: Center(
-                  child: Text('Continue',
-                    style: TextStyle(fontSize: 17.fSize,fontWeight: FontWeight.w600,
-                      fontFamily: 'Roboto',color: Colors.white,
+                  child: Text(
+                    'Continue',
+                    style: TextStyle(
+                      fontSize: 17.fSize,
+                      fontWeight: FontWeight.w600,
+                      fontFamily: 'Roboto',
+                      color: Colors.white,
                     ),
                   ),
                 ),
               ),
             ),
-
-
           ],
         ),
       ),

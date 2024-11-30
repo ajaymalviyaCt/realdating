@@ -46,12 +46,7 @@ class ClubsCategoriesScreenShimmer extends StatelessWidget {
                       width: Get.width,
                       color: AppColorConstants.cardColor,
                     ),
-                    Positioned(
-                        bottom: 5,
-                        left: 5,
-                        right: 5,
-                        child: BodyMediumText('Sports',
-                            weight: TextWeight.semiBold))
+                    Positioned(bottom: 5, left: 5, right: 5, child: BodyMediumText('Sports', weight: TextWeight.semiBold))
                   ],
                 ),
               ).round(5).addShimmer();
@@ -70,9 +65,7 @@ class ClubsScreenShimmer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
-        padding: EdgeInsets.only(
-            left: DesignConstants.horizontalPadding,
-            right: DesignConstants.horizontalPadding),
+        padding: EdgeInsets.only(left: DesignConstants.horizontalPadding, right: DesignConstants.horizontalPadding),
         itemCount: 5,
         physics: const NeverScrollableScrollPhysics(),
         itemBuilder: (BuildContext ctx, int index) {
@@ -107,11 +100,7 @@ class ClubsScreenShimmer extends StatelessWidget {
                       '250k ${clubMembersString.tr}',
                     ),
                     const Spacer(),
-                    SizedBox(
-                        height: 40,
-                        width: 120,
-                        child:
-                            AppThemeButton(text: joinString.tr, onPress: () {}))
+                    SizedBox(height: 40, width: 120, child: AppThemeButton(text: joinString.tr, onPress: () {}))
                   ],
                 ).setPadding(left: 12, right: 12, bottom: 20)
               ],
@@ -148,9 +137,7 @@ class EventCategoriesScreenShimmer extends StatelessWidget {
               ),
               BodyMediumText(loadingString.tr, weight: TextWeight.semiBold)
             ],
-          )
-              .setPadding(left: 8, right: 8, top: 4, bottom: 4)
-              .borderWithRadius(value: 1, radius: 20);
+          ).setPadding(left: 8, right: 8, top: 4, bottom: 4).borderWithRadius(value: 1, radius: 20);
         },
         separatorBuilder: (BuildContext ctx, int index) {
           return const SizedBox(
@@ -173,9 +160,7 @@ class EventsScreenShimmer extends StatelessWidget {
         SizedBox(
           height: 5 * 350,
           child: ListView.separated(
-              padding: EdgeInsets.only(
-                  left: DesignConstants.horizontalPadding,
-                  right: DesignConstants.horizontalPadding),
+              padding: EdgeInsets.only(left: DesignConstants.horizontalPadding, right: DesignConstants.horizontalPadding),
               itemCount: 5,
               physics: const NeverScrollableScrollPhysics(),
               itemBuilder: (BuildContext ctx, int index) {
@@ -210,11 +195,7 @@ class EventsScreenShimmer extends StatelessWidget {
                             '250k ${clubMembersString.tr}',
                           ),
                           const Spacer(),
-                          SizedBox(
-                              height: 40,
-                              width: 120,
-                              child: AppThemeButton(
-                                  text: joinString.tr, onPress: () {}))
+                          SizedBox(height: 40, width: 120, child: AppThemeButton(text: joinString.tr, onPress: () {}))
                         ],
                       ).setPadding(left: 12, right: 12, bottom: 20)
                     ],
@@ -241,11 +222,7 @@ class PostCardShimmer extends StatelessWidget {
       Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          SizedBox(
-                  height: 30,
-                  width: 30,
-                  child: Image.asset('assets/account.png'))
-              .addShimmer(),
+          SizedBox(height: 30, width: 30, child: Image.asset('assets/account.png')).addShimmer(),
           const SizedBox(width: 5),
           Expanded(
               child: BodyLargeText(
@@ -344,11 +321,7 @@ class ShimmerUsers extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
-      padding: EdgeInsets.only(
-          left: DesignConstants.horizontalPadding,
-          right: DesignConstants.horizontalPadding,
-          top: 20,
-          bottom: 100),
+      padding: EdgeInsets.only(left: DesignConstants.horizontalPadding, right: DesignConstants.horizontalPadding, top: 20, bottom: 100),
       itemCount: 20,
       itemBuilder: (ctx, index) {
         return Row(
@@ -467,11 +440,7 @@ class StoriesShimmerWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return GridView.builder(
         padding: EdgeInsets.zero,
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisSpacing: 5,
-            mainAxisSpacing: 5,
-            childAspectRatio: 0.6,
-            crossAxisCount: 3),
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisSpacing: 5, mainAxisSpacing: 5, childAspectRatio: 0.6, crossAxisCount: 3),
         itemCount: 20,
         itemBuilder: (context, index) {
           return Container(
@@ -487,19 +456,14 @@ class EventBookingShimmerWidget extends StatefulWidget {
   const EventBookingShimmerWidget({Key? key}) : super(key: key);
 
   @override
-  State<EventBookingShimmerWidget> createState() =>
-      _EventBookingShimmerWidgetState();
+  State<EventBookingShimmerWidget> createState() => _EventBookingShimmerWidgetState();
 }
 
 class _EventBookingShimmerWidgetState extends State<EventBookingShimmerWidget> {
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
-        padding: EdgeInsets.only(
-            top: 16,
-            left: DesignConstants.horizontalPadding,
-            right: DesignConstants.horizontalPadding,
-            bottom: 16),
+        padding: EdgeInsets.only(top: 16, left: DesignConstants.horizontalPadding, right: DesignConstants.horizontalPadding, bottom: 16),
         itemCount: 20,
         itemBuilder: (BuildContext ctx, int index) {
           return Column(
@@ -507,8 +471,7 @@ class _EventBookingShimmerWidgetState extends State<EventBookingShimmerWidget> {
               Row(
                 children: [
                   Expanded(
-                    child: Heading6Text('National music festival',
-                        weight: TextWeight.semiBold),
+                    child: Heading6Text('National music festival', weight: TextWeight.semiBold),
                   ),
                   Container(
                     height: 50,
@@ -569,11 +532,7 @@ class _EventBookingShimmerWidgetState extends State<EventBookingShimmerWidget> {
                     color: AppColorConstants.backgroundColor,
                     child: const BodyMediumText(
                       'VIP',
-                    ).setPadding(
-                        left: DesignConstants.horizontalPadding,
-                        right: DesignConstants.horizontalPadding,
-                        top: 8,
-                        bottom: 8),
+                    ).setPadding(left: DesignConstants.horizontalPadding, right: DesignConstants.horizontalPadding, top: 8, bottom: 8),
                   ).round(10)
                 ],
               ).p16
@@ -595,19 +554,10 @@ class ShimmerMatchedList extends StatelessWidget {
   Widget build(BuildContext context) {
     return GridView.builder(
         itemCount: 10,
-        padding:
-            const EdgeInsets.only(top: 15, bottom: 15, left: 30, right: 30),
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            crossAxisSpacing: 15.0,
-            mainAxisSpacing: 15.0,
-            mainAxisExtent: 210),
+        padding: const EdgeInsets.only(top: 15, bottom: 15, left: 30, right: 30),
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, crossAxisSpacing: 15.0, mainAxisSpacing: 15.0, mainAxisExtent: 210),
         itemBuilder: (ctx, index) {
-          return Container(
-                  color: AppColorConstants.cardColor,
-                  height: 210,
-                  width: (MediaQuery.of(context).size.width - 75) / 2)
-              .round(10);
+          return Container(color: AppColorConstants.cardColor, height: 210, width: (MediaQuery.of(context).size.width - 75) / 2).round(10);
         }).addShimmer();
   }
 }

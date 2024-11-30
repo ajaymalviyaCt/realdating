@@ -1,7 +1,4 @@
-
-
 import 'package:realdating/reel/app_config_constants.dart';
-
 
 //////******* Do not make any change in this file **********/////////
 
@@ -28,8 +25,7 @@ class NetworkConstantsUtil {
   static String otherUser =
       'users/{{id}}?expand=isFollowing,isFollower,totalFollowing,totalFollower,totalPost,totalWinnerPost,userLiveDetail,giftSummary,userSetting';
 
-  static String getMyProfile =
-      'users/profile?expand=totalFollowing,totalFollower,totalActivePost,userLiveDetail,giftSummary,userSetting,interest,language';
+  static String getMyProfile = 'users/profile?expand=totalFollowing,totalFollower,totalActivePost,userLiveDetail,giftSummary,userSetting,interest,language';
   static String updateUserProfile = 'users/profile-update';
   static String updateProfileImage = 'users/update-profile-image';
   static String updateProfileCoverImage = 'users/update-profile-cover-image';
@@ -41,33 +37,26 @@ class NetworkConstantsUtil {
   static String userView = 'users/view-counter';
 
   //*********** User *************//
-  static String getSuggestedUsers =
-      'users/sugested-user?expand=isFollowing,isFollower,userLiveDetail';
+  static String getSuggestedUsers = 'users/sugested-user?expand=isFollowing,isFollower,userLiveDetail';
   static String followUser = 'followers/request';
   static String unfollowUser = 'followers/unfollow';
   static String followMultipleUser = 'followers/follow-multiple';
 
-  static String followers =
-      'followers/my-follower?expand=followerUserDetail,followerUserDetail.isFollowing,followerUserDetail.isFollower&user_id=';
-  static String following =
-      'followers/my-following?expand=followingUserDetail,followingUserDetail.isFollowing,followerUserDetail.isFollower&user_id=';
-  static String searchUsers =
-      'users/search-user?expand=isFollowing,userLiveDetail';
+  static String followers = 'followers/my-follower?expand=followerUserDetail,followerUserDetail.isFollowing,followerUserDetail.isFollower&user_id=';
+  static String following = 'followers/my-following?expand=followingUserDetail,followingUserDetail.isFollowing,followerUserDetail.isFollower&user_id=';
+  static String searchUsers = 'users/search-user?expand=isFollowing,userLiveDetail';
   static String reportUser = 'users/report-user';
   static String blockUser = 'blocked-users';
-  static String blockedUsers =
-      'blocked-users?expand=blockedUserDetail,userLiveDetail';
+  static String blockedUsers = 'blocked-users?expand=blockedUserDetail,userLiveDetail';
   static String unBlockUser = 'blocked-users/un-blocked';
 
-  static String findFriends =
-      'users/find-friend?expand=isFollowing,isFollower&';
+  static String findFriends = 'users/find-friend?expand=isFollowing,isFollower&';
 
   //********************* Misc ***********//
 
   static String searchHashtag = 'posts/hash-counter-list?hashtag=';
   static String getCountries = 'countries';
-  static String getNotifications =
-      'notifications?expand=createdByUser,refrenceDetails';
+  static String getNotifications = 'notifications?expand=createdByUser,refrenceDetails';
   static String submitRequest = 'support-requests';
   static String supportRequests = 'support-requests?is_reply=';
   static String supportRequestView = 'support-requests/id';
@@ -89,15 +78,12 @@ class NetworkConstantsUtil {
   static String stories = 'stories?expand=user,user.userLiveDetail';
   static String addStory = 'stories';
   static String myStories = 'stories/my-story';
-  static String myCurrentActiveStories =
-      'stories/my-active-story?expand=userStory';
+  static String myCurrentActiveStories = 'stories/my-active-story?expand=userStory';
   static String viewStory = 'stories/view-counter';
-  static String storyViewedByUsers =
-      'stories/story-view-user?id={{story_id}}&expand=user';
+  static String storyViewedByUsers = 'stories/story-view-user?id={{story_id}}&expand=user';
   static String storyDetail = 'stories/';
   static String deleteStory = 'stories/';
-  static String highlights =
-      'highlights?expand=highlightStory,highlightStory.story.user&user_id=';
+  static String highlights = 'highlights?expand=highlightStory,highlightStory.story.user&user_id=';
   static String addStoryToHighlight = 'highlights/add-story';
   static String removeStoryFromHighlight = 'highlights/remove-story';
   static String addHighlight = 'highlights';
@@ -113,14 +99,11 @@ class NetworkConstantsUtil {
   static String addCompetitionPost = 'posts/competition-image';
   static String searchPost =
       'posts/search-post?expand=user,user.userLiveDetail,clubDetail.createdByUser,clubDetail.totalJoinedUser,originPost.user,isFavorite,originPost,pollDetails,pollDetails.pollOptions';
-  static String postDetail =
-      'posts/{id}?expand=user,user.userLiveDetail,clubDetail,giftSummary';
-  static String mentionedPosts =
-      'posts/my-post-mention-user?expand=user&user_id=';
+  static String postDetail = 'posts/{id}?expand=user,user.userLiveDetail,clubDetail,giftSummary';
+  static String mentionedPosts = 'posts/my-post-mention-user?expand=user&user_id=';
   static String likePost = 'posts/like';
   static String unlikePost = 'posts/unlike';
-  static String postLikedByUsers =
-      'posts/post-like-user-list?post_id={{post_id}}&expand=user';
+  static String postLikedByUsers = 'posts/post-like-user-list?post_id={{post_id}}&expand=user';
   static String savePost = 'favorites/add-favorite';
   static String removeSavedPost = 'favorites/remove-favorite';
 
@@ -136,11 +119,9 @@ class NetworkConstantsUtil {
   static String postInsight = 'posts/insight?post_id=';
 
   //********************* competition ***********//
-  static String getCompetitions =
-      'competitions?expand=competitionPosition,post,post.user';
+  static String getCompetitions = 'competitions?expand=competitionPosition,post,post.user';
   static String joinCompetition = 'competitions/join';
-  static String getCompetitionDetail =
-      'competitions/{{id}}?expand=post,post.user,competitionPosition.post.user,winnerPost';
+  static String getCompetitionDetail = 'competitions/{{id}}?expand=post,post.user,competitionPosition.post.user,winnerPost';
 
   //******************** reel ******************//
   // static String reelAudioCategories = 'categories/reel-audio';
@@ -152,24 +133,18 @@ class NetworkConstantsUtil {
   //***********chat***********//
   static String createChatRoom = 'chats/create-room';
   static String updateGroupChatRoom = 'chats/update-room?id=';
-  static String getChatRoomDetail =
-      'chats/room-detail?room_id={room_id}&expand=createdByUser,chatRoomUser.user,chatRoomUser.user.userLiveDetail';
-  static String getChatRooms =
-      'chats/room?expand=createdByUser,chatRoomUser,chatRoomUser.user,lastMessage,chatRoomUser.user.userLiveDetail';
-  static String getPublicChatRooms =
-      'chats/open-room?expand=createdByUser,chatRoomUser,chatRoomUser.user,lastMessage,chatRoomUser.user.userLiveDetail';
+  static String getChatRoomDetail = 'chats/room-detail?room_id={room_id}&expand=createdByUser,chatRoomUser.user,chatRoomUser.user.userLiveDetail';
+  static String getChatRooms = 'chats/room?expand=createdByUser,chatRoomUser,chatRoomUser.user,lastMessage,chatRoomUser.user.userLiveDetail';
+  static String getPublicChatRooms = 'chats/open-room?expand=createdByUser,chatRoomUser,chatRoomUser.user,lastMessage,chatRoomUser.user.userLiveDetail';
 
   static String deleteChatRoom = 'chats/delete-room?room_id=';
   static String deleteChatRoomMessages = 'chats/delete-room-chat';
 
-  static String callHistory =
-      'chats/call-history?expand=callerDetail,receiverDetail,receiverDetail.userLiveDetail';
-  static String chatHistory =
-      'chats/chat-message?expand=chatMessageUser,user&room_id={{room_id}}&last_message_id={{last_message_id}}';
+  static String callHistory = 'chats/call-history?expand=callerDetail,receiverDetail,receiverDetail.userLiveDetail';
+  static String chatHistory = 'chats/chat-message?expand=chatMessageUser,user&room_id={{room_id}}&last_message_id={{last_message_id}}';
 
   //***********live TVs***********//
-  static String getTVCategories =
-      'categories/live-tv?expand=liveTv,liveTv.currentViewer';
+  static String getTVCategories = 'categories/live-tv?expand=liveTv,liveTv.currentViewer';
   static String getTVShows = 'live-tvs/tv-shows?expand=tvShowEpisode,rating';
   static String getTVShowById = 'tv-shows/tv-show-details?expand=tvShowEpisode';
   static String getTVShowEpisodes = 'tv-shows/tv-show-episodes?';
@@ -186,20 +161,15 @@ class NetworkConstantsUtil {
 
   //******** Live *********//
   static String liveHistory = 'user-live-histories?expand=giftSummary';
-  static String liveGiftsReceived =
-      'gifts/live-call-gift-recieved?expand=giftDetail,senderDetail&';
+  static String liveGiftsReceived = 'gifts/live-call-gift-recieved?expand=giftDetail,senderDetail&';
 
   //***********Podcast***********//
-  static String getPodcastCategories =
-      'categories/podcast?expand=podcastList,podcastList.currentViewer';
-  static String getHostShowById =
-      'podcast-shows/podcast-show-details?expand=podcastShowEpisode';
+  static String getPodcastCategories = 'categories/podcast?expand=podcastList,podcastList.currentViewer';
+  static String getHostShowById = 'podcast-shows/podcast-show-details?expand=podcastShowEpisode';
 
   static String podcastBanners = 'podcast-banners';
-  static String getHosts =
-      'podcasts?expand=currentViewer,podcastShow&category_id=&name=';
-  static String getPodcastHostDetail =
-      'podcasts/podcast-host-details?id={{host_id}}';
+  static String getHosts = 'podcasts?expand=currentViewer,podcastShow&category_id=&name=';
+  static String getPodcastHostDetail = 'podcasts/podcast-host-details?id={{host_id}}';
 
   static String getPodcasts = 'podcast-shows?expand=podcastShow';
   static String getPodcastEpisode = 'podcast-shows/podcast-show-episodes?';
@@ -207,8 +177,7 @@ class NetworkConstantsUtil {
   //*********** Relations ***********//
   static String relationshipNames = 'relations';
   static String myRelations = 'relations/my-relation?expand=user,realationShip';
-  static String myInvitations =
-      'relations/my-invitation?expand=relationShip, createdBy';
+  static String myInvitations = 'relations/my-invitation?expand=relationShip, createdBy';
   static String postInviteUnInvite = 'relations/invite';
   static String putAcceptRejectInvite = 'relations/update-invitation';
   static String postRelationshipSetting = 'users/add-setting';
@@ -233,24 +202,20 @@ class NetworkConstantsUtil {
   static String updateClub = 'clubs/';
   static String deleteClub = 'clubs/';
   static String searchClubs = 'clubs?expand=createdByUser,totalJoinedUser';
-  static String topClubs =
-      'clubs/top-club?expand=createdByUser,totalJoinedUser&type=2';
+  static String topClubs = 'clubs/top-club?expand=createdByUser,totalJoinedUser&type=2';
 
-  static String trendingClubs =
-      'clubs/top-club?expand=createdByUser,totalJoinedUser&type=1';
+  static String trendingClubs = 'clubs/top-club?expand=createdByUser,totalJoinedUser&type=1';
 
   static String joinClub = 'clubs/join';
   static String leaveClub = 'clubs/left';
   static String removeUserFromClub = 'clubs/remove';
   static String clubMembers = 'clubs/club-joined-user?expand=user&id=';
-  static String clubJoinInvites =
-      'clubs/my-invitation?expand=club.totalJoinedUser';
+  static String clubJoinInvites = 'clubs/my-invitation?expand=club.totalJoinedUser';
   static String replyOnInvitation = 'clubs/invitation-reply';
   static String sendClubInvite = 'clubs/invite';
 
   static String sendClubJoinRequest = 'clubs/join-request';
-  static String clubJoinRequestList =
-      'clubs/join-request-list?club_id={{club_id}}&expand=user';
+  static String clubJoinRequestList = 'clubs/join-request-list?club_id={{club_id}}&expand=user';
   static String clubJoinRequestReply = 'clubs/join-request-reply';
 
   //***********Events***********//
@@ -261,8 +226,7 @@ class NetworkConstantsUtil {
   static String eventsCategories = 'categories/event?expand=event';
   static String searchEvents = 'events?';
   static String eventCoupons = 'events/coupon';
-  static String eventDetails =
-      'events/{{id}}?expand=eventTicket,eventOrganisor';
+  static String eventDetails = 'events/{{id}}?expand=eventTicket,eventOrganisor';
   static String buyTicket = 'events/buy-ticket';
   static String eventBookings = 'events/my-booked-event?';
   static String cancelEventBooking = 'events/cancel-ticket-booking';
@@ -283,8 +247,7 @@ class NetworkConstantsUtil {
   static String giftsReceived =
       'gifts/recieved-gift?expand=giftDetail,senderDetail&send_on_type={{send_on_type}}&live_call_id={{live_call_id}}&post_id={{post_id}}';
   static String timelineGifts = 'gifts/timeline-gift';
-  static String postGifts =
-      'gifts/timeline-gift-recieved?expand=senderDetail,giftTimelineDetail&send_on_type={{send_on_type}}&post_id={{post_id}}';
+  static String postGifts = 'gifts/timeline-gift-recieved?expand=senderDetail,giftTimelineDetail&send_on_type={{send_on_type}}&post_id={{post_id}}';
   static String sendPostGifts = 'gifts/send-timeline-gift';
 
   // url : {{host}}/gifts/timeline-gift-recieved?expand=senderDetail,giftTimelineDetail&send_on_type=3&post_id=12
@@ -316,8 +279,7 @@ class NetworkConstantsUtil {
 
   //***********Dating***********//
   static String addUserPreference = 'datings/add-user-preference';
-  static String getUserPreference =
-      'datings/preference-profile?expand=preferenceInterest,preferenceLanguage';
+  static String getUserPreference = 'datings/preference-profile?expand=preferenceInterest,preferenceLanguage';
   static String getDatingProfiles = 'datings/preference-profile-match';
   static String profileLike = 'datings/profile-action-like';
   static String profileSkip = 'datings/profile-action-skip';
@@ -328,6 +290,5 @@ class NetworkConstantsUtil {
 
   //*********** Misc ***********//
   static String postRating = 'ratings';
-  static String ratingList =
-      'ratings?type={{type}}&reference_id={{reference_id}}&expand=user';
+  static String ratingList = 'ratings?type={{type}}&reference_id={{reference_id}}&expand=user';
 }

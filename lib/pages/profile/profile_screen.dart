@@ -379,7 +379,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                               ),
                                               // Cross Icon (Delete Button)
                                               Positioned(
-                                                  right:0,
+                                                  right: 0,
                                                   child: GestureDetector(
                                                     onTap: () {
                                                       if (profileController.profileModel!.userInfo.newImages.length > 2) {

@@ -80,7 +80,7 @@ class _UserCreatePostState extends State<UserCreatePost> {
 
     switch (fileTypeCheckk(data!.path)) {
       case null:
-        Fluttertoast.showToast(msg:"Please select photo or video");
+        Fluttertoast.showToast(msg: "Please select photo or video");
         return;
         break;
       case fileTypeName.Photo:
@@ -149,10 +149,6 @@ class _UserCreatePostState extends State<UserCreatePost> {
       });
     } else {}
   }
-
-
-
-
 
   void _showPicker(context) {
     showModalBottomSheet(
@@ -876,8 +872,7 @@ class _UserCreatePostState extends State<UserCreatePost> {
                         ),
                       ),
                       suggestionsCallback: (pattern) async {
-                        return userHomeController.userFriend
-                            .where((userFriend) => userFriend.friendFirstName!.toLowerCase().contains(pattern.toLowerCase()));
+                        return userHomeController.userFriend.where((userFriend) => userFriend.friendFirstName!.toLowerCase().contains(pattern.toLowerCase()));
                       },
 
                       itemBuilder: (context, MyFriends? suggestion) {

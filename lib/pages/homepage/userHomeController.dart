@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-
-import 'package:realdating/pages/homepage/polls/pollsModel.dart';
 import 'package:get/get.dart';
-
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../consts/app_urls.dart';
@@ -11,7 +8,6 @@ import '../../model/userModel.dart';
 import '../../services/base_client01.dart';
 import '../createPostUser/mention/getFriendModel.dart';
 import '../discovery/discoveryModel.dart';
-import '../profile/profile_controller.dart';
 
 class UserHomeController extends GetxController implements GetxService {
   RxBool isLoadig = false.obs;
@@ -20,6 +16,7 @@ class UserHomeController extends GetxController implements GetxService {
   RxList tapItemIndex = [].obs;
 
   TextEditingController commentText = TextEditingController();
+
   // ProfileController profileController = Get.put(ProfileController());
 
   @override
@@ -127,8 +124,6 @@ class UserHomeController extends GetxController implements GetxService {
   }
 */
 
-
-
   DiscoveryModel? discoveryData;
 
   getDiscovery() async {
@@ -197,9 +192,7 @@ class UserHomeController extends GetxController implements GetxService {
     if (searchQuery.isEmpty) {
       return users;
     } else {
-      return filteredusers
-          .where((item) => item.friendFirstName!.contains(searchQuery.value))
-          .toList();
+      return filteredusers.where((item) => item.friendFirstName!.contains(searchQuery.value)).toList();
     }
   }
 
@@ -245,77 +238,75 @@ class UserHomeController extends GetxController implements GetxService {
 
   // PollsModel? pollsModels;
   Map<String, int> usersWhoVoted = {};
-  // getAllPolls() async {
-  //   isLoadig(true);
-  //   SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   var userid = prefs.get("user_id");
-  //   var token = prefs.get('token');
-  //
-  //   print("ultramodern");
-  //   final response = await BaseClient01().post(Appurls.allPolls, {
-  //     "user_id": userid.toString(),
-  //   });
-  //   print(response);
-  //   print("poll all");
-  //
-  //   bool success = response["success"];
-  //
-  //   if (success) {
-  //
-  //     pollsModels = PollsModel.fromJson(response);
-  //     pollOption1Count!=null?     prefs.setInt('poll_option_1_count', pollOption1Count):1;
-  //     // userPoll = data.polls.response;
-  //
-  //     usersWhoVoted = {
-  //       for (int i = 0; i != pollsModels?.polls.response.length; i++)
-  //         pollsModels!.polls.response[i].firstName:
-  //             pollsModels!.polls.response[i].pollOption1,
-  //     };
-  //
-  //     print(pollsModels);
-  //     update();
-  //
-  //   }
-  //
-  //   isLoadig(false);
-  //
-  //   update();
-  //
-  //   // print("controller data ${controller}");
-  //   // cont(false);
-  // }
+// getAllPolls() async {
+//   isLoadig(true);
+//   SharedPreferences prefs = await SharedPreferences.getInstance();
+//   var userid = prefs.get("user_id");
+//   var token = prefs.get('token');
+//
+//   print("ultramodern");
+//   final response = await BaseClient01().post(Appurls.allPolls, {
+//     "user_id": userid.toString(),
+//   });
+//   print(response);
+//   print("poll all");
+//
+//   bool success = response["success"];
+//
+//   if (success) {
+//
+//     pollsModels = PollsModel.fromJson(response);
+//     pollOption1Count!=null?     prefs.setInt('poll_option_1_count', pollOption1Count):1;
+//     // userPoll = data.polls.response;
+//
+//     usersWhoVoted = {
+//       for (int i = 0; i != pollsModels?.polls.response.length; i++)
+//         pollsModels!.polls.response[i].firstName:
+//             pollsModels!.polls.response[i].pollOption1,
+//     };
+//
+//     print(pollsModels);
+//     update();
+//
+//   }
+//
+//   isLoadig(false);
+//
+//   update();
+//
+//   // print("controller data ${controller}");
+//   // cont(false);
+// }
 
-
-
-  // pollResponse(ownerId, pollId, pollOption) async {
-  //   SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   var userid = prefs.get("user_id");
-  //   print("nfhjdfhiu$pollOption");
-  //   print("nfhjdfhiusss${optionPoll(pollOption.toString())}");
-  //   final response = await BaseClient01().post(Appurls.pollResponseUrl, {
-  //     'owner_id': ownerId.toString(),
-  //     'user_id': userid.toString(),
-  //     'poll_id': pollId.toString(),
-  //     optionPoll(pollOption): "1",
-  //   });
-  //   bool status = response["success"];
-  //   var msg = response["message"];
-  //   print(response);
-  //   if (status) {
-  //     // await MYDeal();
-  //     // await getAllPolls();
-  //     update();
-  //   } else {
-  //     print(msg);
-  //     Fluttertoast.showToast(
-  //       msg: msg.toString(),
-  //       toastLength: Toast.LENGTH_LONG,
-  //       gravity: ToastGravity.BOTTOM,
-  //       timeInSecForIosWeb: 1,
-  //       backgroundColor: Colors.white,
-  //       textColor: Colors.black,
-  //       fontSize: 16.0,
-  //     );
-  //   }
-  // }
+// pollResponse(ownerId, pollId, pollOption) async {
+//   SharedPreferences prefs = await SharedPreferences.getInstance();
+//   var userid = prefs.get("user_id");
+//   print("nfhjdfhiu$pollOption");
+//   print("nfhjdfhiusss${optionPoll(pollOption.toString())}");
+//   final response = await BaseClient01().post(Appurls.pollResponseUrl, {
+//     'owner_id': ownerId.toString(),
+//     'user_id': userid.toString(),
+//     'poll_id': pollId.toString(),
+//     optionPoll(pollOption): "1",
+//   });
+//   bool status = response["success"];
+//   var msg = response["message"];
+//   print(response);
+//   if (status) {
+//     // await MYDeal();
+//     // await getAllPolls();
+//     update();
+//   } else {
+//     print(msg);
+//     Fluttertoast.showToast(
+//       msg: msg.toString(),
+//       toastLength: Toast.LENGTH_LONG,
+//       gravity: ToastGravity.BOTTOM,
+//       timeInSecForIosWeb: 1,
+//       backgroundColor: Colors.white,
+//       textColor: Colors.black,
+//       fontSize: 16.0,
+//     );
+//   }
+// }
 }

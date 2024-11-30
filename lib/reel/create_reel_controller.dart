@@ -1,15 +1,16 @@
 import 'dart:io';
+
 import 'package:camera/camera.dart';
 import 'package:ffmpeg_kit_flutter/ffmpeg_kit.dart';
 import 'package:ffmpeg_kit_flutter/ffmpeg_kit_config.dart';
 import 'package:ffmpeg_kit_flutter/return_code.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:realdating/pages/apiHandler/apis/reel_api.dart';
-import 'common_import.dart';
+import 'package:http/http.dart' as http;
 import 'package:just_audio/just_audio.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:http/http.dart' as http;
+import 'package:realdating/pages/apiHandler/apis/reel_api.dart';
 
+import 'common_import.dart';
 
 class CreateReelController extends GetxController {
   final PlayerManager _playerManager = Get.put(PlayerManager());
@@ -18,12 +19,10 @@ class CreateReelController extends GetxController {
   // RxBool flashSetting = false.obs;
   // Method to toggle flash
   void toggleFlash() {
-  flashSetting.value = !flashSetting.value;
-  update();
-  print('flash light-------${flashSetting.value }');
+    flashSetting.value = !flashSetting.value;
+    update();
+    print('flash light-------${flashSetting.value}');
   }
-
-
 
   RxList<CategoryModel> categories = <CategoryModel>[].obs;
   RxList<ReelMusicModel> audios = <ReelMusicModel>[].obs;
@@ -50,6 +49,7 @@ class CreateReelController extends GetxController {
   RxInt recordingLength = 15.obs;
 
   RxDouble currentProgressValue = (0.0).obs;
+
   // late SimpleDownloader _downloader;
 
   void turnOnFlash() {
@@ -68,7 +68,7 @@ class CreateReelController extends GetxController {
       searchText.value = text;
 
       audios.clear();
-     // getReelAudios();
+      // getReelAudios();
     }
   }
 
@@ -91,7 +91,7 @@ class CreateReelController extends GetxController {
     if (selectedSegment != index) {
       clear();
       selectedSegment = index;
-     // getReelAudios();
+      // getReelAudios();
       update();
     }
   }
@@ -157,10 +157,8 @@ class CreateReelController extends GetxController {
     update();
   }
 
-  playAudioFileUntil(ReelMusicModel reelAudio, double startDuration,
-      double endDuration) async {
-    _playerManager.playAudioFileTimeIntervalBased(
-        reelAudio, startDuration, endDuration);
+  playAudioFileUntil(ReelMusicModel reelAudio, double startDuration, double endDuration) async {
+    _playerManager.playAudioFileTimeIntervalBased(reelAudio, startDuration, endDuration);
     update();
   }
 
@@ -198,10 +196,8 @@ class CreateReelController extends GetxController {
     var finalFile = File('${directory.path}/REEL_${DateTime.now().millisecondsSinceEpoch}.mp4');
 
     if (selectedAudioFile != null) {
-      FFmpegKitConfig.enableLogCallback((log) {
-      });
-      var command =
-          "-i ${videoFile.path} -i ${selectedAudioFile.path} -map 0:v -map 1:a -c:v copy "
+      FFmpegKitConfig.enableLogCallback((log) {});
+      var command = "-i ${videoFile.path} -i ${selectedAudioFile.path} -map 0:v -map 1:a -c:v copy "
           "-shortest ${finalFile.path}";
       FFmpegKit.executeAsync(
         command,
@@ -220,7 +216,8 @@ class CreateReelController extends GetxController {
                   audioId: selectedAudio.value?.id,
                   audioStartTime: audioStartTime,
                   audioEndTime: audioEndTime,
-                ))?.then((value) async {print("object");
+                ))?.then((value) async {
+              print("object");
               uploadVideo(finalFile);
             });
             /* final route = MaterialPageRoute(
@@ -293,15 +290,12 @@ class CreateReelController extends GetxController {
   // }
 
   void trimAudio() async {
-    if ((audioEndTime ?? 0 - (audioStartTime ?? 0)) <
-        recordingLength.toDouble()) {
-      AppUtil.showToast(
-          message: 'Audio Clip is shorter than ${recordingLength}seconds ',
-          isSuccess: false);
+    if ((audioEndTime ?? 0 - (audioStartTime ?? 0)) < recordingLength.toDouble()) {
+      AppUtil.showToast(message: 'Audio Clip is shorter than ${recordingLength}seconds ', isSuccess: false);
       return;
     }
 
-    EasyLoading.show(status:loadingString.tr);
+    EasyLoading.show(status: loadingString.tr);
     downloadAudio((status) async {
       if (status) {
         if (croppedAudioFile != null) {
@@ -309,11 +303,9 @@ class CreateReelController extends GetxController {
           stopPlayingAudio();
 
           final directory = await getTemporaryDirectory();
-          var finalAudioFile = File(
-              '${directory.path}/AUD_${DateTime.now().millisecondsSinceEpoch}.mp3');
+          var finalAudioFile = File('${directory.path}/AUD_${DateTime.now().millisecondsSinceEpoch}.mp3');
 
-          var audioTrimCommand =
-              '-ss ${audioStartTime!} -i ${croppedAudioFile!.path} -t $duration -c copy ${finalAudioFile.path}';
+          var audioTrimCommand = '-ss ${audioStartTime!} -i ${croppedAudioFile!.path} -t $duration -c copy ${finalAudioFile.path}';
           FFmpegKit.executeAsync(
             audioTrimCommand,
             (session) async {
@@ -354,7 +346,6 @@ class CreateReelController extends GetxController {
 }
 
 Future<void> uploadVideo(File videoFile) async {
-
   var headers = {
     'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImlkIjo1OX0sImlhdCI6MTY5ODc0NTMyNH0.DArIe45knZvCQbmukVQ0dV4CpQ_0OLRvr2DMHoO-p1k'
   };

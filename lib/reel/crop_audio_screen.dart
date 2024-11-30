@@ -7,9 +7,7 @@ class CropAudioScreen extends StatefulWidget {
   final ReelMusicModel reelMusicModel;
   final int duration;
 
-  const CropAudioScreen(
-      {Key? key, required this.reelMusicModel, required this.duration})
-      : super(key: key);
+  const CropAudioScreen({Key? key, required this.reelMusicModel, required this.duration}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -24,9 +22,7 @@ class _CropAudioState extends State<CropAudioScreen> {
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _createReelController.playAudioFileUntil(
-          widget.reelMusicModel,
-          _createReelController.audioStartTime ?? 0,
-          _createReelController.audioEndTime ?? widget.duration.toDouble());
+          widget.reelMusicModel, _createReelController.audioStartTime ?? 0, _createReelController.audioEndTime ?? widget.duration.toDouble());
     });
 
     _createReelController.setAudioCropperTime(0, widget.duration.toDouble());
@@ -57,17 +53,13 @@ class _CropAudioState extends State<CropAudioScreen> {
               width: 10,
             ),
           ],
-        ).setPadding(
-            left: DesignConstants.horizontalPadding,
-            right: DesignConstants.horizontalPadding,
-            top: 25,
-            bottom: 20),
+        ).setPadding(left: DesignConstants.horizontalPadding, right: DesignConstants.horizontalPadding, top: 25, bottom: 20),
         const SizedBox(
           height: 20,
         ),
         Center(
           child: Obx(
-                () => SizedBox(
+            () => SizedBox(
               height: 80,
               // width: Get.width * 0.8,
               child: WaveSlider(
@@ -77,17 +69,14 @@ class _CropAudioState extends State<CropAudioScreen> {
                 widthWaveSlider: Get.width * 0.8,
                 sliderColor: Colors.cyan,
                 duration: widget.reelMusicModel.duration.toDouble(),
-                cutterDuration:
-                _createReelController.recordingLength.toDouble(),
+                cutterDuration: _createReelController.recordingLength.toDouble(),
                 callbackEnd: (startDuration, endDuration) {
                   debugPrint("Start $startDuration End  $endDuration");
-                  _createReelController.setAudioCropperTime(
-                      startDuration, endDuration);
+                  _createReelController.setAudioCropperTime(startDuration, endDuration);
                   // this.startDuration = startDuration;
                   // this.endDuration = endDuration;
                   _createReelController.stopPlayingAudio();
-                  _createReelController.playAudioFileUntil(
-                      widget.reelMusicModel, startDuration, endDuration);
+                  _createReelController.playAudioFileUntil(widget.reelMusicModel, startDuration, endDuration);
                 },
                 callbackStart: (double duration, double endDuration) {},
               ),
@@ -99,10 +88,10 @@ class _CropAudioState extends State<CropAudioScreen> {
         ),
         Center(
           child: Container(
-              color: AppColorConstants.themeColor,
-              child: BodyLargeText(
-                useString.tr,
-              ).p8)
+                  color: AppColorConstants.themeColor,
+                  child: BodyLargeText(
+                    useString.tr,
+                  ).p8)
               .circular
               .ripple(() {
             _createReelController.trimAudio();

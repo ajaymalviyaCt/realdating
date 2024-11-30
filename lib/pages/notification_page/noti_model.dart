@@ -22,18 +22,18 @@ class NoficactionModel {
   });
 
   factory NoficactionModel.fromJson(Map<String, dynamic> json) => NoficactionModel(
-    success: json["success"],
-    message: json["message"],
-    notification: json["notification"] == null ? [] : List<Notification>.from(json["notification"]!.map((x) => Notification.fromJson(x))),
-    status: json["status"],
-  );
+        success: json["success"],
+        message: json["message"],
+        notification: json["notification"] == null ? [] : List<Notification>.from(json["notification"]!.map((x) => Notification.fromJson(x))),
+        status: json["status"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "success": success,
-    "message": message,
-    "notification": notification == null ? [] : List<dynamic>.from(notification!.map((x) => x.toJson())),
-    "status": status,
-  };
+        "success": success,
+        "message": message,
+        "notification": notification == null ? [] : List<dynamic>.from(notification!.map((x) => x.toJson())),
+        "status": status,
+      };
 }
 
 class Notification {
@@ -64,30 +64,30 @@ class Notification {
   });
 
   factory Notification.fromJson(Map<String, dynamic> json) => Notification(
-    id: json["id"],
-    userId: json["user_id"],
-    body: json["body"],
-    notificationType: json["notification_type"],
-    senderId: json["sender_id"],
-    reciverId: json["reciver_id"],
-    createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
-    friendRequestStatus: json["friend_request_status"],
-    senderFirstName: json["sender_first_name"],
-    senderLastName: json["sender_last_name"],
-    profileImage: json["profile_image"],
-  );
+        id: json["id"],
+        userId: json["user_id"],
+        body: json["body"],
+        notificationType: json["notification_type"],
+        senderId: json["sender_id"],
+        reciverId: json["reciver_id"],
+        createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
+        friendRequestStatus: json["friend_request_status"],
+        senderFirstName: json["sender_first_name"],
+        senderLastName: json["sender_last_name"],
+        profileImage: json["profile_image"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "id": id,
-    "user_id": userId,
-    "body": body,
-    "notification_type": notificationType,
-    "sender_id": senderId,
-    "reciver_id": reciverId,
-    "created_at": createdAt?.toIso8601String(),
-    "friend_request_status": friendRequestStatus,
-    "sender_first_name": senderFirstName,
-    "sender_last_name": senderLastName,
-    "profile_image": profileImage,
-  };
+        "id": id,
+        "user_id": userId,
+        "body": body,
+        "notification_type": notificationType,
+        "sender_id": senderId,
+        "reciver_id": reciverId,
+        "created_at": createdAt?.toIso8601String(),
+        "friend_request_status": friendRequestStatus,
+        "sender_first_name": senderFirstName,
+        "sender_last_name": senderLastName,
+        "profile_image": profileImage,
+      };
 }

@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 
 import 'const.dart';
 
-
 class Button extends StatelessWidget {
   final VoidCallback onPressed;
   final String? buttonName;
@@ -41,6 +40,7 @@ class Button extends StatelessWidget {
     this.btnstyle,
     this.btnfontsize,
   });
+
   @override
   Widget build(BuildContext context) {
     var screenSize = MediaQuery.of(context).size.width;
@@ -56,7 +56,6 @@ class Button extends StatelessWidget {
         // color: btnColor ?? Colors.transparent,
         color: btnColor ?? colorbutton,
         borderRadius: borderRadius ?? BorderRadius.circular(22.0),
-
       ),
       child: MaterialButton(
         splashColor: Colors.grey,
@@ -74,7 +73,9 @@ class Button extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [prefiximage(), sizedboxwidth(8.0), btnname(context)],
               )
-            : btnname(context,),
+            : btnname(
+                context,
+              ),
       ),
     );
   }
@@ -94,10 +95,8 @@ class Button extends StatelessWidget {
             fontWeight: fontWeight500,
             fontSize: btnfontsize ?? 16,
             letterSpacing: 0.3,
-
           ),
       maxLines: 1,
-
     );
   }
 }

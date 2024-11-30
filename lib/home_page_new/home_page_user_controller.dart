@@ -8,10 +8,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../chat/api/apis.dart';
 
 class HomePageUserController extends GetxController {
-
   var homePagetModelNOTUSE = HomePagetModel(posts: []).obs;
-  HomePagetModel get homePageModel => homePagetModelNOTUSE.value;
 
+  HomePagetModel get homePageModel => homePagetModelNOTUSE.value;
 
   @override
   void onInit() {
@@ -21,6 +20,7 @@ class HomePageUserController extends GetxController {
     // getPoll();
     controller = ScrollController()..addListener(loadMore);
   }
+
   @override
   void dispose() {
     controller.removeListener(loadMore);
@@ -33,9 +33,9 @@ class HomePageUserController extends GetxController {
   RxBool hasNextPage = true.obs;
   RxBool isFirstLoadRunning = false.obs;
   RxBool isLoadMoreRunning = false.obs;
-   List<Post> posts = <Post>[];
+  List<Post> posts = <Post>[];
 
-  Future<void>  firstLoad() async {
+  Future<void> firstLoad() async {
     print("firstLoad0");
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var userId = prefs.get('user_id');
@@ -54,11 +54,10 @@ class HomePageUserController extends GetxController {
       if (response.statusCode == 200) {
         print("one1111${json.encode(response.data)}");
         posts = HomePagetModel.fromJson(response.data).posts;
-        var firstLoad = HomePagetModel(posts:posts);
+        var firstLoad = HomePagetModel(posts: posts);
         homePagetModelNOTUSE(firstLoad);
         print("firstLoad${homePagetModelNOTUSE.value.posts?.length}");
         homePagetModelNOTUSE.refresh();
-
       } else {
         print(response.statusMessage);
         print("two${json.encode(response.data)}");
@@ -75,20 +74,13 @@ class HomePageUserController extends GetxController {
   }
 
   void loadMore() async {
-    if (hasNextPage.value == true &&
-        isFirstLoadRunning.value == false &&
-        isLoadMoreRunning.value == false &&
-        controller.position.extentAfter < 300) {
-        isLoadMoreRunning.value = true; // Display a progress indicator at the bottom
-         page += 1; // Increase _page by 1
+    if (hasNextPage.value == true && isFirstLoadRunning.value == false && isLoadMoreRunning.value == false && controller.position.extentAfter < 300) {
+      isLoadMoreRunning.value = true; // Display a progress indicator at the bottom
+      page += 1; // Increase _page by 1
       try {
         SharedPreferences prefs = await SharedPreferences.getInstance();
         var userId = prefs.get('user_id');
-        var data = {
-          'curr_user_id': '${userId}',
-          'page': page.value,
-          'pageSize': limit
-        };
+        var data = {'curr_user_id': '${userId}', 'page': page.value, 'pageSize': limit};
         var dio = Dio();
         var response = await dio.request(
           'https://forreal.net:4000/Get_all_post',
@@ -110,7 +102,7 @@ class HomePageUserController extends GetxController {
           //setState
 
           posts.addAll(fetchedPosts);
-          var loadMore =HomePagetModel(posts:posts);
+          var loadMore = HomePagetModel(posts: posts);
           homePagetModelNOTUSE(loadMore);
           print("loadMore${homePagetModelNOTUSE.value.posts?.length}");
 
@@ -134,22 +126,20 @@ class HomePageUserController extends GetxController {
 
   late ScrollController controller;
 
-
-
-  //
-  // @override
-  // void onInit() {
-  //   // TODO: implement onInit
-  //   super.onInit();
-  //
-  //   homePagetModel0(homePAGE);
-  //   Future.delayed(
-  //     const Duration(seconds: 5), () {
-  //       homePagetModel0.value.posts![0].totalComments = 50;
-  //       // posts.add(_post.value.totalComments);
-  //       print(homePagetModel0.value.posts![0].totalComments);
-  //       homePagetModel0.refresh();
-  //     },
-  //   );
-  // }
+//
+// @override
+// void onInit() {
+//   // TODO: implement onInit
+//   super.onInit();
+//
+//   homePagetModel0(homePAGE);
+//   Future.delayed(
+//     const Duration(seconds: 5), () {
+//       homePagetModel0.value.posts![0].totalComments = 50;
+//       // posts.add(_post.value.totalComments);
+//       print(homePagetModel0.value.posts![0].totalComments);
+//       homePagetModel0.refresh();
+//     },
+//   );
+// }
 }

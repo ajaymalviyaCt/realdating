@@ -41,15 +41,11 @@ class HomePageNewController extends GetxController {
 
   RxBool isLoadingGetPostHomePage = false.obs;
 
-  Future<void> postComments(
-      String post_id, String comment, String user_id, int indexxx) async {
+  Future<void> postComments(String post_id, String comment, String user_id, int indexxx) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var token = prefs.get('token');
     print("tokentokentokentoken==>$token");
-    var headers = {
-      'Content-Type': 'application/x-www-form-urlencoded',
-      'Authorization': 'Bearer ${token}'
-    };
+    var headers = {'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Bearer ${token}'};
     var data = {'post_id': post_id, 'comment': comment};
     commentsController.clear();
     var dio = Dio();
@@ -74,14 +70,10 @@ class HomePageNewController extends GetxController {
     }
   }
 
-  Future<void> likePost(
-      String post_id, String like_status, String user_id) async {
+  Future<void> likePost(String post_id, String like_status, String user_id) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var token = prefs.get('token');
-    var headers = {
-      'Content-Type': 'application/x-www-form-urlencoded',
-      'Authorization': 'Bearer $token'
-    };
+    var headers = {'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Bearer $token'};
     print("post_id==>$post_id");
     var data = {'post_id': post_id, 'like_status': "$like_status"};
     var dio = Dio();
@@ -166,10 +158,7 @@ class HomePageNewController extends GetxController {
     // var userId = "${prefs.getString('user_id')}";
     var userId = "${prefs.getInt('user_id')}";
 
-    var headers = {
-      'Content-Type': 'application/x-www-form-urlencoded',
-      'Authorization': 'Bearer $token'
-    };
+    var headers = {'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Bearer $token'};
     var data = {
       'user_id': userId,
     };
@@ -185,40 +174,29 @@ class HomePageNewController extends GetxController {
 
     if (response.statusCode == 200) {
       pollsModel = PollsModel.fromJson(response.data);
-      poll_option_1.value =
-          PollsModel.fromJson(response.data).polls!.pollOption1!;
-      poll_option_2.value =
-          PollsModel.fromJson(response.data).polls!.pollOption2!;
-      poll_option_3.value =
-          PollsModel.fromJson(response.data).polls!.pollOption3!;
+      poll_option_1.value = PollsModel.fromJson(response.data).polls!.pollOption1!;
+      poll_option_2.value = PollsModel.fromJson(response.data).polls!.pollOption2!;
+      poll_option_3.value = PollsModel.fromJson(response.data).polls!.pollOption3!;
 
-      poll_option_1_count.value =
-          PollsModel.fromJson(response.data).polls!.pollOption1Count!;
-      poll_option_2_count.value =
-          PollsModel.fromJson(response.data).polls!.pollOption2Count!;
-      poll_option_3_count.value =
-          PollsModel.fromJson(response.data).polls!.pollOption3Count!;
+      poll_option_1_count.value = PollsModel.fromJson(response.data).polls!.pollOption1Count!;
+      poll_option_2_count.value = PollsModel.fromJson(response.data).polls!.pollOption2Count!;
+      poll_option_3_count.value = PollsModel.fromJson(response.data).polls!.pollOption3Count!;
 
-      print(
-          "isVotedisVotedisVoted${PollsModel.fromJson(response.data).polls!.isVoted!}");
+      print("isVotedisVotedisVoted${PollsModel.fromJson(response.data).polls!.isVoted!}");
       if (PollsModel.fromJson(response.data).polls!.isVoted == 0) {
         isVoted.value = false;
       } else {
         isVoted.value = true;
       }
 
-      totalVotes.value = poll_option_1_count.value +
-          poll_option_2_count.value +
-          poll_option_3_count.value;
+      totalVotes.value = poll_option_1_count.value + poll_option_2_count.value + poll_option_3_count.value;
 
       poll1Persent.value = poll_option_1_count.value / totalVotes.value;
       poll2Persent.value = poll_option_2_count.value / totalVotes.value;
       poll3Persent.value = poll_option_3_count.value / totalVotes.value;
 
-      print(
-          "poll1Persent ${poll1Persent.value} ${poll2Persent.value} ${poll3Persent.value}");
-      print(
-          "poll_option_1_count ${poll_option_1_count.value} ${poll_option_2_count.value} ${poll_option_3_count.value}");
+      print("poll1Persent ${poll1Persent.value} ${poll2Persent.value} ${poll3Persent.value}");
+      print("poll_option_1_count ${poll_option_1_count.value} ${poll_option_2_count.value} ${poll_option_3_count.value}");
 
       isLoadingGetPoll.value = false;
       print(json.encode(response.data));
@@ -227,19 +205,13 @@ class HomePageNewController extends GetxController {
     }
   }
 
-  Future<void> pollVote(
-      {required int option1,
-      required String owner_id,
-      required String poll_id}) async {
+  Future<void> pollVote({required int option1, required String owner_id, required String poll_id}) async {
     // isLoadingGetPoll.value=true;
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var token = prefs.get('token');
     var userId = "${prefs.getInt('user_id')}";
 
-    var headers = {
-      'Content-Type': 'application/x-www-form-urlencoded',
-      'Authorization': 'Bearer $token'
-    };
+    var headers = {'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Bearer $token'};
     var data = {
       'owner_id': '$owner_id',
       'user_id': userId,
@@ -275,10 +247,7 @@ class HomePageNewController extends GetxController {
   RxList<CommentList> comments = <CommentList>[].obs;
   RxBool isLoadingCommentList = false.obs;
 
-  Future<void> getAllCommentBYpostID(
-      {required String postID,
-      required bool alreadlyLoad,
-      required int indexx}) async {
+  Future<void> getAllCommentBYpostID({required String postID, required bool alreadlyLoad, required int indexx}) async {
     isLoadingCommentList.value = alreadlyLoad;
     var headers = {'Content-Type': 'application/x-www-form-urlencoded'};
     var data = {'post_id': postID};
@@ -293,23 +262,18 @@ class HomePageNewController extends GetxController {
     );
 
     if (response.statusCode == 200) {
-
       comments.value = CommentsModel.fromJson(response.data).comments!;
 
       // postsC.homePageModel.posts[1].totalComments=333;
       postsC.homePagetModelNOTUSE.value.posts[indexx].totalComments = comments.length;
       postsC.homePagetModelNOTUSE.refresh();
       //for bussiness
-      try{
-
+      try {
         postsCB.bHomePagetModelNOTUSE.value.posts[indexx].totalComments = comments.length;
         print("totalComments${postsCB.bHomePagetModelNOTUSE.value.posts[indexx].totalComments}");
         postsCB.bHomePagetModelNOTUSE.refresh();
-      }catch(e){
-
-      }
+      } catch (e) {}
       //for bussiness
-
 
       EasyLoading.dismiss();
       isLoadingCommentList.value = false;

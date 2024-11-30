@@ -273,18 +273,13 @@ class LoginController extends GetxController {
     String? fcmToken;
 
     try {
-       fcmToken = await FirebaseMessaging.instance.getToken();
+      fcmToken = await FirebaseMessaging.instance.getToken();
     } catch (e) {
       // TODO
     }
     try {
       var headers = {'Content-Type': 'application/x-www-form-urlencoded'};
-      var data = {
-        'email': emailController.text.trim(),
-        'password': passwordController.text.trim(),
-        'fcm_token': (fcmToken??"").toString()
-      };
-
+      var data = {'email': emailController.text.trim(), 'password': passwordController.text.trim(), 'fcm_token': (fcmToken ?? "").toString()};
 
       var dio = Dio();
       var response = await dio.request(
@@ -309,7 +304,7 @@ class LoginController extends GetxController {
           SharedPreferences prefs = await SharedPreferences.getInstance();
           prefs.setString("token", token);
           prefs.setInt("user_id", user_id);
-          prefs.setString("email",emailController.text);
+          prefs.setString("email", emailController.text);
           if (profile_status == 0) {
             Get.offAll(() => SelectGenderPage());
           }
@@ -372,11 +367,7 @@ class LoginController extends GetxController {
   Future<void> getCurrentUserProfile() async {
     User? user = FirebaseAuth.instance.currentUser;
     try {
-      await FirebaseFirestore.instance
-          .collection('allusers')
-          .doc(user!.uid)
-          .get()
-          .then((value) {
+      await FirebaseFirestore.instance.collection('allusers').doc(user!.uid).get().then((value) {
         user.updateDisplayName(value.data()!['name']);
         // user.updatePhotoURL(value.data()!['image']);
         user.updateEmail(value.data()!['email']);

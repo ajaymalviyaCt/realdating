@@ -89,12 +89,7 @@ class _All_AdsState extends State<All_Ads> {
       Navigator.pop(context);
       print('else==============');
       Fluttertoast.showToast(
-          msg: message,
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.BOTTOM,
-          backgroundColor: colorgrey,
-          textColor: Colors.white,
-          fontSize: 16.0);
+          msg: message, toastLength: Toast.LENGTH_SHORT, gravity: ToastGravity.BOTTOM, backgroundColor: colorgrey, textColor: Colors.white, fontSize: 16.0);
     }
     return ProfileDataModal.fromJson(json.decode(response.body));
   }
@@ -146,8 +141,7 @@ class _All_AdsState extends State<All_Ads> {
                     child: CircularProgressIndicator(
                     strokeWidth: 2,
                   ))
-                : allAdssDealController.getAllAdsMdoels?.myAdvs.length != null &&
-                        allAdssDealController.getAllAdsMdoels?.myAdvs.length != 0
+                : allAdssDealController.getAllAdsMdoels?.myAdvs.length != null && allAdssDealController.getAllAdsMdoels?.myAdvs.length != 0
                     ? ListView.builder(
                         itemCount: allAdssDealController.getAllAdsMdoels?.myAdvs.length,
                         itemBuilder: (BuildContext context, int index) {
@@ -243,7 +237,7 @@ class _All_AdsState extends State<All_Ads> {
                                               },
                                               child: const Icon(
                                                 Icons.edit,
-                                                size:22,
+                                                size: 22,
                                               )),
                                           //SvgPicture.asset("assets/icons/cornermenu.svg",height: 24,)
                                         ],
@@ -266,8 +260,12 @@ class _All_AdsState extends State<All_Ads> {
                                                 return const Center(
                                                   child: CircularProgressIndicator(),
                                                 );
-                                              },errorWidget: (context, url, error) {
-                                                return Image.asset('assets/icons/business_ads.png',scale:3,);
+                                              },
+                                              errorWidget: (context, url, error) {
+                                                return Image.asset(
+                                                  'assets/icons/business_ads.png',
+                                                  scale: 3,
+                                                );
                                               },
                                             ),
                                             // child: Stack(

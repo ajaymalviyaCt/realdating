@@ -19,13 +19,13 @@ class BuisnessLogin extends StatefulWidget {
 }
 
 class _BuisnessLoginState extends State<BuisnessLogin> {
-  BuisnessLoginController buissnesloginController =
-      Get.put(BuisnessLoginController());
+  BuisnessLoginController buissnesloginController = Get.put(BuisnessLoginController());
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-  BuisnessSignUpController buisbnesssignUpController =
-  Get.put(BuisnessSignUpController());
-  Future<bool> _onWillPop() async {return false; //<-- SEE HERE
+  BuisnessSignUpController buisbnesssignUpController = Get.put(BuisnessSignUpController());
+
+  Future<bool> _onWillPop() async {
+    return false; //<-- SEE HERE
   }
 
   @override
@@ -54,8 +54,7 @@ class _BuisnessLoginState extends State<BuisnessLogin> {
                       Center(
                           child:
                               //SvgPicture.asset('assets/icons/AppIcon-120px-40pt@3x 1.svg'),
-                              Image.asset(
-                                  'assets/images/AppIcon-120px-40pt@3x 1.png')),
+                              Image.asset('assets/images/AppIcon-120px-40pt@3x 1.png')),
                     ],
                   ),
                 ),
@@ -90,8 +89,7 @@ class _BuisnessLoginState extends State<BuisnessLogin> {
                           height: 30.h,
                         ),
                         CustumTextField(
-                          controller:
-                              buissnesloginController.buisnessemailController,
+                          controller: buissnesloginController.buisnessemailController,
                           validator: validateEmailField,
                           hintText: 'Email',
                         ),
@@ -101,19 +99,13 @@ class _BuisnessLoginState extends State<BuisnessLogin> {
                         Obx(
                           () => CustumTextField(
                             onTap: () {
-                              buissnesloginController.seePassword.value =
-                                  !buissnesloginController.seePassword.value;
+                              buissnesloginController.seePassword.value = !buissnesloginController.seePassword.value;
                             },
-                            controller: buissnesloginController
-                                .buisnesspasswordController,
+                            controller: buissnesloginController.buisnesspasswordController,
                             validator: validatePassword,
-                            suffixIconn:
-                                buissnesloginController.seePassword == true
-                                    ? 'assets/icons/Eye Slash.svg'
-                                    : 'assets/icons/eye.svg',
+                            suffixIconn: buissnesloginController.seePassword == true ? 'assets/icons/Eye Slash.svg' : 'assets/icons/eye.svg',
                             hintText: 'Password',
-                            obscureText:
-                                buissnesloginController.seePassword.value,
+                            obscureText: buissnesloginController.seePassword.value,
                           ),
                         ),
                         SizedBox(
@@ -123,7 +115,6 @@ class _BuisnessLoginState extends State<BuisnessLogin> {
                           () => customPrimaryBtn(
                             btnText: "Sign In",
                             btnFun: () {
-
                               if (formKey.currentState!.validate()) {
                                 buissnesloginController.BussinessloginwithEmail();
                               }
@@ -141,10 +132,7 @@ class _BuisnessLoginState extends State<BuisnessLogin> {
                           onTap: () {
                             buissnesloginController.buisnesspasswordController.clear();
                             buissnesloginController.buisnessemailController.clear();
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => ForgetPassword(business: 1)));
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => ForgetPassword(business: 1)));
                           },
                           child: Center(
                               child: customTextCommon(
@@ -163,28 +151,17 @@ class _BuisnessLoginState extends State<BuisnessLogin> {
                             buissnesloginController.buisnessemailController.clear();
                             buissnesloginController.buisnesspasswordController.clear();
                             buisbnesssignUpController.clearDataUser();
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        BuisnessSignUp()));
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => BuisnessSignUp()));
                           },
                           child: Container(
-                            padding: EdgeInsets.only(left: 10,right: 10,top: 10,bottom: 10),
+                            padding: EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 10),
 
                             // height: 50,
                             decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(5),
-                                color: Colors.transparent,
-                                border: Border.all(
-                                    color: Colors.white, width: 1)),
+                                borderRadius: BorderRadius.circular(5), color: Colors.transparent, border: Border.all(color: Colors.white, width: 1)),
                             child: Center(
                               child: Text('Don’t have a business account? Sign Up',
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w400,
-                                      fontFamily: 'Aboshi',
-                                      color: HexColor('#FFFFFF'))),
+                                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400, fontFamily: 'Aboshi', color: HexColor('#FFFFFF'))),
                             ),
                           ),
                         ),
@@ -192,7 +169,9 @@ class _BuisnessLoginState extends State<BuisnessLogin> {
                     ),
                   ),
                 ),
-                SizedBox(height: 30.h,)
+                SizedBox(
+                  height: 30.h,
+                )
               ],
             ),
           ),

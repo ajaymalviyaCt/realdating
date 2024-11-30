@@ -4,11 +4,11 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'noti_model.dart';
 
-class NotificationController extends GetxController{
+class NotificationController extends GetxController {
+  RxBool isLoading = false.obs;
+  NoficactionModel? noficactionModel;
 
-  RxBool isLoading =false.obs;
-  NoficactionModel ? noficactionModel ;
-  NoficactionModel ? noficactionModelB ;
+  NoficactionModel? noficactionModelB;
 
   @override
   void onReady() {
@@ -16,38 +16,32 @@ class NotificationController extends GetxController{
     super.onReady();
     // getNotification();
   }
-  getNotification() async {
 
-    isLoading.value=true;
+  getNotification() async {
+    isLoading.value = true;
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var userId = prefs.getInt('user_id');
-    final response =await BaseClient01().post(Uri.parse('https://forreal.net:4000/Allnotification'),{
+    final response = await BaseClient01().post(Uri.parse('https://forreal.net:4000/Allnotification'), {
       'user_id': '$userId',
       'receiver_type': "user",
     });
-    noficactionModel =NoficactionModel.fromJson(response);
-    print("response1234567890$noficactionModel" +response.toString());
-    isLoading.value=false;
-
+    noficactionModel = NoficactionModel.fromJson(response);
+    print("response1234567890$noficactionModel" + response.toString());
+    isLoading.value = false;
   }
 
   getNotificationBusiness() async {
-
-    isLoading.value=true;
+    isLoading.value = true;
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var userId = prefs.getInt('user_id');
-    final response =await BaseClient01().post(Uri.parse('https://forreal.net:4000/Allnotification'),{
+    final response = await BaseClient01().post(Uri.parse('https://forreal.net:4000/Allnotification'), {
       'user_id': '$userId',
       'receiver_type': "business",
     });
-    noficactionModelB =NoficactionModel.fromJson(response);
-    print("response1234567890$noficactionModelB" +response.toString());
+    noficactionModelB = NoficactionModel.fromJson(response);
+    print("response1234567890$noficactionModelB" + response.toString());
 
     print('All Notification ------${noficactionModelB}');
-    isLoading.value=false;
-
+    isLoading.value = false;
   }
-
-
-
 }

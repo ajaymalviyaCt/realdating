@@ -33,6 +33,7 @@ class DialogHelper {
       ),
     );
   }
+
   static void noInternetDialog({String title = 'Error', String? description = 'No Internet Connection available'}) {
     Get.dialog(
       Dialog(
@@ -61,8 +62,8 @@ class DialogHelper {
       ),
     );
   }
-  //show toast
 
+  //show toast
 
   //show snack bar
   //show loading
@@ -111,6 +112,4 @@ class DialogHelper {
     );
 
   }*/
-
-
 }

@@ -1,20 +1,16 @@
-
 class ProfileDataModal {
   int? status;
   bool? success;
   String? message;
   BusinessInfo? businessInfo;
 
-  ProfileDataModal(
-      {this.status, this.success, this.message, this.businessInfo});
+  ProfileDataModal({this.status, this.success, this.message, this.businessInfo});
 
   ProfileDataModal.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     success = json['success'];
     message = json['message'];
-    businessInfo = json['business_info'] != null
-        ? new BusinessInfo.fromJson(json['business_info'])
-        : null;
+    businessInfo = json['business_info'] != null ? new BusinessInfo.fromJson(json['business_info']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -65,37 +61,37 @@ class BusinessInfo {
 
   BusinessInfo(
       {this.id,
-        this.businessName,
-        this.email,
-        this.password,
-        this.phoneNumber,
-        this.kYC,
-        this.website,
-        this.profileImage,
-        this.coverPhoto,
-        this.showPassword,
-        this.category,
-        this.instagramLink,
-        this.twitterLink,
-        this.facebookLink,
-        this.description,
-        this.city,
-        this.state,
-        this.country,
-        this.address,
-        this.latitude,
-        this.longitude,
-        this.verifyBusiness,
-        this.actToken,
-        this.createdAt,
-        this.token,
-        this.monday,
-        this.tuesday,
-        this.wednesday,
-        this.thursday,
-        this.friday,
-        this.saturday,
-        this.sunday});
+      this.businessName,
+      this.email,
+      this.password,
+      this.phoneNumber,
+      this.kYC,
+      this.website,
+      this.profileImage,
+      this.coverPhoto,
+      this.showPassword,
+      this.category,
+      this.instagramLink,
+      this.twitterLink,
+      this.facebookLink,
+      this.description,
+      this.city,
+      this.state,
+      this.country,
+      this.address,
+      this.latitude,
+      this.longitude,
+      this.verifyBusiness,
+      this.actToken,
+      this.createdAt,
+      this.token,
+      this.monday,
+      this.tuesday,
+      this.wednesday,
+      this.thursday,
+      this.friday,
+      this.saturday,
+      this.sunday});
 
   BusinessInfo.fromJson(Map<String, dynamic> json) {
     id = json['id'];

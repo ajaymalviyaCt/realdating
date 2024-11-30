@@ -8,7 +8,7 @@ import 'package:realdating/widgets/size_utils.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class CreateUserPost extends StatefulWidget {
-   CreateUserPost({super.key});
+  CreateUserPost({super.key});
 
   @override
   State<CreateUserPost> createState() => _CreateUserPostState();
@@ -16,30 +16,25 @@ class CreateUserPost extends StatefulWidget {
 
 class _CreateUserPostState extends State<CreateUserPost> {
   final ImagePicker _imagePicker = ImagePicker();
-  CroppedFile ? _croppedFile ;
-   XFile? _image;
-   File ? _videoFile;
+  CroppedFile? _croppedFile;
 
+  XFile? _image;
+  File? _videoFile;
 
   Future<void> _pickVideo(ImageSource source) async {
     XFile? pickedFile = await ImagePicker().pickVideo(source: source);
 
     if (pickedFile != null) {
       setState(() {
-
         _videoFile = File(pickedFile.path);
-
-
       });
     }
   }
 
-
   Future<void> imagePicker({required ImageSource source}) async {
-
-    final XFile ?  pickedFile = await _imagePicker.pickImage(source: source);
-     _croppedFile = await ImageCropper().cropImage(
-      sourcePath:  pickedFile!.path,
+    final XFile? pickedFile = await _imagePicker.pickImage(source: source);
+    _croppedFile = await ImageCropper().cropImage(
+      sourcePath: pickedFile!.path,
       maxWidth: 600,
       maxHeight: 600,
     );
@@ -73,10 +68,9 @@ class _CreateUserPostState extends State<CreateUserPost> {
   //   } else {}
   // }
 
-
   @override
   Widget build(BuildContext context) {
-    return   Scaffold(
+    return Scaffold(
       appBar: AppBar(title: const Text("Create post")),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
@@ -87,7 +81,8 @@ class _CreateUserPostState extends State<CreateUserPost> {
             const Text("Upload Post"),
             20.heightBox,
             Container(
-              height: 500.ah,width: MediaQuery.of(context).size.width,
+              height: 500.ah,
+              width: MediaQuery.of(context).size.width,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
                 border: Border.all(color: Colors.black26),
@@ -102,24 +97,30 @@ class _CreateUserPostState extends State<CreateUserPost> {
                         20.widthBox,
                         const Text("Pramod"),
                         20.widthBox,
-                        IconButton( icon : const Icon(Icons.attachment_sharp,color: Colors.red,),onPressed: (){
-                          _showPicker(context);
-                        },),
+                        IconButton(
+                          icon: const Icon(
+                            Icons.attachment_sharp,
+                            color: Colors.red,
+                          ),
+                          onPressed: () {
+                            _showPicker(context);
+                          },
+                        ),
                       ],
                     ),
                     20.heightBox,
-                    Expanded(child: _image != null ? Image.file(File(_croppedFile!.path)) : InkWell(
-                      onTap: (){
-                        _showPicker(context);
-                      },
-                        child: SizedBox(
-                            height: 220.ah,
-                            child: const Center(child: Text("Pick File")))))
+                    Expanded(
+                        child: _image != null
+                            ? Image.file(File(_croppedFile!.path))
+                            : InkWell(
+                                onTap: () {
+                                  _showPicker(context);
+                                },
+                                child: SizedBox(height: 220.ah, child: const Center(child: Text("Pick File")))))
                   ],
                 ),
               ),
             )
-
           ],
         ),
       ),

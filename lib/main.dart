@@ -21,7 +21,7 @@ import 'messaing_service/messaging_service.dart';
 late Size mq;
 final navigatorKey = GlobalKey<NavigatorState>();
 List<CameraDescription>? cameras;
-final Logger kLogger=Logger();
+final Logger kLogger = Logger();
 
 void main() async {
   runZonedGuarded<Future<void>>(() async {
@@ -36,7 +36,6 @@ void main() async {
         Permission.notification.request();
       }
     });
-
 
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       String payloadData = jsonEncode(message.data);

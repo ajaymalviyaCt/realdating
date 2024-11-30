@@ -12,8 +12,7 @@ class GetClassifiedRequestPage extends StatefulWidget {
   const GetClassifiedRequestPage({super.key});
 
   @override
-  State<GetClassifiedRequestPage> createState() =>
-      _GetClassifiedRequestPageState();
+  State<GetClassifiedRequestPage> createState() => _GetClassifiedRequestPageState();
 }
 
 class _GetClassifiedRequestPageState extends State<GetClassifiedRequestPage> {
@@ -30,8 +29,8 @@ class _GetClassifiedRequestPageState extends State<GetClassifiedRequestPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-     classifiedRequestC.GetClassifiedRequestMethod(true);
-   }
+    classifiedRequestC.GetClassifiedRequestMethod(true);
+  }
 
   //for filtteing check box
   @override
@@ -44,8 +43,7 @@ class _GetClassifiedRequestPageState extends State<GetClassifiedRequestPage> {
         child: Scaffold(
           key: scaffoldKey,
           endDrawer: endDrawer(context),
-          appBar: preferredSizeAppBar(
-              "Classified Request", "assets/icons/filter.svg", () {
+          appBar: preferredSizeAppBar("Classified Request", "assets/icons/filter.svg", () {
             _openEndDrawer();
           }),
           body: Obx(
@@ -63,8 +61,7 @@ class _GetClassifiedRequestPageState extends State<GetClassifiedRequestPage> {
                               child: Text("No Request Found !!"),
                             )
                           : ListView.builder(
-                              itemCount: classifiedRequestC
-                                  .filteredClassifiedRequests.length,
+                              itemCount: classifiedRequestC.filteredClassifiedRequests.length,
                               itemBuilder: (context, index) {
                                 return Container(
                                   decoration: ShapeDecoration(
@@ -86,8 +83,7 @@ class _GetClassifiedRequestPageState extends State<GetClassifiedRequestPage> {
                                     children: [
                                       //first row
                                       Row(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
+                                        crossAxisAlignment: CrossAxisAlignment.center,
                                         children: [
                                           CircleAvatar(
                                             child: Container(
@@ -106,8 +102,7 @@ class _GetClassifiedRequestPageState extends State<GetClassifiedRequestPage> {
                                           ),
                                           10.w.widthBox,
                                           Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
+                                            crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
                                               Text(
                                                 '${classifiedRequestC.filteredClassifiedRequests[index].invitedBy!.firstName} ${classifiedRequestC.filteredClassifiedRequests[index].invitedBy!.lastName}',
@@ -171,8 +166,7 @@ class _GetClassifiedRequestPageState extends State<GetClassifiedRequestPage> {
                                       16.ah.heightBox,
                                       Row(
                                         children: [
-                                          SvgPicture.asset(
-                                              'assets/icons/calender.svg'),
+                                          SvgPicture.asset('assets/icons/calender.svg'),
                                           10.w.widthBox,
                                           Text(
                                             '${classifiedRequestC.filteredClassifiedRequests[index].date}',
@@ -186,8 +180,7 @@ class _GetClassifiedRequestPageState extends State<GetClassifiedRequestPage> {
                                             ),
                                           ),
                                           const Spacer(),
-                                          SvgPicture.asset(
-                                              'assets/icons/clock.svg'),
+                                          SvgPicture.asset('assets/icons/clock.svg'),
                                           10.w.widthBox,
                                           Text(
                                             '${classifiedRequestC.filteredClassifiedRequests[index].time}',
@@ -201,8 +194,7 @@ class _GetClassifiedRequestPageState extends State<GetClassifiedRequestPage> {
                                             ),
                                           ),
                                           const Spacer(),
-                                          SvgPicture.asset(
-                                              'assets/icons/a_haertbit.svg'),
+                                          SvgPicture.asset('assets/icons/a_haertbit.svg'),
                                           10.w.widthBox,
                                           Text(
                                             classifiedRequestC.filteredClassifiedRequests[index].activity,
@@ -247,62 +239,59 @@ class _GetClassifiedRequestPageState extends State<GetClassifiedRequestPage> {
                                           const Spacer(),
                                           InkWell(
                                             onTap: () {
-                                              classifiedRequestC.indexselect.value=index;
-                                              classifiedRequestC.aceptedRejectMethod("${classifiedRequestC.filteredClassifiedRequests[index].invitedBy!.id}","${classifiedRequestC.filteredClassifiedRequests[index].id}");
-                                               classifiedRequestC.GetClassifiedRequestMethod(false);
+                                              classifiedRequestC.indexselect.value = index;
+                                              classifiedRequestC.aceptedRejectMethod("${classifiedRequestC.filteredClassifiedRequests[index].invitedBy!.id}",
+                                                  "${classifiedRequestC.filteredClassifiedRequests[index].id}");
+                                              classifiedRequestC.GetClassifiedRequestMethod(false);
                                               // setState(() {
                                               //
                                               // });
                                             },
                                             child: Obx(
-                                              ()=> Container(
+                                              () => Container(
                                                 width: 110.w,
                                                 height: 30,
                                                 decoration: BoxDecoration(
-                                                    gradient:
-                                                    const LinearGradient(
-                                                      begin: Alignment(
-                                                          0.00, -1.00),
-                                                      end:
-                                                      Alignment(0, 1),
-                                                      colors: [
-                                                        Color(0xFFF65F51),
-                                                        Color(0xFFFB4967)
-                                                      ],
+                                                    gradient: const LinearGradient(
+                                                      begin: Alignment(0.00, -1.00),
+                                                      end: Alignment(0, 1),
+                                                      colors: [Color(0xFFF65F51), Color(0xFFFB4967)],
                                                     ),
-                                                    borderRadius:
-                                                    BorderRadius
-                                                        .circular(
-                                                        30)),
-                                                child:   Center(
-                                                  child: classifiedRequestC.isLoadingApceted.value ?
-                                                  classifiedRequestC.indexselect.value == index ? const SizedBox( height: 20,width: 20, child: CircularProgressIndicator(color: Colors.white,strokeWidth: 2,)) : Text(
-                                                    'Accept',
-                                                    style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontSize: 13.adaptSize,
-                                                      fontFamily: 'Inter',
-                                                      fontWeight:
-                                                      FontWeight.w600,
-                                                      height: 0,
-                                                      letterSpacing:
-                                                      -0.30,
-                                                    ),
-                                                  ) :Center(
-                                                    child: Text(
-                                                      'Accept',
-                                                      style: TextStyle(
-                                                        color: Colors.white,
-                                                        fontSize: 13.adaptSize,
-                                                        fontFamily: 'Inter',
-                                                        fontWeight:
-                                                        FontWeight.w600,
-                                                        height: 0,
-                                                        letterSpacing:
-                                                        -0.30,
-                                                      ),
-                                                    ),
-                                                  ) ,
+                                                    borderRadius: BorderRadius.circular(30)),
+                                                child: Center(
+                                                  child: classifiedRequestC.isLoadingApceted.value
+                                                      ? classifiedRequestC.indexselect.value == index
+                                                          ? const SizedBox(
+                                                              height: 20,
+                                                              width: 20,
+                                                              child: CircularProgressIndicator(
+                                                                color: Colors.white,
+                                                                strokeWidth: 2,
+                                                              ))
+                                                          : Text(
+                                                              'Accept',
+                                                              style: TextStyle(
+                                                                color: Colors.white,
+                                                                fontSize: 13.adaptSize,
+                                                                fontFamily: 'Inter',
+                                                                fontWeight: FontWeight.w600,
+                                                                height: 0,
+                                                                letterSpacing: -0.30,
+                                                              ),
+                                                            )
+                                                      : Center(
+                                                          child: Text(
+                                                            'Accept',
+                                                            style: TextStyle(
+                                                              color: Colors.white,
+                                                              fontSize: 13.adaptSize,
+                                                              fontFamily: 'Inter',
+                                                              fontWeight: FontWeight.w600,
+                                                              height: 0,
+                                                              letterSpacing: -0.30,
+                                                            ),
+                                                          ),
+                                                        ),
                                                 ),
                                                 // child: Padding(
                                                 //   padding:
@@ -545,8 +534,7 @@ class _GetClassifiedRequestPageState extends State<GetClassifiedRequestPage> {
     );
   }
 
-  PreferredSize preferredSizeAppBar(
-      String title, String icon, Function()? onTap) {
+  PreferredSize preferredSizeAppBar(String title, String icon, Function()? onTap) {
     return PreferredSize(
       preferredSize: Size.fromHeight(114.ah), // preferred height for the app bar
       child: Row(

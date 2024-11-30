@@ -40,15 +40,7 @@ class Comments {
   String? commentOwnerName;
   String? profileImage;
 
-  Comments(
-      {this.id,
-        this.businessId,
-        this.postId,
-        this.postComment,
-        this.createdAt,
-        this.updatedAt,
-        this.commentOwnerName,
-        this.profileImage});
+  Comments({this.id, this.businessId, this.postId, this.postComment, this.createdAt, this.updatedAt, this.commentOwnerName, this.profileImage});
 
   Comments.fromJson(Map<String, dynamic> json) {
     id = json['id'];

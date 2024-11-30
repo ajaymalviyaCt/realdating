@@ -34,8 +34,7 @@ class _InviteFriendPageState extends State<InviteFriendPage> {
                 // Border color, equivalent to var(--border-e-8-e-6-ea, #E8E6EA) in CSS
                 width: 1.0, // Border width
               ),
-              color: const Color(
-                  0xFFFFFFFF), // Background color, equivalent to var(--white-ffffff, #FFF) in CSS
+              color: const Color(0xFFFFFFFF), // Background color, equivalent to var(--white-ffffff, #FFF) in CSS
             ),
             child: const Icon(
               Icons.arrow_back_ios_outlined,
@@ -51,25 +50,16 @@ class _InviteFriendPageState extends State<InviteFriendPage> {
           fWeight: FontWeight.w600,
           lineHeight: 24,
         ),
-
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Image(image: AssetImage('assets/images/undraw_love_re_mwbq 1.png')),
           SizedBox(height: 50),
-          customTextCommon(
-              text: 'Share With Friends',
-              fSize: 24,
-              fWeight: FontWeight.w600,
-              lineHeight: 30),
+          customTextCommon(text: 'Share With Friends', fSize: 24, fWeight: FontWeight.w600, lineHeight: 30),
           SizedBox(height: 44),
           customTextCommon(
-              text:
-              ' "Share app, invite friends, together \n explore endless possibilities. Enjoy!" ',
-              fSize: 16,
-              fWeight: FontWeight.w500,
-              lineHeight: 22),
+              text: ' "Share app, invite friends, together \n explore endless possibilities. Enjoy!" ', fSize: 16, fWeight: FontWeight.w500, lineHeight: 22),
           Spacer(),
           InkWell(
             onTap: () {
@@ -131,8 +121,7 @@ class _InviteFriendPageState extends State<InviteFriendPage> {
                   borderRadius: BorderRadius.circular(15),
                 ),
               ),
-              child: Center(
-                  child: SvgPicture.asset("assets/icons/backbtttonIcon.svg")),
+              child: Center(child: SvgPicture.asset("assets/icons/backbtttonIcon.svg")),
             ).paddingOnly(
               left: 16.w,
             ),

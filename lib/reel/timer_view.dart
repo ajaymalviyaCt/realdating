@@ -5,7 +5,8 @@ import 'common_import.dart';
 class UnlockTimerView extends StatefulWidget {
   final int unlockTime; // Time in seconds to unlock the lesson
   final VoidCallback completionHandler;
-  const UnlockTimerView({Key? key, required this.unlockTime,required this.completionHandler}) : super(key: key);
+
+  const UnlockTimerView({Key? key, required this.unlockTime, required this.completionHandler}) : super(key: key);
 
   @override
   UnlockTimerViewState createState() => UnlockTimerViewState();
@@ -34,7 +35,6 @@ class UnlockTimerViewState extends State<UnlockTimerView> {
   }
 
   void _startTimer() {
-
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       setState(() {
         // print('_remainingTime $_remainingTime');
@@ -60,7 +60,6 @@ class UnlockTimerViewState extends State<UnlockTimerView> {
 
   @override
   Widget build(BuildContext context) {
-
     return BodyLargeText(
       _formatTime(_remainingTime),
       color: Colors.white,

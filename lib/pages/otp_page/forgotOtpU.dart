@@ -25,7 +25,6 @@ class _OtpPageForgotState extends State<OtpPageForgot> {
 
   final _formKey = GlobalKey<FormState>();
 
-
   @override
   void initState() {
     print("otp geeta user signup${widget.otp}");
@@ -56,16 +55,8 @@ class _OtpPageForgotState extends State<OtpPageForgot> {
             padding: EdgeInsets.symmetric(vertical: 50),
             child: Column(
               children: [
-                customTextCommon(
-                    text: "Type the verification code",
-                    fSize: 18,
-                    fWeight: FontWeight.w500,
-                    lineHeight: 20),
-                customTextCommon(
-                    text: " we’ve sent you",
-                    fSize: 18,
-                    fWeight: FontWeight.w500,
-                    lineHeight: 20),
+                customTextCommon(text: "Type the verification code", fSize: 18, fWeight: FontWeight.w500, lineHeight: 20),
+                customTextCommon(text: " we’ve sent you", fSize: 18, fWeight: FontWeight.w500, lineHeight: 20),
                 SizedBox(height: 140.h),
                 Text(
                   "OTP : ${widget.otp}",

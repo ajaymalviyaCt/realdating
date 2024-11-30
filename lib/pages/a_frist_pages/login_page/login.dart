@@ -20,7 +20,7 @@ class LoginScreenPage extends StatefulWidget {
 
 class _LoginScreenPageState extends State<LoginScreenPage> {
   LoginController loginController = Get.put(LoginController());
-  SignUpController signUpController=Get.put(SignUpController());
+  SignUpController signUpController = Get.put(SignUpController());
 
   final _formKey = GlobalKey<FormState>();
 
@@ -55,9 +55,7 @@ class _LoginScreenPageState extends State<LoginScreenPage> {
                         width: MediaQuery.of(context).size.width,
                         height: 210.h,
                       ),
-                      Center(
-                          child: Image.asset(
-                              'assets/images/AppIcon-120px-40pt@3x 1.png')),
+                      Center(child: Image.asset('assets/images/AppIcon-120px-40pt@3x 1.png')),
                     ],
                   ),
                 ),
@@ -67,26 +65,47 @@ class _LoginScreenPageState extends State<LoginScreenPage> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      SizedBox(height: 15.h,),
+                      SizedBox(
+                        height: 15.h,
+                      ),
                       customTextCommon(
-                        text: "Welcome to Login !", fSize: 28, fWeight: FontWeight.w600, lineHeight: 31, color: Colors.white,),
-                      SizedBox(height: 14.h,),
-                      customTextCommon(text: "Sign in to continue", fSize: 17, fWeight: FontWeight.w400, lineHeight: 17, color: Colors.white,),
-                      SizedBox(height: 30.h,),
-                      CustumTextField(controller: loginController.emailController, validator: validateEmailField, hintText: 'Email',keyboardType: TextInputType.emailAddress,),
-                      SizedBox(height: 18.h,),
+                        text: "Welcome to Login !",
+                        fSize: 28,
+                        fWeight: FontWeight.w600,
+                        lineHeight: 31,
+                        color: Colors.white,
+                      ),
+                      SizedBox(
+                        height: 14.h,
+                      ),
+                      customTextCommon(
+                        text: "Sign in to continue",
+                        fSize: 17,
+                        fWeight: FontWeight.w400,
+                        lineHeight: 17,
+                        color: Colors.white,
+                      ),
+                      SizedBox(
+                        height: 30.h,
+                      ),
+                      CustumTextField(
+                        controller: loginController.emailController,
+                        validator: validateEmailField,
+                        hintText: 'Email',
+                        keyboardType: TextInputType.emailAddress,
+                      ),
+                      SizedBox(
+                        height: 18.h,
+                      ),
                       Obx(
                         () => CustumTextField(
                           onTap: () {
-                            loginController.seePassword.value =
-                                !loginController.seePassword.value;
+                            loginController.seePassword.value = !loginController.seePassword.value;
                           },
                           keyboardType: TextInputType.emailAddress,
                           controller: loginController.passwordController,
                           validator: validatePassword,
-                          suffixIconn: loginController.seePassword == true
-                              ? 'assets/icons/Eye Slash.svg'
-                              : 'assets/icons/eye.svg',
+                          suffixIconn: loginController.seePassword == true ? 'assets/icons/Eye Slash.svg' : 'assets/icons/eye.svg',
                           hintText: 'Password',
                           obscureText: loginController.seePassword.value,
                         ),
@@ -101,7 +120,9 @@ class _LoginScreenPageState extends State<LoginScreenPage> {
                           btntextclr: Colors.black,
                           loading: loginController.isLoadig.value,
                           btnFun: () {
-                            if (_formKey.currentState!.validate()) {loginController.loginWithEmail();}
+                            if (_formKey.currentState!.validate()) {
+                              loginController.loginWithEmail();
+                            }
                           },
                         ),
                       ),
@@ -112,11 +133,7 @@ class _LoginScreenPageState extends State<LoginScreenPage> {
                         onTap: () {
                           loginController.emailController.clear();
                           loginController.passwordController.clear();
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      const ForgetPassword()));
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => const ForgetPassword()));
                         },
                         child: Center(
                             child: customTextCommon(
@@ -135,27 +152,16 @@ class _LoginScreenPageState extends State<LoginScreenPage> {
                           signUpController.clearData();
                           loginController.emailController.clear();
                           loginController.passwordController.clear();
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => SignUpPage()));
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => SignUpPage()));
                         },
                         child: Container(
                           padding: EdgeInsets.only(left: 5, right: 5),
                           height: 50,
                           decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(5),
-                              color: Colors.transparent,
-                              border: Border.all(
-                                  color: Colors.white, width: 1)),
+                              borderRadius: BorderRadius.circular(5), color: Colors.transparent, border: Border.all(color: Colors.white, width: 1)),
                           child: Center(
-                            child: Text(
-                                'Don’t have an user account? Sign Up',
-                                style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w400,
-                                    fontFamily: 'Aboshi',
-                                    color: HexColor('#FFFFFF'))),
+                            child: Text('Don’t have an user account? Sign Up',
+                                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400, fontFamily: 'Aboshi', color: HexColor('#FFFFFF'))),
                           ),
                         ),
                       )
@@ -169,6 +175,4 @@ class _LoginScreenPageState extends State<LoginScreenPage> {
       ),
     );
   }
-
 }
-

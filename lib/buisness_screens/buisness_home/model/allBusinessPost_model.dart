@@ -35,18 +35,18 @@ class AllBusinessPostModel {
       );
 
   factory AllBusinessPostModel.fromJson(Map<String, dynamic> json) => AllBusinessPostModel(
-    success: json["success"],
-    message: json["message"],
-    status: json["status"],
-    posts: List<Post>.from(json["posts"].map((x) => Post.fromJson(x))),
-  );
+        success: json["success"],
+        message: json["message"],
+        status: json["status"],
+        posts: List<Post>.from(json["posts"].map((x) => Post.fromJson(x))),
+      );
 
   Map<String, dynamic> toJson() => {
-    "success": success,
-    "message": message,
-    "status": status,
-    "posts": List<dynamic>.from(posts.map((x) => x.toJson())),
-  };
+        "success": success,
+        "message": message,
+        "status": status,
+        "posts": List<dynamic>.from(posts.map((x) => x.toJson())),
+      };
 }
 
 class Post {
@@ -124,44 +124,44 @@ class Post {
       );
 
   factory Post.fromJson(Map<String, dynamic> json) => Post(
-    id: json["id"],
-    businessId: json["business_id"],
-    postName: json["post_name"],
-    post: json["post"],
-    caption: json["caption"],
-    miniblogs: json["miniblogs"],
-    postType: json["post_type"],
-    totalLikes: json["total_likes"],
-    totalComments: json["total_comments"],
-    createdAt: DateTime.parse(json["created_at"]),
-    updatedAt: DateTime.parse(json["updated_at"]),
-    likedByUser: json["liked_by_user"],
-    businessName: json["business_name"]??"",
-    profileImage: json["profile_image"]??"",
-    likesInfo: List<dynamic>.from(json["likes_info"].map((x) => x)),
-    comments: List<Comment>.from(json["comments"].map((x) => Comment.fromJson(x))),
-  );
+        id: json["id"],
+        businessId: json["business_id"],
+        postName: json["post_name"],
+        post: json["post"],
+        caption: json["caption"],
+        miniblogs: json["miniblogs"],
+        postType: json["post_type"],
+        totalLikes: json["total_likes"],
+        totalComments: json["total_comments"],
+        createdAt: DateTime.parse(json["created_at"]),
+        updatedAt: DateTime.parse(json["updated_at"]),
+        likedByUser: json["liked_by_user"],
+        businessName: json["business_name"] ?? "",
+        profileImage: json["profile_image"] ?? "",
+        likesInfo: List<dynamic>.from(json["likes_info"].map((x) => x)),
+        comments: List<Comment>.from(json["comments"].map((x) => Comment.fromJson(x))),
+      );
 
   Map<String, dynamic> toJson() => {
-    "id": id,
-    "business_id": businessId,
-    "post_name": postName,
-    "post": post,
-    "caption": caption,
-    "miniblogs": miniblogs,
-    "post_type": postType,
-    "total_likes": totalLikes,
-    "total_comments": totalComments,
-    "created_at": createdAt.toIso8601String(),
-    "updated_at": updatedAt.toIso8601String(),
-    "liked_by_user": likedByUser,
-    "business_name": businessName??"",
-    "profile_image": profileImage??"",
-    "likes_info": List<dynamic>.from(likesInfo.map((x) => x)),
-    "comments": List<dynamic>.from(comments.map((x) => x)),
-  };
-
+        "id": id,
+        "business_id": businessId,
+        "post_name": postName,
+        "post": post,
+        "caption": caption,
+        "miniblogs": miniblogs,
+        "post_type": postType,
+        "total_likes": totalLikes,
+        "total_comments": totalComments,
+        "created_at": createdAt.toIso8601String(),
+        "updated_at": updatedAt.toIso8601String(),
+        "liked_by_user": likedByUser,
+        "business_name": businessName ?? "",
+        "profile_image": profileImage ?? "",
+        "likes_info": List<dynamic>.from(likesInfo.map((x) => x)),
+        "comments": List<dynamic>.from(comments.map((x) => x)),
+      };
 }
+
 class Comment {
   int id;
   int businessId;
@@ -184,24 +184,24 @@ class Comment {
   });
 
   factory Comment.fromJson(Map<String, dynamic> json) => Comment(
-    id: json["id"],
-    businessId: json["business_id"],
-    postId: json["post_id"],
-    postComment: json["post_comment"],
-    createdAt: DateTime.parse(json["created_at"]),
-    updatedAt: DateTime.parse(json["updated_at"]),
-    commentOwnerName: json["comment_owner_name"],
-    profileImage: json["profile_image"],
-  );
+        id: json["id"],
+        businessId: json["business_id"],
+        postId: json["post_id"],
+        postComment: json["post_comment"],
+        createdAt: DateTime.parse(json["created_at"]),
+        updatedAt: DateTime.parse(json["updated_at"]),
+        commentOwnerName: json["comment_owner_name"],
+        profileImage: json["profile_image"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "id": id,
-    "business_id": businessId,
-    "post_id": postId,
-    "post_comment": postComment,
-    "created_at": createdAt.toIso8601String(),
-    "updated_at": updatedAt.toIso8601String(),
-    "comment_owner_name": commentOwnerName,
-    "profile_image": profileImage,
-  };
+        "id": id,
+        "business_id": businessId,
+        "post_id": postId,
+        "post_comment": postComment,
+        "created_at": createdAt.toIso8601String(),
+        "updated_at": updatedAt.toIso8601String(),
+        "comment_owner_name": commentOwnerName,
+        "profile_image": profileImage,
+      };
 }

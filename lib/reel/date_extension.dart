@@ -23,9 +23,7 @@ extension DateOnlyCompare on DateTime {
 
   bool get isYesterday {
     final yesterday = DateTime.now().subtract(const Duration(days: 1));
-    return yesterday.day == day &&
-        yesterday.month == month &&
-        yesterday.year == year;
+    return yesterday.day == day && yesterday.month == month && yesterday.year == year;
   }
 
   bool get isThisWeek {

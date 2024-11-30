@@ -53,9 +53,9 @@ class _SupportScreenState extends State<SupportScreen> {
 
   @override
   void dispose() {
-
     super.dispose();
   }
+
   //
   // Future<void> initConnectivity() async {
   //   late ConnectivityResult result;
@@ -81,9 +81,7 @@ class _SupportScreenState extends State<SupportScreen> {
       content: Row(
         children: [
           const CircularProgressIndicator(),
-          Container(
-              margin: const EdgeInsets.only(left: 7),
-              child: const Text("Loading...")),
+          Container(margin: const EdgeInsets.only(left: 7), child: const Text("Loading...")),
         ],
       ),
     );
@@ -243,119 +241,97 @@ class _SupportScreenState extends State<SupportScreen> {
             key: formKey,
             child: SingleChildScrollView(
               reverse: true,
-              child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const SizedBox(
-                      height: 30,
+              child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                const SizedBox(
+                  height: 30,
+                ),
+                customTextC(text: "Name", fSize: 16, fWeight: FontWeight.w500, lineHeight: 36),
+                SizedBox(
+                  height: 70,
+                  child: TextFormField(
+                    validator: validateName,
+                    controller: nameController,
+                    // maxLines: 1,
+                    // Set the maximum number of lines for input
+                    decoration: InputDecoration(
+                      enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: const BorderSide(
+                            width: 1,
+                            color: Colors.black12,
+                          )),
+                      focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: const BorderSide(
+                            width: 1,
+                            color: Colors.black12,
+                          )),
+                      errorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: const BorderSide(
+                            width: 1,
+                            color: Colors.red,
+                          )),
+                      focusedErrorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: const BorderSide(
+                            width: 1,
+                            color: Colors.black,
+                          )),
+                      hintText: 'Please Enter Name',
+                      border: OutlineInputBorder(borderSide: BorderSide(color: Colors.grey.withOpacity(0.2))),
                     ),
-                    customTextC(
-                        text: "Name",
-                        fSize: 16,
-                        fWeight: FontWeight.w500,
-                        lineHeight: 36),
-
-                    SizedBox(
-                      height: 70,
-                      child: TextFormField(
-                        validator: validateName,
-                        controller: nameController,
-                        // maxLines: 1,
-                        // Set the maximum number of lines for input
-                        decoration: InputDecoration(
-                          enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              borderSide: const BorderSide(
-                                width: 1,
-                                color: Colors.black12,
-                              )),
-                          focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              borderSide: const BorderSide(
-                                width: 1,
-                                color: Colors.black12,
-                              )),
-                          errorBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              borderSide: const BorderSide(
-                                width: 1,
-                                color: Colors.red,
-                              )),
-                          focusedErrorBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              borderSide: const BorderSide(
-                                width: 1,
-                                color: Colors.black,
-                              )),
-                          hintText: 'Please Enter Name',
-                          border: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: Colors.grey.withOpacity(0.2))),
-                        ),
-                      ),
+                  ),
+                ),
+                customTextC(text: "Email", fSize: 16, fWeight: FontWeight.w500, lineHeight: 36),
+                SizedBox(
+                  height: 70,
+                  child: CustumProfileTextField1(
+                    controller: emailController,
+                    validator: validateEmailField,
+                    keyboardType: TextInputType.emailAddress,
+                    hintText: 'Please Enter Email',
+                  ),
+                ),
+                customTextC(text: "Message", fSize: 16, fWeight: FontWeight.w500, lineHeight: 36),
+                SizedBox(
+                  // height: 70,
+                  child: TextFormField(
+                    validator: notEmptyMsgValidator,
+                    controller: messageController,
+                    maxLines: 4,
+                    // Set the maximum number of lines for input
+                    decoration: InputDecoration(
+                      enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: const BorderSide(
+                            width: 1,
+                            color: Colors.black12,
+                          )),
+                      focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: const BorderSide(
+                            width: 1,
+                            color: Colors.black12,
+                          )),
+                      errorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: const BorderSide(
+                            width: 1,
+                            color: Colors.red,
+                          )),
+                      focusedErrorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: const BorderSide(
+                            width: 1,
+                            color: Colors.black,
+                          )),
+                      hintText: 'Type your message here...',
+                      border: OutlineInputBorder(borderSide: BorderSide(color: Colors.grey.withOpacity(0.2))),
                     ),
-
-                    customTextC(
-                        text: "Email",
-                        fSize: 16,
-                        fWeight: FontWeight.w500,
-                        lineHeight: 36),
-
-                    SizedBox(
-                      height: 70,
-                      child: CustumProfileTextField1(
-                        controller: emailController,
-                        validator: validateEmailField,
-                        keyboardType: TextInputType.emailAddress,
-                        hintText: 'Please Enter Email',
-                      ),
-                    ),
-
-                    customTextC(
-                        text: "Message",
-                        fSize: 16,
-                        fWeight: FontWeight.w500,
-                        lineHeight: 36),
-                    SizedBox(
-                      // height: 70,
-                      child: TextFormField(
-                        validator: notEmptyMsgValidator,
-                        controller: messageController,
-                        maxLines: 4,
-                        // Set the maximum number of lines for input
-                        decoration: InputDecoration(
-                          enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              borderSide: const BorderSide(
-                                width: 1,
-                                color: Colors.black12,
-                              )),
-                          focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              borderSide: const BorderSide(
-                                width: 1,
-                                color: Colors.black12,
-                              )),
-                          errorBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              borderSide: const BorderSide(
-                                width: 1,
-                                color: Colors.red,
-                              )),
-                          focusedErrorBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              borderSide: const BorderSide(
-                                width: 1,
-                                color: Colors.black,
-                              )),
-                          hintText: 'Type your message here...',
-                          border: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: Colors.grey.withOpacity(0.2))),
-                        ),
-                      ),
-                    ),
-                    /*  Obx(
+                  ),
+                ),
+                /*  Obx(
                           () => CustumTextField(
                         onTap: () {
                           loginController.seePassword.value =
@@ -371,17 +347,15 @@ class _SupportScreenState extends State<SupportScreen> {
                       ),
                     ),*/
 
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    updateBtn(context),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Padding(
-                        padding: EdgeInsets.only(
-                            bottom: MediaQuery.of(context).viewInsets.bottom))
-                  ]),
+                const SizedBox(
+                  height: 20,
+                ),
+                updateBtn(context),
+                const SizedBox(
+                  height: 20,
+                ),
+                Padding(padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom))
+              ]),
             ),
           ),
         ));
@@ -394,8 +368,7 @@ class _SupportScreenState extends State<SupportScreen> {
       child: Button(
         btnColor: Colors.redAccent,
         buttonName: 'Send',
-        btnstyle: textstylesubtitle2(context)!
-            .copyWith(color: colorWhite, fontFamily: 'Poppins'),
+        btnstyle: textstylesubtitle2(context)!.copyWith(color: colorWhite, fontFamily: 'Poppins'),
         borderRadius: BorderRadius.circular(30.00),
         btnWidth: deviceWidth(context),
         btnHeight: 60,

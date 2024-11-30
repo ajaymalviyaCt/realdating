@@ -22,8 +22,7 @@ class OtpController extends GetxController {
   otpverify(String mobileNo) async {
     print("loginwithEmail");
     isLoadig(true);
-    final response = await BaseClient01().post(Appurls.otp_verifcation,
-        {'code': '${Codecontroller.value.text}', 'phone_number': '$mobileNo'});
+    final response = await BaseClient01().post(Appurls.otp_verifcation, {'code': '${Codecontroller.value.text}', 'phone_number': '$mobileNo'});
     print(response);
     isLoadig(false);
     bool success = response["success"];
@@ -44,8 +43,7 @@ class OtpController extends GetxController {
         fontSize: 16.0,
       );
       // mobileNo=null;
-    }else{
-
+    } else {
       Fluttertoast.showToast(
         msg: '$msg',
         toastLength: Toast.LENGTH_SHORT,
@@ -55,14 +53,12 @@ class OtpController extends GetxController {
         fontSize: 16.0,
       );
     }
-
   }
 
   otpverifyForgot(email) async {
     print("loginwithEmail");
     isLoadig(true);
-    final response = await BaseClient01().post(Appurls.email_verifcation,
-        {'OTP': '${Codecontroller.value.text}','email': '${email}'});
+    final response = await BaseClient01().post(Appurls.email_verifcation, {'OTP': '${Codecontroller.value.text}', 'email': '${email}'});
     print(response);
     isLoadig(false);
     bool success = response["success"];
@@ -73,7 +69,9 @@ class OtpController extends GetxController {
     print("msg ___$msg");
     print("otp ___$otp");
     if (success) {
-      Get.to(() => NewPasswordPage( email: email,));
+      Get.to(() => NewPasswordPage(
+            email: email,
+          ));
       Codecontroller.clear();
       Fluttertoast.showToast(
         msg: '$msg',
@@ -84,8 +82,7 @@ class OtpController extends GetxController {
         fontSize: 16.0,
       );
       // mobileNo=null;
-    }else{
-
+    } else {
       Fluttertoast.showToast(
         msg: '$msg',
         toastLength: Toast.LENGTH_SHORT,
@@ -95,6 +92,5 @@ class OtpController extends GetxController {
         fontSize: 16.0,
       );
     }
-
   }
 }

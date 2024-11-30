@@ -5,17 +5,14 @@ class signup_model {
   String? token;
   UserInfo? userInfo;
 
-  signup_model(
-      {this.status, this.success, this.message, this.token, this.userInfo});
+  signup_model({this.status, this.success, this.message, this.token, this.userInfo});
 
   signup_model.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     success = json['success'];
     message = json['message'];
     token = json['token'];
-    userInfo = json['user_info'] != null
-        ? new UserInfo.fromJson(json['user_info'])
-        : null;
+    userInfo = json['user_info'] != null ? new UserInfo.fromJson(json['user_info']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -59,29 +56,29 @@ class UserInfo {
 
   UserInfo(
       {this.id,
-        this.username,
-        this.firstName,
-        this.lastName,
-        this.email,
-        this.profileImage,
-        this.password,
-        this.showPassword,
-        this.phoneNumber,
-        this.age,
-        this.gender,
-        this.dOB,
-        this.height,
-        this.userType,
-        this.fcmToken,
-        this.verifyUser,
-        this.phoneVerify,
-        this.interest,
-        this.hobbies,
-        this.oTP,
-        this.token,
-        this.actToken,
-        this.createdAt,
-        this.updateAt});
+      this.username,
+      this.firstName,
+      this.lastName,
+      this.email,
+      this.profileImage,
+      this.password,
+      this.showPassword,
+      this.phoneNumber,
+      this.age,
+      this.gender,
+      this.dOB,
+      this.height,
+      this.userType,
+      this.fcmToken,
+      this.verifyUser,
+      this.phoneVerify,
+      this.interest,
+      this.hobbies,
+      this.oTP,
+      this.token,
+      this.actToken,
+      this.createdAt,
+      this.updateAt});
 
   UserInfo.fromJson(Map<String, dynamic> json) {
     id = json['id'];

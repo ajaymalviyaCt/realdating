@@ -1,5 +1,4 @@
-String supportRequestHasBeenSubmittedString =
-    'Support request has been submitted.';
+String supportRequestHasBeenSubmittedString = 'Support request has been submitted.';
 String allFieldAreRequiedString = 'All field are required';
 String helpString = 'Help';
 String backString = 'Back';
@@ -35,8 +34,7 @@ String newMessageString = 'New Message';
 String replyString = 'Reply';
 String forwardString = 'Forward';
 String chatsString = 'Chats';
-String groupGroupInfoString =
-    "Anyone can view this group and can join this group, You can remove any member in future";
+String groupGroupInfoString = "Anyone can view this group and can join this group, You can remove any member in future";
 
 String callLogString = 'Call log';
 String contactInfoString = 'Contact info';
@@ -70,20 +68,16 @@ String noString = 'No...';
 String yesString = 'Yes...';
 String nextString = 'Next';
 
-String pleaseGrantRequiredPermissionString =
-    "Please grant the required permission from settings to access this feature.";
+String pleaseGrantRequiredPermissionString = "Please grant the required permission from settings to access this feature.";
 
-String noInternetString =
-    'Please check your internet connection and try again.';
+String noInternetString = 'Please check your internet connection and try again.';
 String noDataString = 'No data found';
 String watchAdsString = 'Watch Ads';
-String watchAdsRewardString =
-    'By watching Ads, you get to earn coins_value Coin per advert you watch. Click the button to start earning! ';
+String watchAdsRewardString = 'By watching Ads, you get to earn coins_value Coin per advert you watch. Click the button to start earning! ';
 
 String noProductAvailableString = 'No product is available';
 
-String purchaseErrorString =
-    'Some error occurred while performing purchase, please try again later.';
+String purchaseErrorString = 'Some error occurred while performing purchase, please try again later.';
 
 String storeIsNotAvailableString = 'Store is not available.';
 
@@ -92,8 +86,7 @@ String cancelledByUserString = 'Cancelled by user';
 String faceIdString = 'Face ID';
 String touchIdString = 'Touch ID';
 
-String signingInTermsString =
-    "By signing up, you are acknowledging that you have read, understood and accept our";
+String signingInTermsString = "By signing up, you are acknowledging that you have read, understood and accept our";
 
 String termsOfServiceString = "Terms of Service";
 String welcomeString = 'Welcome';
@@ -128,17 +121,14 @@ String enterOTPString = 'Enter OTP';
 String wrongOTPString = 'Wrong OTP, please enter the correct OTP';
 String resendOTPString = 'Resend OTP';
 
-String pleaseEnterOneTimePasswordString =
-    "Please enter the one time password sent to your email to verify your account and change your password";
+String pleaseEnterOneTimePasswordString = "Please enter the one time password sent to your email to verify your account and change your password";
 
-String pleaseEnterOneTimePasswordPhoneNumberChangeString =
-    "Please enter the one time password sent to your phone number to verify your phone number";
+String pleaseEnterOneTimePasswordPhoneNumberChangeString = "Please enter the one time password sent to your phone number to verify your phone number";
 
 String helpToGetAccountString = "Let’s help you get back your account";
 String loginUsingAnotherAccountString = "Login another account instead";
 
-String pleaseEnterOtpSentToYourPhoneString =
-    "Please enter the one time password sent to your phone number to verify your phone number";
+String pleaseEnterOtpSentToYourPhoneString = "Please enter the one time password sent to your phone number to verify your phone number";
 
 String helpToChangePhoneNumberString = "Let’s help you to change phone number";
 
@@ -201,8 +191,7 @@ String coinsAddedString = 'Coins added to your account';
 String pleaseEnterPasswordString = 'Please enter password';
 String pleaseEnterConfirmPasswordString = 'Please enter confirm password';
 String passwordsDoesNotMatchedString = 'Passwords do not match';
-String createAccountForTopPicksString =
-    'Create an account to our top picks for you!';
+String createAccountForTopPicksString = 'Create an account to our top picks for you!';
 String pleaseEnterUserNameString = 'Please enter user name';
 String pleaseEnterValidUserNameString = 'Please enter valid user name';
 String userNameCanNotHaveSpaceString = 'Username can not have spaces';
@@ -212,10 +201,8 @@ String enterConfirmPasswordString = 'Enter confirm password';
 String enterOldPasswordString = 'Enter old password';
 String pleaseEnterYourPassword = 'Please enter you password';
 String passwordIsToShort = 'Your password is too short';
-String passwordIsShortButAcceptable =
-    'Your password is acceptable but not strong';
-String passwordMustByAlphanumeric =
-    'Your password must contain letter and number';
+String passwordIsShortButAcceptable = 'Your password is acceptable but not strong';
+String passwordMustByAlphanumeric = 'Your password must contain letter and number';
 String passwordIsGreat = 'Your password is great';
 String pleaseEnterCategoryNameString = 'Please enter category name';
 String pleaseEnterSliderNameString = 'Please enter slider name';
@@ -265,8 +252,7 @@ String exportChatString = 'Export chat';
 String exportChatWithMediaString = 'Export chat with media';
 String exportChatWithoutMediaString = 'Export chat without media';
 
-String videoCantExceed20SecondsString =
-    'Video lengths can not exceed 20 seconds';
+String videoCantExceed20SecondsString = 'Video lengths can not exceed 20 seconds';
 
 String stickerString = 'Sticker';
 String sentAStickerString = 'Sent a Sticker';
@@ -328,8 +314,7 @@ String locationString = 'Location';
 String sentALocationString = 'Sent a Location';
 
 String createNewPwdString = 'Create new password';
-String createNewPwdConditionString =
-    'Your new password must be  different from last password';
+String createNewPwdConditionString = 'Your new password must be  different from last password';
 
 String oldPwdStrString = 'Old password';
 String newPwdStrString = 'New password';
@@ -353,10 +338,8 @@ String pleaseUploadWallpaperString = 'Please upload wallpaper';
 String pleaseUploadWallpaperCoverString = 'Please upload wallpaper cover image';
 
 String emailAddressString = 'Email Address';
-String resetPwdLinkSentString =
-    'Reset password link is sent to your email address';
-String resetPwdLinkWillBeSentString =
-    'Reset password link will be sent to your email address';
+String resetPwdLinkSentString = 'Reset password link is sent to your email address';
+String resetPwdLinkWillBeSentString = 'Reset password link will be sent to your email address';
 String emailDoesNotExistString = 'Email does not exists';
 String joinedString = 'Joined';
 String joinString = 'Join';
@@ -453,12 +436,10 @@ String postVideoString = "Post Video";
 String winnerAnnouncementPendingString = "WINNER ANNOUNCEMENT PENDING";
 String viewWinnerString = "VIEW WINNER";
 
-String checkYourCoinsAndEarnMoreCoinsString =
-    "Check your coins and earn more coins";
+String checkYourCoinsAndEarnMoreCoinsString = "Check your coins and earn more coins";
 String managePhotoAndAlbumsString = "Manage your photos and albums";
 String friendsNearByString = "Your friends are nearby,  find them!";
-String contactSupportQuickResponseString =
-    "Contact our support for quick fixes";
+String contactSupportQuickResponseString = "Contact our support for quick fixes";
 String trackEarningString = "Track your earnings";
 String tuneSettingsString = "Tune your app settings";
 String exitAppString = "Exit the app";
@@ -512,8 +493,7 @@ String typingString = "typing...";
 String postDeletedString = "Post deleted";
 
 String noPostFoundString = "No post updates found";
-String followFriendsToSeeUpdatesString =
-    "Follow your friends to see their post updates";
+String followFriendsToSeeUpdatesString = "Follow your friends to see their post updates";
 String noUserFoundString = "No user found";
 String noInvitationRequestString = "No invitation request";
 
@@ -548,16 +528,13 @@ String inviteUserString = "Invite user";
 
 String previewString = "Preview";
 String seeAllString = "See All";
-String alreadyInvitedInLiveString =
-    "Already invited {{user_name}} in live and waiting for confirmation";
+String alreadyInvitedInLiveString = "Already invited {{user_name}} in live and waiting for confirmation";
 
 String waitingToAcceptString = "Waiting to accept";
 String invitationDeclinedString = "Invitation declined";
-String invitationDeclinedByOpponentString =
-    "Your invitation for battle is declined by {{user_name}}";
+String invitationDeclinedByOpponentString = "Your invitation for battle is declined by {{user_name}}";
 String noResponseString = "No response";
-String noResponseByOpponentString =
-    "No response from {{user_name}} on live battle request";
+String noResponseByOpponentString = "No response from {{user_name}} on live battle request";
 
 String clubsString = "Clubs";
 String suggestedClubsString = "Suggested Clubs";
@@ -593,8 +570,7 @@ String editGroupInfoString = "Edit Group Info";
 String allParticipantsString = "All Participants";
 String onlyAdminsString = "Only Admins";
 
-String chooseWhoCanSendMessageInGroupString =
-    "Choose who can send message in group";
+String chooseWhoCanSendMessageInGroupString = "Choose who can send message in group";
 String chooseWhoCanEditGroupString = "Choose who can edit group";
 
 String followSomeUserToChatString = 'Follow some user to start chat';
@@ -611,18 +587,13 @@ String noNotificationFoundString = 'No Notification found';
 String enterTextHereString = 'Enter text here';
 String deleteAccountString = 'Delete account';
 
-String areYouSureToDeleteAccountString =
-    'Are you sure to delete account, Once account is deleted your all data will be deleted';
+String areYouSureToDeleteAccountString = 'Are you sure to delete account, Once account is deleted your all data will be deleted';
 
-String pleaseAllowAccessToCameraForLiveString =
-    'Please allow access to camera and microphone to start live';
-String pleaseAllowAccessToCameraForVideoCallString =
-    'Please allow access to camera and microphone to start video call';
-String pleaseAllowAccessToMicrophoneForAudioCallString =
-    'Please allow access to microphone to start audio call';
+String pleaseAllowAccessToCameraForLiveString = 'Please allow access to camera and microphone to start live';
+String pleaseAllowAccessToCameraForVideoCallString = 'Please allow access to camera and microphone to start video call';
+String pleaseAllowAccessToMicrophoneForAudioCallString = 'Please allow access to microphone to start audio call';
 
-String registeredSuccessFullyString =
-    'Registered successfully, please login to continue';
+String registeredSuccessFullyString = 'Registered successfully, please login to continue';
 
 String starString = 'Star';
 String unStarString = 'UnStar';
@@ -651,13 +622,10 @@ String unlockAppWithTouchIdString = 'Unlock app with Touch ID';
 String useFaceIdString = 'Use Face ID';
 String useTouchIdString = 'Use Touch ID';
 
-String unlockYourAppUsingBiometricLoginString =
-    'Unlock you app with touch id / face id';
+String unlockYourAppUsingBiometricLoginString = 'Unlock you app with touch id / face id';
 
-String pleaseAuthenticateToUseBiometricString =
-    'Please authenticate to use biometric login into app';
-String pleaseAuthenticateToRemoveBiometricString =
-    'Please authenticate to remove biometric login into app';
+String pleaseAuthenticateToUseBiometricString = 'Please authenticate to use biometric login into app';
+String pleaseAuthenticateToRemoveBiometricString = 'Please authenticate to remove biometric login into app';
 
 String deletePostString = 'Delete Post';
 String editPostString = 'Edit Post';
@@ -693,17 +661,14 @@ String leftTheGroupString = 'left the group';
 String madeAdminString = 'is now admin';
 
 String timeToUpdateAppString = 'Time to update app';
-String usingOlderVersionMessageString =
-    'You are using older version of app, You need to update the app to continue';
+String usingOlderVersionMessageString = 'You are using older version of app, You need to update the app to continue';
 
 // new keys for v 1.4
-String maxVideoLengthMessageString =
-    'Maximum 1 minute video is allowed to select';
+String maxVideoLengthMessageString = 'Maximum 1 minute video is allowed to select';
 String copyString = 'Copy';
 String groupUpdatedString = 'Group is updated';
 String strangerChatString = 'Stranger chat';
-String haveFunByRandomChattingString =
-    'Have fun by chatting with random peoples';
+String haveFunByRandomChattingString = 'Have fun by chatting with random peoples';
 String tvsString = 'Tvs';
 String watchTvsString = 'Watch your favourite tvs';
 
@@ -711,8 +676,7 @@ String randomCallString = 'Random call';
 String haveFunByRandomCallingString = 'Have fun by calling to random peoples';
 
 String checkingConnectionString = 'Checking connection..';
-String pleaseCheckYourInternetConnectionString =
-    'Please check your internet connection';
+String pleaseCheckYourInternetConnectionString = 'Please check your internet connection';
 String goingLiveString = 'Going live';
 String goString = 'Go';
 
@@ -747,8 +711,7 @@ String joinCompetitionsToEarnString = 'Join competitions and earn money';
 
 String pageString = 'Pages';
 String spaceForBusinessString = 'Space for business, brand and organizations';
-String placeForPeopleOfCommonInterestString =
-    'A place for people of common interest';
+String placeForPeopleOfCommonInterestString = 'A place for people of common interest';
 
 String yourString = 'Your';
 String recentString = 'Recent';
@@ -763,19 +726,16 @@ String useString = 'Use';
 String viewGiftString = 'View Gift';
 
 String anyoneCanSeeClubString = 'Anyone can see this club and join the club';
-String onlyMembersCanSeeClubString =
-    'Only requested member or joined member can see it';
+String onlyMembersCanSeeClubString = 'Only requested member or joined member can see it';
 String communicationString = 'Communication';
 
 String chatGroupString = 'Chat group';
-String createChatGroupForDiscussionString =
-    'Create chat group for discussion with club users';
+String createChatGroupForDiscussionString = 'Create chat group for discussion with club users';
 String basicInfoString = 'Basic info';
 
 String clubNameString = 'Club name';
 String addClubPhotoString = 'Add Cover Photo';
-String addClubPhotoSubHeadingString =
-    'Give people an idea of what your group is about with a photo';
+String addClubPhotoSubHeadingString = 'Give people an idea of what your group is about with a photo';
 
 String coverPhotoString = 'Cover photo';
 String leaveClubString = 'Leave club';
@@ -786,8 +746,7 @@ String pleaseEnterClubDescString = 'Please enter club description';
 String pleaseEnterSelectCubImageString = 'Please select club image';
 
 String onRequestString = 'On request';
-String onClubRequestJoinString =
-    'Interested users can request to join, admin can approve the request';
+String onClubRequestJoinString = 'Interested users can request to join, admin can approve the request';
 
 String watchAdsToEarnCoinsString = 'Watch Ads to earn coins';
 
@@ -798,15 +757,13 @@ String filesString = 'Files';
 String fileString = 'File';
 
 String findingPerfectUserToChatString = 'Finding a perfect user to chat';
-String deleteAccountSubheadingString =
-    'Permanent delete account and whole data';
+String deleteAccountSubheadingString = 'Permanent delete account and whole data';
 
 String liveTvString = 'Live TV';
 String allowString = 'Allow';
 String mapString = 'Map';
 String shareLocationString = 'Share location';
-String yourFollowersCanViewYourLocationString =
-    'Your Followers can view your location';
+String yourFollowersCanViewYourLocationString = 'Your Followers can view your location';
 String moreFromString = 'More from';
 String moreString = 'More';
 
@@ -845,16 +802,14 @@ String profileIsVerifiedOnString = 'Verified on ';
 String requestSentOn = 'Request sent on';
 String verificationInUnderProcess = 'We are reviewing your profile';
 
-String verifiedAccountSubtitleString =
-    'Verified accounts have blue checkmark next to their names to show that we have confirmed you are a real person';
+String verifiedAccountSubtitleString = 'Verified accounts have blue checkmark next to their names to show that we have confirmed you are a real person';
 
 String documentTypeString = 'Document type';
 String uploadDocumentString = 'Upload document';
 String selectDocumentTypeString = 'Select a document type';
 String pleaseSelectDocumentTypeString = 'Please select a document type';
 String pleaseUploadProofString = 'Please upload identity proof';
-String verificationRequestSentString =
-    'Profile verification request is sent, you will be updated soon ';
+String verificationRequestSentString = 'Profile verification request is sent, you will be updated soon ';
 String statusString = 'Status';
 String inProcessingString = 'In processing';
 String cancelledString = 'Cancelled';
@@ -955,8 +910,7 @@ String saveETicketString = 'Save E-Ticket';
 String ticketSavedString = 'Ticket Saved';
 String confirmedString = 'Confirmed';
 String placingOrderString = 'Placing order, please wait...';
-String doNotCloseAppString =
-    'Do not close or refresh the app until the process is completed';
+String doNotCloseAppString = 'Do not close or refresh the app until the process is completed';
 String bookingConfirmedString = 'Your booking is confirmed';
 String bookMoreTicketsString = 'Book more';
 
@@ -1018,21 +972,18 @@ String noDatingProfilesFoundString = 'No dating profiles found';
 String datingExploreString = 'Change your preferences and explore more';
 
 String noMatchedProfilesFoundString = 'No matching profiles found';
-String datingExploreForMatchedString =
-    'Explore more dating profiles and get matched';
+String datingExploreForMatchedString = 'Explore more dating profiles and get matched';
 
 String noLikeProfilesFoundString = 'No profiles found';
 String noLikeProfilesString = 'Explore more dating profiles';
 
 String setLocationString = 'Set location';
 String setLocationServiceString = 'Set your location services';
-String weWillUseYourLoctaionString =
-    'We use your location to show you potential matches in your area';
+String weWillUseYourLoctaionString = 'We use your location to show you potential matches in your area';
 String setLocationServiceStrng = 'Set location services';
 
 String allowNotiifcationString = 'Allow notifications';
-String weWillLetYouKnowString =
-    'We\'ll let you know when you get new matches and messages';
+String weWillLetYouKnowString = 'We\'ll let you know when you get new matches and messages';
 String allowNotificationString = 'Allow notifications';
 String notNowString = 'Not now';
 
@@ -1041,8 +992,7 @@ String whatsYourNameString = 'What\'s your first name?';
 String cantChangeThisLaterString = 'You won\'t be able to change this later';
 
 String addPhotosString = 'Add photos';
-String profileWithGoodPhotosString =
-    'Profile with more good photos are getting more matches, so add your best photos';
+String profileWithGoodPhotosString = 'Profile with more good photos are getting more matches, so add your best photos';
 
 String addDOBString = 'Add DOB';
 String whenIsYourBdayString = 'When\'s your birthday?';
@@ -1052,8 +1002,7 @@ String addGenderString = 'Add gender';
 String mentionYourGenderString = 'Mention your gender';
 
 String whomToDateString = 'Who would you like to date?';
-String youCanChooseMoreThanOneAnswerString =
-    'You can choose more than one answer and change any time';
+String youCanChooseMoreThanOneAnswerString = 'You can choose more than one answer and change any time';
 
 String weNeedToKnowMoreString = 'We need to know more about you.';
 
@@ -1063,21 +1012,17 @@ String chooseInterestsString = 'Choose your interests';
 
 String addProfessionalDetailString = 'Add Professional Details.';
 String enableDatingString = 'Enable Dating';
-String enableDatingProfileToUseString =
-    'You need to enable dating profile and have to provide your profile information to start dating peoples';
+String enableDatingProfileToUseString = 'You need to enable dating profile and have to provide your profile information to start dating peoples';
 
 String followFriendsToSendPostString = 'Follow friends to send post.';
 
 String setUserNameString = 'Set username';
-String setUserNameSubHeadingString =
-    'This username will be shown to all user. Choose a wise user name like it_mike_here';
+String setUserNameSubHeadingString = 'This username will be shown to all user. Choose a wise user name like it_mike_here';
 
 String setProfileCategoryTypeString = 'Choose profile category type';
-String setProfileCategoryTypeSubHeadingString =
-    'Category will help people find accounts like yours. You can change this';
+String setProfileCategoryTypeSubHeadingString = 'Category will help people find accounts like yours. You can change this';
 
-String weWillSearchUserInCategoryString =
-    'We will search user in your specified category';
+String weWillSearchUserInCategoryString = 'We will search user in your specified category';
 
 String audiosString = 'Audios';
 String favouriteString = 'Favourite';
@@ -1111,8 +1056,7 @@ String disLikeString = 'Dislike';
 String doYouSmokeString = 'Do you smoke?';
 
 String leaveGroupConfirmationString = "Are you sure, you want to leave group?";
-String deleteGroupConfirmationString =
-    "Are you sure, you want to delete group?";
+String deleteGroupConfirmationString = "Are you sure, you want to delete group?";
 
 String todayString = 'Today';
 String thisWeekString = 'This week';
@@ -1160,8 +1104,7 @@ String reactedToYourStory = 'Reacted to your story';
 String repliedToYourStory = 'Replied to your story';
 String storyPostedSuccessfullyString = 'Story is posted successfully';
 String privateAccountString = 'Private Account';
-String privateAccountMsgString =
-    'When your account is private, only people you approve can see your posts';
+String privateAccountMsgString = 'When your account is private, only people you approve can see your posts';
 String startedFollowingYouString = 'started following you';
 String sentYourFollowRequestString = 'sent you follow request';
 String commentedOnYourPostString = 'commented on your post';
@@ -1178,5 +1121,3 @@ String audioIsShorterString = 'Audio is shorter than';
 String secondsString = "seconds";
 String noAudioFound = 'No audio found';
 String searchAnotherAudio = 'Please search another audio';
-
-

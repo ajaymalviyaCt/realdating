@@ -15,7 +15,7 @@ class BaseClient01 {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var token = prefs.get('token');
     try {
-        // DialogHelper.showLoading();
+      // DialogHelper.showLoading();
       var response = await http.get(api, headers: {
         'Authorization': 'Bearer $token',
       }).timeout(const Duration(seconds: TIME_OUT_DURATION));
@@ -56,7 +56,6 @@ class BaseClient01 {
     } catch (e) {
       print("catch exception :  $e.toString() ");
       // DialogHelper.snackbar("$e ''");
-
     }
   }
 
@@ -76,49 +75,40 @@ class BaseClient01 {
         break;
       case 404:
         var responseJson1 = jsonDecode(response.body);
-          print("Wrong url  ${response.request!.url.toString()}");
+        print("Wrong url  ${response.request!.url.toString()}");
         // DialogHelper.snackbar("Wrong Url");
         print(responseJson1);
         return responseJson1;
         break;
       case 400:
         print("Wrong url ${response.request!.url.toString()}");
-        throw BadRequestException(
-            jsonDecode(response.body), response.request!.url.toString());
+        throw BadRequestException(jsonDecode(response.body), response.request!.url.toString());
       case 401:
       case 403:
-        throw UnAuthorizedException(
-            utf8.decode(response.bodyBytes), response.request!.url.toString());
+        throw UnAuthorizedException(utf8.decode(response.bodyBytes), response.request!.url.toString());
       case 422:
-        throw BadRequestException(
-            utf8.decode(response.bodyBytes), response.request!.url.toString());
+        throw BadRequestException(utf8.decode(response.bodyBytes), response.request!.url.toString());
       case 500:
       default:
         // DialogHelper.snackbar("Error occured with code");
-        throw FetchDataException(
-            'Error occured with code : ${response.statusCode}',
-            response.request!.url.toString());
+        throw FetchDataException('Error occured with code : ${response.statusCode}', response.request!.url.toString());
     }
   }
 
-///for notification
-///
-///
-///
+  ///for notification
+  ///
+  ///
+  ///
 
-  Future<dynamic> sendNotification(String fcmToken, String screen, String title ,String body) async {
+  Future<dynamic> sendNotification(String fcmToken, String screen, String title, String body) async {
     var headers = {
-      'Authorization': 'Bearer AAAAwJkN2Cg:APA91bG7soLszsdtnVHIJDMmd1ELciI3OSki8hgNYzBGtosOu-A6QdLMVoE_lPW5Xh_DXD0PI81FtzyZjne_s_0yg8RXyJgazY4nu8UuMZ6Cz2e5s5_AeACIsRZUli9kdXJm8-whw8j3',
+      'Authorization':
+          'Bearer AAAAwJkN2Cg:APA91bG7soLszsdtnVHIJDMmd1ELciI3OSki8hgNYzBGtosOu-A6QdLMVoE_lPW5Xh_DXD0PI81FtzyZjne_s_0yg8RXyJgazY4nu8UuMZ6Cz2e5s5_AeACIsRZUli9kdXJm8-whw8j3',
       'Content-Type': 'application/json'
     };
     var data = json.encode({
-      "notification": {
-        "title": title,
-        "body": body
-      },
-      "data": {
-        "screen": screen
-      },
+      "notification": {"title": title, "body": body},
+      "data": {"screen": screen},
       "to": fcmToken
     });
     var dio = Dio();
@@ -133,8 +123,7 @@ class BaseClient01 {
 
     if (response.statusCode == 200) {
       print(json.encode(response.data));
-    }
-    else {
+    } else {
       print(response.statusMessage);
     }
   }

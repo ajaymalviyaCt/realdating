@@ -4,27 +4,22 @@ import 'package:flutter_svg/svg.dart';
 class CustumTextField extends StatelessWidget {
   var validator;
   String hintText;
-  bool ? obscureText;
+  bool? obscureText;
+
   //String prefixIcon;
   String? suffixIconn;
-  VoidCallback ? onTap;
+  VoidCallback? onTap;
 
   TextEditingController controller;
-  CustumTextField({super.key,
-    required this.controller ,
-    required this.validator,
-    this.suffixIconn,
-    this.obscureText,
-    this.onTap,
-    required this.hintText});
+
+  CustumTextField({super.key, required this.controller, required this.validator, this.suffixIconn, this.obscureText, this.onTap, required this.hintText});
 
   @override
   Widget build(BuildContext context) {
-    return    TextFormField(
+    return TextFormField(
       style: TextStyle(color: Colors.white),
       autovalidateMode: AutovalidateMode.onUserInteraction,
       controller: controller,
-
       decoration: InputDecoration(
         filled: true,
         fillColor: Colors.white.withOpacity(.15),
@@ -32,35 +27,49 @@ class CustumTextField extends StatelessWidget {
         enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(5),
             borderSide: BorderSide(
-              width: 1,color:Colors.white,
+              width: 1,
+              color: Colors.white,
             )),
         focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(5),
             borderSide: BorderSide(
-              width: 1,color: Colors.white,
+              width: 1,
+              color: Colors.white,
             )),
         errorBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(5),
             borderSide: BorderSide(
-              width: 1,color: Colors.white,
+              width: 1,
+              color: Colors.white,
             )),
-        focusedErrorBorder:  OutlineInputBorder(
+        focusedErrorBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(5),
             borderSide: BorderSide(
-              width: 1,color: Colors.white,
-            )
-        ),
+              width: 1,
+              color: Colors.white,
+            )),
 
         hintText: hintText,
         hintStyle: TextStyle(color: Colors.white),
         //  prefixIcon:Container(child: SvgPicture.asset('$prefixIcon',fit: BoxFit.none,)),
 
-        suffixIcon: suffixIconn==null ? SizedBox(height: 1,width: 1,) : IconButton(
-          onPressed: onTap,
-          icon: SvgPicture.asset('$suffixIconn',fit: BoxFit.none,color: Colors.white,),
-        ),),
-      obscureText: obscureText ??  false,
-      validator: validator,cursorColor: Colors.white,
+        suffixIcon: suffixIconn == null
+            ? SizedBox(
+                height: 1,
+                width: 1,
+              )
+            : IconButton(
+                onPressed: onTap,
+                icon: SvgPicture.asset(
+                  '$suffixIconn',
+                  fit: BoxFit.none,
+                  color: Colors.white,
+                ),
+              ),
+      ),
+      obscureText: obscureText ?? false,
+      validator: validator,
+      cursorColor: Colors.white,
     );
   }
 }
@@ -135,28 +144,30 @@ class CustumTextField extends StatelessWidget {
 //   }
 // }
 
-
 class CustumProfileTextField extends StatelessWidget {
   var validator;
   String hintText;
-  bool ? obscureText;
+  bool? obscureText;
+
   //String prefixIcon;
   String? suffixIconn;
-  VoidCallback ? onTap;
+  VoidCallback? onTap;
 
   TextEditingController controller;
-  CustumProfileTextField({super.key,
-    required this.controller ,
-    required this.validator,
-    // required this.prefixIcon,
-    this.suffixIconn,
-    this.obscureText,
-    this.onTap,
-    required this.hintText});
+
+  CustumProfileTextField(
+      {super.key,
+      required this.controller,
+      required this.validator,
+      // required this.prefixIcon,
+      this.suffixIconn,
+      this.obscureText,
+      this.onTap,
+      required this.hintText});
 
   @override
   Widget build(BuildContext context) {
-    return   TextFormField(
+    return TextFormField(
       style: TextStyle(color: Colors.black),
       // autovalidateMode: AutovalidateMode.onUserInteraction,
       controller: controller,
@@ -168,71 +179,86 @@ class CustumProfileTextField extends StatelessWidget {
         enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
             borderSide: BorderSide(
-              width: 1,color:Colors.black12,
+              width: 1,
+              color: Colors.black12,
             )),
         focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
             borderSide: BorderSide(
-              width: 1,color: Colors.black12,
+              width: 1,
+              color: Colors.black12,
             )),
         errorBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
             borderSide: BorderSide(
-              width: 1,color: Colors.red,
+              width: 1,
+              color: Colors.red,
             )),
-        focusedErrorBorder:  OutlineInputBorder(
+        focusedErrorBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
             borderSide: BorderSide(
-              width: 1,color: Colors.black,
-            )
-        ),
+              width: 1,
+              color: Colors.black,
+            )),
 
         hintText: hintText,
         hintStyle: TextStyle(color: Colors.black.withOpacity(.55)),
         //  prefixIcon:Container(child: SvgPicture.asset('$prefixIcon',fit: BoxFit.none,)),
 
-        suffixIcon: suffixIconn==null ? SizedBox(height: 1,width: 1,) : IconButton(
-          onPressed: onTap,
-          icon: SvgPicture.asset('$suffixIconn',fit: BoxFit.none,color: Colors.black,),
-        ),),
-      obscureText: obscureText ??  false,
+        suffixIcon: suffixIconn == null
+            ? SizedBox(
+                height: 1,
+                width: 1,
+              )
+            : IconButton(
+                onPressed: onTap,
+                icon: SvgPicture.asset(
+                  '$suffixIconn',
+                  fit: BoxFit.none,
+                  color: Colors.black,
+                ),
+              ),
+      ),
+      obscureText: obscureText ?? false,
       validator: validator,
     );
   }
-  showbottombar(context){
-    return showBottomSheet(context: context, builder: (context) {
-      return Container();
-    },);
+
+  showbottombar(context) {
+    return showBottomSheet(
+      context: context,
+      builder: (context) {
+        return Container();
+      },
+    );
   }
 }
-
 
 class editProfileTextField extends StatelessWidget {
   var validator;
   String hintText;
-  bool ? obscureText;
+  bool? obscureText;
+
   //String prefixIcon;
   String? suffixIconn;
-  VoidCallback ? onTap;
+  VoidCallback? onTap;
   TextEditingController controller;
-  TextInputType ? textInputType;
+  TextInputType? textInputType;
 
-  editProfileTextField({super.key,
-    required this.hintText,
-    required this.controller ,
-    required this.validator,
-    // required this.prefixIcon,
-    this.suffixIconn,
-    this.obscureText,
-    this.onTap,
-    this.textInputType
-
-
-  });
+  editProfileTextField(
+      {super.key,
+      required this.hintText,
+      required this.controller,
+      required this.validator,
+      // required this.prefixIcon,
+      this.suffixIconn,
+      this.obscureText,
+      this.onTap,
+      this.textInputType});
 
   @override
   Widget build(BuildContext context) {
-    return   TextFormField(
+    return TextFormField(
       onTap: onTap,
       keyboardType: textInputType ?? TextInputType.text,
       style: TextStyle(color: Colors.black),
@@ -246,47 +272,60 @@ class editProfileTextField extends StatelessWidget {
         enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
             borderSide: BorderSide(
-              width: 1,color:Colors.black12,
+              width: 1,
+              color: Colors.black12,
             )),
         focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
             borderSide: BorderSide(
-              width: 1,color: Colors.black12,
+              width: 1,
+              color: Colors.black12,
             )),
         errorBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
             borderSide: BorderSide(
-              width: 1,color: Colors.red,
+              width: 1,
+              color: Colors.red,
             )),
-        focusedErrorBorder:  OutlineInputBorder(
+        focusedErrorBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
             borderSide: BorderSide(
-              width: 1,color: Colors.black,
-            )
-        ),
+              width: 1,
+              color: Colors.black,
+            )),
 
         hintText: hintText,
         hintStyle: TextStyle(color: Colors.black.withOpacity(.55)),
         //  prefixIcon:Container(child: SvgPicture.asset('$prefixIcon',fit: BoxFit.none,)),
 
-        suffixIcon: suffixIconn==null ? SizedBox(height: 1,width: 1,) : IconButton(
-          onPressed: onTap,
-          icon: SvgPicture.asset('$suffixIconn',fit: BoxFit.none,color: Colors.black,),
-        ),),
-      obscureText: obscureText ??  false,
+        suffixIcon: suffixIconn == null
+            ? SizedBox(
+                height: 1,
+                width: 1,
+              )
+            : IconButton(
+                onPressed: onTap,
+                icon: SvgPicture.asset(
+                  '$suffixIconn',
+                  fit: BoxFit.none,
+                  color: Colors.black,
+                ),
+              ),
+      ),
+      obscureText: obscureText ?? false,
       validator: validator,
     );
   }
-  showbottombar(context){
-    return showBottomSheet(context: context, builder: (context) {
-      return Container();
-    },);
+
+  showbottombar(context) {
+    return showBottomSheet(
+      context: context,
+      builder: (context) {
+        return Container();
+      },
+    );
   }
 }
-
-
-
-
 
 // class DropdownMenuExample extends StatefulWidget {
 //   const DropdownMenuExample({super.key});

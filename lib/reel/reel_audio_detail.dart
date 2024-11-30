@@ -17,16 +17,16 @@ class _ReelAudioDetailState extends State<ReelAudioDetail> {
 
   @override
   void initState() {
-   // _reelsController.getReelsWithAudio(widget.audio.id);
+    // _reelsController.getReelsWithAudio(widget.audio.id);
     super.initState();
   }
+
   // _createReelController.getReelCategories();
 
   @override
   void dispose() {
     super.dispose();
     _reelsController.clearReelsWithAudio();
-
   }
 
   @override
@@ -34,12 +34,10 @@ class _ReelAudioDetailState extends State<ReelAudioDetail> {
     return AppScaffold(
         backgroundColor: AppColorConstants.backgroundColor,
         body: Column(children: [
-          backNavigationBar( title: audioString.tr),
+          backNavigationBar(title: audioString.tr),
           Row(
             children: [
-              CachedNetworkImage(
-                  height: 70, width: 70, imageUrl: widget.audio.thumbnail)
-                  .round(10),
+              CachedNetworkImage(height: 70, width: 70, imageUrl: widget.audio.thumbnail).round(10),
               const SizedBox(
                 width: 15,
               ),
@@ -50,10 +48,7 @@ class _ReelAudioDetailState extends State<ReelAudioDetail> {
                   const SizedBox(
                     height: 5,
                   ),
-                  BodyLargeText(
-                      widget.audio.artists,
-                      weight: TextWeight.regular
-                  ),
+                  BodyLargeText(widget.audio.artists, weight: TextWeight.regular),
                   const SizedBox(
                     height: 5,
                   ),
@@ -72,19 +67,11 @@ class _ReelAudioDetailState extends State<ReelAudioDetail> {
                     return GridView.builder(
                         itemCount: _reelsController.filteredReels.length,
                         padding: const EdgeInsets.only(top: 20, bottom: 50),
-                        gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 3,
-                            crossAxisSpacing: 2.0,
-                            mainAxisSpacing: 2.0,
-                            childAspectRatio: 0.7),
+                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 3, crossAxisSpacing: 2.0, mainAxisSpacing: 2.0, childAspectRatio: 0.7),
                         itemBuilder: (ctx, index) {
-                          PostModel reel =
-                          _reelsController.filteredReels[index];
-                          return CachedNetworkImage(
-                              fit: BoxFit.cover,
-                              imageUrl: "reel..first.thumbnail")
-                              .ripple(() {
+                          PostModel reel = _reelsController.filteredReels[index];
+                          return CachedNetworkImage(fit: BoxFit.cover, imageUrl: "reel..first.thumbnail").ripple(() {
                             // Get.to(() => ReelsList(
                             //     audioId: widget.audio.id, index: index)
                             // );

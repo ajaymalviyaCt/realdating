@@ -17,9 +17,7 @@ class ForgetPassword extends StatefulWidget {
   final String? otp;
   final int? business;
 
-  const ForgetPassword(
-      {Key? key, this.email, this.code, this.otp, this.business})
-      : super(key: key);
+  const ForgetPassword({Key? key, this.email, this.code, this.otp, this.business}) : super(key: key);
 
   @override
   State<ForgetPassword> createState() => _ForgetPasswordState();
@@ -211,9 +209,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
       content: Row(
         children: [
           const CircularProgressIndicator(),
-          Container(
-              margin: const EdgeInsets.only(left: 7),
-              child: const Text("Please Wait...")),
+          Container(margin: const EdgeInsets.only(left: 7), child: const Text("Please Wait...")),
         ],
       ),
     );
@@ -238,9 +234,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
             children: [
               const Padding(
                 padding: EdgeInsets.symmetric(vertical: 60, horizontal: 120),
-                child: Image(
-                    image: AssetImage(
-                        'assets/images/AppIcon-120px-40pt@3x 1.png')),
+                child: Image(image: AssetImage('assets/images/AppIcon-120px-40pt@3x 1.png')),
               ),
               const SizedBox(height: 23),
               const Text(
@@ -256,8 +250,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                 ),
               ),
               Padding(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+                padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
                 child: InkWell(
                   onTap: () {
                     if (_formkey.currentState!.validate()) {
@@ -281,9 +274,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                     // }
                   },
                   child: Container(
-                    decoration: BoxDecoration(
-                        color: Colors.redAccent,
-                        borderRadius: BorderRadius.circular(35)),
+                    decoration: BoxDecoration(color: Colors.redAccent, borderRadius: BorderRadius.circular(35)),
                     width: MediaQuery.of(context).size.width,
                     height: 56,
                     child: Center(
@@ -293,11 +284,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                             )
                           : const Text(
                               'Send',
-                              style: TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w400,
-                                  fontFamily: 'Aboshi',
-                                  color: Colors.white),
+                              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400, fontFamily: 'Aboshi', color: Colors.white),
                             ),
                     ),
                   ),

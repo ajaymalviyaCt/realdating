@@ -40,7 +40,7 @@ class _DashBaordScreenState extends State<DashBaordScreen> {
 
   var success, message, id, email;
 
-  ProfileDataModal ? profile_data;
+  ProfileDataModal? profile_data;
 
   //
   // Future<bool> check() async {
@@ -53,8 +53,7 @@ class _DashBaordScreenState extends State<DashBaordScreen> {
   //   return false;
   // }
 
-  BuisnessLoginController buissnesloginController =
-      Get.put(BuisnessLoginController());
+  BuisnessLoginController buissnesloginController = Get.put(BuisnessLoginController());
 
   showAlertDialog(BuildContext context) {
     Widget cancelButton = TextButton(
@@ -65,7 +64,7 @@ class _DashBaordScreenState extends State<DashBaordScreen> {
         buissnesloginController.buisnessemailController.clear();
         buissnesloginController.buisnesspasswordController.clear();
         buissnesloginController.isLoadigLogin.value = false;
-        Get.offAll(()=>const OptionScreen());
+        Get.offAll(() => const OptionScreen());
         print(prefs.get("isLoggedIn"));
 
         Navigator.push(
@@ -123,7 +122,7 @@ class _DashBaordScreenState extends State<DashBaordScreen> {
                 height: 200,
                 color: HexColor('#EDEDED'),
                 child: Obx(
-                      ()=> CachedNetworkImage(
+                  () => CachedNetworkImage(
                     imageUrl: profileController.bussinessCoverprofilepic.toString(),
                     placeholder: (context, url) => const Center(
                         child: SizedBox(
@@ -132,8 +131,7 @@ class _DashBaordScreenState extends State<DashBaordScreen> {
                             child: CircularProgressIndicator(
                               strokeWidth: 1,
                             ))),
-                    errorWidget: (context, url, error) =>
-                     Image.asset('assets/images/placeholder_image_business.jpg'),
+                    errorWidget: (context, url, error) => Image.asset('assets/images/placeholder_image_business.jpg'),
                     filterQuality: FilterQuality.low,
                     fit: BoxFit.fill,
                   ),
@@ -143,12 +141,11 @@ class _DashBaordScreenState extends State<DashBaordScreen> {
                   left: 20,
                   top: 90,
                   child: Obx(
-                        ()=> Container(
+                    () => Container(
                       height: 60,
                       width: 60,
                       decoration: BoxDecoration(
-                        image: DecorationImage(
-                            image: NetworkImage(profileController.bussinessProfilepic.toString())),
+                        image: DecorationImage(image: NetworkImage(profileController.bussinessProfilepic.toString())),
                         borderRadius: BorderRadius.circular(60),
                         border: Border.all(color: Vx.red200),
                         color: Colors.transparent,
@@ -159,23 +156,20 @@ class _DashBaordScreenState extends State<DashBaordScreen> {
                 left: 20,
                 top: 160,
                 child: Container(
-                  decoration: BoxDecoration(
-                      color: Colors.white.withOpacity(.5),
-                      borderRadius: BorderRadius.circular(8)
-
-                  ),
+                  decoration: BoxDecoration(color: Colors.white.withOpacity(.5), borderRadius: BorderRadius.circular(8)),
                   child: Padding(
                     padding: const EdgeInsets.all(4.0),
                     child: Center(
                       child: Obx(
-                            ()=> Text(
+                        () => Text(
                           profileController.bussinessName.value.toString(),
                           style: const TextStyle(
                             fontSize: 16,
                             fontFamily: "Aboshi",
                             color: Appcolor.black,
                             fontWeight: FontWeight.w500,
-                          ),),
+                          ),
+                        ),
                       ),
                     ),
                   ),
@@ -186,22 +180,16 @@ class _DashBaordScreenState extends State<DashBaordScreen> {
           ListTile(
             title: Row(
               mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                SvgPicture.asset('assets/icons/home-04.svg'),
-                const Text('       Home')
-              ],
+              children: [SvgPicture.asset('assets/icons/home-04.svg'), const Text('       Home')],
             ),
             onTap: () {
-              Get.offAll(()=>BuisnessHomePage());
+              Get.offAll(() => BuisnessHomePage());
             },
           ),
           ListTile(
             title: Row(
               mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                SvgPicture.asset('assets/icons/dashb.svg'),
-                const Text('       Dashboard')
-              ],
+              children: [SvgPicture.asset('assets/icons/dashb.svg'), const Text('       Dashboard')],
             ),
             onTap: () {
               Get.back();
@@ -210,10 +198,7 @@ class _DashBaordScreenState extends State<DashBaordScreen> {
           ListTile(
             title: Row(
               mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                SvgPicture.asset('assets/icons/profile.svg'),
-                const Text('       My Profile')
-              ],
+              children: [SvgPicture.asset('assets/icons/profile.svg'), const Text('       My Profile')],
             ),
             onTap: () {
               Get.to(() => const BusinessProfile());
@@ -222,10 +207,7 @@ class _DashBaordScreenState extends State<DashBaordScreen> {
           ListTile(
             title: Row(
               mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                SvgPicture.asset('assets/icons/allAds.svg'),
-                const Text('       All Ads')
-              ],
+              children: [SvgPicture.asset('assets/icons/allAds.svg'), const Text('       All Ads')],
             ),
             onTap: () {
               Get.to(() => const All_Ads());
@@ -234,10 +216,7 @@ class _DashBaordScreenState extends State<DashBaordScreen> {
           ListTile(
             title: Row(
               mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                SvgPicture.asset('assets/icons/logout.svg'),
-                const Text('       Logout')
-              ],
+              children: [SvgPicture.asset('assets/icons/logout.svg'), const Text('       Logout')],
             ),
             onTap: () async {
               showAlertDialog(context);
@@ -259,111 +238,97 @@ class _DashBaordScreenState extends State<DashBaordScreen> {
                           strokeWidth: 2,
                         )))
                     : Container(
-                      height: 400,
-                      child: GridView(
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2,crossAxisSpacing: 10,mainAxisSpacing: 10),
-                        children: [
-                          Card(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    15.widthBox,
-                                    SvgPicture.asset(
-                                        'assets/icons/heart_red.svg'),
-                                    Spacer(),
-                                    const Text(
-                                      'Likes           ',
-                                      style: CustomTextStyle.blackLocF,
-                                    ),
-                                  ],
-                                ),
-                                const SizedBox(
-                                  height: 12,
-                                ),
-                                Text(
-                                  myDealController.dashboardModelData
-                                          ?.dashboad[0].totalLike
-                                          .toString() ??
-                                      "0",
-                                  style: CustomTextStyle.black,
-                                ),
-
-                              ],
+                        height: 400,
+                        child: GridView(
+                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, crossAxisSpacing: 10, mainAxisSpacing: 10),
+                          children: [
+                            Card(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    children: [
+                                      15.widthBox,
+                                      SvgPicture.asset('assets/icons/heart_red.svg'),
+                                      Spacer(),
+                                      const Text(
+                                        'Likes           ',
+                                        style: CustomTextStyle.blackLocF,
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(
+                                    height: 12,
+                                  ),
+                                  Text(
+                                    myDealController.dashboardModelData?.dashboad[0].totalLike.toString() ?? "0",
+                                    style: CustomTextStyle.black,
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
-                          Card(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    10.widthBox,
-                                    SvgPicture.asset('assets/icons/comment.svg'),
-                                    Spacer(),
-                                    const Text(
-                                      'Comments     ',
-                                      style: CustomTextStyle.blackLocF,
-                                    )
-                                  ],
-                                ),
-                                const SizedBox(
-                                  height: 12,
-                                ),
-                                Text(
-                                  myDealController.dashboardModelData
-                                          ?.dashboad[0].totalComment
-                                          .toString() ??
-                                      "0",
-                                  style: CustomTextStyle.black,
-                                ),
-
-                              ],
+                            Card(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    children: [
+                                      10.widthBox,
+                                      SvgPicture.asset('assets/icons/comment.svg'),
+                                      Spacer(),
+                                      const Text(
+                                        'Comments     ',
+                                        style: CustomTextStyle.blackLocF,
+                                      )
+                                    ],
+                                  ),
+                                  const SizedBox(
+                                    height: 12,
+                                  ),
+                                  Text(
+                                    myDealController.dashboardModelData?.dashboad[0].totalComment.toString() ?? "0",
+                                    style: CustomTextStyle.black,
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
-                          Card(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    10.widthBox,
-                                    SvgPicture.asset(
-                                        'assets/icons/percentage.svg'),
-                                    Spacer(),
-                                    const Text(
-                                      'Saved Deal     ',
-                                      style: CustomTextStyle.blackLocF,
-                                    )
-                                  ],
-                                ),
-                                const SizedBox(
-                                  height: 12,
-                                ),
-                                Text(
-                                  myDealController.dashboardModelData
-                                          ?.dashboad[0].totalDeal
-                                          .toString() ??
-                                      "0",
-                                  style: CustomTextStyle.black,
-                                ),
-
-                              ],
+                            Card(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    children: [
+                                      10.widthBox,
+                                      SvgPicture.asset('assets/icons/percentage.svg'),
+                                      Spacer(),
+                                      const Text(
+                                        'Saved Deal     ',
+                                        style: CustomTextStyle.blackLocF,
+                                      )
+                                    ],
+                                  ),
+                                  const SizedBox(
+                                    height: 12,
+                                  ),
+                                  Text(
+                                    myDealController.dashboardModelData?.dashboad[0].totalDeal.toString() ?? "0",
+                                    style: CustomTextStyle.black,
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
-                        ],
-                      ),
-                    )),
+                          ],
+                        ),
+                      )),
               );
             }),
       ),

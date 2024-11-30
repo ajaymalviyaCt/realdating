@@ -38,9 +38,8 @@ class _MatchesRequestPagesState extends State<MatchesRequestPages> {
                         child: Text("No Data Found"),
                       )
                     : ListView.builder(
-                        itemCount:
-                            matchesRequestController.myFriendsRequest.length,
-                        itemBuilder: (context, index){
+                        itemCount: matchesRequestController.myFriendsRequest.length,
+                        itemBuilder: (context, index) {
                           return Container(
                             decoration: ShapeDecoration(
                                 color: Colors.white,
@@ -81,8 +80,7 @@ class _MatchesRequestPagesState extends State<MatchesRequestPages> {
                                     ),
                                     10.w.widthBox,
                                     Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         Text(
                                           '  ${matchesRequestController.myFriendsRequest[index].senderInfo?[0].firstName}',
@@ -102,39 +100,22 @@ class _MatchesRequestPagesState extends State<MatchesRequestPages> {
                                           children: [
                                             InkWell(
                                               onTap: () async {
-                                                matchesRequestController
-                                                    .isLoadingAceptedReq
-                                                    .value = true;
-                                                matchesRequestController
-                                                    .indexValueapcepted
-                                                    .value = index;
-                                                SharedPreferences prefs =
-                                                    await SharedPreferences
-                                                        .getInstance();
-                                                var userId =
-                                                    prefs.getInt('user_id');
-                                                final response =
-                                                    await BaseClient01().post(Uri.parse('https://forreal.net:4000/users/add_friend'),
-                                                        {
-                                                      'reciver_id': '$userId',
-                                                      'sender_id':
-                                                          '${matchesRequestController.myFriendsRequest[index].senderId}',
-                                                      'status': '1'
-                                                    });
-                                                sendNotification(
-                                                    "${matchesRequestController.myFriendsRequest[index].senderId}",
-                                                    "accept_your_match_request");
-                                                matchesRequestController
-                                                    .isLoadingAceptedReq
-                                                    .value = false;
+                                                matchesRequestController.isLoadingAceptedReq.value = true;
+                                                matchesRequestController.indexValueapcepted.value = index;
+                                                SharedPreferences prefs = await SharedPreferences.getInstance();
+                                                var userId = prefs.getInt('user_id');
+                                                final response = await BaseClient01().post(Uri.parse('https://forreal.net:4000/users/add_friend'), {
+                                                  'reciver_id': '$userId',
+                                                  'sender_id': '${matchesRequestController.myFriendsRequest[index].senderId}',
+                                                  'status': '1'
+                                                });
+                                                sendNotification("${matchesRequestController.myFriendsRequest[index].senderId}", "accept_your_match_request");
+                                                matchesRequestController.isLoadingAceptedReq.value = false;
                                                 // matchesRequestController.getMyFriendRequestModelMethod(false);
 
                                                 setState(() {
-                                                  matchesRequestController
-                                                      .getMyFriendRequestModelMethod(
-                                                          false);
+                                                  matchesRequestController.getMyFriendRequestModelMethod(false);
                                                   matchessController.matches();
-
                                                 });
                                               },
                                               child: Obx(
@@ -142,73 +123,46 @@ class _MatchesRequestPagesState extends State<MatchesRequestPages> {
                                                   width: 100.w,
                                                   height: 30,
                                                   decoration: BoxDecoration(
-                                                      gradient:
-                                                          const LinearGradient(
-                                                        begin: Alignment(
-                                                            0.00, -1.00),
+                                                      gradient: const LinearGradient(
+                                                        begin: Alignment(0.00, -1.00),
                                                         end: Alignment(0, 1),
                                                         colors: [
                                                           Colors.green,
                                                           Colors.green,
                                                         ],
                                                       ),
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              30)),
+                                                      borderRadius: BorderRadius.circular(30)),
                                                   child: Padding(
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                            4.0),
-                                                    child: matchesRequestController
-                                                                .indexValueapcepted
-                                                                .value ==
-                                                            index
-                                                        ? matchesRequestController
-                                                                .isLoadingAceptedReq
-                                                                .value
+                                                    padding: const EdgeInsets.all(4.0),
+                                                    child: matchesRequestController.indexValueapcepted.value == index
+                                                        ? matchesRequestController.isLoadingAceptedReq.value
                                                             ? const Center(
                                                                 child: SizedBox(
                                                                     width: 20,
-                                                                    child:
-                                                                        CircularProgressIndicator(
-                                                                      color: Colors
-                                                                          .white,
-                                                                      strokeWidth:
-                                                                          2,
+                                                                    child: CircularProgressIndicator(
+                                                                      color: Colors.white,
+                                                                      strokeWidth: 2,
                                                                     )))
                                                             : Text(
                                                                 'Accept',
-                                                                style:
-                                                                    TextStyle(
-                                                                  color: Colors
-                                                                      .white,
-                                                                  fontSize: 12
-                                                                      .adaptSize,
-                                                                  fontFamily:
-                                                                      'Inter',
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w600,
+                                                                style: TextStyle(
+                                                                  color: Colors.white,
+                                                                  fontSize: 12.adaptSize,
+                                                                  fontFamily: 'Inter',
+                                                                  fontWeight: FontWeight.w600,
                                                                   height: 0,
-                                                                  letterSpacing:
-                                                                      -0.30,
+                                                                  letterSpacing: -0.30,
                                                                 ),
                                                               ).centered()
                                                         : Text(
                                                             'Accept',
                                                             style: TextStyle(
-                                                              color:
-                                                                  Colors.white,
-                                                              fontSize:
-                                                                  12.adaptSize,
-                                                              fontFamily:
-                                                                  'Inter',
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w600,
+                                                              color: Colors.white,
+                                                              fontSize: 12.adaptSize,
+                                                              fontFamily: 'Inter',
+                                                              fontWeight: FontWeight.w600,
                                                               height: 0,
-                                                              letterSpacing:
-                                                                  -0.30,
+                                                              letterSpacing: -0.30,
                                                             ),
                                                           ).centered(),
                                                   ),
@@ -220,34 +174,20 @@ class _MatchesRequestPagesState extends State<MatchesRequestPages> {
                                             ),
                                             InkWell(
                                               onTap: () async {
-                                                matchesRequestController
-                                                    .isLoadingCancelReq
-                                                    .value = true;
-                                                matchesRequestController
-                                                    .indexValue.value = index;
-                                                SharedPreferences prefs =
-                                                    await SharedPreferences
-                                                        .getInstance();
-                                                var userId =
-                                                    prefs.getInt('user_id');
-                                                final response =
-                                                    await BaseClient01().post(
-                                                        Uri.parse(
-                                                            'https://forreal.net:4000/users/add_friend'),
-                                                        {
-                                                      'reciver_id': '$userId',
-                                                      'sender_id': '${matchesRequestController.myFriendsRequest[index].senderId}',
-                                                      'status': '2'
-                                                    });
-                                                matchesRequestController
-                                                    .isLoadingCancelReq
-                                                    .value = false;
+                                                matchesRequestController.isLoadingCancelReq.value = true;
+                                                matchesRequestController.indexValue.value = index;
+                                                SharedPreferences prefs = await SharedPreferences.getInstance();
+                                                var userId = prefs.getInt('user_id');
+                                                final response = await BaseClient01().post(Uri.parse('https://forreal.net:4000/users/add_friend'), {
+                                                  'reciver_id': '$userId',
+                                                  'sender_id': '${matchesRequestController.myFriendsRequest[index].senderId}',
+                                                  'status': '2'
+                                                });
+                                                matchesRequestController.isLoadingCancelReq.value = false;
                                                 // matchesRequestController.getMyFriendRequestModelMethod(false);
 
                                                 setState(() {
-                                                  matchesRequestController
-                                                      .getMyFriendRequestModelMethod(
-                                                          false);
+                                                  matchesRequestController.getMyFriendRequestModelMethod(false);
                                                 });
                                               },
                                               child: Obx(
@@ -255,73 +195,43 @@ class _MatchesRequestPagesState extends State<MatchesRequestPages> {
                                                   width: 100.w,
                                                   height: 30,
                                                   decoration: BoxDecoration(
-                                                      gradient:
-                                                          const LinearGradient(
-                                                        begin: Alignment(
-                                                            0.00, -1.00),
+                                                      gradient: const LinearGradient(
+                                                        begin: Alignment(0.00, -1.00),
                                                         end: Alignment(0, 1),
-                                                        colors: [
-                                                          Color(0xFFF65F51),
-                                                          Color(0xFFFB4967)
-                                                        ],
+                                                        colors: [Color(0xFFF65F51), Color(0xFFFB4967)],
                                                       ),
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              30)),
+                                                      borderRadius: BorderRadius.circular(30)),
                                                   child: Padding(
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                            4.0),
-                                                    child: matchesRequestController
-                                                                .indexValue
-                                                                .value ==
-                                                            index
-                                                        ? matchesRequestController
-                                                                .isLoadingCancelReq
-                                                                .value
+                                                    padding: const EdgeInsets.all(4.0),
+                                                    child: matchesRequestController.indexValue.value == index
+                                                        ? matchesRequestController.isLoadingCancelReq.value
                                                             ? const Center(
                                                                 child: SizedBox(
                                                                     width: 20,
-                                                                    child:
-                                                                        CircularProgressIndicator(
-                                                                      color: Colors
-                                                                          .white,
-                                                                      strokeWidth:
-                                                                          2,
+                                                                    child: CircularProgressIndicator(
+                                                                      color: Colors.white,
+                                                                      strokeWidth: 2,
                                                                     )))
                                                             : Text(
                                                                 'Cancel',
-                                                                style:
-                                                                    TextStyle(
-                                                                  color: Colors
-                                                                      .white,
-                                                                  fontSize: 12
-                                                                      .adaptSize,
-                                                                  fontFamily:
-                                                                      'Inter',
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w600,
+                                                                style: TextStyle(
+                                                                  color: Colors.white,
+                                                                  fontSize: 12.adaptSize,
+                                                                  fontFamily: 'Inter',
+                                                                  fontWeight: FontWeight.w600,
                                                                   height: 0,
-                                                                  letterSpacing:
-                                                                      -0.30,
+                                                                  letterSpacing: -0.30,
                                                                 ),
                                                               ).centered()
                                                         : Text(
                                                             'Cancel',
                                                             style: TextStyle(
-                                                              color:
-                                                                  Colors.white,
-                                                              fontSize:
-                                                                  12.adaptSize,
-                                                              fontFamily:
-                                                                  'Inter',
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w600,
+                                                              color: Colors.white,
+                                                              fontSize: 12.adaptSize,
+                                                              fontFamily: 'Inter',
+                                                              fontWeight: FontWeight.w600,
                                                               height: 0,
-                                                              letterSpacing:
-                                                                  -0.30,
+                                                              letterSpacing: -0.30,
                                                             ),
                                                           ).centered(),
                                                   ),

@@ -7,13 +7,7 @@ class AvatarView extends StatelessWidget {
   final double? size;
   final Color? borderColor;
 
-  const AvatarView(
-      {Key? key,
-      required this.url,
-      this.size = 60,
-      this.borderColor,
-      this.name})
-      : super(key: key);
+  const AvatarView({Key? key, required this.url, this.size = 60, this.borderColor, this.name}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -37,10 +31,7 @@ class AvatarView extends StatelessWidget {
           ? CachedNetworkImage(
               imageUrl: url!,
               fit: BoxFit.cover,
-              placeholder: (context, url) => SizedBox(
-                  height: 20,
-                  width: 20,
-                  child: const CircularProgressIndicator().p16),
+              placeholder: (context, url) => SizedBox(height: 20, width: 20, child: const CircularProgressIndicator().p16),
               errorWidget: (context, url, error) => const Icon(
                 Icons.person_2_outlined,
               ),
@@ -48,10 +39,7 @@ class AvatarView extends StatelessWidget {
           : Center(
               child: BodySmallText(initials, weight: TextWeight.medium).p8,
             ),
-    ).borderWithRadius(
-        value: 2,
-        radius: 20,
-        color: borderColor ?? AppColorConstants.themeColor);
+    ).borderWithRadius(value: 2, radius: 20, color: borderColor ?? AppColorConstants.themeColor);
   }
 }
 
@@ -91,17 +79,14 @@ class UserAvatarView extends StatelessWidget {
               : userPictureView(
                   size: size ?? 60,
                 ),
-          (user.liveCallDetail == null || hideLiveIndicator == true) &&
-                  hideOnlineIndicator == false
+          (user.liveCallDetail == null || hideLiveIndicator == true) && hideOnlineIndicator == false
               ? Positioned(
                   right: 0,
                   bottom: 0,
                   child: Container(
                     height: 15,
                     width: 15,
-                    color: user.isOnline == true
-                        ? AppColorConstants.themeColor
-                        : Colors.transparent,
+                    color: user.isOnline == true ? AppColorConstants.themeColor : Colors.transparent,
                   ).circular)
               : Container(),
         ],
@@ -119,10 +104,7 @@ class UserAvatarView extends StatelessWidget {
             fit: BoxFit.cover,
             height: size,
             width: size,
-            placeholder: (context, url) => SizedBox(
-                height: 20,
-                width: 20,
-                child: const CircularProgressIndicator().p16),
+            placeholder: (context, url) => SizedBox(height: 20, width: 20, child: const CircularProgressIndicator().p16),
             errorWidget: (context, url, error) => SizedBox(
                 height: size,
                 width: size,
@@ -130,10 +112,7 @@ class UserAvatarView extends StatelessWidget {
                   Icons.person_2_outlined,
                   size: size / 2,
                 )),
-          ).borderWithRadius(
-            value: hideBorder ? 0 : 1,
-            radius: 100,
-            color: AppColorConstants.themeColor)
+          ).borderWithRadius(value: hideBorder ? 0 : 1, radius: 100, color: AppColorConstants.themeColor)
         : SizedBox(
             height: double.infinity,
             width: double.infinity,
@@ -143,10 +122,7 @@ class UserAvatarView extends StatelessWidget {
                 weight: TextWeight.medium,
               ),
             ),
-          ).borderWithRadius(
-            value: hideBorder ? 0 : 1,
-            radius: 100,
-            color: AppColorConstants.themeColor);
+          ).borderWithRadius(value: hideBorder ? 0 : 1, radius: 100, color: AppColorConstants.themeColor);
   }
 
   Widget liveUserWidget({

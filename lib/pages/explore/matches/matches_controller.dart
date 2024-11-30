@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
-import 'package:realdating/pages/mape/NearBy_businesses.dart';
 import 'package:realdating/services/apis_related/api_call_services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -55,8 +54,8 @@ class MatchessController extends GetxController {
 
   get_user_by_id(id) async {
     isLoadingget_user_by_id(true);
-    Map<String, dynamic> apiData = await ApiCall.instance.callApi(
-        url: "https://forreal.net:4000/users/get_user_by_id", method: HttpMethod.POST, body: {"user_id":id}, headers: await authHeader());
+    Map<String, dynamic> apiData = await ApiCall.instance
+        .callApi(url: "https://forreal.net:4000/users/get_user_by_id", method: HttpMethod.POST, body: {"user_id": id}, headers: await authHeader());
 
     isLoadingget_user_by_id(false);
 

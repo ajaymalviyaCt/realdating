@@ -1,7 +1,8 @@
 import 'dart:math';
+
 import 'package:flutter/material.dart';
 
-typedef CallbackSelection = void Function(double duration,double endDuration);
+typedef CallbackSelection = void Function(double duration, double endDuration);
 
 class WaveSlider extends StatefulWidget {
   final double widthWaveSlider;
@@ -15,6 +16,7 @@ class WaveSlider extends StatefulWidget {
   final CallbackSelection callbackStart;
   final CallbackSelection callbackEnd;
   final double cutterDuration;
+
   const WaveSlider({
     Key? key,
     required this.duration,
@@ -26,7 +28,8 @@ class WaveSlider extends StatefulWidget {
     this.wavDeactiveColor = Colors.blueGrey,
     this.sliderColor = Colors.red,
     this.backgroundColor = Colors.grey,
-    this.positionTextColor = Colors.black,this.cutterDuration=15.0,
+    this.positionTextColor = Colors.black,
+    this.cutterDuration = 15.0,
   }) : super(key: key);
 
   @override
@@ -116,15 +119,13 @@ class WaveSliderState extends State<WaveSlider> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: bars.map((int height) {
-                      Color color = i >= barStartPosition / barWidth && i <= barEndPosition / barWidth
-                          ? widget.wavActiveColor
-                          : widget.wavDeactiveColor;
+                      Color color = i >= barStartPosition / barWidth && i <= barEndPosition / barWidth ? widget.wavActiveColor : widget.wavDeactiveColor;
                       i++;
 
                       return Container(
                         color: color,
                         height: height.toDouble(),
-                        width:4.9,
+                        width: 4.9,
                       );
                     }).toList(),
                   ),
@@ -133,7 +134,7 @@ class WaveSliderState extends State<WaveSlider> {
                     colorBG: widget.sliderColor,
                     width: selectBarWidth,
                     callback: (DragUpdateDetails details) {
-                     /* var tmp = barStartPosition + details.delta.dx;
+                      /* var tmp = barStartPosition + details.delta.dx;
                       if ((barEndPosition - selectBarWidth) > tmp &&
                           (tmp >= 0)) {
                         setState(() {
@@ -160,7 +161,7 @@ class WaveSliderState extends State<WaveSlider> {
                     },
                     callbackEnd: (details) {
                       //widget.callbackStart(_getStartTime().toDouble(),_getEndTime().toDouble());
-                      widget.callbackEnd(_getStartTime().toDouble(),_getEndTime().toDouble());
+                      widget.callbackEnd(_getStartTime().toDouble(), _getEndTime().toDouble());
                     },
                   ),
                   Bar(
@@ -176,7 +177,7 @@ class WaveSliderState extends State<WaveSlider> {
                       }
                     },
                     callbackEnd: (details) {
-                      widget.callbackEnd(_getStartTime().toDouble(),_getEndTime().toDouble());
+                      widget.callbackEnd(_getStartTime().toDouble(), _getEndTime().toDouble());
                     },
                   ),
                 ],
@@ -195,8 +196,7 @@ class CenterBar extends StatelessWidget {
   final GestureDragUpdateCallback callback;
   final GestureDragEndCallback? callbackEnd;
 
-  const CenterBar({Key? key, required this.position, required this.width, required this.callback, required this.callbackEnd})
-      : super(key: key);
+  const CenterBar({Key? key, required this.position, required this.width, required this.callback, required this.callbackEnd}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -229,9 +229,7 @@ class Bar extends StatelessWidget {
   final GestureDragUpdateCallback callback;
   final GestureDragEndCallback? callbackEnd;
 
-  const Bar(
-      {Key? key, required this.position, required this.width, required this.callback, required this.callbackEnd, this.colorBG})
-      : super(key: key);
+  const Bar({Key? key, required this.position, required this.width, required this.callback, required this.callbackEnd, this.colorBG}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

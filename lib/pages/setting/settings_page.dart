@@ -1,20 +1,19 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 import 'package:realdating/welcome_screen/optionButton.dart';
 import 'package:realdating/widgets/custom_text_styles.dart';
-import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
 import '../../consts/app_colors.dart';
 import '../../reel/app_util.dart';
-import '../a_frist_pages/add_your_photos/add_your_photos.dart';
 import '../a_frist_pages/changepassword/change_password.dart';
 import '../a_frist_pages/login_page/login_controller.dart';
 import '../edit_profle/edit_profile.dart';
 import '../invite_friends/invite_friend_page.dart';
 import '../profile/profile_controller.dart';
 import '../support.dart';
-
 
 class SettingsPage extends StatefulWidget {
   SettingsPage({
@@ -28,7 +27,7 @@ class SettingsPage extends StatefulWidget {
 class _SettingsPageState extends State<SettingsPage> {
   LoginController loginController = Get.put(LoginController());
 
- bool addPhoto = true;
+  bool addPhoto = true;
 
   Future<void> deleteAccount() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -41,10 +40,7 @@ class _SettingsPageState extends State<SettingsPage> {
       );
 
       // Define headers and API endpoint
-      var headers = {
-        'Authorization':
-        'Bearer $token'
-      };
+      var headers = {'Authorization': 'Bearer $token'};
       var dio = Dio();
       var response = await dio.request(
         'https://forreal.net:4000/users/delete_User',
@@ -61,21 +57,15 @@ class _SettingsPageState extends State<SettingsPage> {
         // await logoutUser();
         Get.offAll(() => const OptionScreen()); // Redirect to login screen
         AppUtil.showToast(message: "Your account has been successfully deleted.", isSuccess: false);
-
       } else {
         // Handle API error
-      //  showErrorDialog("Failed to delete account: ${response.statusMessage}");
+        //  showErrorDialog("Failed to delete account: ${response.statusMessage}");
       }
     } catch (e) {
       Get.back(); // Remove loading dialog in case of error
-    //  showErrorDialog("An error occurred: ${e.toString()}");
+      //  showErrorDialog("An error occurred: ${e.toString()}");
     }
   }
-
-
-
-
-
 
   showAlertDialog(BuildContext context) {
     Widget cancelButton = TextButton(
@@ -85,7 +75,7 @@ class _SettingsPageState extends State<SettingsPage> {
         prefs.setBool("isLogin", false);
         loginController.passwordController.clear();
         loginController.emailController.clear();
-        Get.offAll(()=>const OptionScreen());
+        Get.offAll(() => const OptionScreen());
       },
     );
     Widget continueButton = TextButton(
@@ -113,8 +103,6 @@ class _SettingsPageState extends State<SettingsPage> {
     );
   }
 
-
-
   deleteAccountAlertDialog(BuildContext context) {
     Widget cancelButton = TextButton(
       child: const Text("Delete"),
@@ -123,7 +111,7 @@ class _SettingsPageState extends State<SettingsPage> {
         prefs.setBool("isLogin", false);
         loginController.passwordController.clear();
         loginController.emailController.clear();
-        Get.offAll(()=>const OptionScreen());
+        Get.offAll(() => const OptionScreen());
       },
     );
     Widget continueButton = TextButton(
@@ -150,7 +138,6 @@ class _SettingsPageState extends State<SettingsPage> {
       },
     );
   }
-
 
   ProfileController profileController = Get.put(ProfileController());
 
@@ -192,15 +179,12 @@ class _SettingsPageState extends State<SettingsPage> {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(15.0),
                   border: Border.all(
-                    color: const Color(
-                        0xFFE8E6EA), // Border color, equivalent to var(--border-e-8-e-6-ea, #E8E6EA) in CSS
+                    color: const Color(0xFFE8E6EA), // Border color, equivalent to var(--border-e-8-e-6-ea, #E8E6EA) in CSS
                     width: 1.0, // Border width
                   ),
-                  color: const Color(
-                      0xFFFFFFFF), // Background color, equivalent to var(--white-ffffff, #FFF) in CSS
+                  color: const Color(0xFFFFFFFF), // Background color, equivalent to var(--white-ffffff, #FFF) in CSS
                 ),
-                child: const Icon(Icons.arrow_back_ios_outlined,
-                    color: colors.primary, size: 18),
+                child: const Icon(Icons.arrow_back_ios_outlined, color: colors.primary, size: 18),
               ),
             ),
           ],
@@ -214,8 +198,7 @@ class _SettingsPageState extends State<SettingsPage> {
               onTap: () {
                 Get.to(() => const EditProfilePage());
               },
-              child: iconwithTextContainer(
-                  context, "Edit Profile", "assets/icons/user.svg"),
+              child: iconwithTextContainer(context, "Edit Profile", "assets/icons/user.svg"),
             ),
             const SizedBox(
               height: 20,
@@ -224,8 +207,7 @@ class _SettingsPageState extends State<SettingsPage> {
               onTap: () {
                 Get.to(() => const ChangePasswordPagePage());
               },
-              child: iconwithTextContainer(
-                  context, "Change Password", "assets/icons/lock-01.svg"),
+              child: iconwithTextContainer(context, "Change Password", "assets/icons/lock-01.svg"),
             ),
             const SizedBox(
               height: 20,
@@ -234,8 +216,7 @@ class _SettingsPageState extends State<SettingsPage> {
               onTap: () {
                 Get.to(() => const InviteFriendPage());
               },
-              child: iconwithTextContainer(context, "Invite Friends",
-                  "assets/icons/users-profiles-02.svg"),
+              child: iconwithTextContainer(context, "Invite Friends", "assets/icons/users-profiles-02.svg"),
             ),
             const SizedBox(
               height: 20,
@@ -244,8 +225,7 @@ class _SettingsPageState extends State<SettingsPage> {
               onTap: () {
                 Get.to(() => const SupportScreen());
               },
-              child: iconwithTextContainer(
-                  context, "Support", "assets/icons/Icon.svg"),
+              child: iconwithTextContainer(context, "Support", "assets/icons/Icon.svg"),
             ),
             const SizedBox(
               height: 20,
@@ -281,8 +261,6 @@ class _SettingsPageState extends State<SettingsPage> {
                 ),
               ),
             ),
-
-
             const SizedBox(
               height: 20,
             ),
@@ -312,7 +290,6 @@ class _SettingsPageState extends State<SettingsPage> {
                 ),
               ),
             ),
-
           ],
         ),
       ),
@@ -338,11 +315,7 @@ class _SettingsPageState extends State<SettingsPage> {
               const SizedBox(
                 width: 15,
               ),
-              customTextCommon(
-                  text: "$title",
-                  fSize: 16,
-                  fWeight: FontWeight.w500,
-                  lineHeight: 16)
+              customTextCommon(text: "$title", fSize: 16, fWeight: FontWeight.w500, lineHeight: 16)
             ],
           ),
         ),

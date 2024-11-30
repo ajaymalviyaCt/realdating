@@ -15,8 +15,7 @@ class BusinessButton extends StatefulWidget {
 class _BusinessButtonState extends State<BusinessButton> {
   bool status = false;
   bool? isSwitched;
-  final BusinessProfileController profileController =
-      Get.put(BusinessProfileController());
+  final BusinessProfileController profileController = Get.put(BusinessProfileController());
   var days;
 
   bool switchB(days) {
@@ -84,9 +83,7 @@ class _BusinessButtonState extends State<BusinessButton> {
                     activeTrackColor: Appcolor.Redpink,
 
                     activeColor: Colors.white,
-                    trackOutlineColor: isSwitched != true
-                        ? MaterialStateProperty.all(Appcolor.ggrry)
-                        : MaterialStateProperty.all(Appcolor.Redpink),
+                    trackOutlineColor: isSwitched != true ? MaterialStateProperty.all(Appcolor.ggrry) : MaterialStateProperty.all(Appcolor.Redpink),
 // trackColor:MaterialStateProperty.all(Appcolor.Redpink) ,
                     inactiveThumbColor: Colors.grey,
                     inactiveTrackColor: Color(0xffAAAAAA).withOpacity(0.2),
@@ -129,9 +126,7 @@ class _BusinessButtonState extends State<BusinessButton> {
                     activeTrackColor: Appcolor.Redpink,
 
                     activeColor: Colors.white,
-                    trackOutlineColor: isSwitched != true
-                        ? MaterialStateProperty.all(Appcolor.ggrry)
-                        : MaterialStateProperty.all(Appcolor.Redpink),
+                    trackOutlineColor: isSwitched != true ? MaterialStateProperty.all(Appcolor.ggrry) : MaterialStateProperty.all(Appcolor.Redpink),
 // trackColor:MaterialStateProperty.all(Appcolor.Redpink) ,
                     inactiveThumbColor: Colors.grey,
                     inactiveTrackColor: Color(0xffAAAAAA).withOpacity(0.2),
@@ -174,9 +169,7 @@ class _BusinessButtonState extends State<BusinessButton> {
                     activeTrackColor: Appcolor.Redpink,
 
                     activeColor: Colors.white,
-                    trackOutlineColor: isSwitched != true
-                        ? MaterialStateProperty.all(Appcolor.ggrry)
-                        : MaterialStateProperty.all(Appcolor.Redpink),
+                    trackOutlineColor: isSwitched != true ? MaterialStateProperty.all(Appcolor.ggrry) : MaterialStateProperty.all(Appcolor.Redpink),
 // trackColor:MaterialStateProperty.all(Appcolor.Redpink) ,
                     inactiveThumbColor: Colors.grey,
                     inactiveTrackColor: Color(0xffAAAAAA).withOpacity(0.2),
@@ -219,9 +212,7 @@ class _BusinessButtonState extends State<BusinessButton> {
                     activeTrackColor: Appcolor.Redpink,
 
                     activeColor: Colors.white,
-                    trackOutlineColor: isSwitched != true
-                        ? MaterialStateProperty.all(Appcolor.ggrry)
-                        : MaterialStateProperty.all(Appcolor.Redpink),
+                    trackOutlineColor: isSwitched != true ? MaterialStateProperty.all(Appcolor.ggrry) : MaterialStateProperty.all(Appcolor.Redpink),
 // trackColor:MaterialStateProperty.all(Appcolor.Redpink) ,
                     inactiveThumbColor: Colors.grey,
                     inactiveTrackColor: Color(0xffAAAAAA).withOpacity(0.2),
@@ -264,9 +255,7 @@ class _BusinessButtonState extends State<BusinessButton> {
                     activeTrackColor: Appcolor.Redpink,
 
                     activeColor: Colors.white,
-                    trackOutlineColor: isSwitched != true
-                        ? MaterialStateProperty.all(Appcolor.ggrry)
-                        : MaterialStateProperty.all(Appcolor.Redpink),
+                    trackOutlineColor: isSwitched != true ? MaterialStateProperty.all(Appcolor.ggrry) : MaterialStateProperty.all(Appcolor.Redpink),
 // trackColor:MaterialStateProperty.all(Appcolor.Redpink) ,
                     inactiveThumbColor: Colors.grey,
                     inactiveTrackColor: Color(0xffAAAAAA).withOpacity(0.2),
@@ -310,9 +299,7 @@ class _BusinessButtonState extends State<BusinessButton> {
                     activeTrackColor: Appcolor.Redpink,
 
                     activeColor: Colors.white,
-                    trackOutlineColor: isSwitched != true
-                        ? MaterialStateProperty.all(Appcolor.ggrry)
-                        : MaterialStateProperty.all(Appcolor.Redpink),
+                    trackOutlineColor: isSwitched != true ? MaterialStateProperty.all(Appcolor.ggrry) : MaterialStateProperty.all(Appcolor.Redpink),
 // trackColor:MaterialStateProperty.all(Appcolor.Redpink) ,
                     inactiveThumbColor: Colors.grey,
                     inactiveTrackColor: Color(0xffAAAAAA).withOpacity(0.2),
@@ -355,9 +342,7 @@ class _BusinessButtonState extends State<BusinessButton> {
                     activeTrackColor: Appcolor.Redpink,
 
                     activeColor: Colors.white,
-                    trackOutlineColor: isSwitched != true
-                        ? MaterialStateProperty.all(Appcolor.ggrry)
-                        : MaterialStateProperty.all(Appcolor.Redpink),
+                    trackOutlineColor: isSwitched != true ? MaterialStateProperty.all(Appcolor.ggrry) : MaterialStateProperty.all(Appcolor.Redpink),
 // trackColor:MaterialStateProperty.all(Appcolor.Redpink) ,
                     inactiveThumbColor: Colors.grey,
                     inactiveTrackColor: Color(0xffAAAAAA).withOpacity(0.2),

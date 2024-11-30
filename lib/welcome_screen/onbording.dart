@@ -27,7 +27,6 @@ class _Onbordingtate extends State<Onbording> {
   ];
 
   List<Widget> _buildPageIndicator() {
-
     List<Widget> list = [];
     for (int i = 0; i < _pageColors.length; i++) {
       list.add(
@@ -45,7 +44,6 @@ class _Onbordingtate extends State<Onbording> {
     return list;
   }
 
-
   //indicator handler
   @override
   void initState() {
@@ -62,7 +60,6 @@ class _Onbordingtate extends State<Onbording> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       body: SafeArea(
         child: PageView(
@@ -72,7 +69,7 @@ class _Onbordingtate extends State<Onbording> {
             bool? isFirstTime = prefs.getBool("firstTimeOnApp");
             print("dekkkkk");
             print(isFirstTime);
-          prefs.setBool("firstTimeOnApp", true);
+            prefs.setBool("firstTimeOnApp", true);
             setState(() {
               currentPage = page.toDouble();
             });
@@ -100,9 +97,6 @@ class _Onbordingtate extends State<Onbording> {
                       color: Appcolor.daek,
                     )),
                 const SizedBox(height: 30),
-
-
-
                 Container(
                   margin: const EdgeInsets.symmetric(vertical: 20.0),
                   child: Row(
@@ -110,15 +104,13 @@ class _Onbordingtate extends State<Onbording> {
                     children: _buildPageIndicator(),
                   ),
                 ),
-               const Spacer(),
+                const Spacer(),
                 Align(
                   alignment: Alignment.bottomRight,
                   child: InkWell(
                       onTap: () {
                         // _increment();
-                        pageController.nextPage(
-                            duration: Duration(seconds: 1),
-                            curve: Curves.linear);
+                        pageController.nextPage(duration: Duration(seconds: 1), curve: Curves.linear);
                       },
                       child: Stack(
                         children: [
@@ -143,7 +135,6 @@ class _Onbordingtate extends State<Onbording> {
                 ),
               ],
             ),
-
             Column(
               children: [
                 Container(
@@ -164,17 +155,12 @@ class _Onbordingtate extends State<Onbording> {
                   'Find your best matches',
                   style: CustomTextStyle.TextPink,
                 ),
-               const SizedBox(height: 10),
-                const  Text(
+                const SizedBox(height: 10),
+                const Text(
                     'We match you with people that have a'
                     '\n       large array of similar interests.',
-                    style: TextStyle(
-                        fontSize: 14,
-                        fontFamily: 'Inter',
-                        fontWeight: FontWeight.w400,
-                        color: Appcolor.daek)),
+                    style: TextStyle(fontSize: 14, fontFamily: 'Inter', fontWeight: FontWeight.w400, color: Appcolor.daek)),
                 const SizedBox(height: 30),
-
                 Container(
                   margin: const EdgeInsets.symmetric(vertical: 20.0),
                   child: Row(
@@ -187,9 +173,7 @@ class _Onbordingtate extends State<Onbording> {
                   alignment: Alignment.bottomRight,
                   child: InkWell(
                       onTap: () {
-                        pageController.nextPage(
-                            duration:const Duration(seconds: 1),
-                            curve: Curves.linear);
+                        pageController.nextPage(duration: const Duration(seconds: 1), curve: Curves.linear);
                       },
                       child: Stack(
                         children: [
@@ -223,7 +207,7 @@ class _Onbordingtate extends State<Onbording> {
                   height: 360,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(15),
-                    image:const DecorationImage(
+                    image: const DecorationImage(
                       fit: BoxFit.fill,
                       image: AssetImage('assets/images/girl2 (2).png'),
                     ),
@@ -238,13 +222,8 @@ class _Onbordingtate extends State<Onbording> {
                 const Text(
                     'Sign up today and enjoy the first month'
                     '\n          of premium benefits on us.',
-                    style:  TextStyle(
-                        fontSize: 14,
-                        fontFamily: 'Inter',
-                        fontWeight: FontWeight.w400,
-                        color: Appcolor.daek)),
+                    style: TextStyle(fontSize: 14, fontFamily: 'Inter', fontWeight: FontWeight.w400, color: Appcolor.daek)),
                 SizedBox(height: 30),
-
                 Container(
                   margin: EdgeInsets.symmetric(vertical: 20.0),
                   child: Row(
@@ -257,9 +236,9 @@ class _Onbordingtate extends State<Onbording> {
                   alignment: Alignment.bottomRight,
                   child: InkWell(
                       onTap: () async {
-                         SharedPreferences prefs = await SharedPreferences.getInstance();
-                         await prefs.setBool("isShowOnboarding",false);
-                          Get.to(() => const OptionScreen());
+                        SharedPreferences prefs = await SharedPreferences.getInstance();
+                        await prefs.setBool("isShowOnboarding", false);
+                        Get.to(() => const OptionScreen());
                       },
                       child: Stack(
                         children: [

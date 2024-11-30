@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-
 class ShowLikeCommentPost extends StatefulWidget {
   const ShowLikeCommentPost({super.key});
 
@@ -11,11 +10,9 @@ class ShowLikeCommentPost extends StatefulWidget {
 class _ShowLikeCommentPostState extends State<ShowLikeCommentPost> {
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    return Scaffold(
       body: Column(
-        children: [
-
-        ],
+        children: [],
       ),
     );
   }

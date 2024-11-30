@@ -7,23 +7,22 @@ class CommentPage extends StatefulWidget {
   final String postId;
   final String userId;
   final int indexxx;
-  const CommentPage({super.key, required this.postId,required this.userId,required this.indexxx});
+
+  const CommentPage({super.key, required this.postId, required this.userId, required this.indexxx});
 
   @override
   State<CommentPage> createState() => _CommentPageState();
 }
 
 class _CommentPageState extends State<CommentPage> {
-
   HomePageUserController postsC = Get.put(HomePageUserController());
   HomePageNewController homePageNewController = Get.put(HomePageNewController());
-
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    homePageNewController.getAllCommentBYpostID(postID: widget.postId, indexx: widget.indexxx, alreadlyLoad: true  );
+    homePageNewController.getAllCommentBYpostID(postID: widget.postId, indexx: widget.indexxx, alreadlyLoad: true);
   }
 
   @override
@@ -36,10 +35,7 @@ class _CommentPageState extends State<CommentPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-          title: const Text("Comments"),
-          centerTitle: true,
-          backgroundColor: Colors.white),
+      appBar: AppBar(title: const Text("Comments"), centerTitle: true, backgroundColor: Colors.white),
       floatingActionButton: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
@@ -50,14 +46,10 @@ class _CommentPageState extends State<CommentPage> {
             children: <Widget>[
               Expanded(
                 child: Padding(
-                  padding: const EdgeInsets.only(
-                      left: 30, right: 0, bottom: 0, top: 0),
+                  padding: const EdgeInsets.only(left: 30, right: 0, bottom: 0, top: 0),
                   child: Container(
                     padding: const EdgeInsets.only(left: 10),
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(30),
-                        border: Border.all(color: Colors.grey)),
+                    decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(30), border: Border.all(color: Colors.grey)),
                     child: TextField(
                       controller: homePageNewController.commentsController,
                       decoration: const InputDecoration(
@@ -72,7 +64,6 @@ class _CommentPageState extends State<CommentPage> {
                 padding: const EdgeInsets.only(bottom: 0.0),
                 child: TextButton(
                   onPressed: () async {
-
                     FocusScope.of(context).unfocus();
                     String trimmedComment = homePageNewController.commentsController.text.trim();
 
@@ -115,23 +106,17 @@ class _CommentPageState extends State<CommentPage> {
                   itemCount: homePageNewController.comments.length,
                   itemBuilder: (context, index) {
                     return ListTile(
-                      title: Text(
-                          "${homePageNewController.comments[index].commentOwnerName}"),
-                      subtitle: Text(
-                          "${homePageNewController.comments[index].postComment}"),
+                      title: Text("${homePageNewController.comments[index].commentOwnerName}"),
+                      subtitle: Text("${homePageNewController.comments[index].postComment}"),
                       leading: Container(
-                        decoration: BoxDecoration(
-                            border: Border.all(color: Colors.red),
-                            borderRadius: BorderRadius.circular(35)),
+                        decoration: BoxDecoration(border: Border.all(color: Colors.red), borderRadius: BorderRadius.circular(35)),
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(35),
                           child: SizedBox(
                             height: 35,
                             width: 35,
                             child: CachedNetworkImage(
-                              imageUrl: homePageNewController
-                                  .comments[index].profileImage
-                                  .toString(),
+                              imageUrl: homePageNewController.comments[index].profileImage.toString(),
                               placeholder: (context, url) => const Center(
                                   child: SizedBox(
                                       height: 20,
@@ -139,8 +124,7 @@ class _CommentPageState extends State<CommentPage> {
                                       child: CircularProgressIndicator(
                                         strokeWidth: 1,
                                       ))),
-                              errorWidget: (context, url, error) =>
-                                  const Icon(Icons.person_2_outlined),
+                              errorWidget: (context, url, error) => const Icon(Icons.person_2_outlined),
                               filterQuality: FilterQuality.low,
                               fit: BoxFit.cover,
                             ),

@@ -5,11 +5,9 @@ import '../../../services/base_client01.dart';
 
 import 'events_model.dart';
 
-
 class EventsController extends GetxController {
-
-  RxBool isLoadig =false.obs;
-  EventssModel ?  matchessModel;
+  RxBool isLoadig = false.obs;
+  EventssModel? matchessModel;
 
   @override
   void onReady() {
@@ -17,27 +15,24 @@ class EventsController extends GetxController {
     Events();
   }
 
-
-  Events()async{
+  Events() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var userId = prefs.get('user_id');
     print("Events");
     isLoadig(true);
-    final response = await BaseClient01().post(Appurls.events,{
+    final response = await BaseClient01().post(Appurls.events, {
       "user_id": userId.toString(),
     });
     print(response);
     print("TreadingModel");
-    bool success= response["success"];
-    var msg= response["message"];
-    print( "msg ___$msg");
-    if(success){
-    matchessModel =EventssModel.fromJson(response);
-    update();
+    bool success = response["success"];
+    var msg = response["message"];
+    print("msg ___$msg");
+    if (success) {
+      matchessModel = EventssModel.fromJson(response);
+      update();
     }
     update();
     isLoadig(false);
-
   }
-
 }

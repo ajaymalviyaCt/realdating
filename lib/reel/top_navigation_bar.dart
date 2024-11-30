@@ -25,20 +25,14 @@ Widget backNavigationBar({required String title}) {
           left: 50,
           right: 50,
           top: 10,
-          child: Center(
-              child: BodyLargeText(title.tr,
-                  maxLines: 1, weight: TextWeight.medium)),
+          child: Center(child: BodyLargeText(title.tr, maxLines: 1, weight: TextWeight.medium)),
         )
       ],
-    ).setPadding(
-        left: DesignConstants.horizontalPadding,
-        right: DesignConstants.horizontalPadding,
-        top: 40),
+    ).setPadding(left: DesignConstants.horizontalPadding, right: DesignConstants.horizontalPadding, top: 40),
   );
 }
 
-Widget backNavigationBarWithTrailingWidget(
-    {required String title, required Widget widget}) {
+Widget backNavigationBarWithTrailingWidget({required String title, required Widget widget}) {
   return Container(
     height: 100,
     color: AppColorConstants.cardColor,
@@ -75,18 +69,11 @@ Widget backNavigationBarWithTrailingWidget(
           ),
         )
       ],
-    ).setPadding(
-        left: DesignConstants.horizontalPadding,
-        right: DesignConstants.horizontalPadding,
-        top: 40),
+    ).setPadding(left: DesignConstants.horizontalPadding, right: DesignConstants.horizontalPadding, top: 40),
   );
 }
 
-Widget backNavigationBarWithIcon(
-    {required ThemeIcon icon,
-    required String title,
-    Color? iconColor,
-    required VoidCallback iconBtnClicked}) {
+Widget backNavigationBarWithIcon({required ThemeIcon icon, required String title, Color? iconColor, required VoidCallback iconBtnClicked}) {
   return Container(
     height: 100,
     color: AppColorConstants.themeColor.withOpacity(0.1),
@@ -129,17 +116,11 @@ Widget backNavigationBarWithIcon(
           ),
         ),
       ],
-    ).setPadding(
-        left: DesignConstants.horizontalPadding,
-        right: DesignConstants.horizontalPadding,
-        top: 40),
+    ).setPadding(left: DesignConstants.horizontalPadding, right: DesignConstants.horizontalPadding, top: 40),
   );
 }
 
-Widget profileScreensNavigationBar(
-    {required String title,
-    String? rightBtnTitle,
-    required VoidCallback completion}) {
+Widget profileScreensNavigationBar({required String title, String? rightBtnTitle, required VoidCallback completion}) {
   return Stack(
     alignment: AlignmentDirectional.center,
     children: [
@@ -154,14 +135,11 @@ Widget profileScreensNavigationBar(
             Get.back();
           }),
           if (rightBtnTitle != null)
-            BodyLargeText(rightBtnTitle.tr, weight: TextWeight.medium)
-                .ripple(() {
+            BodyLargeText(rightBtnTitle.tr, weight: TextWeight.medium).ripple(() {
               completion();
             }),
         ],
-      ).setPadding(
-          left: DesignConstants.horizontalPadding,
-          right: DesignConstants.horizontalPadding),
+      ).setPadding(left: DesignConstants.horizontalPadding, right: DesignConstants.horizontalPadding),
       Positioned(
         left: 0,
         right: 0,
@@ -173,11 +151,7 @@ Widget profileScreensNavigationBar(
   ).bP16;
 }
 
-Widget titleNavigationBarWithIcon(
-    {required String title,
-    required ThemeIcon icon,
-    Color? iconColor,
-    required VoidCallback completion}) {
+Widget titleNavigationBarWithIcon({required String title, required ThemeIcon icon, Color? iconColor, required VoidCallback completion}) {
   return Row(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: [
@@ -193,11 +167,7 @@ Widget titleNavigationBarWithIcon(
         completion();
       }),
     ],
-  ).setPadding(
-      left: DesignConstants.horizontalPadding,
-      right: DesignConstants.horizontalPadding,
-      top: 8,
-      bottom: 16);
+  ).setPadding(left: DesignConstants.horizontalPadding, right: DesignConstants.horizontalPadding, top: 8, bottom: 16);
 }
 
 Widget titleNavigationBar({required String title}) {
@@ -206,9 +176,7 @@ Widget titleNavigationBar({required String title}) {
     width: Get.width,
     color: AppColorConstants.themeColor.withOpacity(0.1),
     child: Center(
-      child: BodyLargeText(title.tr, weight: TextWeight.medium)
-          .setPadding(top: 40),
+      child: BodyLargeText(title.tr, weight: TextWeight.medium).setPadding(top: 40),
     ),
   );
 }
-

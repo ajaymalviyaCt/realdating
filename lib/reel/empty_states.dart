@@ -1,5 +1,6 @@
-import 'common_import.dart';
 import 'package:lottie/lottie.dart';
+
+import 'common_import.dart';
 
 Widget noUserFound(BuildContext context) {
   return Column(

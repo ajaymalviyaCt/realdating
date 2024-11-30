@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 import 'package:realdating/chat/screens/home_screen.dart';
 import 'package:realdating/function/function_class.dart';
 import 'package:realdating/services/base_client01.dart';
-import 'package:get/get.dart';
 import 'package:realdating/widgets/size_utils.dart';
 import 'package:velocity_x/velocity_x.dart';
+
 import '../../../../chat/api/apis.dart';
 import '../../../../chat/helper/dialogs.dart';
 import '../../../../consts/app_colors.dart';
@@ -127,11 +128,9 @@ class _MyAllDatesPageState extends State<MyAllDatesPage> {
                                                           decoration: ShapeDecoration(
                                                             image: DecorationImage(
                                                               image: NetworkImage(
-                                                                '${myAllDatesController.myAllDatesModel?.myInvites?[index].requestStatus}' ==
-                                                                        "Received"
+                                                                '${myAllDatesController.myAllDatesModel?.myInvites?[index].requestStatus}' == "Received"
                                                                     ? '${myAllDatesController.myAllDatesModel?.myInvites?[index].invitedBy?.profileImage.toString()}'
-                                                                    : '${myAllDatesController.myAllDatesModel?.myInvites?[index].status}' ==
-                                                                            "2"
+                                                                    : '${myAllDatesController.myAllDatesModel?.myInvites?[index].status}' == "2"
                                                                         ? '${myAllDatesController.myAllDatesModel?.myInvites?[index].invitedBy?.profileImage}'
                                                                         : '${myAllDatesController.myAllDatesModel?.myInvites?[index].invitedTo?.profileImage}',
                                                               ),
@@ -149,11 +148,9 @@ class _MyAllDatesPageState extends State<MyAllDatesPage> {
                                                       crossAxisAlignment: CrossAxisAlignment.start,
                                                       children: [
                                                         Text(
-                                                          '${myAllDatesController.myAllDatesModel?.myInvites?[index].requestStatus}' ==
-                                                                  "Received"
+                                                          '${myAllDatesController.myAllDatesModel?.myInvites?[index].requestStatus}' == "Received"
                                                               ? '${myAllDatesController.myAllDatesModel?.myInvites?[index].invitedBy?.firstName} ${myAllDatesController.myAllDatesModel?.myInvites?[index].invitedBy?.lastName}'
-                                                              : '${myAllDatesController.myAllDatesModel?.myInvites?[index].status}' ==
-                                                                      "2"
+                                                              : '${myAllDatesController.myAllDatesModel?.myInvites?[index].status}' == "2"
                                                                   ? '${myAllDatesController.myAllDatesModel?.myInvites?[index].invitedBy?.firstName} ${myAllDatesController.myAllDatesModel?.myInvites?[index].invitedBy?.lastName}'
                                                                   : '${myAllDatesController.myAllDatesModel?.myInvites?[index].invitedTo?.firstName} ${myAllDatesController.myAllDatesModel?.myInvites?[index].invitedTo?.lastName}',
                                                           style: TextStyle(
@@ -186,7 +183,7 @@ class _MyAllDatesPageState extends State<MyAllDatesPage> {
                                                     Builder(
                                                       builder: (context) {
                                                         if ((myAllDatesController.myAllDatesModel?.myInvites?[index].requestStatus?.toLowerCase().trim() ==
-                                                            'requested') &&
+                                                                'requested') &&
                                                             myAllDatesController.myAllDatesModel?.myInvites?[index].status == 1) {
                                                           return const Text('Accepted',
                                                               style: TextStyle(color: Colors.red, fontSize: 15, fontWeight: FontWeight.bold));
@@ -194,7 +191,8 @@ class _MyAllDatesPageState extends State<MyAllDatesPage> {
 
                                                         print('my status-------${myAllDatesController.myAllDatesModel?.myInvites?[index].status}');
 
-                                                        if ((myAllDatesController.myAllDatesModel?.myInvites?[index].requestStatus?.toLowerCase().trim() == 'requested') &&
+                                                        if ((myAllDatesController.myAllDatesModel?.myInvites?[index].requestStatus?.toLowerCase().trim() ==
+                                                                'requested') &&
                                                             myAllDatesController.myAllDatesModel?.myInvites?[index].status == 2) {
                                                           return const Text('Rejected',
                                                               style: TextStyle(color: Colors.red, fontSize: 15, fontWeight: FontWeight.bold));
@@ -224,16 +222,16 @@ class _MyAllDatesPageState extends State<MyAllDatesPage> {
                                                         //   return const Text('Pending',style: TextStyle(color: Colors.amber,fontSize: 15,fontWeight:FontWeight.bold),);
                                                         // }
                                                         else if (myAllDatesController.myAllDatesModel?.myInvites?[index].status == 1) {
-                                                          return const Text('Accepted', style: TextStyle(
-                                                                color: Colors.green, fontSize: 15, fontWeight: FontWeight.bold),
+                                                          return const Text(
+                                                            'Accepted',
+                                                            style: TextStyle(color: Colors.green, fontSize: 15, fontWeight: FontWeight.bold),
                                                           );
                                                           ;
-                                                        } else if (myAllDatesController
-                                                                .myAllDatesModel?.myInvites?[index].status == 2) {
+                                                        } else if (myAllDatesController.myAllDatesModel?.myInvites?[index].status == 2) {
                                                           print('status-----${myAllDatesController.myAllDatesModel?.myInvites?[index].status}');
-                                                          return const Text('Rejected',
-                                                            style: TextStyle(
-                                                                color: Colors.red, fontSize: 15, fontWeight: FontWeight.bold),
+                                                          return const Text(
+                                                            'Rejected',
+                                                            style: TextStyle(color: Colors.red, fontSize: 15, fontWeight: FontWeight.bold),
                                                           );
                                                         }
                                                         return Container();
@@ -377,12 +375,10 @@ class _MyAllDatesPageState extends State<MyAllDatesPage> {
                                                 Row(
                                                   children: [
                                                     const Spacer(),
-                                                    '${myAllDatesController.myAllDatesModel?.myInvites?[index].requestStatus}' ==
-                                                            "Received"
+                                                    '${myAllDatesController.myAllDatesModel?.myInvites?[index].requestStatus}' == "Received"
                                                         ? Column(
                                                             children: [
-                                                              '${myAllDatesController.myAllDatesModel?.myInvites?[index].status}' ==
-                                                                      '1'
+                                                              '${myAllDatesController.myAllDatesModel?.myInvites?[index].status}' == '1'
                                                                   ? Row(
                                                                       children: [
                                                                         Container(
@@ -398,9 +394,7 @@ class _MyAllDatesPageState extends State<MyAllDatesPage> {
                                                                           child: Padding(
                                                                             padding: const EdgeInsets.all(4.0),
                                                                             child: Obx(
-                                                                              () => myAllDatesController
-                                                                                          .isLoadingAceptedRequest.value ==
-                                                                                      index
+                                                                              () => myAllDatesController.isLoadingAceptedRequest.value == index
                                                                                   ? const Center(
                                                                                       child: SizedBox(
                                                                                       height: 20,
@@ -435,8 +429,7 @@ class _MyAllDatesPageState extends State<MyAllDatesPage> {
                                                                                     "${myAllDatesController.myAllDatesModel?.myInvites?[index].invitedBy?.id}")
                                                                                 .then((value) {
                                                                               if (!value) {
-                                                                                Dialogs.showSnackbar(
-                                                                                    context, 'User does not Exists!');
+                                                                                Dialogs.showSnackbar(context, 'User does not Exists!');
                                                                               }
                                                                             });
                                                                             Get.to(() => HomeScreen())?.then((value) => {});
@@ -506,21 +499,17 @@ class _MyAllDatesPageState extends State<MyAllDatesPage> {
                                                               //         ),
                                                               //       )
                                                               //     : const SizedBox(),
-                                                              '${myAllDatesController.myAllDatesModel?.myInvites?[index].status}' ==
-                                                                      "0"
+                                                              '${myAllDatesController.myAllDatesModel?.myInvites?[index].status}' == "0"
                                                                   ? Row(
                                                                       children: [
                                                                         InkWell(
                                                                           onTap: () async {
                                                                             // myAllDatesController.isLoadingAceptedRequest.value = true;
                                                                             final response = await BaseClient01().post(
-                                                                                Uri.parse(
-                                                                                    "https://forreal.net:4000/users/accept_reject_invite_request"),
-                                                                                {
-                                                                                  "invite_id":
-                                                                                      "${myAllDatesController.myAllDatesModel?.myInvites?[index].id}",
-                                                                                  "status": "1"
-                                                                                });
+                                                                                Uri.parse("https://forreal.net:4000/users/accept_reject_invite_request"), {
+                                                                              "invite_id": "${myAllDatesController.myAllDatesModel?.myInvites?[index].id}",
+                                                                              "status": "1"
+                                                                            });
                                                                             // myAllDatesController.isLoadingAceptedRequest.value = false;
                                                                             await myAllDatesController.classifiedAllPost();
                                                                             await matchesController.matches();
@@ -540,9 +529,7 @@ class _MyAllDatesPageState extends State<MyAllDatesPage> {
                                                                             child: Padding(
                                                                               padding: const EdgeInsets.all(4.0),
                                                                               child: Obx(
-                                                                                () => myAllDatesController
-                                                                                            .isLoadingAceptedRequest.value ==
-                                                                                        index
+                                                                                () => myAllDatesController.isLoadingAceptedRequest.value == index
                                                                                     ? const Center(
                                                                                         child: SizedBox(
                                                                                         height: 20,
@@ -573,13 +560,10 @@ class _MyAllDatesPageState extends State<MyAllDatesPage> {
                                                                         InkWell(
                                                                           onTap: () async {
                                                                             final response = await BaseClient01().post(
-                                                                                Uri.parse(
-                                                                                    "https://forreal.net:4000/users/accept_reject_invite_request"),
-                                                                                {
-                                                                                  "invite_id":
-                                                                                      "${myAllDatesController.myAllDatesModel?.myInvites?[index].id}",
-                                                                                  "status": "2"
-                                                                                });
+                                                                                Uri.parse("https://forreal.net:4000/users/accept_reject_invite_request"), {
+                                                                              "invite_id": "${myAllDatesController.myAllDatesModel?.myInvites?[index].id}",
+                                                                              "status": "2"
+                                                                            });
                                                                             await myAllDatesController.classifiedAllPost();
                                                                           },
                                                                           child: Container(
@@ -587,8 +571,7 @@ class _MyAllDatesPageState extends State<MyAllDatesPage> {
                                                                             height: 30,
                                                                             decoration: BoxDecoration(
                                                                                 borderRadius: BorderRadius.circular(30),
-                                                                                border:
-                                                                                    Border.all(color: const Color(0xFFFB4967))),
+                                                                                border: Border.all(color: const Color(0xFFFB4967))),
                                                                             child: Text(
                                                                               'Cancel',
                                                                               style: TextStyle(
@@ -609,16 +592,14 @@ class _MyAllDatesPageState extends State<MyAllDatesPage> {
                                                           )
                                                         : Column(
                                                             children: [
-                                                              '${myAllDatesController.myAllDatesModel?.myInvites?[index].status}' ==
-                                                                      "1"
+                                                              '${myAllDatesController.myAllDatesModel?.myInvites?[index].status}' == "1"
                                                                   ? InkWell(
                                                                       onTap: () async {
                                                                         await APIs.addChatUser(
                                                                                 "${myAllDatesController.myAllDatesModel?.myInvites?[index].invitedTo?.id}")
                                                                             .then((value) {
                                                                           if (!value) {
-                                                                            Dialogs.showSnackbar(
-                                                                                context, 'User does not Exists!');
+                                                                            Dialogs.showSnackbar(context, 'User does not Exists!');
                                                                           }
                                                                         });
                                                                         Get.to(() => HomeScreen())?.then((value) => {});
@@ -650,21 +631,15 @@ class _MyAllDatesPageState extends State<MyAllDatesPage> {
                                                                       ),
                                                                     )
                                                                   : const SizedBox(),
-                                                              '${myAllDatesController.myAllDatesModel?.myInvites?[index].status}' ==
-                                                                      "2"
+                                                              '${myAllDatesController.myAllDatesModel?.myInvites?[index].status}' == "2"
                                                                   ? InkWell(
                                                                       onTap: () async {
-                                                                        myAllDatesController.isLoadingPostToClassified.value =
-                                                                            true;
-                                                                        final response = await BaseClient01().post(
-                                                                            Uri.parse(
-                                                                                "https://forreal.net:4000/users/create_classified_request"),
-                                                                            {
-                                                                              'invite_id':
-                                                                                  '${myAllDatesController.myAllDatesModel?.myInvites?[index].id}',
-                                                                            });
-                                                                        myAllDatesController.isLoadingPostToClassified.value =
-                                                                            false;
+                                                                        myAllDatesController.isLoadingPostToClassified.value = true;
+                                                                        final response = await BaseClient01()
+                                                                            .post(Uri.parse("https://forreal.net:4000/users/create_classified_request"), {
+                                                                          'invite_id': '${myAllDatesController.myAllDatesModel?.myInvites?[index].id}',
+                                                                        });
+                                                                        myAllDatesController.isLoadingPostToClassified.value = false;
                                                                         await myAllDatesController.classifiedAllPost();
                                                                         print("response${response.toString()}");
                                                                       },
@@ -695,18 +670,14 @@ class _MyAllDatesPageState extends State<MyAllDatesPage> {
                                                                       ),
                                                                     )
                                                                   : const SizedBox(),
-                                                              '${myAllDatesController.myAllDatesModel?.myInvites?[index].status}' ==
-                                                                      "0"
+                                                              '${myAllDatesController.myAllDatesModel?.myInvites?[index].status}' == "0"
                                                                   ? InkWell(
                                                                       onTap: () async {
                                                                         final response = await BaseClient01().post(
-                                                                            Uri.parse(
-                                                                                "https://forreal.net:4000/users/reject_request"),
-                                                                            {
-                                                                              "invite_id":
-                                                                                  "${myAllDatesController.myAllDatesModel?.myInvites?[index].id}",
-                                                                              "status": "2"
-                                                                            });
+                                                                            Uri.parse("https://forreal.net:4000/users/reject_request"), {
+                                                                          "invite_id": "${myAllDatesController.myAllDatesModel?.myInvites?[index].id}",
+                                                                          "status": "2"
+                                                                        });
                                                                         await myAllDatesController.classifiedAllPost();
                                                                       },
                                                                       child: Container(

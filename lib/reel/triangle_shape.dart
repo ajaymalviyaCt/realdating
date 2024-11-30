@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class TopPointingTriangle extends CustomPainter {
-  Paint painter =  Paint();
+  Paint painter = Paint();
   Color color;
 
   TopPointingTriangle({required this.color}) {
@@ -12,10 +12,9 @@ class TopPointingTriangle extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-
     var path = Path();
 
-    path.moveTo(size.width/2, 0);
+    path.moveTo(size.width / 2, 0);
     path.lineTo(0, size.height);
     path.lineTo(size.height, size.width);
     path.close();
@@ -30,7 +29,7 @@ class TopPointingTriangle extends CustomPainter {
 }
 
 class LeftPointingTriangle extends CustomPainter {
-  Paint painter =  Paint();
+  Paint painter = Paint();
   Color color;
 
   LeftPointingTriangle({required this.color}) {
@@ -44,7 +43,7 @@ class LeftPointingTriangle extends CustomPainter {
     var path = Path();
 
     path.moveTo(size.width, 0);
-    path.lineTo(size.width/2.5, size.height/2);
+    path.lineTo(size.width / 2.5, size.height / 2);
     path.lineTo(size.height, size.width);
     path.close();
 
@@ -58,7 +57,7 @@ class LeftPointingTriangle extends CustomPainter {
 }
 
 class RightPointingTriangle extends CustomPainter {
-  Paint painter =  Paint();
+  Paint painter = Paint();
   Color color;
 
   RightPointingTriangle({required this.color}) {
@@ -72,7 +71,7 @@ class RightPointingTriangle extends CustomPainter {
     var path = Path();
 
     path.moveTo(0, 0);
-    path.lineTo(size.width/1.5, size.height/2);
+    path.lineTo(size.width / 1.5, size.height / 2);
     path.lineTo(0, size.height);
     path.close();
 

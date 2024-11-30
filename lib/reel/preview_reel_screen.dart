@@ -1,9 +1,11 @@
+import 'dart:io';
+
 import 'package:chewie/chewie.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:video_compress/video_compress.dart';
 import 'package:video_player/video_player.dart';
-import 'dart:io';
+
 import '../validation/validation.dart';
 import 'common_import.dart';
 
@@ -13,13 +15,7 @@ class PreviewReelsScreen extends StatefulWidget {
   final double? audioStartTime;
   final double? audioEndTime;
 
-  const PreviewReelsScreen(
-      {Key? key,
-      required this.reel,
-      this.audioId,
-      this.audioStartTime,
-      this.audioEndTime})
-      : super(key: key);
+  const PreviewReelsScreen({Key? key, required this.reel, this.audioId, this.audioStartTime, this.audioEndTime}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -31,8 +27,7 @@ class _PreviewReelsState extends State<PreviewReelsScreen> {
   ChewieController? chewieController;
   VideoPlayerController? videoPlayerController;
 
-
- final TextEditingController  _textController = TextEditingController();
+  final TextEditingController _textController = TextEditingController();
 
   @override
   void initState() {
@@ -80,7 +75,7 @@ class _PreviewReelsState extends State<PreviewReelsScreen> {
                 chewieController == null
                     ? Container()
                     : SizedBox(
-                        height: MediaQuery.of(context).size.height/2,
+                        height: MediaQuery.of(context).size.height / 2,
                         child: Chewie(
                           controller: chewieController!,
                         ),
@@ -88,14 +83,11 @@ class _PreviewReelsState extends State<PreviewReelsScreen> {
                 const SizedBox(
                   height: 25,
                 ),
-          
                 SizedBox(
                   // height: 70,
                   child: TextFormField(
-                    style: TextStyle(
-                      color: Colors.white
-                    ),
-                    onChanged:(value) {
+                    style: TextStyle(color: Colors.white),
+                    onChanged: (value) {
                       if (value.startsWith(' ')) {
                         _textController.text = value.trim();
                         _textController.selection = TextSelection.fromPosition(
@@ -135,14 +127,13 @@ class _PreviewReelsState extends State<PreviewReelsScreen> {
                           )),
                       hintText: 'Caption',
                       hintStyle: TextStyle(color: Colors.white),
-                      border: OutlineInputBorder(
-                          borderSide: BorderSide(
-                              color: Colors.white)),
+                      border: OutlineInputBorder(borderSide: BorderSide(color: Colors.white)),
                     ),
                   ),
                 ),
-                const SizedBox(height:20,),
-          
+                const SizedBox(
+                  height: 20,
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -157,11 +148,7 @@ class _PreviewReelsState extends State<PreviewReelsScreen> {
                             child: Text(
                               nextString.tr,
                               style: TextStyle(fontSize: FontSizes.b2),
-                            ).setPadding(
-                                left: DesignConstants.horizontalPadding,
-                                right: DesignConstants.horizontalPadding,
-                                bottom: 8,
-                                top: 8))
+                            ).setPadding(left: DesignConstants.horizontalPadding, right: DesignConstants.horizontalPadding, bottom: 8, top: 8))
                         .circular
                         .ripple(() {
                       compressVideo(widget.reel);
@@ -262,7 +249,6 @@ class _PreviewReelsState extends State<PreviewReelsScreen> {
   //   //     ));
   // }
 
-
   Future<void> compressVideo(File file) async {
     // setState(() {
     //   isCompressing = true;
@@ -283,7 +269,6 @@ class _PreviewReelsState extends State<PreviewReelsScreen> {
       print("Compression result1: ${info?.filesize}");
       print("Compression result2: ${info?.duration}");
 
-
       File finalFile = info!.file!;
 
       int fileSizeInBytes22 = finalFile.lengthSync();
@@ -293,9 +278,7 @@ class _PreviewReelsState extends State<PreviewReelsScreen> {
       print("Total_size===>fileSizeInKB_after: ${fileSizeInKB}");
       print("Total_size===>fileSizeInMB_after ${fileSizeInMB}");
 
-
-
-       submitReel(finalFile);
+      submitReel(finalFile);
       // Handle the compressed video file, for example, you can upload it or play it.
     } catch (e) {
       print("Error compressing video: $e");
@@ -314,8 +297,7 @@ class _PreviewReelsState extends State<PreviewReelsScreen> {
       'Authorization': 'Bearer $token',
     };
 
-    var request = http.MultipartRequest(
-      'POST', Uri.parse('https://forreal.net:4000/create_reel'));
+    var request = http.MultipartRequest('POST', Uri.parse('https://forreal.net:4000/create_reel'));
 
     request.files.add(await http.MultipartFile.fromPath('file', file.path));
 
@@ -337,5 +319,4 @@ class _PreviewReelsState extends State<PreviewReelsScreen> {
 
     EasyLoading.dismiss(); // Dismiss loading indicator
   }
-
 }

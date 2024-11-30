@@ -18,22 +18,22 @@ class BcommentsModel {
     this.success,
     this.message,
     this.status,
-   required this.comments,
+    required this.comments,
   });
 
   factory BcommentsModel.fromJson(Map<String, dynamic> json) => BcommentsModel(
-    success: json["success"],
-    message: json["message"],
-    status: json["status"],
-    comments: json["comments"] == null ? [] : List<BComments>.from(json["comments"]!.map((x) => BComments.fromJson(x))),
-  );
+        success: json["success"],
+        message: json["message"],
+        status: json["status"],
+        comments: json["comments"] == null ? [] : List<BComments>.from(json["comments"]!.map((x) => BComments.fromJson(x))),
+      );
 
   Map<String, dynamic> toJson() => {
-    "success": success,
-    "message": message,
-    "status": status,
-    "comments": comments,
-  };
+        "success": success,
+        "message": message,
+        "status": status,
+        "comments": comments,
+      };
 }
 
 class BComments {
@@ -58,24 +58,24 @@ class BComments {
   });
 
   factory BComments.fromJson(Map<String, dynamic> json) => BComments(
-    id: json["id"],
-    businessId: json["business_id"],
-    postId: json["post_id"],
-    postComment: json["post_comment"],
-    createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
-    updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
-    commentOwnerName: json["comment_owner_name"],
-    profileImage: json["profile_image"],
-  );
+        id: json["id"],
+        businessId: json["business_id"],
+        postId: json["post_id"],
+        postComment: json["post_comment"],
+        createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
+        updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
+        commentOwnerName: json["comment_owner_name"],
+        profileImage: json["profile_image"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "id": id,
-    "business_id": businessId,
-    "post_id": postId,
-    "post_comment": postComment,
-    "created_at": createdAt?.toIso8601String(),
-    "updated_at": updatedAt?.toIso8601String(),
-    "comment_owner_name": commentOwnerName,
-    "profile_image": profileImage,
-  };
+        "id": id,
+        "business_id": businessId,
+        "post_id": postId,
+        "post_comment": postComment,
+        "created_at": createdAt?.toIso8601String(),
+        "updated_at": updatedAt?.toIso8601String(),
+        "comment_owner_name": commentOwnerName,
+        "profile_image": profileImage,
+      };
 }

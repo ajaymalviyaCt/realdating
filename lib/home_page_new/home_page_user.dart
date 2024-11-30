@@ -30,8 +30,7 @@ class HomePageUser extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePageUser> {
-  final HomePageNewController homePageNewController =
-      Get.put(HomePageNewController());
+  final HomePageNewController homePageNewController = Get.put(HomePageNewController());
   HomePageUserController postsC = Get.find<HomePageUserController>();
   final ProfileController profileController = Get.put(ProfileController());
 
@@ -94,8 +93,7 @@ class _HomePageState extends State<HomePageUser> {
                                               decoration: ShapeDecoration(
                                                 color: Colors.white,
                                                 shape: RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(10),
+                                                  borderRadius: BorderRadius.circular(10),
                                                 ),
                                                 shadows: const [
                                                   BoxShadow(
@@ -107,11 +105,9 @@ class _HomePageState extends State<HomePageUser> {
                                                 ],
                                               ),
                                               child: Padding(
-                                                padding: EdgeInsets.all(
-                                                    20.0.adaptSize),
+                                                padding: EdgeInsets.all(20.0.adaptSize),
                                                 child: Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
+                                                  crossAxisAlignment: CrossAxisAlignment.start,
                                                   children: [
                                                     10.ah.heightBox,
                                                     postsC.homePageModel.posts[index].postOwnerInfo![0].proplan.toString() == "1"
@@ -119,39 +115,21 @@ class _HomePageState extends State<HomePageUser> {
                                                             children: [
                                                               Stack(children: [
                                                                 Padding(
-                                                                  padding:
-                                                                      EdgeInsets
-                                                                          .only(
-                                                                              top: 4),
-                                                                  child:
-                                                                      Container(
-                                                                    decoration:
-                                                                        BoxDecoration(
-                                                                            border:
-                                                                                Border.all(
-                                                                              width: 2,
-                                                                              color: Colors.yellow,
-                                                                            ),
-                                                                            borderRadius: BorderRadius.circular(35)),
-                                                                    child:
-                                                                        ClipRRect(
-                                                                      borderRadius:
-                                                                          BorderRadius.circular(
-                                                                              35),
-                                                                      child:
-                                                                          SizedBox(
-                                                                        height:
-                                                                            35,
-                                                                        width:
-                                                                            35,
-                                                                        child:
-                                                                            CachedNetworkImage(
-                                                                          imageUrl: postsC
-                                                                              .homePageModel
-                                                                              .posts[index]
-                                                                              .postOwnerInfo![0]
-                                                                              .profileImage
-                                                                              .toString(),
+                                                                  padding: EdgeInsets.only(top: 4),
+                                                                  child: Container(
+                                                                    decoration: BoxDecoration(
+                                                                        border: Border.all(
+                                                                          width: 2,
+                                                                          color: Colors.yellow,
+                                                                        ),
+                                                                        borderRadius: BorderRadius.circular(35)),
+                                                                    child: ClipRRect(
+                                                                      borderRadius: BorderRadius.circular(35),
+                                                                      child: SizedBox(
+                                                                        height: 35,
+                                                                        width: 35,
+                                                                        child: CachedNetworkImage(
+                                                                          imageUrl: postsC.homePageModel.posts[index].postOwnerInfo![0].profileImage.toString(),
                                                                           placeholder: (context, url) => const Center(
                                                                               child: SizedBox(
                                                                                   height: 20,
@@ -159,70 +137,45 @@ class _HomePageState extends State<HomePageUser> {
                                                                                   child: CircularProgressIndicator(
                                                                                     strokeWidth: 1,
                                                                                   ))),
-                                                                          errorWidget: (context, url, error) =>
-                                                                              const Icon(Icons.person_2_outlined),
-                                                                          filterQuality:
-                                                                              FilterQuality.low,
-                                                                          fit: BoxFit
-                                                                              .cover,
+                                                                          errorWidget: (context, url, error) => const Icon(Icons.person_2_outlined),
+                                                                          filterQuality: FilterQuality.low,
+                                                                          fit: BoxFit.cover,
                                                                         ),
                                                                       ),
                                                                     ),
                                                                   ),
                                                                 ),
                                                                 Padding(
-                                                                  padding: EdgeInsets
-                                                                      .only(
-                                                                          left:
-                                                                              25),
-                                                                  child:
-                                                                      Container(
+                                                                  padding: EdgeInsets.only(left: 25),
+                                                                  child: Container(
                                                                     height: 20,
                                                                     width: 20,
-                                                                    child: SvgPicture
-                                                                        .asset(
-                                                                            "assets/icons/aa.svg"),
+                                                                    child: SvgPicture.asset("assets/icons/aa.svg"),
                                                                   ),
                                                                 ),
                                                               ]),
                                                               10.aw.widthBox,
                                                               Column(
-                                                                crossAxisAlignment:
-                                                                    CrossAxisAlignment
-                                                                        .start,
+                                                                crossAxisAlignment: CrossAxisAlignment.start,
                                                                 children: [
                                                                   Text(
                                                                     '${postsC.homePageModel.posts[index].postOwnerInfo![0].firstName} ${postsC.homePageModel.posts[index].postOwnerInfo![0].lastName}',
-                                                                    style:
-                                                                        TextStyle(
-                                                                      color: const Color(
-                                                                          0xFF111111),
-                                                                      fontSize:
-                                                                          14.adaptSize,
-                                                                      fontFamily:
-                                                                          'Inter',
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w600,
-                                                                      letterSpacing:
-                                                                          -0.30,
+                                                                    style: TextStyle(
+                                                                      color: const Color(0xFF111111),
+                                                                      fontSize: 14.adaptSize,
+                                                                      fontFamily: 'Inter',
+                                                                      fontWeight: FontWeight.w600,
+                                                                      letterSpacing: -0.30,
                                                                     ),
                                                                   ),
                                                                   Text(
                                                                     '${postsC.homePageModel.posts[index].postOwnerInfo?[0].createdAt!.day}-${postsC.homePageModel.posts[index].postOwnerInfo?[0].createdAt!.month}-${postsC.homePageModel.posts[index].postOwnerInfo?[0].createdAt!.year}',
-                                                                    style:
-                                                                        TextStyle(
-                                                                      color: const Color(
-                                                                          0xFFAAAAAA),
-                                                                      fontSize:
-                                                                          10.adaptSize,
-                                                                      fontFamily:
-                                                                          'Inter',
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w500,
-                                                                      letterSpacing:
-                                                                          -0.30,
+                                                                    style: TextStyle(
+                                                                      color: const Color(0xFFAAAAAA),
+                                                                      fontSize: 10.adaptSize,
+                                                                      fontFamily: 'Inter',
+                                                                      fontWeight: FontWeight.w500,
+                                                                      letterSpacing: -0.30,
                                                                     ),
                                                                   ),
                                                                 ],
@@ -231,8 +184,7 @@ class _HomePageState extends State<HomePageUser> {
 
                                                               if ("${homePageNewController.userId}" ==
                                                                   "${postsC.homePageModel.posts[index].postOwnerInfo![0].id}")
-                                                                deletePost(
-                                                                    index),
+                                                                deletePost(index),
 
                                                               //   InkWell(
                                                               //       onTap: () {
@@ -248,35 +200,19 @@ class _HomePageState extends State<HomePageUser> {
                                                             children: [
                                                               Stack(children: [
                                                                 Container(
-                                                                  decoration:
-                                                                      BoxDecoration(
-                                                                          border: Border
-                                                                              .all(
-                                                                            width:
-                                                                                2,
-                                                                            color:
-                                                                                Colors.red.shade300,
-                                                                          ),
-                                                                          borderRadius:
-                                                                              BorderRadius.circular(35)),
-                                                                  child:
-                                                                      ClipRRect(
-                                                                    borderRadius:
-                                                                        BorderRadius.circular(
-                                                                            35),
-                                                                    child:
-                                                                        SizedBox(
-                                                                      height:
-                                                                          35,
+                                                                  decoration: BoxDecoration(
+                                                                      border: Border.all(
+                                                                        width: 2,
+                                                                        color: Colors.red.shade300,
+                                                                      ),
+                                                                      borderRadius: BorderRadius.circular(35)),
+                                                                  child: ClipRRect(
+                                                                    borderRadius: BorderRadius.circular(35),
+                                                                    child: SizedBox(
+                                                                      height: 35,
                                                                       width: 35,
-                                                                      child:
-                                                                          CachedNetworkImage(
-                                                                        imageUrl: postsC
-                                                                            .homePageModel
-                                                                            .posts[index]
-                                                                            .postOwnerInfo![0]
-                                                                            .profileImage
-                                                                            .toString(),
+                                                                      child: CachedNetworkImage(
+                                                                        imageUrl: postsC.homePageModel.posts[index].postOwnerInfo![0].profileImage.toString(),
                                                                         placeholder: (context, url) => const Center(
                                                                             child: SizedBox(
                                                                                 height: 20,
@@ -284,14 +220,9 @@ class _HomePageState extends State<HomePageUser> {
                                                                                 child: CircularProgressIndicator(
                                                                                   strokeWidth: 1,
                                                                                 ))),
-                                                                        errorWidget: (context,
-                                                                                url,
-                                                                                error) =>
-                                                                            const Icon(Icons.person_2_outlined),
-                                                                        filterQuality:
-                                                                            FilterQuality.low,
-                                                                        fit: BoxFit
-                                                                            .cover,
+                                                                        errorWidget: (context, url, error) => const Icon(Icons.person_2_outlined),
+                                                                        filterQuality: FilterQuality.low,
+                                                                        fit: BoxFit.cover,
                                                                       ),
                                                                     ),
                                                                   ),
@@ -299,42 +230,26 @@ class _HomePageState extends State<HomePageUser> {
                                                               ]),
                                                               10.aw.widthBox,
                                                               Column(
-                                                                crossAxisAlignment:
-                                                                    CrossAxisAlignment
-                                                                        .start,
+                                                                crossAxisAlignment: CrossAxisAlignment.start,
                                                                 children: [
                                                                   Text(
                                                                     '${postsC.homePageModel.posts[index].postOwnerInfo![0].firstName} ${postsC.homePageModel.posts[index].postOwnerInfo![0].lastName}',
-                                                                    style:
-                                                                        TextStyle(
-                                                                      color: const Color(
-                                                                          0xFF111111),
-                                                                      fontSize:
-                                                                          14.adaptSize,
-                                                                      fontFamily:
-                                                                          'Inter',
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w600,
-                                                                      letterSpacing:
-                                                                          -0.30,
+                                                                    style: TextStyle(
+                                                                      color: const Color(0xFF111111),
+                                                                      fontSize: 14.adaptSize,
+                                                                      fontFamily: 'Inter',
+                                                                      fontWeight: FontWeight.w600,
+                                                                      letterSpacing: -0.30,
                                                                     ),
                                                                   ),
                                                                   Text(
                                                                     '${postsC.homePageModel.posts[index].postOwnerInfo?[0].createdAt!.day}-${postsC.homePageModel.posts[index].postOwnerInfo?[0].createdAt!.month}-${postsC.homePageModel.posts[index].postOwnerInfo?[0].createdAt!.year}',
-                                                                    style:
-                                                                        TextStyle(
-                                                                      color: const Color(
-                                                                          0xFFAAAAAA),
-                                                                      fontSize:
-                                                                          10.adaptSize,
-                                                                      fontFamily:
-                                                                          'Inter',
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w500,
-                                                                      letterSpacing:
-                                                                          -0.30,
+                                                                    style: TextStyle(
+                                                                      color: const Color(0xFFAAAAAA),
+                                                                      fontSize: 10.adaptSize,
+                                                                      fontFamily: 'Inter',
+                                                                      fontWeight: FontWeight.w500,
+                                                                      letterSpacing: -0.30,
                                                                     ),
                                                                   ),
                                                                 ],
@@ -343,8 +258,7 @@ class _HomePageState extends State<HomePageUser> {
 
                                                               if ("${homePageNewController.userId}" ==
                                                                   "${postsC.homePageModel.posts[index].postOwnerInfo![0].id}")
-                                                                deletePost(
-                                                                    index),
+                                                                deletePost(index),
 
                                                               //   InkWell(
                                                               //       onTap: () {
@@ -357,72 +271,40 @@ class _HomePageState extends State<HomePageUser> {
                                                             ],
                                                           ),
                                                     15.ah.heightBox,
-                                                    postsC
-                                                                .homePageModel
-                                                                .posts[index]
-                                                                .miniblogs !=
-                                                            "default_miniblogs"
+                                                    postsC.homePageModel.posts[index].miniblogs != "default_miniblogs"
                                                         ? Text(
                                                             '${postsC.homePageModel.posts[index].miniblogs}',
                                                             style: TextStyle(
-                                                              color:
-                                                                  Colors.black,
-                                                              fontSize:
-                                                                  12.adaptSize,
-                                                              fontFamily:
-                                                                  'Inter',
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w400,
+                                                              color: Colors.black,
+                                                              fontSize: 12.adaptSize,
+                                                              fontFamily: 'Inter',
+                                                              fontWeight: FontWeight.w400,
                                                               height: 0,
-                                                              letterSpacing:
-                                                                  -0.30,
+                                                              letterSpacing: -0.30,
                                                             ),
                                                           )
                                                         : SizedBox(),
                                                     15.ah.heightBox,
                                                     Container(
                                                       decoration: BoxDecoration(
-                                                        border: Border.all(
-                                                            color: Vx.red100),
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(10),
+                                                        border: Border.all(color: Vx.red100),
+                                                        borderRadius: BorderRadius.circular(10),
                                                       ),
                                                       child: ClipRRect(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(10),
+                                                        borderRadius: BorderRadius.circular(10),
                                                         child: SizedBox(
-                                                          width: MediaQuery.of(
-                                                                  context)
-                                                              .size
-                                                              .width,
-                                                          child:
-                                                              CachedNetworkImage(
-                                                            imageUrl: postsC
-                                                                .homePageModel
-                                                                .posts[index]
-                                                                .post
-                                                                .toString(),
-                                                            placeholder: (context,
-                                                                    url) =>
-                                                                const Center(
-                                                                    child: SizedBox(
-                                                                        height: 20,
-                                                                        width: 20,
-                                                                        child: CircularProgressIndicator(
-                                                                          strokeWidth:
-                                                                              1,
-                                                                        ))),
-                                                            errorWidget: (context,
-                                                                    url,
-                                                                    error) =>
-                                                                const Icon(Icons
-                                                                    .person_2_outlined),
-                                                            filterQuality:
-                                                                FilterQuality
-                                                                    .low,
+                                                          width: MediaQuery.of(context).size.width,
+                                                          child: CachedNetworkImage(
+                                                            imageUrl: postsC.homePageModel.posts[index].post.toString(),
+                                                            placeholder: (context, url) => const Center(
+                                                                child: SizedBox(
+                                                                    height: 20,
+                                                                    width: 20,
+                                                                    child: CircularProgressIndicator(
+                                                                      strokeWidth: 1,
+                                                                    ))),
+                                                            errorWidget: (context, url, error) => const Icon(Icons.person_2_outlined),
+                                                            filterQuality: FilterQuality.low,
                                                             fit: BoxFit.fill,
                                                             height: 300,
                                                           ),
@@ -431,60 +313,27 @@ class _HomePageState extends State<HomePageUser> {
                                                     ),
                                                     20.ah.heightBox,
                                                     SizedBox(
-                                                      height: double.parse(
-                                                              "${8 * postsC.homePageModel.posts[index].mentionsData!.length}") +
-                                                          20,
+                                                      height: double.parse("${8 * postsC.homePageModel.posts[index].mentionsData!.length}") + 20,
                                                       child: GridView(
-                                                        physics:
-                                                            const NeverScrollableScrollPhysics(
-                                                                parent:
-                                                                    NeverScrollableScrollPhysics()),
-                                                        gridDelegate:
-                                                            const SliverGridDelegateWithFixedCrossAxisCount(
-                                                                crossAxisCount:
-                                                                    3,
-                                                                mainAxisExtent:
-                                                                    30),
+                                                        physics: const NeverScrollableScrollPhysics(parent: NeverScrollableScrollPhysics()),
+                                                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3, mainAxisExtent: 30),
                                                         children: [
-                                                          for (int i = 0;
-                                                              postsC
-                                                                      .homePageModel
-                                                                      .posts[
-                                                                          index]
-                                                                      .mentionsData!
-                                                                      .length >
-                                                                  i;
-                                                              i++)
+                                                          for (int i = 0; postsC.homePageModel.posts[index].mentionsData!.length > i; i++)
                                                             InkWell(
                                                               onTap: () {
                                                                 Get.to(
-                                                                  () =>
-                                                                      MatchDetails(
-                                                                    id: postsC
-                                                                        .homePageModel
-                                                                        .posts[
-                                                                            index]
-                                                                        .mentionsData![
-                                                                            i]
-                                                                        .id
-                                                                        .toString(),
-                                                                    isfriend:
-                                                                        true,
+                                                                  () => MatchDetails(
+                                                                    id: postsC.homePageModel.posts[index].mentionsData![i].id.toString(),
+                                                                    isfriend: true,
                                                                   ),
                                                                 );
                                                               },
                                                               child: Padding(
-                                                                padding:
-                                                                    const EdgeInsets
-                                                                        .only(
-                                                                        bottom:
-                                                                            4.0),
+                                                                padding: const EdgeInsets.only(bottom: 4.0),
                                                                 child: Text(
                                                                   "@${postsC.homePageModel.posts[index].mentionsData?[i].firstName ?? "asdcfv"}",
-                                                                  style:
-                                                                      const TextStyle(
-                                                                    color: Colors
-                                                                        .blue,
+                                                                  style: const TextStyle(
+                                                                    color: Colors.blue,
                                                                   ),
                                                                 ),
                                                               ),
@@ -495,134 +344,63 @@ class _HomePageState extends State<HomePageUser> {
                                                     15.ah.heightBox,
                                                     Row(
                                                       children: [
-                                                        postsC
-                                                                    .homePageModel
-                                                                    .posts[
-                                                                        index]
-                                                                    .likedByUser ==
-                                                                "Y"
+                                                        postsC.homePageModel.posts[index].likedByUser == "Y"
                                                             ? InkWell(
                                                                 onTap: () {
-                                                                  postsC
-                                                                      .homePageModel
-                                                                      .posts[
-                                                                          index]
-                                                                      .likedByUser = "N";
+                                                                  postsC.homePageModel.posts[index].likedByUser = "N";
                                                                   setState(() {
-                                                                    postsC
-                                                                        .homePageModel
-                                                                        .posts[
-                                                                            index]
-                                                                        .totalLikes = (postsC
-                                                                            .homePageModel
-                                                                            .posts[index]
-                                                                            .totalLikes -
-                                                                        1);
-                                                                    homePageNewController.likePost(
-                                                                        "${postsC.homePageModel.posts[index].id}",
-                                                                        " ",
+                                                                    postsC.homePageModel.posts[index].totalLikes =
+                                                                        (postsC.homePageModel.posts[index].totalLikes - 1);
+                                                                    homePageNewController.likePost("${postsC.homePageModel.posts[index].id}", " ",
                                                                         "${postsC.homePageModel.posts[index].userId}");
                                                                   });
                                                                 },
-                                                                child:
-                                                                    Container(
+                                                                child: Container(
                                                                   width: 40,
                                                                   height: 40,
-                                                                  decoration:
-                                                                      ShapeDecoration(
-                                                                    gradient:
-                                                                        const LinearGradient(
-                                                                      begin: Alignment(
-                                                                          0.00,
-                                                                          -1.00),
-                                                                      end: Alignment(
-                                                                          0, 1),
-                                                                      colors: [
-                                                                        Color(
-                                                                            0xFFF65F51),
-                                                                        Color(
-                                                                            0xFFFB4967)
-                                                                      ],
+                                                                  decoration: ShapeDecoration(
+                                                                    gradient: const LinearGradient(
+                                                                      begin: Alignment(0.00, -1.00),
+                                                                      end: Alignment(0, 1),
+                                                                      colors: [Color(0xFFF65F51), Color(0xFFFB4967)],
                                                                     ),
-                                                                    shape:
-                                                                        RoundedRectangleBorder(
-                                                                      borderRadius:
-                                                                          BorderRadius.circular(
-                                                                              100),
+                                                                    shape: RoundedRectangleBorder(
+                                                                      borderRadius: BorderRadius.circular(100),
                                                                     ),
                                                                   ),
-                                                                  child:
-                                                                      Padding(
-                                                                    padding:
-                                                                        const EdgeInsets
-                                                                            .all(
-                                                                            8.0),
-                                                                    child: SvgPicture
-                                                                        .asset(
-                                                                            "assets/icons/heartwhite.svg"),
+                                                                  child: Padding(
+                                                                    padding: const EdgeInsets.all(8.0),
+                                                                    child: SvgPicture.asset("assets/icons/heartwhite.svg"),
                                                                   ),
                                                                 ),
                                                               )
                                                             : InkWell(
                                                                 onTap: () {
-                                                                  postsC
-                                                                      .homePageModel
-                                                                      .posts[
-                                                                          index]
-                                                                      .likedByUser = "Y";
+                                                                  postsC.homePageModel.posts[index].likedByUser = "Y";
                                                                   setState(() {
-                                                                    postsC
-                                                                        .homePageModel
-                                                                        .posts[
-                                                                            index]
-                                                                        .totalLikes = (postsC
-                                                                            .homePageModel
-                                                                            .posts[index]
-                                                                            .totalLikes +
-                                                                        1);
+                                                                    postsC.homePageModel.posts[index].totalLikes =
+                                                                        (postsC.homePageModel.posts[index].totalLikes + 1);
 
-                                                                    homePageNewController.likePost(
-                                                                        "${postsC.homePageModel.posts[index].id}",
-                                                                        "1",
+                                                                    homePageNewController.likePost("${postsC.homePageModel.posts[index].id}", "1",
                                                                         "${postsC.homePageModel.posts[index].userId}");
                                                                   });
                                                                 },
-                                                                child:
-                                                                    Container(
+                                                                child: Container(
                                                                   width: 40,
                                                                   height: 40,
-                                                                  decoration:
-                                                                      ShapeDecoration(
-                                                                    gradient:
-                                                                        const LinearGradient(
-                                                                      begin: Alignment(
-                                                                          0.00,
-                                                                          -1.00),
-                                                                      end: Alignment(
-                                                                          0, 1),
-                                                                      colors: [
-                                                                        Color(
-                                                                            0xFFF65F51),
-                                                                        Color(
-                                                                            0xFFFB4967)
-                                                                      ],
+                                                                  decoration: ShapeDecoration(
+                                                                    gradient: const LinearGradient(
+                                                                      begin: Alignment(0.00, -1.00),
+                                                                      end: Alignment(0, 1),
+                                                                      colors: [Color(0xFFF65F51), Color(0xFFFB4967)],
                                                                     ),
-                                                                    shape:
-                                                                        RoundedRectangleBorder(
-                                                                      borderRadius:
-                                                                          BorderRadius.circular(
-                                                                              100),
+                                                                    shape: RoundedRectangleBorder(
+                                                                      borderRadius: BorderRadius.circular(100),
                                                                     ),
                                                                   ),
-                                                                  child:
-                                                                      Padding(
-                                                                    padding:
-                                                                        const EdgeInsets
-                                                                            .all(
-                                                                            8.0),
-                                                                    child: SvgPicture
-                                                                        .asset(
-                                                                            "assets/icons/pramod_unlike_icon.svg"),
+                                                                  child: Padding(
+                                                                    padding: const EdgeInsets.all(8.0),
+                                                                    child: SvgPicture.asset("assets/icons/pramod_unlike_icon.svg"),
                                                                   ),
                                                                 ),
                                                               ),
@@ -630,75 +408,44 @@ class _HomePageState extends State<HomePageUser> {
                                                         20.widthBox,
                                                         InkWell(
                                                           onTap: () {
-                                                            homePageNewController
-                                                                .getAllCommentBYpostID(
-                                                                    postID:
-                                                                        '${postsC.homePageModel.posts[index].id}',
-                                                                    alreadlyLoad:
-                                                                        true,
-                                                                    indexx:
-                                                                        index);
+                                                            homePageNewController.getAllCommentBYpostID(
+                                                                postID: '${postsC.homePageModel.posts[index].id}', alreadlyLoad: true, indexx: index);
                                                             Get.to(
                                                               () => CommentPage(
                                                                 indexxx: index,
-                                                                postId:
-                                                                    '${postsC.homePageModel.posts[index].id}',
-                                                                userId:
-                                                                    '${postsC.homePageModel.posts[index].userId}',
+                                                                postId: '${postsC.homePageModel.posts[index].id}',
+                                                                userId: '${postsC.homePageModel.posts[index].userId}',
                                                               ),
                                                             )?.then((value) {});
                                                           },
                                                           child: Container(
                                                             width: 40,
                                                             height: 40,
-                                                            decoration:
-                                                                ShapeDecoration(
-                                                              gradient:
-                                                                  const LinearGradient(
-                                                                begin:
-                                                                    Alignment(
-                                                                        0.00,
-                                                                        -1.00),
-                                                                end: Alignment(
-                                                                    0, 1),
-                                                                colors: [
-                                                                  Color(
-                                                                      0xFFF65F51),
-                                                                  Color(
-                                                                      0xFFFB4967)
-                                                                ],
+                                                            decoration: ShapeDecoration(
+                                                              gradient: const LinearGradient(
+                                                                begin: Alignment(0.00, -1.00),
+                                                                end: Alignment(0, 1),
+                                                                colors: [Color(0xFFF65F51), Color(0xFFFB4967)],
                                                               ),
-                                                              shape:
-                                                                  RoundedRectangleBorder(
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            100),
+                                                              shape: RoundedRectangleBorder(
+                                                                borderRadius: BorderRadius.circular(100),
                                                               ),
                                                             ),
                                                             child: Padding(
-                                                              padding:
-                                                                  const EdgeInsets
-                                                                      .all(8.0),
-                                                              child: SvgPicture
-                                                                  .asset(
-                                                                      "assets/icons/pramod_comment_icon.svg"),
+                                                              padding: const EdgeInsets.all(8.0),
+                                                              child: SvgPicture.asset("assets/icons/pramod_comment_icon.svg"),
                                                             ),
                                                           ),
                                                         ),
                                                         const Spacer(),
-                                                        if ("${homePageNewController.userId}" !=
-                                                            "${postsC.homePageModel.posts[index].postOwnerInfo![0].id}")
+                                                        if ("${homePageNewController.userId}" != "${postsC.homePageModel.posts[index].postOwnerInfo![0].id}")
                                                           InkWell(
                                                             onTap: () {
-                                                              Get.to(() =>
-                                                                  const Monthly());
+                                                              Get.to(() => const Monthly());
                                                             },
                                                             child: Container(
                                                               height: 70,
-                                                              child: SvgPicture
-                                                                  .asset(
-                                                                      "assets/images/pro_icon.svg"),
+                                                              child: SvgPicture.asset("assets/images/pro_icon.svg"),
                                                             ),
                                                           )
 
@@ -778,51 +525,34 @@ class _HomePageState extends State<HomePageUser> {
                                                         color: Colors.black,
                                                         fontSize: 12.adaptSize,
                                                         fontFamily: 'Inter',
-                                                        fontWeight:
-                                                            FontWeight.w500,
+                                                        fontWeight: FontWeight.w500,
                                                         height: 0,
                                                         letterSpacing: -0.30,
                                                       ),
                                                     ),
                                                     8.ah.heightBox,
                                                     Obx(
-                                                      () => postsC
-                                                                  .homePageModel
-                                                                  .posts[index]
-                                                                  .totalComments ==
-                                                              0
+                                                      () => postsC.homePageModel.posts[index].totalComments == 0
                                                           ? Text(
                                                               'comment',
                                                               style: TextStyle(
-                                                                color: const Color(
-                                                                    0xFFAAAAAA),
-                                                                fontSize: 12
-                                                                    .adaptSize,
-                                                                fontFamily:
-                                                                    'Inter',
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w500,
+                                                                color: const Color(0xFFAAAAAA),
+                                                                fontSize: 12.adaptSize,
+                                                                fontFamily: 'Inter',
+                                                                fontWeight: FontWeight.w500,
                                                                 height: 0,
-                                                                letterSpacing:
-                                                                    -0.30,
+                                                                letterSpacing: -0.30,
                                                               ),
                                                             )
                                                           : Text(
                                                               'View all ${postsC.homePageModel.posts[index].totalComments} comment',
                                                               style: TextStyle(
-                                                                color: const Color(
-                                                                    0xFFAAAAAA),
-                                                                fontSize: 12
-                                                                    .adaptSize,
-                                                                fontFamily:
-                                                                    'Inter',
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w500,
+                                                                color: const Color(0xFFAAAAAA),
+                                                                fontSize: 12.adaptSize,
+                                                                fontFamily: 'Inter',
+                                                                fontWeight: FontWeight.w500,
                                                                 height: 0,
-                                                                letterSpacing:
-                                                                    -0.30,
+                                                                letterSpacing: -0.30,
                                                               ),
                                                             ),
                                                     ),
@@ -836,8 +566,7 @@ class _HomePageState extends State<HomePageUser> {
                                               decoration: ShapeDecoration(
                                                 color: Colors.white,
                                                 shape: RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(10),
+                                                  borderRadius: BorderRadius.circular(10),
                                                 ),
                                                 shadows: const [
                                                   BoxShadow(
@@ -849,11 +578,9 @@ class _HomePageState extends State<HomePageUser> {
                                                 ],
                                               ),
                                               child: Padding(
-                                                padding: EdgeInsets.all(
-                                                    20.0.adaptSize),
+                                                padding: EdgeInsets.all(20.0.adaptSize),
                                                 child: Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
+                                                  crossAxisAlignment: CrossAxisAlignment.start,
                                                   children: [
                                                     10.ah.heightBox,
                                                     // Row(
@@ -961,39 +688,21 @@ class _HomePageState extends State<HomePageUser> {
                                                             children: [
                                                               Stack(children: [
                                                                 Padding(
-                                                                  padding:
-                                                                      EdgeInsets
-                                                                          .only(
-                                                                              top: 4),
-                                                                  child:
-                                                                      Container(
-                                                                    decoration:
-                                                                        BoxDecoration(
-                                                                            border:
-                                                                                Border.all(
-                                                                              width: 2,
-                                                                              color: Colors.yellow,
-                                                                            ),
-                                                                            borderRadius: BorderRadius.circular(35)),
-                                                                    child:
-                                                                        ClipRRect(
-                                                                      borderRadius:
-                                                                          BorderRadius.circular(
-                                                                              35),
-                                                                      child:
-                                                                          SizedBox(
-                                                                        height:
-                                                                            35,
-                                                                        width:
-                                                                            35,
-                                                                        child:
-                                                                            CachedNetworkImage(
-                                                                          imageUrl: postsC
-                                                                              .homePageModel
-                                                                              .posts[index]
-                                                                              .postOwnerInfo![0]
-                                                                              .profileImage
-                                                                              .toString(),
+                                                                  padding: EdgeInsets.only(top: 4),
+                                                                  child: Container(
+                                                                    decoration: BoxDecoration(
+                                                                        border: Border.all(
+                                                                          width: 2,
+                                                                          color: Colors.yellow,
+                                                                        ),
+                                                                        borderRadius: BorderRadius.circular(35)),
+                                                                    child: ClipRRect(
+                                                                      borderRadius: BorderRadius.circular(35),
+                                                                      child: SizedBox(
+                                                                        height: 35,
+                                                                        width: 35,
+                                                                        child: CachedNetworkImage(
+                                                                          imageUrl: postsC.homePageModel.posts[index].postOwnerInfo![0].profileImage.toString(),
                                                                           placeholder: (context, url) => const Center(
                                                                               child: SizedBox(
                                                                                   height: 20,
@@ -1001,70 +710,45 @@ class _HomePageState extends State<HomePageUser> {
                                                                                   child: CircularProgressIndicator(
                                                                                     strokeWidth: 1,
                                                                                   ))),
-                                                                          errorWidget: (context, url, error) =>
-                                                                              const Icon(Icons.person_2_outlined),
-                                                                          filterQuality:
-                                                                              FilterQuality.low,
-                                                                          fit: BoxFit
-                                                                              .cover,
+                                                                          errorWidget: (context, url, error) => const Icon(Icons.person_2_outlined),
+                                                                          filterQuality: FilterQuality.low,
+                                                                          fit: BoxFit.cover,
                                                                         ),
                                                                       ),
                                                                     ),
                                                                   ),
                                                                 ),
                                                                 Padding(
-                                                                  padding: EdgeInsets
-                                                                      .only(
-                                                                          left:
-                                                                              25),
-                                                                  child:
-                                                                      Container(
+                                                                  padding: EdgeInsets.only(left: 25),
+                                                                  child: Container(
                                                                     height: 20,
                                                                     width: 20,
-                                                                    child: SvgPicture
-                                                                        .asset(
-                                                                            "assets/icons/aa.svg"),
+                                                                    child: SvgPicture.asset("assets/icons/aa.svg"),
                                                                   ),
                                                                 ),
                                                               ]),
                                                               10.aw.widthBox,
                                                               Column(
-                                                                crossAxisAlignment:
-                                                                    CrossAxisAlignment
-                                                                        .start,
+                                                                crossAxisAlignment: CrossAxisAlignment.start,
                                                                 children: [
                                                                   Text(
                                                                     '${postsC.homePageModel.posts[index].postOwnerInfo![0].firstName} ${postsC.homePageModel.posts[index].postOwnerInfo![0].lastName}',
-                                                                    style:
-                                                                        TextStyle(
-                                                                      color: const Color(
-                                                                          0xFF111111),
-                                                                      fontSize:
-                                                                          14.adaptSize,
-                                                                      fontFamily:
-                                                                          'Inter',
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w600,
-                                                                      letterSpacing:
-                                                                          -0.30,
+                                                                    style: TextStyle(
+                                                                      color: const Color(0xFF111111),
+                                                                      fontSize: 14.adaptSize,
+                                                                      fontFamily: 'Inter',
+                                                                      fontWeight: FontWeight.w600,
+                                                                      letterSpacing: -0.30,
                                                                     ),
                                                                   ),
                                                                   Text(
                                                                     '${postsC.homePageModel.posts[index].postOwnerInfo?[0].createdAt!.day}-${postsC.homePageModel.posts[index].postOwnerInfo?[0].createdAt!.month}-${postsC.homePageModel.posts[index].postOwnerInfo?[0].createdAt!.year}',
-                                                                    style:
-                                                                        TextStyle(
-                                                                      color: const Color(
-                                                                          0xFFAAAAAA),
-                                                                      fontSize:
-                                                                          10.adaptSize,
-                                                                      fontFamily:
-                                                                          'Inter',
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w500,
-                                                                      letterSpacing:
-                                                                          -0.30,
+                                                                    style: TextStyle(
+                                                                      color: const Color(0xFFAAAAAA),
+                                                                      fontSize: 10.adaptSize,
+                                                                      fontFamily: 'Inter',
+                                                                      fontWeight: FontWeight.w500,
+                                                                      letterSpacing: -0.30,
                                                                     ),
                                                                   ),
                                                                 ],
@@ -1073,8 +757,7 @@ class _HomePageState extends State<HomePageUser> {
 
                                                               if ("${homePageNewController.userId}" ==
                                                                   "${postsC.homePageModel.posts[index].postOwnerInfo![0].id}")
-                                                                deletePost(
-                                                                    index),
+                                                                deletePost(index),
 
                                                               //   InkWell(
                                                               //       onTap: () {
@@ -1090,35 +773,19 @@ class _HomePageState extends State<HomePageUser> {
                                                             children: [
                                                               Stack(children: [
                                                                 Container(
-                                                                  decoration:
-                                                                      BoxDecoration(
-                                                                          border: Border
-                                                                              .all(
-                                                                            width:
-                                                                                2,
-                                                                            color:
-                                                                                Colors.red.shade300,
-                                                                          ),
-                                                                          borderRadius:
-                                                                              BorderRadius.circular(35)),
-                                                                  child:
-                                                                      ClipRRect(
-                                                                    borderRadius:
-                                                                        BorderRadius.circular(
-                                                                            35),
-                                                                    child:
-                                                                        SizedBox(
-                                                                      height:
-                                                                          35,
+                                                                  decoration: BoxDecoration(
+                                                                      border: Border.all(
+                                                                        width: 2,
+                                                                        color: Colors.red.shade300,
+                                                                      ),
+                                                                      borderRadius: BorderRadius.circular(35)),
+                                                                  child: ClipRRect(
+                                                                    borderRadius: BorderRadius.circular(35),
+                                                                    child: SizedBox(
+                                                                      height: 35,
                                                                       width: 35,
-                                                                      child:
-                                                                          CachedNetworkImage(
-                                                                        imageUrl: postsC
-                                                                            .homePageModel
-                                                                            .posts[index]
-                                                                            .postOwnerInfo![0]
-                                                                            .profileImage
-                                                                            .toString(),
+                                                                      child: CachedNetworkImage(
+                                                                        imageUrl: postsC.homePageModel.posts[index].postOwnerInfo![0].profileImage.toString(),
                                                                         placeholder: (context, url) => const Center(
                                                                             child: SizedBox(
                                                                                 height: 20,
@@ -1126,14 +793,9 @@ class _HomePageState extends State<HomePageUser> {
                                                                                 child: CircularProgressIndicator(
                                                                                   strokeWidth: 1,
                                                                                 ))),
-                                                                        errorWidget: (context,
-                                                                                url,
-                                                                                error) =>
-                                                                            const Icon(Icons.person_2_outlined),
-                                                                        filterQuality:
-                                                                            FilterQuality.low,
-                                                                        fit: BoxFit
-                                                                            .cover,
+                                                                        errorWidget: (context, url, error) => const Icon(Icons.person_2_outlined),
+                                                                        filterQuality: FilterQuality.low,
+                                                                        fit: BoxFit.cover,
                                                                       ),
                                                                     ),
                                                                   ),
@@ -1141,42 +803,26 @@ class _HomePageState extends State<HomePageUser> {
                                                               ]),
                                                               10.aw.widthBox,
                                                               Column(
-                                                                crossAxisAlignment:
-                                                                    CrossAxisAlignment
-                                                                        .start,
+                                                                crossAxisAlignment: CrossAxisAlignment.start,
                                                                 children: [
                                                                   Text(
                                                                     '${postsC.homePageModel.posts[index].postOwnerInfo![0].firstName} ${postsC.homePageModel.posts[index].postOwnerInfo![0].lastName}',
-                                                                    style:
-                                                                        TextStyle(
-                                                                      color: const Color(
-                                                                          0xFF111111),
-                                                                      fontSize:
-                                                                          14.adaptSize,
-                                                                      fontFamily:
-                                                                          'Inter',
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w600,
-                                                                      letterSpacing:
-                                                                          -0.30,
+                                                                    style: TextStyle(
+                                                                      color: const Color(0xFF111111),
+                                                                      fontSize: 14.adaptSize,
+                                                                      fontFamily: 'Inter',
+                                                                      fontWeight: FontWeight.w600,
+                                                                      letterSpacing: -0.30,
                                                                     ),
                                                                   ),
                                                                   Text(
                                                                     '${postsC.homePageModel.posts[index].postOwnerInfo?[0].createdAt!.day}-${postsC.homePageModel.posts[index].postOwnerInfo?[0].createdAt!.month}-${postsC.homePageModel.posts[index].postOwnerInfo?[0].createdAt!.year}',
-                                                                    style:
-                                                                        TextStyle(
-                                                                      color: const Color(
-                                                                          0xFFAAAAAA),
-                                                                      fontSize:
-                                                                          10.adaptSize,
-                                                                      fontFamily:
-                                                                          'Inter',
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w500,
-                                                                      letterSpacing:
-                                                                          -0.30,
+                                                                    style: TextStyle(
+                                                                      color: const Color(0xFFAAAAAA),
+                                                                      fontSize: 10.adaptSize,
+                                                                      fontFamily: 'Inter',
+                                                                      fontWeight: FontWeight.w500,
+                                                                      letterSpacing: -0.30,
                                                                     ),
                                                                   ),
                                                                 ],
@@ -1185,8 +831,7 @@ class _HomePageState extends State<HomePageUser> {
 
                                                               if ("${homePageNewController.userId}" ==
                                                                   "${postsC.homePageModel.posts[index].postOwnerInfo![0].id}")
-                                                                deletePost(
-                                                                    index),
+                                                                deletePost(index),
 
                                                               //   InkWell(
                                                               //       onTap: () {
@@ -1203,68 +848,36 @@ class _HomePageState extends State<HomePageUser> {
                                                         ? Text(
                                                             '${postsC.homePageModel.posts[index].miniblogs}',
                                                             style: TextStyle(
-                                                              color:
-                                                                  Colors.black,
-                                                              fontSize:
-                                                                  16.adaptSize,
-                                                              fontFamily:
-                                                                  'Inter',
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w400,
+                                                              color: Colors.black,
+                                                              fontSize: 16.adaptSize,
+                                                              fontFamily: 'Inter',
+                                                              fontWeight: FontWeight.w400,
                                                               height: 0,
-                                                              letterSpacing:
-                                                                  -0.30,
+                                                              letterSpacing: -0.30,
                                                             ),
                                                           )
                                                         : SizedBox(),
                                                     15.ah.heightBox,
                                                     SizedBox(
-                                                      height: double.parse(
-                                                              "${10 * postsC.homePageModel.posts[index].mentionsData!.length}") +
-                                                          20,
+                                                      height: double.parse("${10 * postsC.homePageModel.posts[index].mentionsData!.length}") + 20,
                                                       child: GridView(
-                                                        physics:
-                                                            const NeverScrollableScrollPhysics(
-                                                                parent:
-                                                                    NeverScrollableScrollPhysics()),
-                                                        gridDelegate:
-                                                            const SliverGridDelegateWithFixedCrossAxisCount(
-                                                                crossAxisCount:
-                                                                    3,
-                                                                mainAxisExtent:
-                                                                    30),
+                                                        physics: const NeverScrollableScrollPhysics(parent: NeverScrollableScrollPhysics()),
+                                                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3, mainAxisExtent: 30),
                                                         children: [
-                                                          for (int i = 0;
-                                                              postsC.homePageModel.posts[index].mentionsData!.length > i; i++)
+                                                          for (int i = 0; postsC.homePageModel.posts[index].mentionsData!.length > i; i++)
                                                             InkWell(
                                                               onTap: () {
                                                                 Get.to(
                                                                   () => MatchDetails(
-                                                                      isfriend:
-                                                                          true,
-                                                                      id: postsC
-                                                                          .homePageModel
-                                                                          .posts[
-                                                                              index]
-                                                                          .mentionsData![
-                                                                              i]
-                                                                          .id
-                                                                          .toString()),
+                                                                      isfriend: true, id: postsC.homePageModel.posts[index].mentionsData![i].id.toString()),
                                                                 );
                                                               },
                                                               child: Padding(
-                                                                padding:
-                                                                    const EdgeInsets
-                                                                        .only(
-                                                                        bottom:
-                                                                            4.0),
+                                                                padding: const EdgeInsets.only(bottom: 4.0),
                                                                 child: Text(
                                                                   "@${postsC.homePageModel.posts[index].mentionsData?[i].firstName ?? "asdcfv"}",
-                                                                  style:
-                                                                      const TextStyle(
-                                                                    color: Colors
-                                                                        .blue,
+                                                                  style: const TextStyle(
+                                                                    color: Colors.blue,
                                                                   ),
                                                                 ),
                                                               ),
@@ -1275,135 +888,64 @@ class _HomePageState extends State<HomePageUser> {
                                                     15.ah.heightBox,
                                                     Row(
                                                       children: [
-                                                        postsC
-                                                                    .homePageModel
-                                                                    .posts[
-                                                                        index]
-                                                                    .likedByUser ==
-                                                                "Y"
+                                                        postsC.homePageModel.posts[index].likedByUser == "Y"
                                                             ? InkWell(
                                                                 onTap: () {
-                                                                  postsC
-                                                                      .homePageModel
-                                                                      .posts[
-                                                                          index]
-                                                                      .likedByUser = "N";
+                                                                  postsC.homePageModel.posts[index].likedByUser = "N";
                                                                   setState(() {
-                                                                    postsC
-                                                                        .homePageModel
-                                                                        .posts[
-                                                                            index]
-                                                                        .totalLikes = (postsC
-                                                                            .homePageModel
-                                                                            .posts[index]
-                                                                            .totalLikes -
-                                                                        1);
+                                                                    postsC.homePageModel.posts[index].totalLikes =
+                                                                        (postsC.homePageModel.posts[index].totalLikes - 1);
 
-                                                                    homePageNewController.likePost(
-                                                                        "${postsC.homePageModel.posts[index].id}",
-                                                                        "0",
+                                                                    homePageNewController.likePost("${postsC.homePageModel.posts[index].id}", "0",
                                                                         "${postsC.homePageModel.posts[index].userId}");
                                                                   });
                                                                 },
-                                                                child:
-                                                                    Container(
+                                                                child: Container(
                                                                   width: 40,
                                                                   height: 40,
-                                                                  decoration:
-                                                                      ShapeDecoration(
-                                                                    gradient:
-                                                                        const LinearGradient(
-                                                                      begin: Alignment(
-                                                                          0.00,
-                                                                          -1.00),
-                                                                      end: Alignment(
-                                                                          0, 1),
-                                                                      colors: [
-                                                                        Color(
-                                                                            0xFFF65F51),
-                                                                        Color(
-                                                                            0xFFFB4967)
-                                                                      ],
+                                                                  decoration: ShapeDecoration(
+                                                                    gradient: const LinearGradient(
+                                                                      begin: Alignment(0.00, -1.00),
+                                                                      end: Alignment(0, 1),
+                                                                      colors: [Color(0xFFF65F51), Color(0xFFFB4967)],
                                                                     ),
-                                                                    shape:
-                                                                        RoundedRectangleBorder(
-                                                                      borderRadius:
-                                                                          BorderRadius.circular(
-                                                                              100),
+                                                                    shape: RoundedRectangleBorder(
+                                                                      borderRadius: BorderRadius.circular(100),
                                                                     ),
                                                                   ),
-                                                                  child:
-                                                                      Padding(
-                                                                    padding:
-                                                                        const EdgeInsets
-                                                                            .all(
-                                                                            8.0),
-                                                                    child: SvgPicture
-                                                                        .asset(
-                                                                            "assets/icons/heartwhite.svg"),
+                                                                  child: Padding(
+                                                                    padding: const EdgeInsets.all(8.0),
+                                                                    child: SvgPicture.asset("assets/icons/heartwhite.svg"),
                                                                   ),
                                                                 ),
                                                               )
                                                             : InkWell(
                                                                 onTap: () {
-                                                                  postsC
-                                                                      .homePageModel
-                                                                      .posts[
-                                                                          index]
-                                                                      .likedByUser = "Y";
+                                                                  postsC.homePageModel.posts[index].likedByUser = "Y";
                                                                   setState(() {
-                                                                    postsC
-                                                                        .homePageModel
-                                                                        .posts[
-                                                                            index]
-                                                                        .totalLikes = (postsC
-                                                                            .homePageModel
-                                                                            .posts[index]
-                                                                            .totalLikes +
-                                                                        1);
+                                                                    postsC.homePageModel.posts[index].totalLikes =
+                                                                        (postsC.homePageModel.posts[index].totalLikes + 1);
 
-                                                                    homePageNewController.likePost(
-                                                                        "${postsC.homePageModel.posts[index].id}",
-                                                                        "1",
+                                                                    homePageNewController.likePost("${postsC.homePageModel.posts[index].id}", "1",
                                                                         "${postsC.homePageModel.posts[index].userId}");
                                                                   });
                                                                 },
-                                                                child:
-                                                                    Container(
+                                                                child: Container(
                                                                   width: 40,
                                                                   height: 40,
-                                                                  decoration:
-                                                                      ShapeDecoration(
-                                                                    gradient:
-                                                                        const LinearGradient(
-                                                                      begin: Alignment(
-                                                                          0.00,
-                                                                          -1.00),
-                                                                      end: Alignment(
-                                                                          0, 1),
-                                                                      colors: [
-                                                                        Color(
-                                                                            0xFFF65F51),
-                                                                        Color(
-                                                                            0xFFFB4967)
-                                                                      ],
+                                                                  decoration: ShapeDecoration(
+                                                                    gradient: const LinearGradient(
+                                                                      begin: Alignment(0.00, -1.00),
+                                                                      end: Alignment(0, 1),
+                                                                      colors: [Color(0xFFF65F51), Color(0xFFFB4967)],
                                                                     ),
-                                                                    shape:
-                                                                        RoundedRectangleBorder(
-                                                                      borderRadius:
-                                                                          BorderRadius.circular(
-                                                                              100),
+                                                                    shape: RoundedRectangleBorder(
+                                                                      borderRadius: BorderRadius.circular(100),
                                                                     ),
                                                                   ),
-                                                                  child:
-                                                                      Padding(
-                                                                    padding:
-                                                                        const EdgeInsets
-                                                                            .all(
-                                                                            8.0),
-                                                                    child: SvgPicture
-                                                                        .asset(
-                                                                            "assets/icons/pramod_unlike_icon.svg"),
+                                                                  child: Padding(
+                                                                    padding: const EdgeInsets.all(8.0),
+                                                                    child: SvgPicture.asset("assets/icons/pramod_unlike_icon.svg"),
                                                                   ),
                                                                 ),
                                                               ),
@@ -1411,20 +953,15 @@ class _HomePageState extends State<HomePageUser> {
                                                         20.widthBox,
                                                         InkWell(
                                                           onTap: () {
-                                                            homePageNewController
-                                                                .getAllCommentBYpostID(
-                                                              postID:
-                                                                  '${postsC.homePageModel.posts[index].id}',
-                                                              alreadlyLoad:
-                                                                  true,
+                                                            homePageNewController.getAllCommentBYpostID(
+                                                              postID: '${postsC.homePageModel.posts[index].id}',
+                                                              alreadlyLoad: true,
                                                               indexx: index,
                                                             );
                                                             Get.to(
                                                               () => CommentPage(
-                                                                postId:
-                                                                    '${postsC.homePageModel.posts[index].id}',
-                                                                userId:
-                                                                    '${postsC.homePageModel.posts[index].userId}',
+                                                                postId: '${postsC.homePageModel.posts[index].id}',
+                                                                userId: '${postsC.homePageModel.posts[index].userId}',
                                                                 indexxx: index,
                                                               ),
                                                             );
@@ -1432,54 +969,31 @@ class _HomePageState extends State<HomePageUser> {
                                                           child: Container(
                                                             width: 40,
                                                             height: 40,
-                                                            decoration:
-                                                                ShapeDecoration(
-                                                              gradient:
-                                                                  const LinearGradient(
-                                                                begin:
-                                                                    Alignment(
-                                                                        0.00,
-                                                                        -1.00),
-                                                                end: Alignment(
-                                                                    0, 1),
-                                                                colors: [
-                                                                  Color(
-                                                                      0xFFF65F51),
-                                                                  Color(
-                                                                      0xFFFB4967)
-                                                                ],
+                                                            decoration: ShapeDecoration(
+                                                              gradient: const LinearGradient(
+                                                                begin: Alignment(0.00, -1.00),
+                                                                end: Alignment(0, 1),
+                                                                colors: [Color(0xFFF65F51), Color(0xFFFB4967)],
                                                               ),
-                                                              shape:
-                                                                  RoundedRectangleBorder(
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            100),
+                                                              shape: RoundedRectangleBorder(
+                                                                borderRadius: BorderRadius.circular(100),
                                                               ),
                                                             ),
                                                             child: Padding(
-                                                              padding:
-                                                                  const EdgeInsets
-                                                                      .all(8.0),
-                                                              child: SvgPicture
-                                                                  .asset(
-                                                                      "assets/icons/pramod_comment_icon.svg"),
+                                                              padding: const EdgeInsets.all(8.0),
+                                                              child: SvgPicture.asset("assets/icons/pramod_comment_icon.svg"),
                                                             ),
                                                           ),
                                                         ),
                                                         Spacer(),
-                                                        if ("${homePageNewController.userId}" !=
-                                                            "${postsC.homePageModel.posts[index].postOwnerInfo![0].id}")
+                                                        if ("${homePageNewController.userId}" != "${postsC.homePageModel.posts[index].postOwnerInfo![0].id}")
                                                           InkWell(
                                                             onTap: () {
-                                                              Get.to(() =>
-                                                                  const Monthly());
+                                                              Get.to(() => const Monthly());
                                                             },
                                                             child: Container(
                                                               height: 70,
-                                                              child: SvgPicture
-                                                                  .asset(
-                                                                      "assets/images/pro_icon.svg"),
+                                                              child: SvgPicture.asset("assets/images/pro_icon.svg"),
                                                             ),
                                                           )
 
@@ -1559,26 +1073,25 @@ class _HomePageState extends State<HomePageUser> {
                                                         color: Colors.black,
                                                         fontSize: 12.adaptSize,
                                                         fontFamily: 'Inter',
-                                                        fontWeight:
-                                                            FontWeight.w500,
+                                                        fontWeight: FontWeight.w500,
                                                         height: 0,
                                                         letterSpacing: -0.30,
                                                       ),
                                                     ),
                                                     8.ah.heightBox,
-                                                    postsC.homePageModel.posts[index].totalComments==0?SizedBox.shrink():Text(
-                                                      '  View all ${postsC.homePageModel.posts[index].totalComments} comment',
-                                                      style: TextStyle(
-                                                        color: const Color(
-                                                            0xFFAAAAAA),
-                                                        fontSize: 12.adaptSize,
-                                                        fontFamily: 'Inter',
-                                                        fontWeight:
-                                                            FontWeight.w500,
-                                                        height: 0,
-                                                        letterSpacing: -0.30,
-                                                      ),
-                                                    ),
+                                                    postsC.homePageModel.posts[index].totalComments == 0
+                                                        ? SizedBox.shrink()
+                                                        : Text(
+                                                            '  View all ${postsC.homePageModel.posts[index].totalComments} comment',
+                                                            style: TextStyle(
+                                                              color: const Color(0xFFAAAAAA),
+                                                              fontSize: 12.adaptSize,
+                                                              fontFamily: 'Inter',
+                                                              fontWeight: FontWeight.w500,
+                                                              height: 0,
+                                                              letterSpacing: -0.30,
+                                                            ),
+                                                          ),
                                                   ],
                                                 ),
                                               ),
@@ -1589,8 +1102,7 @@ class _HomePageState extends State<HomePageUser> {
                                               decoration: ShapeDecoration(
                                                 color: Colors.white,
                                                 shape: RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(10),
+                                                  borderRadius: BorderRadius.circular(10),
                                                 ),
                                                 shadows: const [
                                                   BoxShadow(
@@ -1602,54 +1114,32 @@ class _HomePageState extends State<HomePageUser> {
                                                 ],
                                               ),
                                               child: Padding(
-                                                padding: EdgeInsets.all(
-                                                    20.0.adaptSize),
+                                                padding: EdgeInsets.all(20.0.adaptSize),
                                                 child: Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
+                                                  crossAxisAlignment: CrossAxisAlignment.start,
                                                   children: [
                                                     Row(
                                                       children: [
                                                         Container(
-                                                          decoration: BoxDecoration(
-                                                              border: Border.all(
-                                                                  color: Colors
-                                                                      .red),
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          35)),
+                                                          decoration:
+                                                              BoxDecoration(border: Border.all(color: Colors.red), borderRadius: BorderRadius.circular(35)),
                                                           child: ClipRRect(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        35),
+                                                            borderRadius: BorderRadius.circular(35),
                                                             child: SizedBox(
                                                               height: 35,
                                                               width: 35,
-                                                              child:
-                                                                  CachedNetworkImage(
-                                                                imageUrl: postsC
-                                                                    .homePageModel.posts[index].adImage.toString(),
-                                                                placeholder: (context,
-                                                                        url) =>
-                                                                    const Center(
-                                                                        child: SizedBox(
-                                                                            height: 20,
-                                                                            width: 20,
-                                                                            child: CircularProgressIndicator(
-                                                                              strokeWidth: 1,
-                                                                            ))),
-                                                                errorWidget: (context,
-                                                                        url,
-                                                                        error) =>
-                                                                    const Icon(Icons
-                                                                        .person_2_outlined),
-                                                                filterQuality:
-                                                                    FilterQuality
-                                                                        .low,
-                                                                fit:
-                                                                    BoxFit.fill,
+                                                              child: CachedNetworkImage(
+                                                                imageUrl: postsC.homePageModel.posts[index].adImage.toString(),
+                                                                placeholder: (context, url) => const Center(
+                                                                    child: SizedBox(
+                                                                        height: 20,
+                                                                        width: 20,
+                                                                        child: CircularProgressIndicator(
+                                                                          strokeWidth: 1,
+                                                                        ))),
+                                                                errorWidget: (context, url, error) => const Icon(Icons.person_2_outlined),
+                                                                filterQuality: FilterQuality.low,
+                                                                fit: BoxFit.fill,
                                                                 height: 300,
                                                               ),
                                                             ),
@@ -1657,26 +1147,21 @@ class _HomePageState extends State<HomePageUser> {
                                                         ),
                                                         10.aw.widthBox,
                                                         Column(
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment.start,
+                                                          crossAxisAlignment: CrossAxisAlignment.start,
                                                           children: [
                                                             Container(
-                                                              width: MediaQuery.of(context).size.width/1.5,
+                                                              width: MediaQuery.of(context).size.width / 1.5,
                                                               child: Text(
                                                                 '${postsC.homePageModel.posts[index].title}',
                                                                 overflow: TextOverflow.ellipsis,
-                                                                maxLines:2,
+                                                                maxLines: 2,
                                                                 style: TextStyle(
                                                                   color: const Color(0xFF111111),
                                                                   fontSize: 14.adaptSize,
-                                                                  fontFamily:
-                                                                      'Inter',
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w600,
+                                                                  fontFamily: 'Inter',
+                                                                  fontWeight: FontWeight.w600,
                                                                   height: 0,
-                                                                  letterSpacing:
-                                                                      -0.30,
+                                                                  letterSpacing: -0.30,
                                                                 ),
                                                               ),
                                                             ),
@@ -1684,18 +1169,12 @@ class _HomePageState extends State<HomePageUser> {
                                                             Text(
                                                               '${postsC.homePageModel.posts[index].createdAt}',
                                                               style: TextStyle(
-                                                                color: const Color(
-                                                                    0xFFAAAAAA),
-                                                                fontSize: 10
-                                                                    .adaptSize,
-                                                                fontFamily:
-                                                                    'Inter',
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w500,
+                                                                color: const Color(0xFFAAAAAA),
+                                                                fontSize: 10.adaptSize,
+                                                                fontFamily: 'Inter',
+                                                                fontWeight: FontWeight.w500,
                                                                 height: 0,
-                                                                letterSpacing:
-                                                                    -0.30,
+                                                                letterSpacing: -0.30,
                                                               ),
                                                             ),
                                                           ],
@@ -1704,65 +1183,52 @@ class _HomePageState extends State<HomePageUser> {
                                                     ),
                                                     10.heightBox,
                                                     ClipRRect(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              10),
+                                                      borderRadius: BorderRadius.circular(10),
                                                       child: SizedBox(
                                                         width: MediaQuery.of(context).size.width,
                                                         child: CachedNetworkImage(
                                                           imageUrl: postsC.homePageModel.posts[index].adImage.toString(),
-                                                          placeholder: (context,
-                                                                  url) =>
-                                                              const Center(
-                                                                  child: SizedBox(
-                                                                      height: 20,
-                                                                      width: 20,
-                                                                      child: CircularProgressIndicator(
-                                                                        strokeWidth:
-                                                                            1,
-                                                                      ))),
-                                                          errorWidget: (context,
-                                                                  url, error) =>
-                                                              const Icon(Icons
-                                                                  .person_2_outlined),
-                                                          filterQuality:
-                                                              FilterQuality.low,
+                                                          placeholder: (context, url) => const Center(
+                                                              child: SizedBox(
+                                                                  height: 20,
+                                                                  width: 20,
+                                                                  child: CircularProgressIndicator(
+                                                                    strokeWidth: 1,
+                                                                  ))),
+                                                          errorWidget: (context, url, error) => const Icon(Icons.person_2_outlined),
+                                                          filterQuality: FilterQuality.low,
                                                           fit: BoxFit.fill,
                                                           height: 300,
                                                         ),
                                                       ),
                                                     ),
                                                     5.heightBox,
-                                                    postsC.homePageModel.posts[index].link?.toLowerCase().trim() =='no'?const SizedBox.shrink():InkWell(
-                                                        onTap: () {
-
-                                                          print('link for launching');
-                                                          try {
-                                                            _launchURL('${postsC.homePageModel.posts[index].link}');
-                                                          } catch (e) {
-                                                            Fluttertoast.showToast(msg: 'Url not valid');
-                                                          }
-                                                        },
-                                                        child: Text(
-                                                          "${postsC.homePageModel.posts[index].link}",
-                                                          style: TextStyle(
-                                                              color:
-                                                                  Colors.blue),
-                                                        )),
+                                                    postsC.homePageModel.posts[index].link?.toLowerCase().trim() == 'no'
+                                                        ? const SizedBox.shrink()
+                                                        : InkWell(
+                                                            onTap: () {
+                                                              print('link for launching');
+                                                              try {
+                                                                _launchURL('${postsC.homePageModel.posts[index].link}');
+                                                              } catch (e) {
+                                                                Fluttertoast.showToast(msg: 'Url not valid');
+                                                              }
+                                                            },
+                                                            child: Text(
+                                                              "${postsC.homePageModel.posts[index].link}",
+                                                              style: TextStyle(color: Colors.blue),
+                                                            )),
                                                   ],
                                                 ),
                                               ),
                                             ),
-                                          if (postsC.homePageModel.posts[index]
-                                                  .postType ==
-                                              "video")
+                                          if (postsC.homePageModel.posts[index].postType == "video")
                                             Container(
                                               width: 350.aw,
                                               decoration: ShapeDecoration(
                                                 color: Colors.white,
                                                 shape: RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(10),
+                                                  borderRadius: BorderRadius.circular(10),
                                                 ),
                                                 shadows: const [
                                                   BoxShadow(
@@ -1774,58 +1240,31 @@ class _HomePageState extends State<HomePageUser> {
                                                 ],
                                               ),
                                               child: Padding(
-                                                padding: EdgeInsets.all(
-                                                    20.0.adaptSize),
+                                                padding: EdgeInsets.all(20.0.adaptSize),
                                                 child: Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
+                                                  crossAxisAlignment: CrossAxisAlignment.start,
                                                   children: [
                                                     10.ah.heightBox,
-                                                    postsC
-                                                                .homePageModel
-                                                                .posts[index]
-                                                                .postOwnerInfo![
-                                                                    0]
-                                                                .proplan
-                                                                .toString() ==
-                                                            "1"
+                                                    postsC.homePageModel.posts[index].postOwnerInfo![0].proplan.toString() == "1"
                                                         ? Row(
                                                             children: [
                                                               Stack(children: [
                                                                 Padding(
-                                                                  padding:
-                                                                      EdgeInsets
-                                                                          .only(
-                                                                              top: 4),
-                                                                  child:
-                                                                      Container(
-                                                                    decoration:
-                                                                        BoxDecoration(
-                                                                            border:
-                                                                                Border.all(
-                                                                              width: 2,
-                                                                              color: Colors.yellow,
-                                                                            ),
-                                                                            borderRadius: BorderRadius.circular(35)),
-                                                                    child:
-                                                                        ClipRRect(
-                                                                      borderRadius:
-                                                                          BorderRadius.circular(
-                                                                              35),
-                                                                      child:
-                                                                          SizedBox(
-                                                                        height:
-                                                                            35,
-                                                                        width:
-                                                                            35,
-                                                                        child:
-                                                                            CachedNetworkImage(
-                                                                          imageUrl: postsC
-                                                                              .homePageModel
-                                                                              .posts[index]
-                                                                              .postOwnerInfo![0]
-                                                                              .profileImage
-                                                                              .toString(),
+                                                                  padding: EdgeInsets.only(top: 4),
+                                                                  child: Container(
+                                                                    decoration: BoxDecoration(
+                                                                        border: Border.all(
+                                                                          width: 2,
+                                                                          color: Colors.yellow,
+                                                                        ),
+                                                                        borderRadius: BorderRadius.circular(35)),
+                                                                    child: ClipRRect(
+                                                                      borderRadius: BorderRadius.circular(35),
+                                                                      child: SizedBox(
+                                                                        height: 35,
+                                                                        width: 35,
+                                                                        child: CachedNetworkImage(
+                                                                          imageUrl: postsC.homePageModel.posts[index].postOwnerInfo![0].profileImage.toString(),
                                                                           placeholder: (context, url) => const Center(
                                                                               child: SizedBox(
                                                                                   height: 20,
@@ -1833,70 +1272,45 @@ class _HomePageState extends State<HomePageUser> {
                                                                                   child: CircularProgressIndicator(
                                                                                     strokeWidth: 1,
                                                                                   ))),
-                                                                          errorWidget: (context, url, error) =>
-                                                                              const Icon(Icons.person_2_outlined),
-                                                                          filterQuality:
-                                                                              FilterQuality.low,
-                                                                          fit: BoxFit
-                                                                              .cover,
+                                                                          errorWidget: (context, url, error) => const Icon(Icons.person_2_outlined),
+                                                                          filterQuality: FilterQuality.low,
+                                                                          fit: BoxFit.cover,
                                                                         ),
                                                                       ),
                                                                     ),
                                                                   ),
                                                                 ),
                                                                 Padding(
-                                                                  padding: EdgeInsets
-                                                                      .only(
-                                                                          left:
-                                                                              25),
-                                                                  child:
-                                                                      Container(
+                                                                  padding: EdgeInsets.only(left: 25),
+                                                                  child: Container(
                                                                     height: 20,
                                                                     width: 20,
-                                                                    child: SvgPicture
-                                                                        .asset(
-                                                                            "assets/icons/aa.svg"),
+                                                                    child: SvgPicture.asset("assets/icons/aa.svg"),
                                                                   ),
                                                                 ),
                                                               ]),
                                                               10.aw.widthBox,
                                                               Column(
-                                                                crossAxisAlignment:
-                                                                    CrossAxisAlignment
-                                                                        .start,
+                                                                crossAxisAlignment: CrossAxisAlignment.start,
                                                                 children: [
                                                                   Text(
                                                                     '${postsC.homePageModel.posts[index].postOwnerInfo![0].firstName} ${postsC.homePageModel.posts[index].postOwnerInfo![0].lastName}',
-                                                                    style:
-                                                                        TextStyle(
-                                                                      color: const Color(
-                                                                          0xFF111111),
-                                                                      fontSize:
-                                                                          14.adaptSize,
-                                                                      fontFamily:
-                                                                          'Inter',
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w600,
-                                                                      letterSpacing:
-                                                                          -0.30,
+                                                                    style: TextStyle(
+                                                                      color: const Color(0xFF111111),
+                                                                      fontSize: 14.adaptSize,
+                                                                      fontFamily: 'Inter',
+                                                                      fontWeight: FontWeight.w600,
+                                                                      letterSpacing: -0.30,
                                                                     ),
                                                                   ),
                                                                   Text(
                                                                     '${postsC.homePageModel.posts[index].postOwnerInfo?[0].createdAt!.day}-${postsC.homePageModel.posts[index].postOwnerInfo?[0].createdAt!.month}-${postsC.homePageModel.posts[index].postOwnerInfo?[0].createdAt!.year}',
-                                                                    style:
-                                                                        TextStyle(
-                                                                      color: const Color(
-                                                                          0xFFAAAAAA),
-                                                                      fontSize:
-                                                                          10.adaptSize,
-                                                                      fontFamily:
-                                                                          'Inter',
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w500,
-                                                                      letterSpacing:
-                                                                          -0.30,
+                                                                    style: TextStyle(
+                                                                      color: const Color(0xFFAAAAAA),
+                                                                      fontSize: 10.adaptSize,
+                                                                      fontFamily: 'Inter',
+                                                                      fontWeight: FontWeight.w500,
+                                                                      letterSpacing: -0.30,
                                                                     ),
                                                                   ),
                                                                 ],
@@ -1905,8 +1319,7 @@ class _HomePageState extends State<HomePageUser> {
 
                                                               if ("${homePageNewController.userId}" ==
                                                                   "${postsC.homePageModel.posts[index].postOwnerInfo![0].id}")
-                                                                deletePost(
-                                                                    index),
+                                                                deletePost(index),
 
                                                               //   InkWell(
                                                               //       onTap: () {
@@ -1922,35 +1335,19 @@ class _HomePageState extends State<HomePageUser> {
                                                             children: [
                                                               Stack(children: [
                                                                 Container(
-                                                                  decoration:
-                                                                      BoxDecoration(
-                                                                          border: Border
-                                                                              .all(
-                                                                            width:
-                                                                                2,
-                                                                            color:
-                                                                                Colors.red.shade300,
-                                                                          ),
-                                                                          borderRadius:
-                                                                              BorderRadius.circular(35)),
-                                                                  child:
-                                                                      ClipRRect(
-                                                                    borderRadius:
-                                                                        BorderRadius.circular(
-                                                                            35),
-                                                                    child:
-                                                                        SizedBox(
-                                                                      height:
-                                                                          35,
+                                                                  decoration: BoxDecoration(
+                                                                      border: Border.all(
+                                                                        width: 2,
+                                                                        color: Colors.red.shade300,
+                                                                      ),
+                                                                      borderRadius: BorderRadius.circular(35)),
+                                                                  child: ClipRRect(
+                                                                    borderRadius: BorderRadius.circular(35),
+                                                                    child: SizedBox(
+                                                                      height: 35,
                                                                       width: 35,
-                                                                      child:
-                                                                          CachedNetworkImage(
-                                                                        imageUrl: postsC
-                                                                            .homePageModel
-                                                                            .posts[index]
-                                                                            .postOwnerInfo![0]
-                                                                            .profileImage
-                                                                            .toString(),
+                                                                      child: CachedNetworkImage(
+                                                                        imageUrl: postsC.homePageModel.posts[index].postOwnerInfo![0].profileImage.toString(),
                                                                         placeholder: (context, url) => const Center(
                                                                             child: SizedBox(
                                                                                 height: 20,
@@ -1958,14 +1355,9 @@ class _HomePageState extends State<HomePageUser> {
                                                                                 child: CircularProgressIndicator(
                                                                                   strokeWidth: 1,
                                                                                 ))),
-                                                                        errorWidget: (context,
-                                                                                url,
-                                                                                error) =>
-                                                                            const Icon(Icons.person_2_outlined),
-                                                                        filterQuality:
-                                                                            FilterQuality.low,
-                                                                        fit: BoxFit
-                                                                            .cover,
+                                                                        errorWidget: (context, url, error) => const Icon(Icons.person_2_outlined),
+                                                                        filterQuality: FilterQuality.low,
+                                                                        fit: BoxFit.cover,
                                                                       ),
                                                                     ),
                                                                   ),
@@ -1973,42 +1365,26 @@ class _HomePageState extends State<HomePageUser> {
                                                               ]),
                                                               10.aw.widthBox,
                                                               Column(
-                                                                crossAxisAlignment:
-                                                                    CrossAxisAlignment
-                                                                        .start,
+                                                                crossAxisAlignment: CrossAxisAlignment.start,
                                                                 children: [
                                                                   Text(
                                                                     '${postsC.homePageModel.posts[index].postOwnerInfo![0].firstName} ${postsC.homePageModel.posts[index].postOwnerInfo![0].lastName}',
-                                                                    style:
-                                                                        TextStyle(
-                                                                      color: const Color(
-                                                                          0xFF111111),
-                                                                      fontSize:
-                                                                          14.adaptSize,
-                                                                      fontFamily:
-                                                                          'Inter',
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w600,
-                                                                      letterSpacing:
-                                                                          -0.30,
+                                                                    style: TextStyle(
+                                                                      color: const Color(0xFF111111),
+                                                                      fontSize: 14.adaptSize,
+                                                                      fontFamily: 'Inter',
+                                                                      fontWeight: FontWeight.w600,
+                                                                      letterSpacing: -0.30,
                                                                     ),
                                                                   ),
                                                                   Text(
                                                                     '${postsC.homePageModel.posts[index].postOwnerInfo?[0].createdAt!.day}-${postsC.homePageModel.posts[index].postOwnerInfo?[0].createdAt!.month}-${postsC.homePageModel.posts[index].postOwnerInfo?[0].createdAt!.year}',
-                                                                    style:
-                                                                        TextStyle(
-                                                                      color: const Color(
-                                                                          0xFFAAAAAA),
-                                                                      fontSize:
-                                                                          10.adaptSize,
-                                                                      fontFamily:
-                                                                          'Inter',
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w500,
-                                                                      letterSpacing:
-                                                                          -0.30,
+                                                                    style: TextStyle(
+                                                                      color: const Color(0xFFAAAAAA),
+                                                                      fontSize: 10.adaptSize,
+                                                                      fontFamily: 'Inter',
+                                                                      fontWeight: FontWeight.w500,
+                                                                      letterSpacing: -0.30,
                                                                     ),
                                                                   ),
                                                                 ],
@@ -2017,8 +1393,7 @@ class _HomePageState extends State<HomePageUser> {
 
                                                               if ("${homePageNewController.userId}" ==
                                                                   "${postsC.homePageModel.posts[index].postOwnerInfo![0].id}")
-                                                                deletePost(
-                                                                    index),
+                                                                deletePost(index),
 
                                                               //   InkWell(
                                                               //       onTap: () {
@@ -2143,19 +1518,14 @@ class _HomePageState extends State<HomePageUser> {
                                                     // ),
                                                     15.ah.heightBox,
                                                     Text(
-                                                      postsC
-                                                                  .homePageModel
-                                                                  .posts[index]
-                                                                  .miniblogs !=
-                                                              "default_miniblogs"
+                                                      postsC.homePageModel.posts[index].miniblogs != "default_miniblogs"
                                                           ? '${postsC.homePageModel.posts[index].miniblogs}'
                                                           : "",
                                                       style: TextStyle(
                                                         color: Colors.black,
                                                         fontSize: 12.adaptSize,
                                                         fontFamily: 'Inter',
-                                                        fontWeight:
-                                                            FontWeight.w400,
+                                                        fontWeight: FontWeight.w400,
                                                         height: 0,
                                                         letterSpacing: -0.30,
                                                       ),
@@ -2163,87 +1533,40 @@ class _HomePageState extends State<HomePageUser> {
                                                     15.ah.heightBox,
                                                     Container(
                                                       decoration: BoxDecoration(
-                                                        border: Border.all(
-                                                            color: Vx.red100),
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(10),
+                                                        border: Border.all(color: Vx.red100),
+                                                        borderRadius: BorderRadius.circular(10),
                                                       ),
                                                       child: ClipRRect(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(10),
+                                                        borderRadius: BorderRadius.circular(10),
                                                         child: SizedBox(
                                                           height: 200,
-                                                          width: MediaQuery.of(
-                                                                  context)
-                                                              .size
-                                                              .width,
-                                                          child: VideoPlayerItem(
-                                                              videoUrl: postsC
-                                                                      .homePageModel
-                                                                      .posts[
-                                                                          index]
-                                                                      .post ??
-                                                                  ""),
+                                                          width: MediaQuery.of(context).size.width,
+                                                          child: VideoPlayerItem(videoUrl: postsC.homePageModel.posts[index].post ?? ""),
                                                         ),
                                                       ),
                                                     ),
                                                     15.ah.heightBox,
                                                     // Text("${homePageNewController.posts[index].mentionsData!.length}"),
                                                     SizedBox(
-                                                      height: double.parse(
-                                                              "${8 * postsC.homePageModel.posts[index].mentionsData!.length}") +
-                                                          20,
+                                                      height: double.parse("${8 * postsC.homePageModel.posts[index].mentionsData!.length}") + 20,
                                                       child: GridView(
-                                                        physics:
-                                                            const NeverScrollableScrollPhysics(
-                                                                parent:
-                                                                    NeverScrollableScrollPhysics()),
-                                                        gridDelegate:
-                                                            const SliverGridDelegateWithFixedCrossAxisCount(
-                                                                crossAxisCount:
-                                                                    3,
-                                                                mainAxisExtent:
-                                                                    30),
+                                                        physics: const NeverScrollableScrollPhysics(parent: NeverScrollableScrollPhysics()),
+                                                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3, mainAxisExtent: 30),
                                                         children: [
-                                                          for (int i = 0;
-                                                              postsC
-                                                                      .homePageModel
-                                                                      .posts[
-                                                                          index]
-                                                                      .mentionsData!
-                                                                      .length >
-                                                                  i;
-                                                              i++)
+                                                          for (int i = 0; postsC.homePageModel.posts[index].mentionsData!.length > i; i++)
                                                             InkWell(
                                                               onTap: () {
                                                                 Get.to(
                                                                   () => MatchDetails(
-                                                                      isfriend:
-                                                                          true,
-                                                                      id: postsC
-                                                                          .homePageModel
-                                                                          .posts[
-                                                                              index]
-                                                                          .mentionsData![
-                                                                              i]
-                                                                          .id
-                                                                          .toString()),
+                                                                      isfriend: true, id: postsC.homePageModel.posts[index].mentionsData![i].id.toString()),
                                                                 );
                                                               },
                                                               child: Padding(
-                                                                padding:
-                                                                    const EdgeInsets
-                                                                        .only(
-                                                                        bottom:
-                                                                            4.0),
+                                                                padding: const EdgeInsets.only(bottom: 4.0),
                                                                 child: Text(
                                                                   "@${postsC.homePageModel.posts[index].mentionsData?[i].firstName ?? "asdcfv"}",
-                                                                  style:
-                                                                      const TextStyle(
-                                                                    color: Colors
-                                                                        .blue,
+                                                                  style: const TextStyle(
+                                                                    color: Colors.blue,
                                                                   ),
                                                                 ),
                                                               ),
@@ -2256,134 +1579,63 @@ class _HomePageState extends State<HomePageUser> {
                                                     15.ah.heightBox,
                                                     Row(
                                                       children: [
-                                                        postsC
-                                                                    .homePageModel
-                                                                    .posts[
-                                                                        index]
-                                                                    .likedByUser ==
-                                                                "Y"
+                                                        postsC.homePageModel.posts[index].likedByUser == "Y"
                                                             ? InkWell(
                                                                 onTap: () {
-                                                                  postsC
-                                                                      .homePageModel
-                                                                      .posts[
-                                                                          index]
-                                                                      .likedByUser = "N";
+                                                                  postsC.homePageModel.posts[index].likedByUser = "N";
                                                                   setState(() {
-                                                                    postsC
-                                                                        .homePageModel
-                                                                        .posts[
-                                                                            index]
-                                                                        .totalLikes = (postsC
-                                                                            .homePageModel
-                                                                            .posts[index]
-                                                                            .totalLikes -
-                                                                        1);
-                                                                    homePageNewController.likePost(
-                                                                        "${postsC.homePageModel.posts[index].id}",
-                                                                        "0",
+                                                                    postsC.homePageModel.posts[index].totalLikes =
+                                                                        (postsC.homePageModel.posts[index].totalLikes - 1);
+                                                                    homePageNewController.likePost("${postsC.homePageModel.posts[index].id}", "0",
                                                                         "${postsC.homePageModel.posts[index].userId}");
                                                                   });
                                                                 },
-                                                                child:
-                                                                    Container(
+                                                                child: Container(
                                                                   width: 40,
                                                                   height: 40,
-                                                                  decoration:
-                                                                      ShapeDecoration(
-                                                                    gradient:
-                                                                        const LinearGradient(
-                                                                      begin: Alignment(
-                                                                          0.00,
-                                                                          -1.00),
-                                                                      end: Alignment(
-                                                                          0, 1),
-                                                                      colors: [
-                                                                        Color(
-                                                                            0xFFF65F51),
-                                                                        Color(
-                                                                            0xFFFB4967)
-                                                                      ],
+                                                                  decoration: ShapeDecoration(
+                                                                    gradient: const LinearGradient(
+                                                                      begin: Alignment(0.00, -1.00),
+                                                                      end: Alignment(0, 1),
+                                                                      colors: [Color(0xFFF65F51), Color(0xFFFB4967)],
                                                                     ),
-                                                                    shape:
-                                                                        RoundedRectangleBorder(
-                                                                      borderRadius:
-                                                                          BorderRadius.circular(
-                                                                              100),
+                                                                    shape: RoundedRectangleBorder(
+                                                                      borderRadius: BorderRadius.circular(100),
                                                                     ),
                                                                   ),
-                                                                  child:
-                                                                      Padding(
-                                                                    padding:
-                                                                        const EdgeInsets
-                                                                            .all(
-                                                                            8.0),
-                                                                    child: SvgPicture
-                                                                        .asset(
-                                                                            "assets/icons/heartwhite.svg"),
+                                                                  child: Padding(
+                                                                    padding: const EdgeInsets.all(8.0),
+                                                                    child: SvgPicture.asset("assets/icons/heartwhite.svg"),
                                                                   ),
                                                                 ),
                                                               )
                                                             : InkWell(
                                                                 onTap: () {
-                                                                  postsC
-                                                                      .homePageModel
-                                                                      .posts[
-                                                                          index]
-                                                                      .likedByUser = "Y";
+                                                                  postsC.homePageModel.posts[index].likedByUser = "Y";
                                                                   setState(() {
-                                                                    postsC
-                                                                        .homePageModel
-                                                                        .posts[
-                                                                            index]
-                                                                        .totalLikes = (postsC
-                                                                            .homePageModel
-                                                                            .posts[index]
-                                                                            .totalLikes +
-                                                                        1);
+                                                                    postsC.homePageModel.posts[index].totalLikes =
+                                                                        (postsC.homePageModel.posts[index].totalLikes + 1);
 
-                                                                    homePageNewController.likePost(
-                                                                        "${postsC.homePageModel.posts[index].id}",
-                                                                        "1",
+                                                                    homePageNewController.likePost("${postsC.homePageModel.posts[index].id}", "1",
                                                                         "${postsC.homePageModel.posts[index].userId}");
                                                                   });
                                                                 },
-                                                                child:
-                                                                    Container(
+                                                                child: Container(
                                                                   width: 40,
                                                                   height: 40,
-                                                                  decoration:
-                                                                      ShapeDecoration(
-                                                                    gradient:
-                                                                        const LinearGradient(
-                                                                      begin: Alignment(
-                                                                          0.00,
-                                                                          -1.00),
-                                                                      end: Alignment(
-                                                                          0, 1),
-                                                                      colors: [
-                                                                        Color(
-                                                                            0xFFF65F51),
-                                                                        Color(
-                                                                            0xFFFB4967)
-                                                                      ],
+                                                                  decoration: ShapeDecoration(
+                                                                    gradient: const LinearGradient(
+                                                                      begin: Alignment(0.00, -1.00),
+                                                                      end: Alignment(0, 1),
+                                                                      colors: [Color(0xFFF65F51), Color(0xFFFB4967)],
                                                                     ),
-                                                                    shape:
-                                                                        RoundedRectangleBorder(
-                                                                      borderRadius:
-                                                                          BorderRadius.circular(
-                                                                              100),
+                                                                    shape: RoundedRectangleBorder(
+                                                                      borderRadius: BorderRadius.circular(100),
                                                                     ),
                                                                   ),
-                                                                  child:
-                                                                      Padding(
-                                                                    padding:
-                                                                        const EdgeInsets
-                                                                            .all(
-                                                                            8.0),
-                                                                    child: SvgPicture
-                                                                        .asset(
-                                                                            "assets/icons/pramod_unlike_icon.svg"),
+                                                                  child: Padding(
+                                                                    padding: const EdgeInsets.all(8.0),
+                                                                    child: SvgPicture.asset("assets/icons/pramod_unlike_icon.svg"),
                                                                   ),
                                                                 ),
                                                               ),
@@ -2391,20 +1643,12 @@ class _HomePageState extends State<HomePageUser> {
                                                         20.widthBox,
                                                         InkWell(
                                                           onTap: () {
-                                                            homePageNewController
-                                                                .getAllCommentBYpostID(
-                                                                    postID:
-                                                                        '${postsC.homePageModel.posts[index].id}',
-                                                                    alreadlyLoad:
-                                                                        true,
-                                                                    indexx:
-                                                                        index);
+                                                            homePageNewController.getAllCommentBYpostID(
+                                                                postID: '${postsC.homePageModel.posts[index].id}', alreadlyLoad: true, indexx: index);
                                                             Get.to(
                                                               () => CommentPage(
-                                                                postId:
-                                                                    '${postsC.homePageModel.posts[index].id}',
-                                                                userId:
-                                                                    '${postsC.homePageModel.posts[index].userId}',
+                                                                postId: '${postsC.homePageModel.posts[index].id}',
+                                                                userId: '${postsC.homePageModel.posts[index].userId}',
                                                                 indexxx: index,
                                                               ),
                                                             )?.then((value) {});
@@ -2412,54 +1656,31 @@ class _HomePageState extends State<HomePageUser> {
                                                           child: Container(
                                                             width: 40,
                                                             height: 40,
-                                                            decoration:
-                                                                ShapeDecoration(
-                                                              gradient:
-                                                                  const LinearGradient(
-                                                                begin:
-                                                                    Alignment(
-                                                                        0.00,
-                                                                        -1.00),
-                                                                end: Alignment(
-                                                                    0, 1),
-                                                                colors: [
-                                                                  Color(
-                                                                      0xFFF65F51),
-                                                                  Color(
-                                                                      0xFFFB4967)
-                                                                ],
+                                                            decoration: ShapeDecoration(
+                                                              gradient: const LinearGradient(
+                                                                begin: Alignment(0.00, -1.00),
+                                                                end: Alignment(0, 1),
+                                                                colors: [Color(0xFFF65F51), Color(0xFFFB4967)],
                                                               ),
-                                                              shape:
-                                                                  RoundedRectangleBorder(
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            100),
+                                                              shape: RoundedRectangleBorder(
+                                                                borderRadius: BorderRadius.circular(100),
                                                               ),
                                                             ),
                                                             child: Padding(
-                                                              padding:
-                                                                  const EdgeInsets
-                                                                      .all(8.0),
-                                                              child: SvgPicture
-                                                                  .asset(
-                                                                      "assets/icons/pramod_comment_icon.svg"),
+                                                              padding: const EdgeInsets.all(8.0),
+                                                              child: SvgPicture.asset("assets/icons/pramod_comment_icon.svg"),
                                                             ),
                                                           ),
                                                         ),
                                                         Spacer(),
-                                                        if ("${homePageNewController.userId}" !=
-                                                            "${postsC.homePageModel.posts[index].postOwnerInfo![0].id}")
+                                                        if ("${homePageNewController.userId}" != "${postsC.homePageModel.posts[index].postOwnerInfo![0].id}")
                                                           InkWell(
                                                             onTap: () {
-                                                              Get.to(() =>
-                                                                  const Monthly());
+                                                              Get.to(() => const Monthly());
                                                             },
                                                             child: Container(
                                                               height: 70,
-                                                              child: SvgPicture
-                                                                  .asset(
-                                                                      "assets/images/pro_icon.svg"),
+                                                              child: SvgPicture.asset("assets/images/pro_icon.svg"),
                                                             ),
                                                           )
                                                         // InkWell(
@@ -2538,26 +1759,25 @@ class _HomePageState extends State<HomePageUser> {
                                                         color: Colors.black,
                                                         fontSize: 12.adaptSize,
                                                         fontFamily: 'Inter',
-                                                        fontWeight:
-                                                            FontWeight.w500,
+                                                        fontWeight: FontWeight.w500,
                                                         height: 0,
                                                         letterSpacing: -0.30,
                                                       ),
                                                     ),
                                                     8.ah.heightBox,
-                                                    postsC.homePageModel.posts[index].totalComments==0?const SizedBox.shrink():Text(
-                                                      '  View all ${postsC.homePageModel.posts[index].totalComments} comment',
-                                                      style: TextStyle(
-                                                        color: const Color(
-                                                            0xFFAAAAAA),
-                                                        fontSize: 12.adaptSize,
-                                                        fontFamily: 'Inter',
-                                                        fontWeight:
-                                                            FontWeight.w500,
-                                                        height: 0,
-                                                        letterSpacing: -0.30,
-                                                      ),
-                                                    ),
+                                                    postsC.homePageModel.posts[index].totalComments == 0
+                                                        ? const SizedBox.shrink()
+                                                        : Text(
+                                                            '  View all ${postsC.homePageModel.posts[index].totalComments} comment',
+                                                            style: TextStyle(
+                                                              color: const Color(0xFFAAAAAA),
+                                                              fontSize: 12.adaptSize,
+                                                              fontFamily: 'Inter',
+                                                              fontWeight: FontWeight.w500,
+                                                              height: 0,
+                                                              letterSpacing: -0.30,
+                                                            ),
+                                                          ),
                                                   ],
                                                 ),
                                               ),
@@ -2613,8 +1833,7 @@ class _HomePageState extends State<HomePageUser> {
         Positioned(
           top: 20,
           child: Card(
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
             elevation: 4,
             surfaceTintColor: Colors.white,
             color: Colors.white,
@@ -2675,39 +1894,25 @@ class _HomePageState extends State<HomePageUser> {
                       10.heightBox,
                       InkWell(
                         onTap: () {
-                          print(
-                              "isVoted${homePageNewController.isVoted.value}");
+                          print("isVoted${homePageNewController.isVoted.value}");
 
                           if (homePageNewController.isVoted.value == false) {
                             homePageNewController.isVoted.value = true;
-                            homePageNewController.poll_option_1_count.value =
-                                homePageNewController
-                                        .poll_option_1_count.value +
-                                    1;
+                            homePageNewController.poll_option_1_count.value = homePageNewController.poll_option_1_count.value + 1;
 
                             homePageNewController.pollVote(
                                 option1: 1,
-                                owner_id:
-                                    '${homePageNewController.pollsModel!.polls!.userId}',
-                                poll_id:
-                                    '${homePageNewController.pollsModel!.polls!.id}');
+                                owner_id: '${homePageNewController.pollsModel!.polls!.userId}',
+                                poll_id: '${homePageNewController.pollsModel!.polls!.id}');
                           }
 
-                          homePageNewController
-                              .totalVotes.value = homePageNewController
-                                  .poll_option_1_count.value +
+                          homePageNewController.totalVotes.value = homePageNewController.poll_option_1_count.value +
                               homePageNewController.poll_option_2_count.value +
                               homePageNewController.poll_option_3_count.value;
 
-                          homePageNewController.poll1Persent.value =
-                              homePageNewController.poll_option_1_count.value /
-                                  homePageNewController.totalVotes.value;
-                          homePageNewController.poll2Persent.value =
-                              homePageNewController.poll_option_2_count.value /
-                                  homePageNewController.totalVotes.value;
-                          homePageNewController.poll3Persent.value =
-                              homePageNewController.poll_option_3_count.value /
-                                  homePageNewController.totalVotes.value;
+                          homePageNewController.poll1Persent.value = homePageNewController.poll_option_1_count.value / homePageNewController.totalVotes.value;
+                          homePageNewController.poll2Persent.value = homePageNewController.poll_option_2_count.value / homePageNewController.totalVotes.value;
+                          homePageNewController.poll3Persent.value = homePageNewController.poll_option_3_count.value / homePageNewController.totalVotes.value;
                         },
                         //1st
                         child: Obx(
@@ -2715,9 +1920,7 @@ class _HomePageState extends State<HomePageUser> {
                             color: const Color(0xFFF65F51),
                             minHeight: 10,
                             borderRadius: BorderRadius.circular(100),
-                            value: homePageNewController.isVoted.value
-                                ? homePageNewController.poll1Persent.value
-                                : 0,
+                            value: homePageNewController.isVoted.value ? homePageNewController.poll1Persent.value : 0,
                           ),
                         ),
                       ),
@@ -2744,45 +1947,26 @@ class _HomePageState extends State<HomePageUser> {
                             if (homePageNewController.isVoted.value == false) {
                               homePageNewController.isVoted.value = true;
 
-                              homePageNewController.poll_option_2_count.value =
-                                  homePageNewController
-                                          .poll_option_2_count.value +
-                                      1;
+                              homePageNewController.poll_option_2_count.value = homePageNewController.poll_option_2_count.value + 1;
                               homePageNewController.pollVote(
                                   option1: 2,
-                                  owner_id:
-                                      '${homePageNewController.pollsModel!.polls!.userId}',
-                                  poll_id:
-                                      '${homePageNewController.pollsModel!.polls!.id}');
+                                  owner_id: '${homePageNewController.pollsModel!.polls!.userId}',
+                                  poll_id: '${homePageNewController.pollsModel!.polls!.id}');
                             }
 
-                            homePageNewController
-                                .totalVotes.value = homePageNewController
-                                    .poll_option_1_count.value +
-                                homePageNewController
-                                    .poll_option_2_count.value +
+                            homePageNewController.totalVotes.value = homePageNewController.poll_option_1_count.value +
+                                homePageNewController.poll_option_2_count.value +
                                 homePageNewController.poll_option_3_count.value;
 
-                            homePageNewController.poll1Persent.value =
-                                homePageNewController
-                                        .poll_option_1_count.value /
-                                    homePageNewController.totalVotes.value;
-                            homePageNewController.poll2Persent.value =
-                                homePageNewController
-                                        .poll_option_2_count.value /
-                                    homePageNewController.totalVotes.value;
-                            homePageNewController.poll3Persent.value =
-                                homePageNewController
-                                        .poll_option_3_count.value /
-                                    homePageNewController.totalVotes.value;
+                            homePageNewController.poll1Persent.value = homePageNewController.poll_option_1_count.value / homePageNewController.totalVotes.value;
+                            homePageNewController.poll2Persent.value = homePageNewController.poll_option_2_count.value / homePageNewController.totalVotes.value;
+                            homePageNewController.poll3Persent.value = homePageNewController.poll_option_3_count.value / homePageNewController.totalVotes.value;
                           },
                           child: LinearProgressIndicator(
                               color: const Color(0xFFF65F51),
                               minHeight: 10,
                               borderRadius: BorderRadius.circular(100),
-                              value: homePageNewController.isVoted.value
-                                  ? homePageNewController.poll2Persent.value
-                                  : 0),
+                              value: homePageNewController.isVoted.value ? homePageNewController.poll2Persent.value : 0),
                         ),
                       ),
                       10.heightBox,
@@ -2807,44 +1991,25 @@ class _HomePageState extends State<HomePageUser> {
 
                             if (homePageNewController.isVoted.value == false) {
                               homePageNewController.isVoted.value = true;
-                              homePageNewController.poll_option_3_count.value =
-                                  homePageNewController
-                                          .poll_option_3_count.value +
-                                      1;
+                              homePageNewController.poll_option_3_count.value = homePageNewController.poll_option_3_count.value + 1;
                               homePageNewController.pollVote(
                                   option1: 3,
-                                  owner_id:
-                                      '${homePageNewController.pollsModel!.polls!.userId}',
-                                  poll_id:
-                                      '${homePageNewController.pollsModel!.polls!.id}');
+                                  owner_id: '${homePageNewController.pollsModel!.polls!.userId}',
+                                  poll_id: '${homePageNewController.pollsModel!.polls!.id}');
                             }
 
-                            homePageNewController
-                                .totalVotes.value = homePageNewController
-                                    .poll_option_1_count.value +
-                                homePageNewController
-                                    .poll_option_2_count.value +
+                            homePageNewController.totalVotes.value = homePageNewController.poll_option_1_count.value +
+                                homePageNewController.poll_option_2_count.value +
                                 homePageNewController.poll_option_3_count.value;
-                            homePageNewController.poll1Persent.value =
-                                homePageNewController
-                                        .poll_option_1_count.value /
-                                    homePageNewController.totalVotes.value;
-                            homePageNewController.poll2Persent.value =
-                                homePageNewController
-                                        .poll_option_2_count.value /
-                                    homePageNewController.totalVotes.value;
-                            homePageNewController.poll3Persent.value =
-                                homePageNewController
-                                        .poll_option_3_count.value /
-                                    homePageNewController.totalVotes.value;
+                            homePageNewController.poll1Persent.value = homePageNewController.poll_option_1_count.value / homePageNewController.totalVotes.value;
+                            homePageNewController.poll2Persent.value = homePageNewController.poll_option_2_count.value / homePageNewController.totalVotes.value;
+                            homePageNewController.poll3Persent.value = homePageNewController.poll_option_3_count.value / homePageNewController.totalVotes.value;
                           },
                           child: LinearProgressIndicator(
                               color: const Color(0xFFF65F51),
                               minHeight: 10,
                               borderRadius: BorderRadius.circular(100),
-                              value: homePageNewController.isVoted.value
-                                  ? homePageNewController.poll3Persent.value
-                                  : 0),
+                              value: homePageNewController.isVoted.value ? homePageNewController.poll3Persent.value : 0),
                         ),
                       ),
                       10.heightBox,
@@ -2859,10 +2024,7 @@ class _HomePageState extends State<HomePageUser> {
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(40),
               border: Border.all(color: Vx.red100),
-              image: DecorationImage(
-                  image: NetworkImage(
-                      "${homePageNewController.pollsModel!.polls!.profileImage}"),
-                  fit: BoxFit.cover)),
+              image: DecorationImage(image: NetworkImage("${homePageNewController.pollsModel!.polls!.profileImage}"), fit: BoxFit.cover)),
           height: 50,
           width: 50,
         )
@@ -3042,9 +2204,7 @@ class _HomePageState extends State<HomePageUser> {
         children: [
           Obx(
             () => Container(
-              decoration: BoxDecoration(
-                  border: Border.all(color: Colors.redAccent.shade200),
-                  borderRadius: BorderRadius.circular(35)),
+              decoration: BoxDecoration(border: Border.all(color: Colors.redAccent.shade200), borderRadius: BorderRadius.circular(35)),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(35),
                 child: SizedBox(
@@ -3059,8 +2219,7 @@ class _HomePageState extends State<HomePageUser> {
                             child: CircularProgressIndicator(
                               strokeWidth: 1,
                             ))),
-                    errorWidget: (context, url, error) =>
-                        const Icon(Icons.person_2_outlined),
+                    errorWidget: (context, url, error) => const Icon(Icons.person_2_outlined),
                     filterQuality: FilterQuality.low,
                     fit: BoxFit.cover,
                   ),
@@ -3139,10 +2298,7 @@ class _HomePageState extends State<HomePageUser> {
                       },
                       child: const Row(
                         mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Icon(Icons.play_circle_fill_outlined),
-                          Text('    Create Reel')
-                        ],
+                        children: [Icon(Icons.play_circle_fill_outlined), Text('    Create Reel')],
                       ),
                     ),
                   ),
@@ -3208,13 +2364,11 @@ class _HomePageState extends State<HomePageUser> {
         showDialog(
             context: context,
             builder: (BuildContext context) => AlertDialog(
-                  title:
-                      const Text("Are you sure you want to Delete this Post?"),
+                  title: const Text("Are you sure you want to Delete this Post?"),
                   actions: [
                     TextButton(
                       onPressed: () {
-                        homePageNewController.deletePostUser(
-                            "${postsC.homePageModel.posts[index].id}");
+                        homePageNewController.deletePostUser("${postsC.homePageModel.posts[index].id}");
 
                         // homePageNewController.getPostHomePage();
                         Navigator.pop(context);
@@ -3254,11 +2408,9 @@ class _HomePageState extends State<HomePageUser> {
     try {
       print("line 3263");
       final Uri uri = Uri.parse(url);
-        await launchUrl(uri);
-    }  catch (e) {
+      await launchUrl(uri);
+    } catch (e) {
       Fluttertoast.showToast(msg: 'Url not valid');
     }
-
-
   }
 }

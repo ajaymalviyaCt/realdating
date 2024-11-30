@@ -22,13 +22,12 @@ class _SwipCardPageState extends State<SwipCardPage> {
   List<SwipeItem> _swipeItems = <SwipeItem>[];
   MatchEngine? _matchEngine;
   var indexStatic;
+
   void rebuildPage() {
     // Perform any necessary tasks
     for (int i = 0; i < tinderSwipController.user.length; i++) {
       _swipeItems.add(SwipeItem(
-          content: Content(
-              text: tinderSwipController.user[i].firstName!,
-              color: Colors.green),
+          content: Content(text: tinderSwipController.user[i].firstName!, color: Colors.green),
           likeAction: () {
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
               backgroundColor: Colors.transparent,
@@ -65,7 +64,6 @@ class _SwipCardPageState extends State<SwipCardPage> {
             ));
           },
           onSlideUpdate: (SlideRegion? region) async {
-
             print("Region $region");
           }));
     }
@@ -124,20 +122,16 @@ class _SwipCardPageState extends State<SwipCardPage> {
                     )
                   : Stack(children: [
                       Container(
-                        height:
-                            MediaQuery.of(context).size.height - kToolbarHeight,
+                        height: MediaQuery.of(context).size.height - kToolbarHeight,
                         margin: const EdgeInsets.only(bottom: 30),
                         child: Padding(
-                          padding: const EdgeInsets.only(
-                              left: 16.0, right: 16, bottom: 60),
+                          padding: const EdgeInsets.only(left: 16.0, right: 16, bottom: 60),
                           child: SwipeCards(
                             matchEngine: _matchEngine!,
                             itemBuilder: (BuildContext context, int index) {
-                              print(
-                                  "firstname$index${tinderSwipController.user[index].firstName}");
+                              print("firstname$index${tinderSwipController.user[index].firstName}");
                               indexStatic = index;
-                              return TinderCard(
-                                  user: tinderSwipController.user![index]);
+                              return TinderCard(user: tinderSwipController.user![index]);
                             },
                             onStackFinished: () {
                               tinderSwipController.lastIndex.value = true;
@@ -147,8 +141,7 @@ class _SwipCardPageState extends State<SwipCardPage> {
                               // ));
                             },
                             itemChanged: (SwipeItem item, int index) {
-                              print(
-                                  "item: ${item.content.text}, index: $index");
+                              print("item: ${item.content.text}, index: $index");
 
                               print("newIndexxxx$indexStatic");
                             },
@@ -160,15 +153,13 @@ class _SwipCardPageState extends State<SwipCardPage> {
                             likeTag: Container(
                               margin: const EdgeInsets.all(15.0),
                               padding: const EdgeInsets.all(3.0),
-                              decoration: BoxDecoration(
-                                  border: Border.all(color: Colors.green)),
+                              decoration: BoxDecoration(border: Border.all(color: Colors.green)),
                               child: const Text('Like'),
                             ),
                             nopeTag: Container(
                               margin: const EdgeInsets.all(15.0),
                               padding: const EdgeInsets.all(3.0),
-                              decoration: BoxDecoration(
-                                  border: Border.all(color: Colors.red)),
+                              decoration: BoxDecoration(border: Border.all(color: Colors.red)),
                               child: const Text('Rejected'),
                             ),
                             // superLikeTag: Container(
@@ -269,6 +260,7 @@ class _SwipCardPageState extends State<SwipCardPage> {
       ),
     );
   }
+
   Widget swipeRightButton2() {
     return InkWell(
       onTap: () {
@@ -296,8 +288,6 @@ class _SwipCardPageState extends State<SwipCardPage> {
         //   ],
         // ),
         child: Image.asset("assets/images/pramod222.png"),
-       
-
       ),
     );
   }

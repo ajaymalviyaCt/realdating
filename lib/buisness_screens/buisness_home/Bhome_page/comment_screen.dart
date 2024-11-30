@@ -8,23 +8,21 @@ class BCommentPage extends StatefulWidget {
   final String postId;
   final String userId;
   final int indexxx;
-  const BCommentPage({super.key, required this.postId,required this.userId,required this.indexxx});
+
+  const BCommentPage({super.key, required this.postId, required this.userId, required this.indexxx});
 
   @override
   State<BCommentPage> createState() => _CommentPageState();
 }
 
 class _CommentPageState extends State<BCommentPage> {
-
-  HomepageBusinessController BhomepageBusinessController =Get.put(HomepageBusinessController());
-
-
+  HomepageBusinessController BhomepageBusinessController = Get.put(HomepageBusinessController());
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    BhomepageBusinessController.getAllCommentBYpostID(postID: widget.postId, indexx: widget.indexxx, alreadlyLoad: true );
+    BhomepageBusinessController.getAllCommentBYpostID(postID: widget.postId, indexx: widget.indexxx, alreadlyLoad: true);
   }
 
   @override
@@ -36,10 +34,7 @@ class _CommentPageState extends State<BCommentPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-          title: const Text("Comments"),
-          centerTitle: true,
-          backgroundColor: Colors.white),
+      appBar: AppBar(title: const Text("Comments"), centerTitle: true, backgroundColor: Colors.white),
       floatingActionButton: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
@@ -50,14 +45,10 @@ class _CommentPageState extends State<BCommentPage> {
             children: <Widget>[
               Expanded(
                 child: Padding(
-                  padding: const EdgeInsets.only(
-                      left: 30, right: 0, bottom: 0, top: 0),
+                  padding: const EdgeInsets.only(left: 30, right: 0, bottom: 0, top: 0),
                   child: Container(
                     padding: const EdgeInsets.only(left: 10),
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(30),
-                        border: Border.all(color: Colors.grey)),
+                    decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(30), border: Border.all(color: Colors.grey)),
                     child: TextField(
                       controller: BhomepageBusinessController.commentsController,
                       decoration: const InputDecoration(
@@ -87,7 +78,6 @@ class _CommentPageState extends State<BCommentPage> {
                       widget.indexxx,
                     );
                   },
-
                   child: const Text(
                     'Post',
                     style: TextStyle(
@@ -114,23 +104,17 @@ class _CommentPageState extends State<BCommentPage> {
                   itemCount: BhomepageBusinessController.comments.length,
                   itemBuilder: (context, index) {
                     return ListTile(
-                      title: Text(
-                          "${BhomepageBusinessController.comments[index].commentOwnerName}"),
-                      subtitle: Text(
-                          "${BhomepageBusinessController.comments[index].postComment}"),
+                      title: Text("${BhomepageBusinessController.comments[index].commentOwnerName}"),
+                      subtitle: Text("${BhomepageBusinessController.comments[index].postComment}"),
                       leading: Container(
-                        decoration: BoxDecoration(
-                            border: Border.all(color: Colors.red),
-                            borderRadius: BorderRadius.circular(35)),
+                        decoration: BoxDecoration(border: Border.all(color: Colors.red), borderRadius: BorderRadius.circular(35)),
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(35),
                           child: SizedBox(
                             height: 35,
                             width: 35,
                             child: CachedNetworkImage(
-                              imageUrl: BhomepageBusinessController
-                                  .comments[index].profileImage
-                                  .toString(),
+                              imageUrl: BhomepageBusinessController.comments[index].profileImage.toString(),
                               placeholder: (context, url) => const Center(
                                   child: SizedBox(
                                       height: 20,

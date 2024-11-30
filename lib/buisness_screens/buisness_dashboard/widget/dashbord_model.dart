@@ -35,18 +35,18 @@ class DashboardModel {
       );
 
   factory DashboardModel.fromJson(Map<String, dynamic> json) => DashboardModel(
-    success: json["success"],
-    message: json["message"],
-    status: json["status"],
-    dashboad: List<Dashboad>.from(json["Dashboad"].map((x) => Dashboad.fromJson(x))),
-  );
+        success: json["success"],
+        message: json["message"],
+        status: json["status"],
+        dashboad: List<Dashboad>.from(json["Dashboad"].map((x) => Dashboad.fromJson(x))),
+      );
 
   Map<String, dynamic> toJson() => {
-    "success": success,
-    "message": message,
-    "status": status,
-    "Dashboad": List<dynamic>.from(dashboad.map((x) => x.toJson())),
-  };
+        "success": success,
+        "message": message,
+        "status": status,
+        "Dashboad": List<dynamic>.from(dashboad.map((x) => x.toJson())),
+      };
 }
 
 class Dashboad {
@@ -76,16 +76,16 @@ class Dashboad {
       );
 
   factory Dashboad.fromJson(Map<String, dynamic> json) => Dashboad(
-    id: json["id"],
-    totalLike: json["total_like"],
-    totalComment: json["total_comment"],
-    totalDeal: json["total_deal"],
-  );
+        id: json["id"],
+        totalLike: json["total_like"],
+        totalComment: json["total_comment"],
+        totalDeal: json["total_deal"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "id": id,
-    "total_like": totalLike,
-    "total_comment": totalComment,
-    "total_deal": totalDeal,
-  };
+        "id": id,
+        "total_like": totalLike,
+        "total_comment": totalComment,
+        "total_deal": totalDeal,
+      };
 }

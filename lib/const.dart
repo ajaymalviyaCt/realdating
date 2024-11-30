@@ -6,10 +6,6 @@ import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
 import 'package:hexcolor/hexcolor.dart';
 
-
-
-
-
 // String BASE_URL='http://44.197.223.72:4000/';
 // String BASE_URL_img_upload='http://44.197.223.72/assets/uploads/';
 // String BASE_URL_img_home='http://44.197.223.72/assets/';
@@ -27,10 +23,7 @@ import 'package:hexcolor/hexcolor.dart';
 // String getSongsOfAlbumapi='getSongsOfAlbum';
 // String getSongsOfMoodapi='getSongsOfMood';
 
-
-
 Color colorWhite = Colors.white;
-
 
 Color colorblack = Colors.black;
 Color colorappblack = HexColor("#1C1C1C");
@@ -38,7 +31,6 @@ Color colorlightblack = HexColor("#313131");
 Color colorintroblack = HexColor("#F5F5F5");
 Color colorhintcolor = HexColor("#A1A1A1");
 Color colortexthit = HexColor("#BDBDBD");
-
 
 Color colororeng = HexColor("#FA7238");
 Color colornormaltextcolor = HexColor("#B0B0B0");
@@ -49,8 +41,6 @@ Color colorblacktext = HexColor("#333333");
 Color colortextgrea = HexColor("#8B8B8B");
 Color colorbutton = HexColor("#FFC000");
 Color colorgrey = Colors.grey;
-
-
 
 const double fontsizeheading20 = 20.0;
 const double fontsizeheading22 = 22.0;
@@ -75,32 +65,36 @@ FontWeight fontWeight400 = FontWeight.w400;
 FontWeight fontWeight500 = FontWeight.w500;
 FontWeight fontWeightnormal = FontWeight.normal;
 
-
-TextStyle? textnormail(context){
+TextStyle? textnormail(context) {
   return TextStyle(
-    fontSize: 18,color: Colors.white,
-
+    fontSize: 18,
+    color: Colors.white,
   );
 }
-TextStyle? textwidget(context){
-  return TextStyle(
-    fontSize: 18,color: HexColor("#1C1C1C"),
 
+TextStyle? textwidget(context) {
+  return TextStyle(
+    fontSize: 18,
+    color: HexColor("#1C1C1C"),
   );
 }
-TextStyle? textbold(context){
+
+TextStyle? textbold(context) {
   return TextStyle(
-      fontSize: 11,color: Colors.black87,
-      fontWeight: FontWeight.bold,
-  );
-}
-TextStyle? textheding(context){
-  return TextStyle(
-    fontSize: 14,color: Colors.black87,
+    fontSize: 11,
+    color: Colors.black87,
     fontWeight: FontWeight.bold,
-
   );
 }
+
+TextStyle? textheding(context) {
+  return TextStyle(
+    fontSize: 14,
+    color: Colors.black87,
+    fontWeight: FontWeight.bold,
+  );
+}
+
 TextStyle? textstyleHeading1(context) {
   return Theme.of(context).textTheme.displayLarge;
 }
@@ -166,8 +160,7 @@ Widget dividerHorizontal(context, width, height) {
     child: Container(
       // width: double.maxFinite,
       width: deviceWidth(context, width),
-      decoration: BoxDecoration(
-          color: colorgrey, borderRadius: borderRadiuscircular(20.0)),
+      decoration: BoxDecoration(color: colorgrey, borderRadius: borderRadiuscircular(20.0)),
       height: height,
     ),
   );

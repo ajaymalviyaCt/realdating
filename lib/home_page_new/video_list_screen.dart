@@ -98,7 +98,6 @@
 //   }
 // }
 
-
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
@@ -117,11 +116,12 @@ class VideoListScreen extends StatefulWidget {
 }
 
 class _VideoListScreenState extends State<VideoListScreen> {
-
   List<VideoPlayerController> controllers = [
     VideoPlayerController.network('https://sample-videos.com/video321/mp4/720/big_buck_bunny_720p_1mb.mp4'),
-    VideoPlayerController.network('https://vod-progressive.akamaized.net/exp=1705332866~acl=%2Fvimeo-prod-skyfire-std-us%2F01%2F4465%2F14%2F372327760%2F1547056590.mp4~hmac=803443c9ce099a090713bdf6fe7482e3397b09790cad92a908d66c3b4c3fcf70/vimeo-prod-skyfire-std-us/01/4465/14/372327760/1547056590.mp4'),
-    VideoPlayerController.network('https://player.vimeo.com/external/473575666.hd.mp4?s=2eefbe7e377c8f421a6a5e77de8ec4150e35dbb1&profile_id=175&oauth2_token_id=57447761'),
+    VideoPlayerController.network(
+        'https://vod-progressive.akamaized.net/exp=1705332866~acl=%2Fvimeo-prod-skyfire-std-us%2F01%2F4465%2F14%2F372327760%2F1547056590.mp4~hmac=803443c9ce099a090713bdf6fe7482e3397b09790cad92a908d66c3b4c3fcf70/vimeo-prod-skyfire-std-us/01/4465/14/372327760/1547056590.mp4'),
+    VideoPlayerController.network(
+        'https://player.vimeo.com/external/473575666.hd.mp4?s=2eefbe7e377c8f421a6a5e77de8ec4150e35dbb1&profile_id=175&oauth2_token_id=57447761'),
     // Add more video URLs as needed
   ];
 
@@ -153,7 +153,7 @@ class _VideoListScreenState extends State<VideoListScreen> {
         itemCount: controllers.length,
         itemBuilder: (context, index) {
           return InkWell(
-            onTap: (){
+            onTap: () {
               controllers[index].play();
             },
             child: Card(
@@ -180,11 +180,6 @@ class _VideoListScreenState extends State<VideoListScreen> {
 //   VideoItem(videoUrl: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4', title: 'Video 2'),
 //   // Add more video items as needed
 // ];
-
-
-
-
-
 
 //
 //

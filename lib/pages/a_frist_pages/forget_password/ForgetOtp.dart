@@ -1,4 +1,3 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -13,6 +12,7 @@ import 'forgetPass_control.dart';
 
 class ForgetOtp extends StatefulWidget {
   String? email;
+
   ForgetOtp({Key? key, required this.email}) : super(key: key);
 
   @override
@@ -20,50 +20,47 @@ class ForgetOtp extends StatefulWidget {
 }
 
 class _ForgetOtpState extends State<ForgetOtp> {
-
-  ForgetOtpController otpController=Get.put(ForgetOtpController());
+  ForgetOtpController otpController = Get.put(ForgetOtpController());
 
   String otp = '';
 
-
   final _formKey = GlobalKey<FormState>();
-
-
 
   @override
   void initState() {
-    print("rahul"+"${widget.email}");
+    print("rahul" + "${widget.email}");
     // TODO: implement initState
     super.initState();
   }
 
-
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        leading:Padding(
-          padding:  const EdgeInsets.symmetric(horizontal:8 ,vertical: 5),
+        leading: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
           child: InkWell(
-              onTap: (){
+              onTap: () {
                 Get.back();
               },
-              child: SvgPicture.asset('assets/icons/btn.svg',)),
+              child: SvgPicture.asset(
+                'assets/icons/btn.svg',
+              )),
         ),
       ),
       body: Form(
         // key: _formKey,
         child: Center(
           child: Padding(
-            padding:  EdgeInsets.symmetric(vertical: 50),
+            padding: EdgeInsets.symmetric(vertical: 50),
             child: Column(
               children: [
                 customTextCommon(text: "Type the verification code", fSize: 18, fWeight: FontWeight.w500, lineHeight: 20),
                 customTextCommon(text: " we’ve sent you", fSize: 18, fWeight: FontWeight.w500, lineHeight: 20),
                 SizedBox(height: 140.h),
                 Padding(
-                  padding:  EdgeInsets.symmetric(horizontal: 30,vertical: 30),
+                  padding: EdgeInsets.symmetric(horizontal: 30, vertical: 30),
                   child: PinCodeTextField(
                     keyboardType: TextInputType.number,
                     enablePinAutofill: true,
@@ -94,19 +91,25 @@ class _ForgetOtpState extends State<ForgetOtp> {
                 ),
 
                 SizedBox(height: 20),
-                Text('Send again',style: CustomTextStyle.ote,),
+                Text(
+                  'Send again',
+                  style: CustomTextStyle.ote,
+                ),
                 // TextButton(onPressed: (){
                 //   OTPaccount();
                 //   print("sdfghfd");
                 //   print(Codecontroller.value.text);
                 // }, child: Text("sumbit")),
                 Spacer(),
-                customPrimaryBtn(btnText: "Submit", btnFun: (){
-                  print(otpController.Codecontroller.value.text);
-                  otpController.otpverify("${widget.email}");
-                }),
-                SizedBox(height: 30,)
-
+                customPrimaryBtn(
+                    btnText: "Submit",
+                    btnFun: () {
+                      print(otpController.Codecontroller.value.text);
+                      otpController.otpverify("${widget.email}");
+                    }),
+                SizedBox(
+                  height: 30,
+                )
               ],
             ),
           ),
@@ -115,5 +118,3 @@ class _ForgetOtpState extends State<ForgetOtp> {
     );
   }
 }
-
-

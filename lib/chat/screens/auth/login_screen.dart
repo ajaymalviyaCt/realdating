@@ -1,8 +1,10 @@
 import 'dart:developer';
 import 'dart:io';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+
 import '../../../main.dart';
 import '../../api/apis.dart';
 import '../../helper/dialogs.dart';
@@ -43,12 +45,10 @@ class _LoginScreenState extends State<LoginScreen> {
         log('\nUserAdditionalInfo: ${user.additionalUserInfo}');
 
         if ((await APIs.userExists())) {
-          Navigator.pushReplacement(
-              context, MaterialPageRoute(builder: (_) => HomeScreen()));
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => HomeScreen()));
         } else {
           await APIs.createUser().then((value) {
-            Navigator.pushReplacement(
-                context, MaterialPageRoute(builder: (_) => HomeScreen()));
+            Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => HomeScreen()));
           });
         }
       }
@@ -62,8 +62,7 @@ class _LoginScreenState extends State<LoginScreen> {
       final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
 
       // Obtain the auth details from the request
-      final GoogleSignInAuthentication? googleAuth =
-      await googleUser?.authentication;
+      final GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
 
       // Create a new credential
       final credential = GoogleAuthProvider.credential(
@@ -115,10 +114,7 @@ class _LoginScreenState extends State<LoginScreen> {
             width: mq.width * .9,
             height: mq.height * .06,
             child: ElevatedButton.icon(
-                style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color.fromARGB(255, 223, 255, 187),
-                    shape: const StadiumBorder(),
-                    elevation: 1),
+                style: ElevatedButton.styleFrom(backgroundColor: const Color.fromARGB(255, 223, 255, 187), shape: const StadiumBorder(), elevation: 1),
                 onPressed: () {
                   _handleGoogleBtnClick();
                 },
@@ -128,20 +124,15 @@ class _LoginScreenState extends State<LoginScreen> {
 
                 //login with google label
                 label: RichText(
-                  text: const TextSpan(
-                      style: TextStyle(color: Colors.black, fontSize: 16),
-                      children: [
-                        TextSpan(text: 'Login with '),
-                        TextSpan(
-                            text: 'Google',
-                            style: TextStyle(fontWeight: FontWeight.w500)),
-                      ]),
+                  text: const TextSpan(style: TextStyle(color: Colors.black, fontSize: 16), children: [
+                    TextSpan(text: 'Login with '),
+                    TextSpan(text: 'Google', style: TextStyle(fontWeight: FontWeight.w500)),
+                  ]),
                 ))),
       ]),
     );
   }
 }
-
 
 // import 'dart:developer';
 // import 'dart:io';

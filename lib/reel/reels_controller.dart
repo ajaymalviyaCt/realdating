@@ -1,7 +1,7 @@
-
 import 'package:realdating/reel/list_extension.dart';
 import 'package:realdating/reel/post_model.dart';
 import 'package:realdating/reel/post_search_query.dart';
+
 import 'common_import.dart';
 
 //import '../../../../apiHandler/apis/post_api.dart';
@@ -89,7 +89,7 @@ class ReelsController extends GetxController {
     }
     update();
     reelSearchQuery = query;
-  //  getReels();
+    //  getReels();
   }
 
   // void getReels() async {
@@ -171,31 +171,31 @@ class ReelsController extends GetxController {
     }
     likedReels.refresh();
     // post.totalLike = post.isLike ? (post.totalLike) + 1 : (post.totalLike) - 1;
-   // PostApi.likeUnlikePost(like: post.isLike, postId: post.id);
+    // PostApi.likeUnlikePost(like: post.isLike, postId: post.id);
   }
 
-  // deletePost({required PostModel post}) {
-  //   final PostCardController postCardController = Get.find();
-  //   postCardController.deletePost(post: post, callback: () {});
-  //
-  //   publicReels.removeWhere((element) => element.id == post.id);
-  //   filteredReels.removeWhere((element) => element.id == post.id);
-  //   likedReels.removeWhere((element) => element.id == post.id);
-  //
-  //   AppUtil.showToast(message: deletedString.tr, isSuccess: true);
-  // }
+// deletePost({required PostModel post}) {
+//   final PostCardController postCardController = Get.find();
+//   postCardController.deletePost(post: post, callback: () {});
+//
+//   publicReels.removeWhere((element) => element.id == post.id);
+//   filteredReels.removeWhere((element) => element.id == post.id);
+//   likedReels.removeWhere((element) => element.id == post.id);
+//
+//   AppUtil.showToast(message: deletedString.tr, isSuccess: true);
+// }
 
-  // void blockUser({required int userId, required VoidCallback callback}) {
-  //  // final PostCardController postCardController = Get.find();
-  // //  postCardController.blockUser(userId: userId, callback: () {});
-  //
-  //   publicReels.removeWhere((element) => element.user.id == userId);
-  //   filteredReels.removeWhere((element) => element.user.id == userId);
-  //   likedReels.removeWhere((element) => element.user.id == userId);
-  // }
+// void blockUser({required int userId, required VoidCallback callback}) {
+//  // final PostCardController postCardController = Get.find();
+// //  postCardController.blockUser(userId: userId, callback: () {});
+//
+//   publicReels.removeWhere((element) => element.user.id == userId);
+//   filteredReels.removeWhere((element) => element.user.id == userId);
+//   likedReels.removeWhere((element) => element.user.id == userId);
+// }
 
-  // sharePost({required PostModel post}) {
-  //  // final PostCardController postCardController = Get.find();
-  //   postCardController.sharePost(post: post);
-  // }
+// sharePost({required PostModel post}) {
+//  // final PostCardController postCardController = Get.find();
+//   postCardController.sharePost(post: post);
+// }
 }

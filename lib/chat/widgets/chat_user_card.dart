@@ -48,7 +48,7 @@ class _ChatUserCardState extends State<ChatUserCard> {
   Widget build(BuildContext context) {
     return Obx(() {
       final Rxn<ExploreDetailsModel> exploreDetailsModel = Rxn(widget.otherUserList.firstWhereOrNull(
-            (element) => element.userInfo[0].id.toString() == widget.user.id,
+        (element) => element.userInfo[0].id.toString() == widget.user.id,
       ));
       return Card(
         margin: EdgeInsets.symmetric(horizontal: mq.width * .04, vertical: 4),
@@ -58,7 +58,13 @@ class _ChatUserCardState extends State<ChatUserCard> {
         child: InkWell(
             onTap: () {
               //for navigating to chat screen
-              Navigator.push(context, MaterialPageRoute(builder: (_) => ChatScreen(user: widget.user, exploreDetailsModel: exploreDetailsModel,)));
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (_) => ChatScreen(
+                            user: widget.user,
+                            exploreDetailsModel: exploreDetailsModel,
+                          )));
             },
             child: StreamBuilder(
               stream: APIs.getLastMessage(widget.user),
@@ -79,14 +85,14 @@ class _ChatUserCardState extends State<ChatUserCard> {
                         fit: BoxFit.cover,
                         width: mq.height * .055,
                         height: mq.height * .055,
-                        imageUrl: exploreDetailsModel.value?.userInfo[0].profileImage??"",
+                        imageUrl: exploreDetailsModel.value?.userInfo[0].profileImage ?? "",
                         errorWidget: (context, url, error) => const CircleAvatar(child: Icon(CupertinoIcons.person)),
                       ),
                     ),
                   ),
 
                   //user name
-                  title: Text("${exploreDetailsModel.value?.userInfo[0].firstName??""} ${exploreDetailsModel.value?.userInfo[0].lastName??""}"),
+                  title: Text("${exploreDetailsModel.value?.userInfo[0].firstName ?? ""} ${exploreDetailsModel.value?.userInfo[0].lastName ?? ""}"),
 
                   //last message
                   subtitle: Text(

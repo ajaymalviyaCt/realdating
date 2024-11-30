@@ -85,36 +85,40 @@ class LivePageState extends State<LivePage> {
 }
 
 void _showLiveEndedPopup() {
-  Get.dialog(barrierDismissible: false,WillPopScope(
-    onWillPop: ()async { return false; },
-    child: AlertDialog(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(15.0),
-      ),
-      title: const Text(
-        'Live Stream Ended',
-        style: TextStyle(fontWeight: FontWeight.bold),
-      ),
-      content: const Text(
-        'Thank you for watching! The live stream has ended. Please check back later for more content.',
-      ),
-      actions: [
-        TextButton(
-          onPressed: () {
-            Get.back();
-            Get.back();
-          },
-          child: const Text('Close'),
+  Get.dialog(
+      barrierDismissible: false,
+      WillPopScope(
+        onWillPop: () async {
+          return false;
+        },
+        child: AlertDialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15.0),
+          ),
+          title: const Text(
+            'Live Stream Ended',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
+          content: const Text(
+            'Thank you for watching! The live stream has ended. Please check back later for more content.',
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Get.back();
+                Get.back();
+              },
+              child: const Text('Close'),
+            ),
+            // ElevatedButton(
+            //   onPressed: () {
+            //    Get.back();
+            //    Get.back();
+            //     // Add any additional actions here
+            //   },
+            //   child: const Text('Go to Home'),
+            // ),
+          ],
         ),
-        // ElevatedButton(
-        //   onPressed: () {
-        //    Get.back();
-        //    Get.back();
-        //     // Add any additional actions here
-        //   },
-        //   child: const Text('Go to Home'),
-        // ),
-      ],
-    ),
-  ));
+      ));
 }

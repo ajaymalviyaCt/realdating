@@ -23,13 +23,9 @@ class SplashPage extends StatefulWidget {
   State<SplashPage> createState() => _SplashPageState();
 }
 
-class _SplashPageState extends State<SplashPage>
-    with SingleTickerProviderStateMixin {
-
-
+class _SplashPageState extends State<SplashPage> with SingleTickerProviderStateMixin {
   final _messagingService = MessagingService(); // Instance of MessagingService for handling notifications
-  var  profile_status ;
-
+  var profile_status;
 
   @override
   void initState() {
@@ -39,19 +35,19 @@ class _SplashPageState extends State<SplashPage>
     super.initState();
     Timer(const Duration(seconds: 3), () async {
       SharedPreferences prefs = await SharedPreferences.getInstance();
-       bool isShowOnboarding = prefs.getBool("isShowOnboarding") ?? true;
-       bool isLogin  = prefs.getBool("isLogin") ?? false;
-       bool isLoginB = prefs.getBool("isLoginB") ?? false;
+      bool isShowOnboarding = prefs.getBool("isShowOnboarding") ?? true;
+      bool isLogin = prefs.getBool("isLogin") ?? false;
+      bool isLoginB = prefs.getBool("isLoginB") ?? false;
 
-      if(isShowOnboarding){
-        Get.offAll(()=>const Onbording());
-      }else if(isLogin){
+      if (isShowOnboarding) {
+        Get.offAll(() => const Onbording());
+      } else if (isLogin) {
         Get.offAll(const DashboardPage());
-      }else if(isLoginB){
-        Get.offAll(()=>const BuisnessHomePage());
-       }else{
+      } else if (isLoginB) {
+        Get.offAll(() => const BuisnessHomePage());
+      } else {
         print("optionScreen");
-        Get.offAll(()=>const OptionScreen());
+        Get.offAll(() => const OptionScreen());
       }
       // SharedPreferences prefs = await SharedPreferences.getInstance();
       // bool? isFirstTime = prefs.getBool("firstTimeOnApp");
@@ -75,7 +71,6 @@ class _SplashPageState extends State<SplashPage>
       // }
     });
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -108,17 +103,9 @@ class _SplashPageState extends State<SplashPage>
                     children: [
                       Padding(
                         padding: EdgeInsets.symmetric(vertical: 55),
-                        child: Center(
-                            child: Image(
-                                image: AssetImage('assets/images/Foreground.png'),
-                                fit: BoxFit.none,
-                                height: 400,
-                                width: 300)),
+                        child: Center(child: Image(image: AssetImage('assets/images/Foreground.png'), fit: BoxFit.none, height: 400, width: 300)),
                       ),
-                      Image(
-                          image:
-                              AssetImage('assets/images/Background Pattern.png'),
-                          fit: BoxFit.fill),
+                      Image(image: AssetImage('assets/images/Background Pattern.png'), fit: BoxFit.fill),
                     ],
                   ),
                 ),
@@ -130,51 +117,52 @@ class _SplashPageState extends State<SplashPage>
     );
   }
 
-
-  Future<void>  getprofileSatus() async {
+  Future<void> getprofileSatus() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var user_id = prefs.getInt("user_id");
     var headers = {'Content-Type': 'application/x-www-form-urlencoded'};
-    var data = {'userId':user_id.toString() };
+    var data = {'userId': user_id.toString()};
     var dio = Dio();
-    var response = await dio.request('https://forreal.net:4000/users/user_profile_status', options: Options(method: 'POST', headers: headers,), data: data,);
+    var response = await dio.request(
+      'https://forreal.net:4000/users/user_profile_status',
+      options: Options(
+        method: 'POST',
+        headers: headers,
+      ),
+      data: data,
+    );
     if (response.statusCode == 200) {
       print("user_id==${user_id.toString()}");
       print("response==${response.data}");
-       profile_status = response.data["profile_status"];
-        profile_satuss(profile_status);
-    }
-    else {
-    }
+      profile_status = response.data["profile_status"];
+      profile_satuss(profile_status);
+    } else {}
   }
 
-
- void  profile_satuss(var profile_status){
+  void profile_satuss(var profile_status) {
     print("prfsdfdfdsfsdfdsfsdfsf$profile_status");
-     if (profile_status == 0) {
-       Get.to(() => SelectGenderPage());
-     }
-     if (profile_status == 1) {
-       Get.to(() => Interest_Screen());
-     }
-     if (profile_status == 2) {
-       Get.to(() => HobbiesPage());
-     }
-     if (profile_status == 3) {
-       Get.to(() => AddYourPhotoPage());
-     }
-     if (profile_status == 4) {
-       Get.to(() => HeightDOBpage());
-     }
-     if (profile_status == 5) {
-       Get.to(() => const DashboardPage());
-     }
-     if (profile_status == 6) {
-        Get.to(() => const DashboardPage());
-     }else{
-       // Get.to(() => const OptionScreen());
-     }
-   }
-
+    if (profile_status == 0) {
+      Get.to(() => SelectGenderPage());
+    }
+    if (profile_status == 1) {
+      Get.to(() => Interest_Screen());
+    }
+    if (profile_status == 2) {
+      Get.to(() => HobbiesPage());
+    }
+    if (profile_status == 3) {
+      Get.to(() => AddYourPhotoPage());
+    }
+    if (profile_status == 4) {
+      Get.to(() => HeightDOBpage());
+    }
+    if (profile_status == 5) {
+      Get.to(() => const DashboardPage());
+    }
+    if (profile_status == 6) {
+      Get.to(() => const DashboardPage());
+    } else {
+      // Get.to(() => const OptionScreen());
+    }
+  }
 }
-

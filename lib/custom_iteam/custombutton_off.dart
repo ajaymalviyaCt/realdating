@@ -6,7 +6,8 @@ class StyledSwitch extends StatefulWidget {
   final void Function(bool isToggled) onToggled;
   AlignmentGeometry alignment;
   Color? toggleColor;
-   StyledSwitch({Key? key, required this.onToggled,required this.alignment,this.toggleColor}) : super(key: key);
+
+  StyledSwitch({Key? key, required this.onToggled, required this.alignment, this.toggleColor}) : super(key: key);
 
   @override
   State<StyledSwitch> createState() => _StyledSwitchState();
@@ -18,7 +19,8 @@ class _StyledSwitchState extends State<StyledSwitch> {
   double innerPadding = 0;
   Color? toggleColor;
 
-var alignment;
+  var alignment;
+
   @override
   void initState() {
     innerPadding = size / 10;
@@ -44,10 +46,9 @@ var alignment;
         duration: const Duration(milliseconds: 300),
         curve: Curves.easeOut,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(50),
-          // color: isToggled==true ? HexColor('#AAAAAA') : HexColor('#FB4967'),
-          color: toggleColor
-        ),
+            borderRadius: BorderRadius.circular(50),
+            // color: isToggled==true ? HexColor('#AAAAAA') : HexColor('#FB4967'),
+            color: toggleColor),
         child: Container(
           width: size - innerPadding * 2,
           height: size - innerPadding * 2,

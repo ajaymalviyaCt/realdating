@@ -15,6 +15,7 @@ class GetClassifiedRequestController extends GetxController {
 
   RxList<ClassifiedRequest> classifiedRequests = <ClassifiedRequest>[].obs;
   var searchQuery = ''.obs;
+
   List<ClassifiedRequest> get filteredClassifiedRequests {
     if (searchQuery.isEmpty) {
       return classifiedRequests;
@@ -34,11 +35,10 @@ class GetClassifiedRequestController extends GetxController {
   GetClassifiedRequestModel? getClassifiedRequestModel;
   RxBool isLoading = false.obs;
 
-   GetClassifiedRequestMethod(bool  loading ) async {
+  GetClassifiedRequestMethod(bool loading) async {
     isLoading.value = loading;
     print("GetClassifiedRequestMethod");
-    final response = await BaseClient01().post(
-        Uri.parse("https://forreal.net:4000/users/my_classified_request"), {});
+    final response = await BaseClient01().post(Uri.parse("https://forreal.net:4000/users/my_classified_request"), {});
     var satus = "${response["status"]}";
     if (satus == "200") {
       isLoading.value = false;
@@ -46,7 +46,6 @@ class GetClassifiedRequestController extends GetxController {
       classifiedRequests.value = GetClassifiedRequestModel.fromJson(response).classifiedRequest!;
       print("12345678909876543=======>${classifiedRequests.length}");
       print("GetClassifiedRequestMethod$response");
-
     } else {
       print("GetClassifiedRequestMethod1234$response");
 
@@ -59,21 +58,20 @@ class GetClassifiedRequestController extends GetxController {
   RxInt indexselect = 999999.obs;
 
   void aceptedRejectMethod(
-      String senderId ,
-      String inviteId ,
-      ) async {
-     isLoadingApceted.value = true;
+    String senderId,
+    String inviteId,
+  ) async {
+    isLoadingApceted.value = true;
     print("GetClassifiedRequestMethod");
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var userId = prefs.getInt('user_id');
-    final response = await BaseClient01().post(
-        Uri.parse("https://forreal.net:4000/users/new_friend"),
-        {"reciver_id": "$userId", "sender_id": senderId,"invite_id" : "$inviteId"});
+    final response = await BaseClient01()
+        .post(Uri.parse("https://forreal.net:4000/users/new_friend"), {"reciver_id": "$userId", "sender_id": senderId, "invite_id": "$inviteId"});
 
-      isLoadingApceted.value = false;
-     GetClassifiedRequestMethod(false);
-     sendNotification(senderId, "invite_accept");
-      print("asdfhgffsdghgnfdsfghgfd${response.toString()}");
+    isLoadingApceted.value = false;
+    GetClassifiedRequestMethod(false);
+    sendNotification(senderId, "invite_accept");
+    print("asdfhgffsdghgnfdsfghgfd${response.toString()}");
     var satus = "${response["status"]}";
     if (satus == "200") {
       isLoadingApceted.value = false;
