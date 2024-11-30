@@ -456,6 +456,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                   : SizedBox(
                                       // height: 120,
                                       child: GridView.builder(
+                                        primary: false,
                                         shrinkWrap: true,
                                         itemCount: interestList().isNotEmpty ? interestList().length : 0,
                                         itemBuilder: (ctx, i) {
@@ -526,6 +527,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               10.heightBox,
                               SizedBox(
                                 child: GridView.builder(
+                                  primary: false,
                                   shrinkWrap: true,
                                   itemCount: hobbiesList().length ?? 0,
                                   itemBuilder: (ctx, i) {
