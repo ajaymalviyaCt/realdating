@@ -118,8 +118,9 @@ class _LivePageState extends State<LivePage> {
           actions: [
             TextButton(
               onPressed: () {
-                Get.back(); // Close the dialog
-                Get.back(); // Navigate back
+                Get.back();
+                Get.back();
+                _endLiveSession();
               },
               child: const Text('Close'),
             ),

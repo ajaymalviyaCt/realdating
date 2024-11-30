@@ -11,11 +11,8 @@ import 'package:realdating/chat/api/apis.dart';
 import 'package:zego_uikit_prebuilt_live_streaming/zego_uikit_prebuilt_live_streaming.dart';
 
 import '../../../../reel/app_util.dart';
-import '../../../../services/apis_related/api_call_services.dart';
 import '../../../../zego_live_stream_chat/live_page.dart';
 import '../../../dash_board_page.dart';
-import '../../../mape/NearBy_businesses.dart';
-import '../../../profile/profile_model.dart';
 import '../constant/liveusercard.dart';
 
 class HomePage extends StatefulWidget {
@@ -27,19 +24,18 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   List<LiveUser> liveUsers = [];
-  RxBool isLoadig = true.obs;
+
   // User? currentUser ;
   bool isDeviceConnected = false;
   StreamSubscription<ConnectivityResult>? connectivitySubscription;
-  ProfileModel? profileModel;
+
   var userName = '';
   var userID = '';
-  RxString profileImage = ''.obs;
 
   @override
   void initState() {
     super.initState();
-    profileDaitails();
+
     fetchLoggedInUserData(user_uid!);
     setupConnectivityListener();
     fetchLiveUsers();
@@ -47,27 +43,6 @@ class _HomePageState extends State<HomePage> {
 
     print('login user id------------$user_uid');
   }
-
-
-
-  ///-----user data details api -------------
-  Future<void> profileDaitails() async {
-    Map<String, dynamic> apiData =
-    await ApiCall.instance.callApi(url: "https://forreal.net:4000/users/myprofile", headers: await authHeader(), method: HttpMethod.POST, body: {
-      "id": await getUserId(),
-    });
-    profileModel = ProfileModel.fromJson(apiData);
-    profileImage.value = profileModel!.userInfo.profileImage;
-
-    print('image of user-----------${profileImage.value}');
-    isLoadig(false);
-    setState(() {
-
-    });
-  }
-
-
-
 
   Future<void> fetchLoggedInUserData(String userId) async {
     try {
@@ -151,7 +126,7 @@ class _HomePageState extends State<HomePage> {
         return;
       }
 
-      jumpToLivePage(context, liveID: '12345', isHost: true, userNmae: userName, userId: userID,profileImage:profileImage.value );
+      jumpToLivePage(context, liveID: '12345', isHost: true, userNmae: userName, userId: userID);
     } else {
       AppUtil.showToast(message: "Camera and Microphone permissions are required to go live", isSuccess: false);
     }
@@ -275,7 +250,7 @@ class LiveUser {
   }
 }
 
-void jumpToLivePage(BuildContext context, {required String liveID, required bool isHost, required String userNmae, required String userId,required String profileImage}) {
+void jumpToLivePage(BuildContext context, {required String liveID, required bool isHost, required String userNmae, required String userId}) {
   Navigator.push(
     context,
     MaterialPageRoute(
@@ -283,9 +258,7 @@ void jumpToLivePage(BuildContext context, {required String liveID, required bool
         liveID: liveID,
         isHost: isHost,
         userId: userId,
-        image: profileImage,
         userName: userNmae,
-
       ),
     ),
   );
