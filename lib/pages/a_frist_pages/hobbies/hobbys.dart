@@ -114,7 +114,7 @@ class _Interest_ScreenState extends State<HobbiesPage> {
               ),
             ),
             SizedBox(
-              height: 180.h,
+              height: 140.h,
             ),
             customPrimaryBtn(
                 btnText: "Continue",
