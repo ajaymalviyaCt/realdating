@@ -343,10 +343,8 @@ class _ProfilePageState extends State<ProfilePage> {
                                   Opacity(
                                     opacity: profileController.apiLoadingUploadImage.value ? 0.5 : 1,
                                     child: SizedBox(
-
                                       child: GridView.builder(
-                                        shrinkWrap: true
-                                        ,
+                                        shrinkWrap: true,
                                         physics: const NeverScrollableScrollPhysics(),
                                         itemCount: profileController.profileModel?.userInfo.newImages.length,
                                         gridDelegate:
@@ -436,8 +434,9 @@ class _ProfilePageState extends State<ProfilePage> {
                               profileController.profileModel?.userInfo.interest == null
                                   ? const Text("No Intrest Found !!")
                                   : SizedBox(
-                                      height: 120,
+                                      // height: 120,
                                       child: GridView.builder(
+                                        shrinkWrap: true,
                                         itemCount: interestList().isNotEmpty ? interestList().length : 0,
                                         itemBuilder: (ctx, i) {
                                           return Padding(
@@ -478,6 +477,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                             const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3, mainAxisExtent: 34, crossAxisSpacing: 10),
                                       ),
                                     ),
+                              20.heightBox,
                               const Text(
                                 'Hobbies',
                                 style: TextStyle(
@@ -489,8 +489,8 @@ class _ProfilePageState extends State<ProfilePage> {
                               ),
                               10.heightBox,
                               SizedBox(
-                                height: 130,
                                 child: GridView.builder(
+                                  shrinkWrap: true,
                                   itemCount: hobbiesList().length ?? 0,
                                   itemBuilder: (ctx, i) {
                                     return Padding(
