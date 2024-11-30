@@ -330,6 +330,8 @@ class _Interest_ScreenState extends State<HobbiesPage> {
                       FinalInterest.add(AllInters[i]);
                     }
                   }
+                  print("line 333");
+                  print(FinalInterest.length);
                   if (FinalInterest.isEmpty) {
                     Fluttertoast.showToast(msg: "You must select at least one hobby to continue.");
                     return;

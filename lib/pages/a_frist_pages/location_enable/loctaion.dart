@@ -84,7 +84,7 @@ class _LocationScreenState extends State<LocationScreen> {
 
     // Prepare data
     var data = {
-      'address': _currentAddress.isEmpty ? "address" : _currentAddress,
+      'address': _currentAddress.isEmpty ? "" : _currentAddress,
     };
 
     var body = jsonEncode(data);
