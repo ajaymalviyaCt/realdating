@@ -249,12 +249,12 @@ class _ProfilePageState extends State<ProfilePage> {
                     children: [
                       const SizedBox(height: 30),
                       const Text(
-                        "Unique Name",
+                        "Email",
                         style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500, color: Colors.black),
                       ),
                       const SizedBox(height: 8),
                       Text(
-                        profileController.username.value,
+                        profileController.email.value,
                         style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: Color(0xffAAAAAA)),
                       ),
                       /*const SizedBox(height: 15),

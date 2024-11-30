@@ -578,39 +578,40 @@ class _MatchDetailsState extends State<MatchDetails> {
                                         child: SvgPicture.asset("assets/icons/Group 424.svg"))
                                 ],
                               ),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Column(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    mainAxisSize: MainAxisSize.min,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                              if (matchessController.exploreDetailsModel?.userInfo[0].address != null)
+                                Container(
+                                  margin: const EdgeInsets.only(top: 10),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Text(
-                                        'Location',
-                                        style: TextStyle(
-                                          color: Colors.black,
-                                          fontSize: 14.sp,
-                                          fontFamily: 'Inter',
-                                          fontWeight: FontWeight.w400,
-                                        ),
-                                      ),
-                                      Text(
-                                        matchessController.exploreDetailsModel?.userInfo[0].address ?? 'Chicago, IL United States',
-                                        style: TextStyle(
-                                          color: Colors.black.withOpacity(0.699999988079071),
-                                          fontSize: 12.sp,
-                                          fontFamily: 'Inter',
-                                          fontWeight: FontWeight.w400,
-                                        ),
+                                      Column(
+                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        mainAxisSize: MainAxisSize.min,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            'Location',
+                                            style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 14.sp,
+                                              fontFamily: 'Inter',
+                                              fontWeight: FontWeight.w400,
+                                            ),
+                                          ),
+                                          Text(
+                                            matchessController.exploreDetailsModel?.userInfo[0].address ?? '',
+                                            style: TextStyle(
+                                              color: Colors.black.withOpacity(0.699999988079071),
+                                              fontSize: 12.sp,
+                                              fontFamily: 'Inter',
+                                              fontWeight: FontWeight.w400,
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                     ],
                                   ),
-                                ],
-                              ),
+                                ),
                               const SizedBox(
                                 height: 10,
                               ),
