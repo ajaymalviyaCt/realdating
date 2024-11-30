@@ -1,4 +1,6 @@
 import 'package:get/get.dart';
+import 'package:realdating/pages/mape/NearBy_businesses.dart';
+import 'package:realdating/services/apis_related/api_call_services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../consts/app_urls.dart';
@@ -26,6 +28,10 @@ class ProfileController extends GetxController {
   }
 
   Future<void> profileDaitails() async {
+    Map<String, dynamic> apiData =
+        await ApiCall.instance.callApi(url: "https://forreal.net:4000/users/myprofile", headers: await authHeader(), method: HttpMethod.POST, body: {
+      "id": await getUserId(),
+    });
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var userId = prefs.getInt('user_id');
     print("call  profileDaitails");
