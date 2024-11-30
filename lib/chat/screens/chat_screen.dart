@@ -75,16 +75,30 @@ class _ChatScreenState extends State<ChatScreen> {
                                 itemBuilder: (context, index) {
                                   print("line 80");
                                   print(index);
+                                  Message? previousMessageModel;
+                                  try {
+                                    previousMessageModel = messageModel(index + 1);
+                                  } catch (e) {}
                                   return Column(
                                     children: [
-                                      (index != 0)
-                                          ? DateTimeServices.isSameDate(
-                                                  date1: DateTimeServices.convertMillisecondsToLocalizedDateTime(int.parse(_list[index].sent)).dateTime!,
-                                                  date2: DateTimeServices.convertMillisecondsToLocalizedDateTime(int.parse(_list[index].sent)).dateTime!)
-                                              ? const SizedBox.shrink()
-                                              : messageDateStickyHeader(_list[index])
-                                          : messageDateStickyHeader(_list[index]),
-                                      MessageCard(message: _list[index]),
+                                      Builder(builder: (context) {
+                                        try {
+                                          return SizedBox(
+                                            child: (previousMessageModel != null)
+                                                ? DateTimeServices.isSameDate(
+                                                        date1: DateTimeServices.convertMillisecondsToLocalizedDateTime(int.parse(messageModel(index).sent))
+                                                            .dateTime!,
+                                                        date2: DateTimeServices.convertMillisecondsToLocalizedDateTime(int.parse(previousMessageModel.sent))
+                                                            .dateTime!)
+                                                    ? const SizedBox.shrink()
+                                                    : messageDateStickyHeader(messageModel(index))
+                                                : messageDateStickyHeader(messageModel(index)),
+                                          );
+                                        } catch (e, s) {
+                                          return SizedBox();
+                                        }
+                                      }),
+                                      MessageCard(message: messageModel(index)),
                                     ],
                                   );
                                 });
@@ -117,6 +131,8 @@ class _ChatScreenState extends State<ChatScreen> {
       ),
     );
   }
+
+  Message messageModel(int index) => _list[index];
 
   // app bar widget
   Widget _appBar() {
@@ -369,13 +385,17 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 }
 
-Container messageDateStickyHeader(Message messageModel) {
-  return Container(
-    margin: EdgeInsets.only(bottom: 15),
-    child: Text(
-      DateTimeServices.getRelativeDayNameWithinPast7Days(DateTimeServices.convertMillisecondsToLocalizedDateTime(int.parse(messageModel.sent)).dateTime!) ??
-          DateTimeServices.convertMillisecondsToLocalizedDateTime(int.parse(messageModel.sent)).date!,
-      // style: ,
-    ),
-  );
+Widget messageDateStickyHeader(Message messageModel) {
+  try {
+    return Container(
+      margin: EdgeInsets.only(bottom: 15),
+      child: Text(
+        DateTimeServices.getRelativeDayNameWithinPast7Days(DateTimeServices.convertMillisecondsToLocalizedDateTime(int.parse(messageModel.sent)).dateTime!) ??
+            DateTimeServices.convertMillisecondsToLocalizedDateTime(int.parse(messageModel.sent)).date!,
+        // style: ,
+      ),
+    );
+  } catch (e) {
+    return SizedBox.shrink();
+  }
 }
