@@ -370,7 +370,7 @@ Future<void> uploadVideo(File videoFile) async {
         backgroundColor: Colors.black,
         textColor: Colors.white,
       );
-      print('Video uploaded successfully-----${response}');
+      print('Video uploaded successfully-----$response');
       // Handle success, maybe parse response
     } else {
       print('Error uploading video: ${response.statusCode}');

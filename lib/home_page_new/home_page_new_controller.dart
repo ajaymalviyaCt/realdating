@@ -10,7 +10,6 @@ import '../reel/common_import.dart';
 import '../services/base_client01.dart';
 import 'comments_model.dart';
 import 'home_page_user_controller.dart';
-import 'home_page_user_controller.dart';
 import 'new_home_model.dart';
 
 class HomePageNewController extends GetxController {
@@ -41,12 +40,12 @@ class HomePageNewController extends GetxController {
 
   RxBool isLoadingGetPostHomePage = false.obs;
 
-  Future<void> postComments(String post_id, String comment, String user_id, int indexxx) async {
+  Future<void> postComments(String postId, String comment, String userId, int indexxx) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var token = prefs.get('token');
     print("tokentokentokentoken==>$token");
-    var headers = {'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Bearer ${token}'};
-    var data = {'post_id': post_id, 'comment': comment};
+    var headers = {'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Bearer $token'};
+    var data = {'post_id': postId, 'comment': comment};
     commentsController.clear();
     var dio = Dio();
     var response = await dio.request(
@@ -59,23 +58,23 @@ class HomePageNewController extends GetxController {
     );
 
     if (response.statusCode == 200) {
-      sendNotification(user_id, "comment");
-      print("${token}");
+      sendNotification(userId, "comment");
+      print("$token");
       print("dsdsffsfs");
       print(json.encode(response.data));
-      getAllCommentBYpostID(postID: post_id, alreadlyLoad: false, indexx: indexxx);
+      getAllCommentBYpostID(postID: postId, alreadlyLoad: false, indexx: indexxx);
       //   getPostHomePage();
     } else {
       print(response.statusMessage);
     }
   }
 
-  Future<void> likePost(String post_id, String like_status, String user_id) async {
+  Future<void> likePost(String postId, String likeStatus, String userId) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var token = prefs.get('token');
     var headers = {'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Bearer $token'};
-    print("post_id==>$post_id");
-    var data = {'post_id': post_id, 'like_status': "$like_status"};
+    print("post_id==>$postId");
+    var data = {'post_id': postId, 'like_status': likeStatus};
     var dio = Dio();
     var response = await dio.request(
       'https://forreal.net:4000/Like_post',
@@ -88,8 +87,8 @@ class HomePageNewController extends GetxController {
 
     if (response.statusCode == 200) {
       print(json.encode(response.data));
-      if (like_status == "1") {
-        sendNotification(user_id, "like");
+      if (likeStatus == "1") {
+        sendNotification(userId, "like");
       }
     } else {
       print(response.statusMessage);
@@ -213,9 +212,9 @@ class HomePageNewController extends GetxController {
 
     var headers = {'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Bearer $token'};
     var data = {
-      'owner_id': '$owner_id',
+      'owner_id': owner_id,
       'user_id': userId,
-      'poll_id': '$poll_id',
+      'poll_id': poll_id,
       'poll_option_$option1': '1',
     };
     print("pollVote${data.toString()}");

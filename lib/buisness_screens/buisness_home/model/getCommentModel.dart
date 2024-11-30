@@ -13,18 +13,18 @@ class GetCommentModel {
     if (json['comments'] != null) {
       comments = <Comments>[];
       json['comments'].forEach((v) {
-        comments!.add(new Comments.fromJson(v));
+        comments!.add(Comments.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['success'] = this.success;
-    data['message'] = this.message;
-    data['status'] = this.status;
-    if (this.comments != null) {
-      data['comments'] = this.comments!.map((v) => v.toJson()).toList();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['success'] = success;
+    data['message'] = message;
+    data['status'] = status;
+    if (comments != null) {
+      data['comments'] = comments!.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -54,15 +54,15 @@ class Comments {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['business_id'] = this.businessId;
-    data['post_id'] = this.postId;
-    data['post_comment'] = this.postComment;
-    data['created_at'] = this.createdAt;
-    data['updated_at'] = this.updatedAt;
-    data['comment_owner_name'] = this.commentOwnerName;
-    data['profile_image'] = this.profileImage;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['business_id'] = businessId;
+    data['post_id'] = postId;
+    data['post_comment'] = postComment;
+    data['created_at'] = createdAt;
+    data['updated_at'] = updatedAt;
+    data['comment_owner_name'] = commentOwnerName;
+    data['profile_image'] = profileImage;
     return data;
   }
 }

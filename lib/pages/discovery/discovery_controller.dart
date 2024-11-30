@@ -1,5 +1,3 @@
-import 'dart:convert';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
@@ -35,11 +33,11 @@ class DiscoveryController extends GetxController {
 
   Future<void> profileDaitails() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    var user_id = prefs.getInt('user_id');
+    var userId = prefs.getInt('user_id');
     print("call  profileDaitails");
     isLoadig(true);
     final response = await BaseClient01().post(Appurls.profile, {
-      "id": "$user_id",
+      "id": "$userId",
     });
     print(response.toString());
 
@@ -49,7 +47,7 @@ class DiscoveryController extends GetxController {
     print("msg ___$msg");
     profileModel = ProfileModel.fromJson(response);
 
-    print("profile model data--------${profileModel}");
+    print("profile model data--------$profileModel");
 
     isLoadig(false);
     // if (status) {
@@ -78,15 +76,15 @@ class DiscoveryController extends GetxController {
     print("_notification_response ==>$reciverId");
     try {
       SharedPreferences prefs = await SharedPreferences.getInstance();
-      var user_id = prefs.getInt('user_id');
+      var userId = prefs.getInt('user_id');
       print("SwipModel");
       final response = await BaseClient01()
-          .post(Uri.parse("https://forreal.net:4000/send_notification"), {"sender_id": "$user_id", "reciver_id": "$reciverId", 'notification_type': 'matches'});
+          .post(Uri.parse("https://forreal.net:4000/send_notification"), {"sender_id": "$userId", "reciver_id": reciverId, 'notification_type': 'matches'});
       print("notificationResponse ==> $response");
       isLoadig1.value = true;
       final response2 = await BaseClient01().post(Uri.parse("https://forreal.net:4000/users/friend_request"), {
-        "sender_id": "$user_id",
-        "reciver_id": "$reciverId",
+        "sender_id": "$userId",
+        "reciver_id": reciverId,
       });
       print("friend_request_Response ==> $response2");
       isLoadig1.value = false;
@@ -96,7 +94,7 @@ class DiscoveryController extends GetxController {
       Fluttertoast.showToast(msg: "${response2["message"]}");
       return true;
 
-      print("friend_request==> friend_request==>" + response2.toString());
+      print("friend_request==> friend_request==>$response2");
     } catch (e) {
       print(e);
       return false;

@@ -17,7 +17,7 @@ class ForgetPassword extends StatefulWidget {
   final String? otp;
   final int? business;
 
-  const ForgetPassword({Key? key, this.email, this.code, this.otp, this.business}) : super(key: key);
+  const ForgetPassword({super.key, this.email, this.code, this.otp, this.business});
 
   @override
   State<ForgetPassword> createState() => _ForgetPasswordState();
@@ -43,7 +43,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
     isLoadig(true);
     showLoaderDialog(context);
     Map toMap() {
-      var map = new Map<String, dynamic>();
+      var map = <String, dynamic>{};
       map["email"] = ForgetController.text.toString();
       return map;
     }
@@ -125,7 +125,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
     isLoadig(true);
     showLoaderDialog(context);
     Map toMap() {
-      var map = new Map<String, dynamic>();
+      var map = <String, dynamic>{};
       map["email"] = ForgetController.text.toString();
       return map;
     }
@@ -175,7 +175,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
         fontSize: 16.0,
       );
 
-      Get.off(() => BuisnessLogin(
+      Get.off(() => const BuisnessLogin(
           // otp: otp, number: 0000000000.toString(),
           // email: ForgetController.text.toString(),
           ));
@@ -242,7 +242,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                 style: CustomTextStyle.black,
               ),
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 50),
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 50),
                 child: CustumForgetTextField(
                   controller: ForgetController,
                   validator: validateEmailField,
@@ -298,7 +298,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
   }
 
   Map toMap() {
-    var map = new Map<String, dynamic>();
+    var map = <String, dynamic>{};
     //  map["mobile"] = widget.mobile.toString();
     map["email"] = ForgetController.text.toString();
 

@@ -36,21 +36,17 @@ class _ProfilePageState extends State<ProfilePage> {
   final picker = ImagePicker();
 
   Future getImages() async {
-    final List<XFile>? pickedFile = await picker.pickMultiImage(imageQuality: 10, maxHeight: 1000, maxWidth: 1000, limit: 6);
-    if (pickedFile != null) {
-      uploadImage(context,
-          selectedImages: pickedFile
-              .map(
-                (e) => File(e.path),
-              )
-              .toList());
-      setState(
-        () {},
-      );
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Nothing is selected')));
+    final List<XFile> pickedFile = await picker.pickMultiImage(imageQuality: 10, maxHeight: 1000, maxWidth: 1000, limit: 6);
+    uploadImage(context,
+        selectedImages: pickedFile
+            .map(
+              (e) => File(e.path),
+            )
+            .toList());
+    setState(
+      () {},
+    );
     }
-  }
 
   bool isLoading = false;
 
@@ -186,7 +182,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => SettingsPage(),
+                        builder: (context) => const SettingsPage(),
                       ));
                 },
                 child: SvgPicture.asset('assets/icons/settings.svg')),
@@ -205,7 +201,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       radius: 100,
                       backgroundImage: imageProvider,
                     ),
-                    placeholder: (context, url) => SizedBox(
+                    placeholder: (context, url) => const SizedBox(
                         height: 120,
                         width: 120,
                         child: Center(
@@ -285,7 +281,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             : profileController.profileModel!.userInfo.address.toString(),
                         style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: Color(0xffAAAAAA)),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
                       const Text(
@@ -301,7 +297,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       Container(
                         height: 40,
                         decoration: BoxDecoration(
-                          border: Border.all(color: Color(0xffAAAAAA).withOpacity(0.3)),
+                          border: Border.all(color: const Color(0xffAAAAAA).withOpacity(0.3)),
                           borderRadius: BorderRadius.circular(10),
                         ),
                         child: const Center(
@@ -351,7 +347,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                             const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3, mainAxisSpacing: 5, crossAxisSpacing: 10),
                                         itemBuilder: (ctx, index) {
                                           final data = profileController.profileModel?.userInfo.newImages;
-                                          print('profile images----------${data}');
+                                          print('profile images----------$data');
                                           return Stack(
                                             children: [
                                               Container(
@@ -416,7 +412,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                   ),
                                   if (profileController.apiLoadingUploadImage.value)
                                     Center(
-                                      child: Container(margin: EdgeInsets.only(top: 50), child: CircularProgressIndicator()),
+                                      child: Container(margin: const EdgeInsets.only(top: 50), child: const CircularProgressIndicator()),
                                     )
                                 ],
                               ),

@@ -21,7 +21,7 @@ TextFormField primaryTextfield({
     initialValue: initialValue,
     keyboardType: textInputType ?? TextInputType.text,
     style: const TextStyle(color: Colors.black),
-    inputFormatters: inputFormatters ?? null,
+    inputFormatters: inputFormatters,
     //
     // Apply the custom formatter
     maxLines: maxLines ?? 1,

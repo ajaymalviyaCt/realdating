@@ -7,7 +7,7 @@ class AvatarView extends StatelessWidget {
   final double? size;
   final Color? borderColor;
 
-  const AvatarView({Key? key, required this.url, this.size = 60, this.borderColor, this.name}) : super(key: key);
+  const AvatarView({super.key, required this.url, this.size = 60, this.borderColor, this.name});
 
   @override
   Widget build(BuildContext context) {
@@ -52,14 +52,13 @@ class UserAvatarView extends StatelessWidget {
   final bool hideBorder;
 
   const UserAvatarView(
-      {Key? key,
+      {super.key,
       required this.user,
       this.size = 60,
       this.onTapHandler,
       this.hideLiveIndicator = false,
       this.hideOnlineIndicator = false,
-      this.hideBorder = false})
-      : super(key: key);
+      this.hideBorder = false});
 
   @override
   Widget build(BuildContext context) {

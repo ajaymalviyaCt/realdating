@@ -16,10 +16,6 @@ class EditUpdateController extends GetxController {
   bool loading = false;
   var isLoading = false;
 
-  @override
-  void onReady() {
-    super.onReady();
-  }
 
   var editId;
   var index;

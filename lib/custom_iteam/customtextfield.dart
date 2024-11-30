@@ -13,7 +13,7 @@ class CustumTextField extends StatelessWidget {
   final String? Function(String?)? validator;
   final void Function(String)? onChange;
 
-  CustumTextField({
+  const CustumTextField({
     super.key,
     required this.controller,
     required this.validator,
@@ -126,7 +126,7 @@ class CustumNumberField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      style: TextStyle(color: Colors.white),
+      style: const TextStyle(color: Colors.white),
       maxLength: maxLength ?? 200,
       // autovalidateMode: AutovalidateMode.onUserInteraction,
       controller: controller,
@@ -134,40 +134,40 @@ class CustumNumberField extends StatelessWidget {
 
       decoration: InputDecoration(
         counterText: "",
-        contentPadding: EdgeInsets.symmetric(horizontal: 15, vertical: 8),
+        contentPadding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
         //
         filled: true,
         fillColor: Colors.white.withOpacity(.15),
         enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(5),
-            borderSide: BorderSide(
+            borderSide: const BorderSide(
               width: 1,
               color: Colors.white,
             )),
         focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(5),
-            borderSide: BorderSide(
+            borderSide: const BorderSide(
               width: 1,
               color: Colors.white,
             )),
         errorBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(5),
-            borderSide: BorderSide(
+            borderSide: const BorderSide(
               width: 1,
               color: Colors.white,
             )),
         focusedErrorBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(5),
-            borderSide: BorderSide(
+            borderSide: const BorderSide(
               width: 1,
               color: Colors.white,
             )),
 
         hintText: hintText,
-        hintStyle: TextStyle(color: Colors.white),
-        errorStyle: TextStyle(color: Colors.white),
+        hintStyle: const TextStyle(color: Colors.white),
+        errorStyle: const TextStyle(color: Colors.white),
         suffixIcon: suffixIconn == null
-            ? SizedBox(
+            ? const SizedBox(
                 height: 1,
                 width: 1,
               )
@@ -220,45 +220,45 @@ class CustumSelectCategoryField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      style: TextStyle(color: Colors.white),
+      style: const TextStyle(color: Colors.white),
       // autovalidateMode: AutovalidateMode.onUserInteraction,
       controller: controller,
 
       decoration: InputDecoration(
-        contentPadding: EdgeInsets.symmetric(horizontal: 15, vertical: 8),
+        contentPadding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
         //
         filled: true,
         fillColor: Colors.white.withOpacity(.15),
         enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(5),
-            borderSide: BorderSide(
+            borderSide: const BorderSide(
               width: 1,
               color: Colors.white,
             )),
         focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(5),
-            borderSide: BorderSide(
+            borderSide: const BorderSide(
               width: 1,
               color: Colors.white,
             )),
         errorBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(5),
-            borderSide: BorderSide(
+            borderSide: const BorderSide(
               width: 1,
               color: Colors.white,
             )),
         focusedErrorBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(5),
-            borderSide: BorderSide(
+            borderSide: const BorderSide(
               width: 1,
               color: Colors.white,
             )),
 
         hintText: hintText,
-        hintStyle: TextStyle(color: Colors.white),
-        errorStyle: TextStyle(color: Colors.white),
+        hintStyle: const TextStyle(color: Colors.white),
+        errorStyle: const TextStyle(color: Colors.white),
         suffixIcon: suffixIconn == null
-            ? SizedBox(
+            ? const SizedBox(
                 height: 1,
                 width: 1,
               )
@@ -311,45 +311,45 @@ class CustumCITYField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      style: TextStyle(color: Colors.white),
+      style: const TextStyle(color: Colors.white),
       // autovalidateMode: AutovalidateMode.onUserInteraction,
       controller: controller,
 
       decoration: InputDecoration(
-        contentPadding: EdgeInsets.symmetric(horizontal: 15, vertical: 8),
+        contentPadding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
         //
         filled: true,
         fillColor: Colors.white.withOpacity(.15),
         enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(5),
-            borderSide: BorderSide(
+            borderSide: const BorderSide(
               width: 1,
               color: Colors.white,
             )),
         focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(5),
-            borderSide: BorderSide(
+            borderSide: const BorderSide(
               width: 1,
               color: Colors.white,
             )),
         errorBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(5),
-            borderSide: BorderSide(
+            borderSide: const BorderSide(
               width: 1,
               color: Colors.white,
             )),
         focusedErrorBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(5),
-            borderSide: BorderSide(
+            borderSide: const BorderSide(
               width: 1,
               color: Colors.white,
             )),
 
         hintText: hintText,
-        hintStyle: TextStyle(color: Colors.white),
-        errorStyle: TextStyle(color: Colors.white),
+        hintStyle: const TextStyle(color: Colors.white),
+        errorStyle: const TextStyle(color: Colors.white),
         suffixIcon: suffixIconn == null
-            ? SizedBox(
+            ? const SizedBox(
                 height: 1,
                 width: 1,
               )

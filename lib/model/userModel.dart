@@ -19,12 +19,12 @@ class PostUserModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
-    data['success'] = this.success;
-    data['message'] = this.message;
-    data['status'] = this.status;
-    if (this.posts != null) {
-      data['posts'] = this.posts!.map((v) => v.toJson()).toList();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['success'] = success;
+    data['message'] = message;
+    data['status'] = status;
+    if (posts != null) {
+      data['posts'] = posts!.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -101,7 +101,7 @@ class UserPosts {
     if (json['mentions_data'] != null) {
       mentionsData = <MentionsData>[];
       json['mentions_data'].forEach((v) {
-        mentionsData!.add(new MentionsData.fromJson(v));
+        mentionsData!.add(MentionsData.fromJson(v));
       });
     }
     likedByUser = json['liked_by_user'];
@@ -131,40 +131,40 @@ class UserPosts {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
-    data['id'] = this.id;
-    data['user_id'] = this.userId;
-    data['post_name'] = this.postName;
-    data['post'] = this.post;
-    data['total_comments'] = this.totalComments;
-    data['total_likes'] = this.totalLikes;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['user_id'] = userId;
+    data['post_name'] = postName;
+    data['post'] = post;
+    data['total_comments'] = totalComments;
+    data['total_likes'] = totalLikes;
 
-    data['miniblogs'] = this.miniblogs;
-    data['caption'] = this.caption;
-    data['created_at'] = this.createdAt;
+    data['miniblogs'] = miniblogs;
+    data['caption'] = caption;
+    data['created_at'] = createdAt;
 
-    data['updated_at'] = this.updatedAt;
-    if (this.mentionsData != null) {
-      data['mentions_data'] = this.mentionsData!.map((v) => v.toJson()).toList();
+    data['updated_at'] = updatedAt;
+    if (mentionsData != null) {
+      data['mentions_data'] = mentionsData!.map((v) => v.toJson()).toList();
     }
-    data['liked_by_user'] = this.likedByUser;
-    if (this.postOwnerInfo != null) {
-      data['post_owner_info'] = this.postOwnerInfo!.map((v) => v.toJson()).toList();
+    data['liked_by_user'] = likedByUser;
+    if (postOwnerInfo != null) {
+      data['post_owner_info'] = postOwnerInfo!.map((v) => v.toJson()).toList();
     }
-    if (this.comments != null) {
-      data['comments'] = this.comments!.map((v) => v.toJson()).toList();
+    if (comments != null) {
+      data['comments'] = comments!.map((v) => v.toJson()).toList();
     }
-    data['AD'] = this.aD;
-    data['business_id'] = this.businessId;
-    data['age'] = this.age;
-    data['title'] = this.title;
-    data['interest'] = this.interest;
-    data['budget'] = this.budget;
-    data['campaign_duration'] = this.campaignDuration;
-    data['ad_image'] = this.adImage;
-    data['address'] = this.address;
-    data['link'] = this.link;
-    data['range_km'] = this.rangeKm;
+    data['AD'] = aD;
+    data['business_id'] = businessId;
+    data['age'] = age;
+    data['title'] = title;
+    data['interest'] = interest;
+    data['budget'] = budget;
+    data['campaign_duration'] = campaignDuration;
+    data['ad_image'] = adImage;
+    data['address'] = address;
+    data['link'] = link;
+    data['range_km'] = rangeKm;
     return data;
   }
 }
@@ -273,39 +273,39 @@ class MentionsData {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['first_name'] = this.firstName;
-    data['last_name'] = this.lastName;
-    data['profile_image'] = this.profileImage;
-    data['username'] = this.username;
-    data['email'] = this.email;
-    data['password'] = this.password;
-    data['show_password'] = this.showPassword;
-    data['phone_number'] = this.phoneNumber;
-    data['OTP'] = this.oTP;
-    data['age'] = this.age;
-    data['trending'] = this.trending;
-    data['DOB'] = this.dOB;
-    data['height'] = this.height;
-    data['user_type'] = this.userType;
-    data['fcm_token'] = this.fcmToken;
-    data['verify_user'] = this.verifyUser;
-    data['phone_verify'] = this.phoneVerify;
-    data['Interest'] = this.interest;
-    data['hobbies'] = this.hobbies;
-    data['gender'] = this.gender;
-    data['address'] = this.address;
-    data['logitude'] = this.logitude;
-    data['latitude'] = this.latitude;
-    data['profile_status'] = this.profileStatus;
-    data['token'] = this.token;
-    data['KYC'] = this.kYC;
-    data['act_token'] = this.actToken;
-    data['Total_review_star'] = this.totalReviewStar;
-    data['online_status'] = this.onlineStatus;
-    data['created_at'] = this.createdAt;
-    data['update_at'] = this.updateAt;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['first_name'] = firstName;
+    data['last_name'] = lastName;
+    data['profile_image'] = profileImage;
+    data['username'] = username;
+    data['email'] = email;
+    data['password'] = password;
+    data['show_password'] = showPassword;
+    data['phone_number'] = phoneNumber;
+    data['OTP'] = oTP;
+    data['age'] = age;
+    data['trending'] = trending;
+    data['DOB'] = dOB;
+    data['height'] = height;
+    data['user_type'] = userType;
+    data['fcm_token'] = fcmToken;
+    data['verify_user'] = verifyUser;
+    data['phone_verify'] = phoneVerify;
+    data['Interest'] = interest;
+    data['hobbies'] = hobbies;
+    data['gender'] = gender;
+    data['address'] = address;
+    data['logitude'] = logitude;
+    data['latitude'] = latitude;
+    data['profile_status'] = profileStatus;
+    data['token'] = token;
+    data['KYC'] = kYC;
+    data['act_token'] = actToken;
+    data['Total_review_star'] = totalReviewStar;
+    data['online_status'] = onlineStatus;
+    data['created_at'] = createdAt;
+    data['update_at'] = updateAt;
     return data;
   }
 }
@@ -405,36 +405,36 @@ class PostOwnerInfo {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
-    data['id'] = this.id;
-    data['username'] = this.username;
-    data['first_name'] = this.firstName;
-    data['last_name'] = this.lastName;
-    data['email'] = this.email;
-    data['profile_image'] = this.profileImage;
-    data['password'] = this.password;
-    data['show_password'] = this.showPassword;
-    data['phone_number'] = this.phoneNumber;
-    data['age'] = this.age;
-    data['trending'] = this.trending;
-    data['DOB'] = this.dOB;
-    data['height'] = this.height;
-    data['user_type'] = this.userType;
-    data['fcm_token'] = this.fcmToken;
-    data['verify_user'] = this.verifyUser;
-    data['phone_verify'] = this.phoneVerify;
-    data['Interest'] = this.interest;
-    data['hobbies'] = this.hobbies;
-    data['gender'] = this.gender;
-    data['OTP'] = this.oTP;
-    data['logitude'] = this.logitude;
-    data['latitude'] = this.latitude;
-    data['profile_status'] = this.profileStatus;
-    data['token'] = this.token;
-    data['KYC'] = this.kYC;
-    data['act_token'] = this.actToken;
-    data['created_at'] = this.createdAt;
-    data['update_at'] = this.updateAt;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['username'] = username;
+    data['first_name'] = firstName;
+    data['last_name'] = lastName;
+    data['email'] = email;
+    data['profile_image'] = profileImage;
+    data['password'] = password;
+    data['show_password'] = showPassword;
+    data['phone_number'] = phoneNumber;
+    data['age'] = age;
+    data['trending'] = trending;
+    data['DOB'] = dOB;
+    data['height'] = height;
+    data['user_type'] = userType;
+    data['fcm_token'] = fcmToken;
+    data['verify_user'] = verifyUser;
+    data['phone_verify'] = phoneVerify;
+    data['Interest'] = interest;
+    data['hobbies'] = hobbies;
+    data['gender'] = gender;
+    data['OTP'] = oTP;
+    data['logitude'] = logitude;
+    data['latitude'] = latitude;
+    data['profile_status'] = profileStatus;
+    data['token'] = token;
+    data['KYC'] = kYC;
+    data['act_token'] = actToken;
+    data['created_at'] = createdAt;
+    data['update_at'] = updateAt;
     return data;
   }
 }
@@ -472,12 +472,12 @@ class Comments {
       );
 
   Map<String, dynamic> toJson() => {
-        'id': this.id,
-        'user_id': this.userId,
-        'post_id': this.postId,
-        'post_comment': this.postComment,
-        'updated_at': this.updatedAt,
-        'created_at': this.createdAt,
+        'id': id,
+        'user_id': userId,
+        'post_id': postId,
+        'post_comment': postComment,
+        'updated_at': updatedAt,
+        'created_at': createdAt,
         "comment_owner_name": commentOwnerName,
         "profile_image": profileImage,
       };

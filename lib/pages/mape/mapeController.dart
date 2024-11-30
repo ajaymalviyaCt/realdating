@@ -149,7 +149,7 @@ class MapeUserController extends GetxController implements GetxService {
         LatLngBounds bounds = _calculateBounds(markers);
         await mapController?.animateCamera(CameraUpdate.newLatLngBounds(bounds, 50));
       } else {
-        await mapController?.animateCamera(CameraUpdate.newLatLng(LatLng(20.5937, 78.9629))); // India's approximate center
+        await mapController?.animateCamera(CameraUpdate.newLatLng(const LatLng(20.5937, 78.9629))); // India's approximate center
       }
     } catch (e) {
       print("Error fetching or displaying markers: $e");

@@ -323,7 +323,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Future<void> getUserById({required int userid}) async {
     if (otherUserList.firstWhereOrNull(
-          (element) => element?.userInfo[0].id == userid,
+          (element) => element.userInfo[0].id == userid,
         ) !=
         null) {
       print("line 325");
@@ -439,7 +439,7 @@ class _HomeScreenState extends State<HomeScreen> {
           //app bar
           appBar: AppBar(
             leading: IconButton(
-              icon: Icon(CupertinoIcons.back),
+              icon: const Icon(CupertinoIcons.back),
               onPressed: () {
                 Get.back();
               },
@@ -532,13 +532,11 @@ class _HomeScreenState extends State<HomeScreen> {
                         case ConnectionState.done:
                           final data = snapshot.data?.docs;
                           _list = data?.map((e) => ChatUser.fromJson(e.data())).toList() ?? [];
-                          _list.forEach(
-                            (element) {
+                          for (var element in _list) {
                               print("line 526");
                               print(element.id);
                               getUserById(userid: int.parse(element.id));
-                            },
-                          );
+                            }
 
                           if (_list.isNotEmpty) {
                             return ListView.builder(

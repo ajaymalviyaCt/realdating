@@ -27,10 +27,10 @@ class ProfileController extends GetxController {
 
   Future<void> profileDaitails() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    var user_id = prefs.getInt('user_id');
+    var userId = prefs.getInt('user_id');
     print("call  profileDaitails");
     final response = await BaseClient01().post(Appurls.profile, {
-      "id": "$user_id",
+      "id": "$userId",
     });
     print(response.toString());
 
@@ -39,7 +39,7 @@ class ProfileController extends GetxController {
     var msg = response["message"];
     print("msg ___$msg");
     profileModel = ProfileModel.fromJson(response);
-    print("profile model data--------${profileModel}");
+    print("profile model data--------$profileModel");
     print("profile model data--------${profileModel?.userInfo.address}");
 
     username.value = profileModel!.userInfo.username;

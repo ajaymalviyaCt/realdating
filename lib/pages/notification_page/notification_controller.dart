@@ -26,7 +26,7 @@ class NotificationController extends GetxController {
       'receiver_type': "user",
     });
     noficactionModel = NoficactionModel.fromJson(response);
-    print("response1234567890$noficactionModel" + response.toString());
+    print("response1234567890$noficactionModel$response");
     isLoading.value = false;
   }
 
@@ -39,9 +39,9 @@ class NotificationController extends GetxController {
       'receiver_type': "business",
     });
     noficactionModelB = NoficactionModel.fromJson(response);
-    print("response1234567890$noficactionModelB" + response.toString());
+    print("response1234567890$noficactionModelB$response");
 
-    print('All Notification ------${noficactionModelB}');
+    print('All Notification ------$noficactionModelB');
     isLoading.value = false;
   }
 }

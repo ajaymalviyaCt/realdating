@@ -9,7 +9,7 @@ import 'package:realdating/widgets/custom_buttons.dart';
 import 'hobbies_controller.dart';
 
 class HobbiesPage extends StatefulWidget {
-  const HobbiesPage({Key? key}) : super(key: key);
+  const HobbiesPage({super.key});
 
   @override
   State<HobbiesPage> createState() => _Interest_ScreenState();

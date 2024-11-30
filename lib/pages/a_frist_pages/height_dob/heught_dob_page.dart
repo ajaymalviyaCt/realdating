@@ -13,7 +13,7 @@ import 'package:velocity_x/velocity_x.dart';
 import 'height_dob_controller.dart';
 
 class HeightDOBpage extends StatefulWidget {
-  const HeightDOBpage({Key? key}) : super(key: key);
+  const HeightDOBpage({super.key});
 
   @override
   State<HeightDOBpage> createState() => _HeightDOBpageState();
@@ -169,10 +169,10 @@ class _HeightDOBpageState extends State<HeightDOBpage> {
                           if (height > 11) {
                             // If value is greater than 11.99, set it back to 11.99
                             heightDOBcontroller.height.text = '11';
-                            heightDOBcontroller.height.selection = TextSelection.collapsed(offset: 5); // Moves the cursor to the end
+                            heightDOBcontroller.height.selection = const TextSelection.collapsed(offset: 5); // Moves the cursor to the end
                           }
                         }
-                      } catch (e, s) {}
+                      } catch (e) {}
                     }
                   },
                   decoration: InputDecoration(

@@ -27,7 +27,7 @@ class _ChatScreenState extends State<ChatScreen> {
 
   final _textController = TextEditingController();
 
-  bool _isUploading = false;
+  final bool _isUploading = false;
   final RxBool _showEmoji = false.obs;
 
   @override
@@ -94,8 +94,8 @@ class _ChatScreenState extends State<ChatScreen> {
                                                     : messageDateStickyHeader(messageModel(index))
                                                 : messageDateStickyHeader(messageModel(index)),
                                           );
-                                        } catch (e, s) {
-                                          return SizedBox();
+                                        } catch (e) {
+                                          return const SizedBox();
                                         }
                                       }),
                                       MessageCard(message: messageModel(index)),
@@ -148,7 +148,7 @@ class _ChatScreenState extends State<ChatScreen> {
             builder: (context, snapshot) {
               final data = snapshot.data?.docs;
 
-              print('user data--------------${data}');
+              print('user data--------------$data');
               final list = data?.map((e) => ChatUser.fromJson(e.data())).toList() ?? [];
 
               return Row(
@@ -162,7 +162,7 @@ class _ChatScreenState extends State<ChatScreen> {
                       fit: BoxFit.cover,
                       width: mq.height * .05,
                       height: mq.height * .05,
-                      imageUrl: "${widget.exploreDetailsModel.value?.userInfo[0].profileImage ?? ""}",
+                      imageUrl: widget.exploreDetailsModel.value?.userInfo[0].profileImage ?? "",
                       errorWidget: (context, url, error) => const CircleAvatar(child: Icon(CupertinoIcons.person)),
                     ),
                   ),
@@ -388,7 +388,7 @@ class _ChatScreenState extends State<ChatScreen> {
 Widget messageDateStickyHeader(Message messageModel) {
   try {
     return Container(
-      margin: EdgeInsets.only(bottom: 15),
+      margin: const EdgeInsets.only(bottom: 15),
       child: Text(
         DateTimeServices.getRelativeDayNameWithinPast7Days(DateTimeServices.convertMillisecondsToLocalizedDateTime(int.parse(messageModel.sent)).dateTime!) ??
             DateTimeServices.convertMillisecondsToLocalizedDateTime(int.parse(messageModel.sent)).date!,
@@ -396,6 +396,6 @@ Widget messageDateStickyHeader(Message messageModel) {
       ),
     );
   } catch (e) {
-    return SizedBox.shrink();
+    return const SizedBox.shrink();
   }
 }

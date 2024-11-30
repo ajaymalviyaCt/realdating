@@ -18,7 +18,7 @@ class WaveSlider extends StatefulWidget {
   final double cutterDuration;
 
   const WaveSlider({
-    Key? key,
+    super.key,
     required this.duration,
     required this.callbackStart,
     required this.callbackEnd,
@@ -30,7 +30,7 @@ class WaveSlider extends StatefulWidget {
     this.backgroundColor = Colors.grey,
     this.positionTextColor = Colors.black,
     this.cutterDuration = 15.0,
-  }) : super(key: key);
+  });
 
   @override
   State<StatefulWidget> createState() => WaveSliderState();
@@ -49,7 +49,7 @@ class WaveSliderState extends State<WaveSlider> {
   void initState() {
     super.initState();
 
-    var shortSize = MediaQueryData.fromWindow(WidgetsBinding.instance.window).size.shortestSide;
+    var shortSize = MediaQueryData.fromView(WidgetsBinding.instance.window).size.shortestSide;
 
     widthSlider = (widget.widthWaveSlider < 50) ? (shortSize - 2 - 40) : widget.widthWaveSlider;
     heightSlider = (widget.heightWaveSlider < 50) ? 100 : widget.heightWaveSlider;
@@ -196,7 +196,7 @@ class CenterBar extends StatelessWidget {
   final GestureDragUpdateCallback callback;
   final GestureDragEndCallback? callbackEnd;
 
-  const CenterBar({Key? key, required this.position, required this.width, required this.callback, required this.callbackEnd}) : super(key: key);
+  const CenterBar({super.key, required this.position, required this.width, required this.callback, required this.callbackEnd});
 
   @override
   Widget build(BuildContext context) {
@@ -229,7 +229,7 @@ class Bar extends StatelessWidget {
   final GestureDragUpdateCallback callback;
   final GestureDragEndCallback? callbackEnd;
 
-  const Bar({Key? key, required this.position, required this.width, required this.callback, required this.callbackEnd, this.colorBG}) : super(key: key);
+  const Bar({super.key, required this.position, required this.width, required this.callback, required this.callbackEnd, this.colorBG});
 
   @override
   Widget build(BuildContext context) {

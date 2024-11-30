@@ -155,7 +155,7 @@ class _EventsPageState extends State<EventsPage> {
                                             ),
                                           ],
                                         ),
-                                        SizedBox(
+                                        const SizedBox(
                                           width: 4,
                                         ),
                                         Row(
@@ -178,11 +178,11 @@ class _EventsPageState extends State<EventsPage> {
                                           color: Appcolor.ggrry,
                                           size: 12,
                                         ),
-                                        SizedBox(
+                                        const SizedBox(
                                           width: 5,
                                         ),
                                         Text(
-                                          '${eventsController.matchessModel!.getEvents[index].selectTime}',
+                                          eventsController.matchessModel!.getEvents[index].selectTime,
                                           style: TextStyle(
                                             fontSize: 10,
                                             color: const Color(0xffEBEBF5).withOpacity(.70),

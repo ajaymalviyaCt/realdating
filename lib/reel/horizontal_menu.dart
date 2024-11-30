@@ -10,8 +10,7 @@ class HorizontalMenuBar extends StatefulWidget {
   final EdgeInsets? padding;
   final int selectedIndex;
 
-  const HorizontalMenuBar({Key? key, required this.onSegmentChange, required this.menus, required this.selectedIndex, this.height, this.padding})
-      : super(key: key);
+  const HorizontalMenuBar({super.key, required this.onSegmentChange, required this.menus, required this.selectedIndex, this.height, this.padding});
 
   @override
   HorizontalMenuBarState createState() => HorizontalMenuBarState();
@@ -77,11 +76,11 @@ class StaggeredMenuBar extends StatefulWidget {
   final List<Widget> childs;
 
   const StaggeredMenuBar({
-    Key? key,
+    super.key,
     this.title,
     required this.childs,
     required this.onSegmentChange,
-  }) : super(key: key);
+  });
 
   @override
   State<StaggeredMenuBar> createState() => _StaggeredMenuBarState();
@@ -127,7 +126,7 @@ class HorizontalSegmentBar extends StatefulWidget {
   final bool? adjustInMinimumWidth;
 
   const HorizontalSegmentBar({
-    Key? key,
+    super.key,
     required this.onSegmentChange,
     required this.segments,
     this.textStyle,
@@ -135,7 +134,7 @@ class HorizontalSegmentBar extends StatefulWidget {
     this.width,
     this.hideHighlightIndicator,
     this.adjustInMinimumWidth,
-  }) : super(key: key);
+  });
 
   @override
   State<HorizontalSegmentBar> createState() => _HorizontalSegmentBarState();
@@ -229,10 +228,10 @@ class LargeHorizontalMenuBar extends StatefulWidget {
   final List<Widget> childs;
 
   const LargeHorizontalMenuBar({
-    Key? key,
+    super.key,
     required this.onSegmentChange,
     required this.childs,
-  }) : super(key: key);
+  });
 
   @override
   State<LargeHorizontalMenuBar> createState() => _LargeHorizontalMenuBarState();
@@ -279,8 +278,7 @@ class HorizontalSegmentBarWithPointer extends StatefulWidget {
   final int? selectedMenuIndex;
 
   const HorizontalSegmentBarWithPointer(
-      {Key? key, required this.onSegmentChange, required this.segments, this.textStyle, this.selectedTextStyle, this.width, this.selectedMenuIndex})
-      : super(key: key);
+      {super.key, required this.onSegmentChange, required this.segments, this.textStyle, this.selectedTextStyle, this.width, this.selectedMenuIndex});
 
   @override
   State<HorizontalSegmentBarWithPointer> createState() => _HorizontalSegmentBarWithPointerState();

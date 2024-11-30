@@ -22,7 +22,7 @@ import '../buisness_home/Bhome_page/buisness_home.dart';
 List<String> interestList = ['Music', 'Dancing', 'Cricket', 'Movie', 'Photography', 'Gaming'];
 
 class CreateAads extends StatefulWidget {
-  const CreateAads({Key? key}) : super(key: key);
+  const CreateAads({super.key});
 
   @override
   State<CreateAads> createState() => _CreateAadsState();
@@ -142,7 +142,7 @@ class _CreateAadsState extends State<CreateAads> {
           if (CreateDeal != null) "file": (await dio.MultipartFile.fromFile(CreateDeal!, filename: "${DateTime.now().toUtc().toIso8601String()}.jpg"))
         }));
     if (apiData["success"] == true) {
-      Get.off(() => BuisnessHomePage());
+      Get.off(() => const BuisnessHomePage());
       // Navigator.pop(context);
       Fluttertoast.showToast(
           msg: apiData["message"],
@@ -218,7 +218,7 @@ class _CreateAadsState extends State<CreateAads> {
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
           leading: Padding(
-            padding: EdgeInsets.only(left: 10),
+            padding: const EdgeInsets.only(left: 10),
             child: InkWell(
                 onTap: () {
                   Navigator.pop(context);
@@ -383,7 +383,7 @@ class _CreateAadsState extends State<CreateAads> {
                         onPressed: () {
                           setState(() {
                             if (interestList.isEmpty) {
-                              print('Category Index-----${interestList}');
+                              print('Category Index-----$interestList');
                               Fluttertoast.showToast(msg: 'Interest Not found');
                             } else {
                               showDropdown = !showDropdown;
@@ -511,12 +511,12 @@ class _CreateAadsState extends State<CreateAads> {
                               });
                             },
                             child: Container(
-                              decoration: BoxDecoration(
+                              decoration: const BoxDecoration(
                                 color: Colors.transparent, // Transparent to make it less intrusive
                                 shape: BoxShape.circle,
                               ),
                               padding: const EdgeInsets.all(8.0),
-                              child: Icon(
+                              child: const Icon(
                                 Icons.close,
                                 color: Colors.redAccent, // Use accent color for contrast
                                 size: 24, // Adjust size for a more prominent close button
@@ -526,7 +526,7 @@ class _CreateAadsState extends State<CreateAads> {
                         ),
                       ),
                       // Dropdown List View
-                      Container(
+                      SizedBox(
                         height: 300, // Set height for scrollable list
                         child: ListView.builder(
                           shrinkWrap: true,

@@ -12,10 +12,10 @@ class forget_model {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['success'] = this.success;
-    data['OTP'] = this.oTP;
-    data['message'] = this.message;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['success'] = success;
+    data['OTP'] = oTP;
+    data['message'] = message;
     return data;
   }
 }

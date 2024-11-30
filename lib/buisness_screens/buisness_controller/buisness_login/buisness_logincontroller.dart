@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../../../chat/api/apis.dart';
 import '../../../services/base_client01.dart';
 import '../../buisness_home/Bhome_page/buisness_home.dart';
 import '../../buisness_kycscreen/buisness_kycscreen.dart';
@@ -17,10 +16,6 @@ class BuisnessLoginController extends GetxController {
   final formkey1 = GlobalKey<FormState>();
   var deviceType;
 
-  @override
-  void onReady() {
-    super.onReady();
-  }
 
   RxBool isLoadigLogin = false.obs;
 
@@ -34,28 +29,28 @@ class BuisnessLoginController extends GetxController {
       String msg = response["message"];
       if (success) {
         var token = response["token"];
-        var user_id1 = response["business_info"]["id"];
+        var userId1 = response["business_info"]["id"];
         var email = response["business_info"]["email"];
         var verifyBusiness = response["business_info"]["verify_business"];
         var KYC = response["business_info"]["KYC"];
-        var business_name = response["business_info"]["business_name"];
-        var profile_image = response["business_info"]["profile_image"];
+        var businessName = response["business_info"]["business_name"];
+        var profileImage = response["business_info"]["profile_image"];
         SharedPreferences prefs = await SharedPreferences.getInstance();
         prefs.setBool("isLoginB", true);
-        prefs.setInt('user_id', user_id1);
+        prefs.setInt('user_id', userId1);
         prefs.setString('token', token);
         prefs.setInt("page", 1);
         prefs.setString("email", email);
         print(prefs.get("isLoggedIn"));
 
         if (KYC == 1) {
-          return Get.to(() => BuisnessHomePage());
+          return Get.to(() => const BuisnessHomePage());
         } else {
           return Get.to(() => const BuisnessKycVerify());
         }
       } else {
         Fluttertoast.showToast(
-          msg: "$msg",
+          msg: msg,
           toastLength: Toast.LENGTH_LONG,
           gravity: ToastGravity.BOTTOM,
           timeInSecForIosWeb: 1,

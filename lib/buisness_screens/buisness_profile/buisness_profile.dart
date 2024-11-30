@@ -23,7 +23,7 @@ import 'business_profile_controller.dart';
 import 'package:http/http.dart' as http;
 
 class BusinessProfile extends StatefulWidget {
-  const BusinessProfile({Key? key}) : super(key: key);
+  const BusinessProfile({super.key});
 
   @override
   State<BusinessProfile> createState() => _BusinessProfileState();
@@ -64,7 +64,7 @@ class _BusinessProfileState extends State<BusinessProfile> {
 
     var headers = {'Authorization': 'Bearer $token'};
     var data = FormData.fromMap({
-      'file': [await MultipartFile.fromFile('${croppedFile!.path}', filename: 'qwer')],
+      'file': [await MultipartFile.fromFile(croppedFile!.path, filename: 'qwer')],
       'business_id': '$userId',
     });
 
@@ -79,7 +79,7 @@ class _BusinessProfileState extends State<BusinessProfile> {
     );
 
     if (response.statusCode == 200) {
-      print("uploadprofile" + json.encode(response.data));
+      print("uploadprofile${json.encode(response.data)}");
       profileController.myProfile();
     } else {
       print(response.statusMessage);
@@ -125,7 +125,7 @@ class _BusinessProfileState extends State<BusinessProfile> {
     );
 
     if (response.statusCode == 200) {
-      print("uploadprofile" + json.encode(response.data));
+      print("uploadprofile${json.encode(response.data)}");
       profileController.myProfile();
     } else {
       print(response.statusMessage);
@@ -158,7 +158,7 @@ class _BusinessProfileState extends State<BusinessProfile> {
             );
           });
 
-          print('Categorie list------------${categories}');
+          print('Categorie list------------$categories');
         }
       } else {
         debugPrint('Failed to fetch categories: ${response.statusCode}');
@@ -207,7 +207,7 @@ class _BusinessProfileState extends State<BusinessProfile> {
                       ],
                     ),
                   )
-                : Container(
+                : SizedBox(
                     height: MediaQuery.of(context).size.height / 1.13,
                     child: SingleChildScrollView(
                       child: Column(
@@ -317,7 +317,7 @@ class _BusinessProfileState extends State<BusinessProfile> {
                                         const SizedBox(
                                           height: 10,
                                         ),
-                                        StyledText(
+                                        const StyledText(
                                           text: "Business Name",
                                           color: Colors.black,
                                           fontFamily: 'intel',
@@ -338,7 +338,7 @@ class _BusinessProfileState extends State<BusinessProfile> {
                                             // 'Fauget',
                                           ),
                                         ),
-                                        StyledText(
+                                        const StyledText(
                                           text: 'Business Hours',
                                           color: Colors.black,
                                           fontFamily: 'intel',
@@ -396,7 +396,7 @@ class _BusinessProfileState extends State<BusinessProfile> {
                                         const SizedBox(
                                           height: 20,
                                         ),
-                                        StyledText(
+                                        const StyledText(
                                           text: 'Description',
                                           color: Colors.black,
                                           fontFamily: 'intel',
@@ -425,7 +425,7 @@ class _BusinessProfileState extends State<BusinessProfile> {
                                                     hintText: profileController.profileData?.businessInfo?.description ?? '   Enter Your Description...',
                                                   )),
                                             )),
-                                        StyledText(
+                                        const StyledText(
                                           text: 'Number',
                                           color: Colors.black,
                                           fontFamily: 'intel',
@@ -455,7 +455,7 @@ class _BusinessProfileState extends State<BusinessProfile> {
                                                         '+91 9876543210',*/
                                           ),
                                         ),
-                                        StyledText(
+                                        const StyledText(
                                           text: 'Category',
                                           color: Colors.black,
                                           fontFamily: 'intel',
@@ -481,7 +481,7 @@ class _BusinessProfileState extends State<BusinessProfile> {
                                             });
                                           },
                                           decoration: InputDecoration(
-                                            hintText: "${profileController.profileData?.businessInfo?.category ?? 'Category'}",
+                                            hintText: profileController.profileData?.businessInfo?.category ?? 'Category',
                                             hintStyle: const TextStyle(
                                               color: Colors.black,
                                               fontWeight: FontWeight.w400,
@@ -511,7 +511,7 @@ class _BusinessProfileState extends State<BusinessProfile> {
                                               onPressed: () {
                                                 setState(() {
                                                   if (categories.isEmpty) {
-                                                    print('Category Index-----${categories}');
+                                                    print('Category Index-----$categories');
                                                     Fluttertoast.showToast(msg: 'Category Not found');
                                                   } else {
                                                     showDropdown = !showDropdown;
@@ -600,7 +600,7 @@ class _BusinessProfileState extends State<BusinessProfile> {
                                         //   ),
                                         // ),
 
-                                        StyledText(
+                                        const StyledText(
                                           text: 'Instagram',
                                           color: Colors.black,
                                           fontFamily: 'intel',
@@ -629,7 +629,7 @@ class _BusinessProfileState extends State<BusinessProfile> {
                                                 border: InputBorder.none),
                                           ),
                                         ),
-                                        StyledText(
+                                        const StyledText(
                                           text: 'Facebook',
                                           color: Colors.black,
                                           fontFamily: 'intel',
@@ -657,7 +657,7 @@ class _BusinessProfileState extends State<BusinessProfile> {
                                                 border: InputBorder.none),
                                           ),
                                         ),
-                                        StyledText(
+                                        const StyledText(
                                           text: 'Twitter',
                                           color: Colors.black,
                                           fontFamily: 'intel',
@@ -685,7 +685,7 @@ class _BusinessProfileState extends State<BusinessProfile> {
                                                 border: InputBorder.none),
                                           ),
                                         ),
-                                        StyledText(
+                                        const StyledText(
                                           text: 'Website',
                                           color: Colors.black,
                                           fontFamily: 'intel',
@@ -719,7 +719,7 @@ class _BusinessProfileState extends State<BusinessProfile> {
                             ),
                             SizedBox(
                               child: Padding(
-                                padding: EdgeInsets.only(left: 25, top: 40),
+                                padding: const EdgeInsets.only(left: 25, top: 40),
                                 child: InkWell(
                                     onTap: () {
                                       Navigator.pop(context);

@@ -59,29 +59,29 @@ class SignUpController extends GetxController {
   signUpfunction() async {
     isLoadig(true);
     final response = await BaseClient01().post(Appurls.signUp, {
-      'username': '${usernameController.value.text}',
-      'password': '${passwordController.value.text}',
-      'phone_number': '${phonenoController.value.text}',
-      'email': '${emailController.value.text}',
-      'firstname': '${firstNameController.value.text}',
-      'lastname': '${lastNameController.value.text}'
+      'username': usernameController.value.text,
+      'password': passwordController.value.text,
+      'phone_number': phonenoController.value.text,
+      'email': emailController.value.text,
+      'firstname': firstNameController.value.text,
+      'lastname': lastNameController.value.text
     });
 
     print("$response");
     isLoadig(false);
     bool success = response["success"];
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    var user_uid = "${prefs.getInt('user_id')}";
-    print("user_id ==========================>$user_uid");
+    var userUid = "${prefs.getInt('user_id')}";
+    print("user_id ==========================>$userUid");
     if (success) {
-      var user_id = response["data_1"][0]["id"];
-      print("user_id$user_id");
+      var userId = response["data_1"][0]["id"];
+      print("user_id$userId");
       String otpR = response["OTP"];
       // Get.off(()=>OtpPage(number: phonenoController.value.text, otp: otpR));
       Get.off(const LoginScreenPage());
       signUp();
       createUser(
-          "$user_id", "${firstNameController.value.text} ${lastNameController.value.text}", emailController.value.text, "", "", '$getFirebaseMessagingToken');
+          "$userId", "${firstNameController.value.text} ${lastNameController.value.text}", emailController.value.text, "", "", '$getFirebaseMessagingToken');
     }
     var msg = response["message"];
     print("my validation message --------$msg");
@@ -96,13 +96,13 @@ class SignUpController extends GetxController {
     );
   }
 
-  static Future<void> createUser(String user_uid, String displayName, String email, String about, String photoURL, String pushToken) async {
+  static Future<void> createUser(String userUid, String displayName, String email, String about, String photoURL, String pushToken) async {
     final time = DateTime.now().millisecondsSinceEpoch.toString();
 
     final chatUser = ChatUser(
-        id: user_uid, name: displayName, email: email, about: about, image: photoURL, createdAt: time, isOnline: false, lastActive: time, pushToken: pushToken);
+        id: userUid, name: displayName, email: email, about: about, image: photoURL, createdAt: time, isOnline: false, lastActive: time, pushToken: pushToken);
 
-    return await firestore.collection('users').doc(user_uid).set(chatUser.toJson());
+    return await firestore.collection('users').doc(userUid).set(chatUser.toJson());
   }
 
   signUp() async {
@@ -113,7 +113,7 @@ class SignUpController extends GetxController {
     try {
       await auth1.createUserWithEmailAndPassword(email: email, password: pass);
       User? user = FirebaseAuth.instance.currentUser;
-      DatabaseService().regUser(user!, email: email, name: firstNameController.text, uid: user!.uid).then((value) {
+      DatabaseService().regUser(user!, email: email, name: firstNameController.text, uid: user.uid).then((value) {
         //Get.offAll(() => const HomePage());
       });
     } catch (e) {

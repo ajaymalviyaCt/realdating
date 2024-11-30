@@ -89,7 +89,7 @@ class MessagingService {
       Get.to(() => const MatchesRequestPages());
     }
     if ("${data["screen"]}" == "like") {
-      Get.to(() => MyAllDatesPage());
+      Get.to(() => const MyAllDatesPage());
     }
     if ("${data["screen"]}" == "business_like") {
       Get.to(() => const BuisnessHomePage());
@@ -116,13 +116,13 @@ class MessagingService {
       Get.to(() => const MyAllDatesPage());
     }
     if ("${data["screen"]}" == "Tag_you") {
-      Get.to(() => MyAllDatesPage());
+      Get.to(() => const MyAllDatesPage());
     }
     if ("${data["screen"]}" == "accept_your_classified_request") {
-      Get.to(() => MyAllDatesPage());
+      Get.to(() => const MyAllDatesPage());
     }
     if ("${data["screen"]}" == "accept_your_classified_request") {
-      Get.to(() => MyAllDatesPage());
+      Get.to(() => const MyAllDatesPage());
     }
   }
 
@@ -145,7 +145,7 @@ class MessagingService {
     // initialise the plugin. app_icon needs to be a added as a drawable resource to the Android head project
     const AndroidInitializationSettings initializationSettingsAndroid = AndroidInitializationSettings('@mipmap/ic_launcher');
     final DarwinInitializationSettings initializationSettingsDarwin = DarwinInitializationSettings(
-      onDidReceiveLocalNotification: (id, title, body, payload) => null,
+      onDidReceiveLocalNotification: (id, title, body, payload) {},
     );
     const LinuxInitializationSettings initializationSettingsLinux = LinuxInitializationSettings(defaultActionName: 'Open notification');
     final InitializationSettings initializationSettings =
@@ -160,16 +160,16 @@ class MessagingService {
       print("qwerty");
       Map data = jsonDecode(notificationResponse.payload.toString());
 
-      print("1234${data}");
+      print("1234$data");
       print("qwertyio${data["screen"]}");
-      print("1234${data}");
+      print("1234$data");
 
       if ("${data["screen"]}" == "matches") {
         print("pramodqwertyuytrewerty${data["sender_id"]}");
         Get.to(() => const MatchesRequestPages());
       }
       if ("${data["screen"]}" == "like") {
-        Get.to(() => MyAllDatesPage());
+        Get.to(() => const MyAllDatesPage());
       }
       if ("${data["screen"]}" == "business_like") {
         Get.to(() => const BuisnessHomePage());
@@ -181,7 +181,7 @@ class MessagingService {
         Get.to(() => HomeScreen());
       }
       if ("${data["screen"]}" == "comment") {
-        Get.to(() => HomePageUser());
+        Get.to(() => const HomePageUser());
       }
       if ("${data["screen"]}" == "invite_date") {
         Get.to(() => const MyAllDatesPage());
@@ -193,19 +193,19 @@ class MessagingService {
             ));
       }
       if ("${data["screen"]}" == "invite_accept") {
-        Get.to(() => MyAllDatesPage());
+        Get.to(() => const MyAllDatesPage());
       }
       if ("${data["screen"]}" == "Tag_you") {
-        Get.to(() => MyAllDatesPage());
+        Get.to(() => const MyAllDatesPage());
       }
       if ("${data["screen"]}" == "accept_your_classified_request") {
-        Get.to(() => MyAllDatesPage());
+        Get.to(() => const MyAllDatesPage());
       }
       if ("${data["screen"]}" == "accept_your_matches_request") {
-        Get.to(() => MyAllDatesPage());
+        Get.to(() => const MyAllDatesPage());
       }
     } catch (e) {
-      print("qwertyio${e}");
+      print("qwertyio$e");
     }
   }
 }

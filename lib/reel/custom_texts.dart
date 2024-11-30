@@ -45,7 +45,7 @@ class Heading1Text extends StatelessWidget {
   final Color? color;
   final TextAlign? textAlign;
 
-  const Heading1Text(this.text, {Key? key, this.textAlign, this.maxLines, this.weight, this.color}) : super(key: key);
+  const Heading1Text(this.text, {super.key, this.textAlign, this.maxLines, this.weight, this.color});
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +67,7 @@ class Heading2Text extends StatelessWidget {
   final FontWeight? weight;
   final Color? color;
 
-  const Heading2Text(this.text, {Key? key, this.textAlign, this.maxLines, this.weight, this.color}) : super(key: key);
+  const Heading2Text(this.text, {super.key, this.textAlign, this.maxLines, this.weight, this.color});
 
   @override
   Widget build(BuildContext context) {
@@ -89,7 +89,7 @@ class Heading3Text extends StatelessWidget {
   final FontWeight? weight;
   final Color? color;
 
-  const Heading3Text(this.text, {Key? key, this.textAlign, this.maxLines, this.weight, this.color}) : super(key: key);
+  const Heading3Text(this.text, {super.key, this.textAlign, this.maxLines, this.weight, this.color});
 
   @override
   Widget build(BuildContext context) {
@@ -109,7 +109,7 @@ class Heading4Text extends StatelessWidget {
   final FontWeight? weight;
   final Color? color;
 
-  const Heading4Text(this.text, {Key? key, this.textAlign, this.maxLines, this.weight, this.color}) : super(key: key);
+  const Heading4Text(this.text, {super.key, this.textAlign, this.maxLines, this.weight, this.color});
 
   @override
   Widget build(BuildContext context) {
@@ -131,7 +131,7 @@ class Heading5Text extends StatelessWidget {
   final FontWeight? weight;
   final Color? color;
 
-  const Heading5Text(this.text, {Key? key, this.textAlign, this.maxLines, this.weight, this.color}) : super(key: key);
+  const Heading5Text(this.text, {super.key, this.textAlign, this.maxLines, this.weight, this.color});
 
   @override
   Widget build(BuildContext context) {
@@ -153,7 +153,7 @@ class Heading6Text extends StatelessWidget {
   final FontWeight? weight;
   final Color? color;
 
-  const Heading6Text(this.text, {Key? key, this.textAlign, this.maxLines, this.weight, this.color}) : super(key: key);
+  const Heading6Text(this.text, {super.key, this.textAlign, this.maxLines, this.weight, this.color});
 
   @override
   Widget build(BuildContext context) {
@@ -176,7 +176,7 @@ class BodyExtraLargeText extends StatelessWidget {
   final FontWeight? weight;
   final Color? color;
 
-  const BodyExtraLargeText(this.text, {Key? key, this.textAlign, this.maxLines, this.weight, this.color}) : super(key: key);
+  const BodyExtraLargeText(this.text, {super.key, this.textAlign, this.maxLines, this.weight, this.color});
 
   @override
   Widget build(BuildContext context) {
@@ -196,7 +196,7 @@ class BodyLargeText extends StatelessWidget {
   final FontWeight? weight;
   final Color? color;
 
-  const BodyLargeText(this.text, {Key? key, this.textAlign, this.maxLines, this.weight, this.color}) : super(key: key);
+  const BodyLargeText(this.text, {super.key, this.textAlign, this.maxLines, this.weight, this.color});
 
   @override
   Widget build(BuildContext context) {
@@ -216,7 +216,7 @@ class BodyMediumText extends StatelessWidget {
   final FontWeight? weight;
   final Color? color;
 
-  const BodyMediumText(this.text, {Key? key, this.textAlign, this.maxLines, this.weight, this.color}) : super(key: key);
+  const BodyMediumText(this.text, {super.key, this.textAlign, this.maxLines, this.weight, this.color});
 
   @override
   Widget build(BuildContext context) {
@@ -236,7 +236,7 @@ class BodySmallText extends StatelessWidget {
   final FontWeight? weight;
   final Color? color;
 
-  const BodySmallText(this.text, {Key? key, this.textAlign, this.maxLines, this.weight, this.color}) : super(key: key);
+  const BodySmallText(this.text, {super.key, this.textAlign, this.maxLines, this.weight, this.color});
 
   @override
   Widget build(BuildContext context) {
@@ -256,7 +256,7 @@ class BodyExtraSmallText extends StatelessWidget {
   final FontWeight? weight;
   final Color? color;
 
-  const BodyExtraSmallText(this.text, {Key? key, this.textAlign, this.maxLines, this.weight, this.color}) : super(key: key);
+  const BodyExtraSmallText(this.text, {super.key, this.textAlign, this.maxLines, this.weight, this.color});
 
   @override
   Widget build(BuildContext context) {

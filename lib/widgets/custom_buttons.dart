@@ -4,7 +4,7 @@ import '../consts/app_colors.dart';
 import 'custom_text_styles.dart';
 
 class PrimaryBtn extends StatelessWidget {
-  const PrimaryBtn({Key? key, required this.btnText, required this.btnFun, this.btnclr, this.btntextclr, this.btnHW, this.loading}) : super(key: key);
+  const PrimaryBtn({super.key, required this.btnText, required this.btnFun, this.btnclr, this.btntextclr, this.btnHW, this.loading});
   final String btnText;
   final VoidCallback btnFun;
   final Color? btnclr;
@@ -18,17 +18,17 @@ class PrimaryBtn extends StatelessWidget {
         ? ElevatedButton(
             onPressed: () {},
             style: getBtnStyle(context),
-            child: CircularProgressIndicator(color: colors.white),
+            child: const CircularProgressIndicator(color: colors.white),
           )
         : ElevatedButton(
             onPressed: btnFun,
             style: getBtnStyle(context),
-            child: textMedium("$btnText", context, 16),
+            child: textMedium(btnText, context, 16),
           );
   }
 
   getBtnStyle(context) => ElevatedButton.styleFrom(
-        side: BorderSide(
+        side: const BorderSide(
           width: .7,
           color: Colors.white,
         ),
@@ -41,7 +41,7 @@ class PrimaryBtn extends StatelessWidget {
 }
 
 class PrimaryBtn2 extends StatelessWidget {
-  const PrimaryBtn2({Key? key, required this.btnText, required this.btnFun, this.btnclr, this.btntextclr, this.btnHW, this.loading}) : super(key: key);
+  const PrimaryBtn2({super.key, required this.btnText, required this.btnFun, this.btnclr, this.btntextclr, this.btnHW, this.loading});
   final String btnText;
   final VoidCallback btnFun;
   final Color? btnclr;
@@ -64,7 +64,7 @@ class PrimaryBtn2 extends StatelessWidget {
             onPressed: btnFun,
             style: getBtnStyle(context),
             child: textBold(
-              "$btnText",
+              btnText,
               context,
               14.sp,
               Colors.black,
@@ -73,11 +73,11 @@ class PrimaryBtn2 extends StatelessWidget {
   }
 
   getBtnStyle(context) => ElevatedButton.styleFrom(
-        side: BorderSide(
+        side: const BorderSide(
           width: .7,
           color: Colors.white,
         ),
-        shape: RoundedRectangleBorder(
+        shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.only(topRight: Radius.circular(13), bottomRight: Radius.circular(13)),
         ),
         backgroundColor: btnclr ?? colors.white,
@@ -89,7 +89,7 @@ class CustomElevatedButton extends StatelessWidget {
   final String buttonText;
   final VoidCallback onPressed;
 
-  CustomElevatedButton({required this.buttonText, required this.onPressed});
+  const CustomElevatedButton({super.key, required this.buttonText, required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -100,7 +100,7 @@ class CustomElevatedButton extends StatelessWidget {
           color: Colors.white,
           width: 1,
         ),
-        gradient: LinearGradient(
+        gradient: const LinearGradient(
           colors: [Color(0xFFF65F51), Color(0xFFFB4967)],
           begin: Alignment.centerLeft,
           end: Alignment.centerRight,
@@ -132,7 +132,7 @@ class CustomElevatedButton extends StatelessWidget {
 }
 
 class customPrimaryBtn2 extends StatelessWidget {
-  const customPrimaryBtn2({Key? key, required this.btnText, required this.btnFun, this.btnclr, this.btntextclr, this.btnHW, this.loading}) : super(key: key);
+  const customPrimaryBtn2({super.key, required this.btnText, required this.btnFun, this.btnclr, this.btntextclr, this.btnHW, this.loading});
   final String btnText;
   final VoidCallback btnFun;
   final Color? btnclr;
@@ -147,7 +147,7 @@ class customPrimaryBtn2 extends StatelessWidget {
             onPressed: btnFun,
             style: getBtnStyle(context),
             child: customTextCommon(
-              text: '$btnText',
+              text: btnText,
               fSize: 17,
               fWeight: FontWeight.w600,
               lineHeight: 17,
@@ -157,7 +157,7 @@ class customPrimaryBtn2 extends StatelessWidget {
             onPressed: btnFun,
             style: getBtnStyle(context),
             child: customTextCommon(
-              text: '$btnText',
+              text: btnText,
               fSize: 17,
               fWeight: FontWeight.w600,
               lineHeight: 17,
@@ -166,11 +166,11 @@ class customPrimaryBtn2 extends StatelessWidget {
   }
 
   getBtnStyle(context) => ElevatedButton.styleFrom(
-        side: BorderSide(
+        side: const BorderSide(
           width: .7,
           color: colors.primary,
         ),
-        shape: RoundedRectangleBorder(
+        shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(
           Radius.circular(30),
         )),
@@ -180,8 +180,7 @@ class customPrimaryBtn2 extends StatelessWidget {
 }
 
 class customPrimaryBtn extends StatelessWidget {
-  const customPrimaryBtn({Key? key, required this.btnText, required this.btnFun, this.btnclr, this.btntextclr, this.width, this.height, this.loading})
-      : super(key: key);
+  const customPrimaryBtn({super.key, required this.btnText, required this.btnFun, this.btnclr, this.btntextclr, this.width, this.height, this.loading});
 
   final String btnText;
   final VoidCallback btnFun;
@@ -202,30 +201,30 @@ class customPrimaryBtn extends StatelessWidget {
                 gradient: LinearGradient(
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
-                  stops: [0.0, 1.0],
+                  stops: const [0.0, 1.0],
                   colors: [
-                    btnclr ?? Color(0xffF65F51),
-                    btnclr ?? Color(0xffFB4967),
+                    btnclr ?? const Color(0xffF65F51),
+                    btnclr ?? const Color(0xffFB4967),
                   ],
                 ),
                 borderRadius: BorderRadius.circular(30),
               ),
               child: ElevatedButton(
                 style: ButtonStyle(
-                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                  shape: WidgetStateProperty.all<RoundedRectangleBorder>(
                     RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30.0),
                     ),
                   ),
-                  minimumSize: MaterialStateProperty.all(Size(width ?? MediaQuery.of(context).size.width, height ?? 56)),
-                  backgroundColor: MaterialStateProperty.all(Colors.transparent),
+                  minimumSize: WidgetStateProperty.all(Size(width ?? MediaQuery.of(context).size.width, height ?? 56)),
+                  backgroundColor: WidgetStateProperty.all(Colors.transparent),
                   // elevation: MaterialStateProperty.all(3),
-                  shadowColor: MaterialStateProperty.all(Colors.transparent),
+                  shadowColor: WidgetStateProperty.all(Colors.transparent),
                 ),
                 // onPressed: btnFun,
                 onPressed: () {},
-                child: Padding(
-                  padding: const EdgeInsets.only(
+                child: const Padding(
+                  padding: EdgeInsets.only(
                     top: 10,
                     bottom: 10,
                   ),
@@ -240,29 +239,29 @@ class customPrimaryBtn extends StatelessWidget {
             padding: const EdgeInsets.all(10.0),
             child: Container(
               decoration: BoxDecoration(
-                boxShadow: [BoxShadow(color: Colors.black26, offset: Offset(0, 4), blurRadius: 5.0)],
+                boxShadow: const [BoxShadow(color: Colors.black26, offset: Offset(0, 4), blurRadius: 5.0)],
                 gradient: LinearGradient(
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
-                  stops: [0.0, 1.0],
+                  stops: const [0.0, 1.0],
                   colors: [
-                    btnclr ?? Color(0xffF65F51),
-                    btnclr ?? Color(0xffFB4967),
+                    btnclr ?? const Color(0xffF65F51),
+                    btnclr ?? const Color(0xffFB4967),
                   ],
                 ),
                 borderRadius: BorderRadius.circular(30),
               ),
               child: ElevatedButton(
                 style: ButtonStyle(
-                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                  shape: WidgetStateProperty.all<RoundedRectangleBorder>(
                     RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30.0),
                     ),
                   ),
-                  minimumSize: MaterialStateProperty.all(Size(width ?? 350, height ?? 56)),
-                  backgroundColor: MaterialStateProperty.all(Colors.transparent),
+                  minimumSize: WidgetStateProperty.all(Size(width ?? 350, height ?? 56)),
+                  backgroundColor: WidgetStateProperty.all(Colors.transparent),
                   // elevation: MaterialStateProperty.all(3),
-                  shadowColor: MaterialStateProperty.all(Colors.transparent),
+                  shadowColor: WidgetStateProperty.all(Colors.transparent),
                 ),
                 onPressed: btnFun,
                 child: Padding(
@@ -286,8 +285,7 @@ class customPrimaryBtn extends StatelessWidget {
 }
 
 class customPrimaryBtnBlk extends StatelessWidget {
-  const customPrimaryBtnBlk({Key? key, required this.btnText, required this.btnFun, this.btnclr, this.btntextclr, this.width, this.height, this.loading})
-      : super(key: key);
+  const customPrimaryBtnBlk({super.key, required this.btnText, required this.btnFun, this.btnclr, this.btntextclr, this.width, this.height, this.loading});
 
   final String btnText;
   final VoidCallback btnFun;
@@ -304,34 +302,34 @@ class customPrimaryBtnBlk extends StatelessWidget {
             padding: const EdgeInsets.all(10.0),
             child: Container(
               decoration: BoxDecoration(
-                boxShadow: [BoxShadow(color: Colors.black26, offset: Offset(0, 2), blurRadius: 2.0)],
+                boxShadow: const [BoxShadow(color: Colors.black26, offset: Offset(0, 2), blurRadius: 2.0)],
                 gradient: LinearGradient(
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
-                  stops: [0.0, 1.0],
+                  stops: const [0.0, 1.0],
                   colors: [
-                    btnclr ?? Color(0xff000000),
-                    btnclr ?? Color(0xff000000),
+                    btnclr ?? const Color(0xff000000),
+                    btnclr ?? const Color(0xff000000),
                   ],
                 ),
                 borderRadius: BorderRadius.circular(30),
               ),
               child: ElevatedButton(
                 style: ButtonStyle(
-                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                  shape: WidgetStateProperty.all<RoundedRectangleBorder>(
                     RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30.0),
                     ),
                   ),
-                  minimumSize: MaterialStateProperty.all(Size(width ?? MediaQuery.of(context).size.width, height ?? 56)),
-                  backgroundColor: MaterialStateProperty.all(Colors.transparent),
+                  minimumSize: WidgetStateProperty.all(Size(width ?? MediaQuery.of(context).size.width, height ?? 56)),
+                  backgroundColor: WidgetStateProperty.all(Colors.transparent),
                   // elevation: MaterialStateProperty.all(3),
-                  shadowColor: MaterialStateProperty.all(Colors.transparent),
+                  shadowColor: WidgetStateProperty.all(Colors.transparent),
                 ),
                 // onPressed: btnFun,
                 onPressed: () {},
-                child: Padding(
-                  padding: const EdgeInsets.only(
+                child: const Padding(
+                  padding: EdgeInsets.only(
                     top: 10,
                     bottom: 10,
                   ),
@@ -346,29 +344,29 @@ class customPrimaryBtnBlk extends StatelessWidget {
             padding: const EdgeInsets.all(10.0),
             child: Container(
               decoration: BoxDecoration(
-                boxShadow: [BoxShadow(color: Colors.black26, offset: Offset(0, 4), blurRadius: 5.0)],
+                boxShadow: const [BoxShadow(color: Colors.black26, offset: Offset(0, 4), blurRadius: 5.0)],
                 gradient: LinearGradient(
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
-                  stops: [0.0, 1.0],
+                  stops: const [0.0, 1.0],
                   colors: [
-                    btnclr ?? Color(0xff000000),
-                    btnclr ?? Color(0xff000000),
+                    btnclr ?? const Color(0xff000000),
+                    btnclr ?? const Color(0xff000000),
                   ],
                 ),
                 borderRadius: BorderRadius.circular(30),
               ),
               child: ElevatedButton(
                 style: ButtonStyle(
-                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                  shape: WidgetStateProperty.all<RoundedRectangleBorder>(
                     RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30.0),
                     ),
                   ),
-                  minimumSize: MaterialStateProperty.all(Size(width ?? 350, height ?? 56)),
-                  backgroundColor: MaterialStateProperty.all(Colors.transparent),
+                  minimumSize: WidgetStateProperty.all(Size(width ?? 350, height ?? 56)),
+                  backgroundColor: WidgetStateProperty.all(Colors.transparent),
                   // elevation: MaterialStateProperty.all(3),
-                  shadowColor: MaterialStateProperty.all(Colors.transparent),
+                  shadowColor: WidgetStateProperty.all(Colors.transparent),
                 ),
                 onPressed: btnFun,
                 child: Padding(

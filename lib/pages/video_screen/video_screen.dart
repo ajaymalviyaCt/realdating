@@ -7,7 +7,7 @@ import '../../consts/app_colors.dart';
 import '../../widgets/custom_text_styles.dart';
 
 class VideoScreen extends StatefulWidget {
-  VideoScreen({Key? key}) : super(key: key);
+  const VideoScreen({super.key});
 
   @override
   State<VideoScreen> createState() => _VideoScreenState();
@@ -91,13 +91,13 @@ class _VideoScreenState extends State<VideoScreen> {
                                             body: Center(
                                           child: Stack(
                                             children: [
-                                              VideoPlayerItem(videoUrl: "${videoController.reels[index].reel}"),
+                                              VideoPlayerItem(videoUrl: videoController.reels[index].reel),
                                               Align(
                                                   alignment: Alignment.bottomLeft,
                                                   child: Padding(
                                                     padding: const EdgeInsets.only(bottom: 65.0, left: 15),
                                                     child: Container(
-                                                      padding: EdgeInsets.all(5),
+                                                      padding: const EdgeInsets.all(5),
                                                       decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: Colors.white),
                                                       child: Text(
                                                         videoController.getReelModel?.reels[index].userInfo[0].firstName ?? "UserName",
@@ -110,7 +110,7 @@ class _VideoScreenState extends State<VideoScreen> {
                                                 right: 0,
                                                 bottom: 10,
                                                 child: Container(
-                                                  padding: EdgeInsets.all(5),
+                                                  padding: const EdgeInsets.all(5),
                                                   decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: Colors.white),
                                                   child: Text(
                                                     videoController.getReelModel?.reels[index].caption ?? "Not Found",

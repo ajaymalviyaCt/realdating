@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 import 'gender_controller.dart';
 
 class SelectGenderPage extends StatefulWidget {
-  const SelectGenderPage({Key? key}) : super(key: key);
+  const SelectGenderPage({super.key});
 
   @override
   State<SelectGenderPage> createState() => _SelectGenderPageState();
@@ -30,7 +30,7 @@ class _SelectGenderPageState extends State<SelectGenderPage> {
         body: Column(
           children: [
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
               child: Column(
                 children: [
                   InkWell(
@@ -61,7 +61,7 @@ class _SelectGenderPageState extends State<SelectGenderPage> {
                                   'assets/icons/click.svg',
                                   color: Colors.white,
                                 )
-                              : SizedBox(
+                              : const SizedBox(
                                   width: .1,
                                   height: .1,
                                 ),
@@ -69,7 +69,7 @@ class _SelectGenderPageState extends State<SelectGenderPage> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 30),
+                  const SizedBox(height: 30),
                   InkWell(
                     onTap: () {
                       gender1[1] = true;
@@ -98,7 +98,7 @@ class _SelectGenderPageState extends State<SelectGenderPage> {
                                   'assets/icons/click.svg',
                                   color: Colors.white,
                                 )
-                              : SizedBox(
+                              : const SizedBox(
                                   width: .1,
                                   height: .1,
                                 ),
@@ -106,7 +106,7 @@ class _SelectGenderPageState extends State<SelectGenderPage> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 30),
+                  const SizedBox(height: 30),
                   InkWell(
                     onTap: () {
                       gender1[2] = true;
@@ -136,7 +136,7 @@ class _SelectGenderPageState extends State<SelectGenderPage> {
                                   'assets/icons/click.svg',
                                   color: Colors.white,
                                 )
-                              : SizedBox(
+                              : const SizedBox(
                                   width: .1,
                                   height: .1,
                                 ),
@@ -147,7 +147,7 @@ class _SelectGenderPageState extends State<SelectGenderPage> {
                 ],
               ),
             ),
-            Spacer(),
+            const Spacer(),
             Obx(
               () => customPrimaryBtn(
                 btnText: "Continue",
@@ -157,7 +157,7 @@ class _SelectGenderPageState extends State<SelectGenderPage> {
                 loading: genderController.isLoadig.value,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 30,
             )
           ],

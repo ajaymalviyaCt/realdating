@@ -23,15 +23,10 @@ class EditAdsController extends GetxController {
   TextEditingController Link = TextEditingController();
   TextEditingController file = TextEditingController();
 
-  bool _obscureText = false;
+  final bool _obscureText = false;
   bool loading = false;
   var isLoading = false;
 
-  @override
-  void onReady() {
-    super.onReady();
-    // EditAdsUpdate(addId);
-  }
 
   var addId;
   String? addImage;
@@ -67,7 +62,7 @@ class EditAdsController extends GetxController {
     if (apiData["success"] == true) {
       // Handle a successful response
 
-      Get.off(() => All_Ads());
+      Get.off(() => const All_Ads());
       allAdssDealController.getAllAds();
       Fluttertoast.showToast(
         msg: "updated Successfully.",
@@ -101,7 +96,7 @@ class EditAdsController extends GetxController {
       // allAdssDealController.All_AdsD();
       allAdssDealController.getAllAds();
       allAdssDealController.getAllAdsMdoels?.myAdvs.clear();
-      Get.to(() => All_Ads());
+      Get.to(() => const All_Ads());
       //Get.back();
       // Get.back();
     }

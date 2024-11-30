@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 
@@ -7,7 +6,7 @@ class StyledSwitch extends StatefulWidget {
   AlignmentGeometry alignment;
   Color? toggleColor;
 
-  StyledSwitch({Key? key, required this.onToggled, required this.alignment, this.toggleColor}) : super(key: key);
+  StyledSwitch({super.key, required this.onToggled, required this.alignment, this.toggleColor});
 
   @override
   State<StyledSwitch> createState() => _StyledSwitchState();

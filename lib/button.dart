@@ -1,6 +1,5 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_constructors_in_immutables, prefer_typing_uninitialized_variables, annotate_overrides, use_key_in_widget_constructors, overridden_fields
 
-import 'dart:ui';
 
 import 'package:flutter/material.dart';
 

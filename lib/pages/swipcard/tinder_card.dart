@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:realdating/pages/swipcard/tinder_card_model.dart';
 
-import '../discovery/discoveryModel.dart';
 
 class TinderCard extends StatefulWidget {
   final MyFriendSwipe user;
@@ -29,11 +28,11 @@ class _TinderCardState extends State<TinderCard> {
           child: Container(
             decoration: const BoxDecoration(
                 gradient: LinearGradient(colors: [Colors.transparent, Colors.black], begin: Alignment.topCenter, end: Alignment.bottomCenter, stops: [0.7, 1])),
-            padding: EdgeInsets.all(20),
+            padding: const EdgeInsets.all(20),
             child: Column(
               children: [
-                Spacer(),
-                SizedBox(
+                const Spacer(),
+                const SizedBox(
                   height: 8,
                 ),
                 buildName(),

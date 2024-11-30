@@ -15,7 +15,7 @@ import '../../widgets/custom_buttons.dart';
 import 'kycApi_model.dart';
 
 class BuisnessKycVerify extends StatefulWidget {
-  const BuisnessKycVerify({Key? key}) : super(key: key);
+  const BuisnessKycVerify({super.key});
 
   @override
   State<BuisnessKycVerify> createState() => _BuisnessKycVerifyState();
@@ -44,8 +44,7 @@ class _BuisnessKycVerifyState extends State<BuisnessKycVerify> {
   File? _image;
   String? myimage;
 
-  Future? _future;
-  String? _validatemobile = null;
+
 
   RxBool isLoadig = false.obs;
 
@@ -237,7 +236,7 @@ class _BuisnessKycVerifyState extends State<BuisnessKycVerify> {
               const SizedBox(height: 30),
               Stack(children: [
                 DottedBorder(
-                  dashPattern: [10, 5, 10, 5, 10, 5],
+                  dashPattern: const [10, 5, 10, 5, 10, 5],
                   strokeWidth: 2,
                   borderType: BorderType.RRect,
                   radius: const Radius.circular(10),

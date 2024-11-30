@@ -4,7 +4,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:chewie/chewie.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:realdating/buisness_screens/buisness_home/model/allBusinessPost_model.dart';
@@ -21,7 +20,6 @@ import 'package:velocity_x/velocity_x.dart';
 import '../../../consts/app_urls.dart';
 import '../../../pages/video_screen/video_player_iten.dart';
 import '../../../services/base_client01.dart';
-import '../../buisness_controller/buisness_login/buisness_login.dart';
 import '../../buisness_controller/buisness_login/buisness_logincontroller.dart';
 import '../../buisness_create_ads/all_ads/all_ads.dart';
 import '../../buisness_create_ads/create_ads.dart';
@@ -127,7 +125,7 @@ class _BuisnessHomePageState extends State<BuisnessHomePage> {
   void uploadFileToServerBHome(post, miniblog, postType) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     try {
-      var user_id = prefs.get('user_id');
+      var userId = prefs.get('user_id');
       var token = prefs.get('token');
       // print('user_id==============' + user_id!);
 
@@ -166,7 +164,7 @@ class _BuisnessHomePageState extends State<BuisnessHomePage> {
 
       request.fields['post_type'] = postType;
 
-      request.fields['business_id'] = (user_id ?? 11).toString();
+      request.fields['business_id'] = (userId ?? 11).toString();
       // request.headers.addAll(headers);
       if (post == null) {
         request.fields['file']?.isEmpty;
@@ -725,7 +723,7 @@ class _BuisnessHomePageState extends State<BuisnessHomePage> {
                                                                       ],
                                                                     ),
                                                                     const Spacer(),
-                                                                    if ("${businessId}" == '${postsC.bHomePagetModel.posts[index].businessId.toString()}')
+                                                                    if ("$businessId" == postsC.bHomePagetModel.posts[index].businessId.toString())
                                                                       InkWell(
                                                                         onTap: () {
                                                                           showDialog(
@@ -736,7 +734,7 @@ class _BuisnessHomePageState extends State<BuisnessHomePage> {
                                                                                         TextButton(
                                                                                           onPressed: () {
                                                                                             deletePost(
-                                                                                                postId: '${postsC.bHomePagetModel.posts[index].id.toString()}',
+                                                                                                postId: postsC.bHomePagetModel.posts[index].id.toString(),
                                                                                                 context: context);
                                                                                             // setState(() {});
                                                                                             // myDealController.fetchPage(myDealController.pagingController.nextPageKey!);
@@ -769,7 +767,7 @@ class _BuisnessHomePageState extends State<BuisnessHomePage> {
                                                                 ),
                                                                 15.ah.heightBox,
                                                                 '${postsC.bHomePagetModel.posts[index].caption}' == "default_caption"
-                                                                    ? SizedBox()
+                                                                    ? const SizedBox()
                                                                     : Text(
                                                                         '${postsC.bHomePagetModel.posts[index].caption}',
                                                                         style: TextStyle(
@@ -782,7 +780,7 @@ class _BuisnessHomePageState extends State<BuisnessHomePage> {
                                                                         ),
                                                                       ),
                                                                 '${postsC.bHomePagetModel.posts[index].miniblogs}' == "default_miniblogs"
-                                                                    ? SizedBox()
+                                                                    ? const SizedBox()
                                                                     : Text(
                                                                         '${postsC.bHomePagetModel.posts[index].miniblogs}',
                                                                         style: TextStyle(
@@ -796,7 +794,7 @@ class _BuisnessHomePageState extends State<BuisnessHomePage> {
                                                                       ),
                                                                 15.ah.heightBox,
                                                                 '${postsC.bHomePagetModel.posts[index].post}' == "default_post_image"
-                                                                    ? SizedBox()
+                                                                    ? const SizedBox()
                                                                     : Container(
                                                                         decoration: BoxDecoration(
                                                                           border: Border.all(color: Vx.red100),
@@ -1148,7 +1146,7 @@ class _BuisnessHomePageState extends State<BuisnessHomePage> {
                                                                         )
                                                                       ],
                                                                     ),
-                                                                    Spacer(),
+                                                                    const Spacer(),
                                                                     // if ("${homePageNewController.userId}" ==
                                                                     //     "${postsC.homePageModel.posts[index].postOwnerInfo![0].id}")
                                                                     //   deletePost(index)
@@ -1167,7 +1165,7 @@ class _BuisnessHomePageState extends State<BuisnessHomePage> {
                                                                           letterSpacing: -0.30,
                                                                         ),
                                                                       )
-                                                                    : SizedBox(),
+                                                                    : const SizedBox(),
                                                                 15.ah.heightBox,
                                                                 // SizedBox(
                                                                 //   height: double.parse(
@@ -1323,7 +1321,7 @@ class _BuisnessHomePageState extends State<BuisnessHomePage> {
                                                                         ),
                                                                       ),
                                                                     ),
-                                                                    Spacer(),
+                                                                    const Spacer(),
                                                                     // InkWell(
                                                                     //   onTap: (){
                                                                     //     showDialog(
@@ -1407,7 +1405,7 @@ class _BuisnessHomePageState extends State<BuisnessHomePage> {
                                                                 ),
                                                                 8.ah.heightBox,
                                                                 postsC.bHomePagetModel.posts[index].totalComments == 0
-                                                                    ? SizedBox.shrink()
+                                                                    ? const SizedBox.shrink()
                                                                     : Text(
                                                                         '  View all ${postsC.bHomePagetModel.posts[index].totalComments} comment',
                                                                         style: TextStyle(
@@ -1609,7 +1607,7 @@ class _BuisnessHomePageState extends State<BuisnessHomePage> {
                                                                       ],
                                                                     ),
                                                                     const Spacer(),
-                                                                    if ("${businessId}" == '${postsC.bHomePagetModel.posts[index].businessId.toString()}')
+                                                                    if ("$businessId" == postsC.bHomePagetModel.posts[index].businessId.toString())
                                                                       InkWell(
                                                                         onTap: () {
                                                                           showDialog(
@@ -1620,7 +1618,7 @@ class _BuisnessHomePageState extends State<BuisnessHomePage> {
                                                                                         TextButton(
                                                                                           onPressed: () {
                                                                                             deletePost(
-                                                                                                postId: '${postsC.bHomePagetModel.posts[index].id.toString()}',
+                                                                                                postId: postsC.bHomePagetModel.posts[index].id.toString(),
                                                                                                 context: context);
                                                                                             // setState(() {});
                                                                                             // myDealController.fetchPage(myDealController.pagingController.nextPageKey!);
@@ -1808,12 +1806,12 @@ class _BuisnessHomePageState extends State<BuisnessHomePage> {
                                                                         var userId = prefs.get('user_id');
                                                                         Get.to(() => BCommentPage(
                                                                               postId: '${postsC.bHomePagetModel.posts[index].id}',
-                                                                              userId: '${userId}',
+                                                                              userId: '$userId',
                                                                               indexxx: index,
                                                                             ));
                                                                         print('posts${postsC.bHomePagetModel.posts[index].id}');
                                                                         print('posts${postsC.bHomePagetModel.posts[index].businessId}');
-                                                                        print('posts${index}');
+                                                                        print('posts$index');
                                                                         // homePageNewController.getAllCommentBYpostID(postID: '2', alreadlyLoad: true, indexx: 0);
                                                                       },
                                                                       child: Container(
@@ -1919,7 +1917,7 @@ class _BuisnessHomePageState extends State<BuisnessHomePage> {
                                                                 ),
                                                                 8.ah.heightBox,
                                                                 postsC.bHomePagetModel.posts[index].totalComments == 0
-                                                                    ? SizedBox.shrink()
+                                                                    ? const SizedBox.shrink()
                                                                     : Text(
                                                                         '  View all ${postsC.bHomePagetModel.posts[index].totalComments} comment',
                                                                         style: TextStyle(
@@ -1978,7 +1976,7 @@ class _BuisnessHomePageState extends State<BuisnessHomePage> {
 
   topDealsList(MyDealController controller) {
     print(controller.myDealsModel?.myDeals.length);
-    return controller.myDealsModel?.myDeals.length == 0 || controller.myDealsModel?.myDeals.length == null
+    return (controller.myDealsModel?.myDeals??[]).isEmpty || controller.myDealsModel?.myDeals.length == null
         ? Center(
             child: Container(
               margin: const EdgeInsets.only(top: 20, bottom: 20),
@@ -2007,7 +2005,7 @@ class _BuisnessHomePageState extends State<BuisnessHomePage> {
                     return InkWell(
                       onTap: () {
                         Get.to(
-                          () => EDIT_deal(),
+                          () => const EDIT_deal(),
                           arguments: index, // Replace with your index value
                         );
                       },
@@ -2052,7 +2050,7 @@ class _BuisnessHomePageState extends State<BuisnessHomePage> {
                                     ),
                                   ),
                                   controller.myDealsModel?.myDeals[index].title == ""
-                                      ? SizedBox.shrink()
+                                      ? const SizedBox.shrink()
                                       : Padding(
                                           padding: const EdgeInsets.only(left: 20, right: 5),
                                           child: ReadMoreText(
@@ -2136,12 +2134,12 @@ class _BuisnessHomePageState extends State<BuisnessHomePage> {
     Navigator.pop(context);
   }
 
-  Future<void> likePost(String post_id, String like_status) async {
+  Future<void> likePost(String postId, String likeStatus) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var token = prefs.get('token');
     var headers = {'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Bearer $token'};
-    print("post_id==>$post_id");
-    var data = {'post_id': post_id, 'like_status': "$like_status"};
+    print("post_id==>$postId");
+    var data = {'post_id': postId, 'like_status': likeStatus};
     var dio = Dio();
     var response = await dio.request(
       'https://forreal.net:4000/Like_business_post',
@@ -2153,8 +2151,8 @@ class _BuisnessHomePageState extends State<BuisnessHomePage> {
     );
 
     if (response.statusCode == 200) {
-      print(json.encode("likeunlikeapi " + response.data.toString()));
-      if (like_status == "1") {
+      print(json.encode("likeunlikeapi ${response.data}"));
+      if (likeStatus == "1") {
         // sendNotification(user_id, "like");
       }
     } else {

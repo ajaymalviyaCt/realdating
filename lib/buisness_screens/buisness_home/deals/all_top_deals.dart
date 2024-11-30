@@ -8,7 +8,7 @@ import '../../../widgets/custom_text_styles.dart';
 import '../controller/business_home_controller.dart';
 
 class BuiusnessTopDeals extends StatefulWidget {
-  const BuiusnessTopDeals({Key? key}) : super(key: key);
+  const BuiusnessTopDeals({super.key});
 
   @override
   State<BuiusnessTopDeals> createState() => _BuiusnessDealsState();
@@ -17,7 +17,7 @@ class BuiusnessTopDeals extends StatefulWidget {
 class _BuiusnessDealsState extends State<BuiusnessTopDeals> {
   MyDealController myDealController = Get.put(MyDealController());
 
-  bool _onFillunfillStar = false;
+  final bool _onFillunfillStar = false;
 
   @override
   void initState() {
@@ -69,13 +69,13 @@ class _BuiusnessDealsState extends State<BuiusnessTopDeals> {
                                   onTap: () {
                                     // Navigator.pushNamed(context, '/route-name');
                                     Get.to(
-                                      () => EDIT_deal(),
+                                      () => const EDIT_deal(),
                                       arguments: index, // Replace with your index value
                                     );
                                   },
                                   child: Column(
                                     children: [
-                                      Container(
+                                      SizedBox(
                                         height: 100,
                                         child: CachedNetworkImage(
                                           imageUrl: myDealController.myDealsModel?.myDeals[index].roomImage ?? "",

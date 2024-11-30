@@ -1,14 +1,13 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:realdating/widgets/size_utils.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class CreateUserPost extends StatefulWidget {
-  CreateUserPost({super.key});
+  const CreateUserPost({super.key});
 
   @override
   State<CreateUserPost> createState() => _CreateUserPostState();

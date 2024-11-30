@@ -8,7 +8,7 @@ import '../../../widgets/custom_textfiled.dart';
 import 'chanage_password_controller.dart';
 
 class ChangePasswordPagePage extends StatefulWidget {
-  const ChangePasswordPagePage({Key? key}) : super(key: key);
+  const ChangePasswordPagePage({super.key});
 
   @override
   State<ChangePasswordPagePage> createState() => _ChangePasswordPagePageState();
@@ -29,7 +29,7 @@ class _ChangePasswordPagePageState extends State<ChangePasswordPagePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(
+            const SizedBox(
               height: 30,
             ),
             customTextCommon(text: " Old Password", fSize: 16, fWeight: FontWeight.w500, lineHeight: 36),
@@ -50,7 +50,7 @@ class _ChangePasswordPagePageState extends State<ChangePasswordPagePage> {
                 hintText: '',
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             customTextCommon(text: " New Password", fSize: 16, fWeight: FontWeight.w500, lineHeight: 36),
@@ -70,7 +70,7 @@ class _ChangePasswordPagePageState extends State<ChangePasswordPagePage> {
                 hintText: '',
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             customTextCommon(text: " Confirm Password", fSize: 16, fWeight: FontWeight.w500, lineHeight: 36),
@@ -90,7 +90,7 @@ class _ChangePasswordPagePageState extends State<ChangePasswordPagePage> {
                 hintText: '',
               ),
             ),
-            Spacer(),
+            const Spacer(),
             Obx(() => customPrimaryBtn(
                   btnText: "Save",
                   btnFun: () {

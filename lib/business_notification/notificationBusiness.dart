@@ -35,7 +35,7 @@ class _NotificationPageBusinessState extends State<NotificationPageBusiness> {
                     child: CircularProgressIndicator(),
                   )
                 : notificationController.noficactionModel?.notification == null
-                    ? Center(
+                    ? const Center(
                         child: Text("No Notification Found"),
                       )
                     : ListView.builder(
@@ -53,7 +53,7 @@ class _NotificationPageBusinessState extends State<NotificationPageBusiness> {
                                     'reciverIdreciverIdreciverIdreciverIdreciverId${notificationController.noficactionModel?.notification?[index].reciverId}');
                               }
                               if ("${notificationController.noficactionModel?.notification?[index].body}" == "business_comment") {
-                                Get.to(() => BuisnessHomePage());
+                                Get.to(() => const BuisnessHomePage());
                                 print('senderIdsenderIdsenderIdsenderId${notificationController.noficactionModel?.notification?[index].reciverId}');
                                 print(
                                     'reciverIdreciverIdreciverIdreciverIdreciverId${notificationController.noficactionModel?.notification?[index].reciverId}');

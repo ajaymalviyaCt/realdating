@@ -15,7 +15,7 @@ import '../buisness_profile/buisness_profile.dart';
 import '../buisness_profile/business_profile_controller.dart';
 
 class DashBaordScreen extends StatefulWidget {
-  const DashBaordScreen({Key? key}) : super(key: key);
+  const DashBaordScreen({super.key});
 
   @override
   State<DashBaordScreen> createState() => _DashBaordScreenState();
@@ -183,7 +183,7 @@ class _DashBaordScreenState extends State<DashBaordScreen> {
               children: [SvgPicture.asset('assets/icons/home-04.svg'), const Text('       Home')],
             ),
             onTap: () {
-              Get.offAll(() => BuisnessHomePage());
+              Get.offAll(() => const BuisnessHomePage());
             },
           ),
           ListTile(
@@ -237,10 +237,10 @@ class _DashBaordScreenState extends State<DashBaordScreen> {
                             child: CircularProgressIndicator(
                           strokeWidth: 2,
                         )))
-                    : Container(
+                    : SizedBox(
                         height: 400,
                         child: GridView(
-                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, crossAxisSpacing: 10, mainAxisSpacing: 10),
+                          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, crossAxisSpacing: 10, mainAxisSpacing: 10),
                           children: [
                             Card(
                               child: Column(
@@ -253,7 +253,7 @@ class _DashBaordScreenState extends State<DashBaordScreen> {
                                     children: [
                                       15.widthBox,
                                       SvgPicture.asset('assets/icons/heart_red.svg'),
-                                      Spacer(),
+                                      const Spacer(),
                                       const Text(
                                         'Likes           ',
                                         style: CustomTextStyle.blackLocF,
@@ -281,7 +281,7 @@ class _DashBaordScreenState extends State<DashBaordScreen> {
                                     children: [
                                       10.widthBox,
                                       SvgPicture.asset('assets/icons/comment.svg'),
-                                      Spacer(),
+                                      const Spacer(),
                                       const Text(
                                         'Comments     ',
                                         style: CustomTextStyle.blackLocF,
@@ -309,7 +309,7 @@ class _DashBaordScreenState extends State<DashBaordScreen> {
                                     children: [
                                       10.widthBox,
                                       SvgPicture.asset('assets/icons/percentage.svg'),
-                                      Spacer(),
+                                      const Spacer(),
                                       const Text(
                                         'Saved Deal     ',
                                         style: CustomTextStyle.blackLocF,

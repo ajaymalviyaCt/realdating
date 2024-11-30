@@ -126,9 +126,9 @@ class VideoPlayerItem extends StatefulWidget {
   final String videoUrl;
 
   const VideoPlayerItem({
-    Key? key,
+    super.key,
     required this.videoUrl,
-  }) : super(key: key);
+  });
 
   @override
   _VideoPlayerItemState createState() => _VideoPlayerItemState();

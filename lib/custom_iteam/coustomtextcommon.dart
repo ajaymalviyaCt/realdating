@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class customTextC extends StatelessWidget {
@@ -26,7 +25,7 @@ class customTextC extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text(
-      "$text",
+      text,
       style: TextStyle(
         fontFamily: 'Inter',
         fontSize: fSize,

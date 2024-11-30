@@ -28,8 +28,8 @@ import 'mention/getFriendModel.dart';
 
 class UserCreatePost extends StatefulWidget {
   const UserCreatePost({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State<UserCreatePost> createState() => _UserCreatePostState();
@@ -212,7 +212,7 @@ class _UserCreatePostState extends State<UserCreatePost> {
       );
 
       print('Original: ${mediaInfo?.path}');
-      print('Compressed: ${mediaInfo}');
+      print('Compressed: $mediaInfo');
     } catch (e) {
       print('Error compressing video: $e');
     }
@@ -312,8 +312,8 @@ class _UserCreatePostState extends State<UserCreatePost> {
     print("Total_size===>: ${file.lengthSync()}");
     double fileSizeInKB = fileSizeInBytes / 1024; // Convert bytes to kilobytes
     double fileSizeInMB = fileSizeInKB / 1024;
-    print("Total_size===>fileSizeInKB: ${fileSizeInKB}");
-    print("Total_size===>fileSizeInMB ${fileSizeInMB}");
+    print("Total_size===>fileSizeInKB: $fileSizeInKB");
+    print("Total_size===>fileSizeInMB $fileSizeInMB");
     try {
       final info = await VideoCompress.compressVideo(
         file.path,
@@ -329,8 +329,8 @@ class _UserCreatePostState extends State<UserCreatePost> {
       print("Total_size_after===>: ${file.lengthSync()}");
       double fileSizeInKB22 = fileSizeInBytes22 / 1024; // Convert bytes to kilobytes
       double fileSizeInMB = fileSizeInKB22 / 1024;
-      print("Total_size===>fileSizeInKB_after: ${fileSizeInKB}");
-      print("Total_size===>fileSizeInMB_after ${fileSizeInMB}");
+      print("Total_size===>fileSizeInKB_after: $fileSizeInKB");
+      print("Total_size===>fileSizeInMB_after $fileSizeInMB");
 
       uploadFileToServerUHome(finalFile);
       // submitReel(finalFile);
@@ -360,7 +360,7 @@ class _UserCreatePostState extends State<UserCreatePost> {
       request.fields['miniblogs'] = myTextController.text;
     }
 
-    if (myList != null && myList.isNotEmpty) {
+    if (myList.isNotEmpty) {
       print(commaSeparatedString);
       commaSeparatedString = myListId.join(', ');
       print("data====>");
@@ -386,7 +386,7 @@ class _UserCreatePostState extends State<UserCreatePost> {
       print("uploadscuessfully");
 
       // postsC.firstLoad();
-      Get.offAll(() => DashboardPage());
+      Get.offAll(() => const DashboardPage());
       // Navigator.push(
       //   context,
       //   MaterialPageRoute(
@@ -456,7 +456,7 @@ class _UserCreatePostState extends State<UserCreatePost> {
       request.fields['post_type'] = postType();
       print("postType==");
       print(postType());
-      if (myList != null && myList.isNotEmpty) {
+      if (myList.isNotEmpty) {
         request.fields['mentions'] = commaSeparatedString ?? "";
         print("mentionDataHere=====>");
         print(request.fields['mentions']);
@@ -469,7 +469,7 @@ class _UserCreatePostState extends State<UserCreatePost> {
       } else {
         request.fields['mentions']?.isEmpty;
       }
-      if (myTextController.text != null && myTextController.text.isNotEmpty) {
+      if (myTextController.text.isNotEmpty) {
         request.fields['miniblogs'] = myTextController.text;
       }
       print("mention------------");
@@ -493,7 +493,7 @@ class _UserCreatePostState extends State<UserCreatePost> {
             //     builder: (context) => const DashboardPage(),
             //   ),
             // );
-            Get.offAll(() => DashboardPage());
+            Get.offAll(() => const DashboardPage());
             setState(() {
               myListId.clear();
               myList.clear();
@@ -782,7 +782,7 @@ class _UserCreatePostState extends State<UserCreatePost> {
               ),
               myList == null
                   ? const Text("data")
-                  : Container(
+                  : SizedBox(
                       height: 150,
                       child: GridView.builder(
                         itemCount: myList.length,
@@ -821,7 +821,7 @@ class _UserCreatePostState extends State<UserCreatePost> {
         context: context,
         isScrollControlled: true,
         builder: (BuildContext bc) {
-          return Container(
+          return SizedBox(
             height: MediaQuery.of(context).size.height,
             child: GestureDetector(
               onTap: () {
@@ -909,7 +909,7 @@ class _UserCreatePostState extends State<UserCreatePost> {
                       },
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 50,
                   ),
                 ],
@@ -939,6 +939,7 @@ fileTypeName? fileTypeCheckk(String filePath) {
   }
   print("fileType");
   print(mimeType);
+  return null;
 }
 
 enum fileTypeName {

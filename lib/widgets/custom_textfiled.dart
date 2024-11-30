@@ -17,7 +17,7 @@ class CustumTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      style: TextStyle(color: Colors.white),
+      style: const TextStyle(color: Colors.white),
       autovalidateMode: AutovalidateMode.onUserInteraction,
       controller: controller,
       decoration: InputDecoration(
@@ -26,35 +26,35 @@ class CustumTextField extends StatelessWidget {
 
         enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(5),
-            borderSide: BorderSide(
+            borderSide: const BorderSide(
               width: 1,
               color: Colors.white,
             )),
         focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(5),
-            borderSide: BorderSide(
+            borderSide: const BorderSide(
               width: 1,
               color: Colors.white,
             )),
         errorBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(5),
-            borderSide: BorderSide(
+            borderSide: const BorderSide(
               width: 1,
               color: Colors.white,
             )),
         focusedErrorBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(5),
-            borderSide: BorderSide(
+            borderSide: const BorderSide(
               width: 1,
               color: Colors.white,
             )),
 
         hintText: hintText,
-        hintStyle: TextStyle(color: Colors.white),
+        hintStyle: const TextStyle(color: Colors.white),
         //  prefixIcon:Container(child: SvgPicture.asset('$prefixIcon',fit: BoxFit.none,)),
 
         suffixIcon: suffixIconn == null
-            ? SizedBox(
+            ? const SizedBox(
                 height: 1,
                 width: 1,
               )
@@ -168,35 +168,35 @@ class CustumProfileTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      style: TextStyle(color: Colors.black),
+      style: const TextStyle(color: Colors.black),
       // autovalidateMode: AutovalidateMode.onUserInteraction,
       controller: controller,
 
       decoration: InputDecoration(
-        contentPadding: EdgeInsets.all(10),
+        contentPadding: const EdgeInsets.all(10),
         // filled: true,
         // fillColor: Colors.grey.withOpacity(.25),
         enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
-            borderSide: BorderSide(
+            borderSide: const BorderSide(
               width: 1,
               color: Colors.black12,
             )),
         focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
-            borderSide: BorderSide(
+            borderSide: const BorderSide(
               width: 1,
               color: Colors.black12,
             )),
         errorBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
-            borderSide: BorderSide(
+            borderSide: const BorderSide(
               width: 1,
               color: Colors.red,
             )),
         focusedErrorBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
-            borderSide: BorderSide(
+            borderSide: const BorderSide(
               width: 1,
               color: Colors.black,
             )),
@@ -206,7 +206,7 @@ class CustumProfileTextField extends StatelessWidget {
         //  prefixIcon:Container(child: SvgPicture.asset('$prefixIcon',fit: BoxFit.none,)),
 
         suffixIcon: suffixIconn == null
-            ? SizedBox(
+            ? const SizedBox(
                 height: 1,
                 width: 1,
               )
@@ -261,35 +261,35 @@ class editProfileTextField extends StatelessWidget {
     return TextFormField(
       onTap: onTap,
       keyboardType: textInputType ?? TextInputType.text,
-      style: TextStyle(color: Colors.black),
+      style: const TextStyle(color: Colors.black),
       // autovalidateMode: AutovalidateMode.onUserInteraction,
       controller: controller,
 
       decoration: InputDecoration(
-        contentPadding: EdgeInsets.all(10),
+        contentPadding: const EdgeInsets.all(10),
         // filled: true,
         // fillColor: Colors.grey.withOpacity(.25),
         enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
-            borderSide: BorderSide(
+            borderSide: const BorderSide(
               width: 1,
               color: Colors.black12,
             )),
         focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
-            borderSide: BorderSide(
+            borderSide: const BorderSide(
               width: 1,
               color: Colors.black12,
             )),
         errorBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
-            borderSide: BorderSide(
+            borderSide: const BorderSide(
               width: 1,
               color: Colors.red,
             )),
         focusedErrorBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
-            borderSide: BorderSide(
+            borderSide: const BorderSide(
               width: 1,
               color: Colors.black,
             )),
@@ -299,7 +299,7 @@ class editProfileTextField extends StatelessWidget {
         //  prefixIcon:Container(child: SvgPicture.asset('$prefixIcon',fit: BoxFit.none,)),
 
         suffixIcon: suffixIconn == null
-            ? SizedBox(
+            ? const SizedBox(
                 height: 1,
                 width: 1,
               )

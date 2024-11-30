@@ -10,16 +10,16 @@ class otp_verify {
     success = json['success'];
     message = json['message'];
     status = json['status'];
-    data1 = json['data_1'] != null ? new Data1.fromJson(json['data_1']) : null;
+    data1 = json['data_1'] != null ? Data1.fromJson(json['data_1']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['success'] = this.success;
-    data['message'] = this.message;
-    data['status'] = this.status;
-    if (this.data1 != null) {
-      data['data_1'] = this.data1!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['success'] = success;
+    data['message'] = message;
+    data['status'] = status;
+    if (data1 != null) {
+      data['data_1'] = data1!.toJson();
     }
     return data;
   }
@@ -41,11 +41,11 @@ class Data1 {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['method'] = this.method;
-    data['status'] = this.status;
-    data['reason'] = this.reason;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['method'] = method;
+    data['status'] = status;
+    data['reason'] = reason;
     return data;
   }
 }

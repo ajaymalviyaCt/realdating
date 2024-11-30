@@ -88,10 +88,10 @@ class _CameraAppState extends State<CameraApp> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Camera App"),
+        title: const Text("Camera App"),
         actions: [
           IconButton(
-            icon: Icon(Icons.flip_camera_ios),
+            icon: const Icon(Icons.flip_camera_ios),
             onPressed: switchCamera,
           ),
         ],
@@ -122,9 +122,9 @@ class _CameraAppState extends State<CameraApp> {
                 ),
               ],
             )
-          : Center(child: CircularProgressIndicator()),
+          : const Center(child: CircularProgressIndicator()),
     );
   }
 }
 
-void main() => runApp(MaterialApp(home: CameraApp()));
+void main() => runApp(const MaterialApp(home: CameraApp()));

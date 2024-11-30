@@ -66,7 +66,7 @@ class GetClassifiedRequestController extends GetxController {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var userId = prefs.getInt('user_id');
     final response = await BaseClient01()
-        .post(Uri.parse("https://forreal.net:4000/users/new_friend"), {"reciver_id": "$userId", "sender_id": senderId, "invite_id": "$inviteId"});
+        .post(Uri.parse("https://forreal.net:4000/users/new_friend"), {"reciver_id": "$userId", "sender_id": senderId, "invite_id": inviteId});
 
     isLoadingApceted.value = false;
     GetClassifiedRequestMethod(false);

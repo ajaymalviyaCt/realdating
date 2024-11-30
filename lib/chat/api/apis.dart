@@ -199,7 +199,7 @@ class APIs {
     log('Extension: $ext');
 
     //storage file ref with path
-    final ref = storage.ref().child('profile_pictures/${user_uid}.$ext');
+    final ref = storage.ref().child('profile_pictures/$user_uid.$ext');
 
     //uploading image
     await ref.putFile(file, SettableMetadata(contentType: 'image/$ext')).then((p0) {
@@ -230,7 +230,7 @@ class APIs {
   // chats (collection) --> conversation_id (doc) --> messages (collection) --> message (doc)
 
   // useful for getting conversation id
-  static String getConversationID(String id) => user_uid.hashCode <= id.hashCode ? '${user_uid}_$id' : '${id}_${user_uid}';
+  static String getConversationID(String id) => user_uid.hashCode <= id.hashCode ? '${user_uid}_$id' : '${id}_$user_uid';
 
   // for getting all messages of a specific conversation from firestore database
   static Stream<QuerySnapshot<Map<String, dynamic>>> getAllMessages(ChatUser user) {
@@ -248,8 +248,8 @@ class APIs {
     final ref = firestore.collection('chats/${getConversationID(chatUser.id)}/messages/');
     await ref.doc(time).set(message.toJson()).then((value) async {
       final response = await BaseClient01().post(
-          Uri.parse("https://forreal.net:4000/send_notification"), {"sender_id": "$user_uid", "reciver_id": "${chatUser.id}", 'notification_type': 'chat'});
-      print("${response.toString()}");
+          Uri.parse("https://forreal.net:4000/send_notification"), {"sender_id": "$user_uid", "reciver_id": chatUser.id, 'notification_type': 'chat'});
+      print(response.toString());
     }
 
         // sendPushNotification(chatUser, type == Type.text ? msg : 'image'

@@ -23,7 +23,7 @@ import '../../../../custom_iteam/customprofile_textfiiled.dart';
 import '../../../../function/function_class.dart';
 
 class CreateEvent extends StatefulWidget {
-  const CreateEvent({Key? key}) : super(key: key);
+  const CreateEvent({super.key});
 
   @override
   State<CreateEvent> createState() => _CreateEventState();
@@ -56,8 +56,7 @@ class _CreateEventState extends State<CreateEvent> {
   final ImagePicker _picker = ImagePicker();
   File? _image;
 
-  Future? _future;
-  String? _validatemobile = null;
+
 
   _imgFromGallery() async {
     final XFile? image = (await _picker.pickImage(source: ImageSource.gallery, imageQuality: 20));
@@ -74,14 +73,12 @@ class _CreateEventState extends State<CreateEvent> {
       maxWidth: 600,
       maxHeight: 600,
     );
-    if (image != null) {
-      setState(() {
-        _image = File(image.path);
-        print(_image.toString());
-        testCompressFile(_image!);
-      });
+    setState(() {
+      _image = File(image.path);
+      print(_image.toString());
+      testCompressFile(_image!);
+    });
     }
-  }
 
   _imgFromCamera() async {
     final XFile? photo = await _picker.pickImage(source: ImageSource.camera, imageQuality: 85);
@@ -98,14 +95,12 @@ class _CreateEventState extends State<CreateEvent> {
       maxWidth: 600,
       maxHeight: 600,
     );
-    if (photo != null) {
-      setState(() {
-        _image = File(photo.path);
-        print(_image.toString());
-        testCompressFile(_image!);
-      });
+    setState(() {
+      _image = File(photo.path);
+      print(_image.toString());
+      testCompressFile(_image!);
+    });
     }
-  }
 
   void _showPicker(context) {
     showModalBottomSheet(
@@ -265,7 +260,7 @@ class _CreateEventState extends State<CreateEvent> {
           //Rahul
           //  _willPopCallback();
           if (response.statusCode == 200) {
-            Get.to(() => DashboardPage());
+            Get.to(() => const DashboardPage());
             Fluttertoast.showToast(
                 msg: "Events Created successfully",
                 toastLength: Toast.LENGTH_SHORT,
@@ -493,7 +488,7 @@ class _CreateEventState extends State<CreateEvent> {
                         child: TextFormField(
                           validator: validTimeTitle,
                           controller: txt_selectTime,
-                          style: TextStyle(color: Colors.black),
+                          style: const TextStyle(color: Colors.black),
                           //editing controller of this TextField
                           decoration: InputDecoration(
                               border: OutlineInputBorder(
@@ -504,7 +499,7 @@ class _CreateEventState extends State<CreateEvent> {
                                 borderRadius: BorderRadius.circular(10.0),
                               ),
                               focusColor: Colors.black,
-                              suffixIcon: Icon(
+                              suffixIcon: const Icon(
                                 Icons.timer,
                                 color: Colors.black,
                               ),
@@ -559,7 +554,7 @@ class _CreateEventState extends State<CreateEvent> {
                         decoration: InputDecoration(
                           //i
                           // con of text field
-                          suffixIcon: Icon(
+                          suffixIcon: const Icon(
                             Icons.calendar_month_outlined,
                             color: Colors.black,
                           ),
@@ -613,7 +608,7 @@ class _CreateEventState extends State<CreateEvent> {
                         decoration: InputDecoration(
                           //i
                           // con of text field
-                          suffixIcon: Icon(
+                          suffixIcon: const Icon(
                             Icons.calendar_month_outlined,
                             color: Colors.black,
                           ),

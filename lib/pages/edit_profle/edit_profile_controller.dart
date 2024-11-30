@@ -47,10 +47,6 @@ class EditProfileController extends GetxController {
     print('address is here-----${profileController.profileModel?.userInfo.address}');
   }
 
-  @override
-  void onReady() {
-    super.onReady();
-  }
 
   var dio = Dio();
 

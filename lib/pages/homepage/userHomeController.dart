@@ -219,7 +219,7 @@ class UserHomeController extends GetxController implements GetxService {
       final data = GetAllFriendModel.fromJson(response);
       userFriend = data.myFriends!;
       users = data.myFriends!;
-      print('my friends list is here------${response}');
+      print('my friends list is here------$response');
     } else {
       Fluttertoast.showToast(
         msg: msg.toString(),

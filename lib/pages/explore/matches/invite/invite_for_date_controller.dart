@@ -33,7 +33,7 @@ class InvaiteForDatesController extends GetxController {
       'location': location,
     });
 
-    sendNotification("${id}", "invite_date");
+    sendNotification(id, "invite_date");
     isLoading.value = false;
     print(response.toString());
     var satus = "${response["status"]}";

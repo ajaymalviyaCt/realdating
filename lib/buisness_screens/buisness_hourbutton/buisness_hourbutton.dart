@@ -6,7 +6,7 @@ import '../../widgets/custom_text_styles.dart';
 import '../buisness_profile/business_profile_controller.dart';
 
 class BusinessButton extends StatefulWidget {
-  const BusinessButton({Key? key}) : super(key: key);
+  const BusinessButton({super.key});
 
   @override
   State<BusinessButton> createState() => _BusinessButtonState();
@@ -83,15 +83,15 @@ class _BusinessButtonState extends State<BusinessButton> {
                     activeTrackColor: Appcolor.Redpink,
 
                     activeColor: Colors.white,
-                    trackOutlineColor: isSwitched != true ? MaterialStateProperty.all(Appcolor.ggrry) : MaterialStateProperty.all(Appcolor.Redpink),
+                    trackOutlineColor: isSwitched != true ? WidgetStateProperty.all(Appcolor.ggrry) : WidgetStateProperty.all(Appcolor.Redpink),
 // trackColor:MaterialStateProperty.all(Appcolor.Redpink) ,
                     inactiveThumbColor: Colors.grey,
-                    inactiveTrackColor: Color(0xffAAAAAA).withOpacity(0.2),
+                    inactiveTrackColor: const Color(0xffAAAAAA).withOpacity(0.2),
                   ),
                 ),
               ],
             ),
-            SizedBox(height: 12),
+            const SizedBox(height: 12),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
@@ -126,15 +126,15 @@ class _BusinessButtonState extends State<BusinessButton> {
                     activeTrackColor: Appcolor.Redpink,
 
                     activeColor: Colors.white,
-                    trackOutlineColor: isSwitched != true ? MaterialStateProperty.all(Appcolor.ggrry) : MaterialStateProperty.all(Appcolor.Redpink),
+                    trackOutlineColor: isSwitched != true ? WidgetStateProperty.all(Appcolor.ggrry) : WidgetStateProperty.all(Appcolor.Redpink),
 // trackColor:MaterialStateProperty.all(Appcolor.Redpink) ,
                     inactiveThumbColor: Colors.grey,
-                    inactiveTrackColor: Color(0xffAAAAAA).withOpacity(0.2),
+                    inactiveTrackColor: const Color(0xffAAAAAA).withOpacity(0.2),
                   ),
                 ),
               ],
             ),
-            SizedBox(height: 12),
+            const SizedBox(height: 12),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
@@ -169,15 +169,15 @@ class _BusinessButtonState extends State<BusinessButton> {
                     activeTrackColor: Appcolor.Redpink,
 
                     activeColor: Colors.white,
-                    trackOutlineColor: isSwitched != true ? MaterialStateProperty.all(Appcolor.ggrry) : MaterialStateProperty.all(Appcolor.Redpink),
+                    trackOutlineColor: isSwitched != true ? WidgetStateProperty.all(Appcolor.ggrry) : WidgetStateProperty.all(Appcolor.Redpink),
 // trackColor:MaterialStateProperty.all(Appcolor.Redpink) ,
                     inactiveThumbColor: Colors.grey,
-                    inactiveTrackColor: Color(0xffAAAAAA).withOpacity(0.2),
+                    inactiveTrackColor: const Color(0xffAAAAAA).withOpacity(0.2),
                   ),
                 ),
               ],
             ),
-            SizedBox(height: 12),
+            const SizedBox(height: 12),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
@@ -212,15 +212,15 @@ class _BusinessButtonState extends State<BusinessButton> {
                     activeTrackColor: Appcolor.Redpink,
 
                     activeColor: Colors.white,
-                    trackOutlineColor: isSwitched != true ? MaterialStateProperty.all(Appcolor.ggrry) : MaterialStateProperty.all(Appcolor.Redpink),
+                    trackOutlineColor: isSwitched != true ? WidgetStateProperty.all(Appcolor.ggrry) : WidgetStateProperty.all(Appcolor.Redpink),
 // trackColor:MaterialStateProperty.all(Appcolor.Redpink) ,
                     inactiveThumbColor: Colors.grey,
-                    inactiveTrackColor: Color(0xffAAAAAA).withOpacity(0.2),
+                    inactiveTrackColor: const Color(0xffAAAAAA).withOpacity(0.2),
                   ),
                 ),
               ],
             ),
-            SizedBox(height: 12),
+            const SizedBox(height: 12),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
@@ -255,16 +255,16 @@ class _BusinessButtonState extends State<BusinessButton> {
                     activeTrackColor: Appcolor.Redpink,
 
                     activeColor: Colors.white,
-                    trackOutlineColor: isSwitched != true ? MaterialStateProperty.all(Appcolor.ggrry) : MaterialStateProperty.all(Appcolor.Redpink),
+                    trackOutlineColor: isSwitched != true ? WidgetStateProperty.all(Appcolor.ggrry) : WidgetStateProperty.all(Appcolor.Redpink),
 // trackColor:MaterialStateProperty.all(Appcolor.Redpink) ,
                     inactiveThumbColor: Colors.grey,
-                    inactiveTrackColor: Color(0xffAAAAAA).withOpacity(0.2),
+                    inactiveTrackColor: const Color(0xffAAAAAA).withOpacity(0.2),
                     // trackColor: MaterialStateProperty.all(Appcolor.Redpink),
                   ),
                 ),
               ],
             ),
-            SizedBox(height: 12),
+            const SizedBox(height: 12),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
@@ -299,15 +299,15 @@ class _BusinessButtonState extends State<BusinessButton> {
                     activeTrackColor: Appcolor.Redpink,
 
                     activeColor: Colors.white,
-                    trackOutlineColor: isSwitched != true ? MaterialStateProperty.all(Appcolor.ggrry) : MaterialStateProperty.all(Appcolor.Redpink),
+                    trackOutlineColor: isSwitched != true ? WidgetStateProperty.all(Appcolor.ggrry) : WidgetStateProperty.all(Appcolor.Redpink),
 // trackColor:MaterialStateProperty.all(Appcolor.Redpink) ,
                     inactiveThumbColor: Colors.grey,
-                    inactiveTrackColor: Color(0xffAAAAAA).withOpacity(0.2),
+                    inactiveTrackColor: const Color(0xffAAAAAA).withOpacity(0.2),
                   ),
                 ),
               ],
             ),
-            SizedBox(height: 12),
+            const SizedBox(height: 12),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
@@ -342,10 +342,10 @@ class _BusinessButtonState extends State<BusinessButton> {
                     activeTrackColor: Appcolor.Redpink,
 
                     activeColor: Colors.white,
-                    trackOutlineColor: isSwitched != true ? MaterialStateProperty.all(Appcolor.ggrry) : MaterialStateProperty.all(Appcolor.Redpink),
+                    trackOutlineColor: isSwitched != true ? WidgetStateProperty.all(Appcolor.ggrry) : WidgetStateProperty.all(Appcolor.Redpink),
 // trackColor:MaterialStateProperty.all(Appcolor.Redpink) ,
                     inactiveThumbColor: Colors.grey,
-                    inactiveTrackColor: Color(0xffAAAAAA).withOpacity(0.2),
+                    inactiveTrackColor: const Color(0xffAAAAAA).withOpacity(0.2),
                   ),
                 ),
               ],

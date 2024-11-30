@@ -56,7 +56,7 @@ class HomePageUserController extends GetxController {
         posts = HomePagetModel.fromJson(response.data).posts;
         var firstLoad = HomePagetModel(posts: posts);
         homePagetModelNOTUSE(firstLoad);
-        print("firstLoad${homePagetModelNOTUSE.value.posts?.length}");
+        print("firstLoad${homePagetModelNOTUSE.value.posts.length}");
         homePagetModelNOTUSE.refresh();
       } else {
         print(response.statusMessage);
@@ -80,7 +80,7 @@ class HomePageUserController extends GetxController {
       try {
         SharedPreferences prefs = await SharedPreferences.getInstance();
         var userId = prefs.get('user_id');
-        var data = {'curr_user_id': '${userId}', 'page': page.value, 'pageSize': limit};
+        var data = {'curr_user_id': '$userId', 'page': page.value, 'pageSize': limit};
         var dio = Dio();
         var response = await dio.request(
           'https://forreal.net:4000/Get_all_post',
@@ -96,7 +96,7 @@ class HomePageUserController extends GetxController {
           print(response.statusMessage);
         }
 
-        final List<Post> fetchedPosts = HomePagetModel.fromJson(response.data).posts!;
+        final List<Post> fetchedPosts = HomePagetModel.fromJson(response.data).posts;
 
         if (fetchedPosts.isNotEmpty) {
           //setState
@@ -104,7 +104,7 @@ class HomePageUserController extends GetxController {
           posts.addAll(fetchedPosts);
           var loadMore = HomePagetModel(posts: posts);
           homePagetModelNOTUSE(loadMore);
-          print("loadMore${homePagetModelNOTUSE.value.posts?.length}");
+          print("loadMore${homePagetModelNOTUSE.value.posts.length}");
 
           homePagetModelNOTUSE.refresh();
 

@@ -9,10 +9,6 @@ import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class BusinessProfileController extends GetxController {
-  @override
-  void onInit() {
-    super.onInit();
-  }
 
   @override
   void onReady() {
@@ -241,7 +237,7 @@ class BusinessProfileController extends GetxController {
       );
 
       if (response.statusCode == 200) {
-        print('this is param-------------${data}');
+        print('this is param-------------$data');
         Fluttertoast.showToast(
           msg: "${response.data["message"]}.",
           toastLength: Toast.LENGTH_LONG,

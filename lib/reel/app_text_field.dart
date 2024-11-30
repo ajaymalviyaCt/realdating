@@ -12,8 +12,7 @@ class AppTextField extends StatelessWidget {
   final Function(bool)? focusStatusChangeHandler;
 
   const AppTextField(
-      {Key? key, required this.controller, this.hintText, this.label, this.maxLines, this.onChanged, this.icon, this.maxLength, this.focusStatusChangeHandler})
-      : super(key: key);
+      {super.key, required this.controller, this.hintText, this.label, this.maxLines, this.onChanged, this.icon, this.maxLength, this.focusStatusChangeHandler});
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +37,7 @@ class AppPasswordTextField extends StatelessWidget {
   final ThemeIcon? icon;
   final ValueChanged<String> onChanged;
 
-  const AppPasswordTextField({Key? key, required this.controller, required this.onChanged, this.hintText, this.icon}) : super(key: key);
+  const AppPasswordTextField({super.key, required this.controller, required this.onChanged, this.hintText, this.icon});
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +64,7 @@ class AppMobileTextField extends StatelessWidget {
   final ValueChanged<String>? onChanged;
 
   const AppMobileTextField({
-    Key? key,
+    super.key,
     required this.controller,
     this.hintText,
     this.label,
@@ -73,7 +72,7 @@ class AppMobileTextField extends StatelessWidget {
     this.countryCodeText,
     this.countryCodeValueChanged,
     this.onChanged,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -103,14 +102,14 @@ class AppDateTextField extends StatelessWidget {
   final ValueChanged<TimeOfDay>? onChanged;
 
   const AppDateTextField({
-    Key? key,
+    super.key,
     this.defaultText,
     this.hintText,
     this.label,
     this.icon,
     this.countryCodeText,
     this.onChanged,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -139,7 +138,7 @@ class AppDateTimeTextField extends StatelessWidget {
   final DateTime? maxDate;
 
   const AppDateTimeTextField({
-    Key? key,
+    super.key,
     required this.controller,
     this.hintText,
     this.label,
@@ -148,7 +147,7 @@ class AppDateTimeTextField extends StatelessWidget {
     this.onChanged,
     this.minDate,
     this.maxDate,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -178,7 +177,7 @@ class AppPriceTextField extends StatelessWidget {
   final ValueChanged<String>? onChanged;
 
   const AppPriceTextField({
-    Key? key,
+    super.key,
     required this.controller,
     this.hintText,
     this.label,
@@ -186,7 +185,7 @@ class AppPriceTextField extends StatelessWidget {
     this.currency,
     this.currencyValueChanged,
     this.onChanged,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -215,7 +214,7 @@ class AppDropdownField extends StatelessWidget {
   final ValueChanged<String> onChanged;
   final List<String> options;
 
-  const AppDropdownField({Key? key, this.hintText, this.label, this.icon, this.value, required this.onChanged, required this.options}) : super(key: key);
+  const AppDropdownField({super.key, this.hintText, this.label, this.icon, this.value, required this.onChanged, required this.options});
 
   @override
   Widget build(BuildContext context) {

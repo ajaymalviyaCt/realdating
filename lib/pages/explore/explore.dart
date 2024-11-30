@@ -89,7 +89,7 @@ class _ExplorePageState extends State<ExplorePage> {
           padding: const EdgeInsets.only(left: 20.0),
           children: [
             const SizedBox(height: 20),
-            MatchesWidget(),
+            const MatchesWidget(),
             32.ah.heightBox,
             TrendingWidget(),
             32.ah.heightBox,
@@ -103,7 +103,7 @@ class _ExplorePageState extends State<ExplorePage> {
 }
 
 class MatchesWidget extends StatefulWidget {
-  MatchesWidget({super.key});
+  const MatchesWidget({super.key});
 
   @override
   State<MatchesWidget> createState() => _MatchesWidgetState();
@@ -255,7 +255,7 @@ class TrendingWidget extends StatelessWidget {
               InkWell(
                 onTap: () {
                   Get.to(
-                    () => TrendingPage(),
+                    () => const TrendingPage(),
                     // arguments:
                     // index, // Replace with your index value
                   );
@@ -375,7 +375,7 @@ class EventsWidget extends StatelessWidget {
               InkWell(
                 onTap: () {
                   Get.to(
-                    () => EventsPage(),
+                    () => const EventsPage(),
                     // arguments:
                     // index, // Replace with your index value
                   );
@@ -401,7 +401,7 @@ class EventsWidget extends StatelessWidget {
                     strokeWidth: 2,
                   ),
                 )
-              : eventsController.matchessModel?.getEvents.length != 0
+              : (eventsController.matchessModel?.getEvents??[]).isNotEmpty
                   ? SizedBox(
                       height: 324,
                       child: ListView.builder(
@@ -511,7 +511,7 @@ class EventsWidget extends StatelessWidget {
                           );
                         },
                       ))
-                  : Container(height: 120, child: Center(child: Text("No Events Found !!"))),
+                  : const SizedBox(height: 120, child: Center(child: Text("No Events Found !!"))),
         )
       ],
     );

@@ -1,12 +1,9 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:typed_data';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:realdating/reel/common_import.dart';
 import 'package:realdating/reel/enum_linking.dart';
-import 'package:realdating/reel/localization_strings.dart';
 import 'package:realdating/reel/shared_prefs.dart';
 import 'network_constant.dart';
 export 'network_constant.dart';
@@ -64,21 +61,21 @@ class ApiWrapper {
   }
 
   Future<ApiResponse?> getApi({required String url}) async {
-    print("only${url}");
+    print("only$url");
     try {
-      String my_string = url;
-      String last_one = my_string[20];
-      String last_two = my_string[21];
-      print(last_one + last_two);
-      url = "get_audio/${last_one + last_two}";
+      String myString = url;
+      String lastOne = myString[20];
+      String lastTwo = myString[21];
+      print(lastOne + lastTwo);
+      url = "get_audio/${lastOne + lastTwo}";
     } catch (e) {
       url = url;
     }
 
     String? authKey = await SharedPrefs().getAuthorizationKey();
     String urlString = '${NetworkConstantsUtil.baseUrl}$url';
-    print("fullurl ${urlString}");
-    return http.get(Uri.parse(urlString), headers: {"Authorization": "Bearer ${authKey}"}).then((http.Response response) async {
+    print("fullurl $urlString");
+    return http.get(Uri.parse(urlString), headers: {"Authorization": "Bearer $authKey"}).then((http.Response response) async {
       dynamic data = _decoder.convert(response.body);
       EasyLoading.dismiss();
       log(data.toString());

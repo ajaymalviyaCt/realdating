@@ -12,7 +12,7 @@ class OtpPage extends StatefulWidget {
   String number;
   String otp;
 
-  OtpPage({Key? key, required this.number, required this.otp}) : super(key: key);
+  OtpPage({super.key, required this.number, required this.otp});
 
   @override
   State<OtpPage> createState() => _OtpPageState();
@@ -110,7 +110,7 @@ class _OtpPageState extends State<OtpPage> {
 
   @override
   void initState() {
-    print("${widget.number}");
+    print(widget.number);
     print("otp geeta user signup${widget.otp}");
     // TODO: implement initState
     super.initState();
@@ -122,7 +122,7 @@ class _OtpPageState extends State<OtpPage> {
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         leading: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 8, vertical: 5),
+          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
           child: InkWell(
               onTap: () {
                 Get.back();
@@ -136,7 +136,7 @@ class _OtpPageState extends State<OtpPage> {
         // key: _formKey,
         child: Center(
           child: Padding(
-            padding: EdgeInsets.symmetric(vertical: 50),
+            padding: const EdgeInsets.symmetric(vertical: 50),
             child: Column(
               children: [
                 customTextCommon(text: "Type the verification code", fSize: 18, fWeight: FontWeight.w500, lineHeight: 20),
@@ -144,10 +144,10 @@ class _OtpPageState extends State<OtpPage> {
                 SizedBox(height: 140.h),
                 Text(
                   "OTP : ${widget.otp}",
-                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+                  style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
                 ),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 30, vertical: 30),
+                  padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 30),
                   child: PinCodeTextField(
                     keyboardType: TextInputType.number,
                     enablePinAutofill: true,
@@ -156,7 +156,7 @@ class _OtpPageState extends State<OtpPage> {
                     onChanged: (value) {
                       setState(() {
                         otp = value;
-                        print("$value");
+                        print(value);
                       });
                     },
                     pinTheme: PinTheme(
@@ -172,17 +172,17 @@ class _OtpPageState extends State<OtpPage> {
                     ),
                     animationType: AnimationType.fade,
                     cursorColor: Colors.black,
-                    animationDuration: Duration(milliseconds: 300),
+                    animationDuration: const Duration(milliseconds: 300),
                     controller: otpController.Codecontroller,
                   ),
                 ),
 
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 InkWell(
                     onTap: () {
                       // otpController.otpverify("${widget.number}");
                     },
-                    child: Text(
+                    child: const Text(
                       'Send again',
                       style: CustomTextStyle.ote,
                     )),
@@ -191,14 +191,14 @@ class _OtpPageState extends State<OtpPage> {
                 //   print("sdfghfd");
                 //   print(Codecontroller.value.text);
                 // }, child: Text("sumbit")),
-                Spacer(),
+                const Spacer(),
                 customPrimaryBtn(
                     btnText: "Submit",
                     btnFun: () {
                       print(otpController.Codecontroller.value.text);
-                      otpController.otpverify("${widget.number}");
+                      otpController.otpverify(widget.number);
                     }),
-                SizedBox(
+                const SizedBox(
                   height: 30,
                 )
               ],

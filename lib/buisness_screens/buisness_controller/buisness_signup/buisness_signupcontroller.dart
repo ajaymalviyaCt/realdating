@@ -48,10 +48,6 @@ class BuisnessSignUpController extends GetxController {
     select.value = value;
   }
 
-  @override
-  void onReady() {
-    super.onReady();
-  }
 
   Position? currentPosition;
   String? currentAddress;
@@ -59,7 +55,6 @@ class BuisnessSignUpController extends GetxController {
   getCurrentLocation() async {
     loadAddress(true);
     print("entry===");
-    ;
     addressController.clear();
     LocationPermission permission;
     permission = await Geolocator.requestPermission();
@@ -86,7 +81,7 @@ class BuisnessSignUpController extends GetxController {
     try {
       List<Placemark> placemarks = await placemarkFromCoordinates(latitude, longitude);
 
-      if (placemarks != null && placemarks.isNotEmpty) {
+      if (placemarks.isNotEmpty) {
         Placemark firstPlacemark = placemarks[0];
         currentAddress = "${firstPlacemark.street} ${firstPlacemark.subLocality}, ${firstPlacemark.locality},${firstPlacemark.country}";
         print("Address: $currentAddress");
@@ -110,7 +105,7 @@ class BuisnessSignUpController extends GetxController {
       // loadAddress=true.obs;
       List<Location> locations = await locationFromAddress(address);
 
-      if (locations != null && locations.isNotEmpty) {
+      if (locations.isNotEmpty) {
         Location firstLocation = locations[0];
         manualLatitude = firstLocation.latitude;
         manualLongitude = firstLocation.longitude;
@@ -134,15 +129,15 @@ class BuisnessSignUpController extends GetxController {
     final response = await BaseClient01().post(
       Appurls.buisnesssignUp,
       {
-        'business_name': '${buisnessnameController.value.text}',
-        'phone_number': '${bphonenoController.value.text}',
-        'email': '${bemailController.value.text}',
-        'password': '${bpasswordcontroller.value.text}',
-        'city': '${cityValue ?? "not found"}',
-        'state': '${stateValue}',
-        'country': "${countryValue}",
-        'category': '${categoryController.value.text}',
-        'address': '${addressController.text}',
+        'business_name': buisnessnameController.value.text,
+        'phone_number': bphonenoController.value.text,
+        'email': bemailController.value.text,
+        'password': bpasswordcontroller.value.text,
+        'city': cityValue ?? "not found",
+        'state': stateValue,
+        'country': "$countryValue",
+        'category': categoryController.value.text,
+        'address': addressController.text,
         'latitude': '${lat ?? ""}',
         'longitude': '${long ?? ""}',
       },
@@ -154,7 +149,7 @@ class BuisnessSignUpController extends GetxController {
     var msg = response["message"];
 
     if (success) {
-      Get.off(() => BuisnessLogin());
+      Get.off(() => const BuisnessLogin());
       buisnessnameController.clear();
       bphonenoController.clear();
       bemailController.clear();

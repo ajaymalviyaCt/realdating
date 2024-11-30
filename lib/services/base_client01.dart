@@ -43,8 +43,8 @@ class BaseClient01 {
     var userId = prefs.get('user_id');
     print("user_id : = $userId");
     print("token : = $token");
-    print("api call: " + "${api.toString()}");
-    print("body: " + "${body}");
+
+    print("body: " "$body");
 
     try {
       var response = await http.post(api, body: body, headers: {

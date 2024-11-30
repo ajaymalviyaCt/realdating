@@ -24,9 +24,9 @@ class MatchessController extends GetxController {
     isLoadig(true);
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var token = prefs.get('token');
-    var user_id = prefs.getInt('user_id');
+    var userId = prefs.getInt('user_id');
     var headers = {'Content-Type': 'application/x-www-form-urlencoded', 'Authorization': 'Bearer $token'};
-    var data = {'user_id': user_id};
+    var data = {'user_id': userId};
     var dio = Dio();
     var response = await dio.request(
       'https://forreal.net:4000/users/get_my_friend',

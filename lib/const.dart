@@ -1,9 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
-import 'package:flutter/rendering.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 // String BASE_URL='http://44.197.223.72:4000/';
@@ -201,5 +198,5 @@ boxShadowcontainer() {
 }
 
 mediaText(context) {
-  return MediaQuery.of(context).copyWith(textScaleFactor: 0.9);
+  return MediaQuery.of(context).copyWith(textScaler: TextScaler.linear(0.9));
 }

@@ -9,7 +9,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../../consts/app_urls.dart';
 
 class Review extends StatefulWidget {
-  const Review({Key? key}) : super(key: key);
+  const Review({super.key});
 
   @override
   State<Review> createState() => _ReviewState();
@@ -19,7 +19,7 @@ class _ReviewState extends State<Review> {
   // ConnectivityResult _connectionStatus = ConnectivityResult.none;
   // final Connectivity _connectivity = Connectivity();
   // StreamSubscription<ConnectivityResult>? _connectivitySubscription;
-  var comment, ratingcount = null;
+  var comment, ratingcount;
 
   TextEditingController txt_comment = TextEditingController();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
@@ -32,8 +32,8 @@ class _ReviewState extends State<Review> {
 
   getUserId() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? user_id = prefs.getString('user_id');
-    print('user id here1----- $user_id');
+    String? userId = prefs.getString('user_id');
+    print('user id here1----- $userId');
     print('user id here-2---- $user_uid');
   }
 
@@ -64,7 +64,7 @@ class _ReviewState extends State<Review> {
 
   void uploadFileToServerInfluencer() async {
     final response =
-        await BaseClient01().post(Appurls.review, {"review": txt_comment.text.toString(), "rating_star": ratingcount.toString(), "user_id": "${user_uid}"});
+        await BaseClient01().post(Appurls.review, {"review": txt_comment.text.toString(), "rating_star": ratingcount.toString(), "user_id": "$user_uid"});
     // isLoadig(false);
     bool status = response["success"];
     if (status == true) {

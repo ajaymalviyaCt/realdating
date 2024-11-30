@@ -12,7 +12,7 @@ import '../../sign_up_page/signup_controller.dart';
 import 'login_controller.dart';
 
 class LoginScreenPage extends StatefulWidget {
-  const LoginScreenPage({Key? key}) : super(key: key);
+  const LoginScreenPage({super.key});
 
   @override
   State<LoginScreenPage> createState() => _LoginScreenPageState();
@@ -155,7 +155,7 @@ class _LoginScreenPageState extends State<LoginScreenPage> {
                           Navigator.push(context, MaterialPageRoute(builder: (context) => SignUpPage()));
                         },
                         child: Container(
-                          padding: EdgeInsets.only(left: 5, right: 5),
+                          padding: const EdgeInsets.only(left: 5, right: 5),
                           height: 50,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(5), color: Colors.transparent, border: Border.all(color: Colors.white, width: 1)),

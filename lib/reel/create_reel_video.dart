@@ -8,7 +8,7 @@ import 'common_import.dart';
 import 'create_reel_controller.dart';
 
 class CreateReelScreen extends StatefulWidget {
-  const CreateReelScreen({Key? key}) : super(key: key);
+  const CreateReelScreen({super.key});
 
   @override
   State<CreateReelScreen> createState() => _CreateReelScreenState();
@@ -194,7 +194,7 @@ class _CreateReelScreenState extends State<CreateReelScreen> with TickerProvider
                       if (_createReelController.selectedAudio.value != null) Icon(Icons.music_note_outlined, color: AppColorConstants.mainTextColor),
                       Text(
                         _createReelController.selectedAudio.value?.name ?? selectMusicString.tr,
-                        style: TextStyle(fontWeight: FontWeight.bold),
+                        style: const TextStyle(fontWeight: FontWeight.bold),
                       ),
                     ],
                   ),

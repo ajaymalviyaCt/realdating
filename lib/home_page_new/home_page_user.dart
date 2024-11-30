@@ -23,7 +23,7 @@ import 'home_page_new_controller.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class HomePageUser extends StatefulWidget {
-  const HomePageUser({Key? key}) : super(key: key);
+  const HomePageUser({super.key});
 
   @override
   State<HomePageUser> createState() => _HomePageState();
@@ -115,7 +115,7 @@ class _HomePageState extends State<HomePageUser> {
                                                             children: [
                                                               Stack(children: [
                                                                 Padding(
-                                                                  padding: EdgeInsets.only(top: 4),
+                                                                  padding: const EdgeInsets.only(top: 4),
                                                                   child: Container(
                                                                     decoration: BoxDecoration(
                                                                         border: Border.all(
@@ -146,8 +146,8 @@ class _HomePageState extends State<HomePageUser> {
                                                                   ),
                                                                 ),
                                                                 Padding(
-                                                                  padding: EdgeInsets.only(left: 25),
-                                                                  child: Container(
+                                                                  padding: const EdgeInsets.only(left: 25),
+                                                                  child: SizedBox(
                                                                     height: 20,
                                                                     width: 20,
                                                                     child: SvgPicture.asset("assets/icons/aa.svg"),
@@ -180,7 +180,7 @@ class _HomePageState extends State<HomePageUser> {
                                                                   ),
                                                                 ],
                                                               ),
-                                                              Spacer(),
+                                                              const Spacer(),
 
                                                               if ("${homePageNewController.userId}" ==
                                                                   "${postsC.homePageModel.posts[index].postOwnerInfo![0].id}")
@@ -254,7 +254,7 @@ class _HomePageState extends State<HomePageUser> {
                                                                   ),
                                                                 ],
                                                               ),
-                                                              Spacer(),
+                                                              const Spacer(),
 
                                                               if ("${homePageNewController.userId}" ==
                                                                   "${postsC.homePageModel.posts[index].postOwnerInfo![0].id}")
@@ -283,7 +283,7 @@ class _HomePageState extends State<HomePageUser> {
                                                               letterSpacing: -0.30,
                                                             ),
                                                           )
-                                                        : SizedBox(),
+                                                        : const SizedBox(),
                                                     15.ah.heightBox,
                                                     Container(
                                                       decoration: BoxDecoration(
@@ -443,7 +443,7 @@ class _HomePageState extends State<HomePageUser> {
                                                             onTap: () {
                                                               Get.to(() => const Monthly());
                                                             },
-                                                            child: Container(
+                                                            child: SizedBox(
                                                               height: 70,
                                                               child: SvgPicture.asset("assets/images/pro_icon.svg"),
                                                             ),
@@ -688,7 +688,7 @@ class _HomePageState extends State<HomePageUser> {
                                                             children: [
                                                               Stack(children: [
                                                                 Padding(
-                                                                  padding: EdgeInsets.only(top: 4),
+                                                                  padding: const EdgeInsets.only(top: 4),
                                                                   child: Container(
                                                                     decoration: BoxDecoration(
                                                                         border: Border.all(
@@ -719,8 +719,8 @@ class _HomePageState extends State<HomePageUser> {
                                                                   ),
                                                                 ),
                                                                 Padding(
-                                                                  padding: EdgeInsets.only(left: 25),
-                                                                  child: Container(
+                                                                  padding: const EdgeInsets.only(left: 25),
+                                                                  child: SizedBox(
                                                                     height: 20,
                                                                     width: 20,
                                                                     child: SvgPicture.asset("assets/icons/aa.svg"),
@@ -753,7 +753,7 @@ class _HomePageState extends State<HomePageUser> {
                                                                   ),
                                                                 ],
                                                               ),
-                                                              Spacer(),
+                                                              const Spacer(),
 
                                                               if ("${homePageNewController.userId}" ==
                                                                   "${postsC.homePageModel.posts[index].postOwnerInfo![0].id}")
@@ -827,7 +827,7 @@ class _HomePageState extends State<HomePageUser> {
                                                                   ),
                                                                 ],
                                                               ),
-                                                              Spacer(),
+                                                              const Spacer(),
 
                                                               if ("${homePageNewController.userId}" ==
                                                                   "${postsC.homePageModel.posts[index].postOwnerInfo![0].id}")
@@ -856,7 +856,7 @@ class _HomePageState extends State<HomePageUser> {
                                                               letterSpacing: -0.30,
                                                             ),
                                                           )
-                                                        : SizedBox(),
+                                                        : const SizedBox(),
                                                     15.ah.heightBox,
                                                     SizedBox(
                                                       height: double.parse("${10 * postsC.homePageModel.posts[index].mentionsData!.length}") + 20,
@@ -985,13 +985,13 @@ class _HomePageState extends State<HomePageUser> {
                                                             ),
                                                           ),
                                                         ),
-                                                        Spacer(),
+                                                        const Spacer(),
                                                         if ("${homePageNewController.userId}" != "${postsC.homePageModel.posts[index].postOwnerInfo![0].id}")
                                                           InkWell(
                                                             onTap: () {
                                                               Get.to(() => const Monthly());
                                                             },
-                                                            child: Container(
+                                                            child: SizedBox(
                                                               height: 70,
                                                               child: SvgPicture.asset("assets/images/pro_icon.svg"),
                                                             ),
@@ -1080,7 +1080,7 @@ class _HomePageState extends State<HomePageUser> {
                                                     ),
                                                     8.ah.heightBox,
                                                     postsC.homePageModel.posts[index].totalComments == 0
-                                                        ? SizedBox.shrink()
+                                                        ? const SizedBox.shrink()
                                                         : Text(
                                                             '  View all ${postsC.homePageModel.posts[index].totalComments} comment',
                                                             style: TextStyle(
@@ -1149,7 +1149,7 @@ class _HomePageState extends State<HomePageUser> {
                                                         Column(
                                                           crossAxisAlignment: CrossAxisAlignment.start,
                                                           children: [
-                                                            Container(
+                                                            SizedBox(
                                                               width: MediaQuery.of(context).size.width / 1.5,
                                                               child: Text(
                                                                 '${postsC.homePageModel.posts[index].title}',
@@ -1216,7 +1216,7 @@ class _HomePageState extends State<HomePageUser> {
                                                             },
                                                             child: Text(
                                                               "${postsC.homePageModel.posts[index].link}",
-                                                              style: TextStyle(color: Colors.blue),
+                                                              style: const TextStyle(color: Colors.blue),
                                                             )),
                                                   ],
                                                 ),
@@ -1250,7 +1250,7 @@ class _HomePageState extends State<HomePageUser> {
                                                             children: [
                                                               Stack(children: [
                                                                 Padding(
-                                                                  padding: EdgeInsets.only(top: 4),
+                                                                  padding: const EdgeInsets.only(top: 4),
                                                                   child: Container(
                                                                     decoration: BoxDecoration(
                                                                         border: Border.all(
@@ -1281,8 +1281,8 @@ class _HomePageState extends State<HomePageUser> {
                                                                   ),
                                                                 ),
                                                                 Padding(
-                                                                  padding: EdgeInsets.only(left: 25),
-                                                                  child: Container(
+                                                                  padding: const EdgeInsets.only(left: 25),
+                                                                  child: SizedBox(
                                                                     height: 20,
                                                                     width: 20,
                                                                     child: SvgPicture.asset("assets/icons/aa.svg"),
@@ -1315,7 +1315,7 @@ class _HomePageState extends State<HomePageUser> {
                                                                   ),
                                                                 ],
                                                               ),
-                                                              Spacer(),
+                                                              const Spacer(),
 
                                                               if ("${homePageNewController.userId}" ==
                                                                   "${postsC.homePageModel.posts[index].postOwnerInfo![0].id}")
@@ -1389,7 +1389,7 @@ class _HomePageState extends State<HomePageUser> {
                                                                   ),
                                                                 ],
                                                               ),
-                                                              Spacer(),
+                                                              const Spacer(),
 
                                                               if ("${homePageNewController.userId}" ==
                                                                   "${postsC.homePageModel.posts[index].postOwnerInfo![0].id}")
@@ -1672,13 +1672,13 @@ class _HomePageState extends State<HomePageUser> {
                                                             ),
                                                           ),
                                                         ),
-                                                        Spacer(),
+                                                        const Spacer(),
                                                         if ("${homePageNewController.userId}" != "${postsC.homePageModel.posts[index].postOwnerInfo![0].id}")
                                                           InkWell(
                                                             onTap: () {
                                                               Get.to(() => const Monthly());
                                                             },
-                                                            child: Container(
+                                                            child: SizedBox(
                                                               height: 70,
                                                               child: SvgPicture.asset("assets/images/pro_icon.svg"),
                                                             ),
@@ -2256,7 +2256,7 @@ class _HomePageState extends State<HomePageUser> {
               IconButton(
                 onPressed: () {
                   Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => VideoScreen(),
+                    builder: (context) => const VideoScreen(),
                   ));
                   // Get.off(() => VideoScreen());
                 },
@@ -2276,7 +2276,7 @@ class _HomePageState extends State<HomePageUser> {
                         Navigator.pop(
                           context,
                         );
-                        Get.to(() => UserCreatePost());
+                        Get.to(() => const UserCreatePost());
                       },
                       child: const Row(
                         mainAxisAlignment: MainAxisAlignment.start,
@@ -2329,7 +2329,7 @@ class _HomePageState extends State<HomePageUser> {
                       onTap: () {
                         Get.back();
                         Get.to(
-                          () => NearByBusiness(),
+                          () => const NearByBusiness(),
                         );
                       },
                       child: const Row(
@@ -2393,10 +2393,10 @@ class _HomePageState extends State<HomePageUser> {
                   ],
                 ));
       },
-      child: Container(
+      child: const SizedBox(
         width: 40,
         height: 40,
-        child: const Padding(
+        child: Padding(
           padding: EdgeInsets.all(8.0),
           child: Icon(Icons.delete),
         ),

@@ -20,16 +20,12 @@ class ChangePasswordController extends GetxController {
   final formkey1 = GlobalKey<FormState>();
   var deviceType;
 
-  @override
-  void onReady() {
-    super.onReady();
-  }
 
   loginwithEmail() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
     String? email = prefs.getString("email");
-    print('user email---------${email}');
+    print('user email---------$email');
     print("loginwithEmail");
     isLoadig(true);
     final response = await BaseClient01().post(Appurls.changepassword, {
@@ -75,7 +71,7 @@ class ChangePasswordController extends GetxController {
 
     bool success = response["success"];
     if (success) {
-      Get.to(() => LoginScreenPage());
+      Get.to(() => const LoginScreenPage());
       // Get.back();
     }
     var msg = response["message"];

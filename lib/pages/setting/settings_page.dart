@@ -16,7 +16,7 @@ import '../profile/profile_controller.dart';
 import '../support.dart';
 
 class SettingsPage extends StatefulWidget {
-  SettingsPage({
+  const SettingsPage({
     super.key,
   });
 

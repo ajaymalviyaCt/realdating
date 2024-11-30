@@ -8,10 +8,6 @@ import '../add_your_photos/add_your_photos.dart';
 class HobbiesController extends GetxController {
   RxBool isLoadig = false.obs;
 
-  @override
-  void onReady() {
-    super.onReady();
-  }
 
   hobbiesSelect(String hobbies) async {
     print("call  interestSelect");
@@ -37,7 +33,7 @@ class HobbiesController extends GetxController {
   updateStatus() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var userId = prefs.getInt('user_id');
-    var data = {'userId': '${userId}', 'profile_status': '3'};
+    var data = {'userId': '$userId', 'profile_status': '3'};
     var dio = Dio();
     var response = await dio.request(
       'https://forreal.net:4000/users/user_profile_status_update',

@@ -46,7 +46,7 @@ class _BuisnessLoginState extends State<BuisnessLogin> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Container(
+                SizedBox(
                   width: MediaQuery.of(context).size.width,
                   height: 220.h,
                   child: Stack(
@@ -132,7 +132,7 @@ class _BuisnessLoginState extends State<BuisnessLogin> {
                           onTap: () {
                             buissnesloginController.buisnesspasswordController.clear();
                             buissnesloginController.buisnessemailController.clear();
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => ForgetPassword(business: 1)));
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => const ForgetPassword(business: 1)));
                           },
                           child: Center(
                               child: customTextCommon(
@@ -143,7 +143,7 @@ class _BuisnessLoginState extends State<BuisnessLogin> {
                             color: Colors.white,
                           )),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 30,
                         ),
                         InkWell(
@@ -151,10 +151,10 @@ class _BuisnessLoginState extends State<BuisnessLogin> {
                             buissnesloginController.buisnessemailController.clear();
                             buissnesloginController.buisnesspasswordController.clear();
                             buisbnesssignUpController.clearDataUser();
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => BuisnessSignUp()));
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => const BuisnessSignUp()));
                           },
                           child: Container(
-                            padding: EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 10),
+                            padding: const EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 10),
 
                             // height: 50,
                             decoration: BoxDecoration(

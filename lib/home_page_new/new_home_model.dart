@@ -32,7 +32,7 @@ class HomePagetModel {
         "success": success,
         "message": message,
         "status": status,
-        "posts": posts == null ? [] : List<dynamic>.from(posts!.map((x) => x.toJson())),
+        "posts": posts == null ? [] : List<dynamic>.from(posts.map((x) => x.toJson())),
       };
 }
 

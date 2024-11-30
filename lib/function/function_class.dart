@@ -140,7 +140,7 @@ class Appcolor {
   static const black = Color(0Xff323755);
   static const Red = Color(0XffFF4242);
   static const Redpink = Color(0XffFB4967);
-  static const tx = Color(0Xff1C273114);
+  static const tx = Color(0xff1c273114);
   static const crd = Color(0Xff2C444D);
   static const daek = Color(0Xff111111);
   static const otPink = Color(0XffFB4967);

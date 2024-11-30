@@ -9,7 +9,7 @@ import 'mapeModel.dart';
 class BusinessDetailsPage extends StatelessWidget {
   final Bussiness business;
 
-  const BusinessDetailsPage({Key? key, required this.business}) : super(key: key);
+  const BusinessDetailsPage({super.key, required this.business});
 
   @override
   Widget build(BuildContext context) {
@@ -143,7 +143,7 @@ class BusinessDetailsPage extends StatelessWidget {
                   // Discount Section
                   Row(
                     children: [
-                      Icon(Icons.local_offer, color: Colors.red, size: 16),
+                      const Icon(Icons.local_offer, color: Colors.red, size: 16),
                       const SizedBox(width: 4),
                       Text(
                         'Discount: \$${discount.toStringAsFixed(2)}',

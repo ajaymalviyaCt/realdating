@@ -102,15 +102,19 @@ import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
 class MyApp222 extends StatelessWidget {
+  const MyApp222({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       home: VideoListScreen(),
     );
   }
 }
 
 class VideoListScreen extends StatefulWidget {
+  const VideoListScreen({super.key});
+
   @override
   _VideoListScreenState createState() => _VideoListScreenState();
 }
@@ -128,18 +132,18 @@ class _VideoListScreenState extends State<VideoListScreen> {
   @override
   void initState() {
     super.initState();
-    controllers.forEach((controller) {
+    for (var controller in controllers) {
       controller.initialize().then((_) {
         setState(() {});
       });
-    });
+    }
   }
 
   @override
   void dispose() {
-    controllers.forEach((controller) {
+    for (var controller in controllers) {
       controller.dispose();
-    });
+    }
     super.dispose();
   }
 
@@ -147,7 +151,7 @@ class _VideoListScreenState extends State<VideoListScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Video List'),
+        title: const Text('Video List'),
       ),
       body: ListView.builder(
         itemCount: controllers.length,
