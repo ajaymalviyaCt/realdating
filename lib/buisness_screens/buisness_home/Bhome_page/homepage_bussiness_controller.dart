@@ -59,6 +59,8 @@ class HomepageBusinessController extends GetxController {
         print("one1111${json.encode(response.data)}");
         try {
           posts = BHomePagetModel.fromJson(response.data).posts;
+          print('user profile image is here--------${posts}');
+
           var firstLoad = BHomePagetModel(posts: posts);
           bHomePagetModelNOTUSE(firstLoad);
           print("firstLoad${bHomePagetModelNOTUSE.value.posts.length}");

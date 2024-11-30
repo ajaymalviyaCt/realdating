@@ -639,6 +639,10 @@ class _BuisnessHomePageState extends State<BuisnessHomePage> {
                                               physics: const NeverScrollableScrollPhysics(),
                                               itemCount: postsC.bHomePagetModel.posts.length,
                                               itemBuilder: (_, index) {
+
+
+                                                print('user proifile image --------${postsC.bHomePagetModel.posts[index].profileImage}');
+
                                                 return Padding(
                                                   padding: const EdgeInsets.all(8.0),
                                                   child: Column(

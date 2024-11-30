@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:async/async.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -11,6 +12,7 @@ import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 import 'package:realdating/services/apis_related/api_call_services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:velocity_x/velocity_x.dart';
 
 import '../../consts/app_urls.dart';
 import '../setting/settings_page.dart';
@@ -314,6 +316,8 @@ class _ProfilePageState extends State<ProfilePage> {
                         return AbsorbPointer(
                           absorbing: profileController.apiLoadingUploadImage.value,
                           child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -416,6 +420,119 @@ class _ProfilePageState extends State<ProfilePage> {
                                     )
                                 ],
                               ),
+
+
+
+                              20.heightBox,
+                              const Text(
+                                'Interests',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 14,
+                                  fontFamily: 'Inter',
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                              10.heightBox,
+                              profileController.profileModel?.userInfo.interest== null
+                                  ? const Text("No Intrest Found !!")
+                                  : SizedBox(
+                                height: 120,
+                                child: GridView.builder(
+                                  itemCount:profileController.interests.isNotEmpty ? profileController.interests.length
+                                      : 0,
+                                  itemBuilder: (ctx, i) {
+                                    return Padding(
+                                      padding: const EdgeInsets.only(top: 10),
+                                      child: SizedBox(
+                                        height: 50,
+                                        child: DottedBorder(
+                                          strokeWidth: 1,
+                                          color: const Color(0xFFE94057),
+                                          borderType: BorderType.RRect,
+                                          radius: const Radius.circular(12),
+                                          child: ClipRRect(
+                                            borderRadius: const BorderRadius.all(
+                                              Radius.circular(5),
+                                            ),
+                                            child: Center(
+                                              child: SizedBox(
+                                                width: 220,
+                                                height: 32,
+                                                child: Text(
+                                                  profileController.interests[i] ?? "",
+                                                  style: const TextStyle(
+                                                    color: Color(0xFFE94057),
+                                                    fontSize: 8,
+                                                    fontFamily: 'Inter',
+                                                    fontWeight: FontWeight.w400,
+                                                    height: 0.11,
+                                                  ),
+                                                ).centered(),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                  gridDelegate:
+                                  const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3, mainAxisExtent: 34, crossAxisSpacing: 10),
+                                ),
+                              ),
+                              const Text(
+                                'Hobbies',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 14,
+                                  fontFamily: 'Inter',
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                              10.heightBox,
+                              SizedBox(
+                                height: 130,
+                                child: GridView.builder(
+                                  itemCount: profileController.hobbiesData.length ?? 0,
+                                  itemBuilder: (ctx, i) {
+                                    return Padding(
+                                      padding: const EdgeInsets.only(top: 10),
+                                      child: SizedBox(
+                                        height: 50,
+                                        child: DottedBorder(
+                                          strokeWidth: 1,
+                                          color: const Color(0xFFE94057),
+                                          borderType: BorderType.RRect,
+                                          radius: const Radius.circular(12),
+                                          child: ClipRRect(
+                                            borderRadius: const BorderRadius.all(
+                                              Radius.circular(5),
+                                            ),
+                                            child: Center(
+                                              child: SizedBox(
+                                                width: 220,
+                                                height: 35,
+                                                child: Text(
+                                                  profileController.hobbiesData[i] ?? "",
+                                                  style: const TextStyle(
+                                                    color: Color(0xFFE94057),
+                                                    fontSize: 8,
+                                                    fontFamily: 'Inter',
+                                                    fontWeight: FontWeight.w400,
+                                                    height: 0.11,
+                                                  ),
+                                                ).centered(),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3, mainAxisExtent: 34, crossAxisSpacing: 10),
+                                ),
+                              ),
+
                             ],
                           ),
                         );

@@ -9,6 +9,8 @@ class ProfileController extends GetxController {
   RxBool isLoadig = true.obs;
   final RxBool apiLoadingUploadImage = false.obs;
   ProfileModel? profileModel;
+  List<String> interests = [];
+  List<String> hobbiesData = [];
 
   RxString username = "".obs;
   RxString firstName = "User Name".obs;
@@ -39,8 +41,19 @@ class ProfileController extends GetxController {
     var msg = response["message"];
     print("msg ___$msg");
     profileModel = ProfileModel.fromJson(response);
-    print("profile model data--------$profileModel");
-    print("profile model data--------${profileModel?.userInfo.address}");
+
+
+
+    if (profileModel?.userInfo.interest != null &&
+        profileModel!.userInfo.interest.isNotEmpty) {
+      interests = profileModel!.userInfo.interest.split(',').map((e) => e.trim()).toList();
+    }
+    print("Parsed interests: $interests");
+
+    if (profileModel?.userInfo.hobbies != null &&
+        profileModel!.userInfo.hobbies.isNotEmpty) {
+      hobbiesData = profileModel!.userInfo.hobbies.split(',').map((e) => e.trim()).toList();
+    }
 
     username.value = profileModel!.userInfo.username;
     firstName.value = ProfileModel.fromJson(response).userInfo.firstName;
