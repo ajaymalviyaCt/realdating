@@ -421,14 +421,28 @@ class _ProfilePageState extends State<ProfilePage> {
                                 ],
                               ),
                               20.heightBox,
-                              const Text(
-                                'Interests',
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 14,
-                                  fontFamily: 'Inter',
-                                  fontWeight: FontWeight.w500,
-                                ),
+                              Row(
+                                children: [
+                                  const Text(
+                                    'Interests',
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 14,
+                                      fontFamily: 'Inter',
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                  Spacer(),
+                                  InkWell(
+                                      onTap: () {
+
+                                      },
+                                      child: Image.asset(
+                                        'assets/icons/addition.png',
+                                        scale: 30,
+                                        color: Colors.black,
+                                      ))
+                                ],
                               ),
                               10.heightBox,
                               profileController.profileModel?.userInfo.interest == null
@@ -478,14 +492,28 @@ class _ProfilePageState extends State<ProfilePage> {
                                       ),
                                     ),
                               20.heightBox,
-                              const Text(
-                                'Hobbies',
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 14,
-                                  fontFamily: 'Inter',
-                                  fontWeight: FontWeight.w500,
-                                ),
+                              Row(
+                                children: [
+                                  const Text(
+                                    'Hobbies',
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 14,
+                                      fontFamily: 'Inter',
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                  Spacer(),
+                                  InkWell(
+                                      onTap: () {
+
+                                      },
+                                      child: Image.asset(
+                                        'assets/icons/addition.png',
+                                        scale: 30,
+                                        color: Colors.black,
+                                      ))
+                                ],
                               ),
                               10.heightBox,
                               SizedBox(
