@@ -239,7 +239,7 @@ class _HomePageState extends State<HomePage> {
                 liveID: '12345',
                 isHost: false,
                 userId: liveUser.userId,
-                userNmae: userName,
+                userName: userName,
               ));
         },
         child: LiveUserCard(
@@ -283,8 +283,8 @@ void jumpToLivePage(BuildContext context, {required String liveID, required bool
         liveID: liveID,
         isHost: isHost,
         userId: userId,
-        userNmae: userNmae,
         image: profileImage,
+        userName: userNmae,
 
       ),
     ),
