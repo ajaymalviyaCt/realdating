@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:zego_uikit_prebuilt_live_streaming/zego_uikit_prebuilt_live_streaming.dart';
+import '../reel/common_import.dart';
 import 'common.dart';
 import 'constatent.dart';
 
@@ -11,6 +12,7 @@ class LivePage extends StatefulWidget {
   final bool isHost;
   final String userNmae;
   final String userId;
+  final String? image;
 
   const LivePage({
     super.key,
@@ -18,6 +20,7 @@ class LivePage extends StatefulWidget {
     this.isHost = false,
     required this.userId,
     required this.userNmae,
+    this.image
   });
 
   @override
@@ -25,6 +28,19 @@ class LivePage extends StatefulWidget {
 }
 
 class LivePageState extends State<LivePage> {
+
+
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+
+    print('profile------------_>${widget.image}');
+
+  }
+
   Future<void> removeAllLiveUsers() async {
     try {
       final liveUsersSnapshot = await FirebaseFirestore.instance.collection("Liveusers").get();
@@ -77,12 +93,52 @@ class LivePageState extends State<LivePage> {
           userName: widget.userNmae,
           liveID: widget.liveID,
           config: (widget.isHost ? ZegoUIKitPrebuiltLiveStreamingConfig.host() : ZegoUIKitPrebuiltLiveStreamingConfig.audience())
-            ..avatarBuilder = customAvatarBuilder,
+            ..avatarBuilder = (context, size, user, extraInfo) {
+              extraInfo['isHost'] = widget.isHost;
+              extraInfo['hostImage'] = widget.image; // Pass the host's image
+              return customUserPhotoBuilder(context, size, user, extraInfo);
+            },
+
         ),
       ),
     );
   }
 }
+
+
+
+
+CachedNetworkImage customUserPhotoBuilder(
+    BuildContext context,
+    Size size,
+    ZegoUIKitUser ? user,
+    Map<String, dynamic> extraInfo,
+    ) {
+  // Check if the user is the host
+  final isHost = extraInfo['isHost'] ?? false;
+  final imageUrl = isHost ? extraInfo['hostImage'] : (extraInfo['profileImage'] ?? 'https://robohash.org/${user?.id}.png');
+
+  return CachedNetworkImage(
+    imageUrl: imageUrl,
+    imageBuilder: (context, imageProvider) => Container(
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        image: DecorationImage(
+          image: imageProvider,
+          fit: BoxFit.cover,
+        ),
+      ),
+    ),
+    progressIndicatorBuilder: (context, url, downloadProgress) =>
+        CircularProgressIndicator(value: downloadProgress.progress),
+    errorWidget: (context, url, error) {
+      return ZegoAvatar(user: user, avatarSize: size); // Default avatar fallback
+    },
+  );
+}
+
+
+
 
 void _showLiveEndedPopup() {
   Get.dialog(
@@ -122,3 +178,5 @@ void _showLiveEndedPopup() {
         ),
       ));
 }
+
+
