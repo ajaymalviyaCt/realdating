@@ -62,6 +62,7 @@ class MatchessController extends GetxController {
 
     exploreDetailsModel = ExploreDetailsModel.fromJson(apiData);
 
+
     update();
 
     update();
