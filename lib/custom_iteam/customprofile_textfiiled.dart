@@ -13,6 +13,7 @@ class CustumProfileTextField1 extends StatelessWidget {
   VoidCallback? onTap;
   int ? maxlenght;
   TextInputType? keyboardType;
+  Function(String)? onChanged;
   TextEditingController controller;
   CustumProfileTextField1(
       {super.key,
@@ -23,6 +24,7 @@ class CustumProfileTextField1 extends StatelessWidget {
       this.obscureText,
       this.onTap,
       required this.hintText,
+        this.onChanged,
       this.initialText,this.maxlenght,this.keyboardType});
 
   @override
