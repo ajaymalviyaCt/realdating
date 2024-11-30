@@ -280,9 +280,9 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                       const SizedBox(height: 8),
                       Text(
-                        profileController.profileModel?.userInfo.address == "0"
-                            ? "33 street  United State"
-                            : profileController.profileModel!.userInfo.address.toString(),
+                        profileController.profileModel.value?.userInfo.address == "0"
+                            ? ""
+                            : profileController.profileModel.value!.userInfo.address.toString(),
                         style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: Color(0xffAAAAAA)),
                       ),
                       const SizedBox(
@@ -348,11 +348,11 @@ class _ProfilePageState extends State<ProfilePage> {
                                       child: GridView.builder(
                                         shrinkWrap: true,
                                         physics: const NeverScrollableScrollPhysics(),
-                                        itemCount: profileController.profileModel?.userInfo.newImages.length,
+                                        itemCount: profileController.profileModel.value?.userInfo.newImages.length,
                                         gridDelegate:
                                             const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3, mainAxisSpacing: 5, crossAxisSpacing: 10),
                                         itemBuilder: (ctx, index) {
-                                          final data = profileController.profileModel?.userInfo.newImages;
+                                          final data = profileController.profileModel.value?.userInfo.newImages;
                                           print('profile images----------$data');
                                           return Stack(
                                             children: [
@@ -384,7 +384,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                                   right: 0,
                                                   child: GestureDetector(
                                                     onTap: () {
-                                                      if (profileController.profileModel!.userInfo.newImages.length > 2) {
+                                                      if (profileController.profileModel.value!.userInfo.newImages.length > 2) {
                                                         deleteImage(data[index].id.toString());
                                                       } else {
                                                         Fluttertoast.showToast(
@@ -449,7 +449,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 ],
                               ),
                               10.heightBox,
-                              profileController.profileModel?.userInfo.interest == null
+                              profileController.profileModel.value?.userInfo.interest == null
                                   ? const Text("No Intrest Found !!")
                                   : SizedBox(
                                       // height: 120,
@@ -579,13 +579,13 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
-  List<String> interestList() => (profileController.profileModel?.userInfo.interest.trim().split(",") ?? [])
+  List<String> interestList() => (profileController.profileModel.value?.userInfo.interest.trim().split(",") ?? [])
       .where(
         (element) => element.trim().isNotEmpty,
       )
       .toList();
 
-  List<String> hobbiesList() => (profileController.profileModel?.userInfo.hobbies.trim().split(",") ?? [])
+  List<String> hobbiesList() => (profileController.profileModel.value?.userInfo.hobbies.trim().split(",") ?? [])
       .where(
         (element) => element.trim().isNotEmpty,
       )

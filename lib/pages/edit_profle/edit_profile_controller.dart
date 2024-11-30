@@ -38,13 +38,13 @@ class EditProfileController extends GetxController {
   void onInit() {
     // TODO: implement onInit
     super.onInit();
-    username.text = profileController.profileModel?.userInfo.username ?? "";
-    first_name.text = profileController.profileModel?.userInfo.firstName ?? "";
-    last_name.text = '${profileController.profileModel?.userInfo.lastName}' ?? "";
-    height.text = '${profileController.profileModel?.userInfo.height}' ?? "";
-    dateOfbrith.text = '${profileController.profileModel?.userInfo.dob}' ?? '';
-    Address.text = profileController.profileModel?.userInfo.address ?? "";
-    print('address is here-----${profileController.profileModel?.userInfo.address}');
+    username.text = profileController.profileModel.value?.userInfo.username ?? "";
+    first_name.text = profileController.profileModel.value?.userInfo.firstName ?? "";
+    last_name.text = '${profileController.profileModel.value?.userInfo.lastName}' ?? "";
+    height.text = '${profileController.profileModel?.value?.userInfo.height}' ?? "";
+    dateOfbrith.text = '${profileController.profileModel.value?.userInfo.dob}' ?? '';
+    Address.text = profileController.profileModel.value?.userInfo.address ?? "";
+    print('address is here-----${profileController.profileModel?.value?.userInfo.address}');
   }
 
 
