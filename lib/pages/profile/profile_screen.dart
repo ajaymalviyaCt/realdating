@@ -439,7 +439,9 @@ class _ProfilePageState extends State<ProfilePage> {
                                       onTap: () {
                                         Get.to(InterestScreen(
                                           selectedInterest: interestList(),
-                                        ));
+                                        ))?.then((value) {
+                                          profileController.profileDaitails();
+                                        },);;
                                       },
                                       child: Image.asset(
                                         'assets/icons/addition.png',
