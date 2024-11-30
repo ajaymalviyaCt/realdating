@@ -183,7 +183,7 @@ class _CreateEventState extends State<CreateEvent> {
   // }
 
   final List<String> eventtypeItems = ["Online", "Offline"];
-  String? selectedValue="Online";
+  String? selectedValue = "Online";
 
   showLoaderDialog(BuildContext context) {
     AlertDialog alert = AlertDialog(
@@ -659,13 +659,19 @@ class _CreateEventState extends State<CreateEvent> {
                     ),
                     customTextC(text: "Description", fSize: 16, fWeight: FontWeight.w500, lineHeight: 36),
                     SizedBox(
-                      height: 70,
                       child: CustumProfileTextField1(
+                        maxLine: 5,
                         controller: txt_description,
                         validator: validateDescriptionn,
                         hintText: 'Please Enter Description',
                         keyboardType: TextInputType.emailAddress,
                       ),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    const SizedBox(
+                      height: 10,
                     ),
                     updateBtn(context),
                     const SizedBox(

@@ -15,6 +15,7 @@ class CustumProfileTextField1 extends StatelessWidget {
   TextInputType? keyboardType;
   Function(String)? onChanged;
   TextEditingController controller;
+  final int ? maxLine;
   CustumProfileTextField1(
       {super.key,
       required this.controller,
@@ -25,11 +26,12 @@ class CustumProfileTextField1 extends StatelessWidget {
       this.onTap,
       required this.hintText,
         this.onChanged,
-      this.initialText,this.maxlenght,this.keyboardType});
+      this.initialText,this.maxlenght,this.keyboardType, this.maxLine});
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      maxLines:maxLine?? 1,
       keyboardType:keyboardType?? TextInputType.number,
 
       // inputFormatters: [
