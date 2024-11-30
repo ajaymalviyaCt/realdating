@@ -477,7 +477,7 @@ class _BuisnessPostState extends State<BuisnessPost> {
                   uploadFileToServerBHome();
                 } else {
                   Fluttertoast.showToast(
-                    msg: "Please select image or Text..",
+                    msg: "Please select image/video or Text..",
                     toastLength: Toast.LENGTH_SHORT,
                     gravity: ToastGravity.BOTTOM,
                     backgroundColor: Colors.black,
