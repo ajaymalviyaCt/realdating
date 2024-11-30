@@ -657,7 +657,7 @@ class _MatchDetailsState extends State<MatchDetails> {
                               Row(
                                 children: [
                                   Text(
-                                    'Total Review : ${matchessController.exploreDetailsModel!.userInfo[0].allReviews.length}.0',
+                                    'Total Review : ${matchessController.exploreDetailsModel?.userInfo[0].allReviews.length}.0',
                                     style: TextStyle(
                                       color: Colors.black.withOpacity(.70),
                                       fontSize: 12,
