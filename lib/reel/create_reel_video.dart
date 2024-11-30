@@ -149,14 +149,14 @@ class _CreateReelScreenState extends State<CreateReelScreen>
               child: Stack(
                 alignment: Alignment.center,
                 children: <Widget>[
-                  SizedBox(
-                    height: 60,
-                    width: 60,
-                    child: CircularProgressIndicator(
-                      valueColor: AlwaysStoppedAnimation<Color>(
-                          AppColorConstants.themeColor),
-                    ),
-                  ),
+                  // SizedBox(
+                  //   height: 60,
+                  //   width: 60,
+                  //   child: CircularProgressIndicator(
+                  //     valueColor: AlwaysStoppedAnimation<Color>(
+                  //         AppColorConstants.themeColor),
+                  //   ),
+                  // ),
                   Obx(() =>
                   Container(
                     height: 50,
