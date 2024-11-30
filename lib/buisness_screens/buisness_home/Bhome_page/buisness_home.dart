@@ -759,8 +759,7 @@ class _BuisnessHomePageState extends State<BuisnessHomePage> {
                                                                     ))),
                                                             errorWidget: (context,
                                                                 url,
-                                                                error) =>
-                                                            const Icon(Icons.person_2_outlined),
+                                                                error) =>Image.asset('assets/images/business_image_icon.png'),
                                                             filterQuality:
                                                             FilterQuality.low,
                                                             fit: BoxFit
@@ -934,8 +933,7 @@ class _BuisnessHomePageState extends State<BuisnessHomePage> {
                                                                 child: CircularProgressIndicator(
                                                                   strokeWidth: 1,
                                                                 ))),
-                                                        errorWidget: (context, url, error) =>
-                                                        const Icon(Icons.person_2_outlined),
+                                                        errorWidget: (context, url, error) =>Image.asset('assets/images/business_image_icon.png'),
                                                         filterQuality:
                                                         FilterQuality.low,
                                                         fit: BoxFit
@@ -1335,8 +1333,7 @@ class _BuisnessHomePageState extends State<BuisnessHomePage> {
                                                                     ))),
                                                             errorWidget: (context,
                                                                 url,
-                                                                error) =>
-                                                            const Icon(Icons.person_2_outlined),
+                                                                error) =>Image.asset('assets/images/business_image_icon.png'),
                                                             filterQuality:
                                                             FilterQuality.low,
                                                             fit: BoxFit
@@ -1814,8 +1811,7 @@ class _BuisnessHomePageState extends State<BuisnessHomePage> {
                                                                     ))),
                                                             errorWidget: (context,
                                                                 url,
-                                                                error) =>
-                                                            const Icon(Icons.person_2_outlined),
+                                                                error) =>Image.asset('assets/images/business_image_icon.png'),
                                                             filterQuality:
                                                             FilterQuality.low,
                                                             fit: BoxFit
@@ -1993,8 +1989,7 @@ class _BuisnessHomePageState extends State<BuisnessHomePage> {
                                                                     ))),
                                                             errorWidget: (context,
                                                                 url,
-                                                                error) =>
-                                                            const Icon(Icons.person_2_outlined),
+                                                                error) =>Image.asset('assets/images/business_image_icon.png'),
                                                             filterQuality:
                                                             FilterQuality.low,
                                                             fit: BoxFit
@@ -2587,8 +2582,7 @@ class _BuisnessHomePageState extends State<BuisnessHomePage> {
                                       width: double.infinity,
                                       child: CachedNetworkImage(
                                         imageUrl: controller.myDealsModel
-                                                ?.myDeals[index].roomImage ??
-                                            "",
+                                                ?.myDeals[index].roomImage ?? "",
                                         placeholder: (context, url) =>
                                             const Center(
                                                 child: SizedBox(
@@ -2599,7 +2593,7 @@ class _BuisnessHomePageState extends State<BuisnessHomePage> {
                                                       strokeWidth: 1,
                                                     ))),
                                         errorWidget: (context, url, error) =>
-                                            const Icon(Icons.person_2_outlined),
+                                            Image.asset('assets/images/business_image_icon.png',scale:3,),
                                         filterQuality: FilterQuality.low,
                                         fit: BoxFit.fill,
                                         height: 300,
@@ -2638,8 +2632,7 @@ class _BuisnessHomePageState extends State<BuisnessHomePage> {
                                     children: [
                                       const SizedBox(width: 20),
                                       customTextCommon(
-                                        text:
-                                            "\$${subtractionResult.toString() ?? ""}",
+                                        text: "\$${subtractionResult.toString() ?? ""}",
                                         fSize: 14,
                                         fWeight: FontWeight.w600,
                                         lineHeight: 0,

@@ -23,7 +23,6 @@ import '../controller/editDeal_controller.dart';
 import '../model/myDealModel.dart';
 
 class EDIT_deal extends StatefulWidget {
-  // Define an index to access data in the list
   EDIT_deal({super.key});
 
   @override
@@ -35,6 +34,12 @@ class _EDIT_dealState extends State<EDIT_deal> {
   MyDealController myDealController = Get.put(MyDealController());
   RxBool isLoadig = false.obs;
   EditUpdateController editUpdateController = Get.put(EditUpdateController());
+
+
+
+  // final indexs = ModalRoute.of(context)!.settings.arguments as int;
+
+  final index = Get.arguments as int;
 
   void uploadFileToServerInfluencer(editId, index, MyDeal myDeal) async {
     editDealApiLoading.value = true;
@@ -156,14 +161,6 @@ class _EDIT_dealState extends State<EDIT_deal> {
 
   @override
   Widget build(BuildContext context) {
-    final indexs = ModalRoute.of(context)!.settings.arguments as int;
-    final index = Get.arguments as int;
-    // print("indexx Edit =====> ${widget.dataList[widget.indexEdit].price}");
-    // print(
-    //     "indexx =====> ${myDealController.myDealsModel?.myDeals[widget.indexEdit].title}");
-    print("indexx =====> ${editUpdateController.Price.text}");
-    print("indexx =====> ${index}");
-
     return Scaffold(
       appBar: customAppbar("Edit Deals", context),
       body: Obx(

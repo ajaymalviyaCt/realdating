@@ -213,7 +213,7 @@ class _All_AdsState extends State<All_Ads> {
                                             children: [
                                               customTextCommon(
                                                 text: profile_data?.businessName ?? "Fauget",
-                                                fSize: 14,
+                                                fSize: 15,
                                                 fWeight: FontWeight.w600,
                                                 lineHeight: 21,
                                                 letterSpacing: -0.3,
@@ -223,7 +223,7 @@ class _All_AdsState extends State<All_Ads> {
                                               ),
                                               customTextCommon(
                                                 text: "Sponsored",
-                                                fSize: 10,
+                                                fSize: 11,
                                                 fWeight: FontWeight.w500,
                                                 lineHeight: 10,
                                                 color: const Color(0xffAAAAAA),
@@ -243,7 +243,7 @@ class _All_AdsState extends State<All_Ads> {
                                               },
                                               child: const Icon(
                                                 Icons.edit,
-                                                size: 15,
+                                                size:22,
                                               )),
                                           //SvgPicture.asset("assets/icons/cornermenu.svg",height: 24,)
                                         ],

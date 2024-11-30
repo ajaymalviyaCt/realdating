@@ -65,9 +65,7 @@ class _BuisnessEditAdsState extends State<BuisnessEditAds> {
                           Stack(
                             alignment: Alignment.center,
                             children: [
-                              widget.dataList[widget.indexEdit].adImage !=
-                                          null &&
-                                      editAdsController.addImage == null
+                              widget.dataList[widget.indexEdit].adImage != null && editAdsController.addImage == null
                                   ? InkWell(
                                       onTap: () async {
                                         final XFile? pickImage =
@@ -76,14 +74,6 @@ class _BuisnessEditAdsState extends State<BuisnessEditAds> {
                                                 imageQuality: 10);
                                         final croppedFile = await ImageCropper().cropImage(
                                           sourcePath: pickImage!.path,
-
-                                          // aspectRatioPresets: [
-                                          //   CropAspectRatioPreset.square,
-                                          //   CropAspectRatioPreset.ratio3x2,
-                                          //   CropAspectRatioPreset.original,
-                                          //   CropAspectRatioPreset.ratio4x3,
-                                          //   CropAspectRatioPreset.ratio16x9,
-                                          // ],
                                           maxWidth: 600,
                                           maxHeight: 600,
                                         );
@@ -102,6 +92,8 @@ class _BuisnessEditAdsState extends State<BuisnessEditAds> {
                                                     .dataList[widget.indexEdit]
                                                     .adImage),
                                                 fit: BoxFit.cover)),
+                                        
+                                        child: const Center(child: Icon(Icons.add_a_photo_outlined,color: Colors.black,size:30,)),
                                       ),
                                     )
                                   : InkWell(
@@ -263,7 +255,7 @@ class _BuisnessEditAdsState extends State<BuisnessEditAds> {
                           // ),
 
                           customTextC(
-                              text: "Intrest",
+                              text: "Interest",
                               fSize: 16,
                               fWeight: FontWeight.w500,
                               lineHeight: 36),
@@ -280,7 +272,7 @@ class _BuisnessEditAdsState extends State<BuisnessEditAds> {
                           ),
 
                           customTextC(
-                              text: "budget",
+                              text: "Budget",
                               fSize: 16,
                               fWeight: FontWeight.w500,
                               lineHeight: 36),
