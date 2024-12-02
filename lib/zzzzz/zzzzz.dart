@@ -124,13 +124,32 @@ class _RecordRealPageState extends State<RecordRealPage> {
 
       // Output file path
       final directory = await getTemporaryDirectory();
-      final outputPath = "${directory.path}/output_video.mp4";
+      final outputPath = "${directory.path}/${DateTime.now().toUtc().microsecondsSinceEpoch.toString()}output_video.mp4";
+
+      // Debugging: Print the paths for video and audio files
+      print("Video Path: $videoPath");
+      print("Audio Path: $audioPath");
+
+      // Ensure the paths don't contain spaces (in some cases, this can be problematic for FFmpeg)
+      final escapedVideoPath = Uri.encodeFull(videoPath);
+      final escapedAudioPath = Uri.encodeFull(audioPath);
+      final escapedOutputPath = Uri.encodeFull(outputPath);
 
       // FFmpeg command to merge video and audio
-      final command = "-i $videoPath -i $audioPath -c:v copy -c:a aac -strict experimental $outputPath";
+      final command = "-i $escapedVideoPath -i $escapedAudioPath -c:v copy -c:a aac -strict experimental $escapedOutputPath";
+
+      // Debugging: Print the command
+      print("FFmpeg Command: $command");
 
       // Execute FFmpeg
-      await FFmpegKit.execute(command);
+      final session = await FFmpegKit.execute(command);
+
+      // Check for errors in FFmpeg execution
+      final returnCode = await session.getReturnCode();
+      // if (returnCode!.isError()) {
+      //   print("Error merging video and audio: ${returnCode.getError()}. Command output: ${await session.getAllLogs()}");
+      //   throw Exception("Error merging video and audio");
+      // }
 
       print("Merged video and audio saved to: $outputPath");
       return outputPath;
@@ -147,8 +166,11 @@ class _RecordRealPageState extends State<RecordRealPage> {
       final filePath = "${directory.path}/audio.mp3";
       final file = File(filePath);
       await file.writeAsBytes(response.bodyBytes);
-      return filePath; // Return the path of the downloaded audio file
+
+      print("Audio downloaded to: $filePath");  // Log downloaded audio path
+      return filePath;
     } else {
+      print("Failed to download audio: ${response.statusCode}");
       throw Exception("Failed to download audio");
     }
   }
@@ -201,13 +223,13 @@ class _RecordRealPageState extends State<RecordRealPage> {
               SizedBox(height: 20),
               isRecording
                   ? FilledButton(
-                      onPressed: stopRecordingAndNavigate,
-                      child: Text("Stop"),
-                    )
+                onPressed: stopRecordingAndNavigate,
+                child: Text("Stop"),
+              )
                   : FilledButton(
-                      onPressed: startRecording,
-                      child: Text("Record"),
-                    ),
+                onPressed: startRecording,
+                child: Text("Record"),
+              ),
             ],
           ),
           if (isRecording && remainingTime > 0)
@@ -262,9 +284,9 @@ class _VideoPreviewPageState extends State<VideoPreviewPage> {
       body: Center(
         child: _controller.value.isInitialized
             ? AspectRatio(
-                aspectRatio: _controller.value.aspectRatio,
-                child: VideoPlayer(_controller),
-              )
+          aspectRatio: _controller.value.aspectRatio,
+          child: VideoPlayer(_controller),
+        )
             : CircularProgressIndicator(),
       ),
     );
