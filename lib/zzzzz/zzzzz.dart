@@ -131,12 +131,12 @@ class _RecordRealPageState extends State<RecordRealPage> {
       print("Audio Path: $audioPath");
 
       // Ensure the paths don't contain spaces (in some cases, this can be problematic for FFmpeg)
-      final escapedVideoPath = Uri.encodeFull(videoPath);
-      final escapedAudioPath = Uri.encodeFull(audioPath);
-      final escapedOutputPath = Uri.encodeFull(outputPath);
+      // final escapedVideoPath = Uri.encodeFull(videoPath);
+      // final escapedAudioPath = Uri.encodeFull(audioPath);
+      // final escapedOutputPath = Uri.encodeFull(outputPath);
 
       // FFmpeg command to merge video and audio
-      final command = "-i $escapedVideoPath -i $escapedAudioPath -c:v copy -c:a aac -strict experimental $escapedOutputPath";
+      final command = "-i $videoPath -i $audioPath -c:v copy -c:a aac -strict experimental $outputPath";
 
       // Debugging: Print the command
       print("FFmpeg Command: $command");
