@@ -9,6 +9,7 @@ import 'package:get/get_instance/get_instance.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:image_cropper/image_cropper.dart';
+import 'package:realdating/buisness_screens/buisness_controller/buisness_login/buisness_login.dart';
 import 'package:realdating/custom_iteam/customprofile_textfiiled.dart';
 import 'package:realdating/validation/validation.dart';
 import 'package:realdating/widgets/custom_buttons.dart';
@@ -321,15 +322,17 @@ class _BusinessProfileState extends State<BusinessProfile> {
                                           margin: const EdgeInsets.only(top: 10, bottom: 20),
                                           // height: 48,
                                           child: CustumProfileTextField1(
-                                            // initialText:  profileController
-                                            //     .businessNameController.text,
+                                            onChanged: (value) {
+                                              if (value.trim().isNotEmpty) {
+                                                profileController.businessNameController.text.trim();
+                                              }
+                                            },
                                             keyboardType: TextInputType.emailAddress,
                                             controller: profileController.businessNameController,
                                             validator: validateName,
-
                                             hintText: profileController.profileData?.businessInfo?.businessName ?? "Faucet",
-                                            // 'Fauget',
                                           ),
+
                                         ),
                                         const StyledText(
                                           text: 'Business Hours',
@@ -411,6 +414,11 @@ class _BusinessProfileState extends State<BusinessProfile> {
                                               padding: const EdgeInsets.all(8.0),
                                               child: TextFormField(
                                                   maxLines: 5,
+                                                  onChanged: (value) {
+                                                    if(value.trim().isNotEmpty){
+                                                      profileController.businessDescriptionController.text.trim();
+                                                    }
+                                                  },
                                                   // validator: validateDescriptionn,
                                                   cursorColor: Colors.redAccent,
                                                   controller: profileController.businessDescriptionController,

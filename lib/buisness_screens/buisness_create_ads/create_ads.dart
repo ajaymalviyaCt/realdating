@@ -19,7 +19,22 @@ import '../../custom_iteam/customprofile_textfiiled.dart';
 import '../../function/function_class.dart';
 import '../buisness_home/Bhome_page/buisness_home.dart';
 
-List<String> interestList = ['Music', 'Dancing', 'Cricket', 'Movie', 'Photography', 'Gaming'];
+List<String> interestList = [
+  "Gaming",
+  "Dancing",
+  "Language",
+  "Music",
+  "Movie",
+  "Photography",
+  "Fashion",
+  "Architecture",
+  "Book",
+  "Writing",
+  "Animals",
+  "Football",
+  "Gym & Fitness",
+  "Travel & Places",
+];
 
 class CreateAads extends StatefulWidget {
   const CreateAads({super.key});

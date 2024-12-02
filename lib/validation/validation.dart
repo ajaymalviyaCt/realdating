@@ -128,8 +128,6 @@ String? validateName(String? value) {
     return 'Name is Required.';
   } else if (value.length < 5) {
     return 'Full Name requires at least 5 characters.';
-  } else if (value.contains(' ')) {
-    return 'Spaces are not allowed in the Full Name.';
   }
   return null;
 }

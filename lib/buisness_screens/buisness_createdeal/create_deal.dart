@@ -339,7 +339,7 @@ class _CreateDealState extends State<CreateDeal> {
                   keyboardType: TextInputType.number,
                   controller: txt_price,
                   validator: validatePrice,
-                  hintText: 'Please Enter \$',
+                  hintText: 'Please Enter price',
                 ),
               ),
               const SizedBox(
@@ -352,7 +352,7 @@ class _CreateDealState extends State<CreateDeal> {
                   keyboardType: TextInputType.number,
                   controller: txt_discount,
                   validator: validateDiscount,
-                  hintText: 'Please Enter Discount \$',
+                  hintText: 'Please Enter Discount price',
                 ),
               ),
               const SizedBox(

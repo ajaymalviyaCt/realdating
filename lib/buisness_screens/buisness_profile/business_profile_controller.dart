@@ -161,6 +161,7 @@ class BusinessProfileController extends GetxController {
     }
   }*/
   Future<void> updateProfile() async {
+    print("ldkajflkadj");
     String businessName = businessNameController.text.trim();
 
     // Validate the business name
@@ -174,17 +175,17 @@ class BusinessProfileController extends GetxController {
       );
       return;
     }
-
-    if (businessName.contains(' ')) {
-      Fluttertoast.showToast(
-        msg: "Spaces are not allowed in the business name.",
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.BOTTOM,
-        backgroundColor: Colors.red,
-        textColor: Colors.white,
-      );
-      return;
-    }
+    //
+    // if (businessName.contains(' ')) {
+    //   Fluttertoast.showToast(
+    //     msg: "Spaces are not allowed in the business name.",
+    //     toastLength: Toast.LENGTH_SHORT,
+    //     gravity: ToastGravity.BOTTOM,
+    //     backgroundColor: Colors.red,
+    //     textColor: Colors.white,
+    //   );
+    //   return;
+    // }
 
     isLoadingupdateProfile(true);
 
