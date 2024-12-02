@@ -95,7 +95,7 @@ class _RecordRealPageState extends State<RecordRealPage> {
       showDialog(
         context: context,
         barrierDismissible: false,
-        builder: (context) => Center(
+        builder: (context) => const Center(
           child: CircularProgressIndicator(),
         ),
       );
