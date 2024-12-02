@@ -108,7 +108,7 @@ class _RecordRealPageState extends State<RecordRealPage> {
       Navigator.pop(context);
 
       // Navigate to the preview page with the merged video
-      Navigator.pushReplacement(
+      Navigator.push(
         context,
         MaterialPageRoute(
           builder: (context) => VideoPreviewPage(videoPath: outputPath),
