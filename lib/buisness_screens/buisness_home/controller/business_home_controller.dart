@@ -45,10 +45,13 @@ class MyDealController extends GetxController implements GetxService {
       bool success = response["success"];
       var msg = response["message"];
       print("msg ___$msg");
+      print("aalhjhdflkajhdsf");
+      myDealsModel=null;
       if (success == true) {
+        print("alsdkfnlkasdjf");
         myDealsModel = MyDealsModel.fromJson(response);
         update();
-        Get.off(() => const BuisnessHomePage());
+        // Get.off(() => const BuisnessHomePage());
       }
       isLoadigDeal(false);
     } catch (e, s) {
