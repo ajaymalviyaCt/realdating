@@ -15,7 +15,7 @@ class BusinessDetailsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: customAppbar(business.businessName.toString(), context),
-      body: ListView.builder(
+      body:  business.allDeals!.isEmpty ||  business.allDeals==null?const Center(child: Text('Data not Found',style: TextStyle(fontWeight: FontWeight.w500),),):ListView.builder(
         padding: const EdgeInsets.all(16.0),
         itemCount: business.allDeals!.length,
         itemBuilder: (context, index) {

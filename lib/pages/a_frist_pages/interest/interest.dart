@@ -62,8 +62,7 @@ class _InterestScreenState extends State<InterestScreen> {
             const Padding(
               padding: EdgeInsets.symmetric(vertical: 10, horizontal: 8),
               child: Text(
-                'Select your interests to match with users who '
-                '\n have similar things in common.',
+                'Select your interests to match with users who have similar things in common.',
                 style: CustomTextStyle.blacky,
               ),
             ),
@@ -118,7 +117,7 @@ class _InterestScreenState extends State<InterestScreen> {
                     )
                     .toList()
                     .isEmpty) {
-                  Fluttertoast.showToast(msg: "You must select at least one hobby to continue.");
+                  Fluttertoast.showToast(msg: "You must select at least one interest to continue.");
                   return;
                 }
                 interestController.interestSelect((allInterest
