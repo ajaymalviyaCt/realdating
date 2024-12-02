@@ -51,7 +51,7 @@ class _RecordRealPageState extends State<RecordRealPage> {
   }
 
   Future<void> initializeCamera() async {
-    _cameraController = CameraController(widget.cameras[0], ResolutionPreset.high);
+    _cameraController = CameraController(widget.cameras[0], ResolutionPreset.high, enableAudio: false);
     await _cameraController!.initialize();
     setState(() {});
   }
@@ -59,11 +59,12 @@ class _RecordRealPageState extends State<RecordRealPage> {
   void startCountdown(int durationInSeconds) {
     setState(() => remainingTime = durationInSeconds);
 
-    countdownTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
+    countdownTimer = Timer.periodic(Duration(seconds: 1), (timer) {
       if (remainingTime > 0) {
         setState(() => remainingTime--);
       } else {
         timer.cancel();
+        stopRecordingAndNavigate();
       }
     });
   }
@@ -78,15 +79,10 @@ class _RecordRealPageState extends State<RecordRealPage> {
 
       // Start countdown timer
       startCountdown(duration);
-
-      // Automatically stop after the selected duration
-      Future.delayed(Duration(seconds: duration), () async {
-        if (isRecording) await stopRecordingAndMerge();
-      });
     }
   }
 
-  Future<void> stopRecordingAndMerge() async {
+  Future<void> stopRecordingAndNavigate() async {
     if (_cameraController != null && _cameraController!.value.isRecordingVideo) {
       final video = await _cameraController!.stopVideoRecording();
       setState(() {
@@ -95,12 +91,24 @@ class _RecordRealPageState extends State<RecordRealPage> {
         remainingTime = 0;
       });
 
+      // Show loading dialog while merging
+      showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (context) => Center(
+          child: CircularProgressIndicator(),
+        ),
+      );
+
       // Merge the video with audio from URL
-      const audioUrl = "https://www.learningcontainer.com/wp-content/uploads/2020/02/Kalimba.mp3";
+      const audioUrl = "https://d2dyfymghvei0e.cloudfront.net/reel-audio/17011063243607_20231127_173204_7574290c72.mp3";
       final outputPath = await mergeAudioVideo(video.path, audioUrl);
 
+      // Dismiss the loading dialog after merging is done
+      Navigator.pop(context);
+
       // Navigate to the preview page with the merged video
-      Navigator.push(
+      Navigator.pushReplacement(
         context,
         MaterialPageRoute(
           builder: (context) => VideoPreviewPage(videoPath: outputPath),
@@ -155,13 +163,13 @@ class _RecordRealPageState extends State<RecordRealPage> {
   @override
   Widget build(BuildContext context) {
     if (_cameraController == null || !_cameraController!.value.isInitialized) {
-      return const Scaffold(
+      return Scaffold(
         body: Center(child: CircularProgressIndicator()),
       );
     }
 
     return Scaffold(
-      appBar: AppBar(title: const Text("Record Real")),
+      appBar: AppBar(title: Text("Record Real")),
       body: Stack(
         children: [
           Column(
@@ -175,30 +183,30 @@ class _RecordRealPageState extends State<RecordRealPage> {
                 children: [
                   FilledButton(
                     onPressed: () => setState(() => duration = 15),
+                    child: Text("15 sec"),
                     style: FilledButton.styleFrom(
                       backgroundColor: duration == 15 ? Colors.blue : Colors.grey,
                     ),
-                    child: const Text("15 sec"),
                   ),
-                  const SizedBox(width: 10),
+                  SizedBox(width: 10),
                   FilledButton(
                     onPressed: () => setState(() => duration = 30),
+                    child: Text("30 sec"),
                     style: FilledButton.styleFrom(
                       backgroundColor: duration == 30 ? Colors.blue : Colors.grey,
                     ),
-                    child: const Text("30 sec"),
                   ),
                 ],
               ),
-              const SizedBox(height: 20),
+              SizedBox(height: 20),
               isRecording
                   ? FilledButton(
-                      onPressed: stopRecordingAndMerge,
-                      child: const Text("Stop"),
+                      onPressed: stopRecordingAndNavigate,
+                      child: Text("Stop"),
                     )
                   : FilledButton(
                       onPressed: startRecording,
-                      child: const Text("Record"),
+                      child: Text("Record"),
                     ),
             ],
           ),
@@ -206,7 +214,7 @@ class _RecordRealPageState extends State<RecordRealPage> {
             Center(
               child: Text(
                 "$remainingTime",
-                style: const TextStyle(
+                style: TextStyle(
                   fontSize: 48,
                   fontWeight: FontWeight.bold,
                   color: Colors.red,
@@ -250,14 +258,14 @@ class _VideoPreviewPageState extends State<VideoPreviewPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Preview Video")),
+      appBar: AppBar(title: Text("Preview Video")),
       body: Center(
         child: _controller.value.isInitialized
             ? AspectRatio(
                 aspectRatio: _controller.value.aspectRatio,
                 child: VideoPlayer(_controller),
               )
-            : const CircularProgressIndicator(),
+            : CircularProgressIndicator(),
       ),
     );
   }
