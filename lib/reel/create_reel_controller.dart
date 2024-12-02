@@ -258,36 +258,6 @@ class CreateReelController extends GetxController {
     callback(true);
   }
 
-  // downloadAudio(Function(bool) callback) async {
-  //   // **** Download the audio file *******//
-  //   DownloaderTask task = DownloaderTask(
-  //     url: selectedAudio.value!.url,
-  //     fileName: "${selectedAudio.value!.id}.mp3",
-  //     bufferSize:
-  //         1024, // if bufferSize value not set, default value is 64 ( 64 Kb )
-  //   );
-  //
-  //   final pathFile = (await path.getTemporaryDirectory()).path;
-  //   // if (!mounted) return;
-  //
-  //   task = task.copyWith(
-  //     downloadPath: pathFile,
-  //   );
-  //
-  //   _downloader = SimpleDownloader.init(task: task);
-  //   _downloader.download();
-  //   _downloader.callback.addListener(() {
-  //     if (_downloader.callback.status == DownloadStatus.completed) {
-  //       croppedAudioFile = File("$pathFile/${selectedAudio.value!.id}.mp3");
-  //
-  //       callback(true);
-  //     } else if (_downloader.callback.status == DownloadStatus.failed ||
-  //         _downloader.callback.status == DownloadStatus.canceled ||
-  //         _downloader.callback.status == DownloadStatus.deleted) {
-  //       callback(false);
-  //     }
-  //   });
-  // }
 
   void trimAudio() async {
     if ((audioEndTime ?? 0 - (audioStartTime ?? 0)) < recordingLength.toDouble()) {

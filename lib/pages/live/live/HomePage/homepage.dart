@@ -115,12 +115,23 @@ class _HomePageState extends State<HomePage> {
       String channelName = generateRandomString(8);
 
       /// Add live user to Firestore------
+
+
       await FirebaseFirestore.instance.collection("Liveusers").doc(user_uid).set({
         'username': userName,
         'userimage': 'https://www.yiwubazaar.com/resources/assets/images/default-product.jpg',
         'channelname': channelName,
         'userid': userID,
+        'joinedUserCount': 0, // Initialize with 0
       });
+
+
+      // await FirebaseFirestore.instance.collection("Liveusers").doc(user_uid).set({
+      //   'username': userName,
+      //   'userimage': 'https://www.yiwubazaar.com/resources/assets/images/default-product.jpg',
+      //   'channelname': channelName,
+      //   'userid': userID,
+      // });
 
       if (ZegoUIKitPrebuiltLiveStreamingController().minimize.isMinimizing) {
         return;
@@ -193,37 +204,27 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  // Widget buildLiveUserTile(LiveUser liveUser) {
-  //   return Container(
-  //     margin: const EdgeInsets.all(10),
-  //     child: InkWell(
-  //       child: LiveUserCard(
-  //         broadcasterName: liveUser.userName,
-  //         image: liveUser.image,
-  //       ),
-  //     ),
-  //   );
-  // }
-
   Widget buildLiveUserTile(LiveUser liveUser) {
     return Container(
       margin: const EdgeInsets.all(10),
       child: InkWell(
         onTap: () {
           Get.to(() => LivePage(
-                liveID: '12345',
-                isHost: false,
-                userId: liveUser.userId,
-                userName: userName,
-              ));
+            liveID: '12345',
+            isHost: false,
+            userId: liveUser.userId,
+            userName: userName,
+          ));
         },
         child: LiveUserCard(
           broadcasterName: liveUser.userName,
           image: liveUser.image,
+          joinedUserCount: liveUser.joinedUserCount,
         ),
       ),
     );
   }
+
 }
 
 class LiveUser {
@@ -231,12 +232,14 @@ class LiveUser {
   final String image;
   final String channelName;
   final String userId;
+  final int joinedUserCount;
 
   LiveUser({
     required this.userName,
     required this.image,
     required this.channelName,
     required this.userId,
+    required this.joinedUserCount,
   });
 
   factory LiveUser.fromDocument(DocumentSnapshot doc) {
@@ -246,9 +249,11 @@ class LiveUser {
       image: data['userimage'] ?? "https://www.yiwubazaar.com/resources/assets/images/default-product.jpg",
       channelName: data['channelname'],
       userId: data['userid'],
+      joinedUserCount: data['joinedUserCount'] ?? 0,
     );
   }
 }
+
 
 void jumpToLivePage(BuildContext context, {required String liveID, required bool isHost, required String userNmae, required String userId}) {
   Navigator.push(

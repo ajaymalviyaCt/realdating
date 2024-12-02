@@ -7,6 +7,11 @@ import '../main.dart';
 import 'common_import.dart';
 import 'create_reel_controller.dart';
 
+import 'dart:async';
+import 'package:flutter/material.dart';
+import 'package:camera/camera.dart';
+import 'package:get/get.dart';
+
 class CreateReelScreen extends StatefulWidget {
   const CreateReelScreen({super.key});
 
@@ -20,6 +25,10 @@ class _CreateReelScreenState extends State<CreateReelScreen> with TickerProvider
   final CreateReelController _createReelController = Get.put(CreateReelController());
   bool _isInitializingCamera = false;
 
+  Timer? _timer;
+  int _remainingTime = 0; // Time remaining in seconds
+  bool _isTimerRunning = false;
+
   @override
   void initState() {
     super.initState();
@@ -30,6 +39,7 @@ class _CreateReelScreenState extends State<CreateReelScreen> with TickerProvider
   void dispose() {
     controller?.dispose();
     _createReelController.clear();
+    _timer?.cancel(); // Cancel the timer when disposing
     super.dispose();
   }
 
@@ -44,7 +54,7 @@ class _CreateReelScreenState extends State<CreateReelScreen> with TickerProvider
     }
 
     final camera = cameras?.firstWhere(
-      (cam) => cam.lensDirection == lensDirection,
+          (cam) => cam.lensDirection == lensDirection,
       orElse: () => cameras!.first,
     );
 
@@ -84,17 +94,58 @@ class _CreateReelScreenState extends State<CreateReelScreen> with TickerProvider
 
     try {
       final currentFlashMode = controller!.value.flashMode;
-      print('Current Flash Mode: $currentFlashMode');
-
       final newFlashMode = currentFlashMode == FlashMode.off ? FlashMode.torch : FlashMode.off;
 
       await controller!.setFlashMode(newFlashMode);
-      print('Flash mode toggled to: $newFlashMode');
-
-      // Update the UI state
       _createReelController.flashSetting.value = newFlashMode == FlashMode.torch; // true for torch, false for off
     } catch (e) {
       print('Error toggling flash mode: $e');
+    }
+  }
+
+  void _startTimer(int duration) {
+    _remainingTime = duration;
+    _isTimerRunning = true;
+
+    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
+      if (_remainingTime > 0) {
+        setState(() {
+          _remainingTime--;
+        });
+      } else {
+        _stopRecording(); // Stop recording when time is up
+        _timer?.cancel();
+      }
+    });
+  }
+
+  void _pauseTimer() {
+    _isTimerRunning = false;
+    _timer?.cancel();
+  }
+
+  void _recordVideo() async {
+    if (_createReelController.isRecording.value) {
+      _stopRecording();
+    } else {
+      await startRecording();
+      _startTimer(_createReelController.recordingLength.value);
+    }
+  }
+
+  void _stopRecording() async {
+    _pauseTimer(); // Pause the timer when stopping the recording
+    final file = await controller!.stopVideoRecording();
+    _createReelController.stopRecording();
+    _createReelController.createReel(_createReelController.croppedAudioFile, file);
+  }
+
+  Future<void> startRecording() async {
+    await controller!.prepareForVideoRecording();
+    await controller!.startVideoRecording();
+    _createReelController.startRecording();
+    if (_createReelController.croppedAudioFile != null) {
+      _createReelController.playAudioFile(_createReelController.croppedAudioFile!);
     }
   }
 
@@ -106,7 +157,7 @@ class _CreateReelScreenState extends State<CreateReelScreen> with TickerProvider
         child: Column(
           children: [
             Stack(
-              alignment: Alignment.center,
+              alignment: Alignment .center,
               children: [
                 if (controller != null && controller!.value.isInitialized)
                   AspectRatio(
@@ -114,7 +165,10 @@ class _CreateReelScreenState extends State<CreateReelScreen> with TickerProvider
                     child: controller?.description.lensDirection == CameraLensDirection.back
                         ? CameraPreview(controller!)
                         : Transform(
-                            alignment: Alignment.topCenter, transform: Matrix4.rotationY(GetPlatform.isAndroid ? pi : 0), child: CameraPreview(controller!)),
+                      alignment: Alignment.topCenter,
+                      transform: Matrix4.rotationY(GetPlatform.isAndroid ? pi : 0),
+                      child: CameraPreview(controller!),
+                    ),
                   ),
                 Positioned(
                   top: 25,
@@ -127,6 +181,14 @@ class _CreateReelScreenState extends State<CreateReelScreen> with TickerProvider
                   left: 16,
                   child: _buildSideControls(),
                 ),
+                if (_isTimerRunning)
+                  Positioned(
+                    top: 100, // Adjust position as needed
+                    child: Text(
+                      '$_remainingTime s',
+                      style: TextStyle(fontSize: 24, color: Colors.white),
+                    ),
+                  ),
               ],
             ),
             const SizedBox(height: 10),
@@ -135,23 +197,15 @@ class _CreateReelScreenState extends State<CreateReelScreen> with TickerProvider
               child: Stack(
                 alignment: Alignment.center,
                 children: <Widget>[
-                  // SizedBox(
-                  //   height: 60,
-                  //   width: 60,
-                  //   child: CircularProgressIndicator(
-                  //     valueColor: AlwaysStoppedAnimation<Color>(
-                  //         AppColorConstants.themeColor),
-                  //   ),
-                  // ),
                   Obx(() => Container(
-                        height: 50,
-                        width: 50,
-                        color: AppColorConstants.themeColor,
-                        child: ThemeIconWidget(
-                          _createReelController.isRecording.value ? ThemeIcon.pause : ThemeIcon.play,
-                          size: 30,
-                        ),
-                      ).circular),
+                    height: 50,
+                    width: 50,
+                    color: AppColorConstants.themeColor,
+                    child: ThemeIconWidget(
+                      _createReelController.isRecording.value ? ThemeIcon.pause : ThemeIcon.play,
+                      size: 30,
+                    ),
+                  ).circular),
                 ],
               ),
             ),
@@ -170,37 +224,37 @@ class _CreateReelScreenState extends State<CreateReelScreen> with TickerProvider
           icon: Icons.close,
         ),
         Obx(() => GestureDetector(
-              onTap: () {
-                Get.bottomSheet(
-                  SelectMusic(
-                    selectedAudioCallback: (croppedAudio, music) {
-                      _createReelController.setCroppedAudio(croppedAudio);
-                      _initCamera();
-                    },
-                    duration: _createReelController.recordingLength.value,
-                  ),
-                  isScrollControlled: true,
-                  ignoreSafeArea: true,
-                );
-              },
-              child: Container(
-                height: 35,
-                width: 100,
-                decoration: BoxDecoration(color: AppColorConstants.themeColor, borderRadius: BorderRadius.circular(20)),
-                child: Center(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      if (_createReelController.selectedAudio.value != null) Icon(Icons.music_note_outlined, color: AppColorConstants.mainTextColor),
-                      Text(
-                        _createReelController.selectedAudio.value?.name ?? selectMusicString.tr,
-                        style: const TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                    ],
-                  ),
-                ),
+          onTap: () {
+            Get.bottomSheet(
+              SelectMusic(
+                selectedAudioCallback: (croppedAudio, music) {
+                  _createReelController.setCroppedAudio(croppedAudio);
+                  _initCamera();
+                },
+                duration: _createReelController.recordingLength.value,
               ),
-            )),
+              isScrollControlled: true,
+              ignoreSafeArea: true,
+            );
+          },
+          child: Container(
+            height: 35,
+            width: 100,
+            decoration: BoxDecoration(color: AppColorConstants.themeColor, borderRadius: BorderRadius.circular(20)),
+            child: Center(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  if (_createReelController.selectedAudio.value != null) Icon(Icons.music_note_outlined, color: AppColorConstants.mainTextColor),
+                  Text(
+                    _createReelController.selectedAudio.value?.name ?? selectMusicString.tr,
+                    style: const TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        )),
         const SizedBox(width: 20),
       ],
     );
@@ -217,10 +271,10 @@ class _CreateReelScreenState extends State<CreateReelScreen> with TickerProvider
         GestureDetector(
           onTap: _toggleFlashMode,
           child: Obx(() => Icon(
-                _createReelController.flashSetting.value ? Icons.flash_on : Icons.flash_off,
-                size: 30,
-                color: AppColorConstants.themeColor,
-              )),
+            _createReelController.flashSetting.value ? Icons.flash_on : Icons.flash_off,
+            size: 30,
+            color: AppColorConstants.themeColor,
+          )),
         ),
         const SizedBox(height: 25),
         _buildDurationButton(15),
@@ -235,6 +289,9 @@ class _CreateReelScreenState extends State<CreateReelScreen> with TickerProvider
       return GestureDetector(
         onTap: () {
           _createReelController.updateRecordingLength(duration);
+          if (_createReelController.isRecording.value) {
+            _pauseTimer();
+          }
           print('selected duration-----${_createReelController.recordingLength.value}');
         },
         child: Container(
@@ -249,34 +306,11 @@ class _CreateReelScreenState extends State<CreateReelScreen> with TickerProvider
     });
   }
 
-  void _recordVideo() async {
-    if (_createReelController.isRecording.value) {
-      _stopRecording();
-    } else {
-      await startRecording();
-    }
-  }
-
-  void _stopRecording() async {
-    final file = await controller!.stopVideoRecording();
-    _createReelController.stopRecording();
-    _createReelController.createReel(_createReelController.croppedAudioFile, file);
-  }
-
-  Future<void> startRecording() async {
-    await controller!.prepareForVideoRecording();
-    await controller!.startVideoRecording();
-    _createReelController.startRecording();
-    if (_createReelController.croppedAudioFile != null) {
-      _createReelController.playAudioFile(_createReelController.croppedAudioFile!);
-    }
-  }
-
   Widget _buildIconButton({required VoidCallback onPressed, required IconData icon}) {
     return GestureDetector(
       onTap: onPressed,
       child: Container(
-        color: AppColorConstants.themeColor,
+        color: Colors.blueAccent,
         padding: const EdgeInsets.all(4),
         child: Icon(icon, color: Colors.white),
       ).circular,

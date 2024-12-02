@@ -128,3 +128,9 @@ void _showLiveEndedPopup() {
 }
 
 
+// ..avatarBuilder = (context, size, user, extraInfo) {
+// if (widget.isHost || !widget.isHost) {
+// return null;
+// }
+// return null;
+// },

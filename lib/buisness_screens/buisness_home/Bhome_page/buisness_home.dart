@@ -454,6 +454,7 @@ class _BuisnessHomePageState extends State<BuisnessHomePage> {
                   postsC.page.value = 1;
                   postsC.hasNextPage.value = true;
                   postsC.firstLoad();
+                  myDealController.MYDeal();
                 },
                 child: ListView(
                   controller: postsC.controller,

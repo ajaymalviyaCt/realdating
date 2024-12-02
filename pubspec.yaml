@@ -110,6 +110,7 @@ dependencies:
   dio_intercept_to_curl: ^0.2.0
   mime: ^1.0.4
   logger: ^2.5.0
+  flutter_audio_trimmer: ^0.0.5
 
 
 

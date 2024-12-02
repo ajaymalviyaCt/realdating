@@ -44,13 +44,6 @@ class _BusinessProfileState extends State<BusinessProfile> {
     image = await ImagePicker().pickImage(source: ImageSource.gallery);
     final croppedFile = await ImageCropper().cropImage(
       sourcePath: image!.path,
-      // aspectRatioPresets: [
-      //   CropAspectRatioPreset.square,
-      //   CropAspectRatioPreset.ratio3x2,
-      //   CropAspectRatioPreset.original,
-      //   CropAspectRatioPreset.ratio4x3,
-      //   CropAspectRatioPreset.ratio16x9,
-      // ],
       maxWidth: 600,
       maxHeight: 600,
     );
