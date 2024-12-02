@@ -364,7 +364,7 @@ class _ChatScreenState extends State<ChatScreen> {
           // Send message button
           MaterialButton(
             onPressed: () {
-              if (_textController.text.isNotEmpty) {
+              if (_textController.text.trim().isNotEmpty) {
                 if (_list.isEmpty) {
                   APIs.sendFirstMessage(widget.user, _textController.text.trim(), Type.text);
                 } else {
