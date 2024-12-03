@@ -73,22 +73,31 @@ class _CreateReelScreenState extends State<CreateReelScreen> with TickerProvider
                           Get.back();
                         }),
                         Obx(() => Container(
-                                color: AppColorConstants.themeColor,
-                                child: Row(
-                                  children: [
-                                    if (_createReelController.selectedAudio.value != null)
-                                      ThemeIconWidget(
-                                        ThemeIcon.music,
-                                        color: AppColorConstants.mainTextColor,
+                                 height:  45,
+                                width: 130,
+                                decoration: BoxDecoration(
+                                    color: AppColorConstants.themeColor,
+                                    borderRadius: BorderRadius.circular(10)),
+
+                                child: Center(
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+
+                                    children: [
+                                      if (_createReelController.selectedAudio.value != null)
+                                        ThemeIconWidget(
+                                          ThemeIcon.music,
+                                          color: AppColorConstants.mainTextColor,
+                                        ),
+                                      BodyLargeText(
+                                        _createReelController.selectedAudio.value != null
+                                            ? _createReelController.selectedAudio.value!.name
+                                            : "Select Music",
+                                        weight: TextWeight.bold,
                                       ),
-                                    BodyLargeText(
-                                      _createReelController.selectedAudio.value != null
-                                          ? _createReelController.selectedAudio.value!.name
-                                          : "select Music",
-                                      weight: TextWeight.bold,
-                                    ),
-                                  ],
-                                ).setPadding())
+                                    ],
+                                  ).setPadding(),
+                                ))
                             .circular).ripple(() {
                           final cameraService = Get.find<CameraControllerService>();
 

@@ -8,9 +8,7 @@ import 'common_import.dart';
 import 'create_reel_controller.dart';
 
 import 'dart:async';
-import 'package:flutter/material.dart';
 
-import 'package:get/get.dart';
 
 class CreateReelScreen extends StatefulWidget {
   const CreateReelScreen({super.key});
