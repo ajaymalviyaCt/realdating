@@ -98,11 +98,11 @@ class CreateReelController extends GetxController {
 
   getReelCategories() {
     isLoadingAudios.value = true;
-    ReelApi.getReelCategories(resultCallback: (result) {
-      categories.value = result;
-      getReelAudios();
-      update();
-    });
+    // ReelApi.getReelCategories(resultCallback: (result) {
+    //   categories.value = result;
+    //   getReelAudios();
+    //   update();
+    // });
   }
 
   getReelAudios() {
@@ -110,23 +110,23 @@ class CreateReelController extends GetxController {
 
     if (canLoadMoreAudios == true) {
       isLoadingAudios.value = true;
-      ReelApi.getAudios(
-          categoryId: category.id,
-          title: searchText.value.isNotEmpty ? searchText.value : null,
-          resultCallback: (result, metadata) {
-            isLoadingAudios.value = false;
-            audios.value = result;
-
-            audiosCurrentPage += 1;
-
-            if (result.length == metadata.pageCount) {
-              canLoadMoreAudios = true;
-            } else {
-              canLoadMoreAudios = false;
-            }
-
-            update();
-          });
+      // ReelApi.getAudios(
+      //     categoryId: category.id,
+      //     title: searchText.value.isNotEmpty ? searchText.value : null,
+      //     resultCallback: (result, metadata) {
+      //       isLoadingAudios.value = false;
+      //       audios.value = result;
+      //
+      //       audiosCurrentPage += 1;
+      //
+      //       if (result.length == metadata.pageCount) {
+      //         canLoadMoreAudios = true;
+      //       } else {
+      //         canLoadMoreAudios = false;
+      //       }
+      //
+      //       update();
+      //     });
     }
   }
 
