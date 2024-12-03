@@ -6,7 +6,9 @@ import 'package:realdating/zzzzzz/manager/player_manager.dart';
 
 import 'content_creator_view.dart';
 import 'create_reel_controller.dart';
+
 List<CameraDescription>? cameras;
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   try {
@@ -42,8 +44,6 @@ Future<void> goToCreateReelScreen() async {
   Get.delete<CameraControllerService>(force: true);
   Get.delete<SettingsController>(force: true);
   Get.put(PlayerManager());
-
-
 
   // Get.put(ReelsController());
   Get.put(CreateReelController());
