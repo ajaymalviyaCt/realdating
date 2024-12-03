@@ -15,6 +15,7 @@ import 'package:realdating/zzzzzz/preview_reel_screen.dart';
 import 'package:realdating/zzzzzz/reel_music_model.dart';
 
 import '../pages/apiHandler/apis/reel_api.dart';
+import '../reel/category_model.dart';
 
 class CreateReelController extends GetxController {
   final PlayerManager _playerManager = Get.find();
@@ -103,11 +104,11 @@ class CreateReelController extends GetxController {
 
   getReelCategories() {
     isLoadingAudios.value = true;
-    // ReelApi.getReelCategories(resultCallback: (result) {
-    //   categories.value = result;
-    //   getReelAudios();
-    //   update();
-    // });
+    ReelApi.getReelCategories(resultCallback: (result) {
+      categories.value = result;
+      getReelAudios();
+      update();
+    });
   }
 
   getReelAudios() {
