@@ -12,7 +12,7 @@ class CameraApp extends StatefulWidget {
 }
 
 class _CameraAppState extends State<CameraApp> {
-  late List<CameraDescription> cameras;
+=
   late CameraController cameraController;
   bool isCameraInitialized = false;
   bool isRecording = false;

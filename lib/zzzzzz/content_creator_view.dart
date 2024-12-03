@@ -1,13 +1,14 @@
 import 'package:camera/camera.dart';
 import 'package:realdating/zzzzzz/runnnnnnnnn.dart';
 
+import '../main.dart';
 import 'common_import.dart';
 
 class CameraControllerService extends GetxController {
   late CameraController controller;
 
   Future<void> initializeCamera(CameraLensDirection lensDirection) async {
-    final camera = cameras.firstWhere((camera) => camera.lensDirection == lensDirection);
+    final camera = cameras!.firstWhere((camera) => camera.lensDirection == lensDirection);
 
     controller = CameraController(camera, ResolutionPreset.max);
     await controller.initialize().then((_) {}).catchError((Object e) {
