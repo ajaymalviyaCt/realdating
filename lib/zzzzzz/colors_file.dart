@@ -92,6 +92,10 @@ class SettingsController extends GetxController {
   }
 }
 
+class DesignConstants {
+  static double horizontalPadding = 24;
+}
+
 class AppColorConstants {
   static Color themeColor = settingsController.setting.value == null ? Colors.blue : HexColor.fromHex(settingsController.setting.value!.themeColor!);
 

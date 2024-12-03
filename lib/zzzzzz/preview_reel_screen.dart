@@ -1,10 +1,15 @@
 import 'dart:io';
 
 import 'package:chewie/chewie.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:realdating/zzzzzz/common_import.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:video_compress/video_compress.dart';
 // import 'package:video_compress_ds/video_compress_ds.dart';
 import 'package:video_player/video_player.dart';
-
+import 'package:http/http.dart' as http;
+import '../reel/localization_strings.dart';
+import '../validation/validation.dart';
 import 'colors_file.dart';
 
 class PreviewReelsScreen extends StatefulWidget {
@@ -24,6 +29,7 @@ class PreviewReelsScreen extends StatefulWidget {
 class _PreviewReelsState extends State<PreviewReelsScreen> {
   ChewieController? chewieController;
   VideoPlayerController? videoPlayerController;
+  final TextEditingController _textController = TextEditingController();
 
   @override
   void initState() {
@@ -77,82 +83,154 @@ class _PreviewReelsState extends State<PreviewReelsScreen> {
               const SizedBox(
                 height: 25,
               ),
+              SizedBox(
+                // height: 70,
+                child: TextFormField(
+                  style: const TextStyle(color: Colors.white),
+                  onChanged: (value) {
+                    if (value.startsWith(' ')) {
+                      _textController.text = value.trim();
+                      _textController.selection = TextSelection.fromPosition(
+                        TextPosition(offset: _textController.text.trim().length),
+                      );
+                    }
+                  },
+                  validator: notEmptyMsgValidator,
+                  controller: _textController,
+                  maxLines: 4,
+                  // Set the maximum number of lines for input
+                  decoration: InputDecoration(
+                    fillColor: Colors.red,
+                    enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: const BorderSide(
+                          width: 1,
+                          color: Colors.white,
+                        )),
+                    focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: const BorderSide(
+                          width: 1,
+                          color: Colors.white,
+                        )),
+                    errorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: const BorderSide(
+                          width: 1,
+                          color: Colors.white,
+                        )),
+                    focusedErrorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: const BorderSide(
+                          width: 1,
+                          color: Colors.white,
+                        )),
+                    hintText: 'Caption',
+                    hintStyle: const TextStyle(color: Colors.white),
+                    border: const OutlineInputBorder(borderSide: BorderSide(color: Colors.white)),
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  ThemeIconWidget(
+                   ThemeIconWidget(
                     ThemeIcon.backArrow,
                     size: 25,
                   ).circular.ripple(() {
                     Get.back();
                   }),
                   Container(
-                          color: AppColorConstants.themeColor,
-                          child: Text(
-                            "Next",
-                            style: TextStyle(fontSize: FontSizes.b2),
-                          ).setPadding())
+                      color: AppColorConstants.themeColor,
+                      child: Text(
+                        nextString.tr,
+                        style: TextStyle(fontSize: FontSizes.b2),
+                      ).setPadding(left: DesignConstants.horizontalPadding, right: DesignConstants.horizontalPadding, bottom: 8, top: 8))
                       .circular
                       .ripple(() {
-                    submitReel();
+                    compressVideo(widget.reel);
                   }),
                 ],
               ),
               const SizedBox(
                 height: 20,
               )
-            ]),
+            ]).hp(DesignConstants.horizontalPadding),
       ),
     );
   }
 
-  submitReel() async {
-    Loader.show(status: "loading...");
-    // final thumbnail = await VideoThumbnail.thumbnailData(
-    //   video: widget.reel.path,
-    //   imageFormat: ImageFormat.JPEG,
-    //   maxWidth: 400,
-    //   // specify the width of the thumbnail, let the height auto-scaled to keep the source aspect ratio
-    //   quality: 25,
-    // );
+  Future<void> compressVideo(File file) async {
+    // setState(() {
+    //   isCompressing = true;
+    // });
+    int fileSizeInBytes = file.lengthSync();
+    print("Total_size===>: ${file.lengthSync()}");
+    double fileSizeInKB = fileSizeInBytes / 1024; // Convert bytes to kilobytes
+    double fileSizeInMB = fileSizeInKB / 1024;
+    print("Total_size===>fileSizeInKB: $fileSizeInKB");
+    print("Total_size===>fileSizeInMB $fileSizeInMB");
+    try {
+      final info = await VideoCompress.compressVideo(
+        file.path,
+        quality: VideoQuality.Res640x480Quality,
+      );
+      print("Compression result: ${info?.path}");
+      print("Compression result1: ${info?.filesize}");
+      print("Compression result2: ${info?.duration}");
 
-    // MediaInfo? mediaInfo = await VideoCompress.compressVideo(
-    //   widget.reel.path,
-    //   quality: VideoQuality.DefaultQuality,
-    //   deleteOrigin: false, // It's false by default
-    // );
+      File finalFile = info!.file!;
 
-    // final videoInfo = await FlutterVideoInfo().getVideoInfo(mediaInfo!.path!);
-    // print(
-    //     'here is video size ${Size(videoInfo!.width!.toDouble(), videoInfo.height!.toDouble())}');
-    // Loader.dismiss();
-    // Media media = Media();
-    // media.id = randomId();
-    // media.file = File(mediaInfo!.path!);
-    // media.thumbnail = thumbnail;
-    // media.size =
-    //     Size(videoInfo!.width!.toDouble(), videoInfo.height!.toDouble());
-    // media.creationTime = DateTime.now();
-    // media.title = null;
-    // media.mediaType = GalleryMediaType.video;
+      int fileSizeInBytes22 = finalFile.lengthSync();
+      print("Total_size_after===>: ${file.lengthSync()}");
+      double fileSizeInKB22 = fileSizeInBytes22 / 1024; // Convert bytes to kilobytes
+      double fileSizeInMB = fileSizeInKB22 / 1024;
+      print("Total_size===>fileSizeInKB_after: $fileSizeInKB");
+      print("Total_size===>fileSizeInMB_after $fileSizeInMB");
 
-    // _selectPostMediaController.mediaSelected([media]);
-
-    chewieController?.pause();
-
-    // Get.to(() => AddPostScreen(
-    //       items: [media],
-    //       isReel: true,
-    //       audioId: widget.audioId,
-    //       audioStartTime: widget.audioStartTime,
-    //       audioEndTime: widget.audioEndTime,
-    //       postType: PostType.reel,
-    //       postCompletionHandler: () {
-    //         Get.close(2);
-    //       },
-    //
-    //       // postType: PostType.reel,
-    //     ));
-    //todo sameer
+      submitReel(finalFile);
+      // Handle the compressed video file, for example, you can upload it or play it.
+    } catch (e) {
+      print("Error compressing video: $e");
+    } finally {
+      //EasyLoading.dismiss();
+      // isCompressing = false;
+    }
   }
+
+  submitReel(File file) async {
+    EasyLoading.show(status: loadingString.tr);
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var token = prefs.getString('token'); // Ensure token retrieval is consistent
+    print("File path: ${file.path}");
+    var headers = {
+      'Authorization': 'Bearer $token',
+    };
+
+    var request = http.MultipartRequest('POST', Uri.parse('https://forreal.net:4000/create_reel'));
+
+    request.files.add(await http.MultipartFile.fromPath('file', file.path));
+
+    request.fields['caption'] = _textController.text.trim();
+
+    print("Caption: ${_textController.text.trim()}");
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      var responseBody = await response.stream.bytesToString();
+      print("Upload successful: Upload successful: $responseBody");
+      Get.back();
+      Get.back();
+    } else {
+      print("Upload failed: ${response.reasonPhrase}");
+    }
+
+    EasyLoading.dismiss(); // Dismiss loading indicator
+  }
+
 }
