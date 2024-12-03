@@ -157,7 +157,7 @@ class _PreviewReelsState extends State<PreviewReelsScreen> {
                         if(_textController.text.trim().isNotEmpty){
                           compressVideo(widget.reel);
                         }else{
-                          Fluttertoast.showToast(msg: "Caption can't be empty");
+                          Fluttertoast.showToast(msg: "Caption can't be empty",textColor: Colors.red);
                         }
 
                   }),
