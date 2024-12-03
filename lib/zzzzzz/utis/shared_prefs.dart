@@ -89,7 +89,7 @@ class SharedPrefs {
 
   Future<String> getWallpaper({required int roomId}) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.get(roomId.toString()) as String? ?? "assets/chatbg/chatbg3.jpg";
+    return prefs.get(roomId.toString()) as String? ?? "assets/chatbg3.jpg";
   }
 
   //Set/Get UserLoggedIn Status

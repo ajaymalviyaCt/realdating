@@ -164,6 +164,12 @@ flutter:
   assets:
     - assets/icons/
     - assets/images/
+    - assets/
+    - assets/fonts/
+    - assets/fonts/Inter/
+    - assets/fonts/Inter/static/
+    - assets/fonts/Roboto/
+    - assets/lottie/
   fonts:
     - family: Roboto
       fonts:

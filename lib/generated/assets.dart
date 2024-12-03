@@ -2,10 +2,13 @@
 // class Assets {
 //   Assets._();
 //
+//   static const String assetsBoomerang = 'assets/boomerang.png';
+//   static const String assetsChatbg3 = 'assets/chatbg3.jpg';
 //   static const String assetsIconsShare = 'assets/icons/Share.svg';
 //   static const String assetsImagesProIcon = 'assets/images/pro_icon.svg';
 //   static const String assetsPhoto = 'assets/photo.png';
 //   static const String assetsPhoto (1) = 'assets/photo (1).png';
+//   static const String assetsVerified = 'assets/verified.png';
 //   static const String iconsA1arrowReceived = 'assets/icons/A1arrow_received.svg';
 //   static const String iconsA1arrowRequested = 'assets/icons/A1arrow_requested.svg';
 //   static const String iconsACleander = 'assets/icons/a_cleander.svg';
@@ -18,6 +21,7 @@
 //   static const String iconsArrowGreen = 'assets/icons/arrow_green.svg';
 //   static const String iconsArrowRed = 'assets/icons/arrow_red.svg';
 //   static const String iconsBtn = 'assets/icons/btn.svg';
+//   static const String iconsBusinessAds = 'assets/icons/business_ads.png';
 //   static const String iconsCalender = 'assets/icons/calender.svg';
 //   static const String iconsCamera = 'assets/icons/camera.png';
 //   static const String iconsClender = 'assets/icons/clender.svg';
@@ -84,6 +88,7 @@
 //   static const String imagesBackground Pattern = 'assets/images/Background Pattern.png';
 //   static const String imagesBgProfile = 'assets/images/bg_profile.svg';
 //   static const String imagesBlurr = 'assets/images/blurr.png';
+//   static const String imagesBusinessImageIcon = 'assets/images/business_image_icon.png';
 //   static const String imagesCloseSmall = 'assets/images/close_small.svg';
 //   static const String imagesCloseSmall (1) = 'assets/images/close-small (1).svg';
 //   static const String imagesComment = 'assets/images/comment.svg';
@@ -125,6 +130,7 @@
 //   static const String imagesPhoto = 'assets/images/photo.png';
 //   static const String imagesPhoto (1) = 'assets/images/photo (1).png';
 //   static const String imagesPhoto (6) = 'assets/images/photo (6).png';
+//   static const String imagesPlaceholderImageBusiness = 'assets/images/placeholder_image_business.jpg';
 //   static const String imagesPramod222 = 'assets/images/pramod222.png';
 //   static const String imagesProIcon = 'assets/images/pro_icon.png';
 //   static const String imagesProfile = 'assets/images/profile.png';
@@ -145,6 +151,15 @@
 //   static const String interInterVariableFontSlnt,wght = 'assets/fonts/Inter/Inter-VariableFont_slnt,wght.ttf';
 //   static const String interOFL = 'assets/fonts/Inter/OFL.txt';
 //   static const String interREADME = 'assets/fonts/Inter/README.txt';
+//   static const String lottieAudioPlaying = 'assets/lottie/audio_playing.json';
+//   static const String lottieConfetti = 'assets/lottie/confetti.json';
+//   static const String lottieError = 'assets/lottie/error.json';
+//   static const String lottieLiveBattle = 'assets/lottie/live_battle.json';
+//   static const String lottieLoading = 'assets/lottie/loading.json';
+//   static const String lottieNoRecord = 'assets/lottie/no_record.json';
+//   static const String lottieSuccess = 'assets/lottie/success.json';
+//   static const String lottieSyahi = 'assets/lottie/syahi.json';
+//   static const String lottieTyping = 'assets/lottie/typing.json';
 //   static const String robotoLICENSE = 'assets/fonts/Roboto/LICENSE.txt';
 //   static const String robotoRobotoBlack = 'assets/fonts/Roboto/Roboto-Black.ttf';
 //   static const String robotoRobotoBlackItalic = 'assets/fonts/Roboto/Roboto-BlackItalic.ttf';
