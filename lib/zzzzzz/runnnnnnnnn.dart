@@ -4,19 +4,16 @@ import 'package:realdating/zzzzzz/common_import.dart';
 import 'package:realdating/zzzzzz/create_reel_video.dart';
 import 'package:realdating/zzzzzz/manager/player_manager.dart';
 
-import '../main.dart';
 import 'content_creator_view.dart';
 import 'create_reel_controller.dart';
 
-
-
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  try {
-    cameras = await availableCameras();
-  } catch (e, s) {
-    print("line 105");
-  }
+  // try {
+  //   cameras = await availableCameras();
+  // } catch (e, s) {
+  //   print("line 105");
+  // }
   Get.put(PlayerManager());
 
   Get.put(PlayerManager());
@@ -32,4 +29,18 @@ Future<void> main() async {
   runApp(GetMaterialApp(
     home: CreateReelScreen(),
   ));
+}
+
+Future<void> goToCreateReelScreen() async {
+  Get.put(PlayerManager());
+
+  Get.put(PlayerManager());
+
+  // Get.put(ReelsController());
+  Get.put(CreateReelController());
+
+  Get.put(CameraControllerService());
+  await Get.find<CameraControllerService>().initializeCamera(CameraLensDirection.front);
+  Get.put(SettingsController());
+  Get.to(CreateReelScreen());
 }
