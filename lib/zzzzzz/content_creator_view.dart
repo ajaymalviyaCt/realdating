@@ -7,7 +7,7 @@ class CameraControllerService extends GetxController {
   late CameraController controller;
 
   Future<void> initializeCamera(CameraLensDirection lensDirection) async {
-    final camera = camerassss.firstWhere((camera) => camera.lensDirection == lensDirection);
+    final camera = cameras.firstWhere((camera) => camera.lensDirection == lensDirection);
 
     controller = CameraController(camera, ResolutionPreset.max);
     await controller.initialize().then((_) {}).catchError((Object e) {
