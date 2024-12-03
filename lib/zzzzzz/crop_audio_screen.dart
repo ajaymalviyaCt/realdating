@@ -1,7 +1,7 @@
 import 'package:realdating/zzzzzz/common_import.dart';
-import 'package:realdating/zzzzzz/reel_music_model.dart';
 import 'package:realdating/zzzzzz/wave_slider.dart';
 
+import '../reel/reel_music_model.dart';
 import 'colors_file.dart';
 import 'create_reel_controller.dart';
 

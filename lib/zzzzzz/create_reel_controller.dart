@@ -7,17 +7,19 @@ import 'package:ffmpeg_kit_flutter/return_code.dart';
 import 'package:http/http.dart' as http;
 import 'package:just_audio/just_audio.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:realdating/zzzzzz/category_model.dart';
+import 'package:realdating/reel/reel_music_model.dart';
 import 'package:realdating/zzzzzz/common_import.dart';
 import 'package:realdating/zzzzzz/manager/player_manager.dart';
 import 'package:realdating/zzzzzz/preview_reel_screen.dart';
-import 'package:realdating/zzzzzz/reel_music_model.dart';
+
+import '../pages/apiHandler/apis/reel_api.dart';
+import '../reel/category_model.dart';
 
 class CreateReelController extends GetxController {
   final PlayerManager _playerManager = Get.find();
 
   RxList<CategoryModel> categories = <CategoryModel>[].obs;
-  RxList<ReelMusicModel> audiosFiless = <ReelMusicModel>[
+  RxList<ReelMusicModel> audios = <ReelMusicModel>[
     ReelMusicModel(
         id: 1,
         categoryId: 1,
@@ -69,13 +71,13 @@ class CreateReelController extends GetxController {
       clear();
       searchText.value = text;
 
-      audiosFiless.clear();
+      audios.clear();
       getReelAudios();
     }
   }
 
   clear() {
-    audiosFiless.clear();
+    audios.clear();
     isLoadingAudios.value = false;
     isRecording.value = false;
     audiosCurrentPage = 1;
@@ -100,11 +102,11 @@ class CreateReelController extends GetxController {
 
   getReelCategories() {
     isLoadingAudios.value = true;
-    // ReelApi.getReelCategories(resultCallback: (result) {
-    //   categories.value = result;
-    //   getReelAudios();
-    //   update();
-    // });
+    ReelApi.getReelCategories(resultCallback: (result) {
+      categories.value = result;
+      getReelAudios();
+      update();
+    });
   }
 
   getReelAudios() {
@@ -112,23 +114,23 @@ class CreateReelController extends GetxController {
 
     if (canLoadMoreAudios == true) {
       isLoadingAudios.value = true;
-      // ReelApi.getAudios(
-      //     categoryId: category.id,
-      //     title: searchText.value.isNotEmpty ? searchText.value : null,
-      //     resultCallback: (result, metadata) {
-      //       isLoadingAudios.value = false;
-      //       audiosFiless.value = result;
-      //
-      //       audiosCurrentPage += 1;
-      //
-      //       if (result.length == metadata.pageCount) {
-      //         canLoadMoreAudios = true;
-      //       } else {
-      //         canLoadMoreAudios = false;
-      //       }
-      //
-      //       update();
-      //     });
+      ReelApi.getAudios(
+          categoryId: category.id,
+          title: searchText.value.isNotEmpty ? searchText.value : null,
+          resultCallback: (result, metadata) {
+            isLoadingAudios.value = false;
+            audios.value = result;
+
+            audiosCurrentPage += 1;
+
+            if (result.length == metadata.pageCount) {
+              canLoadMoreAudios = true;
+            } else {
+              canLoadMoreAudios = false;
+            }
+
+            update();
+          });
     }
   }
 
