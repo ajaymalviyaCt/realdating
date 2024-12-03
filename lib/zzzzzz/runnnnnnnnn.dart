@@ -7,12 +7,12 @@ import 'package:realdating/zzzzzz/create_reel_video.dart';
 import 'content_creator_view.dart';
 import 'create_reel_controller.dart';
 
-late List<CameraDescription> cameras;
+late List<CameraDescription> camerassss;
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   try {
-    cameras = await availableCameras();
+    camerassss = await availableCameras();
   } catch (e, s) {
     print("line 105");
   }
