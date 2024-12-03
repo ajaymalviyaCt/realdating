@@ -1,0 +1,25 @@
+import 'package:realdating/zzzzzz/common_import.dart';
+
+import '../colors_file.dart';
+
+Widget divider({double? height, Color? color}) {
+  return Container(
+    height: height ?? 0.1,
+    color: color ?? AppColorConstants.dividerColor,
+  );
+}
+
+Widget verifiedUserTag() {
+  return Row(
+    children: [
+      const SizedBox(
+        width: 5,
+      ),
+      Image.asset(
+        'assets/verified.png',
+        height: 15,
+        width: 15,
+      )
+    ],
+  );
+}
