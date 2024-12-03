@@ -158,8 +158,9 @@ class _PreviewReelsState extends State<PreviewReelsScreen> {
                 ],
               ),
               const SizedBox(
-                height: 20,
+                height: 40,
               )
+
             ]).hp(DesignConstants.horizontalPadding),
       ),
     );
