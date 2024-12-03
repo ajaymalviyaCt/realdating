@@ -8,11 +8,9 @@ import 'package:http/http.dart' as http;
 import 'package:just_audio/just_audio.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:realdating/reel/reel_music_model.dart';
-import 'package:realdating/zzzzzz/category_model.dart';
 import 'package:realdating/zzzzzz/common_import.dart';
 import 'package:realdating/zzzzzz/manager/player_manager.dart';
 import 'package:realdating/zzzzzz/preview_reel_screen.dart';
-import 'package:realdating/zzzzzz/reel_music_model.dart';
 
 import '../pages/apiHandler/apis/reel_api.dart';
 import '../reel/category_model.dart';

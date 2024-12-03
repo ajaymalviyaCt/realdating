@@ -1,5 +1,3 @@
-
-
 class PostModel {
   int id = 0;
   String? title;
