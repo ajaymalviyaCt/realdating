@@ -9,7 +9,7 @@ import 'create_reel_controller.dart';
 
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:camera/camera.dart';
+
 import 'package:get/get.dart';
 
 class CreateReelScreen extends StatefulWidget {
@@ -113,6 +113,7 @@ class _CreateReelScreenState extends State<CreateReelScreen> with TickerProvider
           _remainingTime--;
         });
       } else {
+
         _stopRecording(); // Stop recording when time is up
         _timer?.cancel();
       }
@@ -134,7 +135,7 @@ class _CreateReelScreenState extends State<CreateReelScreen> with TickerProvider
   }
 
   void _stopRecording() async {
-    _pauseTimer(); // Pause the timer when stopping the recording
+    _pauseTimer();
     final file = await controller!.stopVideoRecording();
     _createReelController.stopRecording();
     _createReelController.createReel(_createReelController.croppedAudioFile, file);
