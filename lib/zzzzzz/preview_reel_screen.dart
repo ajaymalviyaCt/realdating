@@ -88,7 +88,7 @@ class _PreviewReelsState extends State<PreviewReelsScreen> {
                   Container(
                           color: AppColorConstants.themeColor,
                           child: Text(
-                            "nextString.tr",
+                            "Next",
                             style: TextStyle(fontSize: FontSizes.b2),
                           ).setPadding())
                       .circular
@@ -106,7 +106,7 @@ class _PreviewReelsState extends State<PreviewReelsScreen> {
   }
 
   submitReel() async {
-    Loader.show(status: "loadingString.tr");
+    Loader.show(status: "loading...");
     // final thumbnail = await VideoThumbnail.thumbnailData(
     //   video: widget.reel.path,
     //   imageFormat: ImageFormat.JPEG,

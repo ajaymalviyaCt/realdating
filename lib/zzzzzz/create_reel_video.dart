@@ -84,7 +84,7 @@ class _CreateReelScreenState extends State<CreateReelScreen> with TickerProvider
                                     BodyLargeText(
                                       _createReelController.selectedAudio.value != null
                                           ? _createReelController.selectedAudio.value!.name
-                                          : "selectMusicString.tr",
+                                          : "select Music",
                                       weight: TextWeight.bold,
                                     ),
                                   ],

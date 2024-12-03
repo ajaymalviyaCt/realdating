@@ -89,7 +89,7 @@ class _CropAudioState extends State<CropAudioScreen> {
           child: Container(
                   color: AppColorConstants.themeColor,
                   child: Text(
-                    "useString.tr",
+                    "Use",
                     style: TextStyle(fontSize: FontSizes.b2),
                   ).p8)
               .circular

@@ -293,7 +293,7 @@ class CreateReelController extends GetxController {
       return;
     }
 
-    Loader.show(status: "loadingString.tr");
+    Loader.show(status: "loading...");
     downloadAudio((status) async {
       if (status) {
         if (croppedAudioFile != null) {

@@ -160,17 +160,23 @@ class _CreateReelScreenState extends State<CreateReelScreen> with TickerProvider
             Stack(
               alignment: Alignment .center,
               children: [
-                if (controller != null && controller!.value.isInitialized)
-                  AspectRatio(
-                    aspectRatio: 9 / 16,
-                    child: controller?.description.lensDirection == CameraLensDirection.back
-                        ? CameraPreview(controller!)
-                        : Transform(
-                      alignment: Alignment.topCenter,
-                      transform: Matrix4.rotationY(GetPlatform.isAndroid ? pi : 0),
-                      child: CameraPreview(controller!),
-                    ),
-                  ),
+                AspectRatio(
+                  aspectRatio: 9 / 16,
+                  child: controller?.description.lensDirection == CameraLensDirection.back
+                      ? CameraPreview(controller!)
+                      : Transform(
+                      alignment: Alignment.topCenter, transform: Matrix4.rotationY(GetPlatform.isAndroid ? pi : 0), child: CameraPreview(controller!)),
+                ),
+                  // AspectRatio(
+                  //   aspectRatio: 9 / 16,
+                  //   child: controller?.description.lensDirection == CameraLensDirection.back
+                  //       ? CameraPreview(controller!)
+                  //       : Transform(
+                  //     alignment: Alignment.topCenter,
+                  //     transform: Matrix4.rotationY(GetPlatform.isAndroid ? pi : 0),
+                  //     child: CameraPreview(controller!),
+                  //   ),
+                  // ),
                 Positioned(
                   top: 25,
                   left: 16,
