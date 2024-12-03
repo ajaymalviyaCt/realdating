@@ -15,6 +15,8 @@ import 'package:http/http.dart' as http;
 import 'package:just_audio/just_audio.dart';
 import 'package:path_provider/path_provider.dart';
 
+import 'componenets/loader.dart';
+
 class CreateReelController extends GetxController {
   final PlayerManager _playerManager = Get.find();
 
