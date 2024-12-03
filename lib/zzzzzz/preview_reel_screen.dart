@@ -4,6 +4,7 @@ import 'package:chewie/chewie.dart';
 import 'package:realdating/zzzzzz/common_import.dart';
 // import 'package:video_compress_ds/video_compress_ds.dart';
 import 'package:video_player/video_player.dart';
+
 import 'colors_file.dart';
 
 class PreviewReelsScreen extends StatefulWidget {
@@ -88,7 +89,7 @@ class _PreviewReelsState extends State<PreviewReelsScreen> {
                   Container(
                           color: AppColorConstants.themeColor,
                           child: Text(
-                            "nextString.tr",
+                            "Next",
                             style: TextStyle(fontSize: FontSizes.b2),
                           ).setPadding())
                       .circular
@@ -106,7 +107,7 @@ class _PreviewReelsState extends State<PreviewReelsScreen> {
   }
 
   submitReel() async {
-    Loader.show(status: "loadingString.tr");
+    Loader.show(status: "loading...");
     // final thumbnail = await VideoThumbnail.thumbnailData(
     //   video: widget.reel.path,
     //   imageFormat: ImageFormat.JPEG,

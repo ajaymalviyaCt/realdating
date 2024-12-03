@@ -1,6 +1,6 @@
 export 'audio_tile.dart';
 export 'create_reel_controller.dart';
-export 'create_reel_video.dart';
+// export 'create_reel_video.dart';
 export 'crop_audio_screen.dart';
 export 'preview_reel_screen.dart';
 export 'reel_audio_detail.dart';

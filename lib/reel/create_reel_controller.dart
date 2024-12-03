@@ -139,6 +139,7 @@ class CreateReelController extends GetxController {
   }
 
   setAudioCropperTime(double startTime, double endTime) {
+    print('-------${audioEndTime}');
     audioStartTime = startTime;
     audioEndTime = endTime;
   }
@@ -206,11 +207,6 @@ class CreateReelController extends GetxController {
 
           if (ReturnCode.isSuccess(returnCode)) {
             debugPrint('Reel Created at: ${finalFile.path}');
-            // SUCCESS
-            // AppUtil.showToast(
-            //     context: Get.context!,
-            //     message: 'Reel Created successfully',
-            //     isSuccess: true);
             Get.to(() => PreviewReelsScreen(
                   reel: finalFile,
                   audioId: selectedAudio.value?.id,
@@ -220,11 +216,6 @@ class CreateReelController extends GetxController {
               print("object");
               uploadVideo(finalFile);
             });
-            /* final route = MaterialPageRoute(
-              fullscreenDialog: true,
-              builder: (_) => VideoPage(filePath: file.path),
-            );
-            Navigator.push(context, route);*/
           } else if (ReturnCode.isCancel(returnCode)) {
             debugPrint('Reel failed :: Cancelled');
             // CANCEL
@@ -237,10 +228,6 @@ class CreateReelController extends GetxController {
     } else {
       debugPrint('Reel Created without audio:: ${videoFile.path}');
       var finalFile = File(videoFile.path);
-      // AppUtil.showToast(
-      //     context: Get.context!,
-      //     message: 'Reel Created without Audio',
-      //     isSuccess: true);
       Get.to(() => PreviewReelsScreen(
             reel: finalFile,
           ));
@@ -258,14 +245,36 @@ class CreateReelController extends GetxController {
     callback(true);
   }
 
-
   void trimAudio() async {
-    if ((audioEndTime ?? 0 - (audioStartTime ?? 0)) < recordingLength.toDouble()) {
-      AppUtil.showToast(message: 'Audio Clip is shorter than ${recordingLength}seconds ', isSuccess: false);
+    if (audioStartTime == null || audioEndTime == null) {
+      AppUtil.showToast(
+          message: 'Audio start or end time is not defined.', isSuccess: false);
+      return;
+    }
+
+    print('Audio Start time-----------$audioStartTime');
+    print('Audio End time-----------$audioEndTime');
+    print('Audio recording time-----------$recordingLength');
+
+    if ((audioEndTime! - audioStartTime!) < recordingLength.value.toDouble()) {
+      AppUtil.showToast(
+        message: 'Audio Clip is shorter than ${recordingLength.value} seconds.',
+        isSuccess: false,
+      );
+      return;
+    }
+    print('Audio End time yyy-----------$audioEndTime');
+    if (audioEndTime! <= audioStartTime!) {
+      AppUtil.showToast(
+        message: 'Audio End time must be greater than Start time.',
+        isSuccess: false,
+      );
       return;
     }
 
     EasyLoading.show(status: loadingString.tr);
+
+    // Download and process audio file
     downloadAudio((status) async {
       if (status) {
         if (croppedAudioFile != null) {
@@ -273,25 +282,25 @@ class CreateReelController extends GetxController {
           stopPlayingAudio();
 
           final directory = await getTemporaryDirectory();
-          var finalAudioFile = File('${directory.path}/AUD_${DateTime.now().millisecondsSinceEpoch}.mp3');
+          var finalAudioFile = File(
+              '${directory.path}/AUD_${DateTime.now().millisecondsSinceEpoch}.mp3');
 
-          var audioTrimCommand = '-ss ${audioStartTime!} -i ${croppedAudioFile!.path} -t $duration -c copy ${finalAudioFile.path}';
+          // FFmpeg command to trim audio
+          var audioTrimCommand =
+              '-ss ${audioStartTime!} -i ${croppedAudioFile!.path} -t $duration -c copy ${finalAudioFile.path}';
           FFmpegKit.executeAsync(
             audioTrimCommand,
-            (session) async {
+                (session) async {
               final returnCode = await session.getReturnCode();
 
               EasyLoading.dismiss();
               if (ReturnCode.isSuccess(returnCode)) {
                 debugPrint('Audio Trimmed at: ${finalAudioFile.path}');
-                // SUCCESS
-                Get.back(result: finalAudioFile);
+                Get.back(result: finalAudioFile); // Return the trimmed audio file
               } else if (ReturnCode.isCancel(returnCode)) {
                 debugPrint('Audio Trim failed :: Cancelled');
-                // CANCEL
               } else {
                 debugPrint('Audio Trim failed :: $returnCode');
-                // ERROR
               }
             },
           );
@@ -299,6 +308,7 @@ class CreateReelController extends GetxController {
       }
     });
   }
+
 
   void updateProgress() {
     currentProgressValue.value = currentProgressValue.value + 1;
@@ -327,8 +337,7 @@ Future<void> uploadVideo(File videoFile) async {
 
   request.files.add(
     await http.MultipartFile.fromPath(
-      'video',
-      videoFile.path,
+      'video', videoFile.path,
     ),
   );
 

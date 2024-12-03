@@ -1,8 +1,8 @@
 import 'package:lottie/lottie.dart';
 import 'package:realdating/zzzzzz/colors_file.dart';
 import 'package:realdating/zzzzzz/helper/number_extension.dart';
-import 'package:realdating/zzzzzz/reel_music_model.dart';
 
+import '../reel/reel_music_model.dart';
 import 'common_import.dart';
 
 class AudioTile extends StatelessWidget {
@@ -52,7 +52,7 @@ class AudioTile extends StatelessWidget {
                     color: AppColorConstants.mainTextColor,
                   ).circular.hP8,
                   BodySmallText(
-                    '${audio.numberOfReelsMade.formatNumber} ${"reelsString.tr"}',
+                    '${audio.numberOfReelsMade.formatNumber} ${"Reels"}',
                     weight: TextWeight.medium,
                     color: AppColorConstants.mainTextColor,
                   ),

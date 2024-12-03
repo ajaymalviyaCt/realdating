@@ -1,5 +1,3 @@
-
-
 class FeatureModel {
   String? featureKey;
   bool isActive;

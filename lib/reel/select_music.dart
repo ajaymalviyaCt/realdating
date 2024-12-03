@@ -30,7 +30,7 @@ class _SelectMusicState extends State<SelectMusic> {
 
   @override
   void didUpdateWidget(covariant SelectMusic oldWidget) {
-    // exploreController.getSuggestedUsers();
+
     super.didUpdateWidget(oldWidget);
   }
 
@@ -47,9 +47,7 @@ class _SelectMusicState extends State<SelectMusic> {
       body: KeyboardDismissOnTap(
           child: Column(
         children: [
-          const SizedBox(
-            height: 40,
-          ),
+          const SizedBox(height: 40),
           Row(
             children: [
               const ThemeIconWidget(
@@ -112,46 +110,47 @@ class _SelectMusicState extends State<SelectMusic> {
     return _createReelController.isLoadingAudios.value
         ? Expanded(child: const ShimmerUsers().hp(DesignConstants.horizontalPadding))
         : _createReelController.audios.isNotEmpty
-            ? Expanded(
-                child: ListView.separated(
-                    controller: scrollController,
-                    padding: EdgeInsets.only(top: 20, bottom: 50, left: DesignConstants.horizontalPadding, right: DesignConstants.horizontalPadding),
-                    itemCount: _createReelController.audios.length,
-                    itemBuilder: (BuildContext ctx, int index) {
-                      ReelMusicModel audio = _createReelController.audios[index];
-                      return Obx(() {
-                        return AudioTile(
-                          audio: audio,
-                          isPlaying: _playerManager.currentlyPlayingAudio.value?.id == audio.id.toString(),
-                          playCallBack: () {
-                            _createReelController.playAudio(audio);
-                          },
-                          stopBack: () {
-                            _createReelController.stopPlayingAudio();
-                          },
-                          useAudioBack: () {
-                            if (_createReelController.recordingLength.value > audio.duration) {
-                              AppUtil.showToast(message: 'Audio is shorter than ${_createReelController.recordingLength}seconds', isSuccess: false);
-                              return;
-                            }
-                            openCropAudio(audio);
-                          },
-                        );
-                      });
-                    },
-                    separatorBuilder: (BuildContext ctx, int index) {
-                      return const SizedBox(
-                        height: 20,
-                      );
-                    }),
-              )
-            : emptyData(
-                title: noAudioFound.tr,
-                subTitle: searchAnotherAudio.tr,
+        ? Expanded(
+      child: ListView.separated(
+          controller: scrollController,
+          padding: EdgeInsets.only(top: 20, bottom: 50, left: DesignConstants.horizontalPadding, right: DesignConstants.horizontalPadding),
+          itemCount: _createReelController.audios.length,
+          itemBuilder: (BuildContext ctx, int index) {
+            ReelMusicModel audio = _createReelController.audios[index];
+            return Obx(() {
+              return AudioTile(
+                audio: audio,
+                isPlaying: _playerManager.currentlyPlayingAudio.value?.id == audio.id.toString(),
+                playCallBack: () {
+                  _createReelController.playAudio(audio);
+                },
+                stopBack: () {
+                  _createReelController.stopPlayingAudio();
+                },
+                useAudioBack: () {
+                  if (_createReelController.recordingLength.value > audio.duration) {
+                    AppUtil.showToast(message: 'Audio is shorter than ${_createReelController.recordingLength}seconds', isSuccess: false);
+                    return;
+                  }
+                  openCropAudio(audio);
+                },
               );
+            });
+          },
+          separatorBuilder: (BuildContext ctx, int index) {
+            return const SizedBox(
+              height: 20,
+            );
+          }),
+    )
+        : emptyData(
+      title: noAudioFound.tr,
+      subTitle: searchAnotherAudio.tr,
+    );
   }
 
   void openCropAudio(ReelMusicModel audio) async {
+    print('reel duration---------------${widget.duration}');
     _createReelController.selectReelAudio(audio);
     File audioFile = await Get.bottomSheet(FractionallySizedBox(
         heightFactor: 0.7,
@@ -164,3 +163,5 @@ class _SelectMusicState extends State<SelectMusic> {
     Get.back();
   }
 }
+
+
