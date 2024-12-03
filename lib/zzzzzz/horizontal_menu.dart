@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-
-import 'package:realdating/zzzzzz/extension.dart';
 import 'package:get/get.dart';
+import 'package:realdating/zzzzzz/extension.dart';
 
-import 'componenets/custom_texts.dart';
-import 'utis/app_config_constants.dart';
-import 'constant_util.dart';
 import 'colors_file.dart';
+import 'componenets/custom_texts.dart';
+import 'constant_util.dart';
 
 class HorizontalMenuBar extends StatefulWidget {
   final Function(int) onSegmentChange;
@@ -16,13 +14,7 @@ class HorizontalMenuBar extends StatefulWidget {
   final EdgeInsets? padding;
   final int selectedIndex;
 
-  const HorizontalMenuBar(
-      {Key? key,
-      required this.onSegmentChange,
-      required this.menus,
-      required this.selectedIndex,
-      this.height,
-      this.padding})
+  const HorizontalMenuBar({Key? key, required this.onSegmentChange, required this.menus, required this.selectedIndex, this.height, this.padding})
       : super(key: key);
 
   @override
@@ -42,8 +34,7 @@ class HorizontalMenuBarState extends State<HorizontalMenuBar> {
     return SizedBox(
       height: 40,
       child: ListView.separated(
-          padding: EdgeInsets.only(
-            ),
+          padding: EdgeInsets.only(),
           scrollDirection: Axis.horizontal,
           itemBuilder: (BuildContext context, index) {
             return Column(
@@ -56,16 +47,9 @@ class HorizontalMenuBarState extends State<HorizontalMenuBar> {
                           : AppColorConstants.cardColor.darken(),
                   child: BodyLargeText(
                     widget.menus[index].tr,
-                    color: index == widget.selectedIndex
-                        ? Colors.white
-                        : AppColorConstants.mainTextColor,
-                    weight: index == widget.selectedIndex
-                        ? TextWeight.semiBold
-                        : TextWeight.medium,
-                  )
-                      .setPadding(
-                        )
-                      .ripple(() {
+                    color: index == widget.selectedIndex ? Colors.white : AppColorConstants.mainTextColor,
+                    weight: index == widget.selectedIndex ? TextWeight.semiBold : TextWeight.medium,
+                  ).setPadding().ripple(() {
                     setState(() {
                       // selectedMenu = menus[index];
                       widget.onSegmentChange(index);
@@ -118,9 +102,7 @@ class _StaggeredMenuBarState extends State<StaggeredMenuBar> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        title != null
-            ? BodyMediumText(title!, weight: TextWeight.medium).bP16
-            : Container(),
+        title != null ? BodyMediumText(title!, weight: TextWeight.medium).bP16 : Container(),
         Wrap(
           spacing: 5,
           runSpacing: 10,
@@ -189,9 +171,7 @@ class _HorizontalSegmentBarState extends State<HorizontalSegmentBar> {
                   });
                 },
                 child: SizedBox(
-                  width: widget.adjustInMinimumWidth == true
-                      ? null
-                      : width / widget.segments.length,
+                  width: widget.adjustInMinimumWidth == true ? null : width / widget.segments.length,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -199,27 +179,19 @@ class _HorizontalSegmentBarState extends State<HorizontalSegmentBar> {
                       // const SizedBox(height: 10),
                       BodyLargeText(
                         widget.segments[index],
-                        color: index == selectedMenuIndex
-                            ? AppColorConstants.themeColor
-                            : AppColorConstants.mainTextColor,
-                        weight: index == selectedMenuIndex
-                            ? TextWeight.bold
-                            : TextWeight.medium,
+                        color: index == selectedMenuIndex ? AppColorConstants.themeColor : AppColorConstants.mainTextColor,
+                        weight: index == selectedMenuIndex ? TextWeight.bold : TextWeight.medium,
                       ).hP8,
                       if (widget.hideHighlightIndicator == false)
                         index == selectedMenuIndex
                             ? Container(
                                 height: 3,
-                                width: widget.adjustInMinimumWidth == true
-                                    ? widget.segments[index].length * 10
-                                    : width / widget.segments.length,
+                                width: widget.adjustInMinimumWidth == true ? widget.segments[index].length * 10 : width / widget.segments.length,
                                 color: AppColorConstants.themeColor,
                               ).round(10).tP16
                             : Container(
                                 height: 0.5,
-                                width: widget.adjustInMinimumWidth == true
-                                    ? widget.segments[index].length * 10
-                                    : width / widget.segments.length,
+                                width: widget.adjustInMinimumWidth == true ? widget.segments[index].length * 10 : width / widget.segments.length,
                                 color: AppColorConstants.dividerColor,
                               ).tP16
                     ],
@@ -228,8 +200,7 @@ class _HorizontalSegmentBarState extends State<HorizontalSegmentBar> {
               );
             },
             separatorBuilder: (BuildContext context, index) {
-              return widget.adjustInMinimumWidth == true &&
-                      widget.hideHighlightIndicator == true
+              return widget.adjustInMinimumWidth == true && widget.hideHighlightIndicator == true
                   ? SizedBox(
                       width: 15,
                       height: 20,
@@ -304,22 +275,14 @@ class HorizontalSegmentBarWithPointer extends StatefulWidget {
   final int? selectedMenuIndex;
 
   const HorizontalSegmentBarWithPointer(
-      {Key? key,
-      required this.onSegmentChange,
-      required this.segments,
-      this.textStyle,
-      this.selectedTextStyle,
-      this.width,
-      this.selectedMenuIndex})
+      {Key? key, required this.onSegmentChange, required this.segments, this.textStyle, this.selectedTextStyle, this.width, this.selectedMenuIndex})
       : super(key: key);
 
   @override
-  State<HorizontalSegmentBarWithPointer> createState() =>
-      _HorizontalSegmentBarWithPointerState();
+  State<HorizontalSegmentBarWithPointer> createState() => _HorizontalSegmentBarWithPointerState();
 }
 
-class _HorizontalSegmentBarWithPointerState
-    extends State<HorizontalSegmentBarWithPointer> {
+class _HorizontalSegmentBarWithPointerState extends State<HorizontalSegmentBarWithPointer> {
   List<String> menus = ['Detail', 'Related'];
   int selectedMenuIndex = 0;
   late TextStyle? textStyle;
@@ -366,12 +329,8 @@ class _HorizontalSegmentBarWithPointerState
                     const SizedBox(height: 10),
                     BodyLargeText(
                       menus[index],
-                      color: index == selectedMenuIndex
-                          ? AppColorConstants.themeColor
-                          : AppColorConstants.mainTextColor,
-                      weight: index == selectedMenuIndex
-                          ? TextWeight.bold
-                          : TextWeight.medium,
+                      color: index == selectedMenuIndex ? AppColorConstants.themeColor : AppColorConstants.mainTextColor,
+                      weight: index == selectedMenuIndex ? TextWeight.bold : TextWeight.medium,
                     ),
                     index == selectedMenuIndex
                         ? Column(
@@ -391,8 +350,7 @@ class _HorizontalSegmentBarWithPointerState
                         : Container(
                             height: 2,
                             width: width / menus.length,
-                            color: AppColorConstants.disabledColor
-                                .withOpacity(0.5),
+                            color: AppColorConstants.disabledColor.withOpacity(0.5),
                           )
                   ],
                 ),

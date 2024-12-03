@@ -1,4 +1,5 @@
 enum Font { lato, openSans, poppins, raleway, roboto }
+
 enum DisplayMode { light, dark }
 
 class AppThemeSetting {

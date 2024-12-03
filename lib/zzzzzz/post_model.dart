@@ -1,4 +1,4 @@
-import 'package:realdating/zzzzzz/common_import.dart';
+
 
 class PostModel {
   int id = 0;
@@ -26,8 +26,6 @@ class PostModel {
   String postTime = '';
   DateTime? createDate;
   PostModel? sharedPost;
-
-
 
   Map? contentRefrence;
 

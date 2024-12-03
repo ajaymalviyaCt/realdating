@@ -1,9 +1,9 @@
-import 'package:realdating/zzzzzz/reel_music_model.dart';
+import 'dart:io';
+
 import 'package:get/get.dart';
 import 'package:just_audio/just_audio.dart';
-import 'dart:io';
 import 'package:realdating/zzzzzz/manager/progress_notifier.dart';
-
+import 'package:realdating/zzzzzz/reel_music_model.dart';
 
 class Audio {
   String id;
@@ -49,8 +49,7 @@ class PlayerManager extends GetxController {
   listenToStates() {
     player.positionStream.listen((event) {
       currentPosition = event;
-      progress.value =
-          ProgressBarState(current: currentPosition, total: totalDuration);
+      progress.value = ProgressBarState(current: currentPosition, total: totalDuration);
     });
 
     player.durationStream.listen((event) {
@@ -101,14 +100,11 @@ class PlayerManager extends GetxController {
     player.play();
     listenToStates();
   }
-  playAudioFileTimeIntervalBased(
-      ReelMusicModel audio, double startTime, double endTime) async {
+
+  playAudioFileTimeIntervalBased(ReelMusicModel audio, double startTime, double endTime) async {
     await player.setUrl(audio.url);
-    await player.setClip(
-        start: Duration(seconds: startTime.toInt()),
-        end: Duration(seconds: endTime.toInt()));
+    await player.setClip(start: Duration(seconds: startTime.toInt()), end: Duration(seconds: endTime.toInt()));
     player.play();
     listenToStates();
   }
-
 }

@@ -4,8 +4,6 @@ import 'package:chewie/chewie.dart';
 import 'package:realdating/zzzzzz/common_import.dart';
 // import 'package:video_compress_ds/video_compress_ds.dart';
 import 'package:video_player/video_player.dart';
-
-
 import 'colors_file.dart';
 
 class PreviewReelsScreen extends StatefulWidget {

@@ -1,4 +1,4 @@
-import 'package:realdating/zzzzzz/common_import.dart';
+
 
 class FeatureModel {
   String? featureKey;
@@ -225,14 +225,4 @@ class SettingModel {
       iosAppLink: json["iosAppLink"] ?? 'ios app link',
       androidAppLink: json["androidAppLink"] ?? 'android app ink',
       features: (json["featureList"] as List).map((e) => FeatureModel.fromJson(e)).toList());
-
-
-
-
-
-
-
-
-
-
 }

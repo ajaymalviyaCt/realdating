@@ -1,4 +1,5 @@
 import 'package:lottie/lottie.dart';
+
 import '../common_import.dart';
 
 class Loader {
@@ -20,8 +21,7 @@ class Loader {
       backgroundColor: Colors.transparent,
       transitionAnimationController: AnimationController(
         vsync: Navigator.of(Get.context!),
-        duration: const Duration(
-            seconds: 0), // Set the duration to 0 to disable animation
+        duration: const Duration(seconds: 0), // Set the duration to 0 to disable animation
       ),
       builder: (BuildContext context) {
         return FractionallySizedBox(

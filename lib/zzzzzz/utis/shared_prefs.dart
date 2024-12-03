@@ -1,6 +1,7 @@
 import 'dart:convert';
-import 'package:shared_preferences/shared_preferences.dart';
+
 import 'package:realdating/zzzzzz/common_import.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPrefs {
   Future<Locale> getLocale() async {
@@ -88,8 +89,7 @@ class SharedPrefs {
 
   Future<String> getWallpaper({required int roomId}) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.get(roomId.toString()) as String? ??
-        "assets/chatbg/chatbg3.jpg";
+    return prefs.get(roomId.toString()) as String? ?? "assets/chatbg/chatbg3.jpg";
   }
 
   //Set/Get UserLoggedIn Status
@@ -146,8 +146,7 @@ class SharedPrefs {
     return null; // or return null;
   }
 
-  void setAppleIdEmail(
-      {required String forAppleId, required String email}) async {
+  void setAppleIdEmail({required String forAppleId, required String email}) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString('${forAppleId}_email', email);
   }
@@ -157,8 +156,7 @@ class SharedPrefs {
     return prefs.get('${forAppleId}_email') as String?;
   }
 
-  void setAppleIdName(
-      {required String forAppleId, required String email}) async {
+  void setAppleIdName({required String forAppleId, required String email}) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString('${forAppleId}_name', email);
   }

@@ -1,9 +1,7 @@
-import 'package:flutter/material.dart';
-import 'package:realdating/zzzzzz/colors_file.dart';
-import 'package:realdating/zzzzzz/utis/app_config_constants.dart';
 import 'dart:math' as math;
 
-import '../colors_file.dart';
+import 'package:flutter/material.dart';
+import 'package:realdating/zzzzzz/colors_file.dart';
 
 enum ThemeIcon {
   home,

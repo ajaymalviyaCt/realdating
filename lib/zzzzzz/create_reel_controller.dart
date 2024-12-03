@@ -4,18 +4,14 @@ import 'package:camera/camera.dart';
 import 'package:ffmpeg_kit_flutter/ffmpeg_kit.dart';
 import 'package:ffmpeg_kit_flutter/ffmpeg_kit_config.dart';
 import 'package:ffmpeg_kit_flutter/return_code.dart';
-
-import 'package:realdating/zzzzzz/common_import.dart';
-
-import 'package:realdating/zzzzzz/manager/player_manager.dart';
-import 'package:realdating/zzzzzz/category_model.dart';
-import 'package:realdating/zzzzzz/preview_reel_screen.dart';
-import 'package:realdating/zzzzzz/reel_music_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:just_audio/just_audio.dart';
 import 'package:path_provider/path_provider.dart';
-
-import 'componenets/loader.dart';
+import 'package:realdating/zzzzzz/category_model.dart';
+import 'package:realdating/zzzzzz/common_import.dart';
+import 'package:realdating/zzzzzz/manager/player_manager.dart';
+import 'package:realdating/zzzzzz/preview_reel_screen.dart';
+import 'package:realdating/zzzzzz/reel_music_model.dart';
 
 class CreateReelController extends GetxController {
   final PlayerManager _playerManager = Get.find();

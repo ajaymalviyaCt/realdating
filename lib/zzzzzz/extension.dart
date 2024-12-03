@@ -1,8 +1,9 @@
 import 'dart:math' as math;
-import 'package:realdating/zzzzzz/common_import.dart';
-import 'package:realdating/zzzzzz/colors_file.dart';
+
 import 'package:pinch_zoom/pinch_zoom.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:realdating/zzzzzz/colors_file.dart';
+import 'package:realdating/zzzzzz/common_import.dart';
 import 'package:shimmer/shimmer.dart';
 
 extension RoundedHelper on Widget {
@@ -29,109 +30,71 @@ extension PaddingHelper on Widget {
   Padding get p4 => Padding(padding: const EdgeInsets.all(4), child: this);
 
   /// Set padding according to `value`
-  Padding p(double value) =>
-      Padding(padding: EdgeInsets.all(value), child: this);
+  Padding p(double value) => Padding(padding: EdgeInsets.all(value), child: this);
 
   /// Horizontal Padding 16
-  Padding get hP4 =>
-      Padding(padding: const EdgeInsets.symmetric(horizontal: 4), child: this);
+  Padding get hP4 => Padding(padding: const EdgeInsets.symmetric(horizontal: 4), child: this);
 
-  Padding get hP8 =>
-      Padding(padding: const EdgeInsets.symmetric(horizontal: 8), child: this);
+  Padding get hP8 => Padding(padding: const EdgeInsets.symmetric(horizontal: 8), child: this);
 
-  Padding get hP16 =>
-      Padding(padding: const EdgeInsets.symmetric(horizontal: 16), child: this);
+  Padding get hP16 => Padding(padding: const EdgeInsets.symmetric(horizontal: 16), child: this);
 
-  Padding get hP25 =>
-      Padding(padding: const EdgeInsets.symmetric(horizontal: 25), child: this);
+  Padding get hP25 => Padding(padding: const EdgeInsets.symmetric(horizontal: 25), child: this);
 
-  Padding hp(double value) =>
-      Padding(padding: EdgeInsets.symmetric(horizontal: value), child: this);
+  Padding hp(double value) => Padding(padding: EdgeInsets.symmetric(horizontal: value), child: this);
 
-  Padding get rP4 =>
-      Padding(padding: const EdgeInsets.only(right: 4), child: this);
+  Padding get rP4 => Padding(padding: const EdgeInsets.only(right: 4), child: this);
 
-  Padding get rP8 =>
-      Padding(padding: const EdgeInsets.only(right: 8), child: this);
+  Padding get rP8 => Padding(padding: const EdgeInsets.only(right: 8), child: this);
 
-  Padding get rP16 =>
-      Padding(padding: const EdgeInsets.only(right: 16), child: this);
+  Padding get rP16 => Padding(padding: const EdgeInsets.only(right: 16), child: this);
 
-  Padding get rP25 =>
-      Padding(padding: const EdgeInsets.only(right: 25), child: this);
+  Padding get rP25 => Padding(padding: const EdgeInsets.only(right: 25), child: this);
 
-  Padding rp(double value) =>
-      Padding(padding: EdgeInsets.only(right: value), child: this);
+  Padding rp(double value) => Padding(padding: EdgeInsets.only(right: value), child: this);
 
-  Padding get lP4 =>
-      Padding(padding: const EdgeInsets.only(left: 4), child: this);
+  Padding get lP4 => Padding(padding: const EdgeInsets.only(left: 4), child: this);
 
-  Padding get lP8 =>
-      Padding(padding: const EdgeInsets.only(left: 8), child: this);
+  Padding get lP8 => Padding(padding: const EdgeInsets.only(left: 8), child: this);
 
-  Padding get lP16 =>
-      Padding(padding: const EdgeInsets.only(left: 16), child: this);
+  Padding get lP16 => Padding(padding: const EdgeInsets.only(left: 16), child: this);
 
-  Padding get lP25 =>
-      Padding(padding: const EdgeInsets.only(left: 25), child: this);
+  Padding get lP25 => Padding(padding: const EdgeInsets.only(left: 25), child: this);
 
-  Padding lp(double value) =>
-      Padding(padding: EdgeInsets.only(left: value), child: this);
+  Padding lp(double value) => Padding(padding: EdgeInsets.only(left: value), child: this);
 
-  Padding get tP4 =>
-      Padding(padding: const EdgeInsets.only(top: 4), child: this);
+  Padding get tP4 => Padding(padding: const EdgeInsets.only(top: 4), child: this);
 
-  Padding get tP8 =>
-      Padding(padding: const EdgeInsets.only(top: 8), child: this);
+  Padding get tP8 => Padding(padding: const EdgeInsets.only(top: 8), child: this);
 
-  Padding get tP16 =>
-      Padding(padding: const EdgeInsets.only(top: 16), child: this);
+  Padding get tP16 => Padding(padding: const EdgeInsets.only(top: 16), child: this);
 
-  Padding get tP25 =>
-      Padding(padding: const EdgeInsets.only(top: 25), child: this);
+  Padding get tP25 => Padding(padding: const EdgeInsets.only(top: 25), child: this);
 
-  Padding tp(double value) =>
-      Padding(padding: EdgeInsets.only(top: value), child: this);
+  Padding tp(double value) => Padding(padding: EdgeInsets.only(top: value), child: this);
 
-  Padding get bP4 =>
-      Padding(padding: const EdgeInsets.only(bottom: 4), child: this);
+  Padding get bP4 => Padding(padding: const EdgeInsets.only(bottom: 4), child: this);
 
-  Padding get bP8 =>
-      Padding(padding: const EdgeInsets.only(bottom: 8), child: this);
+  Padding get bP8 => Padding(padding: const EdgeInsets.only(bottom: 8), child: this);
 
-  Padding get bP16 =>
-      Padding(padding: const EdgeInsets.only(bottom: 16), child: this);
+  Padding get bP16 => Padding(padding: const EdgeInsets.only(bottom: 16), child: this);
 
-  Padding get bP25 =>
-      Padding(padding: const EdgeInsets.only(bottom: 25), child: this);
+  Padding get bP25 => Padding(padding: const EdgeInsets.only(bottom: 25), child: this);
 
-  Padding bp(double value) =>
-      Padding(padding: EdgeInsets.only(bottom: value), child: this);
+  Padding bp(double value) => Padding(padding: EdgeInsets.only(bottom: value), child: this);
 
-  Padding get vP25 =>
-      Padding(padding: const EdgeInsets.symmetric(vertical: 25), child: this);
+  Padding get vP25 => Padding(padding: const EdgeInsets.symmetric(vertical: 25), child: this);
 
-  Padding get vP16 =>
-      Padding(padding: const EdgeInsets.symmetric(vertical: 16), child: this);
+  Padding get vP16 => Padding(padding: const EdgeInsets.symmetric(vertical: 16), child: this);
 
-  Padding get vP8 =>
-      Padding(padding: const EdgeInsets.symmetric(vertical: 8), child: this);
+  Padding get vP8 => Padding(padding: const EdgeInsets.symmetric(vertical: 8), child: this);
 
-  Padding get vP4 =>
-      Padding(padding: const EdgeInsets.symmetric(vertical: 4), child: this);
+  Padding get vP4 => Padding(padding: const EdgeInsets.symmetric(vertical: 4), child: this);
 
-  Padding vp(double value) =>
-      Padding(padding: EdgeInsets.symmetric(vertical: value), child: this);
+  Padding vp(double value) => Padding(padding: EdgeInsets.symmetric(vertical: value), child: this);
 
-  Padding setPadding(
-          {double top = 0,
-          double bottom = 0,
-          double left = 0,
-          double right = 0}) =>
-      Padding(
-          padding: EdgeInsets.only(
-              top: top, bottom: bottom, right: right, left: left),
-          child: this);
+  Padding setPadding({double top = 0, double bottom = 0, double left = 0, double right = 0}) =>
+      Padding(padding: EdgeInsets.only(top: top, bottom: bottom, right: right, left: left), child: this);
 }
 
 extension CornerRadius on Widget {
@@ -192,9 +155,7 @@ extension SideCornerRadius on Widget {
 }
 
 extension ShadowView on Widget {
-  Card backgroundCard(
-          {double? radius = 10, Color? fillColor, double? shadowOpacity}) =>
-      Card(
+  Card backgroundCard({double? radius = 10, Color? fillColor, double? shadowOpacity}) => Card(
         elevation: 1,
         color: fillColor ?? AppColorConstants.cardColor,
         shape: RoundedRectangleBorder(
@@ -216,44 +177,27 @@ extension ShadowView on Widget {
         child: this,
       );
 
-  Card backgroundCardWithoutRadius({Color? foregroundColor}) => Card(
-      elevation: 1,
-      color: foregroundColor ?? AppColorConstants.cardColor,
-      child: this);
+  Card backgroundCardWithoutRadius({Color? foregroundColor}) => Card(elevation: 1, color: foregroundColor ?? AppColorConstants.cardColor, child: this);
 
-  Container shadowWithBorder(
-          {double? radius = 15,
-          Color? fillColor,
-          Color? borderColor,
-          double? borderWidth = 0.5,
-          double? shadowOpacity}) =>
-      Container(
-          decoration: BoxDecoration(
-            border: Border.all(
-                width: borderWidth ?? 0.5,
-                color: borderColor ?? AppColorConstants.themeColor),
-            color: fillColor,
-            borderRadius: BorderRadius.all(Radius.circular(radius!)),
-            boxShadow: <BoxShadow>[
-              BoxShadow(
-                offset: const Offset(1, 1),
-                blurRadius: radius,
-                color: fillColor != null
-                    ? fillColor.withOpacity(.2)
-                    : AppColorConstants.disabledColor
-                        .withOpacity(shadowOpacity ?? 0.25),
-              ),
-              BoxShadow(
-                offset: const Offset(-1, 0),
-                blurRadius: radius,
-                color: fillColor != null
-                    ? fillColor.withOpacity(.2)
-                    : AppColorConstants.disabledColor
-                        .withOpacity(shadowOpacity ?? 0.25),
-              )
-            ],
+  Container shadowWithBorder({double? radius = 15, Color? fillColor, Color? borderColor, double? borderWidth = 0.5, double? shadowOpacity}) => Container(
+      decoration: BoxDecoration(
+        border: Border.all(width: borderWidth ?? 0.5, color: borderColor ?? AppColorConstants.themeColor),
+        color: fillColor,
+        borderRadius: BorderRadius.all(Radius.circular(radius!)),
+        boxShadow: <BoxShadow>[
+          BoxShadow(
+            offset: const Offset(1, 1),
+            blurRadius: radius,
+            color: fillColor != null ? fillColor.withOpacity(.2) : AppColorConstants.disabledColor.withOpacity(shadowOpacity ?? 0.25),
           ),
-          child: round(radius - (borderWidth ?? 0.5)));
+          BoxShadow(
+            offset: const Offset(-1, 0),
+            blurRadius: radius,
+            color: fillColor != null ? fillColor.withOpacity(.2) : AppColorConstants.disabledColor.withOpacity(shadowOpacity ?? 0.25),
+          )
+        ],
+      ),
+      child: round(radius - (borderWidth ?? 0.5)));
 }
 
 extension FixedHeightBox on Widget {
@@ -274,8 +218,7 @@ extension BorderView on Widget {
   Container border({required double value, Color? color}) => Container(
         decoration: BoxDecoration(
           color: AppColorConstants.backgroundColor,
-          border: Border.all(
-              width: value, color: color ?? AppColorConstants.disabledColor),
+          border: Border.all(width: value, color: color ?? AppColorConstants.disabledColor),
         ),
         child: this,
       );
@@ -287,8 +230,7 @@ extension BorderView on Widget {
   }) =>
       Container(
           decoration: BoxDecoration(
-            border: Border.all(
-                width: value, color: color ?? AppColorConstants.dividerColor),
+            border: Border.all(width: value, color: color ?? AppColorConstants.dividerColor),
             borderRadius: BorderRadius.all(Radius.circular(radius)),
           ),
           child: round(radius - 1));
@@ -304,10 +246,7 @@ extension ShimmerView on Widget {
 }
 
 extension OnPressed on Widget {
-  Widget ripple(Function onPressed,
-          {BorderRadiusGeometry borderRadius =
-              const BorderRadius.all(Radius.circular(5))}) =>
-      InkWell(
+  Widget ripple(Function onPressed, {BorderRadiusGeometry borderRadius = const BorderRadius.all(Radius.circular(5))}) => InkWell(
         onTap: () {
           onPressed();
         },
@@ -357,8 +296,7 @@ extension ColorExtension on Color {
     assert(amount >= 0 && amount <= 1);
 
     final hsl = HSLColor.fromColor(this);
-    final hslLight =
-        hsl.withLightness((hsl.lightness + amount).clamp(0.0, 1.0));
+    final hslLight = hsl.withLightness((hsl.lightness + amount).clamp(0.0, 1.0));
 
     return hslLight.toColor();
   }
@@ -427,7 +365,6 @@ extension PinchZoomImage on Widget {
 extension AppChip on Widget {
   Widget makeChip({Color? backGroundColor}) => Container(
         color: backGroundColor ?? AppColorConstants.themeColor.withOpacity(0.2),
-        child: setPadding(
-          ),
+        child: setPadding(),
       ).borderWithRadius(value: 1, radius: 20);
 }

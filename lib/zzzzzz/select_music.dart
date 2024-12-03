@@ -1,11 +1,8 @@
 import 'dart:io';
 
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
-
 import 'package:realdating/zzzzzz/common_import.dart';
-
 import 'package:realdating/zzzzzz/manager/player_manager.dart';
-
 import 'package:realdating/zzzzzz/reel_music_model.dart';
 
 import 'audio_tile.dart';
@@ -163,7 +160,8 @@ class _SelectMusicState extends State<SelectMusic> {
                 },
                 useAudioBack: () {
                   if (_createReelController.recordingLength.value > audio.duration) {
-                    Get.snackbar("title", "Audio is shorter than ${_createReelController.recordingLength}seconds");;
+                    Get.snackbar("title", "Audio is shorter than ${_createReelController.recordingLength}seconds");
+                    ;
 
                     return;
                   }

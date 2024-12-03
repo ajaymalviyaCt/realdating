@@ -44,8 +44,7 @@ extension IntegerExtension on int {
       return '${(this / divider / divider / divider).toStringAsFixed(2)} GB';
     }
 
-    if (this < divider * divider * divider * divider * divider &&
-        this % divider == 0) {
+    if (this < divider * divider * divider * divider * divider && this % divider == 0) {
       num r = this / divider / divider / divider / divider;
       return '${r.toStringAsFixed(0)} TB';
     }
@@ -55,8 +54,7 @@ extension IntegerExtension on int {
       return '${r.toStringAsFixed(2)} TB';
     }
 
-    if (this < divider * divider * divider * divider * divider * divider &&
-        this % divider == 0) {
+    if (this < divider * divider * divider * divider * divider * divider && this % divider == 0) {
       num r = this / divider / divider / divider / divider / divider;
       return '${r.toStringAsFixed(0)} PB';
     } else {

@@ -1,15 +1,13 @@
-import 'package:realdating/zzzzzz/helper/color_extension.dart';
+import 'package:local_auth/local_auth.dart';
 import 'package:realdating/zzzzzz/common_import.dart';
 import 'package:realdating/zzzzzz/constant_util.dart';
-import 'package:realdating/zzzzzz/utis/shared_prefs.dart';
+import 'package:realdating/zzzzzz/helper/color_extension.dart';
 import 'package:realdating/zzzzzz/setting_model.dart';
-import 'package:local_auth/local_auth.dart';
+import 'package:realdating/zzzzzz/utis/shared_prefs.dart';
 
 final SettingsController settingsController = Get.find();
 
 class SettingsController extends GetxController {
-
-
   Rx<SettingModel?> setting = Rx<SettingModel?>(null);
   RxString currentLanguage = 'en'.obs;
 

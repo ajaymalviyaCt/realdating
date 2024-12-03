@@ -13,6 +13,7 @@ class ProgressBarState {
     required this.current,
     required this.total,
   });
+
   final Duration current;
   final Duration total;
 }

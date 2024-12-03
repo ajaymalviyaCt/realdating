@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:intl/intl.dart';
+
 import '../common_import.dart';
 
 extension StringExtension on String {
@@ -9,8 +10,7 @@ extension StringExtension on String {
   }
 
   bool get isValidUrl {
-    String pattern =
-        r'(http|https)://[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:/~+#-]*[\w@?^=%&amp;/~+#-])?';
+    String pattern = r'(http|https)://[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:/~+#-]*[\w@?^=%&amp;/~+#-])?';
     RegExp regExp = RegExp(pattern);
     if (isEmpty) {
       return false;
@@ -42,13 +42,10 @@ extension StringExtension on String {
     return mentions;
   }
 
-
-
   String get getInitials {
     List<String> nameParts = trim().split(' ');
     if (nameParts.length > 1) {
-      return nameParts[0].substring(0, 1).toUpperCase() +
-          nameParts[1].substring(0, 1).toUpperCase();
+      return nameParts[0].substring(0, 1).toUpperCase() + nameParts[1].substring(0, 1).toUpperCase();
     } else {
       return nameParts[0].substring(0, 1).toUpperCase();
     }
@@ -74,8 +71,7 @@ extension AgeCalculator on String {
     DateTime now = DateTime.now();
     DateTime dob = DateTime.parse(this); // Parse the date string
     int age = now.year - dob.year;
-    if (now.month < dob.month ||
-        (now.month == dob.month && now.day < dob.day)) {
+    if (now.month < dob.month || (now.month == dob.month && now.day < dob.day)) {
       age--;
     }
     return age.toString();

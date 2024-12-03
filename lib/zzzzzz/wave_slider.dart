@@ -1,7 +1,6 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:realdating/zzzzzz/colors_file.dart';
 
 typedef CallbackSelection = void Function(double duration, double endDuration);
 

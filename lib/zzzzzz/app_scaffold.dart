@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:realdating/zzzzzz/colors_file.dart';
-import 'utis/app_config_constants.dart';
 
 class AppScaffold extends StatelessWidget {
   final Widget body;
@@ -30,8 +29,7 @@ class AppScaffold extends StatelessWidget {
           return false;
         },
         child: Scaffold(
-            backgroundColor:
-                backgroundColor ?? AppColorConstants.backgroundColor,
+            backgroundColor: backgroundColor ?? AppColorConstants.backgroundColor,
             body: GestureDetector(
                 onTap: () {
                   FocusScope.of(context).requestFocus(FocusNode());
