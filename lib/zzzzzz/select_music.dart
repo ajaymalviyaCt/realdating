@@ -1,14 +1,13 @@
 import 'dart:io';
 
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
+import 'package:realdating/zzzzzz/audio_tile.dart';
 import 'package:realdating/zzzzzz/common_import.dart';
 import 'package:realdating/zzzzzz/manager/player_manager.dart';
+import 'package:realdating/zzzzzz/reel_music_model.dart';
 
-import '../reel/app_config_constants.dart';
-import '../reel/app_util.dart';
-import '../reel/empty_states.dart';
 import '../reel/reel_music_model.dart';
-import 'audio_tile.dart';
+import 'colors_file.dart';
 import 'create_reel_controller.dart';
 import 'crop_audio_screen.dart';
 import 'horizontal_menu.dart';
@@ -47,7 +46,7 @@ class _SelectMusicState extends State<SelectMusic> {
   @override
   Widget build(BuildContext context) {
     return AppScaffold(
-      // backgroundColor: AppColorConstants.backgroundColor,
+      backgroundColor: AppColorConstants.backgroundColor,
       body: KeyboardDismissOnTap(
           child: Column(
         children: [
@@ -86,10 +85,10 @@ class _SelectMusicState extends State<SelectMusic> {
                         Container(
                           height: 50,
                           width: 50,
-                          // color: AppColorConstants.themeColor,
+                          color: AppColorConstants.themeColor,
                           child: ThemeIconWidget(
                             ThemeIcon.close,
-                            // color: AppColorConstants.backgroundColor,
+                            color: AppColorConstants.backgroundColor,
                             size: 25,
                           ),
                         ).round(20).ripple(() {
@@ -140,21 +139,67 @@ class _SelectMusicState extends State<SelectMusic> {
         }
       }
     });
+    return Expanded(
+      child: ListView.separated(
+          controller: scrollController,
+          padding: EdgeInsets.only(
+            top: 20,
+            bottom: 50,
+          ),
+          itemCount: _createReelController.audiosFiless.length,
+          itemBuilder: (BuildContext ctx, int index) {
+            ReelMusicModel audio = _createReelController.audiosFiless[index];
+            return Obx(() {
+              return AudioTile(
+                audio: audio,
+                isPlaying: _playerManager.currentlyPlayingAudio.value?.id == audio.id.toString(),
+                playCallBack: () {
+                  _createReelController.playAudio(audio);
+                },
+                stopBack: () {
+                  _createReelController.stopPlayingAudio();
+                },
+                useAudioBack: () {
+                  if (_createReelController.recordingLength.value > audio.duration) {
+                    Get.snackbar("title", "Audio is shorter than ${_createReelController.recordingLength}seconds");
+                    ;
 
+                    return;
+                  }
+                  openCropAudio(audio);
+                },
+              );
+            });
+          },
+          separatorBuilder: (BuildContext ctx, int index) {
+            return const SizedBox(
+              height: 20,
+            );
+          }),
+    );
+/*
     return _createReelController.isLoadingAudios.value
-        ? Expanded(child: CircularProgressIndicator())
-        : _createReelController.audios.isNotEmpty
+        ? Expanded(
+            child: const ShimmerUsers().hp(DesignConstants.horizontalPadding))
+        : _createReelController.audiosFiless.isNotEmpty
             ? Expanded(
                 child: ListView.separated(
                     controller: scrollController,
-                    padding: EdgeInsets.only(top: 20, bottom: 50, left: DesignConstants.horizontalPadding, right: DesignConstants.horizontalPadding),
-                    itemCount: _createReelController.audios.length,
+                    padding: EdgeInsets.only(
+                        top: 20,
+                        bottom: 50,
+                        left: DesignConstants.horizontalPadding,
+                        right: DesignConstants.horizontalPadding),
+                    itemCount: _createReelController.audiosFiless.length,
                     itemBuilder: (BuildContext ctx, int index) {
-                      ReelMusicModel audio = _createReelController.audios[index];
+                      ReelMusicModel audio =
+                          _createReelController.audiosFiless[index];
                       return Obx(() {
                         return AudioTile(
                           audio: audio,
-                          isPlaying: _playerManager.currentlyPlayingAudio.value?.id == audio.id.toString(),
+                          isPlaying:
+                              _playerManager.currentlyPlayingAudio.value?.id ==
+                                  audio.id.toString(),
                           playCallBack: () {
                             _createReelController.playAudio(audio);
                           },
@@ -162,8 +207,12 @@ class _SelectMusicState extends State<SelectMusic> {
                             _createReelController.stopPlayingAudio();
                           },
                           useAudioBack: () {
-                            if (_createReelController.recordingLength.value > audio.duration) {
-                              AppUtil.showToast(message: 'Audio is shorter than ${_createReelController.recordingLength}seconds', isSuccess: false);
+                            if (_createReelController.recordingLength.value >
+                                audio.duration) {
+                              AppUtil.showToast(
+                                  message:
+                                      'Audio is shorter than ${_createReelController.recordingLength}seconds',
+                                  isSuccess: false);
                               return;
                             }
                             openCropAudio(audio);
@@ -178,9 +227,11 @@ class _SelectMusicState extends State<SelectMusic> {
                     }),
               )
             : emptyData(
-                title: "No Data",
+                title: noDataString.tr,
                 subTitle: 'Please search another audio',
               );
+
+    */
   }
 
   void openCropAudio(ReelMusicModel audio) async {
