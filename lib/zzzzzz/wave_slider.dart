@@ -49,15 +49,18 @@ class WaveSliderState extends State<WaveSlider> {
   void initState() {
     super.initState();
 
-    var shortSize = MediaQueryData.fromWindow(WidgetsBinding.instance.window).size.shortestSide;
+    var shortSize = MediaQueryData.fromWindow(WidgetsBinding.instance.window)
+        .size
+        .shortestSide;
 
-    widthSlider = (widget.widthWaveSlider < 50) ? (shortSize - 2 - 40) : widget.widthWaveSlider;
+    widthSlider = (widget.widthWaveSlider < 50)
+        ? (shortSize - 2 - 40)
+        : widget.widthWaveSlider;
     heightSlider = (widget.heightWaveSlider < 50) ? 100 : widget.heightWaveSlider;
     barEndPosition = widthSlider - selectBarWidth;
-    debugPrint('Bar width: $barEndPosition, Select Bar witdth: $selectBarWidth');
 
     Random r = Random();
-    for (var i = 0; i < (widthSlider / barWidth); i++) {
+    for (var i = 0; i < (widthSlider / barWidth).floor(); i++) {
       int number = 1 + r.nextInt(heightSlider.toInt() - 1);
       bars.add(r.nextInt(number));
     }
@@ -68,7 +71,9 @@ class WaveSliderState extends State<WaveSlider> {
   }
 
   double _getBarEndPosition() {
-    return ((barStartPosition + selectBarWidth) > barEndPosition) ? (barStartPosition + selectBarWidth) : barEndPosition;
+    return ((barStartPosition + selectBarWidth) > barEndPosition)
+        ? (barStartPosition + selectBarWidth)
+        : barEndPosition;
   }
 
   int _getStartTime() {
@@ -76,7 +81,10 @@ class WaveSliderState extends State<WaveSlider> {
   }
 
   int _getEndTime() {
-    return ((_getBarEndPosition() + selectBarWidth) / (widthSlider / widget.duration)).ceilToDouble().toInt();
+    return ((_getBarEndPosition() + selectBarWidth) /
+        (widthSlider / widget.duration))
+        .ceilToDouble()
+        .toInt();
   }
 
   String _timeFormatter(int second) {
@@ -89,7 +97,9 @@ class WaveSliderState extends State<WaveSlider> {
     durations.add(duration.inMinutes);
     durations.add(duration.inSeconds);
 
-    return durations.map((seg) => seg.remainder(60).toString().padLeft(2, '0')).join(':');
+    return durations
+        .map((seg) => seg.remainder(60).toString().padLeft(2, '0'))
+        .join(':');
   }
 
   @override
@@ -103,9 +113,21 @@ class WaveSliderState extends State<WaveSlider> {
         children: [
           Row(
             children: [
-              Text(_timeFormatter(_getStartTime()), style: TextStyle(color: widget.positionTextColor)),
+              Flexible(
+                child: Text(
+                  _timeFormatter(_getStartTime()),
+                  style: TextStyle(color: widget.positionTextColor),
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
               Expanded(child: Container()),
-              Text(_timeFormatter(_getEndTime()), style: TextStyle(color: widget.positionTextColor)),
+              Flexible(
+                child: Text(
+                  _timeFormatter(_getEndTime()),
+                  style: TextStyle(color: widget.positionTextColor),
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
             ],
           ),
           Expanded(
@@ -115,40 +137,46 @@ class WaveSliderState extends State<WaveSlider> {
               child: Stack(
                 alignment: Alignment.centerLeft,
                 children: <Widget>[
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: bars.map((int height) {
-                      Color color = i >= barStartPosition / barWidth && i <= barEndPosition / barWidth ? widget.wavActiveColor : widget.wavDeactiveColor;
-                      i++;
+                  SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: bars.map((int height) {
+                        Color color = i >= barStartPosition / barWidth &&
+                            i <= barEndPosition / barWidth
+                            ? widget.wavActiveColor
+                            : widget.wavDeactiveColor;i++;
 
-                      return Container(
-                        color: color,
-                        height: height.toDouble(),
-                        width: 5.0,
-                      );
-                    }).toList(),
+                        return Container(
+                          color: color,
+                          height: height.toDouble(),
+                          width: barWidth,
+                        );
+                      }).toList(),
+                    ),
                   ),
                   Bar(
                     position: _getBarStartPosition(),
                     colorBG: widget.sliderColor,
                     width: selectBarWidth,
                     callback: (DragUpdateDetails details) {
-                      /* var tmp = barStartPosition + details.delta.dx;
-                      if ((barEndPosition - selectBarWidth) > tmp &&
-                          (tmp >= 0)) {
+                      var tmp = barStartPosition + details.delta.dx;
+                      if ((barEndPosition - selectBarWidth) > tmp && (tmp >= 0)) {
                         setState(() {
                           barStartPosition += details.delta.dx;
                         });
-                      }*/
+                      }
                     },
                     callbackEnd: (details) {
-                      //widget.callbackStart(_getStartTime().toDouble());
+                      widget.callbackEnd(_getStartTime().toDouble(), _getEndTime().toDouble());
                     },
                   ),
                   CenterBar(
                     position: _getBarStartPosition() + selectBarWidth,
-                    width: _getBarEndPosition() - _getBarStartPosition() - selectBarWidth,
+                    width: _getBarEndPosition() -
+                        _getBarStartPosition() -
+                        selectBarWidth,
                     callback: (details) {
                       var tmp1 = barStartPosition + details.delta.dx;
                       var tmp2 = barEndPosition + details.delta.dx;
@@ -160,8 +188,8 @@ class WaveSliderState extends State<WaveSlider> {
                       }
                     },
                     callbackEnd: (details) {
-                      //widget.callbackStart(_getStartTime().toDouble(),_getEndTime().toDouble());
-                      widget.callbackEnd(_getStartTime().toDouble(), _getEndTime().toDouble());
+                      widget.callbackEnd(
+                          _getStartTime().toDouble(), _getEndTime().toDouble());
                     },
                   ),
                   Bar(
@@ -170,14 +198,16 @@ class WaveSliderState extends State<WaveSlider> {
                     width: selectBarWidth,
                     callback: (DragUpdateDetails details) {
                       var tmp = barEndPosition + details.delta.dx;
-                      if ((barStartPosition + selectBarWidth) < tmp && (tmp + selectBarWidth) <= widthSlider) {
+                      if ((barStartPosition + selectBarWidth) < tmp &&
+                          (tmp + selectBarWidth) <= widthSlider) {
                         setState(() {
                           barEndPosition += details.delta.dx;
                         });
                       }
                     },
                     callbackEnd: (details) {
-                      widget.callbackEnd(_getStartTime().toDouble(), _getEndTime().toDouble());
+                      widget.callbackEnd(
+                          _getStartTime().toDouble(), _getEndTime().toDouble());
                     },
                   ),
                 ],
@@ -189,6 +219,7 @@ class WaveSliderState extends State<WaveSlider> {
     );
   }
 }
+
 
 class CenterBar extends StatelessWidget {
   final double position;

@@ -39,23 +39,30 @@ class HorizontalMenuBarState extends State<HorizontalMenuBar> {
           itemBuilder: (BuildContext context, index) {
             return Column(
               children: [
-                Container(
-                  color: index == widget.selectedIndex
-                      ? AppColorConstants.themeColor
-                      : isDarkMode
-                          ? AppColorConstants.cardColor.lighten()
-                          : AppColorConstants.cardColor.darken(),
-                  child: BodyLargeText(
-                    widget.menus[index].tr,
-                    color: index == widget.selectedIndex ? Colors.white : AppColorConstants.mainTextColor,
-                    weight: index == widget.selectedIndex ? TextWeight.semiBold : TextWeight.medium,
-                  ).setPadding().ripple(() {
-                    setState(() {
-                      // selectedMenu = menus[index];
-                      widget.onSegmentChange(index);
-                    });
-                  }),
-                ).round(20),
+                Padding(
+                  padding: const EdgeInsets.only(left: 8.0),
+                  child: Container(
+                    height: 40,
+                    width: 110,
+                    color: index == widget.selectedIndex
+                        ? AppColorConstants.themeColor
+                        : isDarkMode
+                            ? AppColorConstants.cardColor.lighten()
+                            : AppColorConstants.cardColor.darken(),
+                    child: Center(
+                      child: BodyLargeText(
+                        widget.menus[index].tr,
+                        color: index == widget.selectedIndex ? Colors.white : AppColorConstants.mainTextColor,
+                        weight: index == widget.selectedIndex ? TextWeight.semiBold : TextWeight.medium,
+                      ).setPadding().ripple(() {
+                        setState(() {
+                          // selectedMenu = menus[index];
+                          widget.onSegmentChange(index);
+                        });
+                      }),
+                    ),
+                  ).round(20),
+                ),
               ],
             );
           },

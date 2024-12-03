@@ -98,7 +98,7 @@ class _SelectMusicState extends State<SelectMusic> {
                     )
                   : Container())
             ],
-          ).setPadding(top: 25, bottom: 20),
+          ).setPadding(top: 25, bottom: 20,left: 10),
           GetBuilder<CreateReelController>(
               init: _createReelController,
               builder: (ctx) {
@@ -143,6 +143,8 @@ class _SelectMusicState extends State<SelectMusic> {
       child: ListView.separated(
           controller: scrollController,
           padding: EdgeInsets.only(
+            left:20,
+            right:20,
             top: 20,
             bottom: 50,
           ),

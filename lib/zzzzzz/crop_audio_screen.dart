@@ -87,11 +87,15 @@ class _CropAudioState extends State<CropAudioScreen> {
         ),
         Center(
           child: Container(
+            height: 40,
+                  width:60,
                   color: AppColorConstants.themeColor,
-                  child: Text(
-                    "Use",
-                    style: TextStyle(fontSize: FontSizes.b2),
-                  ).p8)
+                  child: Center(
+                    child: Text(
+                      "Use",
+                      style: TextStyle(fontSize: FontSizes.b2,color: Colors.white),
+                    ).p8,
+                  ))
               .circular
               .ripple(() {
             _createReelController.trimAudio();
