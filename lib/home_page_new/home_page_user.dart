@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:realdating/Choose_subscription_plan/monthly.dart';
 import 'package:realdating/home_page_new/home_page_user_controller.dart';
 import 'package:realdating/widgets/size_utils.dart';
+import 'package:realdating/zzzzzz/runnnnnnnnn.dart';
 import 'package:velocity_x/velocity_x.dart';
 import '../function/function_class.dart';
 import '../pages/createPostUser/createUserPost.dart';
@@ -2292,9 +2293,10 @@ class _HomePageState extends State<HomePageUser> {
                     child: InkWell(
                       onTap: () {
                         Get.back();
-                        Get.to(
-                          () => const CreateReelScreen(),
-                        );
+                        goToCreateReelScreen();
+                        // Get.to(
+                        //   () => const CreateReelScreen(),
+                        // );//todo
                       },
                       child: const Row(
                         mainAxisAlignment: MainAxisAlignment.start,

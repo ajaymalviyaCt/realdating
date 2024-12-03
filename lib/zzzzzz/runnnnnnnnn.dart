@@ -32,9 +32,13 @@ Future<void> main() async {
 }
 
 Future<void> goToCreateReelScreen() async {
+  Get.delete<PlayerManager>(force: true);
+  Get.delete<CreateReelController>(force: true);
+  Get.delete<CameraControllerService>(force: true);
+  Get.delete<SettingsController>(force: true);
   Get.put(PlayerManager());
 
-  Get.put(PlayerManager());
+
 
   // Get.put(ReelsController());
   Get.put(CreateReelController());
