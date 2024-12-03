@@ -8,8 +8,8 @@ import 'package:http/http.dart' as http;
 import 'package:just_audio/just_audio.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:realdating/zzzzzz/common_import.dart';
+import 'package:realdating/zzzzzz/content_creator_view.dart';
 import 'package:realdating/zzzzzz/preview_reel_screen.dart';
-import 'package:realdating/zzzzzz/reel_music_model.dart';
 
 import '../pages/apiHandler/apis/reel_api.dart';
 import '../reel/reel_music_model.dart';
@@ -21,7 +21,6 @@ class CreateReelController extends GetxController {
 
   RxList<CategoryModel> categories = <CategoryModel>[].obs;
   RxList<ReelMusicModel> audiosFiless = <ReelMusicModel>[].obs;
-
 
   Rx<ReelMusicModel?> selectedAudio = Rx<ReelMusicModel?>(null);
   double? audioStartTime;
@@ -205,12 +204,25 @@ class CreateReelController extends GetxController {
             //     context: Get.context!,
             //     message: 'Reel Created successfully',
             //     isSuccess: true);
-            Get.to(() => PreviewReelsScreen(
-                  reel: finalFile,
-                  audioId: selectedAudio.value?.id,
-                  audioStartTime: audioStartTime,
-                  audioEndTime: audioEndTime,
-                ));
+
+            if (Get.find<CameraControllerService>().controller.description.lensDirection == CameraLensDirection.front && Platform.isAndroid) {
+              final directory = await getTemporaryDirectory();
+              var outputFilePath = File('${directory.path}/REEL_${DateTime.now().millisecondsSinceEpoch}.mp4').path;
+              await flipVideo(finalFile.path, outputFilePath, "hflip");
+              Get.to(() => PreviewReelsScreen(
+                    reel: File(outputFilePath),
+                    audioId: selectedAudio.value?.id,
+                    audioStartTime: audioStartTime,
+                    audioEndTime: audioEndTime,
+                  ));
+            } else {
+              Get.to(() => PreviewReelsScreen(
+                    reel: finalFile,
+                    audioId: selectedAudio.value?.id,
+                    audioStartTime: audioStartTime,
+                    audioEndTime: audioEndTime,
+                  ));
+            }
             /* final route = MaterialPageRoute(
               fullscreenDialog: true,
               builder: (_) => VideoPage(filePath: file.path),
@@ -232,10 +244,29 @@ class CreateReelController extends GetxController {
       //     context: Get.context!,
       //     message: 'Reel Created without Audio',
       //     isSuccess: true);
+
+      final directory = await getTemporaryDirectory();
+      var outputFilePath = File('${directory.path}/REEL_${DateTime.now().millisecondsSinceEpoch}.mp4').path;
+      await flipVideo(finalFile.path, outputFilePath, "hflip");
+
       Get.to(() => PreviewReelsScreen(
-            reel: finalFile,
+            reel: File(outputFilePath),
           ));
     }
+  }
+
+  Future<void> flipVideo(String inputFilePath, String outputFilePath, String flipType) async {
+    // Example Flip Types: "hflip" (horizontal), "vflip" (vertical), "hflip,vflip" (both)
+    final command = '-i "$inputFilePath" -vf "$flipType" "$outputFilePath"';
+
+    await FFmpegKit.execute(command).then((session) async {
+      final returnCode = await session.getReturnCode();
+      if (ReturnCode.isSuccess(returnCode)) {
+        print('Video flipped successfully!');
+      } else {
+        print('Error flipping video: ${session.getFailStackTrace()}');
+      }
+    });
   }
 
   downloadAudio(Function(bool) callback) async {
