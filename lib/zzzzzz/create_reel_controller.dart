@@ -245,13 +245,20 @@ class CreateReelController extends GetxController {
       //     message: 'Reel Created without Audio',
       //     isSuccess: true);
 
-      final directory = await getTemporaryDirectory();
-      var outputFilePath = File('${directory.path}/REEL_${DateTime.now().millisecondsSinceEpoch}.mp4').path;
-      await flipVideo(finalFile.path, outputFilePath, "hflip");
+      if (Get.find<CameraControllerService>().controller.description.lensDirection == CameraLensDirection.front && Platform.isAndroid) {
+        final directory = await getTemporaryDirectory();
+        var outputFilePath = File('${directory.path}/REEL_${DateTime.now().millisecondsSinceEpoch}.mp4').path;
+        await flipVideo(finalFile.path, outputFilePath, "hflip");
 
-      Get.to(() => PreviewReelsScreen(
-            reel: File(outputFilePath),
-          ));
+        Get.to(() => PreviewReelsScreen(
+          reel: File(outputFilePath),
+        ));
+      }else{
+        Get.to(() => PreviewReelsScreen(
+          reel: finalFile,
+        ));
+      }
+
     }
   }
 
