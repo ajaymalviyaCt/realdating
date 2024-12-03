@@ -72,14 +72,16 @@ class _PreviewReelsState extends State<PreviewReelsScreen> {
               const SizedBox(
                 height: 50,
               ),
-              chewieController == null
-                  ? Container()
-                  : SizedBox(
-                      height: (Get.width - 32) / videoPlayerController!.value.aspectRatio,
-                      child: Chewie(
-                        controller: chewieController!,
-                      ),
-                    ).round(20),
+              Expanded(
+                child: chewieController == null
+                    ? Container()
+                    : SizedBox(
+                        height: (Get.width - 32) / videoPlayerController!.value.aspectRatio,
+                        child: Chewie(
+                          controller: chewieController!,
+                        ),
+                      ).round(20),
+              ),
               const SizedBox(
                 height: 25,
               ),
