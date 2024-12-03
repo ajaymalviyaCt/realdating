@@ -5,6 +5,7 @@ import 'package:realdating/zzzzzz/common_import.dart';
 import 'package:realdating/zzzzzz/manager/player_manager.dart';
 import 'package:realdating/zzzzzz/reel_music_model.dart';
 
+import '../reel/reel_music_model.dart';
 import 'audio_tile.dart';
 import 'colors_file.dart';
 import 'create_reel_controller.dart';
@@ -145,9 +146,9 @@ class _SelectMusicState extends State<SelectMusic> {
             top: 20,
             bottom: 50,
           ),
-          itemCount: _createReelController.audiosFiless.length,
+          itemCount: _createReelController.audios.length,
           itemBuilder: (BuildContext ctx, int index) {
-            ReelMusicModel audio = _createReelController.audiosFiless[index];
+            ReelMusicModel audio = _createReelController.audios[index];
             return Obx(() {
               return AudioTile(
                 audio: audio,

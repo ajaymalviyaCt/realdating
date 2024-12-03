@@ -5,6 +5,8 @@ import 'package:just_audio/just_audio.dart';
 import 'package:realdating/zzzzzz/manager/progress_notifier.dart';
 import 'package:realdating/zzzzzz/reel_music_model.dart';
 
+import '../../reel/reel_music_model.dart';
+
 class Audio {
   String id;
   String url;
