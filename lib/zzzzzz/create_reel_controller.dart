@@ -12,6 +12,7 @@ import 'package:realdating/zzzzzz/preview_reel_screen.dart';
 import 'package:realdating/zzzzzz/reel_music_model.dart';
 
 import '../pages/apiHandler/apis/reel_api.dart';
+import '../reel/reel_music_model.dart';
 import 'category_model.dart';
 import 'manager/player_manager.dart';
 

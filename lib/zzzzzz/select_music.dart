@@ -6,6 +6,7 @@ import 'package:realdating/zzzzzz/common_import.dart';
 import 'package:realdating/zzzzzz/manager/player_manager.dart';
 import 'package:realdating/zzzzzz/reel_music_model.dart';
 
+import '../reel/reel_music_model.dart';
 import 'colors_file.dart';
 import 'create_reel_controller.dart';
 import 'crop_audio_screen.dart';
