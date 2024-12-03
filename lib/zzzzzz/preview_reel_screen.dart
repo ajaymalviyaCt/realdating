@@ -153,7 +153,10 @@ class _PreviewReelsState extends State<PreviewReelsScreen> {
                       ).setPadding(left: DesignConstants.horizontalPadding, right: DesignConstants.horizontalPadding, bottom: 8, top: 8))
                       .circular
                       .ripple(() {
-                    compressVideo(widget.reel);
+                        if(_textController.text.trim().isNotEmpty){
+                          compressVideo(widget.reel);
+                        }
+
                   }),
                 ],
               ),
