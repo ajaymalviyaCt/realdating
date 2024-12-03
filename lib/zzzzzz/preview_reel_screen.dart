@@ -4,7 +4,7 @@ import 'package:chewie/chewie.dart';
 import 'package:realdating/zzzzzz/common_import.dart';
 // import 'package:video_compress_ds/video_compress_ds.dart';
 import 'package:video_player/video_player.dart';
-import 'package:video_thumbnail/video_thumbnail.dart';
+
 
 import 'colors_file.dart';
 
@@ -109,13 +109,13 @@ class _PreviewReelsState extends State<PreviewReelsScreen> {
 
   submitReel() async {
     Loader.show(status: "loadingString.tr");
-    final thumbnail = await VideoThumbnail.thumbnailData(
-      video: widget.reel.path,
-      imageFormat: ImageFormat.JPEG,
-      maxWidth: 400,
-      // specify the width of the thumbnail, let the height auto-scaled to keep the source aspect ratio
-      quality: 25,
-    );
+    // final thumbnail = await VideoThumbnail.thumbnailData(
+    //   video: widget.reel.path,
+    //   imageFormat: ImageFormat.JPEG,
+    //   maxWidth: 400,
+    //   // specify the width of the thumbnail, let the height auto-scaled to keep the source aspect ratio
+    //   quality: 25,
+    // );
 
     // MediaInfo? mediaInfo = await VideoCompress.compressVideo(
     //   widget.reel.path,
