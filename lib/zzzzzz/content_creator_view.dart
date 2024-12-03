@@ -1,7 +1,7 @@
 import 'package:camera/camera.dart';
 import 'package:realdating/zzzzzz/runnnnnnnnn.dart';
 
-import '../main.dart';
+
 import 'common_import.dart';
 
 class CameraControllerService extends GetxController {
