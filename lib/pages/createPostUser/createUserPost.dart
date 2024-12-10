@@ -57,98 +57,16 @@ class _UserCreatePostState extends State<UserCreatePost> {
 
   //  PickedFile? _imageFile;
 
-  final ImagePicker _picker = ImagePicker();
-  File? _images;
-  File? _video;
+
   UserHomeController userHomeController = Get.put(UserHomeController());
   HomePageNewController homePageNewController = Get.find<HomePageNewController>();
   List<MyFriends>? myFriends;
 
-  _imgFromGallery() async {
-    final XFile? data = (await _picker.pickMedia());
-    // final croppedFile = await ImageCropper().cropImage(
-    //   sourcePath: data!.path,
-    //   // aspectRatioPresets: [
-    //   //   CropAspectRatioPreset.square,
-    //   //   CropAspectRatioPreset.ratio3x2,
-    //   //   // CropAspectRatioPreset.original,
-    //   //   CropAspectRatioPreset.ratio4x3,
-    //   //   // CropAspectRatioPreset.ratio16x9,
-    //   // ],
-    //   maxWidth: 600,
-    //   maxHeight: 600,
-    // );
 
-    switch (fileTypeCheckk(data!.path)) {
-      case null:
-        Fluttertoast.showToast(msg: "Please select photo or video");
-        return;
-      case fileTypeName.Photo:
-        _images = File(data.path);
-
-        // testCompressFile(_images!);
-        break;
-      case fileTypeName.Video:
-        _video = File(data.path);
-        _videoPlayerController = VideoPlayerController.file(_video!)
-          ..initialize().then((_) {
-            setState(() {});
-            _videoPlayerController?.play();
-          });
-        testCompressFile(_video!);
-
-        setState(() {});
-        break;
-    }
-  }
-
-  _imgFromCamera() async {
-    final XFile? photo = await _picker.pickImage(source: ImageSource.camera, imageQuality: 10);
-    final croppedFile = await ImageCropper().cropImage(
-      sourcePath: photo!.path,
-
-      // aspectRatioPresets: [
-      //   CropAspectRatioPreset.square,
-      //   CropAspectRatioPreset.ratio3x2,
-      //   CropAspectRatioPreset.original,
-      //   CropAspectRatioPreset.ratio4x3,
-      //   CropAspectRatioPreset.ratio16x9,
-      // ],
-      maxWidth: 600,
-      maxHeight: 600,
-    );
-
-    if (croppedFile != null) {
-      // _cropImage();
-      // _buildButtons();
-
-      setState(() {
-        _images = File(croppedFile.path);
-        print(_images.toString());
-        // testCompressFile(_images!);
-      });
-    }
-  }
 
   VideoPlayerController? _videoPlayerController;
 
-  _videoFromCamera() async {
-    final XFile? photo = await _picker.pickVideo(
-      source: ImageSource.camera,
-    );
-    if (photo != null) {
-      setState(() {
-        _video = File(photo.path);
-        _videoPlayerController = VideoPlayerController.file(_video!)
-          ..initialize().then((_) {
-            setState(() {});
-            _videoPlayerController?.play();
-          });
-        print(_video.toString());
-        // testCompressFile(_video!);
-      });
-    } else {}
-  }
+
 
   void _showPicker(context) {
     showModalBottomSheet(
@@ -163,14 +81,14 @@ class _UserCreatePostState extends State<UserCreatePost> {
                       leading: const Icon(Icons.photo_library),
                       title: const Text('Gallery '),
                       onTap: () {
-                        _imgFromGallery();
+                        Get.find<CreatePostController>().onTapGallery();
                         Navigator.of(context).pop();
                       }),
                   ListTile(
                     leading: const Icon(Icons.video_camera_back_rounded),
                     title: const Text('Video'),
                     onTap: () {
-                      _videoFromCamera();
+                      Get.find<CreatePostController>().onTapVideo();
                       Navigator.of(context).pop();
                     },
                   ),
@@ -178,7 +96,7 @@ class _UserCreatePostState extends State<UserCreatePost> {
                     leading: const Icon(Icons.photo_camera),
                     title: const Text('Camera'),
                     onTap: () {
-                      _imgFromCamera();
+                      Get.find<CreatePostController>().onTapVideo();
                       Navigator.of(context).pop();
                     },
                   ),
@@ -296,54 +214,16 @@ class _UserCreatePostState extends State<UserCreatePost> {
   SwipController swipController = Get.put(SwipController());
 
   String postType() {
-    if (_video != null) {
+    if (Get.find<CreatePostController>().selectedFileType.value ==fileTypeName.video) {
       return "video";
-    } else if (_images != null) {
+    } else if (Get.find<CreatePostController>().selectedFileType.value ==fileTypeName.Image) {
       return "Image";
     } else {
       return "miniBlog";
     }
   }
 
-  Future<void> compressVideos(File file) async {
-    // setState(() {
-    //   isCompressing = true;
-    // });
-    EasyLoading.show(status: loadingString.tr);
-    int fileSizeInBytes = file.lengthSync();
-    print("Total_size===>: ${file.lengthSync()}");
-    double fileSizeInKB = fileSizeInBytes / 1024; // Convert bytes to kilobytes
-    double fileSizeInMB = fileSizeInKB / 1024;
-    print("Total_size===>fileSizeInKB: $fileSizeInKB");
-    print("Total_size===>fileSizeInMB $fileSizeInMB");
-    try {
-      final info = await VideoCompress.compressVideo(
-        file.path,
-        quality: VideoQuality.LowQuality,
-      );
-      print("Compression result: ${info?.path}");
-      print("Compression result1: ${info?.filesize}");
-      print("Compression result2: ${info?.duration}");
 
-      File finalFile = info!.file!;
-
-      int fileSizeInBytes22 = finalFile.lengthSync();
-      print("Total_size_after===>: ${file.lengthSync()}");
-      double fileSizeInKB22 = fileSizeInBytes22 / 1024; // Convert bytes to kilobytes
-      double fileSizeInMB = fileSizeInKB22 / 1024;
-      print("Total_size===>fileSizeInKB_after: $fileSizeInKB");
-      print("Total_size===>fileSizeInMB_after $fileSizeInMB");
-
-      uploadFileToServerUHome(finalFile);
-      // submitReel(finalFile);
-      // Handle the compressed video file, for example, you can upload it or play it.
-    } catch (e) {
-      print("Error compressing video: $e");
-    } finally {
-      EasyLoading.dismiss();
-      // isCompressing = false;
-    }
-  }
 
   uploadFileToServerUHome(File file) async {
     EasyLoading.show(status: loadingString.tr);
@@ -450,11 +330,11 @@ class _UserCreatePostState extends State<UserCreatePost> {
         request.fields['miniblogs'] = myTextController.text.trim();
       }
 
-      if (_video == null && _images == null) {
+      if (Get.find<CreatePostController>().selectedFile.value==null) {
         print("object");
         request.fields['file']?.isEmpty;
-      } else if (_images != null) {
-        request.files.add(await http.MultipartFile.fromPath('file', _images!.path ?? ""));
+      } else if (Get.find<CreatePostController>().selectedFile.value!=null) {
+        request.files.add(await http.MultipartFile.fromPath('file', Get.find<CreatePostController>().selectedFile.value!.path ?? ""));
       }
       request.send().then((response) {
         http.Response.fromStream(response).then((onValue) async {
@@ -544,8 +424,7 @@ class _UserCreatePostState extends State<UserCreatePost> {
             padding: const EdgeInsets.only(left: 10),
             child: InkWell(
                 onTap: () {
-                  _images = null;
-                  _video = null;
+                  Get.find<CreatePostController>().selectedFile.value=null;
                   myTextController.clear();
                   myList.clear();
                   myListId.clear();
@@ -562,14 +441,10 @@ class _UserCreatePostState extends State<UserCreatePost> {
               padding: const EdgeInsets.only(top: 4.0),
               child: IconButton(
                 onPressed: () {
-                  print(_images?.path);
+
                   print(myTextController.text);
-                  if (_video != null || _images != null || myTextController.text.isNotEmpty) {
-                    if (_video != null) {
-                      compressVideos(_video!);
-                    } else if (_images != null || myTextController.text.isNotEmpty) {
-                      uploadFileToServerUHomeImage();
-                    }
+                  if (Get.find<CreatePostController>().selectedFile.value!=null || myTextController.text.isNotEmpty) {
+                    uploadFileToServerUHomeImage();
                   } else {
                     Fluttertoast.showToast(
                         msg: "Please select image or Text..",
@@ -611,7 +486,7 @@ class _UserCreatePostState extends State<UserCreatePost> {
                         alignment: Alignment.topCenter,
                         children: [
                           Center(
-                            child: _images == null && _video == null
+                            child: Get.find<CreatePostController>().selectedFile.value==null
                                 ? Container(
                                     width: MediaQuery.of(context).size.width,
                                     height: 300,
@@ -620,7 +495,7 @@ class _UserCreatePostState extends State<UserCreatePost> {
                                       borderRadius: BorderRadius.circular(15),
                                     ),
                                   )
-                                : _video != null
+                                : Get.find<CreatePostController>().selectedFileType.value==fileTypeName.video
                                     ? _videoPlayerController!.value.isInitialized
                                         ? Container(
                                             margin: const EdgeInsets.only(top: 130),
@@ -642,7 +517,7 @@ class _UserCreatePostState extends State<UserCreatePost> {
                                                     border: Border.all(color: HexColor('#D9D9D9')),
                                                     borderRadius: BorderRadius.circular(15),
                                                     image: DecorationImage(
-                                                      image: FileImage(File(_images!.path)),
+                                                      image: FileImage(File(Get.find<CreatePostController>().selectedFile.value!.path!)),
                                                       fit: BoxFit.fill,
                                                     ),
                                                   ),
@@ -663,7 +538,7 @@ class _UserCreatePostState extends State<UserCreatePost> {
                             height: 80,
                             width: MediaQuery.of(context).size.width,
                             decoration: BoxDecoration(
-                              color: _images == null && _video == null ? Colors.transparent : Colors.white,
+                              color: Get.find<CreatePostController>().selectedFile.value== null ? Colors.transparent : Colors.white,
                               borderRadius: BorderRadius.circular(15),
                             ),
                             child: Column(
@@ -910,9 +785,9 @@ fileTypeName? fileTypeCheckk(String filePath) {
 
   if (mimeType != null) {
     if (mimeType.startsWith('image/')) {
-      return fileTypeName.Photo;
+      return fileTypeName.Image;
     } else if (mimeType.startsWith('video/')) {
-      return fileTypeName.Video;
+      return fileTypeName.video;
     }
   }
   print("fileType");
@@ -921,6 +796,6 @@ fileTypeName? fileTypeCheckk(String filePath) {
 }
 
 enum fileTypeName {
-  Photo,
-  Video,
+  Image,
+  video,
 }

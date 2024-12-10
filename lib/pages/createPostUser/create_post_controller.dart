@@ -28,7 +28,7 @@ class CreatePostController extends GetxController {
           selectedFileType.value = null;
           selectedFile.value = value;
           selectedFileType.value = fileTypeCheckk(selectedFile.value!.path!);
-          if (selectedFileType.value == fileTypeName.Video) {
+          if (selectedFileType.value == fileTypeName.video) {
             final directory = await getTemporaryDirectory();
             MediaInfo? mediaInfo = await VideoCompress.compressVideo(
               '${directory.path}/temp_${DateTime.now().millisecondsSinceEpoch}.mp4',
