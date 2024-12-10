@@ -82,11 +82,10 @@ class _UserCreatePostState extends State<UserCreatePost> {
       case null:
         Fluttertoast.showToast(msg: "Please select photo or video");
         return;
-        break;
       case fileTypeName.Photo:
         _images = File(data.path);
 
-        testCompressFile(_images!);
+        // testCompressFile(_images!);
         break;
       case fileTypeName.Video:
         _video = File(data.path);
@@ -125,7 +124,7 @@ class _UserCreatePostState extends State<UserCreatePost> {
       setState(() {
         _images = File(croppedFile.path);
         print(_images.toString());
-        testCompressFile(_images!);
+        // testCompressFile(_images!);
       });
     }
   }
@@ -514,10 +513,8 @@ class _UserCreatePostState extends State<UserCreatePost> {
   void filterList(String query) {
     setState(() {
       if (query.isEmpty || !query.startsWith('@')) {
-        // If the query is empty or does not start with '@', show the entire list
         filteredList = availableData;
       } else {
-        // Filter the list to show items that start with '@'
         filteredList = availableData.where((item) => item.toLowerCase().startsWith(query.toLowerCase())).toList();
       }
     });
