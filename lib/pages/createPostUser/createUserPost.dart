@@ -61,8 +61,6 @@ class _UserCreatePostState extends State<UserCreatePost> {
   HomePageNewController homePageNewController = Get.find<HomePageNewController>();
   List<MyFriends>? myFriends;
 
-
-
   void _showPicker(context) {
     showModalBottomSheet(
         context: context,
@@ -209,15 +207,9 @@ class _UserCreatePostState extends State<UserCreatePost> {
   SwipController swipController = Get.put(SwipController());
 
   String postType() {
-    if (Get
-        .find<CreatePostController>()
-        .selectedFileType
-        .value == fileTypeName.video) {
+    if (Get.find<CreatePostController>().selectedFileType.value == fileTypeName.video) {
       return "video";
-    } else if (Get
-        .find<CreatePostController>()
-        .selectedFileType
-        .value == fileTypeName.Image) {
+    } else if (Get.find<CreatePostController>().selectedFileType.value == fileTypeName.Image) {
       return "Image";
     } else {
       return "miniBlog";
@@ -282,9 +274,7 @@ class _UserCreatePostState extends State<UserCreatePost> {
   }
 
   void uploadFileToServerUHomeImage() async {
-    if (myTextController.text
-        .trim()
-        .isEmpty) {
+    if (myTextController.text.trim().isEmpty) {
       Fluttertoast.showToast(msg: "Caption can't be empty");
       return;
     }
@@ -326,28 +316,16 @@ class _UserCreatePostState extends State<UserCreatePost> {
       } else {
         request.fields['mentions']?.isEmpty;
       }
-      if (myTextController.text
-          .trim()
-          .isNotEmpty) {
+      if (myTextController.text.trim().isNotEmpty) {
         request.fields['miniblogs'] = myTextController.text.trim();
       }
 
-      if (Get
-          .find<CreatePostController>()
-          .selectedFile
-          .value == null) {
+      if (Get.find<CreatePostController>().selectedFile.value == null) {
         print("object");
         request.fields['file']?.isEmpty;
-      } else if (Get
-          .find<CreatePostController>()
-          .selectedFile
-          .value != null) {
+      } else if (Get.find<CreatePostController>().selectedFile.value != null) {
         request.files
-            .add(await http.MultipartFile.fromPath('file', Get
-            .find<CreatePostController>()
-            .selectedFile
-            .value!
-            .path ?? ""));
+            .add(await http.MultipartFile.fromPath('file', Get.find<CreatePostController>().selectedFile.value!.path ?? ""));
       }
       request.send().then((response) {
         http.Response.fromStream(response).then((onValue) async {
@@ -437,10 +415,7 @@ class _UserCreatePostState extends State<UserCreatePost> {
             padding: const EdgeInsets.only(left: 10),
             child: InkWell(
                 onTap: () {
-                  Get
-                      .find<CreatePostController>()
-                      .selectedFile
-                      .value = null;
+                  Get.find<CreatePostController>().selectedFile.value = null;
                   myTextController.clear();
                   myList.clear();
                   myListId.clear();
@@ -458,10 +433,7 @@ class _UserCreatePostState extends State<UserCreatePost> {
               child: IconButton(
                 onPressed: () {
                   print(myTextController.text);
-                  if (Get
-                      .find<CreatePostController>()
-                      .selectedFile
-                      .value != null || myTextController.text.isNotEmpty) {
+                  if (Get.find<CreatePostController>().selectedFile.value != null || myTextController.text.isNotEmpty) {
                     uploadFileToServerUHomeImage();
                   } else {
                     Fluttertoast.showToast(
@@ -505,83 +477,71 @@ class _UserCreatePostState extends State<UserCreatePost> {
                           alignment: Alignment.topCenter,
                           children: [
                             Center(
-                              child: Get
-                                  .find<CreatePostController>()
-                                  .selectedFile
-                                  .value == null
+                              child: Get.find<CreatePostController>().selectedFile.value == null
                                   ? Container(
-                                width: MediaQuery
-                                    .of(context)
-                                    .size
-                                    .width,
-                                height: 300,
-                                decoration: BoxDecoration(
-                                  border: Border.all(color: HexColor('#D9D9D9')),
-                                  borderRadius: BorderRadius.circular(15),
-                                ),
-                              )
-                                  : Get
-                                  .find<CreatePostController>()
-                                  .selectedFileType
-                                  .value == fileTypeName.video
-                                  ? Get.find<CreatePostController>().videoPlayerController!.value.isInitialized
-                                  ? Container(
-                                margin: const EdgeInsets.only(top: 130),
-                                height: 300,
-                                child: AspectRatio(
-                                  aspectRatio: Get.find<CreatePostController>().videoPlayerController!.value.aspectRatio,
-                                  child: VideoPlayer(Get.find<CreatePostController>().videoPlayerController!),
-                                ),
-                              )
-                                  : Container()
-                                  : Stack(
-                                children: [
-                                  Get.find<CreatePostController>().videoPlayerController == null
-                                      ? Container(
-                                    width: MediaQuery
-                                        .of(context)
-                                        .size
-                                        .width,
-                                    height: 306,
-                                    margin: const EdgeInsets.only(top: 100),
-                                    decoration: BoxDecoration(
-                                      border: Border.all(color: HexColor('#D9D9D9')),
-                                      borderRadius: BorderRadius.circular(15),
-                                      image: DecorationImage(
-                                        image: FileImage(
-                                            File(Get
-                                                .find<CreatePostController>()
-                                                .selectedFile
-                                                .value!
-                                                .path!)),
-                                        fit: BoxFit.fill,
+                                      width: MediaQuery.of(context).size.width,
+                                      height: 300,
+                                      decoration: BoxDecoration(
+                                        border: Border.all(color: HexColor('#D9D9D9')),
+                                        borderRadius: BorderRadius.circular(15),
                                       ),
-                                    ),
-                                  )
-                                      : Container(
-                                    margin: const EdgeInsets.only(top: 80),
-                                    height: 306,
-                                    child: AspectRatio(
-                                      aspectRatio: Get.find<CreatePostController>().videoPlayerController!.value.aspectRatio,
-                                      child: VideoPlayer(Get.find<CreatePostController>().videoPlayerController!),
-                                    ),
-                                  ),
-                                ],
-                              ),
+                                    )
+                                  : Get.find<CreatePostController>().selectedFileType.value == fileTypeName.video
+                                      ? Get.find<CreatePostController>().videoPlayerController.value!.value.isInitialized
+                                          ? Container(
+                                              margin: const EdgeInsets.only(top: 130),
+                                              height: 300,
+                                              child: AspectRatio(
+                                                aspectRatio: Get.find<CreatePostController>()
+                                                    .videoPlayerController
+                                                    .value!
+                                                    .value
+                                                    .aspectRatio,
+                                                child: VideoPlayer(Get.find<CreatePostController>().videoPlayerController.value!),
+                                              ),
+                                            )
+                                          : Container()
+                                      : Stack(
+                                          children: [
+                                            Get.find<CreatePostController>().videoPlayerController .value== null
+                                                ? Container(
+                                                    width: MediaQuery.of(context).size.width,
+                                                    height: 306,
+                                                    margin: const EdgeInsets.only(top: 100),
+                                                    decoration: BoxDecoration(
+                                                      border: Border.all(color: HexColor('#D9D9D9')),
+                                                      borderRadius: BorderRadius.circular(15),
+                                                      image: DecorationImage(
+                                                        image: FileImage(
+                                                            File(Get.find<CreatePostController>().selectedFile.value!.path!)),
+                                                        fit: BoxFit.fill,
+                                                      ),
+                                                    ),
+                                                  )
+                                                : Container(
+                                                    margin: const EdgeInsets.only(top: 80),
+                                                    height: 306,
+                                                    child: AspectRatio(
+                                                      aspectRatio: Get.find<CreatePostController>()
+                                                          .videoPlayerController
+                                                          .value!
+                                                          .value
+                                                          .aspectRatio,
+                                                      child: VideoPlayer(
+                                                          Get.find<CreatePostController>().videoPlayerController.value!),
+                                                    ),
+                                                  ),
+                                          ],
+                                        ),
                             ),
                             const SizedBox(height: 10),
                             Container(
                               height: 80,
-                              width: MediaQuery
-                                  .of(context)
-                                  .size
-                                  .width,
+                              width: MediaQuery.of(context).size.width,
                               decoration: BoxDecoration(
-                                color:
-                                Get
-                                    .find<CreatePostController>()
-                                    .selectedFile
-                                    .value == null ? Colors.transparent : Colors.white,
+                                color: Get.find<CreatePostController>().selectedFile.value == null
+                                    ? Colors.transparent
+                                    : Colors.white,
                                 borderRadius: BorderRadius.circular(15),
                               ),
                               child: Column(
@@ -634,9 +594,7 @@ class _UserCreatePostState extends State<UserCreatePost> {
                               if (value.startsWith(' ')) {
                                 myTextController.text = value.trim();
                                 myTextController.selection = TextSelection.fromPosition(
-                                  TextPosition(offset: myTextController.text
-                                      .trim()
-                                      .length),
+                                  TextPosition(offset: myTextController.text.trim().length),
                                 );
                               }
 
@@ -678,33 +636,30 @@ class _UserCreatePostState extends State<UserCreatePost> {
                 myList == null
                     ? const Text("data")
                     : SizedBox(
-                  height: 150,
-                  child: GridView.builder(
-                    itemCount: myList.length,
-                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 3,
-                      mainAxisSpacing: 0,
-                      childAspectRatio: 0.5,
-                    ),
-                    itemBuilder: (context, index) {
-                      return ListTile(
-                        title: Text(
-                          "@${myList == null ? "NO Tag" : myList[index]}",
-                          style: const TextStyle(
-                            color: Colors.blue,
-                            fontWeight: FontWeight.w600,
+                        height: 150,
+                        child: GridView.builder(
+                          itemCount: myList.length,
+                          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 3,
+                            mainAxisSpacing: 0,
+                            childAspectRatio: 0.5,
                           ),
+                          itemBuilder: (context, index) {
+                            return ListTile(
+                              title: Text(
+                                "@${myList == null ? "NO Tag" : myList[index]}",
+                                style: const TextStyle(
+                                  color: Colors.blue,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            );
+                          },
                         ),
-                      );
-                    },
-                  ),
-                ),
+                      ),
                 Padding(
                   padding: EdgeInsets.only(
-                    bottom: MediaQuery
-                        .of(context)
-                        .viewInsets
-                        .bottom,
+                    bottom: MediaQuery.of(context).viewInsets.bottom,
                   ),
                 ),
               ],
@@ -721,10 +676,7 @@ class _UserCreatePostState extends State<UserCreatePost> {
         isScrollControlled: true,
         builder: (BuildContext bc) {
           return SizedBox(
-            height: MediaQuery
-                .of(context)
-                .size
-                .height,
+            height: MediaQuery.of(context).size.height,
             child: GestureDetector(
               onTap: () {
                 FocusScope.of(context).unfocus();

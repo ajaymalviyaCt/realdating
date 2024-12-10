@@ -10,7 +10,7 @@ import 'package:video_player/video_player.dart';
 class CreatePostController extends GetxController {
   final Rxn<XFile> selectedFile = Rxn<XFile>();
   final Rxn<fileTypeName> selectedFileType = Rxn<fileTypeName>();
-  VideoPlayerController? videoPlayerController;
+  final Rxn<VideoPlayerController> videoPlayerController=Rxn<VideoPlayerController>();
 
   @override
   void onInit() {
@@ -27,6 +27,7 @@ class CreatePostController extends GetxController {
     if (value != null) {
       selectedFile.value = null;
       selectedFileType.value = null;
+      videoPlayerController.value=null;
       print("Selected file and file type reset.");
 
       var fileType = fileTypeCheckk(value.path);
@@ -41,9 +42,9 @@ class CreatePostController extends GetxController {
         print("Video compression complete. Path: ${mediaInfo?.path}");
 
         if (mediaInfo?.path != null) {
-          videoPlayerController = VideoPlayerController.file(File(mediaInfo!.path!));
-          await videoPlayerController?.initialize();
-          videoPlayerController?.play();
+          videoPlayerController.value = VideoPlayerController.file(File(mediaInfo!.path!));
+          await videoPlayerController.value?.initialize();
+          videoPlayerController.value?.play();
           print("VideoPlayerController initialized with file: ${mediaInfo.path}");
           selectedFile.value = XFile(mediaInfo.path!);
           print("Selected file set to compressed video: ${mediaInfo.path}");
@@ -67,6 +68,7 @@ class CreatePostController extends GetxController {
     if (value != null) {
       selectedFile.value = null;
       selectedFileType.value = null;
+      videoPlayerController.value=null;
       print("Selected file and file type reset.");
 
       print("Starting video compression...");
@@ -77,9 +79,9 @@ class CreatePostController extends GetxController {
       print("Video compression complete. Path: ${mediaInfo?.path}");
 
       if (mediaInfo?.path != null) {
-        videoPlayerController = VideoPlayerController.file(File(mediaInfo!.path!));
-       await videoPlayerController?.initialize();
-       videoPlayerController?.play();
+        videoPlayerController.value = VideoPlayerController.file(File(mediaInfo!.path!));
+       await videoPlayerController.value?.initialize();
+       videoPlayerController.value?.play();
         print("VideoPlayerController initialized with file: ${mediaInfo.path}");
         selectedFile.value = XFile(mediaInfo.path!);
         print("Selected file set to compressed video: ${mediaInfo.path}");
@@ -98,6 +100,7 @@ class CreatePostController extends GetxController {
     if (value != null) {
       selectedFile.value = null;
       selectedFileType.value = null;
+      videoPlayerController.value=null;
       print("Selected file and file type reset.");
 
       selectedFileType.value = fileTypeCheckk(value.path);
