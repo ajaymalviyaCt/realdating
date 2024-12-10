@@ -57,16 +57,11 @@ class _UserCreatePostState extends State<UserCreatePost> {
 
   //  PickedFile? _imageFile;
 
-
   UserHomeController userHomeController = Get.put(UserHomeController());
   HomePageNewController homePageNewController = Get.find<HomePageNewController>();
   List<MyFriends>? myFriends;
 
-
-
   VideoPlayerController? _videoPlayerController;
-
-
 
   void _showPicker(context) {
     showModalBottomSheet(
@@ -155,8 +150,8 @@ class _UserCreatePostState extends State<UserCreatePost> {
   @override
   void initState() {
     super.initState();
-    CreatePostController controller=Get.put(CreatePostController())
-;    userHomeController.getMyFriendsPost();
+    CreatePostController controller = Get.put(CreatePostController());
+    userHomeController.getMyFriendsPost();
     myTextController.addListener(() {
       setState(() {
         reasonValidation = myTextController.text.isEmpty;
@@ -214,18 +209,22 @@ class _UserCreatePostState extends State<UserCreatePost> {
   SwipController swipController = Get.put(SwipController());
 
   String postType() {
-    if (Get.find<CreatePostController>().selectedFileType.value ==fileTypeName.video) {
+    if (Get
+        .find<CreatePostController>()
+        .selectedFileType
+        .value == fileTypeName.video) {
       return "video";
-    } else if (Get.find<CreatePostController>().selectedFileType.value ==fileTypeName.Image) {
+    } else if (Get
+        .find<CreatePostController>()
+        .selectedFileType
+        .value == fileTypeName.Image) {
       return "Image";
     } else {
       return "miniBlog";
     }
   }
 
-
-
-  uploadFileToServerUHome(File file) async {
+  void uploadFileToServerUHome(File file) async {
     EasyLoading.show(status: loadingString.tr);
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var token = prefs.get('token');
@@ -283,7 +282,9 @@ class _UserCreatePostState extends State<UserCreatePost> {
   }
 
   void uploadFileToServerUHomeImage() async {
-    if(myTextController.text.trim().isEmpty){
+    if (myTextController.text
+        .trim()
+        .isEmpty) {
       Fluttertoast.showToast(msg: "Caption can't be empty");
       return;
     }
@@ -296,7 +297,6 @@ class _UserCreatePostState extends State<UserCreatePost> {
         commaSeparatedString.isEmpty;
         // print('user_id==============' + user_id!);
       });
-
 
       showLoaderDialog(context);
 
@@ -326,15 +326,28 @@ class _UserCreatePostState extends State<UserCreatePost> {
       } else {
         request.fields['mentions']?.isEmpty;
       }
-      if (myTextController.text.trim().isNotEmpty) {
+      if (myTextController.text
+          .trim()
+          .isNotEmpty) {
         request.fields['miniblogs'] = myTextController.text.trim();
       }
 
-      if (Get.find<CreatePostController>().selectedFile.value==null) {
+      if (Get
+          .find<CreatePostController>()
+          .selectedFile
+          .value == null) {
         print("object");
         request.fields['file']?.isEmpty;
-      } else if (Get.find<CreatePostController>().selectedFile.value!=null) {
-        request.files.add(await http.MultipartFile.fromPath('file', Get.find<CreatePostController>().selectedFile.value!.path ?? ""));
+      } else if (Get
+          .find<CreatePostController>()
+          .selectedFile
+          .value != null) {
+        request.files
+            .add(await http.MultipartFile.fromPath('file', Get
+            .find<CreatePostController>()
+            .selectedFile
+            .value!
+            .path ?? ""));
       }
       request.send().then((response) {
         http.Response.fromStream(response).then((onValue) async {
@@ -424,7 +437,10 @@ class _UserCreatePostState extends State<UserCreatePost> {
             padding: const EdgeInsets.only(left: 10),
             child: InkWell(
                 onTap: () {
-                  Get.find<CreatePostController>().selectedFile.value=null;
+                  Get
+                      .find<CreatePostController>()
+                      .selectedFile
+                      .value = null;
                   myTextController.clear();
                   myList.clear();
                   myListId.clear();
@@ -441,9 +457,11 @@ class _UserCreatePostState extends State<UserCreatePost> {
               padding: const EdgeInsets.only(top: 4.0),
               child: IconButton(
                 onPressed: () {
-
                   print(myTextController.text);
-                  if (Get.find<CreatePostController>().selectedFile.value!=null || myTextController.text.isNotEmpty) {
+                  if (Get
+                      .find<CreatePostController>()
+                      .selectedFile
+                      .value != null || myTextController.text.isNotEmpty) {
                     uploadFileToServerUHomeImage();
                   } else {
                     Fluttertoast.showToast(
@@ -463,208 +481,236 @@ class _UserCreatePostState extends State<UserCreatePost> {
             const SizedBox(width: 20)
           ],
         ),
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                child: Form(
-                  key: formKey,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const SizedBox(height: 30),
+        body: Obx(() {
+          return SingleChildScrollView(
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                  child: Form(
+                    key: formKey,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const SizedBox(height: 30),
 
-                      customTextC(
-                        text: "Upload",
-                        fSize: 16,
-                        fWeight: FontWeight.w500,
-                        lineHeight: 36,
-                      ),
+                        customTextC(
+                          text: "Upload",
+                          fSize: 16,
+                          fWeight: FontWeight.w500,
+                          lineHeight: 36,
+                        ),
 
-                      Stack(
-                        alignment: Alignment.topCenter,
-                        children: [
-                          Center(
-                            child: Get.find<CreatePostController>().selectedFile.value==null
-                                ? Container(
-                                    width: MediaQuery.of(context).size.width,
-                                    height: 300,
+                        Stack(
+                          alignment: Alignment.topCenter,
+                          children: [
+                            Center(
+                              child: Get
+                                  .find<CreatePostController>()
+                                  .selectedFile
+                                  .value == null
+                                  ? Container(
+                                width: MediaQuery
+                                    .of(context)
+                                    .size
+                                    .width,
+                                height: 300,
+                                decoration: BoxDecoration(
+                                  border: Border.all(color: HexColor('#D9D9D9')),
+                                  borderRadius: BorderRadius.circular(15),
+                                ),
+                              )
+                                  : Get
+                                  .find<CreatePostController>()
+                                  .selectedFileType
+                                  .value == fileTypeName.video
+                                  ? _videoPlayerController!.value.isInitialized
+                                  ? Container(
+                                margin: const EdgeInsets.only(top: 130),
+                                height: 300,
+                                child: AspectRatio(
+                                  aspectRatio: _videoPlayerController!.value.aspectRatio,
+                                  child: VideoPlayer(_videoPlayerController!),
+                                ),
+                              )
+                                  : Container()
+                                  : Stack(
+                                children: [
+                                  _videoPlayerController == null
+                                      ? Container(
+                                    width: MediaQuery
+                                        .of(context)
+                                        .size
+                                        .width,
+                                    height: 306,
+                                    margin: const EdgeInsets.only(top: 100),
                                     decoration: BoxDecoration(
                                       border: Border.all(color: HexColor('#D9D9D9')),
                                       borderRadius: BorderRadius.circular(15),
+                                      image: DecorationImage(
+                                        image: FileImage(
+                                            File(Get
+                                                .find<CreatePostController>()
+                                                .selectedFile
+                                                .value!
+                                                .path!)),
+                                        fit: BoxFit.fill,
+                                      ),
                                     ),
                                   )
-                                : Get.find<CreatePostController>().selectedFileType.value==fileTypeName.video
-                                    ? _videoPlayerController!.value.isInitialized
-                                        ? Container(
-                                            margin: const EdgeInsets.only(top: 130),
-                                            height: 300,
-                                            child: AspectRatio(
-                                              aspectRatio: _videoPlayerController!.value.aspectRatio,
-                                              child: VideoPlayer(_videoPlayerController!),
-                                            ),
-                                          )
-                                        : Container()
-                                    : Stack(
-                                        children: [
-                                          _videoPlayerController == null
-                                              ? Container(
-                                                  width: MediaQuery.of(context).size.width,
-                                                  height: 306,
-                                                  margin: const EdgeInsets.only(top: 100),
-                                                  decoration: BoxDecoration(
-                                                    border: Border.all(color: HexColor('#D9D9D9')),
-                                                    borderRadius: BorderRadius.circular(15),
-                                                    image: DecorationImage(
-                                                      image: FileImage(File(Get.find<CreatePostController>().selectedFile.value!.path!)),
-                                                      fit: BoxFit.fill,
-                                                    ),
-                                                  ),
-                                                )
-                                              : Container(
-                                                  margin: const EdgeInsets.only(top: 80),
-                                                  height: 306,
-                                                  child: AspectRatio(
-                                                    aspectRatio: _videoPlayerController!.value.aspectRatio,
-                                                    child: VideoPlayer(_videoPlayerController!),
-                                                  ),
-                                                ),
-                                        ],
-                                      ),
-                          ),
-                          const SizedBox(height: 10),
-                          Container(
-                            height: 80,
-                            width: MediaQuery.of(context).size.width,
-                            decoration: BoxDecoration(
-                              color: Get.find<CreatePostController>().selectedFile.value== null ? Colors.transparent : Colors.white,
-                              borderRadius: BorderRadius.circular(15),
-                            ),
-                            child: Column(
-                              children: [
-                                const SizedBox(height: 20),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.symmetric(horizontal: 10),
-                                      child: CircleAvatar(
-                                        backgroundImage: NetworkImage(
-                                          profileController.profileImage.value,
-                                        ),
-                                      ),
+                                      : Container(
+                                    margin: const EdgeInsets.only(top: 80),
+                                    height: 306,
+                                    child: AspectRatio(
+                                      aspectRatio: _videoPlayerController!.value.aspectRatio,
+                                      child: VideoPlayer(_videoPlayerController!),
                                     ),
-                                    Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          profileController.firstName.value,
-                                          style: const TextStyle(fontSize: 14),
-                                        ),
-                                      ],
-                                    ),
-                                    const Spacer(),
-                                    IconButton(
-                                      onPressed: () {
-                                        _showPicker(context);
-                                      },
-                                      icon: const Icon(Icons.attachment_sharp),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                          const SizedBox(height: 10),
-                        ],
-                      ),
-
-                      const SizedBox(height: 60),
-
-                      SizedBox(
-                        child: TextFormField(
-                          validator: notEmptyValidator,
-                          controller: myTextController,
-                          onChanged: (value) {
-
-                            if (value.startsWith(' ')) {
-                              myTextController.text = value.trim();
-                              myTextController.selection = TextSelection.fromPosition(
-                                TextPosition(offset: myTextController.text.trim().length),
-                              );
-                            }
-
-
-
-                            // if (value.trim().isNotEmpty) {
-                            //   myTextController.text.trim();
-                            // }
-                          },
-                          maxLines: 4,
-                          decoration: InputDecoration(
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              borderSide: const BorderSide(width: 1, color: Colors.black12),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              borderSide: const BorderSide(width: 1, color: Colors.black12),
-                            ),
-                            errorBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              borderSide: const BorderSide(width: 1, color: Colors.red),
-                            ),
-                            focusedErrorBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              borderSide: const BorderSide(width: 1, color: Colors.black),
-                            ),
-                            hintText: 'Type your caption here...',
-                            border: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.grey.withOpacity(0.2)),
-                            ),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(height: 20),
-                      // updateBtn(context),
-                    ],
-                  ),
-                ),
-              ),
-              myList == null
-                  ? const Text("data")
-                  : SizedBox(
-                      height: 150,
-                      child: GridView.builder(
-                        itemCount: myList.length,
-                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 3,
-                          mainAxisSpacing: 0,
-                          childAspectRatio: 0.5,
-                        ),
-                        itemBuilder: (context, index) {
-                          return ListTile(
-                            title: Text(
-                              "@${myList == null ? "NO Tag" : myList[index]}",
-                              style: const TextStyle(
-                                color: Colors.blue,
-                                fontWeight: FontWeight.w600,
+                                  ),
+                                ],
                               ),
                             ),
-                          );
-                        },
-                      ),
+                            const SizedBox(height: 10),
+                            Container(
+                              height: 80,
+                              width: MediaQuery
+                                  .of(context)
+                                  .size
+                                  .width,
+                              decoration: BoxDecoration(
+                                color:
+                                Get
+                                    .find<CreatePostController>()
+                                    .selectedFile
+                                    .value == null ? Colors.transparent : Colors.white,
+                                borderRadius: BorderRadius.circular(15),
+                              ),
+                              child: Column(
+                                children: [
+                                  const SizedBox(height: 20),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                                        child: CircleAvatar(
+                                          backgroundImage: NetworkImage(
+                                            profileController.profileImage.value,
+                                          ),
+                                        ),
+                                      ),
+                                      Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            profileController.firstName.value,
+                                            style: const TextStyle(fontSize: 14),
+                                          ),
+                                        ],
+                                      ),
+                                      const Spacer(),
+                                      IconButton(
+                                        onPressed: () {
+                                          _showPicker(context);
+                                        },
+                                        icon: const Icon(Icons.attachment_sharp),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                            const SizedBox(height: 10),
+                          ],
+                        ),
+
+                        const SizedBox(height: 60),
+
+                        SizedBox(
+                          child: TextFormField(
+                            validator: notEmptyValidator,
+                            controller: myTextController,
+                            onChanged: (value) {
+                              if (value.startsWith(' ')) {
+                                myTextController.text = value.trim();
+                                myTextController.selection = TextSelection.fromPosition(
+                                  TextPosition(offset: myTextController.text
+                                      .trim()
+                                      .length),
+                                );
+                              }
+
+                              // if (value.trim().isNotEmpty) {
+                              //   myTextController.text.trim();
+                              // }
+                            },
+                            maxLines: 4,
+                            decoration: InputDecoration(
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                                borderSide: const BorderSide(width: 1, color: Colors.black12),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                                borderSide: const BorderSide(width: 1, color: Colors.black12),
+                              ),
+                              errorBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                                borderSide: const BorderSide(width: 1, color: Colors.red),
+                              ),
+                              focusedErrorBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                                borderSide: const BorderSide(width: 1, color: Colors.black),
+                              ),
+                              hintText: 'Type your caption here...',
+                              border: OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.grey.withOpacity(0.2)),
+                              ),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 20),
+                        // updateBtn(context),
+                      ],
                     ),
-              Padding(
-                padding: EdgeInsets.only(
-                  bottom: MediaQuery.of(context).viewInsets.bottom,
+                  ),
                 ),
-              ),
-            ],
-          ),
-        ),
+                myList == null
+                    ? const Text("data")
+                    : SizedBox(
+                  height: 150,
+                  child: GridView.builder(
+                    itemCount: myList.length,
+                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 3,
+                      mainAxisSpacing: 0,
+                      childAspectRatio: 0.5,
+                    ),
+                    itemBuilder: (context, index) {
+                      return ListTile(
+                        title: Text(
+                          "@${myList == null ? "NO Tag" : myList[index]}",
+                          style: const TextStyle(
+                            color: Colors.blue,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(
+                    bottom: MediaQuery
+                        .of(context)
+                        .viewInsets
+                        .bottom,
+                  ),
+                ),
+              ],
+            ),
+          );
+        }),
       ),
     );
   }
@@ -675,7 +721,10 @@ class _UserCreatePostState extends State<UserCreatePost> {
         isScrollControlled: true,
         builder: (BuildContext bc) {
           return SizedBox(
-            height: MediaQuery.of(context).size.height,
+            height: MediaQuery
+                .of(context)
+                .size
+                .height,
             child: GestureDetector(
               onTap: () {
                 FocusScope.of(context).unfocus();
@@ -725,7 +774,8 @@ class _UserCreatePostState extends State<UserCreatePost> {
                         ),
                       ),
                       suggestionsCallback: (pattern) async {
-                        return userHomeController.userFriend.where((userFriend) => userFriend.friendFirstName!.toLowerCase().contains(pattern.toLowerCase()));
+                        return userHomeController.userFriend
+                            .where((userFriend) => userFriend.friendFirstName!.toLowerCase().contains(pattern.toLowerCase()));
                       },
 
                       itemBuilder: (context, MyFriends? suggestion) {
