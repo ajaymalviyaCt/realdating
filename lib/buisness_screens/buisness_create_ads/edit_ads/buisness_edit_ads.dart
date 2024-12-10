@@ -206,6 +206,7 @@ class _BuisnessEditAdsState extends State<BuisnessEditAds> {
                         height: 50,
                         child: CustumProfileTextField1(
                           controller: editAdsController.budget,
+                          keyboardType:TextInputType.phone ,
                           validator: validateName,
                           hintText: "${widget.dataList[widget.indexEdit].budget}",
                           // hintText: "10,000"
@@ -218,6 +219,7 @@ class _BuisnessEditAdsState extends State<BuisnessEditAds> {
                         height: 50,
                         child: CustumProfileTextField1(
                           controller: editAdsController.CampaignDuration,
+                          keyboardType: TextInputType.phone,
                           validator: validateName,
                           hintText: widget.dataList[widget.indexEdit].campaignDuration,
                           //hintText: "3 Months"
@@ -244,6 +246,7 @@ class _BuisnessEditAdsState extends State<BuisnessEditAds> {
                         child: CustumProfileTextField1(
                           controller: editAdsController.Range,
                           validator: validateRange,
+                          keyboardType: TextInputType.phone,
                           hintText: "${widget.dataList[widget.indexEdit].rangeKm}" ?? "",
                           //hintText: "10 Km"
                         ),

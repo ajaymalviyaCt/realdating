@@ -357,7 +357,7 @@ class _UserCreatePostState extends State<UserCreatePost> {
     request.files.add(await http.MultipartFile.fromPath('file', file.path));
     request.fields['post_type'] = postType();
     if (myTextController.text.isNotEmpty) {
-      request.fields['miniblogs'] = myTextController.text;
+      request.fields['miniblogs'] = myTextController.text.trim();
     }
 
     if (myList.isNotEmpty) {
@@ -401,6 +401,10 @@ class _UserCreatePostState extends State<UserCreatePost> {
   }
 
   void uploadFileToServerUHomeImage() async {
+    if(myTextController.text.trim().isEmpty){
+      Fluttertoast.showToast(msg: "Caption can't be empty");
+      return;
+    }
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var tokens = prefs.get('token');
     print(tokens);
@@ -410,36 +414,8 @@ class _UserCreatePostState extends State<UserCreatePost> {
         commaSeparatedString.isEmpty;
         // print('user_id==============' + user_id!);
       });
-      print("CLICKED 123 ==");
-      print(myListId);
-      // print(widget.dataP);
-      print(myTextController.text);
 
-      // initConnectivity();
-      // _connectivitySubscription = _connectivity.onConnectivityChanged.listen(_updateConnectionStatus);
 
-      /*    if (_images == null && _video == null) {
-        Fluttertoast.showToast(
-            msg: "Please Select Post Image !",
-            toastLength: Toast.LENGTH_SHORT,
-            gravity: ToastGravity.BOTTOM,
-            backgroundColor: Colors.black,
-            textColor: Colors.white,
-            fontSize: 16.0);
-        //  request.fields['file'] = "";
-      } else {*/
-      // if (_connectionStatus != null) {
-      //   // Internet Present Case
-      //   showLoaderDialog(context);
-      // } else {
-      //   Fluttertoast.showToast(
-      //       msg: "Please check your Internet connection!!!!",
-      //       toastLength: Toast.LENGTH_SHORT,
-      //       gravity: ToastGravity.BOTTOM,
-      //       backgroundColor: Colors.black,
-      //       textColor: Colors.white,
-      //       fontSize: 16.0);
-      // }
       showLoaderDialog(context);
 
       headers = {
@@ -449,17 +425,16 @@ class _UserCreatePostState extends State<UserCreatePost> {
       var request = http.MultipartRequest("POST", Uri.parse("https://forreal.net:4000/create_post"));
       print(commaSeparatedString);
       commaSeparatedString = myListId.join(', ');
-      print("data====>");
+
       print(commaSeparatedString);
       print(myListId);
       request.headers.addAll(headers);
       request.fields['post_type'] = postType();
-      print("postType==");
+
       print(postType());
       if (myList.isNotEmpty) {
         request.fields['mentions'] = commaSeparatedString ?? "";
-        print("mentionDataHere=====>");
-        print(request.fields['mentions']);
+
         setState(() {
           myListId.clear();
           commaSeparatedString.isEmpty;
@@ -469,14 +444,10 @@ class _UserCreatePostState extends State<UserCreatePost> {
       } else {
         request.fields['mentions']?.isEmpty;
       }
-      if (myTextController.text.isNotEmpty) {
-        request.fields['miniblogs'] = myTextController.text;
+      if (myTextController.text.trim().isNotEmpty) {
+        request.fields['miniblogs'] = myTextController.text.trim();
       }
-      print("mention------------");
-      print(request.fields['mentions']);
-      print(commaSeparatedString);
-      print("miniblog====>");
-      print(request.fields['miniblogs']);
+
       if (_video == null && _images == null) {
         print("object");
         request.fields['file']?.isEmpty;
@@ -742,12 +713,19 @@ class _UserCreatePostState extends State<UserCreatePost> {
                           validator: notEmptyValidator,
                           controller: myTextController,
                           onChanged: (value) {
+
                             if (value.startsWith(' ')) {
                               myTextController.text = value.trim();
                               myTextController.selection = TextSelection.fromPosition(
-                                TextPosition(offset: myTextController.text.length),
+                                TextPosition(offset: myTextController.text.trim().length),
                               );
                             }
+
+
+
+                            // if (value.trim().isNotEmpty) {
+                            //   myTextController.text.trim();
+                            // }
                           },
                           maxLines: 4,
                           decoration: InputDecoration(

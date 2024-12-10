@@ -114,6 +114,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
       splitScreenMode: true,
       builder: (BuildContext context, Widget? child) {
         return GetMaterialApp(
+
           // routes: {'/notification': (context) =>  MyAllDatesPage()},
           debugShowCheckedModeBanner: false,
           title: 'real Dating',

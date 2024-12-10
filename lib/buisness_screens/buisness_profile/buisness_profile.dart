@@ -448,6 +448,7 @@ class _BusinessProfileState extends State<BusinessProfile> {
                                           ),
                                           child: TextFormField(
                                             controller: profileController.businessNumberController,
+                                            keyboardType: TextInputType.phone,
                                             // validator: "",
                                             decoration: InputDecoration(
                                                 hintText: profileController.profileData?.businessInfo?.phoneNumber ?? 'Number', border: InputBorder.none),

@@ -424,6 +424,7 @@ class _CreateAadsState extends State<CreateAads> {
                   SizedBox(
                     height: 70,
                     child: CustumProfileAgeTextField1(
+                      keyboardType: TextInputType.phone,
                       controller: txt_budget,
                       validator: validateBudget,
                       hintText: 'Enter Budget ',
@@ -433,6 +434,7 @@ class _CreateAadsState extends State<CreateAads> {
                   SizedBox(
                     height: 70,
                     child: CustumProfileTextField1(
+                      keyboardType: TextInputType.phone,
                       controller: txt_campaign_duration,
                       validator: validateCampaign,
                       hintText: 'Enter Campaign Duration',
@@ -452,6 +454,7 @@ class _CreateAadsState extends State<CreateAads> {
                   SizedBox(
                     height: 70,
                     child: CustumProfileAgeTextField1(
+                      keyboardType:TextInputType.phone,
                       controller: txt_range,
                       validator: validateRange,
                       hintText: 'Enter Range ',

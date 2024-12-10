@@ -14,6 +14,7 @@ class CreateReelScreen extends StatefulWidget {
 }
 
 class _CreateReelScreenState extends State<CreateReelScreen> with TickerProviderStateMixin {
+  CameraController? controller;
   final CreateReelController _createReelController = Get.find();
   AnimationController? animationController;
 
@@ -34,6 +35,30 @@ class _CreateReelScreenState extends State<CreateReelScreen> with TickerProvider
     _createReelController.clear();
     super.dispose();
   }
+
+
+
+  Future<void> toggleFlashMode() async {
+    final cameraService = Get.find<CameraControllerService>();
+    final controller = cameraService.controller;
+
+    if (controller == null || !controller.value.isInitialized) {
+      debugPrint('Camera controller is not initialized');
+      return;
+    }
+
+    try {
+      final currentFlashMode = controller.value.flashMode;
+      final newFlashMode = currentFlashMode == FlashMode.off ? FlashMode.torch : FlashMode.off;
+
+      await controller.setFlashMode(newFlashMode);
+      _createReelController.flashSetting.value = newFlashMode == FlashMode.torch;
+    } catch (e) {
+      debugPrint('Error toggling flash mode: $e');
+    }
+  }
+
+
 
   _initAnimation() {
     animationController = AnimationController(vsync: this, duration: Duration(seconds: _createReelController.recordingLength.value));
@@ -144,23 +169,17 @@ class _CreateReelScreenState extends State<CreateReelScreen> with TickerProvider
                       const SizedBox(
                         height: 25,
                       ),
-                      Obx(() => GestureDetector(
-                            onTap: () {
-                              final cameraService = Get.find<CameraControllerService>();
-                              if (_createReelController.flashSetting.value) {
-                                cameraService.controller.setFlashMode(FlashMode.off);
-                                _createReelController.turnOffFlash();
-                              } else {
-                                cameraService.controller.setFlashMode(FlashMode.always);
-                                _createReelController.turnOnFlash();
-                              }
-                            },
-                            child: Icon(
-                              _createReelController.flashSetting.value ? Icons.flash_on : Icons.flash_off,
-                              size: 30,
-                              color: AppColorConstants.themeColor,
-                            ),
-                          )),
+                      GestureDetector(
+                        onTap: toggleFlashMode,
+                        child: Obx(
+                              () => Icon(
+                            _createReelController.flashSetting.value ? Icons.flash_on : Icons.flash_off,
+                            size: 30,
+                            color: AppColorConstants.themeColor,
+                          ),
+                        ),
+                      ),
+
                       const SizedBox(
                         height: 25,
                       ),

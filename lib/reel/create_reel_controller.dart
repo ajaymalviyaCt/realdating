@@ -24,6 +24,10 @@ class CreateReelController extends GetxController {
     print('flash light-------${flashSetting.value}');
   }
 
+
+
+
+
   RxList<CategoryModel> categories = <CategoryModel>[].obs;
   RxList<ReelMusicModel> audios = <ReelMusicModel>[].obs;
 

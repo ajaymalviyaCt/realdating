@@ -113,17 +113,19 @@ class CustumProfileAgeTextField1 extends StatelessWidget {
   var validator;
   String hintText;
   bool? obscureText;
-
-  //String prefixIcon;
+TextInputType ? keyboardType ;
+  //String pr efixIcon;
   String? suffixIconn;
   VoidCallback? onTap;
 
   TextEditingController controller;
 
   CustumProfileAgeTextField1(
+
       {super.key,
       required this.controller,
       required this.validator,
+       this.keyboardType,
       // required this.prefixIcon,
       this.suffixIconn,
       this.obscureText,
@@ -133,7 +135,7 @@ class CustumProfileAgeTextField1 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      keyboardType: TextInputType.number,
+      keyboardType:keyboardType ??  TextInputType.number,
       style: const TextStyle(color: Colors.black),
       // autovalidateMode: AutovalidateMode.onUserInteraction,
       controller: controller,

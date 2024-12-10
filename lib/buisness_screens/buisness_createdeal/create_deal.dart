@@ -323,7 +323,7 @@ class _CreateDealState extends State<CreateDeal> {
                   height: 70,
                   child: CustumProfileTextField1(
                     maxlenght: 30,
-                    keyboardType: TextInputType.text,
+                    keyboardType: TextInputType.emailAddress,
                     controller: txt_title,
                     validator: validateTitle,
                     // Pass the function reference
@@ -336,7 +336,7 @@ class _CreateDealState extends State<CreateDeal> {
               SizedBox(
                 height: 70,
                 child: CustumProfileTextField1(
-                  keyboardType: TextInputType.number,
+                  keyboardType: TextInputType.phone,
                   controller: txt_price,
                   validator: validatePrice,
                   hintText: 'Please Enter price',
@@ -349,7 +349,7 @@ class _CreateDealState extends State<CreateDeal> {
               SizedBox(
                 height: 70,
                 child: CustumProfileTextField1(
-                  keyboardType: TextInputType.number,
+                  keyboardType: TextInputType.phone,
                   controller: txt_discount,
                   validator: validateDiscount,
                   hintText: 'Please Enter Discount price',
