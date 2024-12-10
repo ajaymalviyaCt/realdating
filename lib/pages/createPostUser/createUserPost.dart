@@ -10,6 +10,7 @@ import 'package:mime/mime.dart';
 import 'package:realdating/custom_iteam/coustomtextcommon.dart';
 import 'package:realdating/function/function_class.dart';
 import 'package:realdating/home_page_new/home_page_new_controller.dart';
+import 'package:realdating/pages/createPostUser/create_post_controller.dart';
 import 'package:realdating/pages/profile/profile_controller.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:http/http.dart' as http;
@@ -236,7 +237,8 @@ class _UserCreatePostState extends State<UserCreatePost> {
   @override
   void initState() {
     super.initState();
-    userHomeController.getMyFriendsPost();
+    CreatePostController controller=Get.put(CreatePostController())
+;    userHomeController.getMyFriendsPost();
     myTextController.addListener(() {
       setState(() {
         reasonValidation = myTextController.text.isEmpty;
@@ -248,6 +250,7 @@ class _UserCreatePostState extends State<UserCreatePost> {
   void dispose() {
     //  _connectivitySubscription?.cancel();
     super.dispose();
+    Get.delete<CreatePostController>();
   }
 
   // Future<void> initConnectivity() async {
