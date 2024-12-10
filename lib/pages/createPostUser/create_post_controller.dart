@@ -35,19 +35,29 @@ class CreatePostController extends GetxController {
 
       if (fileType == fileTypeName.video) {
         print("Video file detected. Starting compression...");
-        MediaInfo? mediaInfo = await VideoCompress.compressVideo(
-          value.path,
-          quality: VideoQuality.DefaultQuality,
-        );
-        print("Video compression complete. Path: ${mediaInfo?.path}");
+        try {
+          MediaInfo? mediaInfo = await VideoCompress.compressVideo(
+            value.path,
+            quality: VideoQuality.DefaultQuality,
+          );
+          print("Video compression complete. Path: ${mediaInfo?.path}");
 
-        if (mediaInfo?.path != null) {
-          videoPlayerController.value = VideoPlayerController.file(File(mediaInfo!.path!));
+          if (mediaInfo?.path != null) {
+            videoPlayerController.value = VideoPlayerController.file(File(mediaInfo!.path!));
+            await videoPlayerController.value?.initialize();
+            videoPlayerController.value?.play();
+            print("VideoPlayerController initialized with file: ${mediaInfo.path}");
+            selectedFile.value = XFile(mediaInfo.path!);
+            print("Selected file set to compressed video: ${mediaInfo.path}");
+          }
+        }  catch (e) {
+          videoPlayerController.value = VideoPlayerController.file(File(value!.path!));
           await videoPlayerController.value?.initialize();
           videoPlayerController.value?.play();
-          print("VideoPlayerController initialized with file: ${mediaInfo.path}");
-          selectedFile.value = XFile(mediaInfo.path!);
-          print("Selected file set to compressed video: ${mediaInfo.path}");
+          print("VideoPlayerController initialized with file: ${value.path}");
+          selectedFile.value = XFile(value.path!);
+          print("Selected file set to compressed video: ${value.path}");
+          // TODO
         }
       } else {
         selectedFile.value = value;
@@ -72,19 +82,28 @@ class CreatePostController extends GetxController {
       print("Selected file and file type reset.");
 
       print("Starting video compression...");
-      MediaInfo? mediaInfo = await VideoCompress.compressVideo(
-        value.path,
-        quality: VideoQuality.DefaultQuality,
-      );
-      print("Video compression complete. Path: ${mediaInfo?.path}");
+      try {
+        MediaInfo? mediaInfo = await VideoCompress.compressVideo(
+          value.path,
+          quality: VideoQuality.DefaultQuality,
+        );
+        print("Video compression complete. Path: ${mediaInfo?.path}");
 
-      if (mediaInfo?.path != null) {
-        videoPlayerController.value = VideoPlayerController.file(File(mediaInfo!.path!));
-       await videoPlayerController.value?.initialize();
-       videoPlayerController.value?.play();
-        print("VideoPlayerController initialized with file: ${mediaInfo.path}");
-        selectedFile.value = XFile(mediaInfo.path!);
-        print("Selected file set to compressed video: ${mediaInfo.path}");
+        if (mediaInfo?.path != null) {
+          videoPlayerController.value = VideoPlayerController.file(File(mediaInfo!.path!));
+         await videoPlayerController.value?.initialize();
+         videoPlayerController.value?.play();
+          print("VideoPlayerController initialized with file: ${mediaInfo.path}");
+          selectedFile.value = XFile(mediaInfo.path!);
+          print("Selected file set to compressed video: ${mediaInfo.path}");
+        }
+      }  catch (e) {
+        videoPlayerController.value = VideoPlayerController.file(File(value!.path!));
+        await videoPlayerController.value?.initialize();
+        videoPlayerController.value?.play();
+        print("VideoPlayerController initialized with file: ${value.path}");
+        selectedFile.value = XFile(value.path!);
+        print("Selected file set to compressed video: ${value.path}");
       }
       selectedFileType.value = fileTypeCheckk(value.path);
       print("Selected file type set to: ${selectedFileType.value}");
