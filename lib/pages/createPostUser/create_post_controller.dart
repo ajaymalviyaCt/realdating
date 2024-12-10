@@ -42,6 +42,8 @@ class CreatePostController extends GetxController {
 
         if (mediaInfo?.path != null) {
           videoPlayerController = VideoPlayerController.file(File(mediaInfo!.path!));
+          await videoPlayerController?.initialize();
+          videoPlayerController?.play();
           print("VideoPlayerController initialized with file: ${mediaInfo.path}");
           selectedFile.value = XFile(mediaInfo.path!);
           print("Selected file set to compressed video: ${mediaInfo.path}");
@@ -76,6 +78,8 @@ class CreatePostController extends GetxController {
 
       if (mediaInfo?.path != null) {
         videoPlayerController = VideoPlayerController.file(File(mediaInfo!.path!));
+       await videoPlayerController?.initialize();
+       videoPlayerController?.play();
         print("VideoPlayerController initialized with file: ${mediaInfo.path}");
         selectedFile.value = XFile(mediaInfo.path!);
         print("Selected file set to compressed video: ${mediaInfo.path}");
