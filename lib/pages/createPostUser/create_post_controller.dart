@@ -94,7 +94,7 @@ class CreatePostController extends GetxController {
   Future<void> onTapCamera() async {
     print("Camera button tapped.");
     final ImagePicker picker = ImagePicker();
-    final value = await picker.pickImage(source: ImageSource.camera);
+    final value = await picker.pickImage(source: ImageSource.camera,imageQuality: 50);
     print("Image captured: ${value?.path}");
 
     if (value != null) {
