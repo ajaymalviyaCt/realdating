@@ -4,6 +4,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:realdating/services/apis_related/api_call_services.dart';
 import 'package:video_compress/video_compress.dart';
+import 'package:video_player/video_player.dart';
 
 import 'createUserPost.dart';
 import 'package:dio/dio.dart' as dio;
@@ -11,7 +12,7 @@ import 'package:dio/dio.dart' as dio;
 class CreatePostController extends GetxController {
   final Rxn<XFile> selectedFile = Rxn<XFile>();
   final Rxn<fileTypeName> selectedFileType = Rxn<fileTypeName>();
-
+  VideoPlayerController? videoPlayerController;
   @override
   void onInit() {
     super.onInit();

@@ -61,7 +61,7 @@ class _UserCreatePostState extends State<UserCreatePost> {
   HomePageNewController homePageNewController = Get.find<HomePageNewController>();
   List<MyFriends>? myFriends;
 
-  VideoPlayerController? _videoPlayerController;
+
 
   void _showPicker(context) {
     showModalBottomSheet(
@@ -524,19 +524,19 @@ class _UserCreatePostState extends State<UserCreatePost> {
                                   .find<CreatePostController>()
                                   .selectedFileType
                                   .value == fileTypeName.video
-                                  ? _videoPlayerController!.value.isInitialized
+                                  ? Get.find<CreatePostController>().videoPlayerController!.value.isInitialized
                                   ? Container(
                                 margin: const EdgeInsets.only(top: 130),
                                 height: 300,
                                 child: AspectRatio(
-                                  aspectRatio: _videoPlayerController!.value.aspectRatio,
-                                  child: VideoPlayer(_videoPlayerController!),
+                                  aspectRatio: Get.find<CreatePostController>().videoPlayerController!.value.aspectRatio,
+                                  child: VideoPlayer(Get.find<CreatePostController>().videoPlayerController!),
                                 ),
                               )
                                   : Container()
                                   : Stack(
                                 children: [
-                                  _videoPlayerController == null
+                                  Get.find<CreatePostController>().videoPlayerController == null
                                       ? Container(
                                     width: MediaQuery
                                         .of(context)
@@ -562,8 +562,8 @@ class _UserCreatePostState extends State<UserCreatePost> {
                                     margin: const EdgeInsets.only(top: 80),
                                     height: 306,
                                     child: AspectRatio(
-                                      aspectRatio: _videoPlayerController!.value.aspectRatio,
-                                      child: VideoPlayer(_videoPlayerController!),
+                                      aspectRatio: Get.find<CreatePostController>().videoPlayerController!.value.aspectRatio,
+                                      child: VideoPlayer(Get.find<CreatePostController>().videoPlayerController!),
                                     ),
                                   ),
                                 ],
