@@ -91,7 +91,7 @@ class _UserCreatePostState extends State<UserCreatePost> {
                     leading: const Icon(Icons.photo_camera),
                     title: const Text('Camera'),
                     onTap: () {
-                      Get.find<CreatePostController>().onTapVideo();
+                      Get.find<CreatePostController>().onTapCamera();
                       Navigator.of(context).pop();
                     },
                   ),
