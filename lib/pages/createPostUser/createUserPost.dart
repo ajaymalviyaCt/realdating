@@ -81,10 +81,20 @@ class _UserCreatePostState extends State<UserCreatePost> {
                     leading: const Icon(Icons.video_camera_back_rounded),
                     title: const Text('Video'),
                     onTap: () {
-                      Get.find<CreatePostController>().onTapVideo();
+                      final controller = Get.find<CreatePostController>();
+                      controller.onTapVideo();
                       Navigator.of(context).pop();
                     },
                   ),
+                  Obx(() {
+                    final controller = Get.find<CreatePostController>();
+                    return controller.isLoading.value
+                        ? const Center(
+                      child: CircularProgressIndicator(color:Colors.red,),
+                    )
+                        : const SizedBox.shrink();
+                  }),
+
                   ListTile(
                     leading: const Icon(Icons.photo_camera),
                     title: const Text('Camera'),

@@ -2,7 +2,7 @@ import 'dart:io';
 import 'package:camera/camera.dart'; // Can be removed if not used
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:path_provider/path_provider.dart';
+
 import 'package:realdating/pages/createPostUser/createUserPost.dart';
 import 'package:video_compress/video_compress.dart';
 import 'package:video_player/video_player.dart';
@@ -68,6 +68,7 @@ class CreatePostController extends GetxController {
       print("Selected file type set to: $fileType");
     }
   }
+  RxBool isLoading = false.obs;
 
   Future<void> onTapVideo() async {
     print("Video recording button tapped.");
@@ -76,6 +77,7 @@ class CreatePostController extends GetxController {
     print("Video recorded: ${value?.path}");
 
     if (value != null) {
+      isLoading.value = true;
       selectedFile.value = null;
       selectedFileType.value = null;
       videoPlayerController.value=null;
@@ -105,6 +107,9 @@ class CreatePostController extends GetxController {
         selectedFile.value = XFile(value.path!);
         print("Selected file set to compressed video: ${value.path}");
       }
+      finally {
+        isLoading.value = false;
+      }
       selectedFileType.value = fileTypeCheckk(value.path);
       print("Selected file type set to: ${selectedFileType.value}");
     }
@@ -113,7 +118,7 @@ class CreatePostController extends GetxController {
   Future<void> onTapCamera() async {
     print("Camera button tapped.");
     final ImagePicker picker = ImagePicker();
-    final value = await picker.pickImage(source: ImageSource.camera,imageQuality: 50);
+    final value = await picker.pickImage(source: ImageSource.camera,imageQuality:40);
     print("Image captured: ${value?.path}");
 
     if (value != null) {
@@ -129,4 +134,11 @@ class CreatePostController extends GetxController {
       print("Selected file set to image: ${value.path}");
     }
   }
+
+
+
+
 }
+
+
+

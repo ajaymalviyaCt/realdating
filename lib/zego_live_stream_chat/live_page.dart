@@ -1,10 +1,8 @@
 // Flutter imports:
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:zego_uikit_prebuilt_live_streaming/zego_uikit_prebuilt_live_streaming.dart';
 import '../reel/common_import.dart';
-import 'common.dart';
+
 import 'constatent.dart';
 
 class LivePage extends StatefulWidget {
