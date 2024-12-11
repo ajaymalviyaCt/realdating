@@ -194,7 +194,7 @@ class CreateReelController extends GetxController {
           "-shortest ${finalFile.path}";
       FFmpegKit.executeAsync(
         command,
-        (session) async {
+            (session) async {
           final returnCode = await session.getReturnCode();
 
           if (ReturnCode.isSuccess(returnCode)) {
@@ -210,18 +210,18 @@ class CreateReelController extends GetxController {
               var outputFilePath = File('${directory.path}/REEL_${DateTime.now().millisecondsSinceEpoch}.mp4').path;
               await flipVideo(finalFile.path, outputFilePath, "hflip");
               Get.to(() => PreviewReelsScreen(
-                    reel: File(outputFilePath),
-                    audioId: selectedAudio.value?.id,
-                    audioStartTime: audioStartTime,
-                    audioEndTime: audioEndTime,
-                  ));
+                reel: File(outputFilePath),
+                audioId: selectedAudio.value?.id,
+                audioStartTime: audioStartTime,
+                audioEndTime: audioEndTime,
+              ));
             } else {
               Get.to(() => PreviewReelsScreen(
-                    reel: finalFile,
-                    audioId: selectedAudio.value?.id,
-                    audioStartTime: audioStartTime,
-                    audioEndTime: audioEndTime,
-                  ));
+                reel: finalFile,
+                audioId: selectedAudio.value?.id,
+                audioStartTime: audioStartTime,
+                audioEndTime: audioEndTime,
+              ));
             }
             /* final route = MaterialPageRoute(
               fullscreenDialog: true,
@@ -338,7 +338,7 @@ class CreateReelController extends GetxController {
           var audioTrimCommand = '-ss ${audioStartTime!} -i ${croppedAudioFile!.path} -t $duration -c copy ${finalAudioFile.path}';
           FFmpegKit.executeAsync(
             audioTrimCommand,
-            (session) async {
+                (session) async {
               final returnCode = await session.getReturnCode();
 
               Loader.dismiss();

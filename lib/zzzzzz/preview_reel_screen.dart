@@ -19,7 +19,8 @@ class PreviewReelsScreen extends StatefulWidget {
   final double? audioStartTime;
   final double? audioEndTime;
 
-  const PreviewReelsScreen({Key? key, required this.reel, this.audioId, this.audioStartTime, this.audioEndTime}) : super(key: key);
+  const PreviewReelsScreen({Key? key, required this.reel, this.audioId, this.audioStartTime, this.audioEndTime})
+      : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -30,7 +31,9 @@ class PreviewReelsScreen extends StatefulWidget {
 class _PreviewReelsState extends State<PreviewReelsScreen> {
   ChewieController? chewieController;
   VideoPlayerController? videoPlayerController;
+  MediaInfo? info;
   final TextEditingController _textController = TextEditingController();
+
 
   @override
   void initState() {
@@ -40,7 +43,15 @@ class _PreviewReelsState extends State<PreviewReelsScreen> {
 
   Future<void> initializeVideoPlayer() async {
     try {
-      videoPlayerController = VideoPlayerController.file(widget.reel);
+      try {
+        info = await VideoCompress.compressVideo(
+          widget.reel.path,
+          quality: VideoQuality.Res640x480Quality,
+        );
+      } catch (e, s) {
+        // TODO
+      }
+      videoPlayerController = VideoPlayerController.file(info?.file ?? widget.reel);
       await videoPlayerController!.initialize();
       if (mounted) {
         setState(() {
@@ -51,6 +62,7 @@ class _PreviewReelsState extends State<PreviewReelsScreen> {
             looping: true,
             showControls: false,
           );
+
         });
       }
     } catch (e) {
@@ -60,9 +72,9 @@ class _PreviewReelsState extends State<PreviewReelsScreen> {
 
   @override
   void dispose() {
+    super.dispose();
     chewieController?.dispose();
     videoPlayerController?.dispose();
-    super.dispose();
   }
 
   @override
@@ -74,12 +86,16 @@ class _PreviewReelsState extends State<PreviewReelsScreen> {
           children: [
             const SizedBox(height: 50),
             Expanded(
-              child: chewieController == null
-                  ? Center(child: CircularProgressIndicator())
-                  : ClipRRect(
-                borderRadius: BorderRadius.circular(20),
-                child: Chewie(controller: chewieController!),
-              ),
+              child: Obx(() {
+                return Container(
+                  child: chewieController == null
+                      ? Center(child: CircularProgressIndicator())
+                      : ClipRRect(
+                    borderRadius: BorderRadius.circular(20),
+                    child: Chewie(controller: chewieController!),
+                  ),
+                );
+              }),
             ),
             const SizedBox(height: 25),
             TextFormField(
@@ -131,8 +147,10 @@ class _PreviewReelsState extends State<PreviewReelsScreen> {
                     bottom: 8,
                   ),
                 ).circular.ripple(() {
-                  if (_textController.text.trim().isNotEmpty) {
-                    compressOrUploadVideo(widget.reel);
+                  if (_textController.text
+                      .trim()
+                      .isNotEmpty) {
+                    submitReel(info?.file ?? widget.reel);
                   } else {
                     Fluttertoast.showToast(
                       msg: "Caption can't be empty",
@@ -147,26 +165,6 @@ class _PreviewReelsState extends State<PreviewReelsScreen> {
         ).hp(DesignConstants.horizontalPadding),
       ),
     );
-  }
-
-  Future<void> compressOrUploadVideo(File file) async {
-    try {
-      final info = await VideoCompress.compressVideo(
-        file.path,
-        quality: VideoQuality.Res640x480Quality,
-      );
-
-      if (info != null && info.file != null) {
-        File compressedFile = info.file!;
-        submitReel(compressedFile);
-      } else {
-        print("Video compression failed. Uploading original file.");
-        submitReel(file);
-      }
-    } catch (e) {
-      print("Error compressing video: $e. Uploading original file.");
-      submitReel(file);
-    }
   }
 
   Future<void> submitReel(File file) async {
