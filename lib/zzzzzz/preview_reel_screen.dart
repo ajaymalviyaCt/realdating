@@ -34,7 +34,6 @@ class _PreviewReelsState extends State<PreviewReelsScreen> {
   MediaInfo? info;
   final TextEditingController _textController = TextEditingController();
 
-
   @override
   void initState() {
     super.initState();
@@ -62,7 +61,6 @@ class _PreviewReelsState extends State<PreviewReelsScreen> {
             looping: true,
             showControls: false,
           );
-
         });
       }
     } catch (e) {
@@ -82,87 +80,81 @@ class _PreviewReelsState extends State<PreviewReelsScreen> {
     return SafeArea(
       child: AppScaffold(
         backgroundColor: AppColorConstants.backgroundColor,
-        body: Column(
-          children: [
-            const SizedBox(height: 50),
-            Expanded(
-              child: Obx(() {
-                return Container(
-                  child: chewieController == null
-                      ? Center(child: CircularProgressIndicator())
-                      : ClipRRect(
-                    borderRadius: BorderRadius.circular(20),
-                    child: Chewie(controller: chewieController!),
+        body: chewieController == null
+            ? const Center(child: CircularProgressIndicator())
+            : Column(
+                children: [
+                  const SizedBox(height: 50),
+                  Expanded(
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(20),
+                      child: Chewie(controller: chewieController!),
+                    ),
                   ),
-                );
-              }),
-            ),
-            const SizedBox(height: 25),
-            TextFormField(
-              style: const TextStyle(color: Colors.white),
-              onChanged: (value) {
-                if (value.startsWith(' ')) {
-                  _textController.text = value.trim();
-                  _textController.selection = TextSelection.fromPosition(
-                    TextPosition(offset: _textController.text.length),
-                  );
-                }
-              },
-              validator: notEmptyMsgValidator,
-              controller: _textController,
-              maxLines: 4,
-              decoration: InputDecoration(
-                fillColor: Colors.red,
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
-                  borderSide: const BorderSide(width: 1, color: Colors.white),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
-                  borderSide: const BorderSide(width: 1, color: Colors.white),
-                ),
-                hintText: 'Caption',
-                hintStyle: const TextStyle(color: Colors.white),
-              ),
-            ),
-            const SizedBox(height: 20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                ThemeIconWidget(
-                  ThemeIcon.backArrow,
-                  size: 25,
-                ).circular.ripple(() {
-                  Get.back();
-                }),
-                Container(
-                  color: AppColorConstants.themeColor,
-                  child: Text(
-                    nextString.tr,
-                    style: TextStyle(fontSize: FontSizes.b2),
-                  ).setPadding(
-                    left: DesignConstants.horizontalPadding,
-                    right: DesignConstants.horizontalPadding,
-                    top: 8,
-                    bottom: 8,
+                  const SizedBox(height: 25),
+                  TextFormField(
+                    style: const TextStyle(color: Colors.white),
+                    onChanged: (value) {
+                      if (value.startsWith(' ')) {
+                        _textController.text = value.trim();
+                        _textController.selection = TextSelection.fromPosition(
+                          TextPosition(offset: _textController.text.length),
+                        );
+                      }
+                    },
+                    validator: notEmptyMsgValidator,
+                    controller: _textController,
+                    maxLines: 4,
+                    decoration: InputDecoration(
+                      fillColor: Colors.red,
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: const BorderSide(width: 1, color: Colors.white),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: const BorderSide(width: 1, color: Colors.white),
+                      ),
+                      hintText: 'Caption',
+                      hintStyle: const TextStyle(color: Colors.white),
+                    ),
                   ),
-                ).circular.ripple(() {
-                  if (_textController.text
-                      .trim()
-                      .isNotEmpty) {
-                    submitReel(info?.file ?? widget.reel);
-                  } else {
-                    Fluttertoast.showToast(
-                      msg: "Caption can't be empty",
-                      textColor: Colors.red,
-                    );
-                  }
-                }),
-              ],
-            ),
-            const SizedBox(height: 40),
-          ],
-        ).hp(DesignConstants.horizontalPadding),
+                  const SizedBox(height: 20),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      ThemeIconWidget(
+                        ThemeIcon.backArrow,
+                        size: 25,
+                      ).circular.ripple(() {
+                        Get.back();
+                      }),
+                      Container(
+                        color: AppColorConstants.themeColor,
+                        child: Text(
+                          nextString.tr,
+                          style: TextStyle(fontSize: FontSizes.b2),
+                        ).setPadding(
+                          left: DesignConstants.horizontalPadding,
+                          right: DesignConstants.horizontalPadding,
+                          top: 8,
+                          bottom: 8,
+                        ),
+                      ).circular.ripple(() {
+                        if (_textController.text.trim().isNotEmpty) {
+                          submitReel(info?.file ?? widget.reel);
+                        } else {
+                          Fluttertoast.showToast(
+                            msg: "Caption can't be empty",
+                            textColor: Colors.red,
+                          );
+                        }
+                      }),
+                    ],
+                  ),
+                  const SizedBox(height: 40),
+                ],
+              ).hp(DesignConstants.horizontalPadding),
       ),
     );
   }
