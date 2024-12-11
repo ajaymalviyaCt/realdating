@@ -117,7 +117,6 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
 
           // routes: {'/notification': (context) =>  MyAllDatesPage()},
           debugShowCheckedModeBanner: false,
-          title: 'real Dating',
           theme: ThemeData(
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.redAccent),
             useMaterial3: true,
