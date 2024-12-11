@@ -81,7 +81,11 @@ class _PreviewReelsState extends State<PreviewReelsScreen> {
       child: AppScaffold(
         backgroundColor: AppColorConstants.backgroundColor,
         body: chewieController == null
-            ? const Center(child: CircularProgressIndicator())
+            ?  Center(child: Container(
+          width: Get.width,
+          height: Get.height,
+          color: Colors.white,
+            child: Center(child: CircularProgressIndicator())))
             : Column(
                 children: [
                   const SizedBox(height: 50),
