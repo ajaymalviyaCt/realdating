@@ -99,12 +99,26 @@ class _VideoScreenState extends State<VideoScreen> {
                                                     child: Container(
                                                       padding: const EdgeInsets.all(5),
                                                       decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: Colors.white),
-                                                      child: Text(
-                                                        videoController.getReelModel?.reels[index].userInfo[0].firstName ?? "UserName",
-                                                        style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 18),
+                                                      child: Column(
+                                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                                        mainAxisSize: MainAxisSize.min,
+                                                        children: [
+                                                          Text(
+                                                            videoController.getReelModel?.reels[index].userInfo[0].firstName ?? "UserName",
+                                                            style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 18),
+                                                          ),
+                                                          SizedBox(height: 5,),
+                                                          Text(
+                                                            videoController.getReelModel?.reels[index].caption ?? "Not Found",
+                                                            style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 18),
+                                                            maxLines: 3,
+                                                            overflow: TextOverflow.ellipsis,
+                                                          ),
+                                                        ],
                                                       ),
                                                     ),
                                                   )),
+                                            /*
                                               Positioned(
                                                 left: 15,
                                                 right: 0,
@@ -115,9 +129,12 @@ class _VideoScreenState extends State<VideoScreen> {
                                                   child: Text(
                                                     videoController.getReelModel?.reels[index].caption ?? "Not Found",
                                                     style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 18),
+                                                    maxLines: 1,
+                                                    overflow: TextOverflow.ellipsis,
                                                   ),
                                                 ),
                                               )
+                                              */
                                             ],
                                           ),
                                         ));
