@@ -99,7 +99,7 @@ class _BuisnessSignUpState extends State<BuisnessSignUp> {
                 height: 220.h,
                 child: Stack(
                   children: [
-                    Center(child: Image.asset('assets/images/AppIcon-120px-40pt@3x 1.png')),
+                    Center(child: Image.asset('assets/images/newForReall.png',height: 120.h,width: 120.w,fit: BoxFit.cover,)),
                   ],
                 ),
               ),

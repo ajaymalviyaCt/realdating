@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -232,10 +233,11 @@ class _ForgetPasswordState extends State<ForgetPassword> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const Padding(
+              Center(child: Padding(
                 padding: EdgeInsets.symmetric(vertical: 60, horizontal: 120),
-                child: Image(image: AssetImage('assets/images/AppIcon-120px-40pt@3x 1.png')),
-              ),
+                child: Image.asset('assets/images/newForReall.png',height: 120.h,width: 120.w,fit: BoxFit.cover,),
+              )),
+
               const SizedBox(height: 23),
               const Text(
                 'Forgot Password?',

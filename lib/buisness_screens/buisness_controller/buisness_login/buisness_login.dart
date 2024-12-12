@@ -51,10 +51,8 @@ class _BuisnessLoginState extends State<BuisnessLogin> {
                   height: 220.h,
                   child: Stack(
                     children: [
-                      Center(
-                          child:
-                              //SvgPicture.asset('assets/icons/AppIcon-120px-40pt@3x 1.svg'),
-                              Image.asset('assets/images/AppIcon-120px-40pt@3x 1.png')),
+                      Center(child: Image.asset('assets/images/newForReall.png',height: 120.h,width: 120.w,fit: BoxFit.cover,)),
+
                     ],
                   ),
                 ),

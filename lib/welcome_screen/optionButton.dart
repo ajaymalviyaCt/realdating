@@ -71,7 +71,7 @@ class _OptionScreenState extends State<OptionScreen> with SingleTickerProviderSt
                 children: [
                   const Padding(
                     padding: EdgeInsets.symmetric(vertical: 55),
-                    child: Center(child: Image(image: AssetImage('assets/images/Foreground.png'), fit: BoxFit.none, height: 400, width: 300)),
+                    child: Center(child: Image(image: AssetImage('assets/images/Forrealdating.png'), fit: BoxFit.cover, height: 300, width: 300)),
                   ),
                   const Image(image: AssetImage('assets/images/Background Pattern.png'), fit: BoxFit.fill),
                   Positioned(

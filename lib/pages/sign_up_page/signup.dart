@@ -57,7 +57,8 @@ class SignUpPage extends StatelessWidget {
                               //  color: Colors.white,
                               borderRadius: BorderRadius.only(bottomLeft: Radius.circular(15))),
                         ),
-                        Center(child: Image.asset('assets/images/AppIcon-120px-40pt@3x 1.png')),
+                        Center(child: Image.asset('assets/images/newForReall.png',height: 120.h,width: 120.w,fit: BoxFit.cover,)),
+
                       ],
                     ),
                   ),

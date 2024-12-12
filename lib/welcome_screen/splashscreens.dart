@@ -89,8 +89,7 @@ class _SplashPageState extends State<SplashPage> with SingleTickerProviderStateM
             Column(
               children: [
                 const SizedBox(height: 20 /**/),
-                SvgPicture.asset(
-                  'assets/icons/face-smile-regular .svg',
+                SvgPicture.asset('assets/icons/face-smile-regular .svg',
                   fit: BoxFit.none,
                   color: Colors.white,
                   height: 34,
@@ -102,7 +101,8 @@ class _SplashPageState extends State<SplashPage> with SingleTickerProviderStateM
                     children: [
                       Padding(
                         padding: EdgeInsets.symmetric(vertical: 55),
-                        child: Center(child: Image(image: AssetImage('assets/images/Foreground.png'), fit: BoxFit.none, height: 400, width: 300)),
+                        child: Center(child: Image(image: AssetImage('assets/images/Forrealdating.png'),
+                            fit: BoxFit.cover, height:301, width: 301)),
                       ),
                       Image(image: AssetImage('assets/images/Background Pattern.png'), fit: BoxFit.fill),
                     ],
